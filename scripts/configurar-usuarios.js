@@ -4,6 +4,19 @@ const prisma = new PrismaClient();
 async function main() {
   console.log("Configurando usuarios según instrucciones...");
 
+  // 0. Asegurar existencia de roles
+  const rolParticipante = await prisma.rol.upsert({
+    where: { nombre: "participante" },
+    update: {},
+    create: { nombre: "participante" },
+  });
+
+  const rolAdmin = await prisma.rol.upsert({
+    where: { nombre: "administrador" },
+    update: {},
+    create: { nombre: "administrador" },
+  });
+
   // 1. Eliminar cuenta de prueba 'participante@gmail.com' y sus registros
   const testUser = await prisma.usuario.findUnique({
     where: { correo: "participante@gmail.com" },
@@ -38,7 +51,7 @@ async function main() {
     await prisma.usuario.update({
       where: { id: samuelUser.id },
       data: {
-        rol_id: 1, // Participante
+        rol_id: rolParticipante.id, // Participante
         activo: true,
       },
     });
@@ -48,7 +61,7 @@ async function main() {
       data: {
         nombre_completo: "Samuel",
         correo: "samucobaggg@gmail.com",
-        rol_id: 1, // Participante
+        rol_id: rolParticipante.id, // Participante
         activo: true,
       },
     });
@@ -61,14 +74,14 @@ async function main() {
     update: {
       nombre_completo: "Administrador Polla",
       password: "Qwe.123*",
-      rol_id: 2, // Administrador
+      rol_id: rolAdmin.id, // Administrador
       activo: true,
     },
     create: {
       nombre_completo: "Administrador Polla",
       correo: "adminpollabetplay@gmail.com",
       password: "Qwe.123*",
-      rol_id: 2, // Administrador
+      rol_id: rolAdmin.id, // Administrador
       activo: true,
     },
   });
