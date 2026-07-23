@@ -1,0 +1,266 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum NombreRol {
+  participante
+  administrador
+}
+
+enum Fase {
+  fase_1
+  fase_2
+  fase_3
+}
+
+enum Grupo {
+  A
+  B
+}
+
+enum EstadoPartido {
+  programado
+  predicciones_abiertas
+  predicciones_cerradas
+  resultado_pendiente
+  resultado_cargado
+  puntaje_calculado
+}
+
+enum EstadoPrediccionInicial {
+  no_enviada
+  enviada
+  cerrada_sin_envio
+}
+
+enum EstadoPrediccionPartido {
+  enviada
+  cerrada_sin_envio
+}
+
+enum CategoriaPuntaje {
+  campeon
+  finalistas
+  clasificados_cuadrangulares
+  resultado_exacto
+  ganador_partido
+  goleador
+}
+
+model Rol {
+  id       Int       @id @default(autoincrement())
+  nombre   NombreRol @unique
+  usuarios Usuario[]
+
+  @@map("rol")
+}
+
+model Usuario {
+  id                  Int       @id @default(autoincrement())
+  nombre_completo     String
+  correo              String    @unique
+  telefono            String?
+  password            String?
+  rol_id              Int
+  fecha_registro      DateTime  @default(now())
+  activo              Boolean   @default(true)
+
+  rol                  Rol                 @relation(fields: [rol_id], references: [id])
+  prediccion_inicial   PrediccionInicial?
+  predicciones_partido PrediccionPartido[]
+  puntajes             Puntaje[]
+  resultados_ingresados ResultadoOficial[]
+
+  @@index([rol_id])
+  @@map("usuario")
+}
+
+model Equipo {
+  id         Int     @id @default(autoincrement())
+  nombre     String  @unique
+  escudo_url String?
+
+  jugadores                Jugador[]
+  partidos_local           Partido[]               @relation("PartidoLocal")
+  partidos_visitante       Partido[]               @relation("PartidoVisitante")
+  predicciones_campeon     PrediccionInicial[]     @relation("PrediccionCampeon")
+  predicciones_finalista_1 PrediccionInicial[]     @relation("PrediccionFinalista1")
+  predicciones_finalista_2 PrediccionInicial[]     @relation("PrediccionFinalista2")
+  predicciones_clasificado PrediccionClasificado[]
+  resultados_como_ganador  ResultadoOficial[]      @relation("EquipoGanador")
+  torneos_como_campeon     ResultadoTorneo[]       @relation("CampeonOficial")
+  torneos_como_finalista_1 ResultadoTorneo[]       @relation("Finalista1Oficial")
+  torneos_como_finalista_2 ResultadoTorneo[]       @relation("Finalista2Oficial")
+  clasificaciones_oficiales ClasificadoOficial[]
+
+  @@map("equipo")
+}
+
+model Jugador {
+  id        Int    @id @default(autoincrement())
+  nombre    String
+  equipo_id Int
+
+  equipo                      Equipo              @relation(fields: [equipo_id], references: [id])
+  goles                       ResultadoGoleador[]
+  predicciones_como_goleador   PrediccionPartido[]
+  predicciones_goleador_torneo PrediccionInicial[] @relation("PrediccionGoleadorTorneo")
+
+  @@index([equipo_id])
+  @@map("jugador")
+}
+
+model Partido {
+  id                       Int           @id @default(autoincrement())
+  fase                     Fase
+  jornada                  Int
+  grupo                    Grupo?
+  equipo_local_id          Int
+  equipo_visitante_id      Int
+  fecha_hora_partido       DateTime
+  estado                   EstadoPartido @default(programado)
+  hora_cierre_predicciones DateTime
+  estadio                  String?
+
+  equipo_local      Equipo              @relation("PartidoLocal", fields: [equipo_local_id], references: [id])
+  equipo_visitante  Equipo              @relation("PartidoVisitante", fields: [equipo_visitante_id], references: [id])
+  resultado_oficial ResultadoOficial?
+  predicciones      PrediccionPartido[]
+  puntajes          Puntaje[]
+
+  @@unique([fase, equipo_local_id, equipo_visitante_id])
+  @@index([equipo_local_id])
+  @@index([equipo_visitante_id])
+  @@map("partido")
+}
+
+model PrediccionInicial {
+  id                         Int                     @id @default(autoincrement())
+  usuario_id                 Int                     @unique
+  campeon_equipo_id          Int?
+  finalista_1_equipo_id      Int?
+  finalista_2_equipo_id      Int?
+  goleador_torneo_jugador_id Int?
+  timestamp_envio            DateTime?
+  estado                     EstadoPrediccionInicial @default(no_enviada)
+
+  usuario         Usuario                 @relation(fields: [usuario_id], references: [id])
+  campeon         Equipo?                 @relation("PrediccionCampeon", fields: [campeon_equipo_id], references: [id])
+  finalista_1     Equipo?                 @relation("PrediccionFinalista1", fields: [finalista_1_equipo_id], references: [id])
+  finalista_2     Equipo?                 @relation("PrediccionFinalista2", fields: [finalista_2_equipo_id], references: [id])
+  goleador_torneo Jugador?                @relation("PrediccionGoleadorTorneo", fields: [goleador_torneo_jugador_id], references: [id])
+  clasificados    PrediccionClasificado[]
+
+  @@map("prediccion_inicial")
+}
+
+model PrediccionClasificado {
+  id                    Int @id @default(autoincrement())
+  prediccion_inicial_id Int
+  equipo_id             Int
+
+  prediccion_inicial PrediccionInicial @relation(fields: [prediccion_inicial_id], references: [id])
+  equipo             Equipo            @relation(fields: [equipo_id], references: [id])
+
+  @@unique([prediccion_inicial_id, equipo_id])
+  @@index([equipo_id])
+  @@map("prediccion_clasificado")
+}
+
+model PrediccionPartido {
+  id                           Int                     @id @default(autoincrement())
+  usuario_id                   Int
+  partido_id                   Int
+  goles_local_predicho         Int
+  goles_visitante_predicho     Int
+  jugador_goleador_predicho_id Int?
+  timestamp_envio              DateTime
+  estado                       EstadoPrediccionPartido @default(enviada)
+
+  usuario          Usuario  @relation(fields: [usuario_id], references: [id])
+  partido          Partido  @relation(fields: [partido_id], references: [id])
+  jugador_goleador Jugador? @relation(fields: [jugador_goleador_predicho_id], references: [id])
+
+  @@unique([usuario_id, partido_id])
+  @@index([partido_id])
+  @@index([jugador_goleador_predicho_id])
+  @@map("prediccion_partido")
+}
+
+model ResultadoOficial {
+  id                       Int      @id @default(autoincrement())
+  partido_id               Int      @unique
+  goles_local_real         Int
+  goles_visitante_real     Int
+  equipo_ganador_id        Int?
+  ingresado_por_usuario_id Int
+  timestamp_ingreso        DateTime @default(now())
+
+  partido        Partido             @relation(fields: [partido_id], references: [id])
+  equipo_ganador Equipo?            @relation("EquipoGanador", fields: [equipo_ganador_id], references: [id])
+  ingresado_por  Usuario             @relation(fields: [ingresado_por_usuario_id], references: [id])
+  goleadores     ResultadoGoleador[]
+
+  @@index([equipo_ganador_id])
+  @@index([ingresado_por_usuario_id])
+  @@map("resultado_oficial")
+}
+
+model ResultadoGoleador {
+  id                   Int     @id @default(autoincrement())
+  resultado_oficial_id Int
+  jugador_id           Int?
+  es_autogol           Boolean @default(false)
+
+  resultado_oficial ResultadoOficial @relation(fields: [resultado_oficial_id], references: [id])
+  jugador           Jugador?         @relation(fields: [jugador_id], references: [id])
+
+  @@index([resultado_oficial_id])
+  @@index([jugador_id])
+  @@map("resultado_goleador")
+}
+
+model Puntaje {
+  id                Int              @id @default(autoincrement())
+  usuario_id        Int
+  categoria         CategoriaPuntaje
+  partido_id        Int?
+  puntos_obtenidos  Int
+  timestamp_calculo DateTime         @default(now())
+
+  usuario Usuario  @relation(fields: [usuario_id], references: [id])
+  partido Partido? @relation(fields: [partido_id], references: [id])
+
+  @@index([usuario_id])
+  @@index([partido_id])
+  @@map("puntaje")
+}
+
+model ResultadoTorneo {
+  id                    Int      @id @default(1)
+  campeon_equipo_id     Int?
+  finalista_1_equipo_id Int?
+  finalista_2_equipo_id Int?
+  actualizado_en        DateTime @updatedAt
+
+  campeon     Equipo? @relation("CampeonOficial", fields: [campeon_equipo_id], references: [id])
+  finalista_1 Equipo? @relation("Finalista1Oficial", fields: [finalista_1_equipo_id], references: [id])
+  finalista_2 Equipo? @relation("Finalista2Oficial", fields: [finalista_2_equipo_id], references: [id])
+
+  @@map("resultado_torneo")
+}
+
+model ClasificadoOficial {
+  id        Int @id @default(autoincrement())
+  equipo_id Int @unique
+
+  equipo Equipo @relation(fields: [equipo_id], references: [id])
+
+  @@map("clasificado_oficial")
+}

@@ -1,0 +1,377 @@
+/* ==========================================================================
+   POLLA FPC EXPRESS — Sistema de diseño "Noche de estadio"
+   Dark-first design matching original polla-fpc theme.
+   ========================================================================== */
+
+:root {
+  color-scheme: dark;
+
+  /* Superficies */
+  --noche: #0b1520;
+  --noche-2: #0e1a27;
+  --tribuna: #132030;
+  --tribuna-2: #182a3e;
+  --linea: #1e3145;
+  --linea-fuerte: #2a4258;
+
+  /* Texto */
+  --tiza: #e8f1f2;
+  --graderia: #8ba3b4;
+  --graderia-2: #778ea1;
+
+  /* Acción y estados */
+  --cancha: #1db954;
+  --cancha-hover: #27d465;
+  --cancha-suave: #10301f;
+  --cancha-borde: rgba(29, 185, 84, 0.35);
+  --trofeo: #ffc533;
+  --trofeo-suave: #34290e;
+  --rojo: #ff5c5c;
+  --rojo-suave: #331418;
+  --azul: #4da3ff;
+  --azul-suave: #10233a;
+
+  /* Forma */
+  --radio-card: 14px;
+  --radio-ctl: 10px;
+  --sombra-card: 0 1px 0 rgba(255, 255, 255, 0.03) inset;
+
+  /* Espaciado */
+  --esp-1: 4px;
+  --esp-2: 8px;
+  --esp-3: 12px;
+  --esp-4: 16px;
+  --esp-5: 20px;
+  --esp-6: 24px;
+  --esp-8: 32px;
+  --esp-12: 48px;
+
+  /* Tipografía */
+  --fuente-display: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --fuente-texto: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  background: var(--noche);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(1100px 420px at 85% -140px, rgba(29, 185, 84, 0.09), transparent 70%),
+    radial-gradient(900px 380px at 0% -120px, rgba(77, 163, 255, 0.06), transparent 70%),
+    var(--noche);
+  color: var(--tiza);
+  font-family: var(--fuente-texto);
+  font-size: 0.95rem;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--cancha);
+  font-weight: 650;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+a:hover {
+  color: var(--cancha-hover);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+h1, h2, h3, p {
+  margin-top: 0;
+}
+
+h1, h2, h3 {
+  font-family: var(--fuente-display);
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  margin-bottom: 0.6rem;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+h2 {
+  margin-bottom: 0.8rem;
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  font-weight: 750;
+}
+
+h3 {
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+main {
+  width: min(1000px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: var(--esp-6) 0 var(--esp-12);
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--esp-4) var(--esp-6);
+  background: rgba(14, 26, 39, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--linea);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-3);
+  font-family: var(--fuente-display);
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: var(--tiza);
+}
+
+.brand-badge {
+  background: linear-gradient(135deg, var(--cancha), #158a3e);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 750;
+}
+
+/* Custom UI Components matching polla-fpc */
+.card {
+  background: var(--tribuna);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio-card);
+  padding: var(--esp-6);
+  box-shadow: var(--sombra-card);
+}
+
+.card-header {
+  margin-bottom: var(--esp-4);
+  border-bottom: 1px solid var(--linea);
+  padding-bottom: var(--esp-3);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 650;
+}
+
+.badge-cancha {
+  background: var(--cancha-suave);
+  color: var(--cancha);
+  border: 1px solid var(--cancha-borde);
+}
+
+.badge-trofeo {
+  background: var(--trofeo-suave);
+  color: var(--trofeo);
+  border: 1px solid rgba(255, 197, 51, 0.3);
+}
+
+.badge-rojo {
+  background: var(--rojo-suave);
+  color: var(--rojo);
+  border: 1px solid rgba(255, 92, 92, 0.3);
+}
+
+/* Inputs y Botones */
+.input {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--noche-2);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio-ctl);
+  color: var(--tiza);
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.15s ease;
+}
+
+.input:focus {
+  border-color: var(--cancha);
+  box-shadow: 0 0 0 3px rgba(29, 185, 84, 0.15);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: var(--radio-ctl);
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  border: none;
+  transition: all 0.15s ease;
+}
+
+.btn-primary {
+  background: var(--cancha);
+  color: #0b1520;
+}
+
+.btn-primary:hover {
+  background: var(--cancha-hover);
+  transform: translateY(-1px);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-logout {
+  background: rgba(255, 92, 92, 0.12);
+  color: var(--rojo);
+  border: 1px solid rgba(255, 92, 92, 0.35);
+}
+
+.btn-logout:hover {
+  background: rgba(255, 92, 92, 0.22);
+  border-color: var(--rojo);
+}
+
+
+/* Estilo de Marcadors de Partidos (igual a polla-fpc) */
+.duelo-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--tribuna);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio-card);
+  padding: var(--esp-4) var(--esp-5);
+  margin-bottom: var(--esp-3);
+  transition: border-color 0.15s ease;
+}
+
+.duelo-card:hover {
+  border-color: var(--linea-fuerte);
+}
+
+.equipo-col {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.equipo-col.right {
+  justify-content: flex-end;
+}
+
+.equipo-escudo {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  border-radius: 50%;
+  background: var(--noche);
+  padding: 2px;
+}
+
+.equipo-nombre {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.marcador-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 var(--esp-4);
+}
+
+.marcador-input {
+  width: 50px;
+  height: 46px;
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 800;
+  background: var(--noche-2);
+  border: 1px solid var(--linea-fuerte);
+  border-radius: 8px;
+  color: var(--tiza);
+  outline: none;
+}
+
+.marcador-input:focus {
+  border-color: var(--cancha);
+  box-shadow: 0 0 0 2px rgba(29, 185, 84, 0.2);
+}
+
+/* Pestañas */
+.tabs {
+  display: flex;
+  gap: 8px;
+  border-bottom: 1px solid var(--linea);
+  margin-bottom: var(--esp-6);
+}
+
+.tab {
+  padding: 12px 20px;
+  background: transparent;
+  border: none;
+  color: var(--graderia);
+  font-weight: 700;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s ease;
+}
+
+.tab.active {
+  color: var(--cancha);
+  border-bottom-color: var(--cancha);
+}
+
+/* Grid de Cuadrangulares / Clasificados */
+.grid-clasificados {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.item-clasificado {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--noche-2);
+  border: 1px solid var(--linea);
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.15s ease;
+}
+
+.item-clasificado.selected {
+  background: var(--cancha-suave);
+  border-color: var(--cancha);
+  color: var(--cancha);
+}
