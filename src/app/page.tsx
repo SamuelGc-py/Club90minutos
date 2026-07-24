@@ -27,6 +27,7 @@ interface Partido {
   equipo_visitante: Equipo;
   fecha_hora_partido: string;
   estadio?: string;
+  estado?: string;
 }
 
 interface UsuarioSesion {
@@ -143,17 +144,51 @@ export default function ExpressPage() {
     }
   };
 
+  const aplicarPrediccionesGuardadas = (prediccionesGuardadas: any) => {
+    if (!prediccionesGuardadas) return;
+    const { inicial, partidos: predsPartidos } = prediccionesGuardadas;
+    if (inicial) {
+      if (inicial.campeon_equipo_id) setCampeonId(inicial.campeon_equipo_id);
+      if (inicial.finalista_1_equipo_id) setFinalista1Id(inicial.finalista_1_equipo_id);
+      if (inicial.finalista_2_equipo_id) setFinalista2Id(inicial.finalista_2_equipo_id);
+      if (inicial.goleador_torneo_jugador_id) setGoleadorTorneoId(inicial.goleador_torneo_jugador_id);
+      if (inicial.clasificados) {
+        setClasificadosIds(inicial.clasificados.map((c: any) => c.equipo_id));
+      }
+    }
+    if (predsPartidos && Array.isArray(predsPartidos)) {
+      const mapMarcadores: Record<number, EstadoMarcador> = {};
+      predsPartidos.forEach((p: any) => {
+        const gLocal = String(p.goles_local_predicho);
+        const gVisitante = String(p.goles_visitante_predicho);
+        let ganador: "local" | "empate" | "visitante" = "empate";
+        if (Number(gLocal) > Number(gVisitante)) ganador = "local";
+        else if (Number(gVisitante) > Number(gLocal)) ganador = "visitante";
+
+        mapMarcadores[p.partido_id] = {
+          local: gLocal,
+          visitante: gVisitante,
+          ganador,
+          goleador_id: p.jugador_goleador_id ? String(p.jugador_goleador_id) : "",
+        };
+      });
+      setMarcadores(mapMarcadores);
+    }
+  };
+
   // Persistencia de sesión
   useEffect(() => {
     const sesionGuardada = localStorage.getItem("polla_sesion");
     if (sesionGuardada) {
       try {
-        const usr = JSON.parse(sesionGuardada);
+        const dataParsed = JSON.parse(sesionGuardada);
+        const usr = dataParsed.usuario || dataParsed;
         setUsuario(usr);
         if (usr.rol_id === 2) {
           cargarConsolidados(usr.id);
-        } else {
-          cargarMisPronosticos(usr.id);
+        }
+        if (dataParsed.prediccionesGuardadas) {
+          aplicarPrediccionesGuardadas(dataParsed.prediccionesGuardadas);
         }
       } catch (e) {
         console.error("Error leyendo sesión", e);
@@ -214,7 +249,10 @@ export default function ExpressPage() {
 
       // Usuario activo habilitado
       setUsuario(data.usuario);
-      localStorage.setItem("polla_sesion", JSON.stringify(data.usuario));
+      localStorage.setItem("polla_sesion", JSON.stringify({
+        usuario: data.usuario,
+        prediccionesGuardadas: data.prediccionesGuardadas
+      }));
       setMensajeEstado({ tipo: "exito", texto: `¡Bienvenido(a) ${data.usuario.nombre}! Acceso concedido.` });
 
       if (data.usuario.rol_id === 2) {
@@ -223,34 +261,7 @@ export default function ExpressPage() {
 
       // Cargar pronósticos previos si existen
       if (data.prediccionesGuardadas) {
-        const { inicial, partidos: predsPartidos } = data.prediccionesGuardadas;
-        if (inicial) {
-          if (inicial.campeon_equipo_id) setCampeonId(inicial.campeon_equipo_id);
-          if (inicial.finalista_1_equipo_id) setFinalista1Id(inicial.finalista_1_equipo_id);
-          if (inicial.finalista_2_equipo_id) setFinalista2Id(inicial.finalista_2_equipo_id);
-          if (inicial.goleador_torneo_jugador_id) setGoleadorTorneoId(inicial.goleador_torneo_jugador_id);
-          if (inicial.clasificados) {
-            setClasificadosIds(inicial.clasificados.map((c: any) => c.equipo_id));
-          }
-        }
-        if (predsPartidos && Array.isArray(predsPartidos)) {
-          const mapMarcadores: Record<number, EstadoMarcador> = {};
-          predsPartidos.forEach((p: any) => {
-            const gLocal = String(p.goles_local_predicho);
-            const gVisitante = String(p.goles_visitante_predicho);
-            let ganadorCalc: "local" | "empate" | "visitante" = "empate";
-            if (Number(gLocal) > Number(gVisitante)) ganadorCalc = "local";
-            else if (Number(gLocal) < Number(gVisitante)) ganadorCalc = "visitante";
-
-            mapMarcadores[p.partido_id] = {
-              local: gLocal,
-              visitante: gVisitante,
-              ganador: ganadorCalc,
-              goleador_id: p.jugador_goleador_predicho_id ? String(p.jugador_goleador_predicho_id) : "",
-            };
-          });
-          setMarcadores(mapMarcadores);
-        }
+        aplicarPrediccionesGuardadas(data.prediccionesGuardadas);
       }
     } catch (err: any) {
       setMensajeEstado({ tipo: "error", texto: "Error de conexión: " + err.message });
