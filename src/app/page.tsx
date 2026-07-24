@@ -58,7 +58,7 @@ function RelojCuentaRegresiva({ fechaHoraPartido }: { fechaHoraPartido: string }
 
       if (dif <= 0) {
         setCerrado(true);
-        setTiempoRestante("🔒 Cerrado (1h antes)");
+        setTiempoRestante("🔒 Cerrado (10 min antes)");
       } else {
         setCerrado(false);
         const hrs = Math.floor(dif / (1000 * 60 * 60));
