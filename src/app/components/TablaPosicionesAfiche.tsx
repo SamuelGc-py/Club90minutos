@@ -22,11 +22,13 @@ export interface FilaTablaPosiciones {
 interface TablaPosicionesAficheProps {
   tabla: FilaTablaPosiciones[];
   nombrePolla?: string;
+  onDescargarExcelPronosticos?: () => void;
 }
 
 export default function TablaPosicionesAfiche({
   tabla,
   nombrePolla = "Polla Liga BetPlay Dimayor",
+  onDescargarExcelPronosticos,
 }: TablaPosicionesAficheProps) {
   const printRef = useRef<HTMLDivElement>(null);
 
@@ -35,6 +37,10 @@ export default function TablaPosicionesAfiche({
   };
 
   const handleDownloadExcel = () => {
+    if (onDescargarExcelPronosticos) {
+      onDescargarExcelPronosticos();
+      return;
+    }
     const rowsHtml = tabla
       .map(
         (row) => `

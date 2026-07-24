@@ -801,9 +801,10 @@ export default function ExpressPage() {
             <div className="card" style={{ textAlign: "center", padding: 40 }}>
               No se pudieron cargar los datos del Dashboard.
             </div>
-          ) : (
-            <TablaPosicionesAfiche tabla={consolidados.tablaPosiciones || []} />
-          )}
+            <TablaPosicionesAfiche
+              tabla={consolidados.tablaPosiciones || []}
+              onDescargarExcelPronosticos={handleDescargarExcelPronosticos}
+            />
         </div>
       ) : (
         /* ================= VISTA NORMAL DE PARTICIPANTE ================= */
