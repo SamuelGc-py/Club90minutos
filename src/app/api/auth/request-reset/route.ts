@@ -38,7 +38,7 @@ export async function POST(req: Request) {
     // Send email
     const resetUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3001'}/restablecer-password?token=${token}`;
     
-    await resend.emails.send({
+    const { data, error } = await resend.emails.send({
       from: "Polla Betplay <onboarding@resend.dev>", // Resend default test domain
       to: usuario.correo,
       subject: "Recuperación de contraseña - Polla Betplay",
@@ -55,9 +55,14 @@ export async function POST(req: Request) {
       `,
     });
 
+    if (error) {
+      console.error("Resend error:", error);
+      return NextResponse.json({ error: error.message || "Error al enviar el correo con Resend" }, { status: 500 });
+    }
+
     return NextResponse.json({ success: true, message: "Correo enviado" });
   } catch (error) {
     console.error("Error en request-reset:", error);
-    return NextResponse.json({ error: "Error interno del servidor" }, { status: 500 });
+    return NextResponse.json({ error: (error as Error).message || "Error interno del servidor" }, { status: 500 });
   }
 }

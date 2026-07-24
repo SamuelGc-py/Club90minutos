@@ -1,10 +1,8 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Lock, AlertCircle, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
-
-import { Suspense } from "react";
 
 function RestablecerPasswordContent() {
   const router = useRouter();
@@ -25,14 +23,8 @@ function RestablecerPasswordContent() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (password !== confirmPassword) {
+    if (!password || password !== confirmPassword) {
       setError("Las contraseñas no coinciden.");
-      return;
-    }
-
-    if (password.length < 4) {
-      setError("La contraseña debe tener al menos 4 caracteres.");
       return;
     }
 
@@ -49,7 +41,7 @@ function RestablecerPasswordContent() {
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.error || "Hubo un error al restablecer la contraseña.");
+        throw new Error(data.error || "Hubo un error al restablecer tu contraseña.");
       }
 
       setSuccess(true);
@@ -60,93 +52,125 @@ function RestablecerPasswordContent() {
     }
   };
 
-  if (!token) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-900 p-4">
-        <div className="bg-gray-800 p-8 rounded-2xl shadow-xl w-full max-w-md border border-gray-700 text-center">
-          <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
-          <h2 className="text-xl font-bold text-white mb-2">Enlace Inválido</h2>
-          <p className="text-gray-400 mb-6">No se encontró un token válido en la URL.</p>
-          <Link href="/" className="text-green-400 hover:text-green-300 font-medium">
-            Volver al inicio
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900 p-4">
-      <div className="bg-gray-800 p-8 rounded-2xl shadow-xl w-full max-w-md border border-gray-700">
-        
-        <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold text-white">Crear Nueva Contraseña</h2>
-          <p className="text-gray-400 mt-2 text-sm">
-            Ingresa tu nueva contraseña para acceder a tu cuenta.
-          </p>
+    <div
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: 20,
+      }}
+    >
+      <div className="card" style={{ maxWidth: 450, width: "100%", padding: "40px 30px", textAlign: "center" }}>
+        <div
+          style={{
+            width: 60,
+            height: 60,
+            borderRadius: "50%",
+            background: "var(--cancha-suave)",
+            border: "1px solid var(--cancha-borde)",
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "var(--cancha)",
+            marginBottom: 16,
+          }}
+        >
+          <Lock size={28} />
         </div>
+
+        <h1 style={{ fontSize: "1.75rem", marginBottom: 6 }}>Crear Nueva Contraseña</h1>
+        <p style={{ color: "var(--graderia)", fontSize: "0.9rem", marginBottom: 28 }}>
+          Ingresa tu nueva contraseña para acceder a tus pronósticos.
+        </p>
 
         {error && (
-          <div className="mb-6 bg-red-900/50 border border-red-500/50 text-red-200 p-4 rounded-xl flex items-start gap-3">
-            <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
-            <p className="text-sm">{error}</p>
+          <div
+            style={{
+              marginBottom: 20,
+              padding: "14px 16px",
+              borderRadius: 10,
+              fontSize: "0.88rem",
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
+              textAlign: "left",
+              background: "var(--rojo-suave)",
+              color: "var(--rojo-fuerte)",
+              border: "1px solid var(--rojo-borde)",
+            }}
+          >
+            <AlertCircle size={20} />
+            <div>{error}</div>
           </div>
         )}
 
         {success ? (
-          <div className="mb-6 bg-green-900/50 border border-green-500/50 text-green-200 p-6 rounded-xl flex flex-col items-center text-center gap-3">
-            <CheckCircle2 className="w-12 h-12 text-green-400" />
-            <div>
-              <p className="font-semibold text-lg text-green-300">¡Contraseña Actualizada!</p>
-              <p className="text-sm mt-2 mb-6">Tu contraseña se ha cambiado correctamente. Ya puedes iniciar sesión.</p>
-              <button
-                onClick={() => router.push("/")}
-                className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-xl transition-all"
-              >
-                Ir a Iniciar Sesión
-              </button>
+          <div
+            style={{
+              marginBottom: 20,
+              padding: "14px 16px",
+              borderRadius: 10,
+              fontSize: "0.88rem",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 10,
+              textAlign: "center",
+              background: "var(--cancha-suave)",
+              color: "var(--cancha)",
+              border: "1px solid var(--cancha-borde)",
+            }}
+          >
+            <CheckCircle2 size={36} style={{ marginBottom: 12 }} />
+            <div style={{ fontWeight: 700, fontSize: "1.1rem", marginBottom: 8 }}>
+              Contraseña guardada con éxito
             </div>
+            <Link
+              href="/"
+              className="btn btn-primary"
+              style={{ padding: "10px 20px", textDecoration: "none", width: "100%" }}
+            >
+              Iniciar Sesión
+            </Link>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
+          <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            <div style={{ textAlign: "left" }}>
+              <label style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--graderia)", marginBottom: 6, display: "block" }}>
                 Nueva Contraseña
               </label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-gray-900 border border-gray-700 rounded-xl py-3 pl-10 pr-4 text-white focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
-                  placeholder="Mínimo 4 caracteres"
-                  required
-                />
-              </div>
+              <input
+                type="password"
+                className="input"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Mínimo 6 caracteres"
+                required
+              />
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
+            <div style={{ textAlign: "left" }}>
+              <label style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--graderia)", marginBottom: 6, display: "block" }}>
                 Confirmar Contraseña
               </label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
-                <input
-                  type="password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full bg-gray-900 border border-gray-700 rounded-xl py-3 pl-10 pr-4 text-white focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
-                  placeholder="Repite la contraseña"
-                  required
-                />
-              </div>
+              <input
+                type="password"
+                className="input"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="Repite la contraseña"
+                required
+              />
             </div>
 
             <button
               type="submit"
-              disabled={loading || !password || !confirmPassword}
-              className="w-full mt-4 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-xl transition-all shadow-[0_0_15px_rgba(34,197,94,0.3)] hover:shadow-[0_0_25px_rgba(34,197,94,0.5)] disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={loading || !password || !confirmPassword || !!error}
+              className="btn btn-primary"
+              style={{ width: "100%", padding: "14px 20px", marginTop: 10 }}
             >
               {loading ? "Guardando..." : "Guardar Contraseña"}
             </button>
@@ -159,7 +183,7 @@ function RestablecerPasswordContent() {
 
 export default function RestablecerPassword() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-gray-900 text-white">Cargando...</div>}>
+    <Suspense fallback={<div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--texto-principal)" }}>Cargando...</div>}>
       <RestablecerPasswordContent />
     </Suspense>
   );
