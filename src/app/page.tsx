@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { CheckCircle2, ShieldAlert, Save, RefreshCw, Trophy, Calendar, LogOut, AlertTriangle, UserCheck, Lock, Clock, Eye, List } from "lucide-react";
+import { CheckCircle2, ShieldAlert, Save, RefreshCw, Trophy, Calendar, LogOut, AlertTriangle, UserCheck, Lock, Clock, Eye, List, Download } from "lucide-react";
 import TablaPosicionesAfiche from "./components/TablaPosicionesAfiche";
 
 interface Jugador {
@@ -344,6 +344,133 @@ export default function ExpressPage() {
     setMensajeEstado(null);
   };
 
+  // Descargar Excel de Pronósticos Ingresados por Usuarios (Estilo Afiche)
+  const handleDescargarExcelPronosticos = () => {
+    if (!consolidados) return;
+
+    const filasInicialesHtml = (consolidados.prediccionesIniciales || [])
+      .map((p: any, idx: number) => {
+        const clasificadosStr = (p.clasificados || [])
+          .map((c: any) => c.equipo?.nombre)
+          .filter(Boolean)
+          .join(", ");
+
+        return `
+          <tr style="background-color: ${idx % 2 === 0 ? "#ffffff" : "#f8fafc"}; border-bottom: 1px solid #cbd5e1;">
+            <td style="text-align: center; font-weight: bold;">${idx + 1}</td>
+            <td style="font-weight: bold; color: #0b1e36;">${p.usuario?.nombre_completo || "N/A"}</td>
+            <td>${p.usuario?.correo || "N/A"}</td>
+            <td style="text-align: center; font-weight: bold; background-color: #fef3c7; color: #b45309;">${p.campeon?.nombre || "Sin definir"}</td>
+            <td style="text-align: center;">${p.finalista_1?.nombre || "N/A"}</td>
+            <td style="text-align: center;">${p.finalista_2?.nombre || "N/A"}</td>
+            <td style="text-align: center; color: #166534; font-weight: bold;">${p.goleador_torneo?.nombre || "N/A"}</td>
+            <td style="font-size: 11px;">${clasificadosStr || "Ninguno"}</td>
+          </tr>
+        `;
+      })
+      .join("");
+
+    const filasPartidosHtml = (consolidados.prediccionesPartidos || [])
+      .map((p: any, idx: number) => {
+        const local = p.partido?.equipo_local?.nombre || "Local";
+        const visitante = p.partido?.equipo_visitante?.nombre || "Visitante";
+        const ganador = p.ganador_predicho === "local" ? local : p.ganador_predicho === "visitante" ? visitante : "Empate";
+
+        return `
+          <tr style="background-color: ${idx % 2 === 0 ? "#ffffff" : "#f8fafc"}; border-bottom: 1px solid #cbd5e1;">
+            <td style="font-weight: bold;">${p.usuario?.nombre_completo || "N/A"}</td>
+            <td style="text-align: center; font-weight: bold;">Jornada ${p.partido?.jornada || 1}</td>
+            <td>${local} vs ${visitante}</td>
+            <td style="text-align: center; font-weight: bold; background-color: #e0f2fe; color: #0369a1;">${p.goles_local_predicho} - ${p.goles_visitante_predicho}</td>
+            <td style="text-align: center; font-weight: bold; color: #15803d;">${ganador}</td>
+            <td style="color: #6b21a8;">${p.jugador_goleador?.nombre || "N/A"}</td>
+          </tr>
+        `;
+      })
+      .join("");
+
+    const htmlContent = `
+      <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
+        <head>
+          <meta http-equiv="content-type" content="text/plain; charset=UTF-8"/>
+          <!--[if gte mso 9]>
+          <xml>
+            <x:ExcelWorkbook>
+              <x:ExcelWorksheets>
+                <x:ExcelWorksheet>
+                  <x:Name>Pronosticos Consolidados</x:Name>
+                  <x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions>
+                </x:ExcelWorksheet>
+              </x:ExcelWorksheets>
+            </x:ExcelWorkbook>
+          </xml>
+          <![endif]-->
+        </head>
+        <body style="font-family: Arial, sans-serif; padding: 20px;">
+          <!-- BANNER SUPERIOR AFICHE -->
+          <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+            <tr style="background-color: #0b1e36; color: #ffffff; text-align: center;">
+              <td colSpan="8" style="padding: 16px; font-size: 20px; font-weight: bold; text-transform: uppercase;">
+                🏆 POLLA LIGA BETPLAY DIMAYOR - REPORTE CONSOLIDADO DE PRONÓSTICOS REGISTRADOS
+              </td>
+            </tr>
+          </table>
+
+          <!-- TABLA 1: PREDICCIONES INICIALES DEL TORNEO -->
+          <h2 style="color: #0b1e36; border-bottom: 2px solid #38bdf8; padding-bottom: 4px; font-size: 16px;">
+            1. PREDICCIONES DEL TORNEO (CAMPEÓN, FINALISTAS, GOLEADOR Y CLASIFICADOS)
+          </h2>
+          <table border="1" style="width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 30px;">
+            <thead>
+              <tr style="background-color: #1e3a8a; color: #ffffff; font-weight: bold; text-align: center;">
+                <th style="padding: 8px;">#</th>
+                <th style="padding: 8px; text-align: left;">Participante</th>
+                <th style="padding: 8px; text-align: left;">Correo</th>
+                <th style="padding: 8px; background-color: #d97706;">🥇 Campeón Predicho</th>
+                <th style="padding: 8px;">🥈 Finalista 1</th>
+                <th style="padding: 8px;">🥈 Finalista 2</th>
+                <th style="padding: 8px; background-color: #15803d;">👟 Goleador Torneo</th>
+                <th style="padding: 8px; text-align: left;">⚡ 8 Clasificados a Cuadrangulares</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${filasInicialesHtml || '<tr><td colSpan="8" style="text-align:center; padding: 12px;">Sin predicciones registradas</td></tr>'}
+            </tbody>
+          </table>
+
+          <!-- TABLA 2: PRONÓSTICOS DE PARTIDOS -->
+          <h2 style="color: #0b1e36; border-bottom: 2px solid #38bdf8; padding-bottom: 4px; font-size: 16px;">
+            2. PRONÓSTICOS POR PARTIDO (MARCADOR EXACTO, GANADOR Y GOLEADOR)
+          </h2>
+          <table border="1" style="width: 100%; border-collapse: collapse; font-size: 12px;">
+            <thead>
+              <tr style="background-color: #0f172a; color: #ffffff; font-weight: bold; text-align: center;">
+                <th style="padding: 8px; text-align: left;">Participante</th>
+                <th style="padding: 8px;">Jornada</th>
+                <th style="padding: 8px; text-align: left;">Partido (Local vs Visitante)</th>
+                <th style="padding: 8px; background-color: #0284c7;">Marcador Exacto</th>
+                <th style="padding: 8px; background-color: #166534;">Ganador Predicho</th>
+                <th style="padding: 8px; background-color: #6b21a8;">Goleador Partido</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${filasPartidosHtml || '<tr><td colSpan="6" style="text-align:center; padding: 12px;">Sin pronósticos de partidos registrados</td></tr>'}
+            </tbody>
+          </table>
+        </body>
+      </html>
+    `;
+
+    const blob = new Blob([htmlContent], { type: "application/vnd.ms-excel;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `Pronosticos_Consolidados_Polla_BetPlay_${new Date().toISOString().slice(0, 10)}.xls`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   // Guardar Todos los Pronósticos
   const handleGuardarTodo = async () => {
     if (!usuario) return;
@@ -559,6 +686,15 @@ export default function ExpressPage() {
             </div>
 
             <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+              <button
+                className="btn btn-primary"
+                onClick={handleDescargarExcelPronosticos}
+                disabled={!consolidados}
+                style={{ padding: "10px 16px", background: "linear-gradient(135deg, #10b981 0%, #059669 100%)", color: "#ffffff" }}
+              >
+                <Download size={16} /> Descargar Pronósticos (Excel)
+              </button>
+
               <button
                 className="btn btn-secondary"
                 onClick={() => cargarConsolidados()}
