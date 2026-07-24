@@ -37,10 +37,10 @@ export async function POST(req: Request) {
 
     if (!usuario) {
       return NextResponse.json({
-        existe: false,
-        activo: false,
-        mensaje: `El correo "${emailLimpio}" no se encuentra registrado en el sistema. Solicita tu registro al administrador.`,
-      });
+        existe: true, // fingir que existe para que caiga en el error del frontend
+        activo: true,
+        error: "Usuario o contraseña incorrecto. Por favor verifica tus datos.",
+      }, { status: 401 });
     }
 
     if (!usuario.activo) {
@@ -57,7 +57,7 @@ export async function POST(req: Request) {
       return NextResponse.json({
         existe: true,
         activo: true,
-        error: "Contraseña incorrecta. Por favor verifica tu clave.",
+        error: "Usuario o contraseña incorrecto. Por favor verifica tus datos.",
       }, { status: 401 });
     }
 
