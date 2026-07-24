@@ -30,8 +30,7 @@ export async function GET(req: Request) {
             equipo_visitante: { select: { nombre: true } },
           },
         },
-        equipo_ganador: { select: { nombre: true } },
-        goleador_partido: { select: { nombre: true } },
+        jugador_goleador: { select: { nombre: true } },
       },
       orderBy: [
         { partido: { jornada: "asc" } },
@@ -90,15 +89,20 @@ export async function GET(req: Request) {
     // Llenar datos
     prediccionesPartidos.forEach((pp) => {
       const partidoStr = `${pp.partido.equipo_local.nombre} VS ${pp.partido.equipo_visitante.nombre}`;
-      const ganadorStr = pp.empate ? "Empate" : (pp.equipo_ganador?.nombre || "N/A");
+      let ganadorStr = "Empate";
+      if (pp.goles_local_predicho > pp.goles_visitante_predicho) {
+        ganadorStr = pp.partido.equipo_local.nombre;
+      } else if (pp.goles_visitante_predicho > pp.goles_local_predicho) {
+        ganadorStr = pp.partido.equipo_visitante.nombre;
+      }
       
       const row = worksheet.addRow({
         partido: partidoStr,
         participante: pp.usuario.nombre_completo,
         ganador_partido_pred: ganadorStr,
-        goles_local: pp.goles_local,
-        goles_visitante: pp.goles_visitante,
-        goleador: pp.goleador_partido?.nombre || "N/A",
+        goles_local: pp.goles_local_predicho,
+        goles_visitante: pp.goles_visitante_predicho,
+        goleador: pp.jugador_goleador?.nombre || "N/A",
         res_correctos: "#N/A", // Espacio para fórmula o calificación posterior
         ganador_partido_res: "#N/A",
         goleadores_res: 0,
