@@ -375,3 +375,90 @@ main {
   border-color: var(--cancha);
   color: var(--cancha);
 }
+
+/* ==========================================================================
+   RESPONSIVE DESIGN PARA CELULARES Y TABLETS (<768px y <480px)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  main {
+    width: calc(100% - 20px);
+    padding: 16px 0 40px;
+  }
+
+  .card {
+    padding: 14px;
+    border-radius: 12px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.15rem;
+  }
+
+  .btn {
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Ajuste de navegadores y pestañas superiores en celulares */
+  .header-actions-mobile {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+  }
+
+  .tabs-scroll-mobile {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 6px;
+    -webkit-overflow-scrolling: touch;
+    gap: 8px;
+  }
+
+  /* Ajuste de enfrentamiento de partido en pantalla chica */
+  .grid-partido-mobile {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    align-items: center !important;
+  }
+
+  .equipo-box-mobile {
+    width: 100%;
+    justify-content: space-between !important;
+  }
+
+  .marcador-input {
+    width: 44px;
+    height: 42px;
+    font-size: 1.15rem;
+  }
+}
+
+@media (max-width: 480px) {
+  main {
+    width: calc(100% - 12px);
+  }
+
+  .card {
+    padding: 12px;
+  }
+
+  .grid-clasificados {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)) !important;
+    gap: 8px !important;
+  }
+
+  .item-clasificado {
+    padding: 8px;
+    font-size: 0.78rem;
+  }
+}
