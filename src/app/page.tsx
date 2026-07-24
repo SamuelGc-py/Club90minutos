@@ -165,14 +165,32 @@ export default function ExpressPage() {
         if (Number(gLocal) > Number(gVisitante)) ganador = "local";
         else if (Number(gVisitante) > Number(gLocal)) ganador = "visitante";
 
+        const goleadorIdRaw = p.jugador_goleador_predicho_id || p.jugador_goleador_id || "";
+
         mapMarcadores[p.partido_id] = {
           local: gLocal,
           visitante: gVisitante,
           ganador,
-          goleador_id: p.jugador_goleador_id ? String(p.jugador_goleador_id) : "",
+          goleador_id: goleadorIdRaw ? String(goleadorIdRaw) : "",
         };
       });
       setMarcadores(mapMarcadores);
+    }
+  };
+
+  // Cargar datos maestros (Equipos, Jugadores, Partidos)
+  const cargarMaestros = async () => {
+    setCargandoMaestros(true);
+    try {
+      const res = await fetch("/api/datos-maestros", { cache: "no-store" });
+      const data = await res.json();
+      if (data.equipos) setEquipos(data.equipos);
+      if (data.jugadores) setJugadores(data.jugadores);
+      if (data.partidos) setPartidos(data.partidos);
+    } catch (err) {
+      console.error("Error al cargar datos maestros:", err);
+    } finally {
+      setCargandoMaestros(false);
     }
   };
 
@@ -197,22 +215,7 @@ export default function ExpressPage() {
     }
   }, []);
 
-  // Cargar datos maestros (Equipos, Jugadores, Partidos)
   useEffect(() => {
-    async function cargarMaestros() {
-      setCargandoMaestros(true);
-      try {
-        const res = await fetch("/api/datos-maestros");
-        const data = await res.json();
-        if (data.equipos) setEquipos(data.equipos);
-        if (data.jugadores) setJugadores(data.jugadores);
-        if (data.partidos) setPartidos(data.partidos);
-      } catch (err) {
-        console.error("Error al cargar datos maestros:", err);
-      } finally {
-        setCargandoMaestros(false);
-      }
-    }
     cargarMaestros();
   }, []);
 
@@ -979,6 +982,13 @@ export default function ExpressPage() {
               {cargandoMaestros ? (
                 <div style={{ textAlign: "center", padding: 40, color: "var(--graderia)" }}>
                   Cargando partidos de la Fecha 1...
+                </div>
+              ) : partidos.length === 0 ? (
+                <div className="card" style={{ textAlign: "center", padding: 40 }}>
+                  <p style={{ marginBottom: 16, color: "#94a3b8" }}>No se cargaron los partidos en tu navegador.</p>
+                  <button className="btn btn-primary" onClick={cargarMaestros} style={{ padding: "10px 18px" }}>
+                    🔄 Cargar Partidos Ahora
+                  </button>
                 </div>
               ) : (
                 <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
