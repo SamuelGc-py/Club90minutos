@@ -346,80 +346,30 @@ export default function ExpressPage() {
   };
 
   // Descargar Excel de Pronósticos por Partido (Diseño exacto Imagen 2)
-  const handleDescargarExcelPronosticos = () => {
-    if (!consolidados) return;
+  const handleDescargarExcelPronosticos = async () => {
+    if (!usuario) return;
+    try {
+      setMensajeEstado({ tipo: "info", texto: "Generando Excel con formato... Esto puede tardar unos segundos." });
+      const res = await fetch(`/api/consolidados/excel?usuario_id=${usuario.id}`);
+      
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Error al descargar el archivo");
+      }
 
-    const filasPartidosHtml = (consolidados.prediccionesPartidos || [])
-      .map((p: any) => {
-        const partidoId = p.partido?.id || 1;
-        const localNom = p.partido?.equipo_local?.nombre || "Local";
-        const visitanteNom = p.partido?.equipo_visitante?.nombre || "Visitante";
-        const ganador = p.ganador_predicho === "local" ? localNom : p.ganador_predicho === "visitante" ? visitanteNom : "Empate";
-        const goleador = p.jugador_goleador?.nombre || "N/A";
-        const golesLocal = p.goles_local_predicho ?? 0;
-        const golesVisitante = p.goles_visitante_predicho ?? 0;
-
-        return `
-          <tr>
-            <td style="border: 1px solid #000000; text-align: center; font-size: 11pt;">${partidoId}</td>
-            <td style="border: 1px solid #000000; text-align: left; font-size: 11pt; font-weight: normal;">${p.usuario?.nombre_completo || "N/A"}</td>
-            <td style="border: 1px solid #000000; text-align: left; font-size: 11pt;">${ganador}</td>
-            <td style="border: 1px solid #000000; text-align: center; font-size: 11pt; mso-number-format:'0';">${golesLocal}</td>
-            <td style="border: 1px solid #000000; text-align: center; font-size: 11pt; mso-number-format:'0';">${golesVisitante}</td>
-            <td style="border: 1px solid #000000; text-align: left; font-size: 11pt;">${goleador}</td>
-          </tr>
-        `;
-      })
-      .join("");
-
-    const htmlContent = `
-      <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
-        <head>
-          <meta http-equiv="content-type" content="text/plain; charset=UTF-8"/>
-          <!--[if gte mso 9]>
-          <xml>
-            <x:ExcelWorkbook>
-              <x:ExcelWorksheets>
-                <x:ExcelWorksheet>
-                  <x:Name>Pronosticos</x:Name>
-                  <x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions>
-                </x:ExcelWorksheet>
-              </x:ExcelWorksheets>
-            </x:ExcelWorkbook>
-          </xml>
-          <![endif]-->
-          <style>
-            td, th { padding: 6px 12px; font-family: Arial, sans-serif; }
-          </style>
-        </head>
-        <body>
-          <table style="border-collapse: collapse; width: 100%;">
-            <thead>
-              <tr style="background-color: #000000; color: #ffffff; font-weight: bold; font-size: 11pt;">
-                <th style="border: 1px solid #000000; text-align: center; background-color: #000000; color: #ffffff;">Partido</th>
-                <th style="border: 1px solid #000000; text-align: left; background-color: #000000; color: #ffffff;">Nombre del participante</th>
-                <th style="border: 1px solid #000000; text-align: left; background-color: #000000; color: #ffffff;">Ganador del Partido</th>
-                <th style="border: 1px solid #000000; text-align: center; background-color: #000000; color: #ffffff;">Local</th>
-                <th style="border: 1px solid #000000; text-align: center; background-color: #000000; color: #ffffff;">Visitante</th>
-                <th style="border: 1px solid #000000; text-align: left; background-color: #000000; color: #ffffff;">Goleador</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${filasPartidosHtml || '<tr><td colSpan="6" style="text-align:center; padding: 12px; border: 1px solid #000000;">Sin pronósticos registrados</td></tr>'}
-            </tbody>
-          </table>
-        </body>
-      </html>
-    `;
-
-    const blob = new Blob([htmlContent], { type: "application/vnd.ms-excel;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `Pronosticos_Partidos_Polla_BetPlay_${new Date().toISOString().slice(0, 10)}.xls`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `Pronosticos_Partidos_Polla_BetPlay_${new Date().toISOString().slice(0, 10)}.xlsx`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      setMensajeEstado({ tipo: "exito", texto: "¡Archivo Excel generado correctamente!" });
+    } catch (err: any) {
+      console.error(err);
+      setMensajeEstado({ tipo: "error", texto: err.message || "No se pudo generar el archivo Excel." });
+    }
   };
 
   // Guardar Todos los Pronósticos
