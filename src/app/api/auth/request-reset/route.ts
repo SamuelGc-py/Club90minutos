@@ -4,10 +4,10 @@ import { Resend } from "resend";
 import { v4 as uuidv4 } from "uuid";
 
 const prisma = new PrismaClient();
-const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: Request) {
   try {
+    const resend = new Resend(process.env.RESEND_API_KEY);
     const { correo } = await req.json();
 
     if (!correo || typeof correo !== "string") {
