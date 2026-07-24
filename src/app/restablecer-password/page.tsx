@@ -4,7 +4,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Lock, AlertCircle, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 
-export default function RestablecerPassword() {
+import { Suspense } from "react";
+
+function RestablecerPasswordContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
@@ -152,5 +154,13 @@ export default function RestablecerPassword() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function RestablecerPassword() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-gray-900 text-white">Cargando...</div>}>
+      <RestablecerPasswordContent />
+    </Suspense>
   );
 }
