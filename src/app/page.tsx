@@ -51,7 +51,7 @@ function RelojCuentaRegresiva({ fechaHoraPartido }: { fechaHoraPartido: string }
   useEffect(() => {
     function calcular() {
       const horaPartido = new Date(fechaHoraPartido).getTime();
-      const horaCierre = horaPartido - 60 * 60 * 1000; // 1 hora antes del inicio
+      const horaCierre = horaPartido - 10 * 60 * 1000; // 10 minutos antes del inicio
       const ahora = new Date().getTime();
       const dif = horaCierre - ahora;
 
@@ -992,7 +992,7 @@ export default function ExpressPage() {
                       ...(partido.equipo_visitante.jugadores || []),
                     ];
 
-                    const horaCierrePartido = new Date(new Date(partido.fecha_hora_partido).getTime() - 60 * 60 * 1000);
+                    const horaCierrePartido = new Date(new Date(partido.fecha_hora_partido).getTime() - 10 * 60 * 1000);
                     const esAplazado = partido.estado === "aplazado";
                     const estaCerrado = new Date() >= horaCierrePartido || esAplazado;
 
@@ -1476,7 +1476,7 @@ export default function ExpressPage() {
                 </div>
 
                 {partidos.map((partido) => {
-                  const horaCierre = new Date(new Date(partido.fecha_hora_partido).getTime() - 60 * 60 * 1000);
+                  const horaCierre = new Date(new Date(partido.fecha_hora_partido).getTime() - 10 * 60 * 1000);
                   const estaCerrado = new Date() >= horaCierre;
 
                   // Pronósticos de este partido entre todos los usuarios
