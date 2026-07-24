@@ -143,6 +143,25 @@ export default function ExpressPage() {
     }
   };
 
+  // Persistencia de sesión
+  useEffect(() => {
+    const sesionGuardada = localStorage.getItem("polla_sesion");
+    if (sesionGuardada) {
+      try {
+        const usr = JSON.parse(sesionGuardada);
+        setUsuario(usr);
+        if (usr.rol_id === 2) {
+          cargarConsolidados(usr.id);
+        } else {
+          cargarMisPronosticos(usr.id);
+        }
+      } catch (e) {
+        console.error("Error leyendo sesión", e);
+        localStorage.removeItem("polla_sesion");
+      }
+    }
+  }, []);
+
   // Cargar datos maestros (Equipos, Jugadores, Partidos)
   useEffect(() => {
     async function cargarMaestros() {
@@ -195,6 +214,7 @@ export default function ExpressPage() {
 
       // Usuario activo habilitado
       setUsuario(data.usuario);
+      localStorage.setItem("polla_sesion", JSON.stringify(data.usuario));
       setMensajeEstado({ tipo: "exito", texto: `¡Bienvenido(a) ${data.usuario.nombre}! Acceso concedido.` });
 
       if (data.usuario.rol_id === 2) {
@@ -341,6 +361,7 @@ export default function ExpressPage() {
   // Cerrar Sesión
   const handleCerrarSesion = () => {
     setUsuario(null);
+    localStorage.removeItem("polla_sesion");
     setCorreoInput("");
     setPasswordInput("");
     setMensajeEstado(null);
