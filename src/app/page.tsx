@@ -1314,17 +1314,27 @@ export default function ExpressPage() {
                         className={`item-clasificado ${seleccionado ? "selected" : ""}`}
                         onClick={() => toggleClasificado(eq.id)}
                         style={{
-                          padding: "10px",
+                          padding: "10px 12px",
                           borderRadius: 8,
                           cursor: "pointer",
                           border: `1px solid ${seleccionado ? "var(--cancha)" : "var(--linea)"}`,
-                          background: seleccionado ? "var(--cancha-suave)" : "transparent",
-                          textAlign: "center",
+                          background: seleccionado ? "var(--cancha-suave)" : "var(--noche-2)",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 10,
                           fontSize: "0.85rem",
-                          fontWeight: 600
+                          fontWeight: 600,
                         }}
                       >
-                        {seleccionado ? "✓ " : ""}{eq.nombre}
+                        <img
+                          src={eq.escudo_url || "https://placehold.co/30x30/1e3145/ffffff?text=FPC"}
+                          alt={eq.nombre}
+                          style={{ width: 26, height: 26, objectFit: "contain", flexShrink: 0 }}
+                        />
+                        <span style={{ flex: 1, textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap" }}>
+                          {eq.nombre}
+                        </span>
+                        {seleccionado && <span style={{ color: "var(--cancha)", fontWeight: 900 }}>✓</span>}
                       </div>
                     );
                   })}
