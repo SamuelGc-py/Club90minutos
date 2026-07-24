@@ -104,8 +104,9 @@ export async function POST(req: Request) {
 
             if (partidoDb) {
               const limiteCierre = new Date(new Date(partidoDb.fecha_hora_partido).getTime() - 10 * 60 * 1000);
-              // Si ya pasó la hora de cierre (10 minutos antes del partido), no guardar este pronóstico
-              if (now >= limiteCierre) {
+              const esExcepcionUsuario = usuario.correo === "samucobaggg@gmail.com";
+              // Si ya pasó la hora de cierre (10 minutos antes del partido), no guardar este pronóstico (salvo para la excepción)
+              if (now >= limiteCierre && !esExcepcionUsuario) {
                 continue;
               }
             }
