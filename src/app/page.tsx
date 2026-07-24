@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { CheckCircle2, ShieldAlert, Save, RefreshCw, Trophy, Calendar, LogOut, AlertTriangle, UserCheck, Lock, Clock, Eye, List, Download } from "lucide-react";
+import { CheckCircle2, ShieldAlert, Save, RefreshCw, Trophy, Calendar, LogOut, AlertTriangle, UserCheck, Lock, Clock, Eye, List, Download, Users } from "lucide-react";
 import Link from "next/link";
 import TablaPosicionesAfiche from "./components/TablaPosicionesAfiche";
 
@@ -126,6 +126,7 @@ export default function ExpressPage() {
     prediccionesIniciales: any[];
   } | null>(null);
   const [cargandoConsolidados, setCargandoConsolidados] = useState(false);
+  const [partidoAdminVer, setPartidoAdminVer] = useState<number | null>(null);
 
   const cargarConsolidados = async (uId?: number) => {
     const idParaUsar = uId || usuario?.id;
@@ -346,11 +347,14 @@ export default function ExpressPage() {
   };
 
   // Descargar Excel de Pronósticos por Partido (Diseño exacto Imagen 2)
-  const handleDescargarExcelPronosticos = async () => {
+  const handleDescargarExcelPronosticos = async (partidoId?: number) => {
     if (!usuario) return;
     try {
       setMensajeEstado({ tipo: "info", texto: "Generando Excel con formato... Esto puede tardar unos segundos." });
-      const res = await fetch(`/api/consolidados/excel?usuario_id=${usuario.id}`);
+      const url = partidoId 
+        ? `/api/consolidados/excel?usuario_id=${usuario.id}&partido_id=${partidoId}`
+        : `/api/consolidados/excel?usuario_id=${usuario.id}`;
+      const res = await fetch(url);
       
       if (!res.ok) {
         const data = await res.json();
@@ -358,9 +362,9 @@ export default function ExpressPage() {
       }
 
       const blob = await res.blob();
-      const url = URL.createObjectURL(blob);
+      const blobUrl = URL.createObjectURL(blob);
       const link = document.createElement("a");
-      link.href = url;
+      link.href = blobUrl;
       link.download = `Pronosticos_Partidos_Polla_BetPlay_${new Date().toISOString().slice(0, 10)}.xlsx`;
       document.body.appendChild(link);
       link.click();
@@ -594,7 +598,7 @@ export default function ExpressPage() {
             <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
               <button
                 className="btn btn-primary"
-                onClick={handleDescargarExcelPronosticos}
+                onClick={() => handleDescargarExcelPronosticos()}
                 disabled={!consolidados}
                 style={{ padding: "10px 16px", background: "linear-gradient(135deg, #10b981 0%, #059669 100%)", color: "#ffffff" }}
               >
@@ -762,6 +766,81 @@ export default function ExpressPage() {
               tabla={consolidados.tablaPosiciones || []}
               onDescargarExcelPronosticos={handleDescargarExcelPronosticos}
             />
+          )}
+
+          {/* LISTA DE PARTIDOS PARA DESCARGAR O VER PARTICIPANTES */}
+          {usuario.rol_id === 2 && partidos.length > 0 && consolidados && (
+            <div className="card" style={{ marginTop: 24, padding: "24px" }}>
+              <h3 style={{ marginBottom: 16, fontSize: "1.4rem", color: "var(--cancha)" }}>
+                Gestión por Partido
+              </h3>
+              <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                {partidos.map((partido) => {
+                  const pronosticosPartido = consolidados.prediccionesPartidos.filter(
+                    (p) => p.partido.equipo_local.nombre === partido.equipo_local.nombre && 
+                           p.partido.equipo_visitante.nombre === partido.equipo_visitante.nombre
+                  );
+
+                  return (
+                    <div
+                      key={partido.id}
+                      style={{
+                        padding: 16,
+                        background: "rgba(255,255,255,0.02)",
+                        border: "1px solid rgba(255,255,255,0.1)",
+                        borderRadius: 12,
+                      }}
+                    >
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
+                        <div>
+                          <strong style={{ fontSize: "1.2rem", display: "block", marginBottom: 4 }}>
+                            {partido.equipo_local.nombre} VS {partido.equipo_visitante.nombre}
+                          </strong>
+                          <span style={{ fontSize: "0.9rem", color: "#94a3b8" }}>
+                            {pronosticosPartido.length} pronósticos recibidos
+                          </span>
+                        </div>
+                        <div style={{ display: "flex", gap: 10 }}>
+                          <button
+                            className="btn btn-secondary"
+                            style={{ padding: "8px 12px", fontSize: "0.85rem" }}
+                            onClick={() => setPartidoAdminVer(partidoAdminVer === partido.id ? null : partido.id)}
+                          >
+                            <Users size={14} style={{ marginRight: 6, display: "inline" }} />
+                            Ver Participantes
+                          </button>
+                          <button
+                            className="btn btn-primary"
+                            style={{ padding: "8px 12px", fontSize: "0.85rem", background: "linear-gradient(135deg, #10b981 0%, #059669 100%)", color: "#fff" }}
+                            onClick={() => handleDescargarExcelPronosticos(partido.id)}
+                          >
+                            <Download size={14} style={{ marginRight: 6, display: "inline" }} />
+                            Descargar Excel
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* LISTA DE PARTICIPANTES DESPLEGADA */}
+                      {partidoAdminVer === partido.id && (
+                        <div style={{ marginTop: 16, padding: 12, background: "rgba(0,0,0,0.2)", borderRadius: 8 }}>
+                          {pronosticosPartido.length === 0 ? (
+                            <div style={{ color: "#94a3b8", fontSize: "0.9rem" }}>Nadie ha pronosticado este partido aún.</div>
+                          ) : (
+                            <ul style={{ margin: 0, paddingLeft: 20, color: "#cbd5e1", fontSize: "0.95rem" }}>
+                              {pronosticosPartido.map((p, idx) => (
+                                <li key={idx} style={{ marginBottom: 4 }}>
+                                  {p.usuario.nombre_completo} <span style={{ color: "#64748b", fontSize: "0.8rem" }}>({p.usuario.correo})</span>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           )}
         </div>
       ) : (

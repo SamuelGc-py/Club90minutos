@@ -6,6 +6,7 @@ export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
     const usuarioId = searchParams.get("usuario_id");
+    const partidoId = searchParams.get("partido_id"); // Opcional
 
     if (!usuarioId) {
       return NextResponse.json({ error: "Se requiere usuario_id" }, { status: 400 });
@@ -21,7 +22,14 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: "No tienes permisos de administrador" }, { status: 403 });
     }
 
+    // Construir filtro
+    const whereClause: any = {};
+    if (partidoId) {
+      whereClause.partido_id = Number(partidoId);
+    }
+
     const prediccionesPartidos = await prisma.prediccionPartido.findMany({
+      where: whereClause,
       include: {
         usuario: { select: { nombre_completo: true } },
         partido: {
