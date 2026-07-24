@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { CheckCircle2, ShieldAlert, Save, RefreshCw, Trophy, Calendar, LogOut, AlertTriangle, UserCheck, Lock, Clock, Eye, List, Download } from "lucide-react";
+import Link from "next/link";
 import TablaPosicionesAfiche from "./components/TablaPosicionesAfiche";
 
 interface Jugador {
@@ -528,9 +529,14 @@ export default function ExpressPage() {
               </div>
 
               <div style={{ textAlign: "left" }}>
-                <label style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--graderia)", marginBottom: 6, display: "block" }}>
-                  Contraseña de acceso:
-                </label>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
+                  <label style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--graderia)", margin: 0 }}>
+                    Contraseña de acceso:
+                  </label>
+                  <Link href="/recuperar-password" style={{ fontSize: "0.75rem", color: "var(--cesped)", textDecoration: "none", fontWeight: 600 }}>
+                    ¿Olvidaste tu contraseña?
+                  </Link>
+                </div>
                 <input
                   type="password"
                   className="input"

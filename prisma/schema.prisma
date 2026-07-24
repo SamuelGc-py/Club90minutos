@@ -212,6 +212,17 @@ model ResultadoOficial {
   @@map("resultado_oficial")
 }
 
+model PasswordResetToken {
+  id        Int      @id @default(autoincrement())
+  correo    String
+  token     String   @unique
+  expiracion DateTime
+  usado     Boolean  @default(false)
+  
+  @@index([correo])
+  @@map("password_reset_token")
+}
+
 model ResultadoGoleador {
   id                   Int     @id @default(autoincrement())
   resultado_oficial_id Int
