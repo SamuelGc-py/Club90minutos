@@ -31,6 +31,7 @@ enum EstadoPartido {
   resultado_pendiente
   resultado_cargado
   puntaje_calculado
+  aplazado
 }
 
 enum EstadoPrediccionInicial {

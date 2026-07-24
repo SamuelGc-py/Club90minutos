@@ -993,24 +993,29 @@ export default function ExpressPage() {
                     ];
 
                     const horaCierrePartido = new Date(new Date(partido.fecha_hora_partido).getTime() - 60 * 60 * 1000);
-                    const estaCerrado = new Date() >= horaCierrePartido;
+                    const esAplazado = partido.estado === "aplazado";
+                    const estaCerrado = new Date() >= horaCierrePartido || esAplazado;
 
                     return (
                       <div
                         key={partido.id}
                         className="card"
                         style={{
-                          borderLeft: estaCerrado
+                          borderLeft: esAplazado
+                            ? "4px solid #f59e0b"
+                            : estaCerrado
                             ? "4px solid var(--graderia)"
                             : inconsistencia
                             ? "4px solid var(--rojo)"
                             : "1px solid var(--linea)",
-                          background: estaCerrado
+                          background: esAplazado
+                            ? "rgba(245, 158, 11, 0.1)"
+                            : estaCerrado
                             ? "rgba(255, 255, 255, 0.02)"
                             : inconsistencia
                             ? "var(--rojo-suave)"
                             : "var(--tribuna)",
-                          opacity: estaCerrado ? 0.85 : 1,
+                          opacity: estaCerrado && !esAplazado ? 0.85 : 1,
                         }}
                       >
                         {/* ENCABEZADO MATCH CON RELOJ CUENTA REGRESIVA */}
@@ -1019,10 +1024,18 @@ export default function ExpressPage() {
                             🏟️ {partido.estadio || "Liga BetPlay"}
                           </span>
                           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                            <RelojCuentaRegresiva fechaHoraPartido={partido.fecha_hora_partido} />
-                            <span style={{ background: "var(--noche-2)", padding: "4px 10px", borderRadius: 6, color: "#ffffff", fontWeight: 600 }}>
-                              📅 {new Date(partido.fecha_hora_partido).toLocaleString("es-CO", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}
-                            </span>
+                            {esAplazado ? (
+                              <span style={{ background: "#f59e0b", padding: "4px 10px", borderRadius: 6, color: "#fff", fontWeight: 800 }}>
+                                ⚠️ APLAZADO
+                              </span>
+                            ) : (
+                              <>
+                                <RelojCuentaRegresiva fechaHoraPartido={partido.fecha_hora_partido} />
+                                <span style={{ background: "var(--noche-2)", padding: "4px 10px", borderRadius: 6, color: "#ffffff", fontWeight: 600 }}>
+                                  📅 {new Date(partido.fecha_hora_partido).toLocaleString("es-CO", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}
+                                </span>
+                              </>
+                            )}
                           </div>
                         </div>
 
