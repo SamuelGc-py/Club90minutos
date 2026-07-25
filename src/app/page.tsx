@@ -1124,20 +1124,29 @@ export default function ExpressPage() {
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              padding: "14px 20px",
-              background: "rgba(14, 26, 39, 0.92)",
-              backdropFilter: "blur(12px)",
+              padding: "12px 20px",
+              background: "rgba(14, 26, 39, 0.95)",
+              backdropFilter: "blur(14px)",
               border: "1px solid var(--linea-fuerte)",
-              borderRadius: 14,
+              borderRadius: 16,
               marginBottom: 20,
-              boxShadow: "0 8px 24px rgba(0,0,0,0.4)",
+              boxShadow: "0 8px 24px rgba(0,0,0,0.5)",
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <div style={{ fontWeight: 900, fontSize: "1.2rem", color: "#ffffff", display: "flex", alignItems: "center", gap: 8 }}>
                 ⚽ POLLA LIGA BETPLAY
               </div>
-              <span className="desktop-slogan" style={{ fontSize: "0.85rem", color: "#38bdf8", fontWeight: 800, borderLeft: "1px solid var(--linea-fuerte)", paddingLeft: 12 }}>
+            </div>
+
+            {/* CENTRO: ES LOGAN EN MOVIMIENTO CON MUÑECO CHILENA 3D */}
+            <div className="desktop-slogan" style={{ display: "flex", alignItems: "center", gap: 10, justifyContent: "center" }}>
+              <img
+                src="/images/chilena_3d.png"
+                alt="Jugador Chilena 3D"
+                className="chilena-img-3d"
+              />
+              <span className="slogan-animado" style={{ fontSize: "0.95rem" }}>
                 DEMUESTRA LO QUE SABES DE FÚTBOL ⚽🔥
               </span>
             </div>

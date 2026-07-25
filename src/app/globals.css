@@ -556,3 +556,53 @@ main {
   border-color: var(--cancha);
   color: var(--cancha);
 }
+
+/* ==========================================================================
+   ANIMACIONES ES LOGAN Y JUGADOR CHILENA 3D
+   ========================================================================== */
+@keyframes moverSlogan {
+  0% {
+    transform: translateY(0px);
+    text-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
+  }
+  50% {
+    transform: translateY(-2px);
+    text-shadow: 0 0 16px rgba(56, 189, 248, 0.9), 0 0 24px rgba(29, 185, 84, 0.8);
+  }
+  100% {
+    transform: translateY(0px);
+    text-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
+  }
+}
+
+@keyframes flotarChilena {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-4px) rotate(-4deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+
+.slogan-animado {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  animation: moverSlogan 3s ease-in-out infinite;
+  background: linear-gradient(90deg, #38bdf8 0%, #34d399 50%, #f5b000 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 900 !important;
+  letter-spacing: 0.5px;
+}
+
+.chilena-img-3d {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 10px rgba(52, 211, 153, 0.7));
+  animation: flotarChilena 2.5s ease-in-out infinite;
+}
