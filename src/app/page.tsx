@@ -134,6 +134,34 @@ export default function ExpressPage() {
   const [guardandoPartidoId, setGuardandoPartidoId] = useState<number | null>(null);
   const [partidoGuardadoExitoId, setPartidoGuardadoExitoId] = useState<number | null>(null);
 
+  // Sincronizar pronósticos en vivo con localStorage de sesión
+  const actualizarSesionLocalStorage = (partidoId: number, local: number, visitante: number, goleadorId: number | null) => {
+    try {
+      const sesionStr = localStorage.getItem("polla_sesion");
+      if (!sesionStr) return;
+      const sesionData = JSON.parse(sesionStr);
+      let preds = sesionData.prediccionesGuardadas || { prediccionesPartidos: [], prediccionesIniciales: [] };
+      if (!preds.prediccionesPartidos) preds.prediccionesPartidos = [];
+
+      const idx = preds.prediccionesPartidos.findIndex((p: any) => p.partido_id === partidoId);
+      const nuevoObj = {
+        partido_id: partidoId,
+        goles_local: local,
+        goles_visitante: visitante,
+        jugador_goleador_id: goleadorId,
+      };
+      if (idx >= 0) {
+        preds.prediccionesPartidos[idx] = nuevoObj;
+      } else {
+        preds.prediccionesPartidos.push(nuevoObj);
+      }
+      sesionData.prediccionesGuardadas = preds;
+      localStorage.setItem("polla_sesion", JSON.stringify(sesionData));
+    } catch (e) {
+      console.error("Error al actualizar localStorage de sesión:", e);
+    }
+  };
+
   const handleGuardarPronosticoPartido = async (partidoId: number) => {
     if (!usuario) return;
     const m = marcadores[partidoId];
@@ -168,7 +196,9 @@ export default function ExpressPage() {
       } else {
         setMensajeEstado({ tipo: "exito", texto: "¡Pronóstico guardado exitosamente para este partido!" });
         setPartidoGuardadoExitoId(partidoId);
-        setTimeout(() => setPartidoGuardadoExitoId(null), 4000);
+        actualizarSesionLocalStorage(partidoId, Number(m.local), Number(m.visitante), m.goleador_id ? Number(m.goleador_id) : null);
+        if (usuario) cargarConsolidados(usuario.id);
+        setTimeout(() => setPartidoGuardadoExitoId(null), 3000);
       }
     } catch (err: any) {
       setMensajeEstado({ tipo: "error", texto: "Error al guardar: " + err.message });
@@ -342,6 +372,16 @@ export default function ExpressPage() {
   useEffect(() => {
     cargarMaestros();
   }, []);
+
+  // Borrar automáticamente los mensajes de estado/alertas tras 3 segundos
+  useEffect(() => {
+    if (mensajeEstado) {
+      const timer = setTimeout(() => {
+        setMensajeEstado(null);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [mensajeEstado]);
 
   // Validar correo y contraseña en PostgreSQL
   const handleValidarCorreo = async (e: React.FormEvent) => {
@@ -578,6 +618,10 @@ export default function ExpressPage() {
         setMensajeEstado({ tipo: "error", texto: data.error || "Error al guardar pronósticos." });
       } else {
         setMensajeEstado({ tipo: "exito", texto: "¡Tus pronósticos se han guardado exitosamente!" });
+        arrayPartidos.forEach((p) => {
+          actualizarSesionLocalStorage(p.partido_id, p.goles_local, p.goles_visitante, p.jugador_goleador_id);
+        });
+        if (usuario) cargarConsolidados(usuario.id);
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
     } catch (err: any) {
