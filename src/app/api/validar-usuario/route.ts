@@ -3,7 +3,7 @@ import { prisma } from "@/lib/db";
 
 export async function POST(req: Request) {
   try {
-    const { correo, password } = await req.json();
+    const { correo, password, autoSync } = await req.json();
 
     if (!correo || typeof correo !== "string") {
       return NextResponse.json(
@@ -12,7 +12,7 @@ export async function POST(req: Request) {
       );
     }
 
-    if (!password || typeof password !== "string" || !password.trim()) {
+    if (!autoSync && (!password || typeof password !== "string" || !password.trim())) {
       return NextResponse.json(
         { error: "Contraseña requerida" },
         { status: 400 }
@@ -20,7 +20,7 @@ export async function POST(req: Request) {
     }
 
     const emailLimpio = correo.trim().toLowerCase();
-    const passLimpio = password.trim();
+    const passLimpio = password ? password.trim() : "";
 
     // Buscar usuario en PostgreSQL
     const usuario = await prisma.usuario.findUnique({
@@ -52,8 +52,8 @@ export async function POST(req: Request) {
       });
     }
 
-    // Validar contraseña
-    if (usuario.password && usuario.password !== passLimpio) {
+    // Validar contraseña si no es autoSync
+    if (!autoSync && usuario.password && usuario.password !== passLimpio) {
       return NextResponse.json({
         existe: true,
         activo: true,

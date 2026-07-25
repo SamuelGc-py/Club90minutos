@@ -148,15 +148,18 @@ export default function ExpressPage() {
         partido_id: partidoId,
         goles_local: local,
         goles_visitante: visitante,
+        goles_local_predicho: local,
+        goles_visitante_predicho: visitante,
         jugador_goleador_id: goleadorId,
       };
       if (idx >= 0) {
-        preds.prediccionesPartidos[idx] = nuevoObj;
+        preds.prediccionesPartidos[idx] = { ...preds.prediccionesPartidos[idx], ...nuevoObj };
       } else {
         preds.prediccionesPartidos.push(nuevoObj);
       }
       sesionData.prediccionesGuardadas = preds;
       localStorage.setItem("polla_sesion", JSON.stringify(sesionData));
+      aplicarPrediccionesGuardadas(preds);
     } catch (e) {
       console.error("Error al actualizar localStorage de sesión:", e);
     }
@@ -348,7 +351,31 @@ export default function ExpressPage() {
     }
   };
 
-  // Persistencia de sesión
+  const sincronizarSesionBackend = async (correo: string) => {
+    try {
+      const res = await fetch("/api/validar-usuario", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ correo, autoSync: true }),
+      });
+      const data = await res.json();
+      if (res.ok && data.usuario && data.prediccionesGuardadas) {
+        setUsuario(data.usuario);
+        localStorage.setItem("polla_sesion", JSON.stringify({
+          usuario: data.usuario,
+          prediccionesGuardadas: data.prediccionesGuardadas,
+        }));
+        aplicarPrediccionesGuardadas(data.prediccionesGuardadas);
+        if (data.usuario.rol_id === 2) {
+          cargarConsolidados(data.usuario.id);
+        }
+      }
+    } catch (e) {
+      console.error("Error al sincronizar sesión backend:", e);
+    }
+  };
+
+  // Persistencia de sesión y auto-sincronización con la base de datos
   useEffect(() => {
     const sesionGuardada = localStorage.getItem("polla_sesion");
     if (sesionGuardada) {
@@ -361,6 +388,9 @@ export default function ExpressPage() {
         }
         if (dataParsed.prediccionesGuardadas) {
           aplicarPrediccionesGuardadas(dataParsed.prediccionesGuardadas);
+        }
+        if (usr.correo) {
+          sincronizarSesionBackend(usr.correo);
         }
       } catch (e) {
         console.error("Error leyendo sesión", e);
