@@ -903,19 +903,41 @@ export default function ExpressPage() {
                         </div>
                       </div>
 
-                      {/* LISTA DE PARTICIPANTES DESPLEGADA */}
+                      {/* LISTA DE PARTICIPANTES Y SUS PRONÓSTICOS DESPLEGADA */}
                       {partidoAdminVer === partido.id && (
-                        <div style={{ marginTop: 16, padding: 12, background: "rgba(0,0,0,0.2)", borderRadius: 8 }}>
+                        <div style={{ marginTop: 16, padding: 16, background: "rgba(0,0,0,0.3)", borderRadius: 10, border: "1px solid rgba(255,255,255,0.1)" }}>
+                          <h4 style={{ margin: "0 0 12px 0", fontSize: "0.95rem", color: "#38bdf8" }}>
+                            📋 Pronósticos Registrados por los Participantes:
+                          </h4>
                           {pronosticosPartido.length === 0 ? (
                             <div style={{ color: "#94a3b8", fontSize: "0.9rem" }}>Nadie ha pronosticado este partido aún.</div>
                           ) : (
-                            <ul style={{ margin: 0, paddingLeft: 20, color: "#cbd5e1", fontSize: "0.95rem" }}>
-                              {pronosticosPartido.map((p, idx) => (
-                                <li key={idx} style={{ marginBottom: 4 }}>
-                                  {p.usuario.nombre_completo} <span style={{ color: "#64748b", fontSize: "0.8rem" }}>({p.usuario.correo})</span>
-                                </li>
-                              ))}
-                            </ul>
+                            <div style={{ overflowX: "auto" }}>
+                              <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.85rem", textAlign: "left" }}>
+                                <thead>
+                                  <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.15)", color: "#94a3b8" }}>
+                                    <th style={{ padding: "8px" }}>Participante</th>
+                                    <th style={{ padding: "8px", textAlign: "center" }}>Marcador Predicho</th>
+                                    <th style={{ padding: "8px" }}>Goleador Predicho</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {pronosticosPartido.map((p: any, idx: number) => (
+                                    <tr key={idx} style={{ borderBottom: "1px dashed rgba(255,255,255,0.08)" }}>
+                                      <td style={{ padding: "8px", fontWeight: 700, color: "#ffffff" }}>
+                                        {p.usuario.nombre_completo} <span style={{ color: "#64748b", fontSize: "0.78rem" }}>({p.usuario.correo})</span>
+                                      </td>
+                                      <td style={{ padding: "8px", textAlign: "center", fontWeight: 900, color: "#34d399", fontSize: "1rem" }}>
+                                        {p.goles_local_predicho} - {p.goles_visitante_predicho}
+                                      </td>
+                                      <td style={{ padding: "8px", color: "#f5b000", fontWeight: 600 }}>
+                                        {p.jugador_goleador?.nombre || "Sin Goleador"}
+                                      </td>
+                                    </tr>
+                                  ))}
+                                </tbody>
+                              </table>
+                            </div>
                           )}
                         </div>
                       )}
@@ -1612,7 +1634,7 @@ export default function ExpressPage() {
 
                 {partidos.map((partido) => {
                   const horaCierre = new Date(new Date(partido.fecha_hora_partido).getTime() - 10 * 60 * 1000);
-                  const estaCerrado = new Date() >= horaCierre;
+                  const estaCerrado = new Date() >= horaCierre || usuario?.rol_id === 2;
 
                   // Pronósticos de este partido entre todos los usuarios
                   const pronosticosDeEstePartido = consolidados?.prediccionesPartidos?.filter(
