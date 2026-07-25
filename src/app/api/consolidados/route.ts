@@ -27,9 +27,14 @@ export async function GET(req: Request) {
       );
     }
 
-    // Obtener todos los usuarios activos
+    // Obtener todos los usuarios participantes activos (excluyendo la cuenta del Administrador)
     const usuarios = await prisma.usuario.findMany({
-      where: { activo: true },
+      where: {
+        activo: true,
+        NOT: {
+          correo: "adminpollabetplay@gmail.com",
+        },
+      },
       select: {
         id: true,
         nombre_completo: true,
