@@ -121,7 +121,18 @@ export async function GET(req: Request) {
     }
 
     const tablaPosiciones = Array.from(tablaPosicionesMap.values())
-      .sort((a, b) => b.pts_total - a.pts_total)
+      .sort((a, b) => {
+        // 1. Criterio Principal: Puntos Totales
+        if (b.pts_total !== a.pts_total) return b.pts_total - a.pts_total;
+        // 2. Desempate 1: Mayor cantidad de Marcadores Exactos acertados (5 Pts)
+        if (b.pts_resultado_exacto !== a.pts_resultado_exacto) return b.pts_resultado_exacto - a.pts_resultado_exacto;
+        // 3. Desempate 2: Mayor cantidad de Goleadores acertados (2 Pts)
+        if (b.pts_goleador_partido !== a.pts_goleador_partido) return b.pts_goleador_partido - a.pts_goleador_partido;
+        // 4. Desempate 3: Mayor cantidad de Ganadores/Empates acertados (3 Pts)
+        if (b.pts_ganador_partido !== a.pts_ganador_partido) return b.pts_ganador_partido - a.pts_ganador_partido;
+        // 5. Desempate 4: Orden alfabético por nombre completo
+        return a.nombre_completo.localeCompare(b.nombre_completo);
+      })
       .map((item, index) => ({
         posicion: index + 1,
         ...item,
