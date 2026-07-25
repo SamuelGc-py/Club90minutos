@@ -577,9 +577,20 @@ export default function ExpressPage() {
     }));
   };
 
-  // VALIDAR RESTRICCIÓN DE COHERENCIA ENTRE MARCADOR Y GANADOR
+  // VALIDAR RESTRICCIÓN DE COHERENCIA ENTRE MARCADOR Y GANADOR (SOLO PARTIDOS ACTIVOS)
   const validarCoherenciaPronosticos = (): string | null => {
     for (const partido of partidos) {
+      const horaCierrePartido = new Date(new Date(partido.fecha_hora_partido).getTime() - 60 * 60 * 1000);
+      const esAplazado = partido.estado === "aplazado";
+      const esAdmin = usuario?.rol_id === 2;
+      const esExcepcionHarold = usuario?.correo === "hberdugodelosreyes0@gmail.com" && partido.id === 24;
+      const esExcepcionSamu = usuario?.correo === "samucobaggg@gmail.com" && partido.id === 25;
+      const esFinalizado = Boolean(partido.resultado_oficial) || partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado";
+      const estaCerrado = (new Date() >= horaCierrePartido && !esAdmin && !esExcepcionHarold && !esExcepcionSamu) || esAplazado || esFinalizado;
+
+      // Ignorar validación para partidos acabados, cerrados o aplazados
+      if (estaCerrado) continue;
+
       const m = marcadores[partido.id];
       if (!m) continue;
 
@@ -1956,8 +1967,8 @@ export default function ExpressPage() {
                           )}
                         </div>
 
-                        {/* INCONSISTENCIA SI INGRESÓ GOLES PERO NO SELECCIONÓ GOLEADOR */}
-                        {(m.local !== "" || m.visitante !== "") && (Number(m.local || 0) > 0 || Number(m.visitante || 0) > 0) && !m.goleador_id && (
+                        {/* INCONSISTENCIA SI INGRESÓ GOLES PERO NO SELECCIONÓ GOLEADOR (SOLO PARTIDOS ABIERTOS) */}
+                        {!estaCerrado && (m.local !== "" || m.visitante !== "") && (Number(m.local || 0) > 0 || Number(m.visitante || 0) > 0) && !m.goleador_id && (
                           <div
                             style={{
                               marginTop: 8,
@@ -1978,7 +1989,7 @@ export default function ExpressPage() {
                           </div>
                         )}
 
-                        {inconsistencia && (
+                        {!estaCerrado && inconsistencia && (
                           <div style={{ marginTop: 10, color: "var(--rojo)", fontSize: "0.85rem", display: "flex", alignItems: "center", gap: 6, fontWeight: 700 }}>
                             <AlertTriangle size={16} /> {inconsistencia}
                           </div>
