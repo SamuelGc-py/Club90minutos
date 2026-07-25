@@ -271,7 +271,6 @@ export default function ExpressPage() {
     const jId = Number(jugadorIdStr);
     setResultadosAdminInput((prev) => {
       const actual = prev[partidoId] || { local: "", visitante: "", goleadores_ids: [] };
-      if (actual.goleadores_ids.includes(jId)) return prev;
       return {
         ...prev,
         [partidoId]: {
@@ -282,14 +281,16 @@ export default function ExpressPage() {
     });
   };
 
-  const handleRemoverGoleadorAdmin = (partidoId: number, jugadorId: number) => {
+  const handleRemoverGoleadorAdmin = (partidoId: number, indexToRemove: number) => {
     setResultadosAdminInput((prev) => {
       const actual = prev[partidoId] || { local: "", visitante: "", goleadores_ids: [] };
+      const nuevasIds = [...actual.goleadores_ids];
+      nuevasIds.splice(indexToRemove, 1);
       return {
         ...prev,
         [partidoId]: {
           ...actual,
-          goleadores_ids: actual.goleadores_ids.filter((id) => id !== jugadorId),
+          goleadores_ids: nuevasIds,
         },
       };
     });
@@ -1363,7 +1364,7 @@ export default function ExpressPage() {
                   cargarConsolidados(usuario.id);
                 }}
               >
-                📊 Posiciones y Puntos en Vivo
+                📊 Tabla de Posiciones
               </div>
               {usuario.rol_id === 2 && (
                 <div
@@ -1436,7 +1437,7 @@ export default function ExpressPage() {
                     }}
                     style={{ padding: "10px 14px", fontSize: "0.85rem" }}
                   >
-                    📊 Posiciones & Puntos en Vivo
+                    📊 Tabla de Posiciones
                   </button>
 
                   {usuario.rol_id === 2 && (
@@ -1565,7 +1566,7 @@ export default function ExpressPage() {
                     }}
                   >
                     <div style={{ fontSize: "1.8rem", marginBottom: 8 }}>📊</div>
-                    <div style={{ fontWeight: 800, fontSize: "1.1rem", color: "#fff", marginBottom: 4 }}>Posiciones y Puntos</div>
+                    <div style={{ fontWeight: 800, fontSize: "1.1rem", color: "#fff", marginBottom: 4 }}>Tabla de Posiciones</div>
                     <div style={{ fontSize: "0.82rem", color: "#bae6fd" }}>Consulta la tabla general de posiciones y puntos acumulados.</div>
                   </div>
                 </div>
@@ -1596,18 +1597,20 @@ export default function ExpressPage() {
 
               {cargandoMaestros ? (
                 <div style={{ textAlign: "center", padding: 40, color: "var(--graderia)" }}>
-                  Cargando partidos de la Fecha 1...
-                </div>
-              ) : partidos.length === 0 ? (
-                <div className="card" style={{ textAlign: "center", padding: 40 }}>
-                  <p style={{ marginBottom: 16, color: "#94a3b8" }}>No se cargaron los partidos en tu navegador.</p>
                   <button className="btn btn-primary" onClick={cargarMaestros} style={{ padding: "10px 18px" }}>
                     🔄 Cargar Partidos Ahora
                   </button>
                 </div>
               ) : (
-                <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-                  {partidos.map((partido) => {
+                (() => {
+                  const partidosActivos = partidos.filter(
+                    (p) => !p.resultado_oficial && p.estado !== "resultado_cargado" && p.estado !== "puntaje_calculado"
+                  );
+                  const partidosFinalizados = partidos.filter(
+                    (p) => Boolean(p.resultado_oficial) || p.estado === "resultado_cargado" || p.estado === "puntaje_calculado"
+                  );
+
+                  const renderPartidoCard = (partido: any) => {
                     const m = marcadores[partido.id] || { local: "", visitante: "", ganador: "", goleador_id: "" };
 
                     let inconsistencia: string | null = null;
@@ -1687,55 +1690,86 @@ export default function ExpressPage() {
                             <div>🏁 MARCADOR OFICIAL: {partido.resultado_oficial.goles_local_real} - {partido.resultado_oficial.goles_visitante_real}</div>
                             {partido.resultado_oficial.goleadores && partido.resultado_oficial.goleadores.length > 0 && (
                               <div style={{ fontSize: "0.82rem", fontWeight: 600, marginTop: 4, color: "#a7f3d0" }}>
-                                ⚽ Goleadores oficiales: {partido.resultado_oficial.goleadores.map((g: any) => g.jugador?.nombre).filter(Boolean).join(", ")}
+                                ⚽ Goleadores oficiales: {(() => {
+                                  const nombres = partido.resultado_oficial.goleadores
+                                    .map((g: any) => g.jugador?.nombre)
+                                    .filter(Boolean);
+                                  if (nombres.length === 0) return "Sin goles anotados";
+                                  const counts: Record<string, number> = {};
+                                  nombres.forEach((n: string) => { counts[n] = (counts[n] || 0) + 1; });
+                                  return Object.entries(counts)
+                                    .map(([n, c]) => (c > 1 ? `${n} (x${c})` : n))
+                                    .join(", ");
+                                })()}
                               </div>
                             )}
                           </div>
                         )}
 
-                        {/* FILA PRINCIPAL: LOCAL VS VISITANTE */}
-                        <div className="match-header-grid">
-                          {/* LOCAL */}
-                          <div className="equipo-local-container">
-                            <span className="equipo-nombre-txt">{partido.equipo_local.nombre}</span>
-                            <img
-                              src={partido.equipo_local.escudo_url || "https://placehold.co/40x40/1e3145/ffffff?text=FPC"}
-                              alt={partido.equipo_local.nombre}
-                              style={{ width: 36, height: 36, objectFit: "contain", flexShrink: 0 }}
-                            />
+                        {/* MARCADOR EXACTO */}
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, marginBottom: 16, flexWrap: "wrap" }}>
+                          <div style={{ flex: 1, minWidth: 120, display: "flex", alignItems: "center", gap: 8 }}>
+                            <span style={{ fontWeight: 800, fontSize: "1rem", color: "#ffffff", flex: 1, textAlign: "right" }}>
+                              {partido.equipo_local.nombre}
+                            </span>
+                            {partido.equipo_local.escudo_url ? (
+                              <img src={partido.equipo_local.escudo_url} alt={partido.equipo_local.nombre} style={{ width: 32, height: 32, objectFit: "contain" }} />
+                            ) : (
+                              <div style={{ width: 28, height: 28, background: "var(--linea)", borderRadius: "50%" }} />
+                            )}
                           </div>
 
-                          {/* MARCADOR INPUTS */}
-                          <div style={{ display: "flex", alignItems: "center", gap: 6, justifyContent: "center" }}>
+                          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                             <input
-                              type="text"
-                              maxLength={2}
-                              className="marcador-input"
+                              type="number"
+                              min="0"
+                              max="99"
                               value={m.local}
                               onChange={(e) => handleMarcadorChange(partido.id, "local", e.target.value)}
-                              placeholder="-"
                               disabled={estaCerrado}
+                              style={{
+                                width: 44,
+                                height: 44,
+                                textAlign: "center",
+                                fontSize: "1.2rem",
+                                fontWeight: 900,
+                                background: "var(--noche-2)",
+                                border: "1px solid var(--cancha-borde)",
+                                borderRadius: 8,
+                                color: "#ffffff",
+                              }}
                             />
-                            <span style={{ fontWeight: 900, color: "var(--graderia)", fontSize: "1.1rem" }}>:</span>
+                            <span style={{ fontWeight: 900, fontSize: "1.2rem", color: "var(--graderia)" }}>:</span>
                             <input
-                              type="text"
-                              maxLength={2}
-                              className="marcador-input"
+                              type="number"
+                              min="0"
+                              max="99"
                               value={m.visitante}
                               onChange={(e) => handleMarcadorChange(partido.id, "visitante", e.target.value)}
-                              placeholder="-"
                               disabled={estaCerrado}
+                              style={{
+                                width: 44,
+                                height: 44,
+                                textAlign: "center",
+                                fontSize: "1.2rem",
+                                fontWeight: 900,
+                                background: "var(--noche-2)",
+                                border: "1px solid var(--cancha-borde)",
+                                borderRadius: 8,
+                                color: "#ffffff",
+                              }}
                             />
                           </div>
 
-                          {/* VISITANTE */}
-                          <div className="equipo-visitante-container">
-                            <img
-                              src={partido.equipo_visitante.escudo_url || "https://placehold.co/40x40/1e3145/ffffff?text=FPC"}
-                              alt={partido.equipo_visitante.nombre}
-                              style={{ width: 36, height: 36, objectFit: "contain", flexShrink: 0 }}
-                            />
-                            <span className="equipo-nombre-txt">{partido.equipo_visitante.nombre}</span>
+                          <div style={{ flex: 1, minWidth: 120, display: "flex", alignItems: "center", gap: 8 }}>
+                            {partido.equipo_visitante.escudo_url ? (
+                              <img src={partido.equipo_visitante.escudo_url} alt={partido.equipo_visitante.nombre} style={{ width: 32, height: 32, objectFit: "contain" }} />
+                            ) : (
+                              <div style={{ width: 28, height: 28, background: "var(--linea)", borderRadius: "50%" }} />
+                            )}
+                            <span style={{ fontWeight: 800, fontSize: "1rem", color: "#ffffff", flex: 1 }}>
+                              {partido.equipo_visitante.nombre}
+                            </span>
                           </div>
                         </div>
 
@@ -1799,17 +1833,23 @@ export default function ExpressPage() {
 
                         {/* SELECTOR DE GOLEADOR */}
                         <div>
-                          <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "var(--graderia)", marginBottom: 4 }}>
+                          <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "var(--graderia)", marginBottom: 6 }}>
                             ⚽ Goleador del Partido (Opcional - 2 Pts):
                           </label>
                           <select
-                            className="input"
-                            style={{ padding: "8px 12px", fontSize: "0.9rem" }}
                             value={m.goleador_id}
                             onChange={(e) => handleGoleadorChange(partido.id, e.target.value)}
                             disabled={estaCerrado}
+                            style={{
+                              width: "100%",
+                              padding: "10px 12px",
+                              background: "var(--noche-2)",
+                              border: "1px solid var(--linea)",
+                              borderRadius: 8,
+                              color: "#ffffff",
+                              fontSize: "0.9rem",
+                            }}
                           >
-                            <option value="">-- Sin Goleador / Seleccionar Jugador --</option>
                             {(partido.equipo_local.jugadores && partido.equipo_local.jugadores.length > 0) ||
                             (partido.equipo_visitante.jugadores && partido.equipo_visitante.jugadores.length > 0) ? (
                               <>
@@ -1922,8 +1962,25 @@ export default function ExpressPage() {
                         )}
                       </div>
                     );
-                  })}
-                </div>
+                  };
+
+                  return (
+                    <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                      {partidosActivos.map((partido) => renderPartidoCard(partido))}
+
+                      {partidosFinalizados.length > 0 && (
+                        <>
+                          <div style={{ marginTop: 28, marginBottom: 8, borderTop: "2px dashed var(--linea)", paddingTop: 20 }}>
+                            <h3 style={{ color: "#34d399", fontSize: "1.15rem", display: "flex", alignItems: "center", gap: 8, margin: 0 }}>
+                              🏁 Partidos Finalizados
+                            </h3>
+                          </div>
+                          {partidosFinalizados.map((partido) => renderPartidoCard(partido))}
+                        </>
+                      )}
+                    </div>
+                  );
+                })()
               )}
             </div>
           )}
