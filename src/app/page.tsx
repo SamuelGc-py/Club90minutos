@@ -377,7 +377,7 @@ export default function ExpressPage() {
         usuario: data.usuario,
         prediccionesGuardadas: data.prediccionesGuardadas
       }));
-      setMensajeEstado({ tipo: "exito", texto: `¡Bienvenido(a) ${data.usuario.nombre}! Acceso concedido.` });
+      setMensajeEstado(null);
 
       if (data.usuario.rol_id === 2) {
         cargarConsolidados(data.usuario.id);
