@@ -24,6 +24,13 @@ export async function GET() {
         equipo_visitante: {
           include: { jugadores: true },
         },
+        resultado_oficial: {
+          include: {
+            goleadores: {
+              include: { jugador: true },
+            },
+          },
+        },
       },
       orderBy: [
         { fase: "asc" },

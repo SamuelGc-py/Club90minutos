@@ -28,6 +28,7 @@ interface Partido {
   fecha_hora_partido: string;
   estadio?: string;
   estado?: string;
+  resultado_oficial?: any;
 }
 
 interface UsuarioSesion {
@@ -141,6 +142,53 @@ export default function ExpressPage() {
       console.error("Error al cargar consolidados:", err);
     } finally {
       setCargandoConsolidados(false);
+    }
+  };
+
+  // Marcadores oficiales por partido para Administrador
+  const [resultadosAdminInput, setResultadosAdminInput] = useState<Record<number, { local: string; visitante: string; goleador_id: string }>>({});
+
+  const handleResultadoAdminChange = (partidoId: number, campo: "local" | "visitante" | "goleador_id", valor: string) => {
+    setResultadosAdminInput((prev) => ({
+      ...prev,
+      [partidoId]: {
+        ...(prev[partidoId] || { local: "", visitante: "", goleador_id: "" }),
+        [campo]: valor,
+      },
+    }));
+  };
+
+  const handleCargarResultadoOficial = async (partidoId: number) => {
+    if (!usuario || usuario.rol_id !== 2) return;
+    const resInput = resultadosAdminInput[partidoId];
+    if (!resInput || resInput.local === "" || resInput.visitante === "") {
+      setMensajeEstado({ tipo: "error", texto: "Debes ingresar ambos goles del resultado oficial." });
+      return;
+    }
+
+    try {
+      setMensajeEstado({ tipo: "info", texto: "Publicando resultado oficial y liquidando puntos..." });
+      const res = await fetch("/api/admin/cargar-resultado", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          usuario_id: usuario.id,
+          partido_id: partidoId,
+          goles_local: Number(resInput.local),
+          goles_visitante: Number(resInput.visitante),
+          goleador_jugador_id: resInput.goleador_id ? Number(resInput.goleador_id) : null,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Error al procesar resultado");
+
+      setMensajeEstado({ tipo: "exito", texto: data.mensaje || "¡Resultado oficial publicado y puntos calculados!" });
+      cargarMaestros();
+      cargarConsolidados(usuario.id);
+    } catch (err: any) {
+      console.error(err);
+      setMensajeEstado({ tipo: "error", texto: err.message || "Error al liquidar resultado." });
     }
   };
 
@@ -871,6 +919,49 @@ export default function ExpressPage() {
                           )}
                         </div>
                       )}
+
+                      {/* SECCIÓN CARGAR MARCADOR OFICIAL (ADMIN) */}
+                      <div style={{ marginTop: 14, paddingTop: 12, borderTop: "1px dashed rgba(255,255,255,0.1)", display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+                        <span style={{ fontSize: "0.85rem", color: "#38bdf8", fontWeight: 700 }}>
+                          ⚽ Cargar Marcador Oficial:
+                        </span>
+                        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                          <input
+                            type="number"
+                            placeholder="Local"
+                            style={{ width: 60, padding: "6px", borderRadius: 6, border: "1px solid var(--linea)", background: "var(--noche)", color: "#fff", textAlign: "center" }}
+                            value={resultadosAdminInput[partido.id]?.local || ""}
+                            onChange={(e) => handleResultadoAdminChange(partido.id, "local", e.target.value)}
+                          />
+                          <span style={{ fontWeight: 800 }}>-</span>
+                          <input
+                            type="number"
+                            placeholder="Vis"
+                            style={{ width: 60, padding: "6px", borderRadius: 6, border: "1px solid var(--linea)", background: "var(--noche)", color: "#fff", textAlign: "center" }}
+                            value={resultadosAdminInput[partido.id]?.visitante || ""}
+                            onChange={(e) => handleResultadoAdminChange(partido.id, "visitante", e.target.value)}
+                          />
+                        </div>
+
+                        <select
+                          style={{ padding: "6px", borderRadius: 6, border: "1px solid var(--linea)", background: "var(--noche)", color: "#fff", fontSize: "0.85rem" }}
+                          value={resultadosAdminInput[partido.id]?.goleador_id || ""}
+                          onChange={(e) => handleResultadoAdminChange(partido.id, "goleador_id", e.target.value)}
+                        >
+                          <option value="">-- Goleador Oficial (Opcional) --</option>
+                          {[...(partido.equipo_local.jugadores || []), ...(partido.equipo_visitante.jugadores || [])].map((j: any) => (
+                            <option key={j.id} value={j.id}>{j.nombre}</option>
+                          ))}
+                        </select>
+
+                        <button
+                          className="btn btn-primary"
+                          style={{ padding: "6px 12px", fontSize: "0.82rem", background: "linear-gradient(135deg, #0284c7 0%, #0369a1 100%)", color: "#fff" }}
+                          onClick={() => handleCargarResultadoOficial(partido.id)}
+                        >
+                          ⚽ Publicar Resultado & Liquidar Puntos
+                        </button>
+                      </div>
                     </div>
                   );
                 })}
@@ -1050,6 +1141,10 @@ export default function ExpressPage() {
                               <span style={{ background: "#f59e0b", padding: "4px 10px", borderRadius: 6, color: "#fff", fontWeight: 800 }}>
                                 ⚠️ APLAZADO
                               </span>
+                            ) : partido.estado === "resultado_cargado" || partido.resultado_oficial ? (
+                              <span style={{ background: "#10b981", padding: "4px 10px", borderRadius: 6, color: "#fff", fontWeight: 800 }}>
+                                ⚽ FINALIZADO
+                              </span>
                             ) : (
                               <>
                                 <RelojCuentaRegresiva fechaHoraPartido={partido.fecha_hora_partido} />
@@ -1060,6 +1155,13 @@ export default function ExpressPage() {
                             )}
                           </div>
                         </div>
+
+                        {/* BANNER DE MARCADOR OFICIAL SI EXISTE */}
+                        {partido.resultado_oficial && (
+                          <div style={{ background: "linear-gradient(135deg, #065f46 0%, #047857 100%)", padding: "8px 14px", borderRadius: 8, textAlign: "center", marginBottom: 14, color: "#ffffff", fontWeight: 800, border: "1px solid #34d399", fontSize: "0.95rem" }}>
+                            🏁 MARCADOR OFICIAL: {partido.resultado_oficial.goles_local_real} - {partido.resultado_oficial.goles_visitante_real}
+                          </div>
+                        )}
 
                         {/* FILA PRINCIPAL: LOCAL VS VISITANTE */}
                         <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", alignItems: "center", gap: 16, marginBottom: 16 }}>
