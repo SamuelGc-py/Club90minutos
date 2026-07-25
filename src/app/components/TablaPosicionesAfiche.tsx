@@ -170,24 +170,26 @@ export default function TablaPosicionesAfiche({
           </span>
         </div>
         <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-          <button
-            onClick={handleDownloadExcel}
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 8,
-              backgroundColor: "#16a34a",
-              color: "#ffffff",
-              fontWeight: 700,
-              padding: "8px 16px",
-              borderRadius: "8px",
-              border: "none",
-              cursor: "pointer",
-              fontSize: "0.85rem",
-            }}
-          >
-            <FileSpreadsheet size={16} /> Descargar Excel (.xlsx)
-          </button>
+          {onDescargarExcelPronosticos && (
+            <button
+              onClick={handleDownloadExcel}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                backgroundColor: "#16a34a",
+                color: "#ffffff",
+                fontWeight: 700,
+                padding: "8px 16px",
+                borderRadius: "8px",
+                border: "none",
+                cursor: "pointer",
+                fontSize: "0.85rem",
+              }}
+            >
+              <FileSpreadsheet size={16} /> Descargar Excel (.xlsx)
+            </button>
+          )}
           <button
             onClick={handlePrint}
             style={{

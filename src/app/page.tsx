@@ -997,7 +997,7 @@ export default function ExpressPage() {
           ) : (
             <TablaPosicionesAfiche
               tabla={consolidados.tablaPosiciones || []}
-              onDescargarExcelPronosticos={handleDescargarExcelPronosticos}
+              onDescargarExcelPronosticos={usuario.rol_id === 2 ? handleDescargarExcelPronosticos : undefined}
             />
           )}
 
@@ -1591,8 +1591,8 @@ export default function ExpressPage() {
 
                     const horaCierrePartido = new Date(new Date(partido.fecha_hora_partido).getTime() - 10 * 60 * 1000);
                     const esAplazado = partido.estado === "aplazado";
-                    const esExcepcionUsuario = usuario?.correo === "samucobaggg@gmail.com";
-                    const estaCerrado = (new Date() >= horaCierrePartido && !esExcepcionUsuario) || esAplazado;
+                    const esAdmin = usuario?.rol_id === 2;
+                    const estaCerrado = (new Date() >= horaCierrePartido && !esAdmin) || esAplazado;
 
                     return (
                       <div
