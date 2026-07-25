@@ -11,6 +11,8 @@ export default function RecuperarPassword() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
 
+  const [resetUrl, setResetUrl] = useState("");
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!correo.trim()) return;
@@ -18,6 +20,7 @@ export default function RecuperarPassword() {
     setLoading(true);
     setError("");
     setSuccess(false);
+    setResetUrl("");
 
     try {
       const res = await fetch("/api/auth/request-reset", {
@@ -29,6 +32,9 @@ export default function RecuperarPassword() {
       const data = await res.json();
 
       if (!res.ok) {
+        if (data.resetUrl) {
+          setResetUrl(data.resetUrl);
+        }
         throw new Error(data.error || "Hubo un error al enviar el correo.");
       }
 
@@ -101,7 +107,8 @@ export default function RecuperarPassword() {
               borderRadius: 10,
               fontSize: "0.88rem",
               display: "flex",
-              alignItems: "center",
+              flexDirection: "column",
+              alignItems: "flex-start",
               gap: 10,
               textAlign: "left",
               background: "var(--rojo-suave)",
@@ -109,8 +116,25 @@ export default function RecuperarPassword() {
               border: "1px solid var(--rojo-borde)",
             }}
           >
-            <AlertCircle size={20} />
-            <div>{error}</div>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <AlertCircle size={20} />
+              <span>{error}</span>
+            </div>
+          </div>
+        )}
+
+        {resetUrl && (
+          <div style={{ marginBottom: 20, padding: 16, background: "rgba(16, 185, 129, 0.15)", border: "1px solid #10b981", borderRadius: 10 }}>
+            <p style={{ margin: "0 0 12px 0", color: "#34d399", fontWeight: 700, fontSize: "0.95rem" }}>
+              🔑 Toca Abajo para Cambiar Tu Contraseña Directamente:
+            </p>
+            <a
+              href={resetUrl}
+              className="btn btn-primary"
+              style={{ display: "block", textAlign: "center", textDecoration: "none", padding: "12px 20px", background: "linear-gradient(135deg, #10b981 0%, #059669 100%)", color: "#fff", fontWeight: 800 }}
+            >
+              👉 Cambiar Mi Contraseña Ahora
+            </a>
           </div>
         )}
 

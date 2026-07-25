@@ -1,13 +1,13 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import { Resend } from "resend";
+import nodemailer from "nodemailer";
 import { v4 as uuidv4 } from "uuid";
 
 const prisma = new PrismaClient();
 
 export async function POST(req: Request) {
   try {
-    const resend = new Resend(process.env.RESEND_API_KEY);
     const { correo } = await req.json();
 
     if (!correo || typeof correo !== "string") {
@@ -19,7 +19,6 @@ export async function POST(req: Request) {
     });
 
     if (!usuario) {
-      // Return 200 even if not found to prevent email enumeration
       return NextResponse.json({ success: true, message: "Si el correo existe, se ha enviado un enlace." });
     }
 
@@ -41,30 +40,77 @@ export async function POST(req: Request) {
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || (host ? `${proto}://${host}` : "https://polla-express.vercel.app");
     
     const resetUrl = `${baseUrl}/restablecer-password?token=${token}`;
-    
-    const { data, error } = await resend.emails.send({
-      from: "Polla Betplay <onboarding@resend.dev>", // Resend default test domain
-      to: usuario.correo,
-      subject: "Recuperación de contraseña - Polla Betplay",
-      html: `
-        <div style="font-family: Arial, sans-serif; text-align: center; color: #333;">
-          <h2>Polla Betplay</h2>
-          <p>Hola ${usuario.nombre_completo},</p>
-          <p>Has solicitado restablecer tu contraseña.</p>
-          <p>Haz clic en el siguiente botón para crear una nueva contraseña:</p>
-          <a href="${resetUrl}" style="display: inline-block; padding: 12px 24px; margin: 20px 0; background-color: #0070c0; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">Restablecer Contraseña</a>
-          <p>Si no solicitaste este cambio, ignora este correo.</p>
-          <p>El enlace expirará en 1 hora.</p>
-        </div>
-      `,
-    });
 
-    if (error) {
-      console.error("Resend error:", error);
-      return NextResponse.json({ error: error.message || "Error al enviar el correo con Resend" }, { status: 500 });
+    const gmailUser = process.env.GMAIL_USER;
+    const gmailPass = process.env.GMAIL_PASS;
+
+    // Opción 1: Enviar mediante Gmail SMTP si están configuradas las credenciales en Vercel
+    if (gmailUser && gmailPass) {
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: gmailUser,
+          pass: gmailPass,
+        },
+      });
+
+      await transporter.sendMail({
+        from: `"Polla Betplay" <${gmailUser}>`,
+        to: usuario.correo,
+        subject: "Recuperación de contraseña - Polla Betplay",
+        html: `
+          <div style="font-family: Arial, sans-serif; text-align: center; color: #333; padding: 20px;">
+            <h2>⚽ Polla Betplay</h2>
+            <p>Hola <strong>${usuario.nombre_completo}</strong>,</p>
+            <p>Has solicitado restablecer tu contraseña para ingresar a la Polla Betplay.</p>
+            <p>Haz clic en el siguiente botón para crear tu nueva contraseña:</p>
+            <a href="${resetUrl}" style="display: inline-block; padding: 14px 28px; margin: 20px 0; background-color: #10b981; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1rem;">Restablecer Contraseña</a>
+            <p style="font-size: 0.85rem; color: #666;">Si no solicitaste este cambio, puedes ignorar este correo.</p>
+            <p style="font-size: 0.85rem; color: #666;">El enlace expirará en 1 hora.</p>
+          </div>
+        `,
+      });
+
+      return NextResponse.json({ success: true, message: "Correo de recuperación enviado exitosamente a tu bandeja de entrada." });
     }
 
-    return NextResponse.json({ success: true, message: "Correo enviado" });
+    // Opción 2: Resend
+    const resendApiKey = process.env.RESEND_API_KEY;
+    if (resendApiKey) {
+      const resend = new Resend(resendApiKey);
+      const { data, error } = await resend.emails.send({
+        from: "Polla Betplay <onboarding@resend.dev>",
+        to: usuario.correo,
+        subject: "Recuperación de contraseña - Polla Betplay",
+        html: `
+          <div style="font-family: Arial, sans-serif; text-align: center; color: #333; padding: 20px;">
+            <h2>⚽ Polla Betplay</h2>
+            <p>Hola <strong>${usuario.nombre_completo}</strong>,</p>
+            <p>Has solicitado restablecer tu contraseña.</p>
+            <a href="${resetUrl}" style="display: inline-block; padding: 12px 24px; margin: 20px 0; background-color: #10b981; color: white; text-decoration: none; border-radius: 6px; font-weight: bold;">Restablecer Contraseña</a>
+            <p>El enlace expirará en 1 hora.</p>
+          </div>
+        `,
+      });
+
+      if (error) {
+        console.error("Resend error:", error);
+        if (error.message && error.message.includes("testing emails to your own email address")) {
+          return NextResponse.json(
+            {
+              error: `Modo de prueba Resend activo: Resend solo permite enviar correos al Administrador. Pídele a Samuel el enlace directo o configura la contraseña de aplicación de Gmail en Vercel. Enlace directo: ${resetUrl}`,
+              resetUrl,
+            },
+            { status: 400 }
+          );
+        }
+        return NextResponse.json({ error: error.message || "Error al enviar correo con Resend" }, { status: 500 });
+      }
+
+      return NextResponse.json({ success: true, message: "Correo enviado exitosamente." });
+    }
+
+    return NextResponse.json({ error: "No hay proveedor de correo configurado." }, { status: 500 });
   } catch (error) {
     console.error("Error en request-reset:", error);
     return NextResponse.json({ error: (error as Error).message || "Error interno del servidor" }, { status: 500 });
