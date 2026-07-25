@@ -109,7 +109,7 @@ export default function ExpressPage() {
   const [cargandoMaestros, setCargandoMaestros] = useState(false);
 
   // Estado del Formulario (Pestañas)
-  const [tabActiva, setTabActiva] = useState<"partidos" | "inicial" | "mis_pronosticos" | "admin" | "posiciones">("partidos");
+  const [tabActiva, setTabActiva] = useState<"inicio" | "partidos" | "inicial" | "mis_pronosticos" | "admin" | "posiciones">("inicio");
   const [menuAbierto, setMenuAbierto] = useState(false);
   const [mostrarBienvenida, setMostrarBienvenida] = useState(true);
   const [campeonId, setCampeonId] = useState<number | "">("");
@@ -1174,6 +1174,15 @@ export default function ExpressPage() {
               }}
             >
               <div
+                className={`menu-drawer-item ${tabActiva === "inicio" ? "active" : ""}`}
+                onClick={() => {
+                  setTabActiva("inicio");
+                  setMenuAbierto(false);
+                }}
+              >
+                🏠 Inicio
+              </div>
+              <div
                 className={`menu-drawer-item ${tabActiva === "partidos" ? "active" : ""}`}
                 onClick={() => {
                   setTabActiva("partidos");
@@ -1238,6 +1247,14 @@ export default function ExpressPage() {
           <div className="desktop-tabs" style={{ marginBottom: 24 }}>
             <div className="card" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap", padding: 14 }}>
               <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+                <button
+                  className={`btn ${tabActiva === "inicio" ? "btn-primary" : "btn-secondary"}`}
+                  onClick={() => setTabActiva("inicio")}
+                  style={{ padding: "10px 14px", fontSize: "0.85rem" }}
+                >
+                  🏠 Inicio
+                </button>
+
                 <button
                   className={`btn ${tabActiva === "partidos" ? "btn-primary" : "btn-secondary"}`}
                   onClick={() => setTabActiva("partidos")}
@@ -1313,67 +1330,105 @@ export default function ExpressPage() {
             </div>
           )}
 
+          {/* TAB 0: PANTALLA DE INICIO Y BIENVENIDA */}
+          {tabActiva === "inicio" && (
+            <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+              <div
+                className="card"
+                style={{
+                  background: "linear-gradient(135deg, rgba(14, 26, 39, 0.95) 0%, rgba(19, 32, 48, 0.95) 50%, rgba(16, 42, 33, 0.95) 100%)",
+                  border: "1px solid var(--cancha-borde)",
+                  borderRadius: 16,
+                  padding: "32px 24px",
+                  textAlign: "center",
+                  boxShadow: "0 12px 36px rgba(0,0,0,0.5)",
+                }}
+              >
+                <div style={{ fontSize: "0.85rem", textTransform: "uppercase", letterSpacing: "0.14em", color: "#34d399", fontWeight: 800, marginBottom: 8 }}>
+                  🔥 BIENVENIDO AL DESAFÍO LIGA BETPLAY 2026 🔥
+                </div>
+                <h1 style={{ fontSize: "clamp(1.6rem, 4vw, 2.5rem)", fontWeight: 900, color: "#ffffff", marginBottom: 12 }}>
+                  DEMUESTRA LO QUE SABES DE FÚTBOL
+                </h1>
+                <p style={{ maxWidth: 640, margin: "0 auto 24px", color: "var(--graderia)", fontSize: "1rem", lineHeight: 1.6 }}>
+                  ¡Hola, <strong style={{ color: "#fff" }}>{usuario.nombre}</strong>! Selecciona la sección a la que deseas acceder para ingresar tus pronósticos o revisar la tabla de posiciones en vivo.
+                </p>
+
+                {/* TARJETAS DE ACCESO RÁPIDO */}
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 16, textAlign: "left" }}>
+                  <div
+                    onClick={() => setTabActiva("partidos")}
+                    style={{
+                      background: "linear-gradient(135deg, #0f291e 0%, #133a2a 100%)",
+                      border: "1px solid #10b981",
+                      borderRadius: 12,
+                      padding: 20,
+                      cursor: "pointer",
+                    }}
+                  >
+                    <div style={{ fontSize: "1.8rem", marginBottom: 8 }}>⚽</div>
+                    <div style={{ fontWeight: 800, fontSize: "1.1rem", color: "#fff", marginBottom: 4 }}>Pronósticos Fecha 1</div>
+                    <div style={{ fontSize: "0.82rem", color: "#a7f3d0" }}>Ingresa marcadores exactos, ganadores y goleadores de los partidos.</div>
+                  </div>
+
+                  <div
+                    onClick={() => setTabActiva("inicial")}
+                    style={{
+                      background: "linear-gradient(135deg, #34290e 0%, #4a3b15 100%)",
+                      border: "1px solid #f5b000",
+                      borderRadius: 12,
+                      padding: 20,
+                      cursor: "pointer",
+                    }}
+                  >
+                    <div style={{ fontSize: "1.8rem", marginBottom: 8 }}>🏆</div>
+                    <div style={{ fontWeight: 800, fontSize: "1.1rem", color: "#fff", marginBottom: 4 }}>Predicciones Torneo</div>
+                    <div style={{ fontSize: "0.82rem", color: "#fef08a" }}>Elige Campeón, Finalistas, Goleador General y 8 Clasificados.</div>
+                  </div>
+
+                  <div
+                    onClick={() => {
+                      setTabActiva("mis_pronosticos");
+                      cargarConsolidados(usuario.id);
+                    }}
+                    style={{
+                      background: "linear-gradient(135deg, #1e1b4b 0%, #312e81 100%)",
+                      border: "1px solid #6366f1",
+                      borderRadius: 12,
+                      padding: 20,
+                      cursor: "pointer",
+                    }}
+                  >
+                    <div style={{ fontSize: "1.8rem", marginBottom: 8 }}>📋</div>
+                    <div style={{ fontWeight: 800, fontSize: "1.1rem", color: "#fff", marginBottom: 4 }}>Mis Pronósticos</div>
+                    <div style={{ fontSize: "0.82rem", color: "#c7d2fe" }}>Revisa tus tarjetas guardadas y los pronósticos de los demás.</div>
+                  </div>
+
+                  <div
+                    onClick={() => {
+                      setTabActiva("posiciones");
+                      cargarConsolidados(usuario.id);
+                    }}
+                    style={{
+                      background: "linear-gradient(135deg, #0c4a6e 0%, #0369a1 100%)",
+                      border: "1px solid #38bdf8",
+                      borderRadius: 12,
+                      padding: 20,
+                      cursor: "pointer",
+                    }}
+                  >
+                    <div style={{ fontSize: "1.8rem", marginBottom: 8 }}>📊</div>
+                    <div style={{ fontWeight: 800, fontSize: "1.1rem", color: "#fff", marginBottom: 4 }}>Posiciones y Puntos</div>
+                    <div style={{ fontSize: "0.82rem", color: "#bae6fd" }}>Consulta la tabla general de posiciones y puntos acumulados.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* TAB 1: FECHA 1 DE LIGA BETPLAY */}
           {tabActiva === "partidos" && (
             <div>
-              {/* HERO BANNER DE BIENVENIDA FUTBOLERA (DESCARTABLE Y SOLO EN FECHA 1) */}
-              {mostrarBienvenida && (
-                <div
-                  className="card"
-                  style={{
-                    background: "linear-gradient(135deg, rgba(14, 26, 39, 0.95) 0%, rgba(19, 32, 48, 0.95) 50%, rgba(16, 42, 33, 0.95) 100%)",
-                    border: "1px solid var(--cancha-borde)",
-                    borderRadius: 16,
-                    padding: "24px 28px",
-                    marginBottom: 24,
-                    boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
-                    textAlign: "center",
-                    position: "relative",
-                    overflow: "hidden",
-                  }}
-                >
-                  <button
-                    type="button"
-                    onClick={() => setMostrarBienvenida(false)}
-                    style={{
-                      position: "absolute",
-                      top: 12,
-                      right: 16,
-                      background: "rgba(255,255,255,0.1)",
-                      border: "none",
-                      color: "#94a3b8",
-                      borderRadius: "50%",
-                      width: 28,
-                      height: 28,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      cursor: "pointer",
-                    }}
-                    title="Cerrar mensaje de bienvenida"
-                  >
-                    <X size={16} />
-                  </button>
-                  <div style={{ fontSize: "0.82rem", textTransform: "uppercase", letterSpacing: "0.12em", color: "#34d399", fontWeight: 800, marginBottom: 6 }}>
-                    🔥 DESAFÍO LIGA BETPLAY DIMAYOR II 2026 🔥
-                  </div>
-                  <h2 style={{ fontSize: "clamp(1.4rem, 3.5vw, 2.2rem)", fontWeight: 900, color: "#ffffff", marginBottom: 10 }}>
-                    DEMUESTRA LO QUE SABES DE FÚTBOL
-                  </h2>
-                  <p style={{ maxWidth: 680, margin: "0 auto 18px", color: "var(--graderia)", fontSize: "0.95rem", lineHeight: 1.6 }}>
-                    ¡Hola, <strong style={{ color: "#fff" }}>{usuario.nombre}</strong>! Bienvenido a la competencia oficial. Aquí no se gana por suerte, se gana con pasión y cabeza fría. Pronostica marcadores, atínale a los goleadores y demuestra que eres el verdadero rey de la cancha.
-                  </p>
-                  <div style={{ display: "flex", justifyContent: "center", gap: 10, flexWrap: "wrap" }}>
-                    <button
-                      className="btn btn-primary"
-                      onClick={() => setMostrarBienvenida(false)}
-                      style={{ padding: "10px 20px", fontSize: "0.9rem", fontWeight: 800 }}
-                    >
-                      ⚽ Entendido, Ir a Pronósticos
-                    </button>
-                  </div>
-                </div>
-              )}
               <div className="card" style={{ marginBottom: 20 }}>
                 <h2>⚽ Pronósticos de Fecha 1</h2>
                 <p style={{ color: "var(--graderia)", margin: 0, fontSize: "0.85rem" }}>
