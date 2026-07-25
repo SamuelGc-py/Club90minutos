@@ -53,13 +53,13 @@ function RelojCuentaRegresiva({ fechaHoraPartido }: { fechaHoraPartido: string }
   useEffect(() => {
     function calcular() {
       const horaPartido = new Date(fechaHoraPartido).getTime();
-      const horaCierre = horaPartido - 10 * 60 * 1000; // 10 minutos antes del inicio
+      const horaCierre = horaPartido - 60 * 60 * 1000; // 1 hora antes del inicio
       const ahora = new Date().getTime();
       const dif = horaCierre - ahora;
 
       if (dif <= 0) {
         setCerrado(true);
-        setTiempoRestante("🔒 Cerrado (10 min antes)");
+        setTiempoRestante("🔒 Cerrado (1h antes)");
       } else {
         setCerrado(false);
         const hrs = Math.floor(dif / (1000 * 60 * 60));
@@ -1589,7 +1589,7 @@ export default function ExpressPage() {
                       ...(partido.equipo_visitante.jugadores || []),
                     ];
 
-                    const horaCierrePartido = new Date(new Date(partido.fecha_hora_partido).getTime() - 10 * 60 * 1000);
+                    const horaCierrePartido = new Date(new Date(partido.fecha_hora_partido).getTime() - 60 * 60 * 1000);
                     const esAplazado = partido.estado === "aplazado";
                     const esAdmin = usuario?.rol_id === 2;
                     const estaCerrado = (new Date() >= horaCierrePartido && !esAdmin) || esAplazado;
@@ -2190,7 +2190,7 @@ export default function ExpressPage() {
                 </div>
 
                 {partidos.map((partido) => {
-                  const horaCierre = new Date(new Date(partido.fecha_hora_partido).getTime() - 10 * 60 * 1000);
+                  const horaCierre = new Date(new Date(partido.fecha_hora_partido).getTime() - 60 * 60 * 1000);
                   const estaCerrado = new Date() >= horaCierre || usuario?.rol_id === 2;
 
                   // Pronósticos de este partido entre todos los usuarios
