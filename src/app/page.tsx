@@ -1535,19 +1535,19 @@ export default function ExpressPage() {
                         )}
 
                         {/* FILA PRINCIPAL: LOCAL VS VISITANTE */}
-                        <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", alignItems: "center", gap: 16, marginBottom: 16 }}>
+                        <div className="match-header-grid">
                           {/* LOCAL */}
-                          <div style={{ display: "flex", alignItems: "center", gap: 12, justifyContent: "flex-end" }}>
-                            <span style={{ fontWeight: 800, fontSize: "1.05rem" }}>{partido.equipo_local.nombre}</span>
+                          <div className="equipo-local-container">
+                            <span className="equipo-nombre-txt">{partido.equipo_local.nombre}</span>
                             <img
                               src={partido.equipo_local.escudo_url || "https://placehold.co/40x40/1e3145/ffffff?text=FPC"}
                               alt={partido.equipo_local.nombre}
-                              style={{ width: 36, height: 36, objectFit: "contain" }}
+                              style={{ width: 36, height: 36, objectFit: "contain", flexShrink: 0 }}
                             />
                           </div>
 
                           {/* MARCADOR INPUTS */}
-                          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                          <div style={{ display: "flex", alignItems: "center", gap: 6, justifyContent: "center" }}>
                             <input
                               type="text"
                               maxLength={2}
@@ -1570,13 +1570,13 @@ export default function ExpressPage() {
                           </div>
 
                           {/* VISITANTE */}
-                          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                          <div className="equipo-visitante-container">
                             <img
                               src={partido.equipo_visitante.escudo_url || "https://placehold.co/40x40/1e3145/ffffff?text=FPC"}
                               alt={partido.equipo_visitante.nombre}
-                              style={{ width: 36, height: 36, objectFit: "contain" }}
+                              style={{ width: 36, height: 36, objectFit: "contain", flexShrink: 0 }}
                             />
-                            <span style={{ fontWeight: 800, fontSize: "1.05rem" }}>{partido.equipo_visitante.nombre}</span>
+                            <span className="equipo-nombre-txt">{partido.equipo_visitante.nombre}</span>
                           </div>
                         </div>
 
