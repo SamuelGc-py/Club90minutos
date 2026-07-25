@@ -109,7 +109,7 @@ export default function ExpressPage() {
   const [cargandoMaestros, setCargandoMaestros] = useState(false);
 
   // Estado del Formulario (Pestañas)
-  const [tabActiva, setTabActiva] = useState<"partidos" | "inicial" | "mis_pronosticos" | "admin">("partidos");
+  const [tabActiva, setTabActiva] = useState<"partidos" | "inicial" | "mis_pronosticos" | "admin" | "posiciones">("partidos");
   const [campeonId, setCampeonId] = useState<number | "">("");
   const [finalista1Id, setFinalista1Id] = useState<number | "">("");
   const [finalista2Id, setFinalista2Id] = useState<number | "">("");
@@ -1021,6 +1021,17 @@ export default function ExpressPage() {
               </button>
 
               <button
+                className={`btn ${tabActiva === "posiciones" ? "btn-primary" : "btn-secondary"}`}
+                onClick={() => {
+                  setTabActiva("posiciones");
+                  cargarConsolidados(usuario.id);
+                }}
+                style={{ padding: "10px 14px", fontSize: "0.85rem" }}
+              >
+                📊 Posiciones & Puntos en Vivo
+              </button>
+
+              <button
                 className="btn btn-primary"
                 onClick={handleGuardarTodo}
                 disabled={guardando}
@@ -1684,6 +1695,120 @@ export default function ExpressPage() {
                   );
                 })}
               </div>
+            </div>
+          )}
+
+          {/* TAB 4: POSICIONES & PUNTOS EN VIVO */}
+          {tabActiva === "posiciones" && (
+            <div>
+              {/* TARJETAS DE RESUMEN KPI ESTÉTICAS */}
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+                  gap: 16,
+                  marginBottom: 24,
+                }}
+              >
+                {/* TARJETA 1: PARTICIPANTES */}
+                <div
+                  className="card"
+                  style={{
+                    padding: "20px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 16,
+                    background: "linear-gradient(130deg, #0f172a 0%, #1e293b 100%)",
+                    border: "1px solid #334155",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: 52,
+                      height: 52,
+                      borderRadius: "14px",
+                      background: "rgba(56, 189, 248, 0.15)",
+                      color: "#38bdf8",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      flexShrink: 0,
+                    }}
+                  >
+                    <UserCheck size={26} />
+                  </div>
+                  <div>
+                    <div style={{ fontSize: "0.8rem", color: "#94a3b8", fontWeight: 600 }}>
+                      Participantes Activos
+                    </div>
+                    <strong style={{ fontSize: "1.6rem", color: "#ffffff", fontWeight: 900 }}>
+                      {consolidados?.usuarios?.length || 0}
+                    </strong>
+                  </div>
+                </div>
+
+                {/* TARJETA 2: LÍDER ACTUAL */}
+                <div
+                  className="card"
+                  style={{
+                    padding: "20px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 16,
+                    background: "linear-gradient(130deg, #1e1b4b 0%, #312e81 100%)",
+                    border: "1px solid #4338ca",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: 52,
+                      height: 52,
+                      borderRadius: "14px",
+                      background: "rgba(245, 176, 0, 0.2)",
+                      color: "#f5b000",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      flexShrink: 0,
+                    }}
+                  >
+                    <Trophy size={26} />
+                  </div>
+                  <div>
+                    <div style={{ fontSize: "0.8rem", color: "#c7d2fe", fontWeight: 600 }}>
+                      👑 Líder Actual de la Polla
+                    </div>
+                    <strong style={{ fontSize: "1.1rem", color: "#ffd700", fontWeight: 900, display: "block" }}>
+                      {consolidados?.tablaPosiciones?.[0]?.nombre_completo || "Cargando..."}
+                    </strong>
+                    {consolidados?.tablaPosiciones?.[0] && (
+                      <span style={{ fontSize: "0.8rem", color: "#a5b4fc", fontWeight: 700 }}>
+                        {consolidados.tablaPosiciones[0].pts_total} Pts acumulados
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* AFICHE OFICIAL TABLA DE POSICIONES */}
+              {cargandoConsolidados ? (
+                <div className="card" style={{ textAlign: "center", padding: 50 }}>
+                  <RefreshCw className="spin" size={36} style={{ color: "#38bdf8", marginBottom: 16 }} />
+                  <div style={{ fontSize: "1.1rem", fontWeight: 700 }}>Cargando Puntos en Vivo...</div>
+                </div>
+              ) : !consolidados ? (
+                <div className="card" style={{ textAlign: "center", padding: 40 }}>
+                  <p style={{ marginBottom: 16, color: "#94a3b8" }}>No se pudieron cargar las posiciones.</p>
+                  <button className="btn btn-primary" onClick={() => cargarConsolidados(usuario.id)}>
+                    🔄 Recargar Tabla
+                  </button>
+                </div>
+              ) : (
+                <TablaPosicionesAfiche
+                  tabla={consolidados.tablaPosiciones || []}
+                  onDescargarExcelPronosticos={usuario.rol_id === 2 ? handleDescargarExcelPronosticos : undefined}
+                />
+              )}
             </div>
           )}
 
