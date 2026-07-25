@@ -1049,14 +1049,14 @@ export default function ExpressPage() {
                             {partido.equipo_local.jugadores && partido.equipo_local.jugadores.length > 0 && (
                               <optgroup label={`🏠 ${partido.equipo_local.nombre}`}>
                                 {partido.equipo_local.jugadores.map((j: any) => (
-                                  <option key={j.id} value={j.id}>🏠 [{partido.equipo_local.nombre}] {j.nombre}</option>
+                                  <option key={j.id} value={j.id}>{j.nombre}</option>
                                 ))}
                               </optgroup>
                             )}
                             {partido.equipo_visitante.jugadores && partido.equipo_visitante.jugadores.length > 0 && (
                               <optgroup label={`✈️ ${partido.equipo_visitante.nombre}`}>
                                 {partido.equipo_visitante.jugadores.map((j: any) => (
-                                  <option key={j.id} value={j.id}>✈️ [{partido.equipo_visitante.nombre}] {j.nombre}</option>
+                                  <option key={j.id} value={j.id}>{j.nombre}</option>
                                 ))}
                               </optgroup>
                             )}
@@ -1430,7 +1430,7 @@ export default function ExpressPage() {
                                   <optgroup label={`🏠 ${partido.equipo_local.nombre}`}>
                                     {partido.equipo_local.jugadores.map((j: any) => (
                                       <option key={j.id} value={j.id}>
-                                        🏠 [{partido.equipo_local.nombre}] {j.nombre}
+                                        {j.nombre}
                                       </option>
                                     ))}
                                   </optgroup>
@@ -1439,7 +1439,7 @@ export default function ExpressPage() {
                                   <optgroup label={`✈️ ${partido.equipo_visitante.nombre}`}>
                                     {partido.equipo_visitante.jugadores.map((j: any) => (
                                       <option key={j.id} value={j.id}>
-                                        ✈️ [{partido.equipo_visitante.nombre}] {j.nombre}
+                                        {j.nombre}
                                       </option>
                                     ))}
                                   </optgroup>
