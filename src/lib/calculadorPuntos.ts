@@ -80,27 +80,26 @@ export async function calcularPuntosPartido(
     const pVisitante = pred.goles_visitante_predicho;
     const predWinner = pLocal > pVisitante ? "local" : pVisitante > pLocal ? "visitante" : "empate";
 
-    let puntosObtenidos = 0;
-    let categoria: CategoriaPuntaje | null = null;
-
-    // Acierto exacto: 5 Pts
-    if (pLocal === golesLocalReal && pVisitante === golesVisitanteReal) {
-      puntosObtenidos = 5;
-      categoria = CategoriaPuntaje.resultado_exacto;
-    }
-    // Acierto ganador / empate: 3 Pts
-    else if (predWinner === realWinner) {
-      puntosObtenidos = 3;
-      categoria = CategoriaPuntaje.ganador_partido;
-    }
-
-    if (categoria && puntosObtenidos > 0) {
+    // 1. Acierto ganador / empate: 3 Pts
+    if (predWinner === realWinner) {
       await prisma.puntaje.create({
         data: {
           usuario_id: pred.usuario_id,
           partido_id: partidoId,
-          categoria: categoria,
-          puntos_obtenidos: puntosObtenidos,
+          categoria: CategoriaPuntaje.ganador_partido,
+          puntos_obtenidos: 3,
+        },
+      });
+    }
+
+    // 2. Acierto exacto adicional: 5 Pts
+    if (pLocal === golesLocalReal && pVisitante === golesVisitanteReal) {
+      await prisma.puntaje.create({
+        data: {
+          usuario_id: pred.usuario_id,
+          partido_id: partidoId,
+          categoria: CategoriaPuntaje.resultado_exacto,
+          puntos_obtenidos: 5,
         },
       });
     }
