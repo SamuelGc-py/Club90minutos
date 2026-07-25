@@ -132,6 +132,7 @@ export default function ExpressPage() {
   const [cargandoConsolidados, setCargandoConsolidados] = useState(false);
   const [partidoAdminVer, setPartidoAdminVer] = useState<number | null>(null);
   const [guardandoPartidoId, setGuardandoPartidoId] = useState<number | null>(null);
+  const [partidoGuardadoExitoId, setPartidoGuardadoExitoId] = useState<number | null>(null);
 
   const handleGuardarPronosticoPartido = async (partidoId: number) => {
     if (!usuario) return;
@@ -165,7 +166,9 @@ export default function ExpressPage() {
       if (!res.ok || data.error) {
         setMensajeEstado({ tipo: "error", texto: data.error || "Error al guardar el pronóstico." });
       } else {
-        setMensajeEstado({ tipo: "exito", texto: "¡Pronóstico de este partido guardado exitosamente!" });
+        setMensajeEstado({ tipo: "exito", texto: "¡Pronóstico guardado exitosamente para este partido!" });
+        setPartidoGuardadoExitoId(partidoId);
+        setTimeout(() => setPartidoGuardadoExitoId(null), 4000);
       }
     } catch (err: any) {
       setMensajeEstado({ tipo: "error", texto: "Error al guardar: " + err.message });
@@ -1699,6 +1702,28 @@ export default function ExpressPage() {
                               ⚽ Goleador elegido: {[...(partido.equipo_local.jugadores || []), ...(partido.equipo_visitante.jugadores || []), ...jugadores].find((j) => j.id === Number(m.goleador_id))?.nombre || "Seleccionado"}
                             </div>
                           )}
+
+                          {/* ADVERTENCIA SI INGRESÓ GOLES PERO NO SELECCIONÓ GOLEADOR */}
+                          {(m.local !== "" || m.visitante !== "") && (Number(m.local || 0) > 0 || Number(m.visitante || 0) > 0) && !m.goleador_id && (
+                            <div
+                              style={{
+                                marginTop: 8,
+                                padding: "8px 12px",
+                                background: "rgba(245, 158, 11, 0.15)",
+                                border: "1px solid rgba(245, 158, 11, 0.4)",
+                                borderRadius: 8,
+                                color: "#fef08a",
+                                fontSize: "0.82rem",
+                                display: "flex",
+                                alignItems: "center",
+                                gap: 8,
+                                fontWeight: 700,
+                              }}
+                            >
+                              <AlertTriangle size={18} style={{ flexShrink: 0, color: "#f59e0b" }} />
+                              <span>⚠️ Advertencia: Ingresaste marcador ({m.local || 0} - {m.visitante || 0}) pero no elegiste goleador. Si alguien hace gol, perderás los 2 Pts de goleador.</span>
+                            </div>
+                          )}
                         </div>
 
                         {inconsistencia && (
@@ -1707,9 +1732,9 @@ export default function ExpressPage() {
                           </div>
                         )}
 
-                        {/* BOTÓN GUARDAR PRONÓSTICO INDIVIDUAL POR PARTIDO */}
+                        {/* BOTÓN GUARDAR PRONÓSTICO INDIVIDUAL CON CONFIRMACIÓN EN VIVO */}
                         {!estaCerrado && (
-                          <div style={{ marginTop: 14, paddingTop: 10, borderTop: "1px dashed rgba(255,255,255,0.08)", display: "flex", justifyContent: "flex-end" }}>
+                          <div style={{ marginTop: 14, paddingTop: 10, borderTop: "1px dashed rgba(255,255,255,0.08)", display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 6 }}>
                             <button
                               type="button"
                               className="btn btn-primary"
@@ -1719,7 +1744,9 @@ export default function ExpressPage() {
                                 padding: "8px 18px",
                                 fontSize: "0.88rem",
                                 fontWeight: 800,
-                                background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+                                background: partidoGuardadoExitoId === partido.id
+                                  ? "linear-gradient(135deg, #059669 0%, #047857 100%)"
+                                  : "linear-gradient(135deg, #10b981 0%, #059669 100%)",
                                 color: "#fff",
                                 borderRadius: 8,
                                 display: "inline-flex",
@@ -1729,8 +1756,24 @@ export default function ExpressPage() {
                                 boxShadow: "0 4px 12px rgba(16, 185, 129, 0.3)",
                               }}
                             >
-                              <Save size={16} /> {guardandoPartidoId === partido.id ? "Guardando..." : "Guardar Pronóstico"}
+                              {partidoGuardadoExitoId === partido.id ? (
+                                <>
+                                  <CheckCircle2 size={16} /> ¡Pronóstico Guardado con Éxito!
+                                </>
+                              ) : guardandoPartidoId === partido.id ? (
+                                "Guardando..."
+                              ) : (
+                                <>
+                                  <Save size={16} /> Guardar Pronóstico
+                                </>
+                              )}
                             </button>
+
+                            {partidoGuardadoExitoId === partido.id && (
+                              <div style={{ color: "#34d399", fontSize: "0.82rem", fontWeight: 800, display: "flex", alignItems: "center", gap: 4 }}>
+                                <CheckCircle2 size={14} /> ✓ Marcador y goleador guardados correctamente en la base de datos
+                              </div>
+                            )}
                           </div>
                         )}
                       </div>
