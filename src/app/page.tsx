@@ -200,7 +200,35 @@ export default function ExpressPage() {
         setMensajeEstado({ tipo: "exito", texto: "¡Pronóstico guardado exitosamente para este partido!" });
         setPartidoGuardadoExitoId(partidoId);
         actualizarSesionLocalStorage(partidoId, Number(m.local), Number(m.visitante), m.goleador_id ? Number(m.goleador_id) : null);
-        if (usuario) cargarConsolidados(usuario.id);
+        
+        // Actualizar consolidados en memoria de forma instantánea sin retraso de red
+        if (consolidados && usuario) {
+          const newPartidos = [...(consolidados.prediccionesPartidos || [])];
+          const pIdx = newPartidos.findIndex(
+            (p: any) => p.partido_id === partidoId && p.usuario?.correo === usuario.correo
+          );
+          const partidoObj = partidos.find((p) => p.id === partidoId);
+          const goleadorObj = jugadores.find((j) => String(j.id) === String(m.goleador_id));
+          const newObj = {
+            id: Date.now(),
+            partido_id: partidoId,
+            goles_local_predicho: Number(m.local),
+            goles_visitante_predicho: Number(m.visitante),
+            jugador_goleador_predicho_id: m.goleador_id ? Number(m.goleador_id) : null,
+            usuario: { nombre_completo: usuario.nombre, correo: usuario.correo },
+            partido: partidoObj ? {
+              equipo_local: { nombre: partidoObj.equipo_local.nombre },
+              equipo_visitante: { nombre: partidoObj.equipo_visitante.nombre },
+            } : undefined,
+            jugador_goleador: goleadorObj ? { nombre: goleadorObj.nombre } : null,
+          };
+          if (pIdx >= 0) {
+            newPartidos[pIdx] = { ...newPartidos[pIdx], ...newObj };
+          } else {
+            newPartidos.push(newObj);
+          }
+          setConsolidados({ ...consolidados, prediccionesPartidos: newPartidos });
+        }
         setTimeout(() => setPartidoGuardadoExitoId(null), 3000);
       }
     } catch (err: any) {

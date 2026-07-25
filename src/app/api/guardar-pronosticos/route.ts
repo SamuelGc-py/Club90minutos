@@ -87,7 +87,18 @@ export async function POST(req: Request) {
       }
 
       // 3. Pronósticos de partidos (Marcador + Goleador) con cierre 1 hora antes
-      if (Array.isArray(partidos)) {
+      if (Array.isArray(partidos) && partidos.length > 0) {
+        const partidoIds = partidos
+          .filter((p: any) => p.partido_id && p.goles_local !== "" && p.goles_visitante !== "")
+          .map((p: any) => Number(p.partido_id));
+
+        const partidosDbList = await tx.partido.findMany({
+          where: { id: { in: partidoIds } },
+        });
+
+        const partidosMap = new Map(partidosDbList.map((p: any) => [p.id, p]));
+        const esAdmin = usuario.rol_id === 2;
+
         for (const p of partidos) {
           if (
             p.partido_id &&
@@ -98,13 +109,11 @@ export async function POST(req: Request) {
             p.goles_visitante !== null &&
             p.goles_visitante !== ""
           ) {
-            const partidoDb = await tx.partido.findUnique({
-              where: { id: Number(p.partido_id) },
-            });
+            const partidoIdNum = Number(p.partido_id);
+            const partidoDb: any = partidosMap.get(partidoIdNum);
 
             if (partidoDb) {
               const limiteCierre = new Date(new Date(partidoDb.fecha_hora_partido).getTime() - 60 * 60 * 1000);
-              const esAdmin = usuario.rol_id === 2;
               const esExcepcionHaroldMedellin = usuario.correo === "hberdugodelosreyes0@gmail.com" && partidoDb.id === 24;
               // Si ya pasó la hora de cierre (1 hora antes del partido), no guardar este pronóstico (salvo admin o excepción)
               if (now >= limiteCierre && !esAdmin && !esExcepcionHaroldMedellin) {
@@ -118,12 +127,12 @@ export async function POST(req: Request) {
               where: {
                 usuario_id_partido_id: {
                   usuario_id: usuario.id,
-                  partido_id: Number(p.partido_id),
+                  partido_id: partidoIdNum,
                 },
               },
               create: {
                 usuario_id: usuario.id,
-                partido_id: Number(p.partido_id),
+                partido_id: partidoIdNum,
                 goles_local_predicho: Number(p.goles_local),
                 goles_visitante_predicho: Number(p.goles_visitante),
                 jugador_goleador_predicho_id: goleadorId,
