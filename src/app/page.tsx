@@ -344,17 +344,28 @@ export default function ExpressPage() {
     if (predsPartidos && Array.isArray(predsPartidos)) {
       const mapMarcadores: Record<number, EstadoMarcador> = {};
       predsPartidos.forEach((p: any) => {
-        const gLocal = String(p.goles_local_predicho);
-        const gVisitante = String(p.goles_visitante_predicho);
+        const valL = p.goles_local_predicho !== undefined && p.goles_local_predicho !== null ? p.goles_local_predicho : p.goles_local;
+        const valV = p.goles_visitante_predicho !== undefined && p.goles_visitante_predicho !== null ? p.goles_visitante_predicho : p.goles_visitante;
+        
+        const gLocalStr = valL !== undefined && valL !== null ? String(valL) : "";
+        const gVisitanteStr = valV !== undefined && valV !== null ? String(valV) : "";
+
         let ganador: "local" | "empate" | "visitante" = "empate";
-        if (Number(gLocal) > Number(gVisitante)) ganador = "local";
-        else if (Number(gVisitante) > Number(gLocal)) ganador = "visitante";
+        if (gLocalStr !== "" && gVisitanteStr !== "") {
+          const nL = Number(gLocalStr);
+          const nV = Number(gVisitanteStr);
+          if (!isNaN(nL) && !isNaN(nV)) {
+            if (nL > nV) ganador = "local";
+            else if (nV > nL) ganador = "visitante";
+            else ganador = "empate";
+          }
+        }
 
         const goleadorIdRaw = p.jugador_goleador_predicho_id || p.jugador_goleador_id || "";
 
         mapMarcadores[p.partido_id] = {
-          local: gLocal,
-          visitante: gVisitante,
+          local: gLocalStr,
+          visitante: gVisitanteStr,
           ganador,
           goleador_id: goleadorIdRaw ? String(goleadorIdRaw) : "",
         };
@@ -2284,19 +2295,23 @@ export default function ExpressPage() {
                                       {p.goles_local_predicho} - {p.goles_visitante_predicho}
                                     </td>
                                     <td style={{ padding: "8px", textAlign: "center" }}>
-                                      {(() => {
-                                        let ganadorTexto = "Empate";
-                                        if (p.goles_local_predicho > p.goles_visitante_predicho) {
-                                          ganadorTexto = partido.equipo_local.nombre;
-                                        } else if (p.goles_visitante_predicho > p.goles_local_predicho) {
-                                          ganadorTexto = partido.equipo_visitante.nombre;
-                                        }
-                                        return (
-                                          <span className="badge" style={{ background: "rgba(56, 189, 248, 0.15)", color: "#38bdf8" }}>
-                                            {ganadorTexto}
-                                          </span>
-                                        );
-                                      })()}
+                                       {(() => {
+                                         const gL = Number(p.goles_local_predicho);
+                                         const gV = Number(p.goles_visitante_predicho);
+                                         let ganadorTexto = "Empate";
+                                         if (!isNaN(gL) && !isNaN(gV)) {
+                                           if (gL > gV) {
+                                             ganadorTexto = partido.equipo_local.nombre;
+                                           } else if (gV > gL) {
+                                             ganadorTexto = partido.equipo_visitante.nombre;
+                                           }
+                                         }
+                                         return (
+                                           <span className="badge" style={{ background: "rgba(56, 189, 248, 0.15)", color: "#38bdf8", fontWeight: 800 }}>
+                                             {ganadorTexto}
+                                           </span>
+                                         );
+                                       })()}
                                     </td>
                                     <td style={{ padding: "8px", color: "var(--graderia)" }}>
                                       {p.jugador_goleador?.nombre || "N/A"}
