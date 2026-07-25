@@ -129,6 +129,48 @@ export default function ExpressPage() {
   } | null>(null);
   const [cargandoConsolidados, setCargandoConsolidados] = useState(false);
   const [partidoAdminVer, setPartidoAdminVer] = useState<number | null>(null);
+  const [guardandoPartidoId, setGuardandoPartidoId] = useState<number | null>(null);
+
+  const handleGuardarPronosticoPartido = async (partidoId: number) => {
+    if (!usuario) return;
+    const m = marcadores[partidoId];
+    if (!m || m.local === "" || m.visitante === "") {
+      setMensajeEstado({ tipo: "error", texto: "Debes ingresar ambos goles (Local y Visitante) antes de guardar este partido." });
+      return;
+    }
+
+    try {
+      setGuardandoPartidoId(partidoId);
+      setMensajeEstado({ tipo: "info", texto: "Guardando pronóstico del partido..." });
+
+      const res = await fetch("/api/guardar-pronosticos", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          usuario_id: usuario.id,
+          partidos: [
+            {
+              partido_id: partidoId,
+              goles_local: Number(m.local),
+              goles_visitante: Number(m.visitante),
+              jugador_goleador_id: m.goleador_id ? Number(m.goleador_id) : null,
+            },
+          ],
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || data.error) {
+        setMensajeEstado({ tipo: "error", texto: data.error || "Error al guardar el pronóstico." });
+      } else {
+        setMensajeEstado({ tipo: "exito", texto: "¡Pronóstico de este partido guardado exitosamente!" });
+      }
+    } catch (err: any) {
+      setMensajeEstado({ tipo: "error", texto: "Error al guardar: " + err.message });
+    } finally {
+      setGuardandoPartidoId(null);
+    }
+  };
 
   const cargarConsolidados = async (uId?: number) => {
     const idParaUsar = uId || usuario?.id;
@@ -146,16 +188,45 @@ export default function ExpressPage() {
   };
 
   // Marcadores oficiales por partido para Administrador
-  const [resultadosAdminInput, setResultadosAdminInput] = useState<Record<number, { local: string; visitante: string; goleador_id: string }>>({});
+  const [resultadosAdminInput, setResultadosAdminInput] = useState<Record<number, { local: string; visitante: string; goleadores_ids: number[] }>>({});
 
-  const handleResultadoAdminChange = (partidoId: number, campo: "local" | "visitante" | "goleador_id", valor: string) => {
+  const handleResultadoAdminChange = (partidoId: number, campo: "local" | "visitante", valor: string) => {
     setResultadosAdminInput((prev) => ({
       ...prev,
       [partidoId]: {
-        ...(prev[partidoId] || { local: "", visitante: "", goleador_id: "" }),
+        ...(prev[partidoId] || { local: "", visitante: "", goleadores_ids: [] }),
         [campo]: valor,
       },
     }));
+  };
+
+  const handleAgregarGoleadorAdmin = (partidoId: number, jugadorIdStr: string) => {
+    if (!jugadorIdStr) return;
+    const jId = Number(jugadorIdStr);
+    setResultadosAdminInput((prev) => {
+      const actual = prev[partidoId] || { local: "", visitante: "", goleadores_ids: [] };
+      if (actual.goleadores_ids.includes(jId)) return prev;
+      return {
+        ...prev,
+        [partidoId]: {
+          ...actual,
+          goleadores_ids: [...actual.goleadores_ids, jId],
+        },
+      };
+    });
+  };
+
+  const handleRemoverGoleadorAdmin = (partidoId: number, jugadorId: number) => {
+    setResultadosAdminInput((prev) => {
+      const actual = prev[partidoId] || { local: "", visitante: "", goleadores_ids: [] };
+      return {
+        ...prev,
+        [partidoId]: {
+          ...actual,
+          goleadores_ids: actual.goleadores_ids.filter((id) => id !== jugadorId),
+        },
+      };
+    });
   };
 
   const handleCargarResultadoOficial = async (partidoId: number) => {
@@ -176,7 +247,7 @@ export default function ExpressPage() {
           partido_id: partidoId,
           goles_local: Number(resInput.local),
           goles_visitante: Number(resInput.visitante),
-          goleador_jugador_id: resInput.goleador_id ? Number(resInput.goleador_id) : null,
+          goleadores_ids: resInput.goleadores_ids || [],
         }),
       });
 
@@ -965,16 +1036,67 @@ export default function ExpressPage() {
                           />
                         </div>
 
-                        <select
-                          style={{ padding: "6px", borderRadius: 6, border: "1px solid var(--linea)", background: "var(--noche)", color: "#fff", fontSize: "0.85rem" }}
-                          value={resultadosAdminInput[partido.id]?.goleador_id || ""}
-                          onChange={(e) => handleResultadoAdminChange(partido.id, "goleador_id", e.target.value)}
-                        >
-                          <option value="">-- Goleador Oficial (Opcional) --</option>
-                          {[...(partido.equipo_local.jugadores || []), ...(partido.equipo_visitante.jugadores || [])].map((j: any) => (
-                            <option key={j.id} value={j.id}>{j.nombre}</option>
-                          ))}
-                        </select>
+                        <div style={{ display: "flex", flexDirection: "column", gap: 6, width: "100%", maxWidth: 320 }}>
+                          <select
+                            style={{ padding: "6px 10px", borderRadius: 6, border: "1px solid var(--linea)", background: "var(--noche)", color: "#fff", fontSize: "0.85rem" }}
+                            value=""
+                            onChange={(e) => {
+                              handleAgregarGoleadorAdmin(partido.id, e.target.value);
+                              e.target.value = "";
+                            }}
+                          >
+                            <option value="">+ Agregar Goleador Oficial (Opcional)</option>
+                            {partido.equipo_local.jugadores && partido.equipo_local.jugadores.length > 0 && (
+                              <optgroup label={`🏠 ${partido.equipo_local.nombre}`}>
+                                {partido.equipo_local.jugadores.map((j: any) => (
+                                  <option key={j.id} value={j.id}>🏠 [{partido.equipo_local.nombre}] {j.nombre}</option>
+                                ))}
+                              </optgroup>
+                            )}
+                            {partido.equipo_visitante.jugadores && partido.equipo_visitante.jugadores.length > 0 && (
+                              <optgroup label={`✈️ ${partido.equipo_visitante.nombre}`}>
+                                {partido.equipo_visitante.jugadores.map((j: any) => (
+                                  <option key={j.id} value={j.id}>✈️ [{partido.equipo_visitante.nombre}] {j.nombre}</option>
+                                ))}
+                              </optgroup>
+                            )}
+                          </select>
+
+                          {resultadosAdminInput[partido.id]?.goleadores_ids?.length > 0 && (
+                            <div style={{ display: "flex", flexWrap: "wrap", gap: 6, alignItems: "center" }}>
+                              {resultadosAdminInput[partido.id].goleadores_ids.map((jId) => {
+                                const todosJugadores = [...(partido.equipo_local.jugadores || []), ...(partido.equipo_visitante.jugadores || []), ...jugadores];
+                                const jObj = todosJugadores.find((j) => j.id === jId);
+                                return (
+                                  <span
+                                    key={jId}
+                                    style={{
+                                      background: "rgba(34, 197, 94, 0.2)",
+                                      color: "#22c55e",
+                                      border: "1px solid rgba(34, 197, 94, 0.4)",
+                                      borderRadius: "12px",
+                                      padding: "3px 10px",
+                                      fontSize: "0.78rem",
+                                      display: "inline-flex",
+                                      alignItems: "center",
+                                      gap: 6,
+                                      fontWeight: 700,
+                                    }}
+                                  >
+                                    ⚽ {jObj?.nombre || `ID: ${jId}`}
+                                    <button
+                                      type="button"
+                                      onClick={() => handleRemoverGoleadorAdmin(partido.id, jId)}
+                                      style={{ background: "none", border: "none", color: "#ef4444", cursor: "pointer", fontWeight: 900, padding: "0 2px", fontSize: "0.85rem" }}
+                                    >
+                                      ✕
+                                    </button>
+                                  </span>
+                                );
+                              })}
+                            </div>
+                          )}
+                        </div>
 
                         <button
                           className="btn btn-primary"
@@ -1191,8 +1313,13 @@ export default function ExpressPage() {
 
                         {/* BANNER DE MARCADOR OFICIAL SI EXISTE */}
                         {partido.resultado_oficial && (
-                          <div style={{ background: "linear-gradient(135deg, #065f46 0%, #047857 100%)", padding: "8px 14px", borderRadius: 8, textAlign: "center", marginBottom: 14, color: "#ffffff", fontWeight: 800, border: "1px solid #34d399", fontSize: "0.95rem" }}>
-                            🏁 MARCADOR OFICIAL: {partido.resultado_oficial.goles_local_real} - {partido.resultado_oficial.goles_visitante_real}
+                          <div style={{ background: "linear-gradient(135deg, #065f46 0%, #047857 100%)", padding: "10px 14px", borderRadius: 8, textAlign: "center", marginBottom: 14, color: "#ffffff", fontWeight: 800, border: "1px solid #34d399", fontSize: "0.95rem" }}>
+                            <div>🏁 MARCADOR OFICIAL: {partido.resultado_oficial.goles_local_real} - {partido.resultado_oficial.goles_visitante_real}</div>
+                            {partido.resultado_oficial.goleadores && partido.resultado_oficial.goleadores.length > 0 && (
+                              <div style={{ fontSize: "0.82rem", fontWeight: 600, marginTop: 4, color: "#a7f3d0" }}>
+                                ⚽ Goleadores oficiales: {partido.resultado_oficial.goleadores.map((g: any) => g.jugador?.nombre).filter(Boolean).join(", ")}
+                              </div>
+                            )}
                           </div>
                         )}
 
@@ -1296,12 +1423,28 @@ export default function ExpressPage() {
                             disabled={estaCerrado}
                           >
                             <option value="">-- Sin Goleador / Seleccionar Jugador --</option>
-                            {jugadoresPartido.length > 0 ? (
-                              jugadoresPartido.map((j) => (
-                                <option key={j.id} value={j.id}>
-                                  {j.nombre}
-                                </option>
-                              ))
+                            {(partido.equipo_local.jugadores && partido.equipo_local.jugadores.length > 0) ||
+                            (partido.equipo_visitante.jugadores && partido.equipo_visitante.jugadores.length > 0) ? (
+                              <>
+                                {partido.equipo_local.jugadores && partido.equipo_local.jugadores.length > 0 && (
+                                  <optgroup label={`🏠 ${partido.equipo_local.nombre}`}>
+                                    {partido.equipo_local.jugadores.map((j: any) => (
+                                      <option key={j.id} value={j.id}>
+                                        🏠 [{partido.equipo_local.nombre}] {j.nombre}
+                                      </option>
+                                    ))}
+                                  </optgroup>
+                                )}
+                                {partido.equipo_visitante.jugadores && partido.equipo_visitante.jugadores.length > 0 && (
+                                  <optgroup label={`✈️ ${partido.equipo_visitante.nombre}`}>
+                                    {partido.equipo_visitante.jugadores.map((j: any) => (
+                                      <option key={j.id} value={j.id}>
+                                        ✈️ [{partido.equipo_visitante.nombre}] {j.nombre}
+                                      </option>
+                                    ))}
+                                  </optgroup>
+                                )}
+                              </>
                             ) : (
                               jugadores.map((j) => (
                                 <option key={j.id} value={j.id}>
@@ -1310,11 +1453,44 @@ export default function ExpressPage() {
                               ))
                             )}
                           </select>
+
+                          {m.goleador_id && (
+                            <div style={{ marginTop: 6, fontSize: "0.78rem", color: "#34d399", fontWeight: 700, display: "flex", alignItems: "center", gap: 4 }}>
+                              ⚽ Goleador elegido: {[...(partido.equipo_local.jugadores || []), ...(partido.equipo_visitante.jugadores || []), ...jugadores].find((j) => j.id === Number(m.goleador_id))?.nombre || "Seleccionado"}
+                            </div>
+                          )}
                         </div>
 
                         {inconsistencia && (
                           <div style={{ marginTop: 10, color: "var(--rojo)", fontSize: "0.85rem", display: "flex", alignItems: "center", gap: 6, fontWeight: 700 }}>
                             <AlertTriangle size={16} /> {inconsistencia}
+                          </div>
+                        )}
+
+                        {/* BOTÓN GUARDAR PRONÓSTICO INDIVIDUAL POR PARTIDO */}
+                        {!estaCerrado && (
+                          <div style={{ marginTop: 14, paddingTop: 10, borderTop: "1px dashed rgba(255,255,255,0.08)", display: "flex", justifyContent: "flex-end" }}>
+                            <button
+                              type="button"
+                              className="btn btn-primary"
+                              disabled={guardandoPartidoId === partido.id}
+                              onClick={() => handleGuardarPronosticoPartido(partido.id)}
+                              style={{
+                                padding: "8px 18px",
+                                fontSize: "0.88rem",
+                                fontWeight: 800,
+                                background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+                                color: "#fff",
+                                borderRadius: 8,
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: 6,
+                                cursor: "pointer",
+                                boxShadow: "0 4px 12px rgba(16, 185, 129, 0.3)",
+                              }}
+                            >
+                              <Save size={16} /> {guardandoPartidoId === partido.id ? "Guardando..." : "Guardar Pronóstico"}
+                            </button>
                           </div>
                         )}
                       </div>
@@ -1510,10 +1686,21 @@ export default function ExpressPage() {
                     onChange={(e) => setGoleadorTorneoId(e.target.value ? Number(e.target.value) : "")}
                   >
                     <option value="">-- Seleccionar Goleador del Torneo --</option>
-                    {jugadores.map((j) => (
-                      <option key={j.id} value={j.id}>
-                        {j.nombre} ({j.equipo?.nombre || "FPC"})
-                      </option>
+                    {Object.entries(
+                      jugadores.reduce((acc: { [key: string]: Jugador[] }, j) => {
+                        const eq = j.equipo?.nombre || "Otros / Sin Equipo";
+                        if (!acc[eq]) acc[eq] = [];
+                        acc[eq].push(j);
+                        return acc;
+                      }, {})
+                    ).map(([equipoNombre, jugList]) => (
+                      <optgroup key={equipoNombre} label={equipoNombre}>
+                        {jugList.map((j) => (
+                          <option key={j.id} value={j.id}>
+                            {j.nombre}
+                          </option>
+                        ))}
+                      </optgroup>
                     ))}
                   </select>
                 </div>
@@ -1834,32 +2021,7 @@ export default function ExpressPage() {
             </div>
           )}
 
-          {/* BARRA DE GUARDADO AL FINAL DE LA PÁGINA */}
-          <div
-            style={{
-              marginTop: 30,
-              background: "rgba(19, 32, 48, 0.95)",
-              border: "1px solid var(--linea-fuerte)",
-              borderRadius: "var(--radio-card)",
-              padding: "16px 24px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
-            }}
-          >
-            <div>
-              <div style={{ fontWeight: 700 }}>¿Listo para guardar tus pronósticos?</div>
-              <div style={{ fontSize: "0.8rem", color: "var(--graderia)" }}>
-                {totalPronosticados} partidos de Fecha 1 diligenciados.
-              </div>
-            </div>
-            <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-              <button className="btn btn-primary" onClick={handleGuardarTodo} disabled={guardando}>
-                <Save size={18} /> {guardando ? "Guardando..." : "Guardar Todos los Pronósticos"}
-              </button>
-            </div>
-          </div>
+
         </div>
       )}
     </div>

@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   try {
-    const { usuario_id, partido_id, goles_local, goles_visitante, goleador_jugador_id } = await req.json();
+    const { usuario_id, partido_id, goles_local, goles_visitante, goleador_jugador_id, goleadores_ids } = await req.json();
 
     if (!usuario_id || !partido_id || goles_local === undefined || goles_visitante === undefined) {
       return NextResponse.json({ error: "Faltan datos requeridos (usuario_id, partido_id, goles)" }, { status: 400 });
@@ -22,11 +22,17 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "No tienes permisos de administrador" }, { status: 403 });
     }
 
+    const idsGoleadores: number[] = Array.isArray(goleadores_ids)
+      ? goleadores_ids.map((id: any) => Number(id)).filter(Boolean)
+      : goleador_jugador_id
+      ? [Number(goleador_jugador_id)]
+      : [];
+
     const resultado = await calcularPuntosPartido(
       Number(partido_id),
       Number(goles_local),
       Number(goles_visitante),
-      goleador_jugador_id ? Number(goleador_jugador_id) : null,
+      idsGoleadores,
       Number(usuario_id)
     );
 

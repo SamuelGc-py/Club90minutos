@@ -5,9 +5,17 @@ export async function calcularPuntosPartido(
   partidoId: number,
   golesLocalReal: number,
   golesVisitanteReal: number,
-  goleadorRealJugadorId: number | null,
+  goleadorRealJugadorId: number[] | number | null,
   usuarioIdAdmin: number
 ) {
+  // Normalizar a arreglo de IDs
+  let goleadoresIds: number[] = [];
+  if (Array.isArray(goleadorRealJugadorId)) {
+    goleadoresIds = goleadorRealJugadorId.map((id) => Number(id)).filter(Boolean);
+  } else if (goleadorRealJugadorId) {
+    goleadoresIds = [Number(goleadorRealJugadorId)].filter(Boolean);
+  }
+
   // 1. Determinar ganador o empate real
   let equipoGanadorId: number | null = null;
 
@@ -44,16 +52,17 @@ export async function calcularPuntosPartido(
     },
   });
 
-  // Si se envió goleador real, guardar en ResultadoGoleador
-  if (goleadorRealJugadorId) {
-    await prisma.resultadoGoleador.deleteMany({
-      where: { resultado_oficial_id: resultadoOficial.id },
-    });
-    await prisma.resultadoGoleador.create({
-      data: {
+  // Guardar todos los goleadores en ResultadoGoleador
+  await prisma.resultadoGoleador.deleteMany({
+    where: { resultado_oficial_id: resultadoOficial.id },
+  });
+
+  if (goleadoresIds.length > 0) {
+    await prisma.resultadoGoleador.createMany({
+      data: goleadoresIds.map((jid) => ({
         resultado_oficial_id: resultadoOficial.id,
-        jugador_id: goleadorRealJugadorId,
-      },
+        jugador_id: jid,
+      })),
     });
   }
 
@@ -104,8 +113,11 @@ export async function calcularPuntosPartido(
       });
     }
 
-    // Acierto goleador: 2 Pts
-    if (goleadorRealJugadorId && pred.jugador_goleador_predicho_id === goleadorRealJugadorId) {
+    // 3. Acierto goleador: 2 Pts si predijo a cualquiera de los goleadores reales del partido
+    if (
+      pred.jugador_goleador_predicho_id &&
+      goleadoresIds.includes(pred.jugador_goleador_predicho_id)
+    ) {
       await prisma.puntaje.create({
         data: {
           usuario_id: pred.usuario_id,
