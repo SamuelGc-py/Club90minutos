@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { CheckCircle2, ShieldAlert, Save, RefreshCw, Trophy, Calendar, LogOut, AlertTriangle, UserCheck, Lock, Clock, Eye, List, Download, Users } from "lucide-react";
+import { CheckCircle2, ShieldAlert, Save, RefreshCw, Trophy, Calendar, LogOut, AlertTriangle, UserCheck, Lock, Clock, Eye, List, Download, Users, Menu, X, Flame } from "lucide-react";
 import Link from "next/link";
 import TablaPosicionesAfiche from "./components/TablaPosicionesAfiche";
 
@@ -110,6 +110,7 @@ export default function ExpressPage() {
 
   // Estado del Formulario (Pestañas)
   const [tabActiva, setTabActiva] = useState<"partidos" | "inicial" | "mis_pronosticos" | "admin" | "posiciones">("partidos");
+  const [menuAbierto, setMenuAbierto] = useState(false);
   const [campeonId, setCampeonId] = useState<number | "">("");
   const [finalista1Id, setFinalista1Id] = useState<number | "">("");
   const [finalista2Id, setFinalista2Id] = useState<number | "">("");
@@ -1116,80 +1117,233 @@ export default function ExpressPage() {
       ) : (
         /* ================= VISTA NORMAL DE PARTICIPANTE ================= */
         <div>
-          {/* BARRA SUPERIOR DEL PARTICIPANTE */}
-          <div
-            className="card"
+          {/* HEADER PRINCIPAL RESPONSIVO */}
+          <header
             style={{
-              marginBottom: 24,
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              flexWrap: "wrap",
-              gap: 16,
+              padding: "14px 20px",
+              background: "rgba(14, 26, 39, 0.92)",
+              backdropFilter: "blur(12px)",
+              border: "1px solid var(--linea-fuerte)",
+              borderRadius: 14,
+              marginBottom: 20,
+              boxShadow: "0 8px 24px rgba(0,0,0,0.4)",
             }}
           >
-            <div>
-              <span className="badge badge-cancha" style={{ marginBottom: 8 }}>
-                ✓ Participante Activo
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <div style={{ fontWeight: 900, fontSize: "1.2rem", color: "#ffffff", display: "flex", alignItems: "center", gap: 8 }}>
+                ⚽ POLLA LIGA BETPLAY
+              </div>
+              <span className="desktop-slogan" style={{ fontSize: "0.85rem", color: "#38bdf8", fontWeight: 800, borderLeft: "1px solid var(--linea-fuerte)", paddingLeft: 12 }}>
+                DEMUESTRA LO QUE SABES DE FÚTBOL ⚽🔥
               </span>
-              <h2 style={{ marginBottom: 4 }}>{usuario.nombre}</h2>
-              <span style={{ color: "var(--graderia)", fontSize: "0.85rem" }}>{usuario.correo}</span>
             </div>
 
-            <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <span className="desktop-slogan" style={{ color: "var(--graderia)", fontSize: "0.85rem", fontWeight: 600 }}>
+                {usuario.nombre}
+              </span>
+              {/* BOTÓN MENÚ HAMBURGUESA MOVIL (3 LÍNEAS) */}
               <button
-                className={`btn ${tabActiva === "partidos" ? "btn-primary" : "btn-secondary"}`}
-                onClick={() => setTabActiva("partidos")}
-                style={{ padding: "10px 14px", fontSize: "0.85rem" }}
+                type="button"
+                className="mobile-menu-btn btn"
+                onClick={() => setMenuAbierto(!menuAbierto)}
+                style={{ padding: "8px 14px", background: "var(--noche-2)", border: "1px solid var(--linea-fuerte)", color: "#fff", cursor: "pointer" }}
+              >
+                {menuAbierto ? <X size={22} /> : <Menu size={22} />}
+              </button>
+            </div>
+          </header>
+
+          {/* MENÚ DESPLEGABLE HAMBURGUESA PARA CELULARES (3 LÍNEAS) */}
+          {menuAbierto && (
+            <div
+              style={{
+                marginBottom: 20,
+                padding: 16,
+                background: "var(--tribuna)",
+                border: "1px solid var(--cancha-borde)",
+                borderRadius: 14,
+                display: "flex",
+                flexDirection: "column",
+                gap: 10,
+                boxShadow: "0 10px 25px rgba(0,0,0,0.5)",
+              }}
+            >
+              <div
+                className={`menu-drawer-item ${tabActiva === "partidos" ? "active" : ""}`}
+                onClick={() => {
+                  setTabActiva("partidos");
+                  setMenuAbierto(false);
+                }}
               >
                 ⚽ Pronósticos Fecha 1
-              </button>
-
-              <button
-                className={`btn ${tabActiva === "inicial" ? "btn-primary" : "btn-secondary"}`}
-                onClick={() => setTabActiva("inicial")}
-                style={{ padding: "10px 14px", fontSize: "0.85rem" }}
+              </div>
+              <div
+                className={`menu-drawer-item ${tabActiva === "inicial" ? "active" : ""}`}
+                onClick={() => {
+                  setTabActiva("inicial");
+                  setMenuAbierto(false);
+                }}
               >
-                🏆 Predicciones Torneo (30P / 25P)
-              </button>
-
-              <button
-                className={`btn ${tabActiva === "mis_pronosticos" ? "btn-primary" : "btn-secondary"}`}
+                🏆 Predicciones Torneo (Campeón y Clasificados)
+              </div>
+              <div
+                className={`menu-drawer-item ${tabActiva === "mis_pronosticos" ? "active" : ""}`}
                 onClick={() => {
                   setTabActiva("mis_pronosticos");
+                  setMenuAbierto(false);
                   cargarConsolidados(usuario.id);
                 }}
-                style={{ padding: "10px 14px", fontSize: "0.85rem" }}
               >
-                📋 Mis Pronósticos & Públicos
-              </button>
-
-              <button
-                className={`btn ${tabActiva === "posiciones" ? "btn-primary" : "btn-secondary"}`}
+                📋 Mis Pronósticos y Públicos
+              </div>
+              <div
+                className={`menu-drawer-item ${tabActiva === "posiciones" ? "active" : ""}`}
                 onClick={() => {
                   setTabActiva("posiciones");
+                  setMenuAbierto(false);
                   cargarConsolidados(usuario.id);
                 }}
-                style={{ padding: "10px 14px", fontSize: "0.85rem" }}
               >
-                📊 Posiciones & Puntos en Vivo
-              </button>
+                📊 Posiciones y Puntos en Vivo
+              </div>
+              {usuario.rol_id === 2 && (
+                <div
+                  className={`menu-drawer-item ${tabActiva === "admin" ? "active" : ""}`}
+                  onClick={() => {
+                    setTabActiva("admin");
+                    setMenuAbierto(false);
+                  }}
+                >
+                  👑 Panel Administrador
+                </div>
+              )}
+              <div
+                className="menu-drawer-item"
+                onClick={handleCerrarSesion}
+                style={{ color: "var(--rojo)", borderColor: "rgba(255,92,92,0.3)" }}
+              >
+                <LogOut size={18} /> Salir (Cerrar Sesión)
+              </div>
+            </div>
+          )}
 
+          {/* HERO BANNER DE BIENVENIDA FUTBOLERA */}
+          <div
+            className="card"
+            style={{
+              background: "linear-gradient(135deg, rgba(14, 26, 39, 0.95) 0%, rgba(19, 32, 48, 0.95) 50%, rgba(16, 42, 33, 0.95) 100%)",
+              border: "1px solid var(--cancha-borde)",
+              borderRadius: 16,
+              padding: "24px 28px",
+              marginBottom: 24,
+              boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
+              textAlign: "center",
+              position: "relative",
+              overflow: "hidden",
+            }}
+          >
+            <div style={{ fontSize: "0.82rem", textTransform: "uppercase", letterSpacing: "0.12em", color: "#34d399", fontWeight: 800, marginBottom: 6 }}>
+              🔥 DESAFÍO LIGA BETPLAY DIMAYOR II 2026 🔥
+            </div>
+            <h2 style={{ fontSize: "clamp(1.4rem, 3.5vw, 2.2rem)", fontWeight: 900, color: "#ffffff", marginBottom: 10 }}>
+              DEMUESTRA LO QUE SABES DE FÚTBOL
+            </h2>
+            <p style={{ maxWidth: 680, margin: "0 auto 18px", color: "var(--graderia)", fontSize: "0.95rem", lineHeight: 1.6 }}>
+              ¡Hola, <strong style={{ color: "#fff" }}>{usuario.nombre}</strong>! Bienvenido a la competencia oficial. Aquí no se gana por suerte, se gana con pasión y cabeza fría. Pronostica marcadores, atínale a los goleadores y demuestra que eres el verdadero rey de la cancha.
+            </p>
+            <div style={{ display: "flex", justifyContent: "center", gap: 10, flexWrap: "wrap" }}>
               <button
                 className="btn btn-primary"
-                onClick={handleGuardarTodo}
-                disabled={guardando}
-                style={{ padding: "10px 16px", fontSize: "0.85rem" }}
+                onClick={() => {
+                  setTabActiva("partidos");
+                  setMenuAbierto(false);
+                }}
+                style={{ padding: "10px 20px", fontSize: "0.9rem", fontWeight: 800 }}
               >
-                <Save size={16} /> {guardando ? "Guardando..." : "Guardar Todo"}
+                ⚽ Jugar Pronósticos Fecha 1
               </button>
-
               <button
-                className="btn btn-logout"
-                onClick={handleCerrarSesion}
-                style={{ padding: "10px 14px", fontSize: "0.85rem" }}
-                title="Cerrar Sesión y Salir"
+                className="btn"
+                onClick={() => {
+                  setTabActiva("inicial");
+                  setMenuAbierto(false);
+                }}
+                style={{ padding: "10px 20px", fontSize: "0.9rem", fontWeight: 800, background: "rgba(255, 197, 51, 0.15)", color: "#ffc533", border: "1px solid rgba(255, 197, 51, 0.3)" }}
               >
+                🏆 Campeón y Clasificados
+              </button>
+              <button
+                className="btn"
+                onClick={() => {
+                  setTabActiva("posiciones");
+                  setMenuAbierto(false);
+                  cargarConsolidados(usuario.id);
+                }}
+                style={{ padding: "10px 20px", fontSize: "0.9rem", fontWeight: 800, background: "rgba(56, 189, 248, 0.15)", color: "#38bdf8", border: "1px solid rgba(56, 189, 248, 0.3)" }}
+              >
+                📊 Tabla de Posiciones
+              </button>
+            </div>
+          </div>
+
+          {/* PESTAÑAS NAVEGACIÓN COMPUTADOR (desktop-tabs) */}
+          <div className="desktop-tabs" style={{ marginBottom: 24 }}>
+            <div className="card" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap", padding: 14 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+                <button
+                  className={`btn ${tabActiva === "partidos" ? "btn-primary" : "btn-secondary"}`}
+                  onClick={() => setTabActiva("partidos")}
+                  style={{ padding: "10px 14px", fontSize: "0.85rem" }}
+                >
+                  ⚽ Pronósticos Fecha 1
+                </button>
+
+                <button
+                  className={`btn ${tabActiva === "inicial" ? "btn-primary" : "btn-secondary"}`}
+                  onClick={() => setTabActiva("inicial")}
+                  style={{ padding: "10px 14px", fontSize: "0.85rem" }}
+                >
+                  🏆 Predicciones Torneo
+                </button>
+
+                <button
+                  className={`btn ${tabActiva === "mis_pronosticos" ? "btn-primary" : "btn-secondary"}`}
+                  onClick={() => {
+                    setTabActiva("mis_pronosticos");
+                    cargarConsolidados(usuario.id);
+                  }}
+                  style={{ padding: "10px 14px", fontSize: "0.85rem" }}
+                >
+                  📋 Mis Pronósticos & Públicos
+                </button>
+
+                <button
+                  className={`btn ${tabActiva === "posiciones" ? "btn-primary" : "btn-secondary"}`}
+                  onClick={() => {
+                    setTabActiva("posiciones");
+                    cargarConsolidados(usuario.id);
+                  }}
+                  style={{ padding: "10px 14px", fontSize: "0.85rem" }}
+                >
+                  📊 Posiciones & Puntos en Vivo
+                </button>
+
+                {usuario.rol_id === 2 && (
+                  <button
+                    className={`btn ${tabActiva === "admin" ? "btn-primary" : "btn-secondary"}`}
+                    onClick={() => setTabActiva("admin")}
+                    style={{ padding: "10px 14px", fontSize: "0.85rem", background: tabActiva === "admin" ? "#f5b000" : undefined, color: tabActiva === "admin" ? "#000" : undefined }}
+                  >
+                    👑 Panel Admin
+                  </button>
+                )}
+              </div>
+
+              <button className="btn btn-logout" onClick={handleCerrarSesion} style={{ padding: "10px 14px", fontSize: "0.85rem" }}>
                 <LogOut size={16} /> Salir
               </button>
             </div>

@@ -406,21 +406,24 @@ main {
     justify-content: center;
   }
 
-  /* Ajuste de navegadores y pestañas superiores en celulares */
-  .header-actions-mobile {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 8px;
+  /* Prevenir zoom automático al enfocar inputs o selects en pantallas táctiles */
+  input, select, textarea {
+    font-size: 16px !important;
   }
 
-  .tabs-scroll-mobile {
-    display: flex;
-    overflow-x: auto;
-    white-space: nowrap;
-    padding-bottom: 6px;
-    -webkit-overflow-scrolling: touch;
-    gap: 8px;
+  /* Ocultar pestañas horizontales de escritorio en movil */
+  .desktop-tabs {
+    display: none !important;
+  }
+
+  /* Mostrar botón de menú hamburguesa */
+  .mobile-menu-btn {
+    display: inline-flex !important;
+  }
+
+  /* Esconder eslogan largo en header movil */
+  .desktop-slogan {
+    display: none !important;
   }
 
   /* Ajuste de enfrentamiento de partido en pantalla chica */
@@ -461,4 +464,30 @@ main {
     padding: 8px;
     font-size: 0.78rem;
   }
+}
+
+.mobile-menu-btn {
+  display: none;
+}
+
+.menu-drawer-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: 10px;
+  color: var(--tiza);
+  font-weight: 700;
+  font-size: 1rem;
+  background: var(--noche-2);
+  border: 1px solid var(--linea);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.menu-drawer-item:hover, .menu-drawer-item.active {
+  background: var(--cancha-suave);
+  border-color: var(--cancha);
+  color: var(--cancha);
 }
