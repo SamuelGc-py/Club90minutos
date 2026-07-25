@@ -33,8 +33,8 @@ export async function GET() {
         },
       },
       orderBy: [
-        { fase: "asc" },
         { jornada: "asc" },
+        { fecha_hora_partido: "asc" },
       ],
     });
 

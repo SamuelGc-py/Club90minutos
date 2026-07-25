@@ -52,7 +52,7 @@ export async function GET(req: Request) {
       },
       orderBy: [
         { usuario: { nombre_completo: "asc" } },
-        { partido: { jornada: "asc" } },
+        { partido: { fecha_hora_partido: "asc" } },
       ],
     });
 
