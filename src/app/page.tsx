@@ -1139,7 +1139,7 @@ export default function ExpressPage() {
               </div>
             </div>
 
-            {/* CENTRO: ES LOGAN MELO CON BALÓN 3D, CAMISETA #10 3D Y FUEGUITO INFERIOR */}
+            {/* CENTRO: ES LOGAN LÍMPIO EN BLANCO CON ICONOS 3D ANIMADOS */}
             <div
               className="desktop-slogan"
               style={{
@@ -1147,11 +1147,6 @@ export default function ExpressPage() {
                 alignItems: "center",
                 gap: 12,
                 justifyContent: "center",
-                padding: "6px 18px",
-                borderRadius: "14px",
-                background: "radial-gradient(ellipse at bottom, rgba(255, 110, 0, 0.15) 0%, rgba(16, 42, 33, 0.4) 60%, transparent 90%)",
-                borderBottom: "1px solid rgba(255, 140, 0, 0.4)",
-                boxShadow: "0 6px 18px rgba(255, 90, 0, 0.15)",
               }}
             >
               {/* BALÓN 3D */}
@@ -1159,23 +1154,20 @@ export default function ExpressPage() {
                 src="/images/balon_3d.png"
                 alt="Balón 3D"
                 className="icono-3d-flotante"
-                style={{ width: 34, height: 34 }}
+                style={{ width: 32, height: 32 }}
               />
 
-              {/* ES LOGAN CON COLORES DEL SITIO Y FUEGUITO SUBTITULADO */}
-              <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                <span className="slogan-melo-texto">
-                  DEMUESTRA LO QUE SABES DE FÚTBOL
-                </span>
-                <div className="linea-fuego-animada" />
-              </div>
+              {/* TEXTO EN BLANCO LÍMPIO */}
+              <span style={{ fontSize: "0.95rem", fontWeight: 900, color: "#ffffff", letterSpacing: "0.6px", textTransform: "uppercase" }}>
+                DEMUESTRA LO QUE SABES DE FÚTBOL ⚽🔥
+              </span>
 
               {/* CAMISETA #10 3D */}
               <img
                 src="/images/camiseta_3d.png"
                 alt="Camiseta 10 3D"
                 className="icono-3d-flotante-delay"
-                style={{ width: 34, height: 34 }}
+                style={{ width: 32, height: 32 }}
               />
             </div>
 
