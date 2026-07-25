@@ -173,6 +173,11 @@ export default function ExpressPage() {
       return;
     }
 
+    if ((Number(m.local) > 0 || Number(m.visitante) > 0) && !m.goleador_id) {
+      setMensajeEstado({ tipo: "error", texto: "⚠️ Ingresaste marcador con goles pero no seleccionaste ningún goleador predicho. Por favor elige un goleador." });
+      return;
+    }
+
     try {
       setGuardandoPartidoId(partidoId);
       setMensajeEstado({ tipo: "info", texto: "Guardando pronóstico del partido..." });
@@ -600,6 +605,10 @@ export default function ExpressPage() {
         if (nL === nV && ganador !== "empate") {
           const nombreGanador = ganador === "local" ? partido.equipo_local.nombre : partido.equipo_visitante.nombre;
           return `❌ Inconsistencia en ${partido.equipo_local.nombre} vs ${partido.equipo_visitante.nombre}: Pusiste marcador de empate (${nL} - ${nV}), pero seleccionaste como ganador a "${nombreGanador}".`;
+        }
+
+        if ((nL > 0 || nV > 0) && (!m.goleador_id || m.goleador_id === "")) {
+          return `⚠️ En el partido ${partido.equipo_local.nombre} vs ${partido.equipo_visitante.nombre}, ingresaste marcador con goles (${nL} - ${nV}) pero no seleccionaste goleador. Por favor selecciona un goleador.`;
         }
       }
     }
@@ -1108,6 +1117,7 @@ export default function ExpressPage() {
                                   <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.15)", color: "#94a3b8" }}>
                                     <th style={{ padding: "8px" }}>Participante</th>
                                     <th style={{ padding: "8px", textAlign: "center" }}>Marcador Predicho</th>
+                                    <th style={{ padding: "8px", textAlign: "center" }}>Ganador Predicho</th>
                                     <th style={{ padding: "8px" }}>Goleador Predicho</th>
                                   </tr>
                                 </thead>
@@ -1119,6 +1129,25 @@ export default function ExpressPage() {
                                       </td>
                                       <td style={{ padding: "8px", textAlign: "center", fontWeight: 900, color: "#34d399", fontSize: "1rem" }}>
                                         {p.goles_local_predicho} - {p.goles_visitante_predicho}
+                                      </td>
+                                      <td style={{ padding: "8px", textAlign: "center" }}>
+                                        {(() => {
+                                          const valL = p.goles_local_predicho !== undefined && p.goles_local_predicho !== null ? p.goles_local_predicho : p.goles_local;
+                                          const valV = p.goles_visitante_predicho !== undefined && p.goles_visitante_predicho !== null ? p.goles_visitante_predicho : p.goles_visitante;
+                                          const gL = Number(valL);
+                                          const gV = Number(valV);
+                                          let ganadorTexto = "Empate";
+                                          if (!isNaN(gL) && !isNaN(gV)) {
+                                            if (gL > gV) ganadorTexto = `Gana ${partido.equipo_local.nombre}`;
+                                            else if (gV > gL) ganadorTexto = `Gana ${partido.equipo_visitante.nombre}`;
+                                            else ganadorTexto = "Empate";
+                                          }
+                                          return (
+                                            <span className="badge" style={{ background: "rgba(56, 189, 248, 0.15)", color: "#38bdf8", fontWeight: 800 }}>
+                                              {ganadorTexto}
+                                            </span>
+                                          );
+                                        })()}
                                       </td>
                                       <td style={{ padding: "8px", color: "#f5b000", fontWeight: 600 }}>
                                         {p.jugador_goleador?.nombre || "Sin Goleador"}
@@ -1603,12 +1632,25 @@ export default function ExpressPage() {
                 </div>
               ) : (
                 (() => {
-                  const partidosActivos = partidos.filter(
-                    (p) => !p.resultado_oficial && p.estado !== "resultado_cargado" && p.estado !== "puntaje_calculado"
-                  );
-                  const partidosFinalizados = partidos.filter(
-                    (p) => Boolean(p.resultado_oficial) || p.estado === "resultado_cargado" || p.estado === "puntaje_calculado"
-                  );
+                  const estaCerradoOFinal = (partido: any) => {
+                    const horaCierrePartido = new Date(new Date(partido.fecha_hora_partido).getTime() - 60 * 60 * 1000);
+                    const esAplazado = partido.estado === "aplazado";
+                    const esAdmin = usuario?.rol_id === 2;
+                    const esExcepcionHarold = usuario?.correo === "hberdugodelosreyes0@gmail.com" && partido.id === 24;
+                    const esExcepcionSamu = usuario?.correo === "samucobaggg@gmail.com" && partido.id === 25;
+
+                    if (Boolean(partido.resultado_oficial) || partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado") {
+                      return true;
+                    }
+                    if (esAplazado) return true;
+                    if (new Date() >= horaCierrePartido && !esAdmin && !esExcepcionHarold && !esExcepcionSamu) {
+                      return true;
+                    }
+                    return false;
+                  };
+
+                  const partidosActivos = partidos.filter((p) => !estaCerradoOFinal(p));
+                  const partidosFinalizados = partidos.filter((p) => estaCerradoOFinal(p));
 
                   const renderPartidoCard = (partido: any) => {
                     const m = marcadores[partido.id] || { local: "", visitante: "", ganador: "", goleador_id: "" };
@@ -1635,7 +1677,8 @@ export default function ExpressPage() {
                     const esAplazado = partido.estado === "aplazado";
                     const esAdmin = usuario?.rol_id === 2;
                     const esExcepcionHarold = usuario?.correo === "hberdugodelosreyes0@gmail.com" && partido.id === 24;
-                    const estaCerrado = (new Date() >= horaCierrePartido && !esAdmin && !esExcepcionHarold) || esAplazado;
+                    const esExcepcionSamu = usuario?.correo === "samucobaggg@gmail.com" && partido.id === 25;
+                    const estaCerrado = (new Date() >= horaCierrePartido && !esAdmin && !esExcepcionHarold && !esExcepcionSamu) || esAplazado;
 
                     return (
                       <div
@@ -1831,84 +1874,109 @@ export default function ExpressPage() {
                           );
                         })()}
 
-                        {/* SELECTOR DE GOLEADOR */}
-                        <div>
-                          <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "var(--graderia)", marginBottom: 6 }}>
+                        {/* SELECTOR DE GOLEADOR SEPARADO POR EQUIPO */}
+                        <div style={{ background: "var(--noche-2)", padding: "14px 16px", borderRadius: 8, marginBottom: 12 }}>
+                          <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "var(--graderia)", marginBottom: 10 }}>
                             ⚽ Goleador del Partido (Opcional - 2 Pts):
                           </label>
-                          <select
-                            value={m.goleador_id}
-                            onChange={(e) => handleGoleadorChange(partido.id, e.target.value)}
-                            disabled={estaCerrado}
-                            style={{
-                              width: "100%",
-                              padding: "10px 12px",
-                              background: "var(--noche-2)",
-                              border: "1px solid var(--linea)",
-                              borderRadius: 8,
-                              color: "#ffffff",
-                              fontSize: "0.9rem",
-                            }}
-                          >
-                            {(partido.equipo_local.jugadores && partido.equipo_local.jugadores.length > 0) ||
-                            (partido.equipo_visitante.jugadores && partido.equipo_visitante.jugadores.length > 0) ? (
-                              <>
-                                {partido.equipo_local.jugadores && partido.equipo_local.jugadores.length > 0 && (
-                                  <optgroup label={`🏠 ${partido.equipo_local.nombre}`}>
-                                    {partido.equipo_local.jugadores.map((j: any) => (
-                                      <option key={j.id} value={j.id}>
-                                        {j.nombre}
-                                      </option>
-                                    ))}
-                                  </optgroup>
-                                )}
-                                {partido.equipo_visitante.jugadores && partido.equipo_visitante.jugadores.length > 0 && (
-                                  <optgroup label={`✈️ ${partido.equipo_visitante.nombre}`}>
-                                    {partido.equipo_visitante.jugadores.map((j: any) => (
-                                      <option key={j.id} value={j.id}>
-                                        {j.nombre}
-                                      </option>
-                                    ))}
-                                  </optgroup>
-                                )}
-                              </>
-                            ) : (
-                              jugadores.map((j) => (
-                                <option key={j.id} value={j.id}>
-                                  {j.nombre} ({j.equipo ? j.equipo.nombre : "FPC"})
-                                </option>
-                              ))
-                            )}
-                          </select>
+                          <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
+                            {/* GOLEADOR LOCAL */}
+                            <div style={{ flex: 1, minWidth: 200 }}>
+                              <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 700, color: "var(--cancha)", marginBottom: 4 }}>
+                                🏠 Goleador {partido.equipo_local.nombre}:
+                              </label>
+                              <select
+                                value={
+                                  (partido.equipo_local.jugadores || []).some((j: any) => String(j.id) === String(m.goleador_id))
+                                    ? m.goleador_id
+                                    : ""
+                                }
+                                onChange={(e) => handleGoleadorChange(partido.id, e.target.value)}
+                                disabled={estaCerrado}
+                                style={{
+                                  width: "100%",
+                                  padding: "9px 12px",
+                                  background: "var(--noche-1)",
+                                  border: (partido.equipo_local.jugadores || []).some((j: any) => String(j.id) === String(m.goleador_id))
+                                    ? "1px solid var(--cancha)"
+                                    : "1px solid var(--linea)",
+                                  borderRadius: 8,
+                                  color: "#ffffff",
+                                  fontSize: "0.85rem",
+                                }}
+                              >
+                                <option value="">-- Ninguno de {partido.equipo_local.nombre} --</option>
+                                {(partido.equipo_local.jugadores || []).map((j: any) => (
+                                  <option key={j.id} value={j.id}>
+                                    {j.nombre} ({j.posicion || "Jugador"})
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
+
+                            {/* GOLEADOR VISITANTE */}
+                            <div style={{ flex: 1, minWidth: 200 }}>
+                              <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 700, color: "#38bdf8", marginBottom: 4 }}>
+                                ✈️ Goleador {partido.equipo_visitante.nombre}:
+                              </label>
+                              <select
+                                value={
+                                  (partido.equipo_visitante.jugadores || []).some((j: any) => String(j.id) === String(m.goleador_id))
+                                    ? m.goleador_id
+                                    : ""
+                                }
+                                onChange={(e) => handleGoleadorChange(partido.id, e.target.value)}
+                                disabled={estaCerrado}
+                                style={{
+                                  width: "100%",
+                                  padding: "9px 12px",
+                                  background: "var(--noche-1)",
+                                  border: (partido.equipo_visitante.jugadores || []).some((j: any) => String(j.id) === String(m.goleador_id))
+                                    ? "1px solid #38bdf8"
+                                    : "1px solid var(--linea)",
+                                  borderRadius: 8,
+                                  color: "#ffffff",
+                                  fontSize: "0.85rem",
+                                }}
+                              >
+                                <option value="">-- Ninguno de {partido.equipo_visitante.nombre} --</option>
+                                {(partido.equipo_visitante.jugadores || []).map((j: any) => (
+                                  <option key={j.id} value={j.id}>
+                                    {j.nombre} ({j.posicion || "Jugador"})
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
+                          </div>
 
                           {m.goleador_id && (
-                            <div style={{ marginTop: 6, fontSize: "0.78rem", color: "#34d399", fontWeight: 700, display: "flex", alignItems: "center", gap: 4 }}>
-                              ⚽ Goleador elegido: {[...(partido.equipo_local.jugadores || []), ...(partido.equipo_visitante.jugadores || []), ...jugadores].find((j) => j.id === Number(m.goleador_id))?.nombre || "Seleccionado"}
-                            </div>
-                          )}
-
-                          {/* ADVERTENCIA SI INGRESÓ GOLES PERO NO SELECCIONÓ GOLEADOR */}
-                          {(m.local !== "" || m.visitante !== "") && (Number(m.local || 0) > 0 || Number(m.visitante || 0) > 0) && !m.goleador_id && (
-                            <div
-                              style={{
-                                marginTop: 8,
-                                padding: "8px 12px",
-                                background: "rgba(245, 158, 11, 0.15)",
-                                border: "1px solid rgba(245, 158, 11, 0.4)",
-                                borderRadius: 8,
-                                color: "#fef08a",
-                                fontSize: "0.82rem",
-                                display: "flex",
-                                alignItems: "center",
-                                gap: 8,
-                                fontWeight: 700,
-                              }}
-                            >
-                              <AlertTriangle size={18} style={{ flexShrink: 0, color: "#f59e0b" }} />
-                              <span>⚠️ Advertencia: Ingresaste marcador ({m.local || 0} - {m.visitante || 0}) pero no elegiste goleador. Si alguien hace gol, perderás los 2 Pts de goleador.</span>
+                            <div style={{ marginTop: 10, fontSize: "0.82rem", color: "var(--cancha)", fontWeight: 700, display: "flex", alignItems: "center", gap: 6 }}>
+                              ⚽ Goleador elegido: {[...(partido.equipo_local.jugadores || []), ...(partido.equipo_visitante.jugadores || []), ...jugadores].find((j: any) => String(j.id) === String(m.goleador_id))?.nombre || "Seleccionado"}
                             </div>
                           )}
                         </div>
+
+                        {/* ADVERTENCIA SI INGRESÓ GOLES PERO NO SELECCIONÓ GOLEADOR */}
+                        {(m.local !== "" || m.visitante !== "") && (Number(m.local || 0) > 0 || Number(m.visitante || 0) > 0) && !m.goleador_id && (
+                          <div
+                            style={{
+                              marginTop: 8,
+                              padding: "8px 12px",
+                              background: "rgba(245, 158, 11, 0.15)",
+                              border: "1px solid rgba(245, 158, 11, 0.4)",
+                              borderRadius: 8,
+                              color: "#fef08a",
+                              fontSize: "0.82rem",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: 8,
+                              fontWeight: 700,
+                            }}
+                          >
+                            <AlertTriangle size={18} style={{ flexShrink: 0, color: "#f59e0b" }} />
+                            <span>⚠️ Advertencia: Ingresaste marcador ({m.local || 0} - {m.visitante || 0}) pero no elegiste goleador. Si alguien hace gol, perderás los 2 Pts de goleador.</span>
+                          </div>
+                        )}
 
                         {inconsistencia && (
                           <div style={{ marginTop: 10, color: "var(--rojo)", fontSize: "0.85rem", display: "flex", alignItems: "center", gap: 6, fontWeight: 700 }}>
@@ -2358,9 +2426,9 @@ export default function ExpressPage() {
                                          let ganadorTexto = "Empate";
                                          if (!isNaN(gL) && !isNaN(gV)) {
                                            if (gL > gV) {
-                                             ganadorTexto = partido.equipo_local.nombre;
+                                             ganadorTexto = `Gana ${partido.equipo_local.nombre}`;
                                            } else if (gV > gL) {
-                                             ganadorTexto = partido.equipo_visitante.nombre;
+                                             ganadorTexto = `Gana ${partido.equipo_visitante.nombre}`;
                                            }
                                          }
                                          return (
@@ -2755,6 +2823,7 @@ export default function ExpressPage() {
                                   <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.15)", color: "#94a3b8" }}>
                                     <th style={{ padding: "8px" }}>Participante</th>
                                     <th style={{ padding: "8px", textAlign: "center" }}>Marcador Predicho</th>
+                                    <th style={{ padding: "8px", textAlign: "center" }}>Ganador Predicho</th>
                                     <th style={{ padding: "8px" }}>Goleador Predicho</th>
                                   </tr>
                                 </thead>
@@ -2766,6 +2835,25 @@ export default function ExpressPage() {
                                       </td>
                                       <td style={{ padding: "8px", textAlign: "center", fontWeight: 900, color: "#34d399", fontSize: "1rem" }}>
                                         {p.goles_local_predicho} - {p.goles_visitante_predicho}
+                                      </td>
+                                      <td style={{ padding: "8px", textAlign: "center" }}>
+                                        {(() => {
+                                          const valL = p.goles_local_predicho !== undefined && p.goles_local_predicho !== null ? p.goles_local_predicho : p.goles_local;
+                                          const valV = p.goles_visitante_predicho !== undefined && p.goles_visitante_predicho !== null ? p.goles_visitante_predicho : p.goles_visitante;
+                                          const gL = Number(valL);
+                                          const gV = Number(valV);
+                                          let ganadorTexto = "Empate";
+                                          if (!isNaN(gL) && !isNaN(gV)) {
+                                            if (gL > gV) ganadorTexto = `Gana ${partido.equipo_local.nombre}`;
+                                            else if (gV > gL) ganadorTexto = `Gana ${partido.equipo_visitante.nombre}`;
+                                            else ganadorTexto = "Empate";
+                                          }
+                                          return (
+                                            <span className="badge" style={{ background: "rgba(56, 189, 248, 0.15)", color: "#38bdf8", fontWeight: 800 }}>
+                                              {ganadorTexto}
+                                            </span>
+                                          );
+                                        })()}
                                       </td>
                                       <td style={{ padding: "8px", color: "#f5b000", fontWeight: 600 }}>
                                         {p.jugador_goleador?.nombre || "Sin Goleador"}

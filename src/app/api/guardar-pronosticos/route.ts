@@ -115,8 +115,9 @@ export async function POST(req: Request) {
             if (partidoDb) {
               const limiteCierre = new Date(new Date(partidoDb.fecha_hora_partido).getTime() - 60 * 60 * 1000);
               const esExcepcionHaroldMedellin = usuario.correo === "hberdugodelosreyes0@gmail.com" && partidoDb.id === 24;
+              const esExcepcionSamuMillonarios = usuario.correo === "samucobaggg@gmail.com" && partidoDb.id === 25;
               // Si ya pasó la hora de cierre (1 hora antes del partido), no guardar este pronóstico (salvo admin o excepción)
-              if (now >= limiteCierre && !esAdmin && !esExcepcionHaroldMedellin) {
+              if (now >= limiteCierre && !esAdmin && !esExcepcionHaroldMedellin && !esExcepcionSamuMillonarios) {
                 continue;
               }
             }
