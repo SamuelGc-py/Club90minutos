@@ -1700,45 +1700,62 @@ export default function ExpressPage() {
                         </div>
 
                         {/* GANADOR PREDICHO */}
-                        <div style={{ background: "var(--noche-2)", padding: "12px 16px", borderRadius: 8, marginBottom: 12 }}>
-                          <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "var(--graderia)", marginBottom: 6 }}>
-                            🏆 Equipo Ganador del Partido (3 Pts):
-                          </label>
-                          <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-                            <label style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer", fontSize: "0.9rem" }}>
-                              <input
-                                type="radio"
-                                name={`ganador-${partido.id}`}
-                                checked={m.ganador === "local"}
-                                onChange={() => handleGanadorChange(partido.id, "local")}
-                                disabled={estaCerrado}
-                              />
-                              Gana {partido.equipo_local.nombre}
-                            </label>
+                        {(() => {
+                          const ganadorEfectivo = m.ganador || (
+                            m.local !== "" && m.visitante !== ""
+                              ? (Number(m.local) > Number(m.visitante) ? "local" : Number(m.visitante) > Number(m.local) ? "visitante" : "empate")
+                              : ""
+                          );
 
-                            <label style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer", fontSize: "0.9rem" }}>
-                              <input
-                                type="radio"
-                                name={`ganador-${partido.id}`}
-                                checked={m.ganador === "empate"}
-                                onChange={() => handleGanadorChange(partido.id, "empate")}
-                                disabled={estaCerrado}
-                              />
-                              Empate
-                            </label>
+                          return (
+                            <div style={{ background: "var(--noche-2)", padding: "12px 16px", borderRadius: 8, marginBottom: 12 }}>
+                              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6, flexWrap: "wrap" }}>
+                                <label style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--graderia)", margin: 0 }}>
+                                  🏆 Equipo Ganador del Partido (3 Pts):
+                                </label>
+                                {ganadorEfectivo && (
+                                  <span style={{ fontSize: "0.8rem", fontWeight: 800, color: "#38bdf8", background: "rgba(56,189,248,0.15)", padding: "2px 8px", borderRadius: 4 }}>
+                                    {ganadorEfectivo === "local" ? `Gana ${partido.equipo_local.nombre}` : ganadorEfectivo === "visitante" ? `Gana ${partido.equipo_visitante.nombre}` : "Empate"}
+                                  </span>
+                                )}
+                              </div>
+                              <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+                                <label style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer", fontSize: "0.9rem" }}>
+                                  <input
+                                    type="radio"
+                                    name={`ganador-${partido.id}`}
+                                    checked={ganadorEfectivo === "local"}
+                                    onChange={() => handleGanadorChange(partido.id, "local")}
+                                    disabled={estaCerrado}
+                                  />
+                                  Gana {partido.equipo_local.nombre}
+                                </label>
 
-                            <label style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer", fontSize: "0.9rem" }}>
-                              <input
-                                type="radio"
-                                name={`ganador-${partido.id}`}
-                                checked={m.ganador === "visitante"}
-                                onChange={() => handleGanadorChange(partido.id, "visitante")}
-                                disabled={estaCerrado}
-                              />
-                              Gana {partido.equipo_visitante.nombre}
-                            </label>
-                          </div>
-                        </div>
+                                <label style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer", fontSize: "0.9rem" }}>
+                                  <input
+                                    type="radio"
+                                    name={`ganador-${partido.id}`}
+                                    checked={ganadorEfectivo === "empate"}
+                                    onChange={() => handleGanadorChange(partido.id, "empate")}
+                                    disabled={estaCerrado}
+                                  />
+                                  Empate
+                                </label>
+
+                                <label style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer", fontSize: "0.9rem" }}>
+                                  <input
+                                    type="radio"
+                                    name={`ganador-${partido.id}`}
+                                    checked={ganadorEfectivo === "visitante"}
+                                    onChange={() => handleGanadorChange(partido.id, "visitante")}
+                                    disabled={estaCerrado}
+                                  />
+                                  Gana {partido.equipo_visitante.nombre}
+                                </label>
+                              </div>
+                            </div>
+                          );
+                        })()}
 
                         {/* SELECTOR DE GOLEADOR */}
                         <div>
