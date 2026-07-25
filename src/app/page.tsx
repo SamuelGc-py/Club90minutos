@@ -1546,9 +1546,19 @@ export default function ExpressPage() {
                                       {p.goles_local_predicho} - {p.goles_visitante_predicho}
                                     </td>
                                     <td style={{ padding: "8px", textAlign: "center" }}>
-                                      <span className="badge" style={{ background: "rgba(56, 189, 248, 0.15)", color: "#38bdf8" }}>
-                                        {p.ganador_predicho === "local" ? partido.equipo_local.nombre : p.ganador_predicho === "visitante" ? partido.equipo_visitante.nombre : "Empate"}
-                                      </span>
+                                      {(() => {
+                                        let ganadorTexto = "Empate";
+                                        if (p.goles_local_predicho > p.goles_visitante_predicho) {
+                                          ganadorTexto = partido.equipo_local.nombre;
+                                        } else if (p.goles_visitante_predicho > p.goles_local_predicho) {
+                                          ganadorTexto = partido.equipo_visitante.nombre;
+                                        }
+                                        return (
+                                          <span className="badge" style={{ background: "rgba(56, 189, 248, 0.15)", color: "#38bdf8" }}>
+                                            {ganadorTexto}
+                                          </span>
+                                        );
+                                      })()}
                                     </td>
                                     <td style={{ padding: "8px", color: "var(--graderia)" }}>
                                       {p.jugador_goleador?.nombre || "N/A"}
