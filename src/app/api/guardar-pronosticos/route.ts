@@ -103,10 +103,11 @@ export async function POST(req: Request) {
             });
 
             if (partidoDb) {
-              const limiteCierre = new Date(new Date(partidoDb.fecha_hora_partido).getTime() - 10 * 60 * 1000);
-              const esExcepcionUsuario = usuario.correo === "samucobaggg@gmail.com";
-              // Si ya pasó la hora de cierre (10 minutos antes del partido), no guardar este pronóstico (salvo para la excepción)
-              if (now >= limiteCierre && !esExcepcionUsuario) {
+              const limiteCierre = new Date(new Date(partidoDb.fecha_hora_partido).getTime() - 60 * 60 * 1000);
+              const esAdmin = usuario.rol_id === 2;
+              const esExcepcionHaroldMedellin = usuario.correo === "hberdugodelosreyes0@gmail.com" && partidoDb.id === 24;
+              // Si ya pasó la hora de cierre (1 hora antes del partido), no guardar este pronóstico (salvo admin o excepción)
+              if (now >= limiteCierre && !esAdmin && !esExcepcionHaroldMedellin) {
                 continue;
               }
             }

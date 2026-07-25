@@ -1592,7 +1592,8 @@ export default function ExpressPage() {
                     const horaCierrePartido = new Date(new Date(partido.fecha_hora_partido).getTime() - 60 * 60 * 1000);
                     const esAplazado = partido.estado === "aplazado";
                     const esAdmin = usuario?.rol_id === 2;
-                    const estaCerrado = (new Date() >= horaCierrePartido && !esAdmin) || esAplazado;
+                    const esExcepcionHarold = usuario?.correo === "hberdugodelosreyes0@gmail.com" && partido.id === 24;
+                    const estaCerrado = (new Date() >= horaCierrePartido && !esAdmin && !esExcepcionHarold) || esAplazado;
 
                     return (
                       <div
