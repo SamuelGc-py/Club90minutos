@@ -27,14 +27,28 @@ export async function GET(req: Request) {
       );
     }
 
-    // Obtener todos los usuarios participantes activos (excluyendo la cuenta del Administrador)
+    const esAdmin = usr.rol_id === 2;
+    const correosExcluidos = [
+      "adminpollabetplay@gmail.com",
+      "prueba.admin@pollabetplay.com",
+      "pruebas@pollabetplay.com"
+    ];
+
+    // Obtener todos los usuarios participantes activos (excluyendo la cuenta del Administrador y cuentas de prueba para participantes normales)
     const usuarios = await prisma.usuario.findMany({
-      where: {
-        activo: true,
-        NOT: {
-          correo: "adminpollabetplay@gmail.com",
-        },
-      },
+      where: !esAdmin
+        ? {
+            activo: true,
+            NOT: {
+              correo: { in: correosExcluidos },
+            },
+          }
+        : {
+            activo: true,
+            NOT: {
+              correo: "adminpollabetplay@gmail.com",
+            },
+          },
       select: {
         id: true,
         nombre_completo: true,
@@ -45,6 +59,13 @@ export async function GET(req: Request) {
 
     // Obtener todos los pronósticos de partidos
     const prediccionesPartidos = await prisma.prediccionPartido.findMany({
+      where: !esAdmin
+        ? {
+            usuario: {
+              correo: { notIn: correosExcluidos },
+            },
+          }
+        : undefined,
       include: {
         usuario: { select: { nombre_completo: true, correo: true } },
         partido: {
@@ -63,6 +84,13 @@ export async function GET(req: Request) {
 
     // Obtener todas las predicciones iniciales (campeón, finalistas, clasificados)
     const prediccionesIniciales = await prisma.prediccionInicial.findMany({
+      where: !esAdmin
+        ? {
+            usuario: {
+              correo: { notIn: correosExcluidos },
+            },
+          }
+        : undefined,
       include: {
         usuario: { select: { nombre_completo: true, correo: true } },
         campeon: { select: { nombre: true } },

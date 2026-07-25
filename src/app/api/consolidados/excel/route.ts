@@ -25,7 +25,13 @@ export async function GET(req: Request) {
     }
 
     // Construir filtro
-    const whereClause: any = {};
+    const whereClause: any = {
+      usuario: {
+        NOT: {
+          correo: { in: ["adminpollabetplay@gmail.com", "prueba.admin@pollabetplay.com"] },
+        },
+      },
+    };
     if (partidoId) {
       whereClause.partido_id = Number(partidoId);
     }
