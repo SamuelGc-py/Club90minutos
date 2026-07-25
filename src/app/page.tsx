@@ -173,8 +173,8 @@ export default function ExpressPage() {
       return;
     }
 
-    if ((Number(m.local) > 0 || Number(m.visitante) > 0) && !m.goleador_id) {
-      setMensajeEstado({ tipo: "error", texto: "⚠️ Ingresaste marcador con goles pero no seleccionaste ningún goleador predicho. Por favor elige un goleador." });
+    if ((Number(m.local) > 0 || Number(m.visitante) > 0) && (!m.goleador_id || m.goleador_id === "")) {
+      setMensajeEstado({ tipo: "error", texto: "❌ Inconsistencia: Ingresaste un marcador con goles pero dejaste goleador en 'Ninguno'. Si hay goles en el partido, es OBLIGATORIO elegir cuál jugador anotará gol." });
       return;
     }
 
@@ -608,7 +608,7 @@ export default function ExpressPage() {
         }
 
         if ((nL > 0 || nV > 0) && (!m.goleador_id || m.goleador_id === "")) {
-          return `⚠️ En el partido ${partido.equipo_local.nombre} vs ${partido.equipo_visitante.nombre}, ingresaste marcador con goles (${nL} - ${nV}) pero no seleccionaste goleador. Por favor selecciona un goleador.`;
+          return `❌ Inconsistencia en ${partido.equipo_local.nombre} vs ${partido.equipo_visitante.nombre}: Ingresaste marcador con goles (${nL} - ${nV}), por lo que debes seleccionar un goleador predicho. No puedes dejar "Ninguno" si hay goles.`;
         }
       }
     }
@@ -1905,7 +1905,7 @@ export default function ExpressPage() {
                                   fontSize: "0.85rem",
                                 }}
                               >
-                                <option value="">-- Ninguno de {partido.equipo_local.nombre} --</option>
+                                <option value="">-- Ninguno de {partido.equipo_local.nombre} (Sólo si 0 - 0) --</option>
                                 {(partido.equipo_local.jugadores || []).map((j: any) => (
                                   <option key={j.id} value={j.id}>
                                     {j.nombre} ({j.posicion || "Jugador"})
@@ -1939,7 +1939,7 @@ export default function ExpressPage() {
                                   fontSize: "0.85rem",
                                 }}
                               >
-                                <option value="">-- Ninguno de {partido.equipo_visitante.nombre} --</option>
+                                <option value="">-- Ninguno de {partido.equipo_visitante.nombre} (Sólo si 0 - 0) --</option>
                                 {(partido.equipo_visitante.jugadores || []).map((j: any) => (
                                   <option key={j.id} value={j.id}>
                                     {j.nombre} ({j.posicion || "Jugador"})
@@ -1956,25 +1956,25 @@ export default function ExpressPage() {
                           )}
                         </div>
 
-                        {/* ADVERTENCIA SI INGRESÓ GOLES PERO NO SELECCIONÓ GOLEADOR */}
+                        {/* INCONSISTENCIA SI INGRESÓ GOLES PERO NO SELECCIONÓ GOLEADOR */}
                         {(m.local !== "" || m.visitante !== "") && (Number(m.local || 0) > 0 || Number(m.visitante || 0) > 0) && !m.goleador_id && (
                           <div
                             style={{
                               marginTop: 8,
-                              padding: "8px 12px",
-                              background: "rgba(245, 158, 11, 0.15)",
-                              border: "1px solid rgba(245, 158, 11, 0.4)",
+                              padding: "10px 14px",
+                              background: "rgba(239, 68, 68, 0.15)",
+                              border: "1px solid rgba(239, 68, 68, 0.4)",
                               borderRadius: 8,
-                              color: "#fef08a",
-                              fontSize: "0.82rem",
+                              color: "#fca5a5",
+                              fontSize: "0.85rem",
                               display: "flex",
                               alignItems: "center",
                               gap: 8,
                               fontWeight: 700,
                             }}
                           >
-                            <AlertTriangle size={18} style={{ flexShrink: 0, color: "#f59e0b" }} />
-                            <span>⚠️ Advertencia: Ingresaste marcador ({m.local || 0} - {m.visitante || 0}) pero no elegiste goleador. Si alguien hace gol, perderás los 2 Pts de goleador.</span>
+                            <AlertTriangle size={18} style={{ flexShrink: 0, color: "#ef4444" }} />
+                            <span>❌ Inconsistencia: Marcador ({m.local || 0} - {m.visitante || 0}) indica que hay goles, pero seleccionaste 'Ninguno'. Debes elegir obligatoriamente el goleador predicho.</span>
                           </div>
                         )}
 
