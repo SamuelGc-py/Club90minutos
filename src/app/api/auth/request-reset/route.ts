@@ -35,8 +35,12 @@ export async function POST(req: Request) {
       },
     });
 
-    // Send email
-    const resetUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3001'}/restablecer-password?token=${token}`;
+    // Determine public URL dynamically from request headers
+    const host = req.headers.get("x-forwarded-host") || req.headers.get("host");
+    const proto = req.headers.get("x-forwarded-proto") || "https";
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || (host ? `${proto}://${host}` : "https://polla-express.vercel.app");
+    
+    const resetUrl = `${baseUrl}/restablecer-password?token=${token}`;
     
     const { data, error } = await resend.emails.send({
       from: "Polla Betplay <onboarding@resend.dev>", // Resend default test domain
