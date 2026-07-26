@@ -1806,24 +1806,26 @@ export default function ExpressPage() {
                           </div>
                         )}
 
-                        {/* MARCADOR EXACTO */}
-                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, marginBottom: 16, flexWrap: "wrap" }}>
-                          <div style={{ flex: 1, minWidth: 120, display: "flex", alignItems: "center", gap: 8 }}>
-                            <span style={{ fontWeight: 800, fontSize: "1rem", color: "#ffffff", flex: 1, textAlign: "right" }}>
+                        {/* MARCADOR EXACTO - DISEÑO RESPONSIVO MÓVIL ALINEADO 3 COLUMNAS */}
+                        <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", alignItems: "center", gap: 10, margin: "16px 0 20px" }}>
+                          {/* EQUIPO LOCAL */}
+                          <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 8, textAlign: "right" }}>
+                            <span style={{ fontWeight: 800, fontSize: "clamp(0.88rem, 3.8vw, 1.1rem)", color: "#ffffff", lineHeight: 1.2 }}>
                               {partido.equipo_local.nombre}
                             </span>
                             {partido.equipo_local.escudo_url ? (
-                              <img src={partido.equipo_local.escudo_url} alt={partido.equipo_local.nombre} style={{ width: 32, height: 32, objectFit: "contain" }} />
+                              <img src={partido.equipo_local.escudo_url} alt={partido.equipo_local.nombre} style={{ width: 30, height: 30, objectFit: "contain", flexShrink: 0 }} />
                             ) : (
-                              <div style={{ width: 28, height: 28, background: "var(--linea)", borderRadius: "50%" }} />
+                              <div style={{ width: 28, height: 28, background: "var(--linea)", borderRadius: "50%", flexShrink: 0 }} />
                             )}
                           </div>
 
-                          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                          {/* INPUTS MARCADOR */}
+                          <div style={{ display: "flex", alignItems: "center", gap: 6, flexShrink: 0 }}>
                             <input
                               type="number"
                               min="0"
-                              max="99"
+                              max="20"
                               value={m.local}
                               onChange={(e) => handleMarcadorChange(partido.id, "local", e.target.value)}
                               disabled={estaCerrado}
@@ -1834,16 +1836,17 @@ export default function ExpressPage() {
                                 fontSize: "1.2rem",
                                 fontWeight: 900,
                                 background: "var(--noche-2)",
-                                border: "1px solid var(--cancha-borde)",
+                                border: m.local !== "" ? "2px solid var(--cancha)" : "1px solid var(--linea)",
                                 borderRadius: 8,
                                 color: "#ffffff",
+                                padding: 0,
                               }}
                             />
                             <span style={{ fontWeight: 900, fontSize: "1.2rem", color: "var(--graderia)" }}>:</span>
                             <input
                               type="number"
                               min="0"
-                              max="99"
+                              max="20"
                               value={m.visitante}
                               onChange={(e) => handleMarcadorChange(partido.id, "visitante", e.target.value)}
                               disabled={estaCerrado}
@@ -1854,26 +1857,28 @@ export default function ExpressPage() {
                                 fontSize: "1.2rem",
                                 fontWeight: 900,
                                 background: "var(--noche-2)",
-                                border: "1px solid var(--cancha-borde)",
+                                border: m.visitante !== "" ? "2px solid var(--cancha)" : "1px solid var(--linea)",
                                 borderRadius: 8,
                                 color: "#ffffff",
+                                padding: 0,
                               }}
                             />
                           </div>
 
-                          <div style={{ flex: 1, minWidth: 120, display: "flex", alignItems: "center", gap: 8 }}>
+                          {/* EQUIPO VISITANTE */}
+                          <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-start", gap: 8, textAlign: "left" }}>
                             {partido.equipo_visitante.escudo_url ? (
-                              <img src={partido.equipo_visitante.escudo_url} alt={partido.equipo_visitante.nombre} style={{ width: 32, height: 32, objectFit: "contain" }} />
+                              <img src={partido.equipo_visitante.escudo_url} alt={partido.equipo_visitante.nombre} style={{ width: 30, height: 30, objectFit: "contain", flexShrink: 0 }} />
                             ) : (
-                              <div style={{ width: 28, height: 28, background: "var(--linea)", borderRadius: "50%" }} />
+                              <div style={{ width: 28, height: 28, background: "var(--linea)", borderRadius: "50%", flexShrink: 0 }} />
                             )}
-                            <span style={{ fontWeight: 800, fontSize: "1rem", color: "#ffffff", flex: 1 }}>
+                            <span style={{ fontWeight: 800, fontSize: "clamp(0.88rem, 3.8vw, 1.1rem)", color: "#ffffff", lineHeight: 1.2 }}>
                               {partido.equipo_visitante.nombre}
                             </span>
                           </div>
                         </div>
 
-                        {/* GANADOR PREDICHO */}
+                        {/* GANADOR PREDICHO - BOTONES DE BOTÓN MÓVIL PERFECTOS */}
                         {(() => {
                           const ganadorEfectivo = m.ganador || (
                             m.local !== "" && m.visitante !== ""
@@ -1882,49 +1887,100 @@ export default function ExpressPage() {
                           );
 
                           return (
-                            <div style={{ background: "var(--noche-2)", padding: "12px 16px", borderRadius: 8, marginBottom: 12 }}>
-                              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6, flexWrap: "wrap" }}>
+                            <div style={{ background: "var(--noche-2)", padding: "12px 14px", borderRadius: 8, marginBottom: 12 }}>
+                              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8, flexWrap: "wrap", gap: 6 }}>
                                 <label style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--graderia)", margin: 0 }}>
                                   🏆 Equipo Ganador del Partido (3 Pts):
                                 </label>
                                 {ganadorEfectivo && (
-                                  <span style={{ fontSize: "0.8rem", fontWeight: 800, color: "#38bdf8", background: "rgba(56,189,248,0.15)", padding: "2px 8px", borderRadius: 4 }}>
+                                  <span style={{ fontSize: "0.78rem", fontWeight: 800, color: "#38bdf8", background: "rgba(56,189,248,0.15)", padding: "2px 8px", borderRadius: 4 }}>
                                     {ganadorEfectivo === "local" ? `Gana ${partido.equipo_local.nombre}` : ganadorEfectivo === "visitante" ? `Gana ${partido.equipo_visitante.nombre}` : "Empate"}
                                   </span>
                                 )}
                               </div>
-                              <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-                                <label style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer", fontSize: "0.9rem" }}>
+                              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 6 }}>
+                                <label
+                                  style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    padding: "8px 4px",
+                                    borderRadius: 6,
+                                    cursor: estaCerrado ? "not-allowed" : "pointer",
+                                    background: ganadorEfectivo === "local" ? "rgba(16, 185, 129, 0.2)" : "rgba(255, 255, 255, 0.04)",
+                                    border: ganadorEfectivo === "local" ? "1px solid var(--cancha)" : "1px solid var(--linea)",
+                                    color: ganadorEfectivo === "local" ? "#34d399" : "var(--graderia)",
+                                    textAlign: "center",
+                                    fontSize: "0.78rem",
+                                    fontWeight: 700,
+                                    transition: "all 0.15s ease",
+                                  }}
+                                >
                                   <input
                                     type="radio"
                                     name={`ganador-${partido.id}`}
                                     checked={ganadorEfectivo === "local"}
                                     onChange={() => handleGanadorChange(partido.id, "local")}
                                     disabled={estaCerrado}
+                                    style={{ display: "none" }}
                                   />
-                                  Gana {partido.equipo_local.nombre}
+                                  <span>Gana {partido.equipo_local.nombre}</span>
                                 </label>
 
-                                <label style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer", fontSize: "0.9rem" }}>
+                                <label
+                                  style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    padding: "8px 4px",
+                                    borderRadius: 6,
+                                    cursor: estaCerrado ? "not-allowed" : "pointer",
+                                    background: ganadorEfectivo === "empate" ? "rgba(56, 189, 248, 0.2)" : "rgba(255, 255, 255, 0.04)",
+                                    border: ganadorEfectivo === "empate" ? "1px solid #38bdf8" : "1px solid var(--linea)",
+                                    color: ganadorEfectivo === "empate" ? "#38bdf8" : "var(--graderia)",
+                                    textAlign: "center",
+                                    fontSize: "0.78rem",
+                                    fontWeight: 700,
+                                    transition: "all 0.15s ease",
+                                  }}
+                                >
                                   <input
                                     type="radio"
                                     name={`ganador-${partido.id}`}
                                     checked={ganadorEfectivo === "empate"}
                                     onChange={() => handleGanadorChange(partido.id, "empate")}
                                     disabled={estaCerrado}
+                                    style={{ display: "none" }}
                                   />
-                                  Empate
+                                  <span>Empate</span>
                                 </label>
 
-                                <label style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer", fontSize: "0.9rem" }}>
+                                <label
+                                  style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    padding: "8px 4px",
+                                    borderRadius: 6,
+                                    cursor: estaCerrado ? "not-allowed" : "pointer",
+                                    background: ganadorEfectivo === "visitante" ? "rgba(16, 185, 129, 0.2)" : "rgba(255, 255, 255, 0.04)",
+                                    border: ganadorEfectivo === "visitante" ? "1px solid var(--cancha)" : "1px solid var(--linea)",
+                                    color: ganadorEfectivo === "visitante" ? "#34d399" : "var(--graderia)",
+                                    textAlign: "center",
+                                    fontSize: "0.78rem",
+                                    fontWeight: 700,
+                                    transition: "all 0.15s ease",
+                                  }}
+                                >
                                   <input
                                     type="radio"
                                     name={`ganador-${partido.id}`}
                                     checked={ganadorEfectivo === "visitante"}
                                     onChange={() => handleGanadorChange(partido.id, "visitante")}
                                     disabled={estaCerrado}
+                                    style={{ display: "none" }}
                                   />
-                                  Gana {partido.equipo_visitante.nombre}
+                                  <span>Gana {partido.equipo_visitante.nombre}</span>
                                 </label>
                               </div>
                             </div>
