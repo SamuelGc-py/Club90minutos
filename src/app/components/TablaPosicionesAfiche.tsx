@@ -1,8 +1,6 @@
-"use client";
-
-import React, { useRef } from "react";
-import { Printer, Trophy, Award, Users, Flame, CheckSquare, Target, UserCheck, Star, FileSpreadsheet } from "lucide-react";
-import * as XLSX from "xlsx";
+import React, { useRef, useState } from "react";
+import { Printer, Trophy, Award, Users, Flame, CheckSquare, Target, UserCheck, Star, Camera } from "lucide-react";
+import { toPng } from "html-to-image";
 
 export interface FilaTablaPosiciones {
   posicion: number;
@@ -28,120 +26,30 @@ interface TablaPosicionesAficheProps {
 export default function TablaPosicionesAfiche({
   tabla,
   nombrePolla = "Polla Liga BetPlay Dimayor",
-  onDescargarExcelPronosticos,
 }: TablaPosicionesAficheProps) {
   const printRef = useRef<HTMLDivElement>(null);
+  const [generandoImagen, setGenerandoImagen] = useState(false);
 
   const handlePrint = () => {
     window.print();
   };
 
-  const handleDownloadExcel = () => {
-    if (onDescargarExcelPronosticos) {
-      onDescargarExcelPronosticos();
-      return;
+  const handleDescargarImagen = async () => {
+    if (!printRef.current) return;
+    try {
+      setGenerandoImagen(true);
+      const dataUrl = await toPng(printRef.current, { cacheBust: true, quality: 0.95 });
+      const link = document.createElement("a");
+      const fecha = new Date().toISOString().split("T")[0];
+      link.download = `Tabla_de_Posiciones_Polla_BetPlay_${fecha}.png`;
+      link.href = dataUrl;
+      link.click();
+    } catch (err) {
+      console.error("Error al generar la imagen de la tabla:", err);
+      alert("No se pudo generar la imagen. Puedes usar la opción Imprimir / Exportar PDF.");
+    } finally {
+      setGenerandoImagen(false);
     }
-    const rowsHtml = tabla
-      .map(
-        (row) => `
-        <tr style="background-color: ${
-          row.posicion === 1
-            ? "#fffbeb"
-            : row.posicion === 2
-            ? "#f8fafc"
-            : row.posicion === 3
-            ? "#fff7ed"
-            : "#ffffff"
-        }; border-bottom: 1px solid #cbd5e1;">
-          <td style="font-weight: bold; text-align: center;">${row.posicion}</td>
-          <td style="text-align: left; font-weight: bold;">${
-            row.posicion === 1 ? "🥇 " : row.posicion === 2 ? "🥈 " : row.posicion === 3 ? "🥉 " : ""
-          }${row.nombre_completo}</td>
-          <td style="text-align: center;">${row.pts_campeon}</td>
-          <td style="text-align: center;">${row.pts_finalistas}</td>
-          <td style="text-align: center;">${row.pts_clasificados}</td>
-          <td style="text-align: center;">${row.pts_goleador_torneo}</td>
-          <td style="text-align: center;">${row.pts_resultado_exacto}</td>
-          <td style="text-align: center;">${row.pts_ganador_partido}</td>
-          <td style="text-align: center;">${row.pts_goleador_partido}</td>
-          <td style="text-align: center; font-weight: bold; background-color: #fef3c7; color: #0b1e36; font-size: 14px;">${row.pts_total}</td>
-        </tr>
-      `
-      )
-      .join("");
-
-    const htmlTable = `
-      <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
-      <head>
-        <meta charset="utf-8" />
-        <!--[if gte mso 9]>
-        <xml>
-          <x:ExcelWorkbook>
-            <x:ExcelWorksheets>
-              <x:ExcelWorksheet>
-                <x:Name>Tabla de Posiciones</x:Name>
-                <x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions>
-              </x:ExcelWorksheet>
-            </x:ExcelWorksheets>
-          </x:ExcelWorkbook>
-        </xml>
-        <![endif]-->
-        <style>
-          th, td { border: 1px solid #cbd5e1; padding: 10px; font-family: Arial, sans-serif; font-size: 12px; }
-        </style>
-      </head>
-      <body>
-        <table>
-          <tr>
-            <th colspan="10" style="background-color: #0b1e36; color: #ffffff; font-size: 20px; font-weight: bold; text-align: center; padding: 16px;">
-              TABLA DE POSICIONES
-            </th>
-          </tr>
-          <tr>
-            <th colspan="10" style="background-color: #f5b000; color: #0b1e36; font-size: 13px; font-weight: bold; text-align: center; padding: 6px;">
-              ${nombrePolla.toUpperCase()}
-            </th>
-          </tr>
-          <tr><td colspan="10" style="border:none; height:12px;"></td></tr>
-          <tr>
-            <th colspan="2" style="background-color: #0b1e36; border: 1px solid #0b1e36;"></th>
-            <th colspan="7" style="background-color: #102a45; color: #60a5fa; font-size: 12px; font-weight: bold; text-align: center; padding: 8px;">
-              PUNTOS GANADOS POR CATEGORÍA
-            </th>
-            <th style="background-color: #0b1e36; border: 1px solid #0b1e36;"></th>
-          </tr>
-          <tr style="font-weight: bold; color: #ffffff;">
-            <th style="background-color: #0b1e36; width: 50px; text-align: center;">Pos.</th>
-            <th style="background-color: #0b1e36; width: 200px; text-align: left;">Jugador / Participante</th>
-            <th style="background-color: #d97706; width: 90px; text-align: center;">🏆 Campeón</th>
-            <th style="background-color: #64748b; width: 90px; text-align: center;">🥈 Finalistas</th>
-            <th style="background-color: #166534; width: 120px; text-align: center;">👥 Clas. Cuadrangulares</th>
-            <th style="background-color: #15803d; width: 110px; text-align: center;">👟 Goleador Torneo</th>
-            <th style="background-color: #b91c1c; width: 110px; text-align: center;">📋 Marcador Exacto</th>
-            <th style="background-color: #c2410c; width: 110px; text-align: center;">⚽ Ganador Partido</th>
-            <th style="background-color: #6b21a8; width: 110px; text-align: center;">⚽ Goleador Partido</th>
-            <th style="background-color: #0b1e36; color: #ffd700; width: 110px; text-align: center; font-size: 13px;">⭐ Total Puntos</th>
-          </tr>
-          ${rowsHtml}
-          <tr><td colspan="10" style="border:none; height:12px;"></td></tr>
-          <tr>
-            <th colspan="10" style="background-color: #0b1e36; color: #ffffff; font-size: 12px; font-weight: bold; text-align: center; padding: 10px;">
-              U N I D O S &nbsp; P O R &nbsp; E L &nbsp; F Ú T B O L ™ &nbsp; — &nbsp; LIGA BETPLAY DIMAYOR
-            </th>
-          </tr>
-        </table>
-      </body>
-      </html>
-    `;
-
-    const blob = new Blob([htmlTable], { type: "application/vnd.ms-excel;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "Tabla_de_Posiciones_Liga_BetPlay.xls";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
   };
 
   return (
@@ -166,30 +74,31 @@ export default function TablaPosicionesAfiche({
             🏆 Afiche Oficial de Posiciones
           </h4>
           <span style={{ color: "#94a3b8", fontSize: "0.8rem" }}>
-            Diseño optimizado para vista, capturas de pantalla, Excel e impresión
+            Diseño optimizado para afiche, vista, imagen PNG e impresión
           </span>
         </div>
         <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-          {onDescargarExcelPronosticos && (
-            <button
-              onClick={handleDownloadExcel}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 8,
-                backgroundColor: "#16a34a",
-                color: "#ffffff",
-                fontWeight: 700,
-                padding: "8px 16px",
-                borderRadius: "8px",
-                border: "none",
-                cursor: "pointer",
-                fontSize: "0.85rem",
-              }}
-            >
-              <FileSpreadsheet size={16} /> Descargar Excel (.xlsx)
-            </button>
-          )}
+          <button
+            onClick={handleDescargarImagen}
+            disabled={generandoImagen}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              backgroundColor: "#10b981",
+              color: "#ffffff",
+              fontWeight: 700,
+              padding: "8px 16px",
+              borderRadius: "8px",
+              border: "none",
+              cursor: generandoImagen ? "not-allowed" : "pointer",
+              fontSize: "0.85rem",
+              boxShadow: "0 4px 12px rgba(16, 185, 129, 0.3)",
+            }}
+          >
+            <Camera size={16} /> {generandoImagen ? "Generando Imagen..." : "📸 Descargar Imagen (.png)"}
+          </button>
+
           <button
             onClick={handlePrint}
             style={{

@@ -2580,53 +2580,8 @@ export default function ExpressPage() {
           {/* TAB 4: POSICIONES & PUNTOS EN VIVO */}
           {tabActiva === "posiciones" && (
             <div>
-              {/* TARJETAS DE RESUMEN KPI ESTÉTICAS */}
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-                  gap: 16,
-                  marginBottom: 24,
-                }}
-              >
-                {/* TARJETA 1: PARTICIPANTES */}
-                <div
-                  className="card"
-                  style={{
-                    padding: "20px",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 16,
-                    background: "linear-gradient(130deg, #0f172a 0%, #1e293b 100%)",
-                    border: "1px solid #334155",
-                  }}
-                >
-                  <div
-                    style={{
-                      width: 52,
-                      height: 52,
-                      borderRadius: "14px",
-                      background: "rgba(56, 189, 248, 0.15)",
-                      color: "#38bdf8",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      flexShrink: 0,
-                    }}
-                  >
-                    <UserCheck size={26} />
-                  </div>
-                  <div>
-                    <div style={{ fontSize: "0.8rem", color: "#94a3b8", fontWeight: 600 }}>
-                      Participantes Activos
-                    </div>
-                    <strong style={{ fontSize: "1.6rem", color: "#ffffff", fontWeight: 900 }}>
-                      {consolidados?.usuarios?.length || 0}
-                    </strong>
-                  </div>
-                </div>
-
-                {/* TARJETA 2: LÍDER ACTUAL */}
+              {/* TARJETA: LÍDER ACTUAL */}
+              <div style={{ marginBottom: 24 }}>
                 <div
                   className="card"
                   style={{
@@ -2685,7 +2640,6 @@ export default function ExpressPage() {
               ) : (
                 <TablaPosicionesAfiche
                   tabla={consolidados.tablaPosiciones || []}
-                  onDescargarExcelPronosticos={usuario.rol_id === 2 ? handleDescargarExcelPronosticos : undefined}
                 />
               )}
             </div>
