@@ -1671,8 +1671,17 @@ export default function ExpressPage() {
                     return false;
                   };
 
-                  const partidosActivos = partidos.filter((p) => !estaCerradoOFinal(p));
-                  const partidosFinalizados = partidos.filter((p) => estaCerradoOFinal(p));
+                  const partidosActivos = partidos
+                    .filter((p) => !estaCerradoOFinal(p))
+                    .sort((a, b) => new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime());
+
+                  const partidosFinalizados = partidos
+                    .filter((p) => estaCerradoOFinal(p))
+                    .sort((a, b) => {
+                      if (a.estado === "aplazado" && b.estado !== "aplazado") return 1;
+                      if (a.estado !== "aplazado" && b.estado === "aplazado") return -1;
+                      return new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime();
+                    });
 
                   const renderPartidoCard = (partido: any) => {
                     const m = marcadores[partido.id] || { local: "", visitante: "", ganador: "", goleador_id: "" };
@@ -2091,7 +2100,7 @@ export default function ExpressPage() {
                         <>
                           <div style={{ marginTop: 28, marginBottom: 8, borderTop: "2px dashed var(--linea)", paddingTop: 20 }}>
                             <h3 style={{ color: "#34d399", fontSize: "1.15rem", display: "flex", alignItems: "center", gap: 8, margin: 0 }}>
-                              🏁 Partidos Finalizados
+                              🏁 Partidos Finalizados y Aplazados (Orden Cronológico)
                             </h3>
                           </div>
                           {partidosFinalizados.map((partido) => renderPartidoCard(partido))}
