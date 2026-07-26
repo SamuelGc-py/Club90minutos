@@ -2889,9 +2889,27 @@ export default function ExpressPage() {
                 </p>
               </div>
 
-              {/* LISTA DE PARTIDOS EN ADMIN */}
-              <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-                {partidos.map((partido) => {
+              {/* LISTA DE PARTIDOS EN ADMIN SEPARADOS POR ACTIVOS Y FINALIZADOS */}
+              {(() => {
+                const estaSoloFinal = (partido: any) => {
+                  const esAplazado = partido.estado === "aplazado";
+                  const esFinalizado = Boolean(partido.resultado_oficial) || partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado";
+                  return esFinalizado || esAplazado;
+                };
+
+                const partidosActivosAdmin = partidos
+                  .filter((p) => !estaSoloFinal(p))
+                  .sort((a, b) => new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime());
+
+                const partidosFinalizadosAdmin = partidos
+                  .filter((p) => estaSoloFinal(p))
+                  .sort((a, b) => {
+                    if (a.estado === "aplazado" && b.estado !== "aplazado") return 1;
+                    if (a.estado !== "aplazado" && b.estado === "aplazado") return -1;
+                    return new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime();
+                  });
+
+                const renderPartidoAdminCard = (partido: any) => {
                   const pronosticosPartido = (consolidados?.prediccionesPartidos || []).filter((p: any) => p.partido_id === partido.id);
 
                   return (
@@ -3076,8 +3094,25 @@ export default function ExpressPage() {
                       </div>
                     </div>
                   );
-                })}
-              </div>
+                };
+
+                return (
+                  <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                    {partidosActivosAdmin.map((partido) => renderPartidoAdminCard(partido))}
+
+                    {partidosFinalizadosAdmin.length > 0 && (
+                      <>
+                        <div style={{ marginTop: 28, marginBottom: 8, borderTop: "2px dashed var(--linea)", paddingTop: 20 }}>
+                          <h3 style={{ color: "#34d399", fontSize: "1.15rem", display: "flex", alignItems: "center", gap: 8, margin: 0 }}>
+                            🏁 Partidos Finalizados y Aplazados (Orden Cronológico)
+                          </h3>
+                        </div>
+                        {partidosFinalizadosAdmin.map((partido) => renderPartidoAdminCard(partido))}
+                      </>
+                    )}
+                  </div>
+                );
+              })()}
             </div>
           )}
         </div>
