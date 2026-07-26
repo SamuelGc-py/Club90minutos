@@ -589,8 +589,9 @@ export default function ExpressPage() {
       const esAdmin = usuario?.rol_id === 2;
       const esExcepcionHarold = usuario?.correo === "hberdugodelosreyes0@gmail.com" && partido.id === 24;
       const esExcepcionSamu = usuario?.correo === "samucobaggg@gmail.com" && (partido.id === 25 || partido.id === 27);
+      const esExcepcionIgnacio = usuario?.correo === "iangelbarrios16@gmail.com" && partido.id === 27;
       const esFinalizado = Boolean(partido.resultado_oficial) || partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado";
-      const estaCerrado = (new Date() >= horaCierrePartido && !esAdmin && !esExcepcionHarold && !esExcepcionSamu) || esAplazado || esFinalizado;
+      const estaCerrado = (new Date() >= horaCierrePartido && !esAdmin && !esExcepcionHarold && !esExcepcionSamu && !esExcepcionIgnacio) || esAplazado || esFinalizado;
 
       // Ignorar validación para partidos acabados, cerrados o aplazados
       if (estaCerrado) continue;
@@ -1702,7 +1703,11 @@ export default function ExpressPage() {
                     const esAdmin = usuario?.rol_id === 2;
                     const esExcepcionHarold = usuario?.correo === "hberdugodelosreyes0@gmail.com" && partido.id === 24;
                     const esExcepcionSamu = usuario?.correo === "samucobaggg@gmail.com" && (partido.id === 25 || partido.id === 27);
-                    const estaCerrado = (new Date() >= horaCierrePartido && !esAdmin && !esExcepcionHarold && !esExcepcionSamu) || esAplazado;
+                    const esExcepcionIgnacio = usuario?.correo === "iangelbarrios16@gmail.com" && partido.id === 27;
+
+                    const estaCerradoGeneral = (new Date() >= horaCierrePartido && !esAdmin && !esExcepcionHarold && !esExcepcionSamu) || esAplazado;
+                    const estaCerrado = (estaCerradoGeneral && !esExcepcionIgnacio) || esAplazado;
+                    const deshabilitarMarcador = estaCerradoGeneral;
 
                     return (
                       <div
@@ -1795,7 +1800,7 @@ export default function ExpressPage() {
                               max="20"
                               value={m.local}
                               onChange={(e) => handleMarcadorChange(partido.id, "local", e.target.value)}
-                              disabled={estaCerrado}
+                              disabled={deshabilitarMarcador}
                               style={{
                                 width: 44,
                                 height: 44,
@@ -1816,7 +1821,7 @@ export default function ExpressPage() {
                               max="20"
                               value={m.visitante}
                               onChange={(e) => handleMarcadorChange(partido.id, "visitante", e.target.value)}
-                              disabled={estaCerrado}
+                              disabled={deshabilitarMarcador}
                               style={{
                                 width: 44,
                                 height: 44,
@@ -1873,7 +1878,7 @@ export default function ExpressPage() {
                                     justifyContent: "center",
                                     padding: "8px 4px",
                                     borderRadius: 6,
-                                    cursor: estaCerrado ? "not-allowed" : "pointer",
+                                    cursor: deshabilitarMarcador ? "not-allowed" : "pointer",
                                     background: ganadorEfectivo === "local" ? "rgba(16, 185, 129, 0.2)" : "rgba(255, 255, 255, 0.04)",
                                     border: ganadorEfectivo === "local" ? "1px solid var(--cancha)" : "1px solid var(--linea)",
                                     color: ganadorEfectivo === "local" ? "#34d399" : "var(--graderia)",
@@ -1888,7 +1893,7 @@ export default function ExpressPage() {
                                     name={`ganador-${partido.id}`}
                                     checked={ganadorEfectivo === "local"}
                                     onChange={() => handleGanadorChange(partido.id, "local")}
-                                    disabled={estaCerrado}
+                                    disabled={deshabilitarMarcador}
                                     style={{ display: "none" }}
                                   />
                                   <span>Gana {partido.equipo_local.nombre}</span>
@@ -1901,7 +1906,7 @@ export default function ExpressPage() {
                                     justifyContent: "center",
                                     padding: "8px 4px",
                                     borderRadius: 6,
-                                    cursor: estaCerrado ? "not-allowed" : "pointer",
+                                    cursor: deshabilitarMarcador ? "not-allowed" : "pointer",
                                     background: ganadorEfectivo === "empate" ? "rgba(56, 189, 248, 0.2)" : "rgba(255, 255, 255, 0.04)",
                                     border: ganadorEfectivo === "empate" ? "1px solid #38bdf8" : "1px solid var(--linea)",
                                     color: ganadorEfectivo === "empate" ? "#38bdf8" : "var(--graderia)",
@@ -1916,7 +1921,7 @@ export default function ExpressPage() {
                                     name={`ganador-${partido.id}`}
                                     checked={ganadorEfectivo === "empate"}
                                     onChange={() => handleGanadorChange(partido.id, "empate")}
-                                    disabled={estaCerrado}
+                                    disabled={deshabilitarMarcador}
                                     style={{ display: "none" }}
                                   />
                                   <span>Empate</span>
@@ -1929,7 +1934,7 @@ export default function ExpressPage() {
                                     justifyContent: "center",
                                     padding: "8px 4px",
                                     borderRadius: 6,
-                                    cursor: estaCerrado ? "not-allowed" : "pointer",
+                                    cursor: deshabilitarMarcador ? "not-allowed" : "pointer",
                                     background: ganadorEfectivo === "visitante" ? "rgba(16, 185, 129, 0.2)" : "rgba(255, 255, 255, 0.04)",
                                     border: ganadorEfectivo === "visitante" ? "1px solid var(--cancha)" : "1px solid var(--linea)",
                                     color: ganadorEfectivo === "visitante" ? "#34d399" : "var(--graderia)",
@@ -1944,7 +1949,7 @@ export default function ExpressPage() {
                                     name={`ganador-${partido.id}`}
                                     checked={ganadorEfectivo === "visitante"}
                                     onChange={() => handleGanadorChange(partido.id, "visitante")}
-                                    disabled={estaCerrado}
+                                    disabled={deshabilitarMarcador}
                                     style={{ display: "none" }}
                                   />
                                   <span>Gana {partido.equipo_visitante.nombre}</span>
