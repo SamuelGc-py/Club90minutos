@@ -626,6 +626,17 @@ export default function ExpressPage() {
     return null;
   };
 
+  // Helper para recuperar el nombre del goleador predicho desde la relación o maestro de jugadores
+  const obtenerNombreGoleador = (p: any) => {
+    if (p.jugador_goleador?.nombre) return p.jugador_goleador.nombre;
+    const golId = p.jugador_goleador_predicho_id || p.jugador_goleador_id;
+    if (golId) {
+      const enMaestro = jugadores.find((j: any) => String(j.id) === String(golId));
+      if (enMaestro) return enMaestro.nombre;
+    }
+    return "Sin Goleador";
+  };
+
   // Cerrar Sesión
   const handleCerrarSesion = () => {
     setUsuario(null);
@@ -1161,7 +1172,7 @@ export default function ExpressPage() {
                                         })()}
                                       </td>
                                       <td style={{ padding: "8px", color: "#f5b000", fontWeight: 600 }}>
-                                        {p.jugador_goleador?.nombre || "Sin Goleador"}
+                                        {obtenerNombreGoleador(p)}
                                       </td>
                                     </tr>
                                   ))}
@@ -1466,7 +1477,7 @@ export default function ExpressPage() {
                     }}
                     style={{ padding: "10px 14px", fontSize: "0.85rem" }}
                   >
-                    📋 Mis Pronósticos & Públicos
+                    📋 Tabla de Pronósticos
                   </button>
 
                   <button
@@ -1588,8 +1599,8 @@ export default function ExpressPage() {
                     }}
                   >
                     <div style={{ fontSize: "1.8rem", marginBottom: 8 }}>📋</div>
-                    <div style={{ fontWeight: 800, fontSize: "1.1rem", color: "#fff", marginBottom: 4 }}>Mis Pronósticos</div>
-                    <div style={{ fontSize: "0.82rem", color: "#c7d2fe" }}>Revisa tus tarjetas guardadas y los pronósticos de los demás.</div>
+                    <div style={{ fontWeight: 800, fontSize: "1.1rem", color: "#fff", marginBottom: 4 }}>Tabla de Pronósticos</div>
+                    <div style={{ fontSize: "0.82rem", color: "#c7d2fe" }}>Revisa los pronósticos cargados por los participantes.</div>
                   </div>
 
                   <div
@@ -2404,7 +2415,7 @@ export default function ExpressPage() {
                 <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
                   <Eye size={24} style={{ color: "#34d399" }} />
                   <div>
-                    <h2 style={{ margin: 0, fontSize: "1.2rem" }}>Pronósticos Públicos por Partido</h2>
+                    <h2 style={{ margin: 0, fontSize: "1.2rem" }}>Tabla de Pronósticos</h2>
                     <p style={{ color: "var(--graderia)", margin: 0, fontSize: "0.85rem" }}>
                       Los pronósticos de todos los participantes se liberan públicamente <strong>1 HORA ANTES</strong> del inicio de cada partido.
                     </p>
@@ -2479,7 +2490,7 @@ export default function ExpressPage() {
                                        })()}
                                     </td>
                                     <td style={{ padding: "8px", color: "var(--graderia)" }}>
-                                      {p.jugador_goleador?.nombre || "N/A"}
+                                      {obtenerNombreGoleador(p)}
                                     </td>
                                   </tr>
                                 ))}
@@ -2896,7 +2907,7 @@ export default function ExpressPage() {
                                         })()}
                                       </td>
                                       <td style={{ padding: "8px", color: "#f5b000", fontWeight: 600 }}>
-                                        {p.jugador_goleador?.nombre || "Sin Goleador"}
+                                         {obtenerNombreGoleador(p)}
                                       </td>
                                     </tr>
                                   ))}
