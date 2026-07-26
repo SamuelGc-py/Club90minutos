@@ -140,10 +140,10 @@ export default function ExpressPage() {
       const sesionStr = localStorage.getItem("polla_sesion");
       if (!sesionStr) return;
       const sesionData = JSON.parse(sesionStr);
-      let preds = sesionData.prediccionesGuardadas || { prediccionesPartidos: [], prediccionesIniciales: [] };
-      if (!preds.prediccionesPartidos) preds.prediccionesPartidos = [];
+      let preds = sesionData.prediccionesGuardadas || { partidos: [], prediccionesPartidos: [], inicial: null };
+      const listaBase = preds.partidos || preds.prediccionesPartidos || [];
 
-      const idx = preds.prediccionesPartidos.findIndex((p: any) => p.partido_id === partidoId);
+      const idx = listaBase.findIndex((p: any) => p.partido_id === partidoId);
       const nuevoObj = {
         partido_id: partidoId,
         goles_local: local,
@@ -151,12 +151,15 @@ export default function ExpressPage() {
         goles_local_predicho: local,
         goles_visitante_predicho: visitante,
         jugador_goleador_id: goleadorId,
+        jugador_goleador_predicho_id: goleadorId,
       };
       if (idx >= 0) {
-        preds.prediccionesPartidos[idx] = { ...preds.prediccionesPartidos[idx], ...nuevoObj };
+        listaBase[idx] = { ...listaBase[idx], ...nuevoObj };
       } else {
-        preds.prediccionesPartidos.push(nuevoObj);
+        listaBase.push(nuevoObj);
       }
+      preds.partidos = listaBase;
+      preds.prediccionesPartidos = listaBase;
       sesionData.prediccionesGuardadas = preds;
       localStorage.setItem("polla_sesion", JSON.stringify(sesionData));
       aplicarPrediccionesGuardadas(preds);
@@ -337,7 +340,8 @@ export default function ExpressPage() {
 
   const aplicarPrediccionesGuardadas = (prediccionesGuardadas: any) => {
     if (!prediccionesGuardadas) return;
-    const { inicial, partidos: predsPartidos } = prediccionesGuardadas;
+    const inicial = prediccionesGuardadas.inicial;
+    const predsPartidos = prediccionesGuardadas.partidos || prediccionesGuardadas.prediccionesPartidos;
     if (inicial) {
       if (inicial.campeon_equipo_id) setCampeonId(inicial.campeon_equipo_id);
       if (inicial.finalista_1_equipo_id) setFinalista1Id(inicial.finalista_1_equipo_id);
@@ -376,7 +380,7 @@ export default function ExpressPage() {
           goleador_id: goleadorIdRaw ? String(goleadorIdRaw) : "",
         };
       });
-      setMarcadores(mapMarcadores);
+      setMarcadores((prev) => ({ ...prev, ...mapMarcadores }));
     }
   };
 
@@ -584,7 +588,7 @@ export default function ExpressPage() {
       const esAplazado = partido.estado === "aplazado";
       const esAdmin = usuario?.rol_id === 2;
       const esExcepcionHarold = usuario?.correo === "hberdugodelosreyes0@gmail.com" && partido.id === 24;
-      const esExcepcionSamu = usuario?.correo === "samucobaggg@gmail.com" && partido.id === 25;
+      const esExcepcionSamu = usuario?.correo === "samucobaggg@gmail.com" && (partido.id === 25 || partido.id === 27);
       const esFinalizado = Boolean(partido.resultado_oficial) || partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado";
       const estaCerrado = (new Date() >= horaCierrePartido && !esAdmin && !esExcepcionHarold && !esExcepcionSamu) || esAplazado || esFinalizado;
 
@@ -1654,29 +1658,18 @@ export default function ExpressPage() {
                 </div>
               ) : (
                 (() => {
-                  const estaCerradoOFinal = (partido: any) => {
-                    const horaCierrePartido = new Date(new Date(partido.fecha_hora_partido).getTime() - 60 * 60 * 1000);
+                  const estaSoloFinal = (partido: any) => {
                     const esAplazado = partido.estado === "aplazado";
-                    const esAdmin = usuario?.rol_id === 2;
-                    const esExcepcionHarold = usuario?.correo === "hberdugodelosreyes0@gmail.com" && partido.id === 24;
-                    const esExcepcionSamu = usuario?.correo === "samucobaggg@gmail.com" && partido.id === 25;
-
-                    if (Boolean(partido.resultado_oficial) || partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado") {
-                      return true;
-                    }
-                    if (esAplazado) return true;
-                    if (new Date() >= horaCierrePartido && !esAdmin && !esExcepcionHarold && !esExcepcionSamu) {
-                      return true;
-                    }
-                    return false;
+                    const esFinalizado = Boolean(partido.resultado_oficial) || partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado";
+                    return esFinalizado || esAplazado;
                   };
 
                   const partidosActivos = partidos
-                    .filter((p) => !estaCerradoOFinal(p))
+                    .filter((p) => !estaSoloFinal(p))
                     .sort((a, b) => new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime());
 
                   const partidosFinalizados = partidos
-                    .filter((p) => estaCerradoOFinal(p))
+                    .filter((p) => estaSoloFinal(p))
                     .sort((a, b) => {
                       if (a.estado === "aplazado" && b.estado !== "aplazado") return 1;
                       if (a.estado !== "aplazado" && b.estado === "aplazado") return -1;
@@ -1708,7 +1701,7 @@ export default function ExpressPage() {
                     const esAplazado = partido.estado === "aplazado";
                     const esAdmin = usuario?.rol_id === 2;
                     const esExcepcionHarold = usuario?.correo === "hberdugodelosreyes0@gmail.com" && partido.id === 24;
-                    const esExcepcionSamu = usuario?.correo === "samucobaggg@gmail.com" && partido.id === 25;
+                    const esExcepcionSamu = usuario?.correo === "samucobaggg@gmail.com" && (partido.id === 25 || partido.id === 27);
                     const estaCerrado = (new Date() >= horaCierrePartido && !esAdmin && !esExcepcionHarold && !esExcepcionSamu) || esAplazado;
 
                     return (
