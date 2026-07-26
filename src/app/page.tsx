@@ -637,32 +637,6 @@ export default function ExpressPage() {
     return "Sin Goleador";
   };
 
-  // Helper para acortar nombres de equipos y optimizar vista móvil
-  const acortarNombreEquipo = (nombre: string): string => {
-    if (!nombre) return "";
-    const mapa: Record<string, string> = {
-      "Independiente Medellín": "Medellín",
-      "Atlético Bucaramanga": "Bucaramanga",
-      "Atlético Nacional": "Nacional",
-      "Independiente Santa Fe": "Santa Fe",
-      "Alianza Valledupar F.C.": "Alianza",
-      "Boyacá Chicó F.C.": "Boyacá Chicó",
-      "Cúcuta Deportivo": "Cúcuta",
-      "Deportes Tolima": "Tolima",
-      "Deportivo Pasto": "Pasto",
-      "Deportivo Pereira": "Pereira",
-      "Deportivo Cali": "Cali",
-      "Millonarios F.C.": "Millonarios",
-      "Junior F.C.": "Junior",
-      "Llaneros F.C.": "Llaneros",
-      "Once Caldas DAF": "Once Caldas",
-      "Jaguares F.C.": "Jaguares",
-      "América de Cali": "América",
-      "Internacional de Bogotá": "Inter Bogotá",
-    };
-    return mapa[nombre] || nombre.replace(/ F\.C\./g, "").replace(/ DAF/g, "");
-  };
-
   // Cerrar Sesión
   const handleCerrarSesion = () => {
     setUsuario(null);
