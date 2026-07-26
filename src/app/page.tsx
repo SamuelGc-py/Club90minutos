@@ -588,7 +588,7 @@ export default function ExpressPage() {
       const esAplazado = partido.estado === "aplazado";
       const esAdmin = usuario?.rol_id === 2;
       const esExcepcionHarold = usuario?.correo === "hberdugodelosreyes0@gmail.com" && partido.id === 24;
-      const esExcepcionSamu = usuario?.correo === "samucobaggg@gmail.com" && (partido.id === 25 || partido.id === 27);
+      const esExcepcionSamu = usuario?.correo === "samucobaggg@gmail.com" && partido.id === 25;
       const esExcepcionIgnacio = usuario?.correo === "iangelbarrios16@gmail.com" && partido.id === 27;
       const esFinalizado = Boolean(partido.resultado_oficial) || partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado";
       const estaCerrado = (new Date() >= horaCierrePartido && !esAdmin && !esExcepcionHarold && !esExcepcionSamu && !esExcepcionIgnacio) || esAplazado || esFinalizado;
@@ -1702,7 +1702,7 @@ export default function ExpressPage() {
                     const esAplazado = partido.estado === "aplazado";
                     const esAdmin = usuario?.rol_id === 2;
                     const esExcepcionHarold = usuario?.correo === "hberdugodelosreyes0@gmail.com" && partido.id === 24;
-                    const esExcepcionSamu = usuario?.correo === "samucobaggg@gmail.com" && (partido.id === 25 || partido.id === 27);
+                    const esExcepcionSamu = usuario?.correo === "samucobaggg@gmail.com" && partido.id === 25;
                     const esExcepcionIgnacio = usuario?.correo === "iangelbarrios16@gmail.com" && partido.id === 27;
 
                     const estaCerradoGeneral = (new Date() >= horaCierrePartido && !esAdmin && !esExcepcionHarold && !esExcepcionSamu) || esAplazado;
