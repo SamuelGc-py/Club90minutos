@@ -1885,84 +1885,52 @@ export default function ExpressPage() {
                           );
                         })()}
 
-                        {/* SELECTOR DE GOLEADOR SEPARADO POR EQUIPO */}
+                        {/* SELECTOR ÚNICO DE GOLEADOR DEL PARTIDO */}
                         <div style={{ background: "var(--noche-2)", padding: "14px 16px", borderRadius: 8, marginBottom: 12 }}>
-                          <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "var(--graderia)", marginBottom: 10 }}>
-                            ⚽ Goleador del Partido (Opcional - 2 Pts):
+                          <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 700, color: "var(--tiza)", marginBottom: 8 }}>
+                            ⚽ Goleador Predicho del Partido (+2 Pts):
                           </label>
-                          <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
-                            {/* GOLEADOR LOCAL */}
-                            <div style={{ flex: 1, minWidth: 200 }}>
-                              <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 700, color: "var(--cancha)", marginBottom: 4 }}>
-                                🏠 Goleador {partido.equipo_local.nombre}:
-                              </label>
-                              <select
-                                value={
-                                  (partido.equipo_local.jugadores || []).some((j: any) => String(j.id) === String(m.goleador_id))
-                                    ? m.goleador_id
-                                    : ""
-                                }
-                                onChange={(e) => handleGoleadorChange(partido.id, e.target.value)}
-                                disabled={estaCerrado}
-                                style={{
-                                  width: "100%",
-                                  padding: "9px 12px",
-                                  background: "var(--noche-1)",
-                                  border: (partido.equipo_local.jugadores || []).some((j: any) => String(j.id) === String(m.goleador_id))
-                                    ? "1px solid var(--cancha)"
-                                    : "1px solid var(--linea)",
-                                  borderRadius: 8,
-                                  color: "#ffffff",
-                                  fontSize: "0.85rem",
-                                }}
-                              >
-                                <option value="">-- Ninguno de {partido.equipo_local.nombre} (Sólo si 0 - 0) --</option>
-                                {(partido.equipo_local.jugadores || []).map((j: any) => (
-                                  <option key={j.id} value={j.id}>
-                                    {j.nombre} ({j.posicion || "Jugador"})
-                                  </option>
-                                ))}
-                              </select>
-                            </div>
+                          <select
+                            value={m.goleador_id || ""}
+                            onChange={(e) => handleGoleadorChange(partido.id, e.target.value)}
+                            disabled={estaCerrado}
+                            style={{
+                              width: "100%",
+                              padding: "10px 14px",
+                              background: "var(--noche-1)",
+                              border: m.goleador_id ? "1px solid var(--cancha)" : "1px solid var(--linea)",
+                              borderRadius: 8,
+                              color: "#ffffff",
+                              fontSize: "0.9rem",
+                              fontWeight: 600,
+                            }}
+                          >
+                            <option value="">-- Sin Goleador / Ninguno (Sólo si el partido queda 0 - 0) --</option>
 
-                            {/* GOLEADOR VISITANTE */}
-                            <div style={{ flex: 1, minWidth: 200 }}>
-                              <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 700, color: "#38bdf8", marginBottom: 4 }}>
-                                ✈️ Goleador {partido.equipo_visitante.nombre}:
-                              </label>
-                              <select
-                                value={
-                                  (partido.equipo_visitante.jugadores || []).some((j: any) => String(j.id) === String(m.goleador_id))
-                                    ? m.goleador_id
-                                    : ""
-                                }
-                                onChange={(e) => handleGoleadorChange(partido.id, e.target.value)}
-                                disabled={estaCerrado}
-                                style={{
-                                  width: "100%",
-                                  padding: "9px 12px",
-                                  background: "var(--noche-1)",
-                                  border: (partido.equipo_visitante.jugadores || []).some((j: any) => String(j.id) === String(m.goleador_id))
-                                    ? "1px solid #38bdf8"
-                                    : "1px solid var(--linea)",
-                                  borderRadius: 8,
-                                  color: "#ffffff",
-                                  fontSize: "0.85rem",
-                                }}
-                              >
-                                <option value="">-- Ninguno de {partido.equipo_visitante.nombre} (Sólo si 0 - 0) --</option>
-                                {(partido.equipo_visitante.jugadores || []).map((j: any) => (
+                            {partido.equipo_local.jugadores && partido.equipo_local.jugadores.length > 0 && (
+                              <optgroup label={`🏠 ${partido.equipo_local.nombre}`}>
+                                {partido.equipo_local.jugadores.map((j: any) => (
                                   <option key={j.id} value={j.id}>
-                                    {j.nombre} ({j.posicion || "Jugador"})
+                                    {j.nombre} ({partido.equipo_local.nombre})
                                   </option>
                                 ))}
-                              </select>
-                            </div>
-                          </div>
+                              </optgroup>
+                            )}
+
+                            {partido.equipo_visitante.jugadores && partido.equipo_visitante.jugadores.length > 0 && (
+                              <optgroup label={`✈️ ${partido.equipo_visitante.nombre}`}>
+                                {partido.equipo_visitante.jugadores.map((j: any) => (
+                                  <option key={j.id} value={j.id}>
+                                    {j.nombre} ({partido.equipo_visitante.nombre})
+                                  </option>
+                                ))}
+                              </optgroup>
+                            )}
+                          </select>
 
                           {m.goleador_id && (
-                            <div style={{ marginTop: 10, fontSize: "0.82rem", color: "var(--cancha)", fontWeight: 700, display: "flex", alignItems: "center", gap: 6 }}>
-                              ⚽ Goleador elegido: {[...(partido.equipo_local.jugadores || []), ...(partido.equipo_visitante.jugadores || []), ...jugadores].find((j: any) => String(j.id) === String(m.goleador_id))?.nombre || "Seleccionado"}
+                            <div style={{ marginTop: 10, fontSize: "0.85rem", color: "var(--cancha)", fontWeight: 700, display: "flex", alignItems: "center", gap: 6 }}>
+                              ⚽ Goleador seleccionado: {[...(partido.equipo_local.jugadores || []), ...(partido.equipo_visitante.jugadores || []), ...jugadores].find((j: any) => String(j.id) === String(m.goleador_id))?.nombre || "Seleccionado"}
                             </div>
                           )}
                         </div>
