@@ -1120,7 +1120,7 @@ export default function ExpressPage() {
                   </div>
 
                   <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
-                    {[1, 2, 3].map((f) => (
+                    {[1, 2].map((f) => (
                       <button
                         key={f}
                         type="button"
@@ -3058,7 +3058,7 @@ export default function ExpressPage() {
                   </div>
 
                   <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
-                    {[1, 2, 3].map((f) => (
+                    {[1, 2].map((f) => (
                       <button
                         key={f}
                         type="button"
