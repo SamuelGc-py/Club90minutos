@@ -53,13 +53,13 @@ function RelojCuentaRegresiva({ fechaHoraPartido }: { fechaHoraPartido: string }
   useEffect(() => {
     function calcular() {
       const horaPartido = new Date(fechaHoraPartido).getTime();
-      const horaCierre = horaPartido - 60 * 60 * 1000; // 1 hora antes del inicio
+      const horaCierre = horaPartido - 30 * 60 * 1000; // 30 minutos antes del inicio
       const ahora = new Date().getTime();
       const dif = horaCierre - ahora;
 
       if (dif <= 0) {
         setCerrado(true);
-        setTiempoRestante("🔒 Cerrado (1h antes)");
+        setTiempoRestante("🔒 Cerrado (30m antes)");
       } else {
         setCerrado(false);
         const hrs = Math.floor(dif / (1000 * 60 * 60));
@@ -595,7 +595,7 @@ export default function ExpressPage() {
   // VALIDAR RESTRICCIÓN DE COHERENCIA ENTRE MARCADOR Y GANADOR (SOLO PARTIDOS ACTIVOS)
   const validarCoherenciaPronosticos = (): string | null => {
     for (const partido of partidos) {
-      const horaCierrePartido = new Date(new Date(partido.fecha_hora_partido).getTime() - 60 * 60 * 1000);
+      const horaCierrePartido = new Date(new Date(partido.fecha_hora_partido).getTime() - 30 * 60 * 1000);
       const esAplazado = partido.estado === "aplazado";
       const esAdmin = usuario?.rol_id === 2;
       const esExcepcionHarold = usuario?.correo === "hberdugodelosreyes0@gmail.com" && partido.id === 24;
@@ -1402,7 +1402,7 @@ export default function ExpressPage() {
                   setMenuAbierto(false);
                 }}
               >
-                ⚽ Pronósticos Fecha 1
+                ⚽ Pronósticos Fecha 2
               </div>
               <div
                 className={`menu-drawer-item ${tabActiva === "inicial" ? "active" : ""}`}
@@ -1474,7 +1474,7 @@ export default function ExpressPage() {
                     onClick={() => setTabActiva("partidos")}
                     style={{ padding: "10px 14px", fontSize: "0.85rem" }}
                   >
-                    ⚽ Pronósticos Fecha 1
+                    ⚽ Pronósticos Fecha 2
                   </button>
 
                   <button
@@ -1582,7 +1582,7 @@ export default function ExpressPage() {
                     }}
                   >
                     <div style={{ fontSize: "1.8rem", marginBottom: 8 }}>⚽</div>
-                    <div style={{ fontWeight: 800, fontSize: "1.1rem", color: "#fff", marginBottom: 4 }}>Pronósticos Fecha 1</div>
+                    <div style={{ fontWeight: 800, fontSize: "1.1rem", color: "#fff", marginBottom: 4 }}>Pronósticos Fecha 2</div>
                     <div style={{ fontSize: "0.82rem", color: "#a7f3d0" }}>Ingresa marcadores exactos, ganadores y goleadores de los partidos.</div>
                   </div>
 
@@ -1652,7 +1652,7 @@ export default function ExpressPage() {
             </div>
           )}
 
-          {/* TAB 1: FECHA 1 DE LIGA BETPLAY */}
+          {/* TAB 1: PRONÓSTICOS DE PARTIDOS (FECHAS) */}
           {tabActiva === "partidos" && (
             <div>
               <div className="card" style={{ marginBottom: 20 }}>
@@ -2563,7 +2563,7 @@ export default function ExpressPage() {
                   <div>
                     <h2 style={{ margin: 0, fontSize: "1.2rem" }}>Tabla de Pronósticos</h2>
                     <p style={{ color: "var(--graderia)", margin: 0, fontSize: "0.85rem" }}>
-                      Los pronósticos de todos los participantes se liberan públicamente <strong>1 HORA ANTES</strong> del inicio de cada partido.
+                      Los pronósticos de todos los participantes se liberan públicamente <strong>30 MINUTOS ANTES</strong> del inicio de cada partido.
                     </p>
                   </div>
                 </div>
@@ -2585,7 +2585,7 @@ export default function ExpressPage() {
                     .sort((a, b) => new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime());
 
                   const renderTablaPronosticoPartido = (partido: any) => {
-                    const horaCierre = new Date(new Date(partido.fecha_hora_partido).getTime() - 60 * 60 * 1000);
+                    const horaCierre = new Date(new Date(partido.fecha_hora_partido).getTime() - 30 * 60 * 1000);
                     const estaCerrado = new Date() >= horaCierre || usuario?.rol_id === 2;
 
                     const pronosticosDeEstePartido = consolidados?.prediccionesPartidos?.filter(
@@ -2665,7 +2665,7 @@ export default function ExpressPage() {
                           )
                         ) : (
                           <div style={{ background: "rgba(255,255,255,0.03)", padding: 12, borderRadius: 8, textAlign: "center", color: "#fbbf24", fontSize: "0.85rem", fontWeight: 600 }}>
-                            🔒 Los pronósticos de todos los participantes permanecen ocultos hasta 1 hora antes del partido.
+                            🔒 Los pronósticos de todos los participantes permanecen ocultos hasta 30 minutos antes del partido.
                           </div>
                         )}
                       </div>
