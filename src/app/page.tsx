@@ -1677,9 +1677,8 @@ export default function ExpressPage() {
                     return esFinalizado || esAplazado || hace2Horas;
                   };
 
-                  const partidosFiltradosParticipante = partidos.filter(
-                    (p) => fechaParticipante === 0 || p.jornada === fechaParticipante
-                  );
+                  // Para los participantes, ÚNICAMENTE se muestran los partidos de la Fecha 2
+                  const partidosFiltradosParticipante = partidos.filter((p) => p.jornada === 2);
 
                   const partidosActivos = partidosFiltradosParticipante
                     .filter((p) => !estaSoloFinal(p))
@@ -2184,53 +2183,6 @@ export default function ExpressPage() {
 
                   return (
                     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-                      {/* SELECTOR DE FECHAS PARA PARTICIPANTES */}
-                      <div style={{ display: "flex", gap: 10, marginBottom: 8, flexWrap: "wrap", alignItems: "center", background: "var(--noche-2)", padding: "12px 16px", borderRadius: 12, border: "1px solid var(--linea)" }}>
-                        <span style={{ fontSize: "0.85rem", fontWeight: 800, color: "#ffffff", display: "flex", alignItems: "center", gap: 6 }}>
-                          ⚽ Seleccionar Fecha:
-                        </span>
-                        {[2, 1].map((f) => (
-                          <button
-                            key={f}
-                            type="button"
-                            onClick={() => setFechaParticipante(f)}
-                            style={{
-                              padding: "7px 16px",
-                              borderRadius: 20,
-                              fontWeight: 800,
-                              fontSize: "0.85rem",
-                              cursor: "pointer",
-                              background: fechaParticipante === f
-                                ? (f === 2 ? "linear-gradient(135deg, #10b981 0%, #059669 100%)" : "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)")
-                                : "rgba(255, 255, 255, 0.06)",
-                              color: fechaParticipante === f ? "#ffffff" : "var(--graderia)",
-                              border: fechaParticipante === f ? "1px solid rgba(255,255,255,0.2)" : "1px solid var(--linea)",
-                              boxShadow: fechaParticipante === f ? "0 4px 12px rgba(16, 185, 129, 0.3)" : "none",
-                              transition: "all 0.15s ease",
-                            }}
-                          >
-                            Fecha {f} {f === 2 ? "🔥 (Próxima)" : "(Anterior)"}
-                          </button>
-                        ))}
-                        <button
-                          type="button"
-                          onClick={() => setFechaParticipante(0)}
-                          style={{
-                            padding: "7px 16px",
-                            borderRadius: 20,
-                            fontWeight: 800,
-                            fontSize: "0.85rem",
-                            cursor: "pointer",
-                            background: fechaParticipante === 0 ? "linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%)" : "rgba(255, 255, 255, 0.06)",
-                            color: fechaParticipante === 0 ? "#ffffff" : "var(--graderia)",
-                            border: fechaParticipante === 0 ? "1px solid #8b5cf6" : "1px solid var(--linea)",
-                            transition: "all 0.15s ease",
-                          }}
-                        >
-                          🏆 Ver Todas
-                        </button>
-                      </div>
-
                       {partidosActivos.map((partido) => renderPartidoCard(partido))}
 
                       {partidosFinalizados.length > 0 && (
@@ -2961,23 +2913,26 @@ export default function ExpressPage() {
                     </p>
                   </div>
                   <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
-                    <button
-                      type="button"
-                      style={{
-                        padding: "8px 16px",
-                        borderRadius: 20,
-                        fontWeight: 800,
-                        fontSize: "0.88rem",
-                        background: fechaAdmin === 1 ? "linear-gradient(135deg, #10b981 0%, #059669 100%)" : "rgba(255, 255, 255, 0.06)",
-                        color: "#ffffff",
-                        border: "1px solid #10b981",
-                        boxShadow: "0 4px 12px rgba(16, 185, 129, 0.3)",
-                        cursor: "pointer",
-                      }}
-                      onClick={() => setFechaAdmin(1)}
-                    >
-                      ⚽ Fecha 1
-                    </button>
+                    {[1, 2].map((f) => (
+                      <button
+                        key={f}
+                        type="button"
+                        onClick={() => setFechaAdmin(f)}
+                        style={{
+                          padding: "8px 16px",
+                          borderRadius: 20,
+                          fontWeight: 800,
+                          fontSize: "0.88rem",
+                          background: fechaAdmin === f ? "linear-gradient(135deg, #10b981 0%, #059669 100%)" : "rgba(255, 255, 255, 0.06)",
+                          color: fechaAdmin === f ? "#ffffff" : "var(--graderia)",
+                          border: fechaAdmin === f ? "1px solid #10b981" : "1px solid var(--linea)",
+                          boxShadow: fechaAdmin === f ? "0 4px 12px rgba(16, 185, 129, 0.3)" : "none",
+                          cursor: "pointer",
+                        }}
+                      >
+                        ⚽ Fecha {f}
+                      </button>
+                    ))}
 
                     <button
                       type="button"
