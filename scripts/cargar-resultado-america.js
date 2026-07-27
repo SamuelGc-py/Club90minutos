@@ -60,71 +60,17 @@ async function cargarResultadoOficialAmerica() {
     data: { estado: "resultado_cargado" },
   });
 
-  // 4. Recalcular puntos
-  const predicciones = await prisma.prediccionPartido.findMany({
-    where: { partido_id: 27 },
-  });
-
+  // 4. Limpiar cualquier puntaje asignado a este partido (los puntos se gestionan manualmente)
   await prisma.puntaje.deleteMany({
     where: { partido_id: 27 },
   });
 
-  const realWinner = "visitante";
-
-  for (const pred of predicciones) {
-    const pLocal = pred.goles_local_predicho;
-    const pVisitante = pred.goles_visitante_predicho;
-    const predWinner = pLocal > pVisitante ? "local" : pVisitante > pLocal ? "visitante" : "empate";
-
-    if (predWinner === realWinner) {
-      await prisma.puntaje.create({
-        data: {
-          usuario_id: pred.usuario_id,
-          partido_id: 27,
-          categoria: "ganador_partido",
-          puntos_obtenidos: 3,
-        },
-      });
-    }
-
-    if (pLocal === golesLocalReal && pVisitante === golesVisitanteReal) {
-      await prisma.puntaje.create({
-        data: {
-          usuario_id: pred.usuario_id,
-          partido_id: 27,
-          categoria: "resultado_exacto",
-          puntos_obtenidos: 5,
-        },
-      });
-    }
-
-    if (pred.jugador_goleador_predicho_id && goleadoresIds.includes(pred.jugador_goleador_predicho_id)) {
-      await prisma.puntaje.create({
-        data: {
-          usuario_id: pred.usuario_id,
-          partido_id: 27,
-          categoria: "goleador",
-          puntos_obtenidos: 2,
-        },
-      });
-    }
-  }
-
-  console.log("✅ RESULTADO INTERNACIONAL 0 - 2 AMÉRICA CARGADO OK.");
-
-  const puntajesGenerados = await prisma.puntaje.findMany({
-    where: { partido_id: 27 },
-    include: { usuario: true }
-  });
-
-  console.log("\nDesglose de puntos otorgados con 0 - 2:");
-  puntajesGenerados.forEach(p => {
-    console.log(`- ${p.usuario.nombre_completo}: +${p.puntos_obtenidos} Pts (${p.categoria})`);
-  });
+  console.log("✅ RESULTADO INTERNACIONAL 0 - 2 AMÉRICA CARGADO (PUNTOS REMOVIDOS PARA GESTIÓN MANUAL).");
 }
 
 cargarResultadoOficialAmerica()
   .catch(console.error)
   .finally(() => prisma.$disconnect());
+
 
 
