@@ -160,12 +160,21 @@ export async function GET(req: Request) {
         ...item,
       }));
 
-    return NextResponse.json({
-      usuarios,
-      tablaPosiciones,
-      prediccionesPartidos,
-      prediccionesIniciales,
-    });
+    return NextResponse.json(
+      {
+        usuarios,
+        tablaPosiciones,
+        prediccionesPartidos,
+        prediccionesIniciales,
+      },
+      {
+        headers: {
+          "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+          "Pragma": "no-cache",
+          "Expires": "0",
+        },
+      }
+    );
   } catch (error: any) {
     console.error("Error al obtener consolidados:", error);
     return NextResponse.json(

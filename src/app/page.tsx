@@ -1439,6 +1439,7 @@ export default function ExpressPage() {
                   onClick={() => {
                     setTabActiva("admin");
                     setMenuAbierto(false);
+                    cargarConsolidados(usuario.id);
                   }}
                 >
                   👑 Panel Administrador
@@ -1510,7 +1511,10 @@ export default function ExpressPage() {
                   {usuario.rol_id === 2 && (
                     <button
                       className={`btn ${tabActiva === "admin" ? "btn-primary" : "btn-secondary"}`}
-                      onClick={() => setTabActiva("admin")}
+                      onClick={() => {
+                        setTabActiva("admin");
+                        cargarConsolidados(usuario.id);
+                      }}
                       style={{ padding: "10px 14px", fontSize: "0.85rem", background: tabActiva === "admin" ? "#f5b000" : undefined, color: tabActiva === "admin" ? "#000" : undefined }}
                     >
                       👑 Panel Admin
@@ -2528,11 +2532,13 @@ export default function ExpressPage() {
                     return esFinalizado || esAplazado || hace2Horas;
                   };
 
-                  const partidosActivosPublicos = partidos
+                  const partidosPublicosFiltrados = partidos.filter((p) => p.jornada === 2);
+
+                  const partidosActivosPublicos = partidosPublicosFiltrados
                     .filter((p) => !esPartidoCerrado(p))
                     .sort((a, b) => new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime());
 
-                  const partidosCerradosPublicos = partidos
+                  const partidosCerradosPublicos = partidosPublicosFiltrados
                     .filter((p) => esPartidoCerrado(p))
                     .sort((a, b) => new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime());
 
@@ -3160,17 +3166,12 @@ export default function ExpressPage() {
 
                 return (
                   <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-                    {partidosActivosAdmin.map((partido) => renderPartidoAdminCard(partido))}
-
-                    {partidosFinalizadosAdmin.length > 0 && (
-                      <>
-                        <div style={{ marginTop: 28, marginBottom: 8, borderTop: "2px dashed var(--linea)", paddingTop: 20 }}>
-                          <h3 style={{ color: "#34d399", fontSize: "1.15rem", display: "flex", alignItems: "center", gap: 8, margin: 0 }}>
-                            🏁 Partidos Finalizados y Aplazados (Orden Cronológico)
-                          </h3>
-                        </div>
-                        {partidosFinalizadosAdmin.map((partido) => renderPartidoAdminCard(partido))}
-                      </>
+                    {partidosAdminFiltrados.length === 0 ? (
+                      <div className="card" style={{ padding: 24, textAlign: "center", color: "var(--graderia)" }}>
+                        No hay partidos registrados para la Fecha {fechaAdmin}.
+                      </div>
+                    ) : (
+                      partidosAdminFiltrados.map((partido) => renderPartidoAdminCard(partido))
                     )}
                   </div>
                 );

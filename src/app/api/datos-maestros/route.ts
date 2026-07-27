@@ -38,11 +38,20 @@ export async function GET() {
       ],
     });
 
-    return NextResponse.json({
-      equipos,
-      jugadores,
-      partidos,
-    });
+    return NextResponse.json(
+      {
+        equipos,
+        jugadores,
+        partidos,
+      },
+      {
+        headers: {
+          "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+          "Pragma": "no-cache",
+          "Expires": "0",
+        },
+      }
+    );
   } catch (error: any) {
     console.error("Error al obtener datos maestros:", error);
     return NextResponse.json(
