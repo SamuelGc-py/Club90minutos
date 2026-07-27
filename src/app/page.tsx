@@ -1294,6 +1294,7 @@ export default function ExpressPage() {
                       </div>
 
                       {/* SECCIÓN CARGAR MARCADOR OFICIAL (ADMIN) */}
+                      {partido.jornada !== 1 && (
                       <div style={{ marginTop: 14, paddingTop: 12, borderTop: "1px dashed rgba(255,255,255,0.1)", display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
                         <span style={{ fontSize: "0.85rem", color: "#38bdf8", fontWeight: 700 }}>
                           ⚽ Cargar Marcador Oficial:
@@ -1386,6 +1387,7 @@ export default function ExpressPage() {
                           ⚽ Publicar Resultado & Liquidar Puntos
                         </button>
                       </div>
+                      )}
                     </div>
                   );
                 };
@@ -3232,6 +3234,7 @@ export default function ExpressPage() {
                       </div>
 
                       {/* SECCIÓN CARGAR MARCADOR OFICIAL (ADMIN) */}
+                      {partido.jornada !== 1 && (
                       <div style={{ marginTop: 14, paddingTop: 12, borderTop: "1px dashed rgba(255,255,255,0.1)", display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
                         <span style={{ fontSize: "0.85rem", color: "#38bdf8", fontWeight: 700 }}>
                           ⚽ Cargar Marcador Oficial:
@@ -3324,6 +3327,7 @@ export default function ExpressPage() {
                           ⚽ Publicar Resultado & Liquidar Puntos
                         </button>
                       </div>
+                      )}
                     </div>
                   );
                 };
