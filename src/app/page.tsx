@@ -136,7 +136,7 @@ export default function ExpressPage() {
 
   // Filtros por Jornada / Fecha
   const [fechaParticipante, setFechaParticipante] = useState<number>(2); // Default Fecha 2 para participantes
-  const [fechaAdmin, setFechaAdmin] = useState<number>(2); // Default Fecha 1 para admin
+  const [fechaAdmin, setFechaAdmin] = useState<number>(0); // Default Fecha 1 para admin
 
   // Sincronizar pronósticos en vivo con localStorage de sesión
   const actualizarSesionLocalStorage = (partidoId: number, local: number, visitante: number, goleadorId: number | null) => {
@@ -1112,7 +1112,7 @@ export default function ExpressPage() {
                       </span>
                     </div>
                     <h2 style={{ margin: 0, fontSize: "1.5rem", color: "#ffffff" }}>
-                      🏆 Consolidados de Pronósticos - Fecha {fechaAdmin}
+                      🏆 Consolidados de Pronósticos{fechaAdmin === 0 ? "" : ` - Fecha ${fechaAdmin}`}
                     </h2>
                     <p style={{ color: "#94a3b8", margin: "4px 0 0 0", fontSize: "0.88rem" }}>
                       Revisa los pronósticos detallados de los usuarios para cada partido (incluye Llaneros F.C.) y descarga la planilla oficial en Excel.
@@ -1159,7 +1159,7 @@ export default function ExpressPage() {
                         boxShadow: "0 4px 12px rgba(5, 150, 105, 0.4)",
                       }}
                     >
-                      <Download size={18} /> 📥 Descargar Excel Fecha {fechaAdmin}
+                      <Download size={18} /> {fechaAdmin === 0 ? "📥 Selecciona Fecha para Excel" : `📥 Descargar Excel Fecha ${fechaAdmin}`}
                     </button>
                   </div>
                 </div>
@@ -1174,8 +1174,8 @@ export default function ExpressPage() {
                   return esFinalizado || esAplazado || hace2Horas;
                 };
 
-                const partidosAdminFiltrados = partidos.filter(
-                  (p) => fechaAdmin === 0 || p.jornada === fechaAdmin
+                const partidosAdminFiltrados = fechaAdmin === 0 ? [] : partidos.filter(
+                  (p) => p.jornada === fechaAdmin
                 );
 
                 const partidosActivosAdmin = partidosAdminFiltrados
@@ -1394,7 +1394,16 @@ export default function ExpressPage() {
 
                 return (
                   <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-                    {partidosAdminFiltrados.length === 0 ? (
+                    {fechaAdmin === 0 ? (
+                      <div className="card" style={{ padding: 32, textAlign: "center", background: "rgba(11, 30, 54, 0.6)", border: "1px dashed #38bdf8", borderRadius: 16 }}>
+                        <div style={{ fontSize: "1.2rem", fontWeight: 800, color: "#38bdf8", marginBottom: 8 }}>
+                          👇 Selecciona una Fecha Arriba
+                        </div>
+                        <div style={{ color: "#94a3b8", fontSize: "0.9rem" }}>
+                          Haz clic en <strong>FECHA 1</strong> o <strong>FECHA 2</strong> para desplegar los partidos y pronósticos.
+                        </div>
+                      </div>
+                    ) : partidosAdminFiltrados.length === 0 ? (
                       <div className="card" style={{ padding: 24, textAlign: "center", color: "var(--graderia)" }}>
                         No hay partidos registrados para la Fecha {fechaAdmin}.
                       </div>
@@ -3052,7 +3061,7 @@ export default function ExpressPage() {
                       </span>
                     </div>
                     <h2 style={{ margin: 0, fontSize: "1.5rem", color: "#ffffff" }}>
-                      🏆 Consolidados de Pronósticos - Fecha {fechaAdmin}
+                      🏆 Consolidados de Pronósticos{fechaAdmin === 0 ? "" : ` - Fecha ${fechaAdmin}`}
                     </h2>
                     <p style={{ color: "#94a3b8", margin: "4px 0 0 0", fontSize: "0.88rem" }}>
                       Revisa los pronósticos detallados de los usuarios para cada partido (incluye Llaneros F.C.) y descarga la planilla oficial en Excel.
@@ -3099,7 +3108,7 @@ export default function ExpressPage() {
                         boxShadow: "0 4px 12px rgba(5, 150, 105, 0.4)",
                       }}
                     >
-                      <Download size={18} /> 📥 Descargar Excel Fecha {fechaAdmin}
+                      <Download size={18} /> {fechaAdmin === 0 ? "📥 Selecciona Fecha para Excel" : `📥 Descargar Excel Fecha ${fechaAdmin}`}
                     </button>
                   </div>
                 </div>
@@ -3114,8 +3123,8 @@ export default function ExpressPage() {
                   return esFinalizado || esAplazado || hace2Horas;
                 };
 
-                const partidosAdminFiltrados = partidos.filter(
-                  (p) => fechaAdmin === 0 || p.jornada === fechaAdmin
+                const partidosAdminFiltrados = fechaAdmin === 0 ? [] : partidos.filter(
+                  (p) => p.jornada === fechaAdmin
                 );
 
                 const partidosActivosAdmin = partidosAdminFiltrados
@@ -3334,7 +3343,16 @@ export default function ExpressPage() {
 
                 return (
                   <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-                    {partidosAdminFiltrados.length === 0 ? (
+                    {fechaAdmin === 0 ? (
+                      <div className="card" style={{ padding: 32, textAlign: "center", background: "rgba(11, 30, 54, 0.6)", border: "1px dashed #38bdf8", borderRadius: 16 }}>
+                        <div style={{ fontSize: "1.2rem", fontWeight: 800, color: "#38bdf8", marginBottom: 8 }}>
+                          👇 Selecciona una Fecha Arriba
+                        </div>
+                        <div style={{ color: "#94a3b8", fontSize: "0.9rem" }}>
+                          Haz clic en <strong>FECHA 1</strong> o <strong>FECHA 2</strong> para desplegar los partidos y pronósticos.
+                        </div>
+                      </div>
+                    ) : partidosAdminFiltrados.length === 0 ? (
                       <div className="card" style={{ padding: 24, textAlign: "center", color: "var(--graderia)" }}>
                         No hay partidos registrados para la Fecha {fechaAdmin}.
                       </div>
