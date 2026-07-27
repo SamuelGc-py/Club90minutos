@@ -1062,7 +1062,7 @@ export default function ExpressPage() {
               </div>
               <div>
                 <div style={{ fontSize: "0.8rem", color: "#a7f3d0", fontWeight: 600 }}>
-                  Partidos Fecha 1
+                  Partidos Fecha 2
                 </div>
                 <strong style={{ fontSize: "1.6rem", color: "#ffffff", fontWeight: 900 }}>
                   {partidos.length} Partidos
@@ -1656,7 +1656,7 @@ export default function ExpressPage() {
           {tabActiva === "partidos" && (
             <div>
               <div className="card" style={{ marginBottom: 20 }}>
-                <h2>⚽ Pronósticos de Fecha 1</h2>
+                <h2>⚽ Pronósticos de Fecha 2</h2>
                 <p style={{ color: "var(--graderia)", margin: 0, fontSize: "0.85rem" }}>
                   Ingresa el <strong>Marcador Exacto (5 Pts)</strong>, el <strong>Equipo Ganador (3 Pts)</strong> y opcionalmente el <strong>Goleador del Partido (2 Pts)</strong>.
                 </p>
