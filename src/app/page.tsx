@@ -3011,61 +3011,74 @@ export default function ExpressPage() {
                         </div>
                       </div>
 
-                      {/* TABLA DE PRONÓSTICOS DE PARTICIPANTES */}
-                      {partidoAdminVer === partido.id && (
-                        <div style={{ marginTop: 14, paddingTop: 14, borderTop: "1px dashed rgba(255,255,255,0.15)" }}>
-                          {pronosticosPartido.length === 0 ? (
-                            <p style={{ fontSize: "0.85rem", color: "#94a3b8" }}>No hay pronósticos registrados para este partido aún.</p>
-                          ) : (
-                            <div style={{ overflowX: "auto" }}>
-                              <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.85rem", textAlign: "left" }}>
-                                <thead>
-                                  <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.15)", color: "#94a3b8" }}>
-                                    <th style={{ padding: "8px" }}>Participante</th>
-                                    <th style={{ padding: "8px", textAlign: "center" }}>Marcador Predicho</th>
-                                    <th style={{ padding: "8px", textAlign: "center" }}>Ganador Predicho</th>
-                                    <th style={{ padding: "8px" }}>Goleador Predicho</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  {pronosticosPartido.map((p: any, idx: number) => (
-                                    <tr key={idx} style={{ borderBottom: "1px dashed rgba(255,255,255,0.08)" }}>
-                                      <td style={{ padding: "8px", fontWeight: 700, color: "#ffffff" }}>
-                                        {p.usuario.nombre_completo} <span style={{ color: "#64748b", fontSize: "0.78rem" }}>({p.usuario.correo})</span>
-                                      </td>
-                                      <td style={{ padding: "8px", textAlign: "center", fontWeight: 900, color: "#34d399", fontSize: "1rem" }}>
-                                        {p.goles_local_predicho} - {p.goles_visitante_predicho}
-                                      </td>
-                                      <td style={{ padding: "8px", textAlign: "center" }}>
-                                        {(() => {
-                                          const valL = p.goles_local_predicho !== undefined && p.goles_local_predicho !== null ? p.goles_local_predicho : p.goles_local;
-                                          const valV = p.goles_visitante_predicho !== undefined && p.goles_visitante_predicho !== null ? p.goles_visitante_predicho : p.goles_visitante;
-                                          const gL = Number(valL);
-                                          const gV = Number(valV);
-                                          let ganadorTexto = "Empate";
-                                          if (!isNaN(gL) && !isNaN(gV)) {
-                                            if (gL > gV) ganadorTexto = `Gana ${partido.equipo_local.nombre}`;
-                                            else if (gV > gL) ganadorTexto = `Gana ${partido.equipo_visitante.nombre}`;
-                                            else ganadorTexto = "Empate";
-                                          }
-                                          return (
-                                            <span className="badge" style={{ background: "rgba(56, 189, 248, 0.15)", color: "#38bdf8", fontWeight: 800 }}>
-                                              {ganadorTexto}
-                                            </span>
-                                          );
-                                        })()}
-                                      </td>
-                                      <td style={{ padding: "8px", color: "#f5b000", fontWeight: 600 }}>
-                                         {obtenerNombreGoleador(p)}
-                                      </td>
-                                    </tr>
-                                  ))}
-                                </tbody>
-                              </table>
-                            </div>
-                          )}
+                      {/* TABLA DE PRONÓSTICOS DE PARTICIPANTES (SIEMPRE VISIBLE EN ADMIN) */}
+                      <div style={{ marginTop: 14, paddingTop: 14, borderTop: "1px dashed rgba(255,255,255,0.15)" }}>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+                          <h4 style={{ margin: 0, color: "#34d399", fontSize: "0.95rem", display: "flex", alignItems: "center", gap: 6 }}>
+                            📋 Pronósticos Recibidos ({pronosticosPartido.length} Participantes)
+                          </h4>
+                          <button
+                            className="btn btn-primary"
+                            style={{ padding: "5px 12px", fontSize: "0.8rem", background: "linear-gradient(135deg, #059669 0%, #047857 100%)", color: "#fff", border: "1px solid #10b981", fontWeight: 800 }}
+                            onClick={() => handleDescargarExcelPronosticos(partido.id)}
+                          >
+                            <Download size={13} /> Excel Partido
+                          </button>
                         </div>
-                      )}
+
+                        {pronosticosPartido.length === 0 ? (
+                          <p style={{ fontSize: "0.85rem", color: "#94a3b8", fontStyle: "italic", margin: 0, padding: 8 }}>
+                            No hay pronósticos registrados para este partido aún.
+                          </p>
+                        ) : (
+                          <div style={{ overflowX: "auto", background: "rgba(15, 23, 42, 0.6)", borderRadius: 10, padding: 10, border: "1px solid rgba(255,255,255,0.08)" }}>
+                            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.85rem", textAlign: "left" }}>
+                              <thead>
+                                <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.15)", color: "#94a3b8" }}>
+                                  <th style={{ padding: "8px" }}>Participante</th>
+                                  <th style={{ padding: "8px", textAlign: "center" }}>Marcador Exacto</th>
+                                  <th style={{ padding: "8px", textAlign: "center" }}>Ganador Predicho</th>
+                                  <th style={{ padding: "8px" }}>Goleador Predicho</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {pronosticosPartido.map((p: any, idx: number) => (
+                                  <tr key={idx} style={{ borderBottom: "1px dashed rgba(255,255,255,0.08)" }}>
+                                    <td style={{ padding: "8px", fontWeight: 700, color: "#ffffff" }}>
+                                      {p.usuario.nombre_completo} <span style={{ color: "#64748b", fontSize: "0.78rem" }}>({p.usuario.correo})</span>
+                                    </td>
+                                    <td style={{ padding: "8px", textAlign: "center", fontWeight: 900, color: "#34d399", fontSize: "1rem" }}>
+                                      {p.goles_local_predicho} - {p.goles_visitante_predicho}
+                                    </td>
+                                    <td style={{ padding: "8px", textAlign: "center" }}>
+                                      {(() => {
+                                        const valL = p.goles_local_predicho !== undefined && p.goles_local_predicho !== null ? p.goles_local_predicho : p.goles_local;
+                                        const valV = p.goles_visitante_predicho !== undefined && p.goles_visitante_predicho !== null ? p.goles_visitante_predicho : p.goles_visitante;
+                                        const gL = Number(valL);
+                                        const gV = Number(valV);
+                                        let ganadorTexto = "Empate";
+                                        if (!isNaN(gL) && !isNaN(gV)) {
+                                          if (gL > gV) ganadorTexto = `Gana ${partido.equipo_local.nombre}`;
+                                          else if (gV > gL) ganadorTexto = `Gana ${partido.equipo_visitante.nombre}`;
+                                          else ganadorTexto = "Empate";
+                                        }
+                                        return (
+                                          <span className="badge" style={{ background: "rgba(56, 189, 248, 0.15)", color: "#38bdf8", fontWeight: 800 }}>
+                                            {ganadorTexto}
+                                          </span>
+                                        );
+                                      })()}
+                                    </td>
+                                    <td style={{ padding: "8px", color: "#f5b000", fontWeight: 600 }}>
+                                       {obtenerNombreGoleador(p)}
+                                    </td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>
+                        )}
+                      </div>
 
                       {/* SECCIÓN CARGAR MARCADOR OFICIAL (ADMIN) */}
                       <div style={{ marginTop: 14, paddingTop: 12, borderTop: "1px dashed rgba(255,255,255,0.1)", display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
