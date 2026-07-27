@@ -539,12 +539,18 @@ export default function ExpressPage() {
 
       // Auto-sincronizar ganador si ambos goles están ingresados
       let nuevoGanador = actual.ganador;
+      let nuevoGoleadorId = actual.goleador_id;
       if (nuevoLocal !== "" && nuevoVisitante !== "") {
         const nL = Number(nuevoLocal);
         const nV = Number(nuevoVisitante);
         if (nL > nV) nuevoGanador = "local";
         else if (nL < nV) nuevoGanador = "visitante";
         else nuevoGanador = "empate";
+
+        // Si es 0-0, bloquear y limpiar la selección de goleador
+        if (nL === 0 && nV === 0) {
+          nuevoGoleadorId = "";
+        }
       }
 
       return {
@@ -554,6 +560,7 @@ export default function ExpressPage() {
           local: nuevoLocal,
           visitante: nuevoVisitante,
           ganador: nuevoGanador,
+          goleador_id: nuevoGoleadorId,
         },
       };
     });
@@ -1662,7 +1669,8 @@ export default function ExpressPage() {
                   const estaSoloFinal = (partido: any) => {
                     const esAplazado = partido.estado === "aplazado";
                     const esFinalizado = Boolean(partido.resultado_oficial) || partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado";
-                    return esFinalizado || esAplazado;
+                    const hace2Horas = new Date().getTime() >= new Date(partido.fecha_hora_partido).getTime() + 2 * 60 * 60 * 1000;
+                    return esFinalizado || esAplazado || hace2Horas;
                   };
 
                   const partidosActivos = partidos
@@ -1960,188 +1968,208 @@ export default function ExpressPage() {
                         })()}
 
                         {/* BLOQUE SELECCIÓN DE GOLEADOR: 2 DROPDOWNS SEPARADOS + BOTÓN APARTE 'SIN GOLEADOR' */}
-                        <div style={{ background: "var(--noche-2)", padding: "14px 16px", borderRadius: 8, marginBottom: 12 }}>
-                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12, flexWrap: "wrap", gap: 8 }}>
-                            <label style={{ fontSize: "0.82rem", fontWeight: 700, color: "var(--tiza)" }}>
-                              ⚽ Goleador del Partido (+2 Pts):
-                            </label>
+                        {(() => {
+                          const esMarcadorCeroCero = m.local !== "" && m.visitante !== "" && Number(m.local || 0) === 0 && Number(m.visitante || 0) === 0;
+                          const hayGolesSinGoleador = (m.local !== "" || m.visitante !== "") && (Number(m.local || 0) > 0 || Number(m.visitante || 0) > 0) && !m.goleador_id;
+                          const marcadorIncompleto = m.local === "" || m.visitante === "";
+                          const deshabilitarBotonGuardar = guardandoPartidoId === partido.id || marcadorIncompleto || hayGolesSinGoleador || Boolean(inconsistencia);
 
-                            {/* BOTÓN APARTE 'SIN GOLEADOR (0 - 0)' */}
-                            <button
-                              type="button"
-                              disabled={estaCerrado}
-                              onClick={() => handleGoleadorChange(partido.id, "")}
-                              style={{
-                                padding: "6px 14px",
-                                borderRadius: 6,
-                                fontSize: "0.78rem",
-                                fontWeight: 700,
-                                cursor: estaCerrado ? "not-allowed" : "pointer",
-                                background: !m.goleador_id ? "rgba(239, 68, 68, 0.25)" : "rgba(255, 255, 255, 0.05)",
-                                border: !m.goleador_id ? "1px solid #ef4444" : "1px solid var(--linea)",
-                                color: !m.goleador_id ? "#fca5a5" : "var(--graderia)",
-                                transition: "all 0.15s ease",
-                              }}
-                            >
-                              {!m.goleador_id ? "🚫 Sin Goleador (Activo para 0 - 0)" : "🚫 Cambiar a Sin Goleador"}
-                            </button>
-                          </div>
+                          return (
+                            <>
+                              <div style={{ background: "var(--noche-2)", padding: "14px 16px", borderRadius: 8, marginBottom: 12, opacity: esMarcadorCeroCero ? 0.7 : 1 }}>
+                                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12, flexWrap: "wrap", gap: 8 }}>
+                                  <label style={{ fontSize: "0.82rem", fontWeight: 700, color: "var(--tiza)" }}>
+                                    ⚽ Goleador del Partido (+2 Pts):
+                                  </label>
 
-                          {/* 2 DROPDOWNS SEPARADOS POR EQUIPO */}
-                          <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
-                            {/* GOLEADOR LOCAL */}
-                            <div style={{ flex: 1, minWidth: 200 }}>
-                              <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 700, color: "var(--cancha)", marginBottom: 4 }}>
-                                🏠 Goleador {partido.equipo_local.nombre}:
-                              </label>
-                              <select
-                                value={
-                                  (partido.equipo_local.jugadores || []).some((j: any) => String(j.id) === String(m.goleador_id))
-                                    ? String(m.goleador_id)
-                                    : ""
-                                }
-                                onChange={(e) => handleGoleadorChange(partido.id, e.target.value)}
-                                disabled={estaCerrado}
-                                style={{
-                                  width: "100%",
-                                  padding: "9px 12px",
-                                  background: "var(--noche-1)",
-                                  border: (partido.equipo_local.jugadores || []).some((j: any) => String(j.id) === String(m.goleador_id))
-                                    ? "1px solid var(--cancha)"
-                                    : "1px solid var(--linea)",
-                                  borderRadius: 8,
-                                  color: "#ffffff",
-                                  fontSize: "0.85rem",
-                                }}
-                              >
-                                <option value="">-- Seleccionar de {partido.equipo_local.nombre} --</option>
-                                {(partido.equipo_local.jugadores || []).map((j: any) => (
-                                  <option key={j.id} value={j.id}>
-                                    {j.nombre}
-                                  </option>
-                                ))}
-                              </select>
-                            </div>
+                                  {/* BOTÓN APARTE 'SIN GOLEADOR (0 - 0)' */}
+                                  <button
+                                    type="button"
+                                    disabled={estaCerrado || esMarcadorCeroCero}
+                                    onClick={() => handleGoleadorChange(partido.id, "")}
+                                    style={{
+                                      padding: "6px 14px",
+                                      borderRadius: 6,
+                                      fontSize: "0.78rem",
+                                      fontWeight: 700,
+                                      cursor: (estaCerrado || esMarcadorCeroCero) ? "not-allowed" : "pointer",
+                                      background: !m.goleador_id ? "rgba(239, 68, 68, 0.25)" : "rgba(255, 255, 255, 0.05)",
+                                      border: !m.goleador_id ? "1px solid #ef4444" : "1px solid var(--linea)",
+                                      color: !m.goleador_id ? "#fca5a5" : "var(--graderia)",
+                                      transition: "all 0.15s ease",
+                                    }}
+                                  >
+                                    {!m.goleador_id ? "🚫 Sin Goleador (Activo para 0 - 0)" : "🚫 Cambiar a Sin Goleador"}
+                                  </button>
+                                </div>
 
-                            {/* GOLEADOR VISITANTE */}
-                            <div style={{ flex: 1, minWidth: 200 }}>
-                              <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 700, color: "#38bdf8", marginBottom: 4 }}>
-                                ✈️ Goleador {partido.equipo_visitante.nombre}:
-                              </label>
-                              <select
-                                value={
-                                  (partido.equipo_visitante.jugadores || []).some((j: any) => String(j.id) === String(m.goleador_id))
-                                    ? String(m.goleador_id)
-                                    : ""
-                                }
-                                onChange={(e) => handleGoleadorChange(partido.id, e.target.value)}
-                                disabled={estaCerrado}
-                                style={{
-                                  width: "100%",
-                                  padding: "9px 12px",
-                                  background: "var(--noche-1)",
-                                  border: (partido.equipo_visitante.jugadores || []).some((j: any) => String(j.id) === String(m.goleador_id))
-                                    ? "1px solid #38bdf8"
-                                    : "1px solid var(--linea)",
-                                  borderRadius: 8,
-                                  color: "#ffffff",
-                                  fontSize: "0.85rem",
-                                }}
-                              >
-                                <option value="">-- Seleccionar de {partido.equipo_visitante.nombre} --</option>
-                                {(partido.equipo_visitante.jugadores || []).map((j: any) => (
-                                  <option key={j.id} value={j.id}>
-                                    {j.nombre}
-                                  </option>
-                                ))}
-                              </select>
-                            </div>
-                          </div>
+                                {/* 2 DROPDOWNS SEPARADOS POR EQUIPO */}
+                                <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
+                                  {/* GOLEADOR LOCAL */}
+                                  <div style={{ flex: 1, minWidth: 200 }}>
+                                    <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 700, color: "var(--cancha)", marginBottom: 4 }}>
+                                      🏠 Goleador {partido.equipo_local.nombre}:
+                                    </label>
+                                    <select
+                                      value={
+                                        (partido.equipo_local.jugadores || []).some((j: any) => String(j.id) === String(m.goleador_id))
+                                          ? String(m.goleador_id)
+                                          : ""
+                                      }
+                                      onChange={(e) => handleGoleadorChange(partido.id, e.target.value)}
+                                      disabled={estaCerrado || esMarcadorCeroCero}
+                                      style={{
+                                        width: "100%",
+                                        padding: "9px 12px",
+                                        background: "var(--noche-1)",
+                                        border: (partido.equipo_local.jugadores || []).some((j: any) => String(j.id) === String(m.goleador_id))
+                                          ? "1px solid var(--cancha)"
+                                          : "1px solid var(--linea)",
+                                        borderRadius: 8,
+                                        color: "#ffffff",
+                                        fontSize: "0.85rem",
+                                        cursor: (estaCerrado || esMarcadorCeroCero) ? "not-allowed" : "pointer",
+                                      }}
+                                    >
+                                      <option value="">-- Seleccionar de {partido.equipo_local.nombre} --</option>
+                                      {(partido.equipo_local.jugadores || []).map((j: any) => (
+                                        <option key={j.id} value={j.id}>
+                                          {j.nombre}
+                                        </option>
+                                      ))}
+                                    </select>
+                                  </div>
 
-                          {/* INDICADOR DE ESTADO */}
-                          {m.goleador_id ? (
-                            <div style={{ marginTop: 10, fontSize: "0.85rem", color: "var(--cancha)", fontWeight: 700, display: "flex", alignItems: "center", gap: 6 }}>
-                              ⚽ Goleador seleccionado: {[...(partido.equipo_local.jugadores || []), ...(partido.equipo_visitante.jugadores || []), ...jugadores].find((j: any) => String(j.id) === String(m.goleador_id))?.nombre || "Seleccionado"}
-                            </div>
-                          ) : (
-                            <div style={{ marginTop: 8, fontSize: "0.78rem", color: "var(--graderia)", fontStyle: "italic" }}>
-                              ℹ️ Sin goleador seleccionado (válido sólo si el partido termina 0 - 0).
-                            </div>
-                          )}
-                        </div>
+                                  {/* GOLEADOR VISITANTE */}
+                                  <div style={{ flex: 1, minWidth: 200 }}>
+                                    <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 700, color: "#38bdf8", marginBottom: 4 }}>
+                                      ✈️ Goleador {partido.equipo_visitante.nombre}:
+                                    </label>
+                                    <select
+                                      value={
+                                        (partido.equipo_visitante.jugadores || []).some((j: any) => String(j.id) === String(m.goleador_id))
+                                          ? String(m.goleador_id)
+                                          : ""
+                                      }
+                                      onChange={(e) => handleGoleadorChange(partido.id, e.target.value)}
+                                      disabled={estaCerrado || esMarcadorCeroCero}
+                                      style={{
+                                        width: "100%",
+                                        padding: "9px 12px",
+                                        background: "var(--noche-1)",
+                                        border: (partido.equipo_visitante.jugadores || []).some((j: any) => String(j.id) === String(m.goleador_id))
+                                          ? "1px solid #38bdf8"
+                                          : "1px solid var(--linea)",
+                                        borderRadius: 8,
+                                        color: "#ffffff",
+                                        fontSize: "0.85rem",
+                                        cursor: (estaCerrado || esMarcadorCeroCero) ? "not-allowed" : "pointer",
+                                      }}
+                                    >
+                                      <option value="">-- Seleccionar de {partido.equipo_visitante.nombre} --</option>
+                                      {(partido.equipo_visitante.jugadores || []).map((j: any) => (
+                                        <option key={j.id} value={j.id}>
+                                          {j.nombre}
+                                        </option>
+                                      ))}
+                                    </select>
+                                  </div>
+                                </div>
 
-                        {/* INCONSISTENCIA SI INGRESÓ GOLES PERO NO SELECCIONÓ GOLEADOR (SOLO PARTIDOS ABIERTOS) */}
-                        {!estaCerrado && (m.local !== "" || m.visitante !== "") && (Number(m.local || 0) > 0 || Number(m.visitante || 0) > 0) && !m.goleador_id && (
-                          <div
-                            style={{
-                              marginTop: 8,
-                              padding: "10px 14px",
-                              background: "rgba(239, 68, 68, 0.15)",
-                              border: "1px solid rgba(239, 68, 68, 0.4)",
-                              borderRadius: 8,
-                              color: "#fca5a5",
-                              fontSize: "0.85rem",
-                              display: "flex",
-                              alignItems: "center",
-                              gap: 8,
-                              fontWeight: 700,
-                            }}
-                          >
-                            <AlertTriangle size={18} style={{ flexShrink: 0, color: "#ef4444" }} />
-                            <span>❌ Inconsistencia: Marcador ({m.local || 0} - {m.visitante || 0}) indica que hay goles, pero seleccionaste 'Ninguno'. Debes elegir obligatoriamente el goleador predicho.</span>
-                          </div>
-                        )}
-
-                        {!estaCerrado && inconsistencia && (
-                          <div style={{ marginTop: 10, color: "var(--rojo)", fontSize: "0.85rem", display: "flex", alignItems: "center", gap: 6, fontWeight: 700 }}>
-                            <AlertTriangle size={16} /> {inconsistencia}
-                          </div>
-                        )}
-
-                        {/* BOTÓN GUARDAR PRONÓSTICO INDIVIDUAL CON CONFIRMACIÓN EN VIVO */}
-                        {!estaCerrado && (
-                          <div style={{ marginTop: 14, paddingTop: 10, borderTop: "1px dashed rgba(255,255,255,0.08)", display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 6 }}>
-                            <button
-                              type="button"
-                              className="btn btn-primary"
-                              disabled={guardandoPartidoId === partido.id}
-                              onClick={() => handleGuardarPronosticoPartido(partido.id)}
-                              style={{
-                                padding: "8px 18px",
-                                fontSize: "0.88rem",
-                                fontWeight: 800,
-                                background: partidoGuardadoExitoId === partido.id
-                                  ? "linear-gradient(135deg, #059669 0%, #047857 100%)"
-                                  : "linear-gradient(135deg, #10b981 0%, #059669 100%)",
-                                color: "#fff",
-                                borderRadius: 8,
-                                display: "inline-flex",
-                                alignItems: "center",
-                                gap: 6,
-                                cursor: "pointer",
-                                boxShadow: "0 4px 12px rgba(16, 185, 129, 0.3)",
-                              }}
-                            >
-                              {partidoGuardadoExitoId === partido.id ? (
-                                <>
-                                  <CheckCircle2 size={16} /> ¡Pronóstico Guardado con Éxito!
-                                </>
-                              ) : guardandoPartidoId === partido.id ? (
-                                "Guardando..."
-                              ) : (
-                                <>
-                                  <Save size={16} /> Guardar Pronóstico
-                                </>
-                              )}
-                            </button>
-
-                            {partidoGuardadoExitoId === partido.id && (
-                              <div style={{ color: "#34d399", fontSize: "0.82rem", fontWeight: 800, display: "flex", alignItems: "center", gap: 4 }}>
-                                <CheckCircle2 size={14} /> ✓ Marcador y goleador guardados correctamente en la base de datos
+                                {/* INDICADOR DE ESTADO */}
+                                {esMarcadorCeroCero ? (
+                                  <div style={{ marginTop: 8, fontSize: "0.82rem", color: "#60a5fa", fontWeight: 700, display: "flex", alignItems: "center", gap: 6 }}>
+                                    🔒 Marcador 0 - 0: Selección de goleador bloqueada (en empate a cero no hay goles).
+                                  </div>
+                                ) : m.goleador_id ? (
+                                  <div style={{ marginTop: 10, fontSize: "0.85rem", color: "var(--cancha)", fontWeight: 700, display: "flex", alignItems: "center", gap: 6 }}>
+                                    ⚽ Goleador seleccionado: {[...(partido.equipo_local.jugadores || []), ...(partido.equipo_visitante.jugadores || []), ...jugadores].find((j: any) => String(j.id) === String(m.goleador_id))?.nombre || "Seleccionado"}
+                                  </div>
+                                ) : (
+                                  <div style={{ marginTop: 8, fontSize: "0.78rem", color: "var(--graderia)", fontStyle: "italic" }}>
+                                    ℹ️ Sin goleador seleccionado (válido sólo si el partido termina 0 - 0).
+                                  </div>
+                                )}
                               </div>
-                            )}
-                          </div>
-                        )}
+
+                              {/* INCONSISTENCIA SI INGRESÓ GOLES PERO NO SELECCIONÓ GOLEADOR (SOLO PARTIDOS ABIERTOS) */}
+                              {!estaCerrado && hayGolesSinGoleador && (
+                                <div
+                                  style={{
+                                    marginTop: 8,
+                                    padding: "10px 14px",
+                                    background: "rgba(239, 68, 68, 0.15)",
+                                    border: "1px solid rgba(239, 68, 68, 0.4)",
+                                    borderRadius: 8,
+                                    color: "#fca5a5",
+                                    fontSize: "0.85rem",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: 8,
+                                    fontWeight: 700,
+                                  }}
+                                >
+                                  <AlertTriangle size={18} style={{ flexShrink: 0, color: "#ef4444" }} />
+                                  <span>❌ Debes seleccionar obligatoriamente el goleador del partido (o cambiar marcador a 0 - 0 si no hay goles).</span>
+                                </div>
+                              )}
+
+                              {!estaCerrado && inconsistencia && (
+                                <div style={{ marginTop: 10, color: "var(--rojo)", fontSize: "0.85rem", display: "flex", alignItems: "center", gap: 6, fontWeight: 700 }}>
+                                  <AlertTriangle size={16} /> {inconsistencia}
+                                </div>
+                              )}
+
+                              {/* BOTÓN GUARDAR PRONÓSTICO INDIVIDUAL CON CONFIRMACIÓN EN VIVO */}
+                              {!estaCerrado && (
+                                <div style={{ marginTop: 14, paddingTop: 10, borderTop: "1px dashed rgba(255,255,255,0.08)", display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 6 }}>
+                                  <button
+                                    type="button"
+                                    className="btn btn-primary"
+                                    disabled={deshabilitarBotonGuardar}
+                                    onClick={() => handleGuardarPronosticoPartido(partido.id)}
+                                    style={{
+                                      padding: "8px 18px",
+                                      fontSize: "0.88rem",
+                                      fontWeight: 800,
+                                      background: deshabilitarBotonGuardar
+                                        ? "#334155"
+                                        : partidoGuardadoExitoId === partido.id
+                                        ? "linear-gradient(135deg, #059669 0%, #047857 100%)"
+                                        : "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+                                      color: deshabilitarBotonGuardar ? "#94a3b8" : "#fff",
+                                      opacity: deshabilitarBotonGuardar ? 0.65 : 1,
+                                      borderRadius: 8,
+                                      display: "inline-flex",
+                                      alignItems: "center",
+                                      gap: 6,
+                                      cursor: deshabilitarBotonGuardar ? "not-allowed" : "pointer",
+                                      boxShadow: deshabilitarBotonGuardar ? "none" : "0 4px 12px rgba(16, 185, 129, 0.3)",
+                                    }}
+                                  >
+                                    {partidoGuardadoExitoId === partido.id ? (
+                                      <>
+                                        <CheckCircle2 size={16} /> ¡Pronóstico Guardado con Éxito!
+                                      </>
+                                    ) : guardandoPartidoId === partido.id ? (
+                                      "Guardando..."
+                                    ) : (
+                                      <>
+                                        <Save size={16} /> Guardar Pronóstico
+                                      </>
+                                    )}
+                                  </button>
+
+                                  {partidoGuardadoExitoId === partido.id && (
+                                    <div style={{ color: "#34d399", fontSize: "0.82rem", fontWeight: 800, display: "flex", alignItems: "center", gap: 4 }}>
+                                      <CheckCircle2 size={14} /> ✓ Marcador y goleador guardados correctamente en la base de datos
+                                    </div>
+                                  )}
+                                </div>
+                              )}
+                            </>
+                          );
+                        })()}
                       </div>
                     );
                   };
@@ -2485,94 +2513,127 @@ export default function ExpressPage() {
                   </div>
                 </div>
 
-                {partidos.map((partido) => {
-                  const horaCierre = new Date(new Date(partido.fecha_hora_partido).getTime() - 60 * 60 * 1000);
-                  const estaCerrado = new Date() >= horaCierre || usuario?.rol_id === 2;
+                {(() => {
+                  const esPartidoCerrado = (partido: any) => {
+                    const esAplazado = partido.estado === "aplazado";
+                    const esFinalizado = Boolean(partido.resultado_oficial) || partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado";
+                    const hace2Horas = new Date().getTime() >= new Date(partido.fecha_hora_partido).getTime() + 2 * 60 * 60 * 1000;
+                    return esFinalizado || esAplazado || hace2Horas;
+                  };
 
-                  // Pronósticos de este partido entre todos los usuarios
-                  const pronosticosDeEstePartido = consolidados?.prediccionesPartidos?.filter(
-                    (p: any) => p.partido_id === partido.id
-                  ) || [];
+                  const partidosActivosPublicos = partidos
+                    .filter((p) => !esPartidoCerrado(p))
+                    .sort((a, b) => new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime());
+
+                  const partidosCerradosPublicos = partidos
+                    .filter((p) => esPartidoCerrado(p))
+                    .sort((a, b) => new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime());
+
+                  const renderTablaPronosticoPartido = (partido: any) => {
+                    const horaCierre = new Date(new Date(partido.fecha_hora_partido).getTime() - 60 * 60 * 1000);
+                    const estaCerrado = new Date() >= horaCierre || usuario?.rol_id === 2;
+
+                    const pronosticosDeEstePartido = consolidados?.prediccionesPartidos?.filter(
+                      (p: any) => p.partido_id === partido.id
+                    ) || [];
+
+                    return (
+                      <div
+                        key={partido.id}
+                        style={{
+                          marginBottom: 16,
+                          border: "1px solid var(--linea)",
+                          borderRadius: 10,
+                          padding: 16,
+                          background: "var(--noche-2)",
+                        }}
+                      >
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12, flexWrap: "wrap", gap: 8 }}>
+                          <strong style={{ fontSize: "1rem", color: "#ffffff" }}>
+                            ⚽ {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}
+                          </strong>
+                          <RelojCuentaRegresiva fechaHoraPartido={partido.fecha_hora_partido} />
+                        </div>
+
+                        {estaCerrado ? (
+                          pronosticosDeEstePartido.length > 0 ? (
+                            <div style={{ overflowX: "auto" }}>
+                              <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.85rem", textAlign: "left" }}>
+                                <thead>
+                                  <tr style={{ borderBottom: "1px solid var(--linea)", color: "var(--graderia)" }}>
+                                    <th style={{ padding: "8px" }}>Participante</th>
+                                    <th style={{ padding: "8px", textAlign: "center" }}>Marcador Exacto</th>
+                                    <th style={{ padding: "8px", textAlign: "center" }}>Ganador Predicho</th>
+                                    <th style={{ padding: "8px" }}>Goleador Predicho</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {pronosticosDeEstePartido.map((p: any) => (
+                                    <tr key={p.id} style={{ borderBottom: "1px dashed rgba(255,255,255,0.1)" }}>
+                                      <td style={{ padding: "8px", fontWeight: 700, color: "#ffffff" }}>
+                                        {p.usuario?.nombre_completo || "Participante"}
+                                      </td>
+                                      <td style={{ padding: "8px", textAlign: "center", fontWeight: 800, color: "var(--cancha)" }}>
+                                        {p.goles_local_predicho} - {p.goles_visitante_predicho}
+                                      </td>
+                                      <td style={{ padding: "8px", textAlign: "center" }}>
+                                         {(() => {
+                                           const gL = Number(p.goles_local_predicho);
+                                           const gV = Number(p.goles_visitante_predicho);
+                                           let ganadorTexto = "Empate";
+                                           if (!isNaN(gL) && !isNaN(gV)) {
+                                             if (gL > gV) {
+                                               ganadorTexto = `Gana ${partido.equipo_local.nombre}`;
+                                             } else if (gV > gL) {
+                                               ganadorTexto = `Gana ${partido.equipo_visitante.nombre}`;
+                                             }
+                                           }
+                                           return (
+                                             <span className="badge" style={{ background: "rgba(56, 189, 248, 0.15)", color: "#38bdf8", fontWeight: 800 }}>
+                                               {ganadorTexto}
+                                             </span>
+                                           );
+                                         })()}
+                                      </td>
+                                      <td style={{ padding: "8px", color: "var(--graderia)" }}>
+                                        {obtenerNombreGoleador(p)}
+                                      </td>
+                                    </tr>
+                                  ))}
+                                </tbody>
+                              </table>
+                            </div>
+                          ) : (
+                            <div style={{ fontSize: "0.85rem", color: "var(--graderia)", fontStyle: "italic", textAlign: "center", padding: 12 }}>
+                              Sin pronósticos registrados para este partido.
+                            </div>
+                          )
+                        ) : (
+                          <div style={{ background: "rgba(255,255,255,0.03)", padding: 12, borderRadius: 8, textAlign: "center", color: "#fbbf24", fontSize: "0.85rem", fontWeight: 600 }}>
+                            🔒 Los pronósticos de todos los participantes permanecen ocultos hasta 1 hora antes del partido.
+                          </div>
+                        )}
+                      </div>
+                    );
+                  };
 
                   return (
-                    <div
-                      key={partido.id}
-                      style={{
-                        marginBottom: 16,
-                        border: "1px solid var(--linea)",
-                        borderRadius: 10,
-                        padding: 16,
-                        background: "var(--noche-2)",
-                      }}
-                    >
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12, flexWrap: "wrap", gap: 8 }}>
-                        <strong style={{ fontSize: "1rem", color: "#ffffff" }}>
-                          ⚽ {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}
-                        </strong>
-                        <RelojCuentaRegresiva fechaHoraPartido={partido.fecha_hora_partido} />
-                      </div>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                      {partidosActivosPublicos.map((partido) => renderTablaPronosticoPartido(partido))}
 
-                      {estaCerrado ? (
-                        pronosticosDeEstePartido.length > 0 ? (
-                          <div style={{ overflowX: "auto" }}>
-                            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.85rem", textAlign: "left" }}>
-                              <thead>
-                                <tr style={{ borderBottom: "1px solid var(--linea)", color: "var(--graderia)" }}>
-                                  <th style={{ padding: "8px" }}>Participante</th>
-                                  <th style={{ padding: "8px", textAlign: "center" }}>Marcador Exacto</th>
-                                  <th style={{ padding: "8px", textAlign: "center" }}>Ganador Predicho</th>
-                                  <th style={{ padding: "8px" }}>Goleador Predicho</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                {pronosticosDeEstePartido.map((p: any) => (
-                                  <tr key={p.id} style={{ borderBottom: "1px dashed rgba(255,255,255,0.1)" }}>
-                                    <td style={{ padding: "8px", fontWeight: 700, color: "#ffffff" }}>
-                                      {p.usuario?.nombre_completo || "Participante"}
-                                    </td>
-                                    <td style={{ padding: "8px", textAlign: "center", fontWeight: 800, color: "var(--cancha)" }}>
-                                      {p.goles_local_predicho} - {p.goles_visitante_predicho}
-                                    </td>
-                                    <td style={{ padding: "8px", textAlign: "center" }}>
-                                       {(() => {
-                                         const gL = Number(p.goles_local_predicho);
-                                         const gV = Number(p.goles_visitante_predicho);
-                                         let ganadorTexto = "Empate";
-                                         if (!isNaN(gL) && !isNaN(gV)) {
-                                           if (gL > gV) {
-                                             ganadorTexto = `Gana ${partido.equipo_local.nombre}`;
-                                           } else if (gV > gL) {
-                                             ganadorTexto = `Gana ${partido.equipo_visitante.nombre}`;
-                                           }
-                                         }
-                                         return (
-                                           <span className="badge" style={{ background: "rgba(56, 189, 248, 0.15)", color: "#38bdf8", fontWeight: 800 }}>
-                                             {ganadorTexto}
-                                           </span>
-                                         );
-                                       })()}
-                                    </td>
-                                    <td style={{ padding: "8px", color: "var(--graderia)" }}>
-                                      {obtenerNombreGoleador(p)}
-                                    </td>
-                                  </tr>
-                                ))}
-                              </tbody>
-                            </table>
+                      {partidosCerradosPublicos.length > 0 && (
+                        <>
+                          <div style={{ marginTop: 24, marginBottom: 8, borderTop: "2px dashed var(--linea)", paddingTop: 16 }}>
+                            <h3 style={{ color: "#34d399", fontSize: "1.05rem", display: "flex", alignItems: "center", gap: 8, margin: 0 }}>
+                              🏁 Partidos Cerrados y Finalizados (Pronósticos Revelados)
+                            </h3>
                           </div>
-                        ) : (
-                          <div style={{ fontSize: "0.85rem", color: "var(--graderia)", fontStyle: "italic", textAlign: "center", padding: 12 }}>
-                            Sin pronósticos registrados para este partido.
-                          </div>
-                        )
-                      ) : (
-                        <div style={{ background: "rgba(255,255,255,0.03)", padding: 12, borderRadius: 8, textAlign: "center", color: "#fbbf24", fontSize: "0.85rem", fontWeight: 600 }}>
-                          🔒 Los pronósticos de todos los participantes permanecen ocultos hasta 1 hora antes del partido.
-                        </div>
+                          {partidosCerradosPublicos.map((partido) => renderTablaPronosticoPartido(partido))}
+                        </>
                       )}
                     </div>
                   );
-                })}
+                })()}
               </div>
             </div>
           )}
@@ -2848,7 +2909,8 @@ export default function ExpressPage() {
                 const estaSoloFinal = (partido: any) => {
                   const esAplazado = partido.estado === "aplazado";
                   const esFinalizado = Boolean(partido.resultado_oficial) || partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado";
-                  return esFinalizado || esAplazado;
+                  const hace2Horas = new Date().getTime() >= new Date(partido.fecha_hora_partido).getTime() + 2 * 60 * 60 * 1000;
+                  return esFinalizado || esAplazado || hace2Horas;
                 };
 
                 const partidosActivosAdmin = partidos
