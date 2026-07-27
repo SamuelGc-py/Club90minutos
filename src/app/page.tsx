@@ -2909,44 +2909,76 @@ export default function ExpressPage() {
                 </div>
               </div>
 
-              {/* SECCIÓN GESTIÓN POR PARTIDO */}
-              <div className="card" style={{ marginBottom: 20 }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
+              {/* SECCIÓN CONTROL Y CONSOLIDADOS FUTBOLEROS POR FECHAS (ADMIN) */}
+              <div
+                className="card"
+                style={{
+                  marginBottom: 24,
+                  background: "linear-gradient(135deg, #0b1e36 0%, #1e293b 100%)",
+                  border: "2px solid #10b981",
+                  boxShadow: "0 8px 24px rgba(16, 185, 129, 0.2)",
+                  padding: "24px",
+                }}
+              >
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16 }}>
                   <div>
-                    <h2 style={{ margin: 0 }}>Gestión por Partido</h2>
-                    <p style={{ color: "var(--graderia)", margin: 0, fontSize: "0.85rem" }}>
-                      Ingresa los resultados oficiales y selecciona los goleadores para liquidar los puntos de los participantes.
+                    <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+                      <span className="badge" style={{ background: "#10b981", color: "#000", fontWeight: 900, fontSize: "0.8rem" }}>
+                        LIGA BETPLAY DIMAYOR
+                      </span>
+                      <span style={{ color: "#34d399", fontSize: "0.85rem", fontWeight: 700 }}>
+                        ⚽ Control por Fechas
+                      </span>
+                    </div>
+                    <h2 style={{ margin: 0, fontSize: "1.5rem", color: "#ffffff" }}>
+                      🏆 Consolidados de Pronósticos - Fecha {fechaAdmin}
+                    </h2>
+                    <p style={{ color: "#94a3b8", margin: "4px 0 0 0", fontSize: "0.88rem" }}>
+                      Revisa los pronósticos detallados de los usuarios para cada partido (incluye Llaneros F.C.) y descarga la planilla oficial en Excel.
                     </p>
                   </div>
+
                   <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
-                    {[1, 2].map((f) => (
+                    {[1, 2, 3].map((f) => (
                       <button
                         key={f}
                         type="button"
-                        onClick={() => setFechaAdmin(f)}
+                        onClick={() => {
+                          setFechaAdmin(f);
+                          if (usuario) cargarConsolidados(usuario.id);
+                        }}
                         style={{
-                          padding: "8px 16px",
+                          padding: "10px 20px",
                           borderRadius: 20,
-                          fontWeight: 800,
-                          fontSize: "0.88rem",
-                          background: fechaAdmin === f ? "linear-gradient(135deg, #10b981 0%, #059669 100%)" : "rgba(255, 255, 255, 0.06)",
-                          color: fechaAdmin === f ? "#ffffff" : "var(--graderia)",
-                          border: fechaAdmin === f ? "1px solid #10b981" : "1px solid var(--linea)",
-                          boxShadow: fechaAdmin === f ? "0 4px 12px rgba(16, 185, 129, 0.3)" : "none",
+                          fontWeight: 900,
+                          fontSize: "0.95rem",
+                          background: fechaAdmin === f ? "linear-gradient(135deg, #10b981 0%, #059669 100%)" : "rgba(255, 255, 255, 0.08)",
+                          color: fechaAdmin === f ? "#ffffff" : "#94a3b8",
+                          border: fechaAdmin === f ? "2px solid #34d399" : "1px solid rgba(255, 255, 255, 0.15)",
+                          boxShadow: fechaAdmin === f ? "0 4px 16px rgba(16, 185, 129, 0.4)" : "none",
                           cursor: "pointer",
+                          transition: "all 0.2s ease",
                         }}
                       >
-                        ⚽ Fecha {f}
+                        ⚽ FECHA {f}
                       </button>
                     ))}
 
                     <button
                       type="button"
-                      className="btn btn-secondary"
+                      className="btn btn-primary"
                       onClick={() => handleDescargarExcelPronosticos(undefined, fechaAdmin)}
-                      style={{ padding: "8px 16px", fontSize: "0.85rem", background: "linear-gradient(135deg, #059669 0%, #047857 100%)", color: "#fff", border: "1px solid #10b981", fontWeight: 800 }}
+                      style={{
+                        padding: "10px 20px",
+                        fontSize: "0.9rem",
+                        background: "linear-gradient(135deg, #059669 0%, #047857 100%)",
+                        color: "#fff",
+                        border: "1px solid #34d399",
+                        fontWeight: 900,
+                        boxShadow: "0 4px 12px rgba(5, 150, 105, 0.4)",
+                      }}
                     >
-                      📥 Descargar Excel Fecha {fechaAdmin}
+                      <Download size={18} /> 📥 Descargar Excel Fecha {fechaAdmin}
                     </button>
                   </div>
                 </div>
