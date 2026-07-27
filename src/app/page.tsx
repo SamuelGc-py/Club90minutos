@@ -3216,7 +3216,20 @@ export default function ExpressPage() {
                         No hay partidos registrados para la Fecha {fechaAdmin}.
                       </div>
                     ) : (
-                      partidosAdminFiltrados.map((partido) => renderPartidoAdminCard(partido))
+                      <>
+                        {partidosActivosAdmin.map((partido) => renderPartidoAdminCard(partido))}
+                        
+                        {partidosFinalizadosAdmin.length > 0 && (
+                          <>
+                            <div style={{ marginTop: 28, marginBottom: 8, borderTop: "2px dashed rgba(255,255,255,0.15)", paddingTop: 20 }}>
+                              <h3 style={{ color: "#34d399", fontSize: "1.15rem", display: "flex", alignItems: "center", gap: 8, margin: 0 }}>
+                                🗓️ Partidos Finalizados y Aplazados (Orden Cronológico)
+                              </h3>
+                            </div>
+                            {partidosFinalizadosAdmin.map((partido) => renderPartidoAdminCard(partido))}
+                          </>
+                        )}
+                      </>
                     )}
                   </div>
                 );
