@@ -134,6 +134,10 @@ export default function ExpressPage() {
   const [guardandoPartidoId, setGuardandoPartidoId] = useState<number | null>(null);
   const [partidoGuardadoExitoId, setPartidoGuardadoExitoId] = useState<number | null>(null);
 
+  // Filtros por Jornada / Fecha
+  const [fechaParticipante, setFechaParticipante] = useState<number>(2); // Default Fecha 2 para participantes
+  const [fechaAdmin, setFechaAdmin] = useState<number>(1); // Default Fecha 1 para admin
+
   // Sincronizar pronósticos en vivo con localStorage de sesión
   const actualizarSesionLocalStorage = (partidoId: number, local: number, visitante: number, goleadorId: number | null) => {
     try {
@@ -659,13 +663,13 @@ export default function ExpressPage() {
   };
 
   // Descargar Excel de Pronósticos por Partido (Diseño exacto Imagen 2)
-  const handleDescargarExcelPronosticos = async (partidoId?: number) => {
+  const handleDescargarExcelPronosticos = async (partidoId?: number, jornada?: number) => {
     if (!usuario) return;
     try {
       setMensajeEstado({ tipo: "info", texto: "Generando Excel con formato... Esto puede tardar unos segundos." });
-      const url = partidoId 
-        ? `/api/consolidados/excel?usuario_id=${usuario.id}&partido_id=${partidoId}`
-        : `/api/consolidados/excel?usuario_id=${usuario.id}`;
+      let url = `/api/consolidados/excel?usuario_id=${usuario.id}`;
+      if (partidoId) url += `&partido_id=${partidoId}`;
+      if (jornada) url += `&jornada=${jornada}`;
       const res = await fetch(url);
       
       if (!res.ok) {
@@ -677,7 +681,7 @@ export default function ExpressPage() {
       const blobUrl = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = blobUrl;
-      link.download = `Pronosticos_Partidos_Polla_BetPlay_${new Date().toISOString().slice(0, 10)}.xlsx`;
+      link.download = jornada ? `Pronosticos_Partidos_Fecha_${jornada}.xlsx` : `Pronosticos_Partidos_Polla_BetPlay_${new Date().toISOString().slice(0, 10)}.xlsx`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -1673,11 +1677,15 @@ export default function ExpressPage() {
                     return esFinalizado || esAplazado || hace2Horas;
                   };
 
-                  const partidosActivos = partidos
+                  const partidosFiltradosParticipante = partidos.filter(
+                    (p) => fechaParticipante === 0 || p.jornada === fechaParticipante
+                  );
+
+                  const partidosActivos = partidosFiltradosParticipante
                     .filter((p) => !estaSoloFinal(p))
                     .sort((a, b) => new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime());
 
-                  const partidosFinalizados = partidos
+                  const partidosFinalizados = partidosFiltradosParticipante
                     .filter((p) => estaSoloFinal(p))
                     .sort((a, b) => {
                       if (a.estado === "aplazado" && b.estado !== "aplazado") return 1;
@@ -2176,6 +2184,53 @@ export default function ExpressPage() {
 
                   return (
                     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                      {/* SELECTOR DE FECHAS PARA PARTICIPANTES */}
+                      <div style={{ display: "flex", gap: 10, marginBottom: 8, flexWrap: "wrap", alignItems: "center", background: "var(--noche-2)", padding: "12px 16px", borderRadius: 12, border: "1px solid var(--linea)" }}>
+                        <span style={{ fontSize: "0.85rem", fontWeight: 800, color: "#ffffff", display: "flex", alignItems: "center", gap: 6 }}>
+                          ⚽ Seleccionar Fecha:
+                        </span>
+                        {[2, 1].map((f) => (
+                          <button
+                            key={f}
+                            type="button"
+                            onClick={() => setFechaParticipante(f)}
+                            style={{
+                              padding: "7px 16px",
+                              borderRadius: 20,
+                              fontWeight: 800,
+                              fontSize: "0.85rem",
+                              cursor: "pointer",
+                              background: fechaParticipante === f
+                                ? (f === 2 ? "linear-gradient(135deg, #10b981 0%, #059669 100%)" : "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)")
+                                : "rgba(255, 255, 255, 0.06)",
+                              color: fechaParticipante === f ? "#ffffff" : "var(--graderia)",
+                              border: fechaParticipante === f ? "1px solid rgba(255,255,255,0.2)" : "1px solid var(--linea)",
+                              boxShadow: fechaParticipante === f ? "0 4px 12px rgba(16, 185, 129, 0.3)" : "none",
+                              transition: "all 0.15s ease",
+                            }}
+                          >
+                            Fecha {f} {f === 2 ? "🔥 (Próxima)" : "(Anterior)"}
+                          </button>
+                        ))}
+                        <button
+                          type="button"
+                          onClick={() => setFechaParticipante(0)}
+                          style={{
+                            padding: "7px 16px",
+                            borderRadius: 20,
+                            fontWeight: 800,
+                            fontSize: "0.85rem",
+                            cursor: "pointer",
+                            background: fechaParticipante === 0 ? "linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%)" : "rgba(255, 255, 255, 0.06)",
+                            color: fechaParticipante === 0 ? "#ffffff" : "var(--graderia)",
+                            border: fechaParticipante === 0 ? "1px solid #8b5cf6" : "1px solid var(--linea)",
+                            transition: "all 0.15s ease",
+                          }}
+                        >
+                          🏆 Ver Todas
+                        </button>
+                      </div>
+
                       {partidosActivos.map((partido) => renderPartidoCard(partido))}
 
                       {partidosFinalizados.length > 0 && (
@@ -2898,10 +2953,42 @@ export default function ExpressPage() {
 
               {/* SECCIÓN GESTIÓN POR PARTIDO */}
               <div className="card" style={{ marginBottom: 20 }}>
-                <h2>Gestión por Partido</h2>
-                <p style={{ color: "var(--graderia)", margin: 0, fontSize: "0.85rem" }}>
-                  Ingresa los resultados oficiales y selecciona los goleadores para liquidar los puntos de los participantes.
-                </p>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
+                  <div>
+                    <h2 style={{ margin: 0 }}>Gestión por Partido</h2>
+                    <p style={{ color: "var(--graderia)", margin: 0, fontSize: "0.85rem" }}>
+                      Ingresa los resultados oficiales y selecciona los goleadores para liquidar los puntos de los participantes.
+                    </p>
+                  </div>
+                  <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
+                    <button
+                      type="button"
+                      style={{
+                        padding: "8px 16px",
+                        borderRadius: 20,
+                        fontWeight: 800,
+                        fontSize: "0.88rem",
+                        background: fechaAdmin === 1 ? "linear-gradient(135deg, #10b981 0%, #059669 100%)" : "rgba(255, 255, 255, 0.06)",
+                        color: "#ffffff",
+                        border: "1px solid #10b981",
+                        boxShadow: "0 4px 12px rgba(16, 185, 129, 0.3)",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => setFechaAdmin(1)}
+                    >
+                      ⚽ Fecha 1
+                    </button>
+
+                    <button
+                      type="button"
+                      className="btn btn-secondary"
+                      onClick={() => handleDescargarExcelPronosticos(undefined, fechaAdmin)}
+                      style={{ padding: "8px 16px", fontSize: "0.85rem", background: "linear-gradient(135deg, #059669 0%, #047857 100%)", color: "#fff", border: "1px solid #10b981", fontWeight: 800 }}
+                    >
+                      📥 Descargar Excel Fecha {fechaAdmin}
+                    </button>
+                  </div>
+                </div>
               </div>
 
               {/* LISTA DE PARTIDOS EN ADMIN SEPARADOS POR ACTIVOS Y FINALIZADOS */}
@@ -2913,11 +3000,15 @@ export default function ExpressPage() {
                   return esFinalizado || esAplazado || hace2Horas;
                 };
 
-                const partidosActivosAdmin = partidos
+                const partidosAdminFiltrados = partidos.filter(
+                  (p) => fechaAdmin === 0 || p.jornada === fechaAdmin
+                );
+
+                const partidosActivosAdmin = partidosAdminFiltrados
                   .filter((p) => !estaSoloFinal(p))
                   .sort((a, b) => new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime());
 
-                const partidosFinalizadosAdmin = partidos
+                const partidosFinalizadosAdmin = partidosAdminFiltrados
                   .filter((p) => estaSoloFinal(p))
                   .sort((a, b) => {
                     if (a.estado === "aplazado" && b.estado !== "aplazado") return 1;

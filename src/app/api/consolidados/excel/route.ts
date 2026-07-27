@@ -9,6 +9,7 @@ export async function GET(req: Request) {
     const { searchParams } = new URL(req.url);
     const usuarioId = searchParams.get("usuario_id");
     const partidoId = searchParams.get("partido_id"); // Opcional
+    const jornada = searchParams.get("jornada"); // Opcional (Fecha 1, 2, etc)
 
     if (!usuarioId) {
       return NextResponse.json({ error: "Se requiere usuario_id" }, { status: 400 });
@@ -28,12 +29,15 @@ export async function GET(req: Request) {
     const whereClause: any = {
       usuario: {
         NOT: {
-          correo: { in: ["adminpollabetplay@gmail.com", "prueba.admin@pollabetplay.com"] },
+          correo: { in: ["adminpollabetplay@gmail.com", "prueba.admin@pollabetplay.com", "pruebas@pollabetplay.com"] },
         },
       },
     };
     if (partidoId) {
       whereClause.partido_id = Number(partidoId);
+    }
+    if (jornada) {
+      whereClause.partido = { jornada: Number(jornada) };
     }
 
     const prediccionesPartidos = await prisma.prediccionPartido.findMany({
@@ -57,11 +61,12 @@ export async function GET(req: Request) {
 
     // Inicializar libro y hoja de cálculo
     const workbook = new ExcelJS.Workbook();
-    const worksheet = workbook.addWorksheet("Pronósticos Partidos");
+    const sheetName = jornada ? `Fecha ${jornada}` : "Pronósticos Partidos";
+    const worksheet = workbook.addWorksheet(sheetName);
 
     // Configurar columnas y anchos (basado en HTML)
     worksheet.columns = [
-      { header: "Partido", key: "partido", width: 25 }, // Aprox 76px -> width en exceljs es diferente (caracteres aprox), pondremos valores razonables
+      { header: "Partido", key: "partido", width: 25 },
       { header: "Nombre del participante", key: "participante", width: 35 },
       { header: "Ganador del Partido", key: "ganador_partido_pred", width: 25 },
       { header: "Local", key: "goles_local", width: 12 },
@@ -74,7 +79,7 @@ export async function GET(req: Request) {
 
     // Estilizar la fila de encabezados
     const headerRow = worksheet.getRow(1);
-    headerRow.height = 25; // Darle algo de altura
+    headerRow.height = 25;
     headerRow.eachCell((cell, colNumber) => {
       cell.font = { name: "Arial", size: 11, bold: true, color: { argb: "FFFFFFFF" } };
       cell.border = {
@@ -86,14 +91,12 @@ export async function GET(req: Request) {
       cell.alignment = { vertical: "middle", horizontal: colNumber <= 6 ? "left" : "center" };
       
       if (colNumber <= 6) {
-        // Fondo negro para A-F
         cell.fill = {
           type: "pattern",
           pattern: "solid",
           fgColor: { argb: "FF000000" },
         };
       } else {
-        // Fondo azul para G-I
         cell.fill = {
           type: "pattern",
           pattern: "solid",
@@ -119,12 +122,11 @@ export async function GET(req: Request) {
         goles_local: pp.goles_local_predicho,
         goles_visitante: pp.goles_visitante_predicho,
         goleador: pp.jugador_goleador?.nombre || "N/A",
-        res_correctos: "#N/A", // Espacio para fórmula o calificación posterior
+        res_correctos: "#N/A",
         ganador_partido_res: "#N/A",
         goleadores_res: 0,
       });
 
-      // Estilizar las celdas de datos
       row.eachCell((cell, colNumber) => {
         cell.font = { name: "Arial", size: 11, color: { argb: "FF000000" } };
         cell.border = {
@@ -139,10 +141,11 @@ export async function GET(req: Request) {
 
     // Generar buffer
     const buffer = await workbook.xlsx.writeBuffer();
+    const filename = jornada ? `Pronosticos_Partidos_Fecha_${jornada}.xlsx` : `Pronosticos_Partidos_Todos.xlsx`;
 
     return new NextResponse(buffer, {
       headers: {
-        "Content-Disposition": 'attachment; filename="Pronosticos_Partidos.xlsx"',
+        "Content-Disposition": `attachment; filename="${filename}"`,
         "Content-Type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       },
     });
