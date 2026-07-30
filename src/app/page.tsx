@@ -611,12 +611,8 @@ export default function ExpressPage() {
     for (const partido of partidos) {
       const horaCierrePartido = new Date(new Date(partido.fecha_hora_partido).getTime() - 30 * 60 * 1000);
       const esAplazado = partido.estado === "aplazado";
-      const esAdmin = usuario?.rol_id === 2;
-      const esExcepcionHarold = usuario?.correo === "hberdugodelosreyes0@gmail.com" && partido.id === 24;
-      const esExcepcionSamu = usuario?.correo === "samucobaggg@gmail.com" && partido.id === 25;
-      const esExcepcionIgnacio = usuario?.correo === "iangelbarrios16@gmail.com" && partido.id === 27;
       const esFinalizado = Boolean(partido.resultado_oficial) || partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado";
-      const estaCerrado = (new Date() >= horaCierrePartido && !esAdmin && !esExcepcionHarold && !esExcepcionSamu && !esExcepcionIgnacio) || esAplazado || esFinalizado;
+      const estaCerrado = (new Date() >= horaCierrePartido) || esAplazado || esFinalizado;
 
       // Ignorar validación para partidos acabados, cerrados o aplazados
       if (estaCerrado) continue;
@@ -1861,15 +1857,11 @@ export default function ExpressPage() {
                       ...(partido.equipo_visitante.jugadores || []),
                     ];
 
-                    const horaCierrePartido = new Date(new Date(partido.fecha_hora_partido).getTime() - 60 * 60 * 1000);
+                    const horaCierrePartido = new Date(new Date(partido.fecha_hora_partido).getTime() - 30 * 60 * 1000);
                     const esAplazado = partido.estado === "aplazado";
-                    const esAdmin = usuario?.rol_id === 2;
-                    const esExcepcionHarold = usuario?.correo === "hberdugodelosreyes0@gmail.com" && partido.id === 24;
-                    const esExcepcionSamu = usuario?.correo === "samucobaggg@gmail.com" && partido.id === 25;
-                    const esExcepcionIgnacio = usuario?.correo === "iangelbarrios16@gmail.com" && partido.id === 27;
 
-                    const estaCerradoGeneral = (new Date() >= horaCierrePartido && !esAdmin && !esExcepcionHarold && !esExcepcionSamu) || esAplazado;
-                    const estaCerrado = (estaCerradoGeneral && !esExcepcionIgnacio) || esAplazado;
+                    const estaCerradoGeneral = (new Date() >= horaCierrePartido) || esAplazado;
+                    const estaCerrado = estaCerradoGeneral;
                     const deshabilitarMarcador = estaCerradoGeneral;
 
                     return (
