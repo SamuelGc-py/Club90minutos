@@ -562,10 +562,10 @@ export default function ExpressPage() {
       if (partidoObj && nuevoGoleadorId) {
         const goleadorSel = jugadores.find((j) => String(j.id) === String(nuevoGoleadorId));
         if (goleadorSel) {
-          if (nuevoLocal !== "" && Number(nuevoLocal) === 0 && goleadorSel.equipo_id === partidoObj.equipo_local.id) {
+          if (nuevoLocal !== "" && Number(nuevoLocal) === 0 && String(goleadorSel.equipo_id) === String(partidoObj.equipo_local.id)) {
             nuevoGoleadorId = "";
           }
-          if (nuevoVisitante !== "" && Number(nuevoVisitante) === 0 && goleadorSel.equipo_id === partidoObj.equipo_visitante.id) {
+          if (nuevoVisitante !== "" && Number(nuevoVisitante) === 0 && String(goleadorSel.equipo_id) === String(partidoObj.equipo_visitante.id)) {
             nuevoGoleadorId = "";
           }
         }
