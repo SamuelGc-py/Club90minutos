@@ -1234,8 +1234,8 @@ export default function ExpressPage() {
                       className="btn btn-primary"
                       onClick={() => handleDescargarExcelPronosticos(undefined, fechaAdmin)}
                       style={{
-                        padding: "10px 20px",
-                        fontSize: "0.9rem",
+                        padding: "10px 18px",
+                        fontSize: "0.88rem",
                         background: "linear-gradient(135deg, #059669 0%, #047857 100%)",
                         color: "#fff",
                         border: "1px solid #34d399",
@@ -1243,10 +1243,122 @@ export default function ExpressPage() {
                         boxShadow: "0 4px 12px rgba(5, 150, 105, 0.4)",
                       }}
                     >
-                      <Download size={18} /> {fechaAdmin === 0 ? "📥 Selecciona Fecha para Excel" : `📥 Descargar Excel Fecha ${fechaAdmin}`}
+                      <Download size={18} /> {fechaAdmin === 0 ? "📥 Excel Partidos" : `📥 Excel Fecha ${fechaAdmin}`}
+                    </button>
+
+                    <button
+                      type="button"
+                      className="btn btn-primary"
+                      onClick={handleDescargarExcelIniciales}
+                      style={{
+                        padding: "10px 18px",
+                        fontSize: "0.88rem",
+                        background: "linear-gradient(135deg, #4f46e5 0%, #4338ca 100%)",
+                        color: "#fff",
+                        border: "1px solid #818cf8",
+                        fontWeight: 900,
+                        boxShadow: "0 4px 12px rgba(79, 70, 229, 0.4)",
+                        cursor: "pointer",
+                      }}
+                    >
+                      <Download size={18} /> 📥 Excel Predicciones Torneo
                     </button>
                   </div>
                 </div>
+              </div>
+
+              {/* SECCIÓN CONTROL DE PREDICCIONES DEL TORNEO / INICIALES (ADMIN - ARRIBA) */}
+              <div
+                className="card"
+                style={{
+                  marginBottom: 24,
+                  background: "linear-gradient(135deg, #0b1e36 0%, #1e1b4b 100%)",
+                  border: "2px solid #6366f1",
+                  boxShadow: "0 8px 24px rgba(99, 102, 241, 0.2)",
+                  padding: "24px",
+                }}
+              >
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16, marginBottom: 20 }}>
+                  <div>
+                    <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+                      <span className="badge" style={{ background: "#6366f1", color: "#fff", fontWeight: 900, fontSize: "0.8rem" }}>
+                        LIGA BETPLAY
+                      </span>
+                      <span style={{ color: "#a5b4fc", fontSize: "0.85rem", fontWeight: 700 }}>
+                        🏆 Predicciones del Torneo
+                      </span>
+                    </div>
+                    <h2 style={{ margin: 0, fontSize: "1.5rem", color: "#ffffff" }}>
+                      🏆 Consolidados de Predicciones del Torneo (Iniciales)
+                    </h2>
+                    <p style={{ color: "#94a3b8", margin: "4px 0 0 0", fontSize: "0.88rem" }}>
+                      Revisa las elecciones iniciales de Campeón, Finalistas, Goleador y 8 Clasificados de cada participante y descarga el archivo oficial en Excel.
+                    </p>
+                  </div>
+
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={handleDescargarExcelIniciales}
+                    style={{
+                      padding: "12px 22px",
+                      fontSize: "0.92rem",
+                      background: "linear-gradient(135deg, #4f46e5 0%, #4338ca 100%)",
+                      color: "#fff",
+                      border: "1px solid #818cf8",
+                      fontWeight: 900,
+                      boxShadow: "0 4px 14px rgba(79, 70, 229, 0.4)",
+                      cursor: "pointer",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 8,
+                    }}
+                  >
+                    <Download size={18} /> 📥 Descargar Excel Predicciones del Torneo
+                  </button>
+                </div>
+
+                {/* TABLA DETALLADA PREDICCIONES INICIALES POR PARTICIPANTE */}
+                {consolidados?.prediccionesIniciales?.length > 0 ? (
+                  <div style={{ overflowX: "auto" }}>
+                    <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.85rem", textAlign: "left" }}>
+                      <thead>
+                        <tr style={{ borderBottom: "2px solid #6366f1", color: "#a5b4fc", background: "rgba(255,255,255,0.03)" }}>
+                          <th style={{ padding: "10px" }}>Participante</th>
+                          <th style={{ padding: "10px" }}>🏆 Campeón</th>
+                          <th style={{ padding: "10px" }}>🥈 Finalistas</th>
+                          <th style={{ padding: "10px" }}>👟 Goleador Torneo</th>
+                          <th style={{ padding: "10px" }}>⚡ Clasificados (8 Equipos)</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {consolidados.prediccionesIniciales.map((pi: any) => (
+                          <tr key={pi.id} style={{ borderBottom: "1px dashed rgba(255,255,255,0.1)" }}>
+                            <td style={{ padding: "10px", fontWeight: 700, color: "#ffffff" }}>
+                              {pi.usuario?.nombre_completo || "Participante"}
+                            </td>
+                            <td style={{ padding: "10px", fontWeight: 800, color: "#f5b000" }}>
+                              {pi.campeon?.nombre || "Sin seleccionar"}
+                            </td>
+                            <td style={{ padding: "10px", color: "#cbd5e1" }}>
+                              {[pi.finalista_1?.nombre, pi.finalista_2?.nombre].filter(Boolean).join(" y ") || "Sin seleccionar"}
+                            </td>
+                            <td style={{ padding: "10px", color: "#38bdf8" }}>
+                              {pi.goleador_torneo?.nombre || "Sin seleccionar"}
+                            </td>
+                            <td style={{ padding: "10px", color: "#34d399", fontSize: "0.8rem" }}>
+                              {(pi.clasificados || []).map((c: any) => c.equipo?.nombre).filter(Boolean).join(", ") || "Sin seleccionar"}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                ) : (
+                  <div style={{ textAlign: "center", padding: 20, color: "#94a3b8", fontStyle: "italic" }}>
+                    No hay predicciones del torneo registradas aún.
+                  </div>
+                )}
               </div>
 
               {/* LISTA DE PARTIDOS EN ADMIN SEPARADOS POR ACTIVOS Y FINALIZADOS */}
@@ -1510,101 +1622,6 @@ export default function ExpressPage() {
                   </div>
                 );
               })()}
-
-              {/* SECCIÓN CONTROL DE PREDICCIONES DEL TORNEO / INICIALES (ADMIN) */}
-              <div
-                className="card"
-                style={{
-                  marginTop: 32,
-                  marginBottom: 24,
-                  background: "linear-gradient(135deg, #0b1e36 0%, #1e1b4b 100%)",
-                  border: "2px solid #6366f1",
-                  boxShadow: "0 8px 24px rgba(99, 102, 241, 0.2)",
-                  padding: "24px",
-                }}
-              >
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16, marginBottom: 20 }}>
-                  <div>
-                    <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-                      <span className="badge" style={{ background: "#6366f1", color: "#fff", fontWeight: 900, fontSize: "0.8rem" }}>
-                        LIGA BETPLAY
-                      </span>
-                      <span style={{ color: "#a5b4fc", fontSize: "0.85rem", fontWeight: 700 }}>
-                        🏆 Predicciones del Torneo
-                      </span>
-                    </div>
-                    <h2 style={{ margin: 0, fontSize: "1.5rem", color: "#ffffff" }}>
-                      🏆 Consolidados de Predicciones del Torneo (Iniciales)
-                    </h2>
-                    <p style={{ color: "#94a3b8", margin: "4px 0 0 0", fontSize: "0.88rem" }}>
-                      Revisa las elecciones iniciales de Campeón, Finalistas, Goleador y 8 Clasificados de cada participante y descarga el archivo oficial en Excel.
-                    </p>
-                  </div>
-
-                  <button
-                    type="button"
-                    className="btn btn-primary"
-                    onClick={handleDescargarExcelIniciales}
-                    style={{
-                      padding: "12px 22px",
-                      fontSize: "0.92rem",
-                      background: "linear-gradient(135deg, #4f46e5 0%, #4338ca 100%)",
-                      color: "#fff",
-                      border: "1px solid #818cf8",
-                      fontWeight: 900,
-                      boxShadow: "0 4px 14px rgba(79, 70, 229, 0.4)",
-                      cursor: "pointer",
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: 8,
-                    }}
-                  >
-                    <Download size={18} /> 📥 Descargar Excel Predicciones del Torneo
-                  </button>
-                </div>
-
-                {/* TABLA DETALLADA PREDICCIONES INICIALES POR PARTICIPANTE */}
-                {consolidados?.prediccionesIniciales?.length > 0 ? (
-                  <div style={{ overflowX: "auto" }}>
-                    <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.85rem", textAlign: "left" }}>
-                      <thead>
-                        <tr style={{ borderBottom: "2px solid #6366f1", color: "#a5b4fc", background: "rgba(255,255,255,0.03)" }}>
-                          <th style={{ padding: "10px" }}>Participante</th>
-                          <th style={{ padding: "10px" }}>🏆 Campeón</th>
-                          <th style={{ padding: "10px" }}>🥈 Finalistas</th>
-                          <th style={{ padding: "10px" }}>👟 Goleador Torneo</th>
-                          <th style={{ padding: "10px" }}>⚡ Clasificados (8 Equipos)</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {consolidados.prediccionesIniciales.map((pi: any) => (
-                          <tr key={pi.id} style={{ borderBottom: "1px dashed rgba(255,255,255,0.1)" }}>
-                            <td style={{ padding: "10px", fontWeight: 700, color: "#ffffff" }}>
-                              {pi.usuario?.nombre_completo || "Participante"}
-                            </td>
-                            <td style={{ padding: "10px", fontWeight: 800, color: "#f5b000" }}>
-                              {pi.campeon?.nombre || "Sin seleccionar"}
-                            </td>
-                            <td style={{ padding: "10px", color: "#cbd5e1" }}>
-                              {[pi.finalista_1?.nombre, pi.finalista_2?.nombre].filter(Boolean).join(" y ") || "Sin seleccionar"}
-                            </td>
-                            <td style={{ padding: "10px", color: "#38bdf8" }}>
-                              {pi.goleador_torneo?.nombre || "Sin seleccionar"}
-                            </td>
-                            <td style={{ padding: "10px", color: "#34d399", fontSize: "0.8rem" }}>
-                              {(pi.clasificados || []).map((c: any) => c.equipo?.nombre).filter(Boolean).join(", ") || "Sin seleccionar"}
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                ) : (
-                  <div style={{ textAlign: "center", padding: 20, color: "#94a3b8", fontStyle: "italic" }}>
-                    No hay predicciones del torneo registradas aún.
-                  </div>
-                )}
-              </div>
             </>
           )}
         </div>
