@@ -403,7 +403,24 @@ export default function ExpressPage() {
       const data = await res.json();
       if (data.equipos) setEquipos(data.equipos);
       if (data.jugadores) setJugadores(data.jugadores);
-      if (data.partidos) setPartidos(data.partidos);
+      if (data.partidos) {
+        setPartidos(data.partidos);
+
+        // Pre-llenar permanentemente los marcadores e insumos oficiales del admin
+        const initialAdminInputs: Record<number, { local: string; visitante: string; goleadores_ids: number[] }> = {};
+        data.partidos.forEach((p: any) => {
+          if (p.resultado_oficial) {
+            initialAdminInputs[p.id] = {
+              local: String(p.resultado_oficial.goles_local_real ?? ""),
+              visitante: String(p.resultado_oficial.goles_visitante_real ?? ""),
+              goleadores_ids: (p.resultado_oficial.goleadores || [])
+                .map((g: any) => g.jugador_id || g.jugador?.id)
+                .filter(Boolean),
+            };
+          }
+        });
+        setResultadosAdminInput((prev) => ({ ...initialAdminInputs, ...prev }));
+      }
     } catch (err) {
       console.error("Error al cargar datos maestros:", err);
     } finally {
