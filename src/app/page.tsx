@@ -334,11 +334,18 @@ export default function ExpressPage() {
       if (!res.ok) throw new Error(data.error || "Error al procesar resultado");
 
       setMensajeEstado({ tipo: "exito", texto: data.mensaje || "¡Resultado oficial publicado y puntos calculados!" });
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      if (typeof window !== "undefined") {
+        alert("✅ " + (data.mensaje || "¡Resultado oficial publicado y puntos calculados!"));
+      }
       cargarMaestros();
       cargarConsolidados(usuario.id);
     } catch (err: any) {
       console.error(err);
       setMensajeEstado({ tipo: "error", texto: err.message || "Error al liquidar resultado." });
+      if (typeof window !== "undefined") {
+        alert("❌ Error: " + (err.message || "Error al liquidar resultado."));
+      }
     }
   };
 
