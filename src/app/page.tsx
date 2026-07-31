@@ -594,7 +594,7 @@ export default function ExpressPage() {
   // Cambio manual del ganador predicho (Permite deseleccionar haciendo click de nuevo)
   const handleGanadorChange = (partidoId: number, nuevoGanador: "local" | "empate" | "visitante") => {
     setMarcadores((prev) => {
-      const actual = prev[partidoId] || { local: "", visitante: "", goleador_id: "" };
+      const actual: EstadoMarcador = prev[partidoId] || { local: "", visitante: "", ganador: "", goleador_id: "" };
       const esMismo = actual.ganador === nuevoGanador;
       return {
         ...prev,
@@ -609,7 +609,7 @@ export default function ExpressPage() {
   // Cambio de goleador predicho (Permite deseleccionar haciendo click de nuevo)
   const handleGoleadorChange = (partidoId: number, goleadorId: string) => {
     setMarcadores((prev) => {
-      const actual = prev[partidoId] || { local: "", visitante: "", ganador: "" };
+      const actual: EstadoMarcador = prev[partidoId] || { local: "", visitante: "", ganador: "", goleador_id: "" };
       const esMismo = String(actual.goleador_id || "") === String(goleadorId || "");
       return {
         ...prev,
