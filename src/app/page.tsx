@@ -591,26 +591,34 @@ export default function ExpressPage() {
     });
   };
 
-  // Cambio manual del ganador predicho
+  // Cambio manual del ganador predicho (Permite deseleccionar haciendo click de nuevo)
   const handleGanadorChange = (partidoId: number, nuevoGanador: "local" | "empate" | "visitante") => {
-    setMarcadores((prev) => ({
-      ...prev,
-      [partidoId]: {
-        ...(prev[partidoId] || { local: "", visitante: "", goleador_id: "" }),
-        ganador: nuevoGanador,
-      },
-    }));
+    setMarcadores((prev) => {
+      const actual = prev[partidoId] || { local: "", visitante: "", goleador_id: "" };
+      const esMismo = actual.ganador === nuevoGanador;
+      return {
+        ...prev,
+        [partidoId]: {
+          ...actual,
+          ganador: esMismo ? ("" as any) : nuevoGanador,
+        },
+      };
+    });
   };
 
-  // Cambio de goleador predicho
+  // Cambio de goleador predicho (Permite deseleccionar haciendo click de nuevo)
   const handleGoleadorChange = (partidoId: number, goleadorId: string) => {
-    setMarcadores((prev) => ({
-      ...prev,
-      [partidoId]: {
-        ...(prev[partidoId] || { local: "", visitante: "", ganador: "" }),
-        goleador_id: goleadorId,
-      },
-    }));
+    setMarcadores((prev) => {
+      const actual = prev[partidoId] || { local: "", visitante: "", ganador: "" };
+      const esMismo = String(actual.goleador_id || "") === String(goleadorId || "");
+      return {
+        ...prev,
+        [partidoId]: {
+          ...actual,
+          goleador_id: esMismo ? "" : goleadorId,
+        },
+      };
+    });
   };
 
   // VALIDAR RESTRICCIÓN DE COHERENCIA ENTRE MARCADOR Y GANADOR (SOLO PARTIDOS ACTIVOS)
@@ -2034,6 +2042,7 @@ export default function ExpressPage() {
                               </div>
                               <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 6 }}>
                                 <label
+                                  onClick={() => !deshabilitarMarcador && handleGanadorChange(partido.id, "local")}
                                   style={{
                                     display: "flex",
                                     alignItems: "center",
@@ -2054,7 +2063,7 @@ export default function ExpressPage() {
                                     type="radio"
                                     name={`ganador-${partido.id}`}
                                     checked={ganadorEfectivo === "local"}
-                                    onChange={() => handleGanadorChange(partido.id, "local")}
+                                    onChange={() => {}}
                                     disabled={deshabilitarMarcador}
                                     style={{ display: "none" }}
                                   />
@@ -2062,6 +2071,7 @@ export default function ExpressPage() {
                                 </label>
 
                                 <label
+                                  onClick={() => !deshabilitarMarcador && handleGanadorChange(partido.id, "empate")}
                                   style={{
                                     display: "flex",
                                     alignItems: "center",
@@ -2082,7 +2092,7 @@ export default function ExpressPage() {
                                     type="radio"
                                     name={`ganador-${partido.id}`}
                                     checked={ganadorEfectivo === "empate"}
-                                    onChange={() => handleGanadorChange(partido.id, "empate")}
+                                    onChange={() => {}}
                                     disabled={deshabilitarMarcador}
                                     style={{ display: "none" }}
                                   />
@@ -2090,6 +2100,7 @@ export default function ExpressPage() {
                                 </label>
 
                                 <label
+                                  onClick={() => !deshabilitarMarcador && handleGanadorChange(partido.id, "visitante")}
                                   style={{
                                     display: "flex",
                                     alignItems: "center",
@@ -2110,7 +2121,7 @@ export default function ExpressPage() {
                                     type="radio"
                                     name={`ganador-${partido.id}`}
                                     checked={ganadorEfectivo === "visitante"}
-                                    onChange={() => handleGanadorChange(partido.id, "visitante")}
+                                    onChange={() => {}}
                                     disabled={deshabilitarMarcador}
                                     style={{ display: "none" }}
                                   />
