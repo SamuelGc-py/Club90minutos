@@ -267,6 +267,48 @@ export default function ExpressPage() {
 
   // Marcadores oficiales por partido para Administrador
   const [resultadosAdminInput, setResultadosAdminInput] = useState<Record<number, { local: string; visitante: string; goleadores_ids: number[] }>>({});
+  const [guardandoInicial, setGuardandoInicial] = useState(false);
+
+  const handleGuardarPrediccionInicial = async () => {
+    if (!usuario) return;
+    try {
+      setGuardandoInicial(true);
+      setMensajeEstado({ tipo: "info", texto: "Guardando predicciones del torneo..." });
+
+      const res = await fetch("/api/guardar-pronosticos", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          usuario_id: usuario.id,
+          campeon_equipo_id: campeonId ? Number(campeonId) : null,
+          finalista_1_equipo_id: finalista1Id ? Number(finalista1Id) : null,
+          finalista_2_equipo_id: finalista2Id ? Number(finalista2Id) : null,
+          goleador_torneo_jugador_id: goleadorTorneoId ? Number(goleadorTorneoId) : null,
+          clasificados_ids: clasificadosIds,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || data.error) {
+        setMensajeEstado({ tipo: "error", texto: data.error || "Error al guardar predicciones del torneo." });
+        if (typeof window !== "undefined") alert("❌ Error: " + (data.error || "Error al guardar."));
+      } else {
+        setMensajeEstado({ tipo: "exito", texto: "¡Predicciones del torneo guardadas exitosamente!" });
+        if (typeof window !== "undefined") alert("✅ ¡Tus predicciones del torneo han sido guardadas exitosamente!");
+        sincronizarSesionBackend(usuario.correo);
+      }
+    } catch (err: any) {
+      setMensajeEstado({ tipo: "error", texto: "Error al guardar: " + err.message });
+      if (typeof window !== "undefined") alert("❌ Error: " + err.message);
+    } finally {
+      setGuardandoInicial(false);
+    }
+  };
+
+  const handleDescargarExcelIniciales = () => {
+    if (!usuario) return;
+    window.open(`/api/consolidados/excel?usuario_id=${usuario.id}&tipo=inicial`, "_blank");
+  };
 
   const handleResultadoAdminChange = (partidoId: number, campo: "local" | "visitante", valor: string) => {
     setResultadosAdminInput((prev) => ({
@@ -1468,6 +1510,101 @@ export default function ExpressPage() {
                   </div>
                 );
               })()}
+
+              {/* SECCIÓN CONTROL DE PREDICCIONES DEL TORNEO / INICIALES (ADMIN) */}
+              <div
+                className="card"
+                style={{
+                  marginTop: 32,
+                  marginBottom: 24,
+                  background: "linear-gradient(135deg, #0b1e36 0%, #1e1b4b 100%)",
+                  border: "2px solid #6366f1",
+                  boxShadow: "0 8px 24px rgba(99, 102, 241, 0.2)",
+                  padding: "24px",
+                }}
+              >
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16, marginBottom: 20 }}>
+                  <div>
+                    <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+                      <span className="badge" style={{ background: "#6366f1", color: "#fff", fontWeight: 900, fontSize: "0.8rem" }}>
+                        LIGA BETPLAY
+                      </span>
+                      <span style={{ color: "#a5b4fc", fontSize: "0.85rem", fontWeight: 700 }}>
+                        🏆 Predicciones del Torneo
+                      </span>
+                    </div>
+                    <h2 style={{ margin: 0, fontSize: "1.5rem", color: "#ffffff" }}>
+                      🏆 Consolidados de Predicciones del Torneo (Iniciales)
+                    </h2>
+                    <p style={{ color: "#94a3b8", margin: "4px 0 0 0", fontSize: "0.88rem" }}>
+                      Revisa las elecciones iniciales de Campeón, Finalistas, Goleador y 8 Clasificados de cada participante y descarga el archivo oficial en Excel.
+                    </p>
+                  </div>
+
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={handleDescargarExcelIniciales}
+                    style={{
+                      padding: "12px 22px",
+                      fontSize: "0.92rem",
+                      background: "linear-gradient(135deg, #4f46e5 0%, #4338ca 100%)",
+                      color: "#fff",
+                      border: "1px solid #818cf8",
+                      fontWeight: 900,
+                      boxShadow: "0 4px 14px rgba(79, 70, 229, 0.4)",
+                      cursor: "pointer",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 8,
+                    }}
+                  >
+                    <Download size={18} /> 📥 Descargar Excel Predicciones del Torneo
+                  </button>
+                </div>
+
+                {/* TABLA DETALLADA PREDICCIONES INICIALES POR PARTICIPANTE */}
+                {consolidados?.prediccionesIniciales?.length > 0 ? (
+                  <div style={{ overflowX: "auto" }}>
+                    <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.85rem", textAlign: "left" }}>
+                      <thead>
+                        <tr style={{ borderBottom: "2px solid #6366f1", color: "#a5b4fc", background: "rgba(255,255,255,0.03)" }}>
+                          <th style={{ padding: "10px" }}>Participante</th>
+                          <th style={{ padding: "10px" }}>🏆 Campeón</th>
+                          <th style={{ padding: "10px" }}>🥈 Finalistas</th>
+                          <th style={{ padding: "10px" }}>👟 Goleador Torneo</th>
+                          <th style={{ padding: "10px" }}>⚡ Clasificados (8 Equipos)</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {consolidados.prediccionesIniciales.map((pi: any) => (
+                          <tr key={pi.id} style={{ borderBottom: "1px dashed rgba(255,255,255,0.1)" }}>
+                            <td style={{ padding: "10px", fontWeight: 700, color: "#ffffff" }}>
+                              {pi.usuario?.nombre_completo || "Participante"}
+                            </td>
+                            <td style={{ padding: "10px", fontWeight: 800, color: "#f5b000" }}>
+                              {pi.campeon?.nombre || "Sin seleccionar"}
+                            </td>
+                            <td style={{ padding: "10px", color: "#cbd5e1" }}>
+                              {[pi.finalista_1?.nombre, pi.finalista_2?.nombre].filter(Boolean).join(" y ") || "Sin seleccionar"}
+                            </td>
+                            <td style={{ padding: "10px", color: "#38bdf8" }}>
+                              {pi.goleador_torneo?.nombre || "Sin seleccionar"}
+                            </td>
+                            <td style={{ padding: "10px", color: "#34d399", fontSize: "0.8rem" }}>
+                              {(pi.clasificados || []).map((c: any) => c.equipo?.nombre).filter(Boolean).join(", ") || "Sin seleccionar"}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                ) : (
+                  <div style={{ textAlign: "center", padding: 20, color: "#94a3b8", fontStyle: "italic" }}>
+                    No hay predicciones del torneo registradas aún.
+                  </div>
+                )}
+              </div>
             </>
           )}
         </div>
@@ -2630,6 +2767,40 @@ export default function ExpressPage() {
                     );
                   })}
                 </div>
+              </div>
+
+              {/* BOTÓN GUARDAR PREDICCIONES DEL TORNEO (PARTICIPANTE) */}
+              <div style={{ marginTop: 8, marginBottom: 16, textAlign: "center" }}>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={handleGuardarPrediccionInicial}
+                  disabled={guardandoInicial}
+                  style={{
+                    padding: "16px 36px",
+                    fontSize: "1.15rem",
+                    fontWeight: 900,
+                    background: "linear-gradient(135deg, #059669 0%, #10b981 100%)",
+                    color: "#ffffff",
+                    border: "2px solid #34d399",
+                    borderRadius: 14,
+                    boxShadow: "0 6px 20px rgba(16, 185, 129, 0.4)",
+                    cursor: guardandoInicial ? "not-allowed" : "pointer",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 10,
+                  }}
+                >
+                  {guardandoInicial ? (
+                    <>
+                      <RefreshCw className="spin" size={22} /> Guardando Predicciones...
+                    </>
+                  ) : (
+                    <>
+                      <Save size={22} /> 💾 Guardar Predicciones del Torneo
+                    </>
+                  )}
+                </button>
               </div>
             </div>
           )}

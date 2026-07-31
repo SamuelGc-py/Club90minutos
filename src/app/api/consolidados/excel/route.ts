@@ -10,6 +10,7 @@ export async function GET(req: Request) {
     const usuarioId = searchParams.get("usuario_id");
     const partidoId = searchParams.get("partido_id"); // Opcional
     const jornada = searchParams.get("jornada"); // Opcional (Fecha 1, 2, etc)
+    const tipo = searchParams.get("tipo"); // "inicial" o null
 
     if (!usuarioId) {
       return NextResponse.json({ error: "Se requiere usuario_id" }, { status: 400 });
@@ -23,6 +24,79 @@ export async function GET(req: Request) {
 
     if (!admin || admin.rol.nombre !== "administrador") {
       return NextResponse.json({ error: "No tienes permisos de administrador" }, { status: 403 });
+    }
+
+    const correosExcluidos = ["adminpollabetplay@gmail.com", "prueba.admin@pollabetplay.com", "pruebas@pollabetplay.com"];
+
+    // SI TIPO === "INICIAL", GENERAR EXCEL DE PREDICCIONES DE TORNEO
+    if (tipo === "inicial") {
+      const prediccionesIniciales = await prisma.prediccionInicial.findMany({
+        where: {
+          usuario: {
+            correo: { notIn: correosExcluidos },
+          },
+        },
+        include: {
+          usuario: { select: { nombre_completo: true, correo: true } },
+          campeon: { select: { nombre: true } },
+          finalista_1: { select: { nombre: true } },
+          finalista_2: { select: { nombre: true } },
+          goleador_torneo: { select: { nombre: true } },
+          clasificados: {
+            include: { equipo: { select: { nombre: true } } },
+          },
+        },
+        orderBy: { usuario: { nombre_completo: "asc" } },
+      });
+
+      const workbook = new ExcelJS.Workbook();
+      const worksheet = workbook.addWorksheet("Predicciones Torneo");
+
+      worksheet.columns = [
+        { header: "Nombre del participante", key: "participante", width: 35 },
+        { header: "Correo", key: "correo", width: 30 },
+        { header: "Campeón Predicho", key: "campeon", width: 25 },
+        { header: "Finalista 1", key: "finalista_1", width: 25 },
+        { header: "Finalista 2", key: "finalista_2", width: 25 },
+        { header: "Goleador del Torneo", key: "goleador_torneo", width: 30 },
+        { header: "Clasificados (8 Equipos)", key: "clasificados", width: 50 },
+      ];
+
+      const headerRow = worksheet.getRow(1);
+      headerRow.height = 25;
+      headerRow.eachCell((cell) => {
+        cell.font = { name: "Arial", size: 11, bold: true, color: { argb: "FFFFFFFF" } };
+        cell.border = { top: { style: "thin" }, left: { style: "thin" }, bottom: { style: "thin" }, right: { style: "thin" } };
+        cell.alignment = { vertical: "middle", horizontal: "left" };
+        cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF0F172A" } };
+      });
+
+      prediccionesIniciales.forEach((pi) => {
+        const clasificadosStr = (pi.clasificados || []).map((c: any) => c.equipo?.nombre).filter(Boolean).join(", ");
+        const row = worksheet.addRow({
+          participante: pi.usuario.nombre_completo,
+          correo: pi.usuario.correo,
+          campeon: pi.campeon?.nombre || "Sin seleccionar",
+          finalista_1: pi.finalista_1?.nombre || "Sin seleccionar",
+          finalista_2: pi.finalista_2?.nombre || "Sin seleccionar",
+          goleador_torneo: pi.goleador_torneo?.nombre || "Sin seleccionar",
+          clasificados: clasificadosStr || "Sin seleccionar",
+        });
+
+        row.eachCell((cell) => {
+          cell.font = { name: "Arial", size: 11, color: { argb: "FF000000" } };
+          cell.border = { top: { style: "thin" }, left: { style: "thin" }, bottom: { style: "thin" }, right: { style: "thin" } };
+          cell.alignment = { vertical: "middle", horizontal: "left" };
+        });
+      });
+
+      const buffer = await workbook.xlsx.writeBuffer();
+      return new NextResponse(buffer, {
+        headers: {
+          "Content-Disposition": 'attachment; filename="Pronosticos_Torneo_Iniciales.xlsx"',
+          "Content-Type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        },
+      });
     }
 
     // Construir filtro
