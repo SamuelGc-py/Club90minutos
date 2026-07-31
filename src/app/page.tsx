@@ -1390,7 +1390,207 @@ export default function ExpressPage() {
                         .filter((p) => p.jornada === fechaAdmin)
                         .filter((p) => !Boolean(p.resultado_oficial) && p.estado !== "resultado_cargado" && p.estado !== "puntaje_calculado" && p.estado !== "aplazado")
                         .sort((a, b) => new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime())
-                        .map((partido) => renderPartidoAdminCard(partido))}
+                        .map((partido) => {
+                          const pronosticosPartido = (consolidados?.prediccionesPartidos || []).filter((p: any) => p.partido_id === partido.id);
+
+                          return (
+                            <div key={partido.id} className="card">
+                              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
+                                <div>
+                                  <h3 style={{ margin: 0, color: "#ffffff" }}>
+                                    {partido.equipo_local.nombre} VS {partido.equipo_visitante.nombre}
+                                  </h3>
+                                  <span style={{ fontSize: "0.82rem", color: "#94a3b8" }}>
+                                    {pronosticosPartido.length} pronósticos recibidos
+                                  </span>
+                                </div>
+
+                                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                                  <button
+                                    className="btn btn-secondary"
+                                    style={{ padding: "6px 12px", fontSize: "0.82rem" }}
+                                    onClick={() => setPartidoAdminVer(partidoAdminVer === partido.id ? null : partido.id)}
+                                  >
+                                    <Users size={14} /> Ver Participantes
+                                  </button>
+
+                                  <button
+                                    className="btn btn-primary"
+                                    style={{ padding: "6px 12px", fontSize: "0.82rem", background: "#10b981", color: "#fff" }}
+                                    onClick={() => handleDescargarExcelPronosticos(partido.id)}
+                                  >
+                                    <Download size={14} /> Descargar Excel
+                                  </button>
+                                </div>
+                              </div>
+
+                              {/* TABLA DE PRONÓSTICOS DE PARTICIPANTES (SIEMPRE VISIBLE EN ADMIN) */}
+                              <div style={{ marginTop: 14, paddingTop: 14, borderTop: "1px dashed rgba(255,255,255,0.15)" }}>
+                                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+                                  <h4 style={{ margin: 0, color: "#34d399", fontSize: "0.95rem", display: "flex", alignItems: "center", gap: 6 }}>
+                                    📋 Pronósticos Recibidos ({pronosticosPartido.length} Participantes)
+                                  </h4>
+                                  <button
+                                    className="btn btn-primary"
+                                    style={{ padding: "5px 12px", fontSize: "0.8rem", background: "linear-gradient(135deg, #059669 0%, #047857 100%)", color: "#fff", border: "1px solid #10b981", fontWeight: 800 }}
+                                    onClick={() => handleDescargarExcelPronosticos(partido.id)}
+                                  >
+                                    <Download size={13} /> Excel Partido
+                                  </button>
+                                </div>
+
+                                {pronosticosPartido.length === 0 ? (
+                                  <p style={{ fontSize: "0.85rem", color: "#94a3b8", fontStyle: "italic", margin: 0, padding: 8 }}>
+                                    No hay pronósticos registrados para este partido aún.
+                                  </p>
+                                ) : (
+                                  <div style={{ overflowX: "auto", background: "rgba(15, 23, 42, 0.6)", borderRadius: 10, padding: 10, border: "1px solid rgba(255,255,255,0.08)" }}>
+                                    <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.85rem", textAlign: "left" }}>
+                                      <thead>
+                                        <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.15)", color: "#94a3b8" }}>
+                                          <th style={{ padding: "8px" }}>Participante</th>
+                                          <th style={{ padding: "8px", textAlign: "center" }}>Marcador Exacto</th>
+                                          <th style={{ padding: "8px", textAlign: "center" }}>Ganador Predicho</th>
+                                          <th style={{ padding: "8px" }}>Goleador Predicho</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        {pronosticosPartido.map((p: any, idx: number) => (
+                                          <tr key={idx} style={{ borderBottom: "1px dashed rgba(255,255,255,0.08)" }}>
+                                            <td style={{ padding: "8px", fontWeight: 700, color: "#ffffff" }}>
+                                              {p.usuario.nombre_completo} <span style={{ color: "#64748b", fontSize: "0.78rem" }}>({p.usuario.correo})</span>
+                                            </td>
+                                            <td style={{ padding: "8px", textAlign: "center", fontWeight: 900, color: "#34d399", fontSize: "1rem" }}>
+                                              {p.goles_local_predicho} - {p.goles_visitante_predicho}
+                                            </td>
+                                            <td style={{ padding: "8px", textAlign: "center" }}>
+                                              {(() => {
+                                                const valL = p.goles_local_predicho !== undefined && p.goles_local_predicho !== null ? p.goles_local_predicho : p.goles_local;
+                                                const valV = p.goles_visitante_predicho !== undefined && p.goles_visitante_predicho !== null ? p.goles_visitante_predicho : p.goles_visitante;
+                                                const gL = Number(valL);
+                                                const gV = Number(valV);
+                                                let ganadorTexto = "Empate";
+                                                if (!isNaN(gL) && !isNaN(gV)) {
+                                                  if (gL > gV) ganadorTexto = `Gana ${partido.equipo_local.nombre}`;
+                                                  else if (gV > gL) ganadorTexto = `Gana ${partido.equipo_visitante.nombre}`;
+                                                  else ganadorTexto = "Empate";
+                                                }
+                                                return (
+                                                  <span className="badge" style={{ background: "rgba(56, 189, 248, 0.15)", color: "#38bdf8", fontWeight: 800 }}>
+                                                    {ganadorTexto}
+                                                  </span>
+                                                );
+                                              })()}
+                                            </td>
+                                            <td style={{ padding: "8px", color: "#f5b000", fontWeight: 600 }}>
+                                               {obtenerNombreGoleador(p)}
+                                            </td>
+                                          </tr>
+                                        ))}
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                )}
+                              </div>
+
+                              {/* SECCIÓN CARGAR MARCADOR OFICIAL (ADMIN) */}
+                              {partido.jornada !== 1 && (
+                              <div style={{ marginTop: 14, paddingTop: 12, borderTop: "1px dashed rgba(255,255,255,0.1)", display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+                                <span style={{ fontSize: "0.85rem", color: "#38bdf8", fontWeight: 700 }}>
+                                  ⚽ Cargar Marcador Oficial:
+                                </span>
+                                <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                                  <input
+                                    type="number"
+                                    placeholder="Local"
+                                    style={{ width: 60, padding: "6px", borderRadius: 6, border: "1px solid var(--linea)", background: "var(--noche)", color: "#fff", textAlign: "center" }}
+                                    value={resultadosAdminInput[partido.id]?.local || ""}
+                                    onChange={(e) => handleResultadoAdminChange(partido.id, "local", e.target.value)}
+                                  />
+                                  <span style={{ fontWeight: 800 }}>-</span>
+                                  <input
+                                    type="number"
+                                    placeholder="Vis"
+                                    style={{ width: 60, padding: "6px", borderRadius: 6, border: "1px solid var(--linea)", background: "var(--noche)", color: "#fff", textAlign: "center" }}
+                                    value={resultadosAdminInput[partido.id]?.visitante || ""}
+                                    onChange={(e) => handleResultadoAdminChange(partido.id, "visitante", e.target.value)}
+                                  />
+                                </div>
+
+                                <div style={{ display: "flex", flexDirection: "column", gap: 6, width: "100%", maxWidth: 320 }}>
+                                  <select
+                                    style={{ padding: "6px 10px", borderRadius: 6, border: "1px solid var(--linea)", background: "var(--noche)", color: "#fff", fontSize: "0.85rem" }}
+                                    value=""
+                                    onChange={(e) => {
+                                      handleAgregarGoleadorAdmin(partido.id, e.target.value);
+                                      e.target.value = "";
+                                    }}
+                                  >
+                                    <option value="">+ Agregar Goleador Oficial (Opcional)</option>
+                                    {partido.equipo_local.jugadores && partido.equipo_local.jugadores.length > 0 && (
+                                      <optgroup label={`🏠 ${partido.equipo_local.nombre}`}>
+                                        {partido.equipo_local.jugadores.map((j: any) => (
+                                          <option key={j.id} value={j.id}>{j.nombre}</option>
+                                        ))}
+                                      </optgroup>
+                                    )}
+                                    {partido.equipo_visitante.jugadores && partido.equipo_visitante.jugadores.length > 0 && (
+                                      <optgroup label={`✈️ ${partido.equipo_visitante.nombre}`}>
+                                        {partido.equipo_visitante.jugadores.map((j: any) => (
+                                          <option key={j.id} value={j.id}>{j.nombre}</option>
+                                        ))}
+                                      </optgroup>
+                                    )}
+                                  </select>
+
+                                  {resultadosAdminInput[partido.id]?.goleadores_ids?.length > 0 && (
+                                    <div style={{ display: "flex", flexWrap: "wrap", gap: 6, alignItems: "center" }}>
+                                      {resultadosAdminInput[partido.id].goleadores_ids.map((jId) => {
+                                        const todosJugadores = [...(partido.equipo_local.jugadores || []), ...(partido.equipo_visitante.jugadores || []), ...jugadores];
+                                        const jObj = todosJugadores.find((j) => j.id === jId);
+                                        return (
+                                          <span
+                                            key={jId}
+                                            style={{
+                                              background: "rgba(34, 197, 94, 0.2)",
+                                              color: "#22c55e",
+                                              border: "1px solid rgba(34, 197, 94, 0.4)",
+                                              borderRadius: "12px",
+                                              padding: "3px 10px",
+                                              fontSize: "0.78rem",
+                                              display: "inline-flex",
+                                              alignItems: "center",
+                                              gap: 6,
+                                              fontWeight: 700,
+                                            }}
+                                          >
+                                            ⚽ {jObj?.nombre || `ID: ${jId}`}
+                                            <button
+                                              type="button"
+                                              onClick={() => handleRemoverGoleadorAdmin(partido.id, jId)}
+                                              style={{ background: "none", border: "none", color: "#ef4444", cursor: "pointer", fontWeight: 900, padding: "0 2px", fontSize: "0.85rem" }}
+                                            >
+                                              ✕
+                                            </button>
+                                          </span>
+                                        );
+                                      })}
+                                    </div>
+                                  )}
+                                </div>
+
+                                <button
+                                  className="btn btn-primary"
+                                  style={{ padding: "6px 12px", fontSize: "0.82rem", background: "linear-gradient(135deg, #0284c7 0%, #0369a1 100%)", color: "#fff" }}
+                                  onClick={() => handleCargarResultadoOficial(partido.id)}
+                                >
+                                  ⚽ Publicar Resultado & Liquidar Puntos
+                                </button>
+                              </div>
+                              )}
+                            </div>
+                          );
+                        })}
 
                       {partidos
                         .filter((p) => p.jornada === fechaAdmin)
@@ -1410,7 +1610,207 @@ export default function ExpressPage() {
                               if (a.estado !== "aplazado" && b.estado === "aplazado") return -1;
                               return new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime();
                             })
-                            .map((partido) => renderPartidoAdminCard(partido))}
+                            .map((partido) => {
+                              const pronosticosPartido = (consolidados?.prediccionesPartidos || []).filter((p: any) => p.partido_id === partido.id);
+
+                              return (
+                                <div key={partido.id} className="card">
+                                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
+                                    <div>
+                                      <h3 style={{ margin: 0, color: "#ffffff" }}>
+                                        {partido.equipo_local.nombre} VS {partido.equipo_visitante.nombre}
+                                      </h3>
+                                      <span style={{ fontSize: "0.82rem", color: "#94a3b8" }}>
+                                        {pronosticosPartido.length} pronósticos recibidos
+                                      </span>
+                                    </div>
+
+                                    <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                                      <button
+                                        className="btn btn-secondary"
+                                        style={{ padding: "6px 12px", fontSize: "0.82rem" }}
+                                        onClick={() => setPartidoAdminVer(partidoAdminVer === partido.id ? null : partido.id)}
+                                      >
+                                        <Users size={14} /> Ver Participantes
+                                      </button>
+
+                                      <button
+                                        className="btn btn-primary"
+                                        style={{ padding: "6px 12px", fontSize: "0.82rem", background: "#10b981", color: "#fff" }}
+                                        onClick={() => handleDescargarExcelPronosticos(partido.id)}
+                                      >
+                                        <Download size={14} /> Descargar Excel
+                                      </button>
+                                    </div>
+                                  </div>
+
+                                  {/* TABLA DE PRONÓSTICOS DE PARTICIPANTES (SIEMPRE VISIBLE EN ADMIN) */}
+                                  <div style={{ marginTop: 14, paddingTop: 14, borderTop: "1px dashed rgba(255,255,255,0.15)" }}>
+                                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+                                      <h4 style={{ margin: 0, color: "#34d399", fontSize: "0.95rem", display: "flex", alignItems: "center", gap: 6 }}>
+                                        📋 Pronósticos Recibidos ({pronosticosPartido.length} Participantes)
+                                      </h4>
+                                      <button
+                                        className="btn btn-primary"
+                                        style={{ padding: "5px 12px", fontSize: "0.8rem", background: "linear-gradient(135deg, #059669 0%, #047857 100%)", color: "#fff", border: "1px solid #10b981", fontWeight: 800 }}
+                                        onClick={() => handleDescargarExcelPronosticos(partido.id)}
+                                      >
+                                        <Download size={13} /> Excel Partido
+                                      </button>
+                                    </div>
+
+                                    {pronosticosPartido.length === 0 ? (
+                                      <p style={{ fontSize: "0.85rem", color: "#94a3b8", fontStyle: "italic", margin: 0, padding: 8 }}>
+                                        No hay pronósticos registrados para este partido aún.
+                                      </p>
+                                    ) : (
+                                      <div style={{ overflowX: "auto", background: "rgba(15, 23, 42, 0.6)", borderRadius: 10, padding: 10, border: "1px solid rgba(255,255,255,0.08)" }}>
+                                        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.85rem", textAlign: "left" }}>
+                                          <thead>
+                                            <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.15)", color: "#94a3b8" }}>
+                                              <th style={{ padding: "8px" }}>Participante</th>
+                                              <th style={{ padding: "8px", textAlign: "center" }}>Marcador Exacto</th>
+                                              <th style={{ padding: "8px", textAlign: "center" }}>Ganador Predicho</th>
+                                              <th style={{ padding: "8px" }}>Goleador Predicho</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            {pronosticosPartido.map((p: any, idx: number) => (
+                                              <tr key={idx} style={{ borderBottom: "1px dashed rgba(255,255,255,0.08)" }}>
+                                                <td style={{ padding: "8px", fontWeight: 700, color: "#ffffff" }}>
+                                                  {p.usuario.nombre_completo} <span style={{ color: "#64748b", fontSize: "0.78rem" }}>({p.usuario.correo})</span>
+                                                </td>
+                                                <td style={{ padding: "8px", textAlign: "center", fontWeight: 900, color: "#34d399", fontSize: "1rem" }}>
+                                                  {p.goles_local_predicho} - {p.goles_visitante_predicho}
+                                                </td>
+                                                <td style={{ padding: "8px", textAlign: "center" }}>
+                                                  {(() => {
+                                                    const valL = p.goles_local_predicho !== undefined && p.goles_local_predicho !== null ? p.goles_local_predicho : p.goles_local;
+                                                    const valV = p.goles_visitante_predicho !== undefined && p.goles_visitante_predicho !== null ? p.goles_visitante_predicho : p.goles_visitante;
+                                                    const gL = Number(valL);
+                                                    const gV = Number(valV);
+                                                    let ganadorTexto = "Empate";
+                                                    if (!isNaN(gL) && !isNaN(gV)) {
+                                                      if (gL > gV) ganadorTexto = `Gana ${partido.equipo_local.nombre}`;
+                                                      else if (gV > gL) ganadorTexto = `Gana ${partido.equipo_visitante.nombre}`;
+                                                      else ganadorTexto = "Empate";
+                                                    }
+                                                    return (
+                                                      <span className="badge" style={{ background: "rgba(56, 189, 248, 0.15)", color: "#38bdf8", fontWeight: 800 }}>
+                                                        {ganadorTexto}
+                                                      </span>
+                                                    );
+                                                  })()}
+                                                </td>
+                                                <td style={{ padding: "8px", color: "#f5b000", fontWeight: 600 }}>
+                                                   {obtenerNombreGoleador(p)}
+                                                </td>
+                                              </tr>
+                                            ))}
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                    )}
+                                  </div>
+
+                                  {/* SECCIÓN CARGAR MARCADOR OFICIAL (ADMIN) */}
+                                  {partido.jornada !== 1 && (
+                                  <div style={{ marginTop: 14, paddingTop: 12, borderTop: "1px dashed rgba(255,255,255,0.1)", display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+                                    <span style={{ fontSize: "0.85rem", color: "#38bdf8", fontWeight: 700 }}>
+                                      ⚽ Cargar Marcador Oficial:
+                                    </span>
+                                    <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                                      <input
+                                        type="number"
+                                        placeholder="Local"
+                                        style={{ width: 60, padding: "6px", borderRadius: 6, border: "1px solid var(--linea)", background: "var(--noche)", color: "#fff", textAlign: "center" }}
+                                        value={resultadosAdminInput[partido.id]?.local || ""}
+                                        onChange={(e) => handleResultadoAdminChange(partido.id, "local", e.target.value)}
+                                      />
+                                      <span style={{ fontWeight: 800 }}>-</span>
+                                      <input
+                                        type="number"
+                                        placeholder="Vis"
+                                        style={{ width: 60, padding: "6px", borderRadius: 6, border: "1px solid var(--linea)", background: "var(--noche)", color: "#fff", textAlign: "center" }}
+                                        value={resultadosAdminInput[partido.id]?.visitante || ""}
+                                        onChange={(e) => handleResultadoAdminChange(partido.id, "visitante", e.target.value)}
+                                      />
+                                    </div>
+
+                                    <div style={{ display: "flex", flexDirection: "column", gap: 6, width: "100%", maxWidth: 320 }}>
+                                      <select
+                                        style={{ padding: "6px 10px", borderRadius: 6, border: "1px solid var(--linea)", background: "var(--noche)", color: "#fff", fontSize: "0.85rem" }}
+                                        value=""
+                                        onChange={(e) => {
+                                          handleAgregarGoleadorAdmin(partido.id, e.target.value);
+                                          e.target.value = "";
+                                        }}
+                                      >
+                                        <option value="">+ Agregar Goleador Oficial (Opcional)</option>
+                                        {partido.equipo_local.jugadores && partido.equipo_local.jugadores.length > 0 && (
+                                          <optgroup label={`🏠 ${partido.equipo_local.nombre}`}>
+                                            {partido.equipo_local.jugadores.map((j: any) => (
+                                              <option key={j.id} value={j.id}>{j.nombre}</option>
+                                            ))}
+                                          </optgroup>
+                                        )}
+                                        {partido.equipo_visitante.jugadores && partido.equipo_visitante.jugadores.length > 0 && (
+                                          <optgroup label={`✈️ ${partido.equipo_visitante.nombre}`}>
+                                            {partido.equipo_visitante.jugadores.map((j: any) => (
+                                              <option key={j.id} value={j.id}>{j.nombre}</option>
+                                            ))}
+                                          </optgroup>
+                                        )}
+                                      </select>
+
+                                      {resultadosAdminInput[partido.id]?.goleadores_ids?.length > 0 && (
+                                        <div style={{ display: "flex", flexWrap: "wrap", gap: 6, alignItems: "center" }}>
+                                          {resultadosAdminInput[partido.id].goleadores_ids.map((jId) => {
+                                            const todosJugadores = [...(partido.equipo_local.jugadores || []), ...(partido.equipo_visitante.jugadores || []), ...jugadores];
+                                            const jObj = todosJugadores.find((j) => j.id === jId);
+                                            return (
+                                              <span
+                                                key={jId}
+                                                style={{
+                                                  background: "rgba(34, 197, 94, 0.2)",
+                                                  color: "#22c55e",
+                                                  border: "1px solid rgba(34, 197, 94, 0.4)",
+                                                  borderRadius: "12px",
+                                                  padding: "3px 10px",
+                                                  fontSize: "0.78rem",
+                                                  display: "inline-flex",
+                                                  alignItems: "center",
+                                                  gap: 6,
+                                                  fontWeight: 700,
+                                                }}
+                                              >
+                                                ⚽ {jObj?.nombre || `ID: ${jId}`}
+                                                <button
+                                                  type="button"
+                                                  onClick={() => handleRemoverGoleadorAdmin(partido.id, jId)}
+                                                  style={{ background: "none", border: "none", color: "#ef4444", cursor: "pointer", fontWeight: 900, padding: "0 2px", fontSize: "0.85rem" }}
+                                                >
+                                                  ✕
+                                                </button>
+                                              </span>
+                                            );
+                                          })}
+                                        </div>
+                                      )}
+                                    </div>
+
+                                    <button
+                                      className="btn btn-primary"
+                                      style={{ padding: "6px 12px", fontSize: "0.82rem", background: "linear-gradient(135deg, #0284c7 0%, #0369a1 100%)", color: "#fff" }}
+                                      onClick={() => handleCargarResultadoOficial(partido.id)}
+                                    >
+                                      ⚽ Publicar Resultado & Liquidar Puntos
+                                    </button>
+                                  </div>
+                                  )}
+                                </div>
+                              );
+                            })}
                         </>
                       )}
                     </>
