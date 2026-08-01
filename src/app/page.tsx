@@ -302,6 +302,7 @@ export default function ExpressPage() {
   const [cargandoEnVivo, setCargandoEnVivo] = useState<boolean>(false);
   const [partidoDesplegadoId, setPartidoDesplegadoId] = useState<string | null>(null);
   const [subTabDetalle, setSubTabDetalle] = useState<Record<string, "cancha" | "stats">>({});
+  const [partidosDesplegados, setPartidosDesplegados] = useState<Record<number, boolean>>({});
   const esSamuel = usuario ? (usuario.nombre.toLowerCase().includes("samuel") || usuario.id === 2) : false;
 
   const cargarPartidosEnVivo = async () => {
@@ -2572,6 +2573,8 @@ export default function ExpressPage() {
                     const estaCerrado = estaCerradoGeneral;
                     const deshabilitarMarcador = estaCerradoGeneral;
 
+                    const estaCardAbierta = partidosDesplegados[partido.id] ?? false;
+
                     return (
                       <div
                         key={partido.id}
@@ -2594,436 +2597,469 @@ export default function ExpressPage() {
                           opacity: estaCerrado && !esAplazado ? 0.85 : 1,
                         }}
                       >
-                        {/* ENCABEZADO MATCH CON RELOJ CUENTA REGRESIVA */}
-                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14, fontSize: "0.82rem", color: "var(--graderia)", borderBottom: "1px dashed var(--linea)", paddingBottom: 8, flexWrap: "wrap", gap: 8 }}>
-                          <span style={{ fontWeight: 700, color: "var(--cancha)" }}>
-                            🏟️ {partido.estadio || "Liga BetPlay"}
-                          </span>
-                          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                        {/* ENCABEZADO MATCH CON BOTÓN DESPLEGABLE Y RESUMEN */}
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: estaCardAbierta ? 14 : 0, fontSize: "0.82rem", color: "var(--graderia)", borderBottom: estaCardAbierta ? "1px dashed var(--linea)" : "none", paddingBottom: estaCardAbierta ? 8 : 0, flexWrap: "wrap", gap: 8 }}>
+                          <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+                            <span style={{ fontWeight: 800, color: "#ffffff", fontSize: "0.95rem" }}>
+                              {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}
+                            </span>
+                            {m.local !== "" && m.visitante !== "" ? (
+                              <span style={{ background: "rgba(16, 185, 129, 0.2)", color: "#10b981", border: "1px solid rgba(16, 185, 129, 0.4)", padding: "2px 8px", borderRadius: 12, fontSize: "0.75rem", fontWeight: 800 }}>
+                                ✅ Pronosticado ({m.local} - {m.visitante})
+                              </span>
+                            ) : (
+                              <span style={{ background: "rgba(245, 158, 11, 0.15)", color: "#f59e0b", border: "1px solid rgba(245, 158, 11, 0.3)", padding: "2px 8px", borderRadius: 12, fontSize: "0.75rem", fontWeight: 700 }}>
+                                ⏳ Pendiente
+                              </span>
+                            )}
+                          </div>
+
+                          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                             {esAplazado ? (
                               <span style={{ background: "#f59e0b", padding: "4px 10px", borderRadius: 6, color: "#fff", fontWeight: 800 }}>
                                 ⚠️ APLAZADO
                               </span>
                             ) : (
-                              <>
-                                <RelojCuentaRegresiva fechaHoraPartido={partido.fecha_hora_partido} estado={partido.estado} />
-                                <span style={{ background: "var(--noche-2)", padding: "4px 10px", borderRadius: 6, color: "#ffffff", fontWeight: 600 }}>
-                                  📅 {new Date(partido.fecha_hora_partido).toLocaleString("es-CO", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}
-                                </span>
-                              </>
+                              <RelojCuentaRegresiva fechaHoraPartido={partido.fecha_hora_partido} estado={partido.estado} />
                             )}
+
+                            <button
+                              type="button"
+                              onClick={() => setPartidosDesplegados(prev => ({ ...prev, [partido.id]: !estaCardAbierta }))}
+                              style={{
+                                background: estaCardAbierta ? "rgba(56, 189, 248, 0.25)" : "rgba(255, 255, 255, 0.08)",
+                                border: estaCardAbierta ? "1px solid #38bdf8" : "1px solid var(--linea)",
+                                color: estaCardAbierta ? "#38bdf8" : "#ffffff",
+                                padding: "6px 14px",
+                                borderRadius: 8,
+                                fontSize: "0.8rem",
+                                fontWeight: 800,
+                                cursor: "pointer",
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: 6,
+                                transition: "all 0.15s ease",
+                              }}
+                            >
+                              <span>{estaCardAbierta ? "▲ Ocultar" : "▼ Pronosticar"}</span>
+                            </button>
                           </div>
                         </div>
 
-                        {/* BANNER DE MARCADOR OFICIAL SI EXISTE */}
-                        {partido.resultado_oficial && (
-                          <div style={{ background: "linear-gradient(135deg, #065f46 0%, #047857 100%)", padding: "10px 14px", borderRadius: 8, textAlign: "center", marginBottom: 14, color: "#ffffff", fontWeight: 800, border: "1px solid #34d399", fontSize: "0.95rem" }}>
-                            <div>🏁 MARCADOR OFICIAL: {partido.resultado_oficial.goles_local_real} - {partido.resultado_oficial.goles_visitante_real}</div>
-                            {partido.resultado_oficial.goleadores && partido.resultado_oficial.goleadores.length > 0 && (
-                              <div style={{ fontSize: "0.82rem", fontWeight: 600, marginTop: 4, color: "#a7f3d0" }}>
-                                ⚽ Goleadores oficiales: {(() => {
-                                  const nombres = partido.resultado_oficial.goleadores
-                                    .map((g: any) => g.jugador?.nombre)
-                                    .filter(Boolean);
-                                  if (nombres.length === 0) return "Sin goles anotados";
-                                  const counts: Record<string, number> = {};
-                                  nombres.forEach((n: string) => { counts[n] = (counts[n] || 0) + 1; });
-                                  return Object.entries(counts)
-                                    .map(([n, c]) => (c > 1 ? `${n} (x${c})` : n))
-                                    .join(", ");
-                                })()}
-                              </div>
-                            )}
-                          </div>
-                        )}
-
-                        {/* MARCADOR EXACTO - DISEÑO RESPONSIVO MÓVIL ALINEADO 3 COLUMNAS */}
-                        <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", alignItems: "center", gap: 10, margin: "16px 0 20px" }}>
-                          {/* EQUIPO LOCAL */}
-                          <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 8, textAlign: "right" }}>
-                            <span style={{ fontWeight: 800, fontSize: "clamp(0.88rem, 3.8vw, 1.1rem)", color: "#ffffff", lineHeight: 1.2 }}>
-                              {partido.equipo_local.nombre}
-                            </span>
-                            {partido.equipo_local.escudo_url ? (
-                              <img src={partido.equipo_local.escudo_url} alt={partido.equipo_local.nombre} style={{ width: 30, height: 30, objectFit: "contain", flexShrink: 0 }} />
-                            ) : (
-                              <div style={{ width: 28, height: 28, background: "var(--linea)", borderRadius: "50%", flexShrink: 0 }} />
-                            )}
-                          </div>
-
-                          {/* INPUTS MARCADOR */}
-                          <div style={{ display: "flex", alignItems: "center", gap: 6, flexShrink: 0 }}>
-                            <input
-                              type="number"
-                              min="0"
-                              max="20"
-                              value={m.local}
-                              onChange={(e) => handleMarcadorChange(partido.id, "local", e.target.value)}
-                              disabled={deshabilitarMarcador}
-                              style={{
-                                width: 44,
-                                height: 44,
-                                textAlign: "center",
-                                fontSize: "1.2rem",
-                                fontWeight: 900,
-                                background: "var(--noche-2)",
-                                border: m.local !== "" ? "2px solid var(--cancha)" : "1px solid var(--linea)",
-                                borderRadius: 8,
-                                color: "#ffffff",
-                                padding: 0,
-                              }}
-                            />
-                            <span style={{ fontWeight: 900, fontSize: "1.2rem", color: "var(--graderia)" }}>:</span>
-                            <input
-                              type="number"
-                              min="0"
-                              max="20"
-                              value={m.visitante}
-                              onChange={(e) => handleMarcadorChange(partido.id, "visitante", e.target.value)}
-                              disabled={deshabilitarMarcador}
-                              style={{
-                                width: 44,
-                                height: 44,
-                                textAlign: "center",
-                                fontSize: "1.2rem",
-                                fontWeight: 900,
-                                background: "var(--noche-2)",
-                                border: m.visitante !== "" ? "2px solid var(--cancha)" : "1px solid var(--linea)",
-                                borderRadius: 8,
-                                color: "#ffffff",
-                                padding: 0,
-                              }}
-                            />
-                          </div>
-
-                          {/* EQUIPO VISITANTE */}
-                          <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-start", gap: 8, textAlign: "left" }}>
-                            {partido.equipo_visitante.escudo_url ? (
-                              <img src={partido.equipo_visitante.escudo_url} alt={partido.equipo_visitante.nombre} style={{ width: 30, height: 30, objectFit: "contain", flexShrink: 0 }} />
-                            ) : (
-                              <div style={{ width: 28, height: 28, background: "var(--linea)", borderRadius: "50%", flexShrink: 0 }} />
-                            )}
-                            <span style={{ fontWeight: 800, fontSize: "clamp(0.88rem, 3.8vw, 1.1rem)", color: "#ffffff", lineHeight: 1.2 }}>
-                              {partido.equipo_visitante.nombre}
-                            </span>
-                          </div>
-                        </div>
-
-                        {/* GANADOR PREDICHO - BOTONES DE BOTÓN MÓVIL PERFECTOS */}
-                        {(() => {
-                          const ganadorEfectivo = m.ganador || (
-                            m.local !== "" && m.visitante !== ""
-                              ? (Number(m.local) > Number(m.visitante) ? "local" : Number(m.visitante) > Number(m.local) ? "visitante" : "empate")
-                              : ""
-                          );
-
-                          return (
-                            <div style={{ background: "var(--noche-2)", padding: "12px 14px", borderRadius: 8, marginBottom: 12 }}>
-                              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8, flexWrap: "wrap", gap: 6 }}>
-                                <label style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--graderia)", margin: 0 }}>
-                                  🏆 Equipo Ganador del Partido (3 Pts):
-                                </label>
-                                {ganadorEfectivo && (
-                                  <span style={{ fontSize: "0.78rem", fontWeight: 800, color: "#38bdf8", background: "rgba(56,189,248,0.15)", padding: "2px 8px", borderRadius: 4 }}>
-                                    {ganadorEfectivo === "local" ? `Gana ${partido.equipo_local.nombre}` : ganadorEfectivo === "visitante" ? `Gana ${partido.equipo_visitante.nombre}` : "Empate"}
-                                  </span>
+                        {/* CONTENIDO EXPANDIBLE DE PRONÓSTICO */}
+                        {estaCardAbierta && (
+                          <div style={{ marginTop: 14, paddingTop: 14, borderTop: "1px dashed var(--linea)" }}>
+                            {/* BANNER DE MARCADOR OFICIAL SI EXISTE */}
+                            {partido.resultado_oficial && (
+                              <div style={{ background: "linear-gradient(135deg, #065f46 0%, #047857 100%)", padding: "10px 14px", borderRadius: 8, textAlign: "center", marginBottom: 14, color: "#ffffff", fontWeight: 800, border: "1px solid #34d399", fontSize: "0.95rem" }}>
+                                <div>🏁 MARCADOR OFICIAL: {partido.resultado_oficial.goles_local_real} - {partido.resultado_oficial.goles_visitante_real}</div>
+                                {partido.resultado_oficial.goleadores && partido.resultado_oficial.goleadores.length > 0 && (
+                                  <div style={{ fontSize: "0.82rem", fontWeight: 600, marginTop: 4, color: "#a7f3d0" }}>
+                                    ⚽ Goleadores oficiales: {(() => {
+                                      const nombres = partido.resultado_oficial.goleadores
+                                        .map((g: any) => g.jugador?.nombre)
+                                        .filter(Boolean);
+                                      if (nombres.length === 0) return "Sin goles anotados";
+                                      const counts: Record<string, number> = {};
+                                      nombres.forEach((n: string) => { counts[n] = (counts[n] || 0) + 1; });
+                                      return Object.entries(counts)
+                                        .map(([n, c]) => (c > 1 ? `${n} (x${c})` : n))
+                                        .join(", ");
+                                    })()}
+                                  </div>
                                 )}
                               </div>
-                              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 6 }}>
-                                <label
-                                  onClick={() => !deshabilitarMarcador && handleGanadorChange(partido.id, "local")}
-                                  style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    padding: "8px 4px",
-                                    borderRadius: 6,
-                                    cursor: deshabilitarMarcador ? "not-allowed" : "pointer",
-                                    background: ganadorEfectivo === "local" ? "rgba(16, 185, 129, 0.2)" : "rgba(255, 255, 255, 0.04)",
-                                    border: ganadorEfectivo === "local" ? "1px solid var(--cancha)" : "1px solid var(--linea)",
-                                    color: ganadorEfectivo === "local" ? "#34d399" : "var(--graderia)",
-                                    textAlign: "center",
-                                    fontSize: "0.78rem",
-                                    fontWeight: 700,
-                                    transition: "all 0.15s ease",
-                                  }}
-                                >
-                                  <input
-                                    type="radio"
-                                    name={`ganador-${partido.id}`}
-                                    checked={ganadorEfectivo === "local"}
-                                    onChange={() => {}}
-                                    disabled={deshabilitarMarcador}
-                                    style={{ display: "none" }}
-                                  />
-                                  <span>Gana {partido.equipo_local.nombre}</span>
-                                </label>
+                            )}
 
-                                <label
-                                  onClick={() => !deshabilitarMarcador && handleGanadorChange(partido.id, "empate")}
-                                  style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    padding: "8px 4px",
-                                    borderRadius: 6,
-                                    cursor: deshabilitarMarcador ? "not-allowed" : "pointer",
-                                    background: ganadorEfectivo === "empate" ? "rgba(56, 189, 248, 0.2)" : "rgba(255, 255, 255, 0.04)",
-                                    border: ganadorEfectivo === "empate" ? "1px solid #38bdf8" : "1px solid var(--linea)",
-                                    color: ganadorEfectivo === "empate" ? "#38bdf8" : "var(--graderia)",
-                                    textAlign: "center",
-                                    fontSize: "0.78rem",
-                                    fontWeight: 700,
-                                    transition: "all 0.15s ease",
-                                  }}
-                                >
-                                  <input
-                                    type="radio"
-                                    name={`ganador-${partido.id}`}
-                                    checked={ganadorEfectivo === "empate"}
-                                    onChange={() => {}}
-                                    disabled={deshabilitarMarcador}
-                                    style={{ display: "none" }}
-                                  />
-                                  <span>Empate</span>
-                                </label>
+                            {/* MARCADOR EXACTO - DISEÑO RESPONSIVO MÓVIL ALINEADO 3 COLUMNAS */}
+                            <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", alignItems: "center", gap: 10, margin: "16px 0 20px" }}>
+                              {/* EQUIPO LOCAL */}
+                              <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 8, textAlign: "right" }}>
+                                <span style={{ fontWeight: 800, fontSize: "clamp(0.88rem, 3.8vw, 1.1rem)", color: "#ffffff", lineHeight: 1.2 }}>
+                                  {partido.equipo_local.nombre}
+                                </span>
+                                {partido.equipo_local.escudo_url ? (
+                                  <img src={partido.equipo_local.escudo_url} alt={partido.equipo_local.nombre} style={{ width: 30, height: 30, objectFit: "contain", flexShrink: 0 }} />
+                                ) : (
+                                  <div style={{ width: 28, height: 28, background: "var(--linea)", borderRadius: "50%", flexShrink: 0 }} />
+                                )}
+                              </div>
 
-                                <label
-                                  onClick={() => !deshabilitarMarcador && handleGanadorChange(partido.id, "visitante")}
+                              {/* INPUTS MARCADOR */}
+                              <div style={{ display: "flex", alignItems: "center", gap: 6, flexShrink: 0 }}>
+                                <input
+                                  type="number"
+                                  min="0"
+                                  max="20"
+                                  value={m.local}
+                                  onChange={(e) => handleMarcadorChange(partido.id, "local", e.target.value)}
+                                  disabled={deshabilitarMarcador}
                                   style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    padding: "8px 4px",
-                                    borderRadius: 6,
-                                    cursor: deshabilitarMarcador ? "not-allowed" : "pointer",
-                                    background: ganadorEfectivo === "visitante" ? "rgba(16, 185, 129, 0.2)" : "rgba(255, 255, 255, 0.04)",
-                                    border: ganadorEfectivo === "visitante" ? "1px solid var(--cancha)" : "1px solid var(--linea)",
-                                    color: ganadorEfectivo === "visitante" ? "#34d399" : "var(--graderia)",
+                                    width: 44,
+                                    height: 44,
                                     textAlign: "center",
-                                    fontSize: "0.78rem",
-                                    fontWeight: 700,
-                                    transition: "all 0.15s ease",
+                                    fontSize: "1.2rem",
+                                    fontWeight: 900,
+                                    background: "var(--noche-2)",
+                                    border: m.local !== "" ? "2px solid var(--cancha)" : "1px solid var(--linea)",
+                                    borderRadius: 8,
+                                    color: "#ffffff",
+                                    padding: 0,
                                   }}
-                                >
-                                  <input
-                                    type="radio"
-                                    name={`ganador-${partido.id}`}
-                                    checked={ganadorEfectivo === "visitante"}
-                                    onChange={() => {}}
-                                    disabled={deshabilitarMarcador}
-                                    style={{ display: "none" }}
-                                  />
-                                  <span>Gana {partido.equipo_visitante.nombre}</span>
-                                </label>
+                                />
+                                <span style={{ fontWeight: 900, fontSize: "1.2rem", color: "var(--graderia)" }}>:</span>
+                                <input
+                                  type="number"
+                                  min="0"
+                                  max="20"
+                                  value={m.visitante}
+                                  onChange={(e) => handleMarcadorChange(partido.id, "visitante", e.target.value)}
+                                  disabled={deshabilitarMarcador}
+                                  style={{
+                                    width: 44,
+                                    height: 44,
+                                    textAlign: "center",
+                                    fontSize: "1.2rem",
+                                    fontWeight: 900,
+                                    background: "var(--noche-2)",
+                                    border: m.visitante !== "" ? "2px solid var(--cancha)" : "1px solid var(--linea)",
+                                    borderRadius: 8,
+                                    color: "#ffffff",
+                                    padding: 0,
+                                  }}
+                                />
+                              </div>
+
+                              {/* EQUIPO VISITANTE */}
+                              <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-start", gap: 8, textAlign: "left" }}>
+                                {partido.equipo_visitante.escudo_url ? (
+                                  <img src={partido.equipo_visitante.escudo_url} alt={partido.equipo_visitante.nombre} style={{ width: 30, height: 30, objectFit: "contain", flexShrink: 0 }} />
+                                ) : (
+                                  <div style={{ width: 28, height: 28, background: "var(--linea)", borderRadius: "50%", flexShrink: 0 }} />
+                                )}
+                                <span style={{ fontWeight: 800, fontSize: "clamp(0.88rem, 3.8vw, 1.1rem)", color: "#ffffff", lineHeight: 1.2 }}>
+                                  {partido.equipo_visitante.nombre}
+                                </span>
                               </div>
                             </div>
-                          );
-                        })()}
 
-                        {/* BLOQUE SELECCIÓN DE GOLEADOR: 2 DROPDOWNS SEPARADOS + BOTÓN APARTE 'SIN GOLEADOR' */}
-                        {(() => {
-                          const esMarcadorCeroCero = m.local !== "" && m.visitante !== "" && Number(m.local || 0) === 0 && Number(m.visitante || 0) === 0;
-                          const hayGolesSinGoleador = (m.local !== "" || m.visitante !== "") && (Number(m.local || 0) > 0 || Number(m.visitante || 0) > 0) && !m.goleador_id;
-                          const marcadorIncompleto = m.local === "" || m.visitante === "";
-                          const deshabilitarBotonGuardar = guardandoPartidoId === partido.id || marcadorIncompleto || hayGolesSinGoleador || Boolean(inconsistencia);
+                            {/* GANADOR PREDICHO - BOTONES DE BOTÓN MÓVIL PERFECTOS */}
+                            {(() => {
+                              const ganadorEfectivo = m.ganador || (
+                                m.local !== "" && m.visitante !== ""
+                                  ? (Number(m.local) > Number(m.visitante) ? "local" : Number(m.visitante) > Number(m.local) ? "visitante" : "empate")
+                                  : ""
+                              );
 
-                          return (
-                            <>
-                              <div style={{ background: "var(--noche-2)", padding: "14px 16px", borderRadius: 8, marginBottom: 12, opacity: esMarcadorCeroCero ? 0.7 : 1 }}>
-                                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12, flexWrap: "wrap", gap: 8 }}>
-                                  <label style={{ fontSize: "0.82rem", fontWeight: 700, color: "var(--tiza)" }}>
-                                    ⚽ Goleador del Partido (+2 Pts):
-                                  </label>
-
-                                  {/* BOTÓN APARTE 'SIN GOLEADOR (0 - 0)' */}
-                                  <button
-                                    type="button"
-                                    disabled={estaCerrado || esMarcadorCeroCero}
-                                    onClick={() => handleGoleadorChange(partido.id, "")}
-                                    style={{
-                                      padding: "6px 14px",
-                                      borderRadius: 6,
-                                      fontSize: "0.78rem",
-                                      fontWeight: 700,
-                                      cursor: (estaCerrado || esMarcadorCeroCero) ? "not-allowed" : "pointer",
-                                      background: !m.goleador_id ? "rgba(239, 68, 68, 0.25)" : "rgba(255, 255, 255, 0.05)",
-                                      border: !m.goleador_id ? "1px solid #ef4444" : "1px solid var(--linea)",
-                                      color: !m.goleador_id ? "#fca5a5" : "var(--graderia)",
-                                      transition: "all 0.15s ease",
-                                    }}
-                                  >
-                                    {!m.goleador_id ? "🚫 Sin Goleador (Activo para 0 - 0)" : "🚫 Cambiar a Sin Goleador"}
-                                  </button>
-                                </div>
-
-                                {/* 2 DROPDOWNS SEPARADOS POR EQUIPO */}
-                                <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
-                                  {/* GOLEADOR LOCAL */}
-                                  <div style={{ flex: 1, minWidth: 200 }}>
-                                    <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 700, color: "var(--cancha)", marginBottom: 4 }}>
-                                      🏠 Goleador {partido.equipo_local.nombre}:
+                              return (
+                                <div style={{ background: "var(--noche-2)", padding: "12px 14px", borderRadius: 8, marginBottom: 12 }}>
+                                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8, flexWrap: "wrap", gap: 6 }}>
+                                    <label style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--graderia)", margin: 0 }}>
+                                      🏆 Equipo Ganador del Partido (3 Pts):
                                     </label>
-                                    <select
-                                      value={
-                                        (partido.equipo_local.jugadores || []).some((j: any) => String(j.id) === String(m.goleador_id))
-                                          ? String(m.goleador_id)
-                                          : ""
-                                      }
-                                      onChange={(e) => handleGoleadorChange(partido.id, e.target.value)}
-                                      disabled={estaCerrado || esMarcadorCeroCero || (m.local !== "" && Number(m.local) === 0)}
-                                      style={{
-                                        width: "100%",
-                                        padding: "9px 12px",
-                                        background: "var(--noche-1)",
-                                        border: (partido.equipo_local.jugadores || []).some((j: any) => String(j.id) === String(m.goleador_id))
-                                          ? "1px solid var(--cancha)"
-                                          : "1px solid var(--linea)",
-                                        borderRadius: 8,
-                                        color: "#ffffff",
-                                        fontSize: "0.85rem",
-                                        cursor: (estaCerrado || esMarcadorCeroCero || (m.local !== "" && Number(m.local) === 0)) ? "not-allowed" : "pointer",
-                                      }}
-                                    >
-                                      <option value="">-- Seleccionar de {partido.equipo_local.nombre} --</option>
-                                      {(partido.equipo_local.jugadores || []).map((j: any) => (
-                                        <option key={j.id} value={j.id}>
-                                          {j.nombre}
-                                        </option>
-                                      ))}
-                                    </select>
-                                  </div>
-
-                                  {/* GOLEADOR VISITANTE */}
-                                  <div style={{ flex: 1, minWidth: 200 }}>
-                                    <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 700, color: "#38bdf8", marginBottom: 4 }}>
-                                      ✈️ Goleador {partido.equipo_visitante.nombre}:
-                                    </label>
-                                    <select
-                                      value={
-                                        (partido.equipo_visitante.jugadores || []).some((j: any) => String(j.id) === String(m.goleador_id))
-                                          ? String(m.goleador_id)
-                                          : ""
-                                      }
-                                      onChange={(e) => handleGoleadorChange(partido.id, e.target.value)}
-                                      disabled={estaCerrado || esMarcadorCeroCero || (m.visitante !== "" && Number(m.visitante) === 0)}
-                                      style={{
-                                        width: "100%",
-                                        padding: "9px 12px",
-                                        background: "var(--noche-1)",
-                                        border: (partido.equipo_visitante.jugadores || []).some((j: any) => String(j.id) === String(m.goleador_id))
-                                          ? "1px solid #38bdf8"
-                                          : "1px solid var(--linea)",
-                                        borderRadius: 8,
-                                        color: "#ffffff",
-                                        fontSize: "0.85rem",
-                                        cursor: (estaCerrado || esMarcadorCeroCero || (m.visitante !== "" && Number(m.visitante) === 0)) ? "not-allowed" : "pointer",
-                                      }}
-                                    >
-                                      <option value="">-- Seleccionar de {partido.equipo_visitante.nombre} --</option>
-                                      {(partido.equipo_visitante.jugadores || []).map((j: any) => (
-                                        <option key={j.id} value={j.id}>
-                                          {j.nombre}
-                                        </option>
-                                      ))}
-                                    </select>
-                                  </div>
-                                </div>
-
-                                {/* INDICADOR DE ESTADO */}
-                                {esMarcadorCeroCero ? (
-                                  <div style={{ marginTop: 8, fontSize: "0.82rem", color: "#60a5fa", fontWeight: 700, display: "flex", alignItems: "center", gap: 6 }}>
-                                    🔒 Marcador 0 - 0: Selección de goleador bloqueada (en empate a cero no hay goles).
-                                  </div>
-                                ) : m.goleador_id ? (
-                                  <div style={{ marginTop: 10, fontSize: "0.85rem", color: "var(--cancha)", fontWeight: 700, display: "flex", alignItems: "center", gap: 6 }}>
-                                    ⚽ Goleador seleccionado: {[...(partido.equipo_local.jugadores || []), ...(partido.equipo_visitante.jugadores || []), ...jugadores].find((j: any) => String(j.id) === String(m.goleador_id))?.nombre || "Seleccionado"}
-                                  </div>
-                                ) : (
-                                  <div style={{ marginTop: 8, fontSize: "0.78rem", color: "var(--graderia)", fontStyle: "italic" }}>
-                                    ℹ️ Sin goleador seleccionado (válido sólo si el partido termina 0 - 0).
-                                  </div>
-                                )}
-                              </div>
-
-                              {/* INCONSISTENCIA SI INGRESÓ GOLES PERO NO SELECCIONÓ GOLEADOR (SOLO PARTIDOS ABIERTOS) */}
-                              {!estaCerrado && hayGolesSinGoleador && (
-                                <div
-                                  style={{
-                                    marginTop: 8,
-                                    padding: "10px 14px",
-                                    background: "rgba(239, 68, 68, 0.15)",
-                                    border: "1px solid rgba(239, 68, 68, 0.4)",
-                                    borderRadius: 8,
-                                    color: "#fca5a5",
-                                    fontSize: "0.85rem",
-                                    display: "flex",
-                                    alignItems: "center",
-                                    gap: 8,
-                                    fontWeight: 700,
-                                  }}
-                                >
-                                  <AlertTriangle size={18} style={{ flexShrink: 0, color: "#ef4444" }} />
-                                  <span>❌ Debes seleccionar obligatoriamente el goleador del partido (o cambiar marcador a 0 - 0 si no hay goles).</span>
-                                </div>
-                              )}
-
-                              {!estaCerrado && inconsistencia && (
-                                <div style={{ marginTop: 10, color: "var(--rojo)", fontSize: "0.85rem", display: "flex", alignItems: "center", gap: 6, fontWeight: 700 }}>
-                                  <AlertTriangle size={16} /> {inconsistencia}
-                                </div>
-                              )}
-
-                              {/* BOTÓN GUARDAR PRONÓSTICO INDIVIDUAL CON CONFIRMACIÓN EN VIVO */}
-                              {!estaCerrado && (
-                                <div style={{ marginTop: 14, paddingTop: 10, borderTop: "1px dashed rgba(255,255,255,0.08)", display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 6 }}>
-                                  <button
-                                    type="button"
-                                    className="btn btn-primary"
-                                    disabled={deshabilitarBotonGuardar}
-                                    onClick={() => handleGuardarPronosticoPartido(partido.id)}
-                                    style={{
-                                      padding: "8px 18px",
-                                      fontSize: "0.88rem",
-                                      fontWeight: 800,
-                                      background: deshabilitarBotonGuardar
-                                        ? "#334155"
-                                        : partidoGuardadoExitoId === partido.id
-                                        ? "linear-gradient(135deg, #059669 0%, #047857 100%)"
-                                        : "linear-gradient(135deg, #10b981 0%, #059669 100%)",
-                                      color: deshabilitarBotonGuardar ? "#94a3b8" : "#fff",
-                                      opacity: deshabilitarBotonGuardar ? 0.65 : 1,
-                                      borderRadius: 8,
-                                      display: "inline-flex",
-                                      alignItems: "center",
-                                      gap: 6,
-                                      cursor: deshabilitarBotonGuardar ? "not-allowed" : "pointer",
-                                      boxShadow: deshabilitarBotonGuardar ? "none" : "0 4px 12px rgba(16, 185, 129, 0.3)",
-                                    }}
-                                  >
-                                    {partidoGuardadoExitoId === partido.id ? (
-                                      <>
-                                        <CheckCircle2 size={16} /> ¡Pronóstico Guardado con Éxito!
-                                      </>
-                                    ) : guardandoPartidoId === partido.id ? (
-                                      "Guardando..."
-                                    ) : (
-                                      <>
-                                        <Save size={16} /> Guardar Pronóstico
-                                      </>
+                                    {ganadorEfectivo && (
+                                      <span style={{ fontSize: "0.78rem", fontWeight: 800, color: "#38bdf8", background: "rgba(56,189,248,0.15)", padding: "2px 8px", borderRadius: 4 }}>
+                                        {ganadorEfectivo === "local" ? `Gana ${partido.equipo_local.nombre}` : ganadorEfectivo === "visitante" ? `Gana ${partido.equipo_visitante.nombre}` : "Empate"}
+                                      </span>
                                     )}
-                                  </button>
+                                  </div>
+                                  <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 6 }}>
+                                    <label
+                                      onClick={() => !deshabilitarMarcador && handleGanadorChange(partido.id, "local")}
+                                      style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        padding: "8px 4px",
+                                        borderRadius: 6,
+                                        cursor: deshabilitarMarcador ? "not-allowed" : "pointer",
+                                        background: ganadorEfectivo === "local" ? "rgba(16, 185, 129, 0.2)" : "rgba(255, 255, 255, 0.04)",
+                                        border: ganadorEfectivo === "local" ? "1px solid var(--cancha)" : "1px solid var(--linea)",
+                                        color: ganadorEfectivo === "local" ? "#34d399" : "var(--graderia)",
+                                        textAlign: "center",
+                                        fontSize: "0.78rem",
+                                        fontWeight: 700,
+                                        transition: "all 0.15s ease",
+                                      }}
+                                    >
+                                      <input
+                                        type="radio"
+                                        name={`ganador-${partido.id}`}
+                                        checked={ganadorEfectivo === "local"}
+                                        onChange={() => {}}
+                                        disabled={deshabilitarMarcador}
+                                        style={{ display: "none" }}
+                                      />
+                                      <span>Gana {partido.equipo_local.nombre}</span>
+                                    </label>
 
-                                  {partidoGuardadoExitoId === partido.id && (
-                                    <div style={{ color: "#34d399", fontSize: "0.82rem", fontWeight: 800, display: "flex", alignItems: "center", gap: 4 }}>
-                                      <CheckCircle2 size={14} /> ✓ Marcador y goleador guardados correctamente en la base de datos
+                                    <label
+                                      onClick={() => !deshabilitarMarcador && handleGanadorChange(partido.id, "empate")}
+                                      style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        padding: "8px 4px",
+                                        borderRadius: 6,
+                                        cursor: deshabilitarMarcador ? "not-allowed" : "pointer",
+                                        background: ganadorEfectivo === "empate" ? "rgba(56, 189, 248, 0.2)" : "rgba(255, 255, 255, 0.04)",
+                                        border: ganadorEfectivo === "empate" ? "1px solid #38bdf8" : "1px solid var(--linea)",
+                                        color: ganadorEfectivo === "empate" ? "#38bdf8" : "var(--graderia)",
+                                        textAlign: "center",
+                                        fontSize: "0.78rem",
+                                        fontWeight: 700,
+                                        transition: "all 0.15s ease",
+                                      }}
+                                    >
+                                      <input
+                                        type="radio"
+                                        name={`ganador-${partido.id}`}
+                                        checked={ganadorEfectivo === "empate"}
+                                        onChange={() => {}}
+                                        disabled={deshabilitarMarcador}
+                                        style={{ display: "none" }}
+                                      />
+                                      <span>Empate</span>
+                                    </label>
+
+                                    <label
+                                      onClick={() => !deshabilitarMarcador && handleGanadorChange(partido.id, "visitante")}
+                                      style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        padding: "8px 4px",
+                                        borderRadius: 6,
+                                        cursor: deshabilitarMarcador ? "not-allowed" : "pointer",
+                                        background: ganadorEfectivo === "visitante" ? "rgba(16, 185, 129, 0.2)" : "rgba(255, 255, 255, 0.04)",
+                                        border: ganadorEfectivo === "visitante" ? "1px solid var(--cancha)" : "1px solid var(--linea)",
+                                        color: ganadorEfectivo === "visitante" ? "#34d399" : "var(--graderia)",
+                                        textAlign: "center",
+                                        fontSize: "0.78rem",
+                                        fontWeight: 700,
+                                        transition: "all 0.15s ease",
+                                      }}
+                                    >
+                                      <input
+                                        type="radio"
+                                        name={`ganador-${partido.id}`}
+                                        checked={ganadorEfectivo === "visitante"}
+                                        onChange={() => {}}
+                                        disabled={deshabilitarMarcador}
+                                        style={{ display: "none" }}
+                                      />
+                                      <span>Gana {partido.equipo_visitante.nombre}</span>
+                                    </label>
+                                  </div>
+                                </div>
+                              );
+                            })()}
+
+                            {/* BLOQUE SELECCIÓN DE GOLEADOR: 2 DROPDOWNS SEPARADOS + BOTÓN APARTE 'SIN GOLEADOR' */}
+                            {(() => {
+                              const esMarcadorCeroCero = m.local !== "" && m.visitante !== "" && Number(m.local || 0) === 0 && Number(m.visitante || 0) === 0;
+                              const hayGolesSinGoleador = (m.local !== "" || m.visitante !== "") && (Number(m.local || 0) > 0 || Number(m.visitante || 0) > 0) && !m.goleador_id;
+                              const marcadorIncompleto = m.local === "" || m.visitante === "";
+                              const deshabilitarBotonGuardar = guardandoPartidoId === partido.id || marcadorIncompleto || hayGolesSinGoleador || Boolean(inconsistencia);
+
+                              return (
+                                <>
+                                  <div style={{ background: "var(--noche-2)", padding: "14px 16px", borderRadius: 8, marginBottom: 12, opacity: esMarcadorCeroCero ? 0.7 : 1 }}>
+                                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12, flexWrap: "wrap", gap: 8 }}>
+                                      <label style={{ fontSize: "0.82rem", fontWeight: 700, color: "var(--tiza)" }}>
+                                        ⚽ Goleador del Partido (+2 Pts):
+                                      </label>
+
+                                      {/* BOTÓN APARTE 'SIN GOLEADOR (0 - 0)' */}
+                                      <button
+                                        type="button"
+                                        disabled={estaCerrado || esMarcadorCeroCero}
+                                        onClick={() => handleGoleadorChange(partido.id, "")}
+                                        style={{
+                                          padding: "6px 14px",
+                                          borderRadius: 6,
+                                          fontSize: "0.78rem",
+                                          fontWeight: 700,
+                                          cursor: (estaCerrado || esMarcadorCeroCero) ? "not-allowed" : "pointer",
+                                          background: !m.goleador_id ? "rgba(239, 68, 68, 0.25)" : "rgba(255, 255, 255, 0.05)",
+                                          border: !m.goleador_id ? "1px solid #ef4444" : "1px solid var(--linea)",
+                                          color: !m.goleador_id ? "#fca5a5" : "var(--graderia)",
+                                          transition: "all 0.15s ease",
+                                        }}
+                                      >
+                                        {!m.goleador_id ? "🚫 Sin Goleador (Activo para 0 - 0)" : "🚫 Cambiar a Sin Goleador"}
+                                      </button>
+                                    </div>
+
+                                    {/* 2 DROPDOWNS SEPARADOS POR EQUIPO */}
+                                    <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
+                                      {/* GOLEADOR LOCAL */}
+                                      <div style={{ flex: 1, minWidth: 200 }}>
+                                        <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 700, color: "var(--cancha)", marginBottom: 4 }}>
+                                          🏠 Goleador {partido.equipo_local.nombre}:
+                                        </label>
+                                        <select
+                                          value={
+                                            (partido.equipo_local.jugadores || []).some((j: any) => String(j.id) === String(m.goleador_id))
+                                              ? String(m.goleador_id)
+                                              : ""
+                                          }
+                                          onChange={(e) => handleGoleadorChange(partido.id, e.target.value)}
+                                          disabled={estaCerrado || esMarcadorCeroCero || (m.local !== "" && Number(m.local) === 0)}
+                                          style={{
+                                            width: "100%",
+                                            padding: "9px 12px",
+                                            background: "var(--noche-1)",
+                                            border: (partido.equipo_local.jugadores || []).some((j: any) => String(j.id) === String(m.goleador_id))
+                                              ? "1px solid var(--cancha)"
+                                              : "1px solid var(--linea)",
+                                            borderRadius: 8,
+                                            color: "#ffffff",
+                                            fontSize: "0.85rem",
+                                            cursor: (estaCerrado || esMarcadorCeroCero || (m.local !== "" && Number(m.local) === 0)) ? "not-allowed" : "pointer",
+                                          }}
+                                        >
+                                          <option value="">-- Seleccionar de {partido.equipo_local.nombre} --</option>
+                                          {(partido.equipo_local.jugadores || []).map((j: any) => (
+                                            <option key={j.id} value={j.id}>
+                                              {j.nombre}
+                                            </option>
+                                          ))}
+                                        </select>
+                                      </div>
+
+                                      {/* GOLEADOR VISITANTE */}
+                                      <div style={{ flex: 1, minWidth: 200 }}>
+                                        <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 700, color: "#38bdf8", marginBottom: 4 }}>
+                                          ✈️ Goleador {partido.equipo_visitante.nombre}:
+                                        </label>
+                                        <select
+                                          value={
+                                            (partido.equipo_visitante.jugadores || []).some((j: any) => String(j.id) === String(m.goleador_id))
+                                              ? String(m.goleador_id)
+                                              : ""
+                                          }
+                                          onChange={(e) => handleGoleadorChange(partido.id, e.target.value)}
+                                          disabled={estaCerrado || esMarcadorCeroCero || (m.visitante !== "" && Number(m.visitante) === 0)}
+                                          style={{
+                                            width: "100%",
+                                            padding: "9px 12px",
+                                            background: "var(--noche-1)",
+                                            border: (partido.equipo_visitante.jugadores || []).some((j: any) => String(j.id) === String(m.goleador_id))
+                                              ? "1px solid #38bdf8"
+                                              : "1px solid var(--linea)",
+                                            borderRadius: 8,
+                                            color: "#ffffff",
+                                            fontSize: "0.85rem",
+                                            cursor: (estaCerrado || esMarcadorCeroCero || (m.visitante !== "" && Number(m.visitante) === 0)) ? "not-allowed" : "pointer",
+                                          }}
+                                        >
+                                          <option value="">-- Seleccionar de {partido.equipo_visitante.nombre} --</option>
+                                          {(partido.equipo_visitante.jugadores || []).map((j: any) => (
+                                            <option key={j.id} value={j.id}>
+                                              {j.nombre}
+                                            </option>
+                                          ))}
+                                        </select>
+                                      </div>
+                                    </div>
+
+                                    {/* INDICADOR DE ESTADO */}
+                                    {esMarcadorCeroCero ? (
+                                      <div style={{ marginTop: 8, fontSize: "0.82rem", color: "#60a5fa", fontWeight: 700, display: "flex", alignItems: "center", gap: 6 }}>
+                                        🔒 Marcador 0 - 0: Selección de goleador bloqueada (en empate a cero no hay goles).
+                                      </div>
+                                    ) : m.goleador_id ? (
+                                      <div style={{ marginTop: 10, fontSize: "0.85rem", color: "var(--cancha)", fontWeight: 700, display: "flex", alignItems: "center", gap: 6 }}>
+                                        ⚽ Goleador seleccionado: {[...(partido.equipo_local.jugadores || []), ...(partido.equipo_visitante.jugadores || []), ...jugadores].find((j: any) => String(j.id) === String(m.goleador_id))?.nombre || "Seleccionado"}
+                                      </div>
+                                    ) : (
+                                      <div style={{ marginTop: 8, fontSize: "0.78rem", color: "var(--graderia)", fontStyle: "italic" }}>
+                                        ℹ️ Sin goleador seleccionado (válido sólo si el partido termina 0 - 0).
+                                      </div>
+                                    )}
+                                  </div>
+
+                                  {/* INCONSISTENCIA SI INGRESÓ GOLES PERO NO SELECCIONÓ GOLEADOR (SOLO PARTIDOS ABIERTOS) */}
+                                  {!estaCerrado && hayGolesSinGoleador && (
+                                    <div
+                                      style={{
+                                        marginTop: 8,
+                                        padding: "10px 14px",
+                                        background: "rgba(239, 68, 68, 0.15)",
+                                        border: "1px solid rgba(239, 68, 68, 0.4)",
+                                        borderRadius: 8,
+                                        color: "#fca5a5",
+                                        fontSize: "0.85rem",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        gap: 8,
+                                        fontWeight: 700,
+                                      }}
+                                    >
+                                      <AlertTriangle size={18} style={{ flexShrink: 0, color: "#ef4444" }} />
+                                      <span>❌ Debes seleccionar obligatoriamente el goleador del partido (o cambiar marcador a 0 - 0 si no hay goles).</span>
                                     </div>
                                   )}
-                                </div>
-                              )}
-                            </>
-                          );
-                        })()}
+
+                                  {!estaCerrado && inconsistencia && (
+                                    <div style={{ marginTop: 10, color: "var(--rojo)", fontSize: "0.85rem", display: "flex", alignItems: "center", gap: 6, fontWeight: 700 }}>
+                                      <AlertTriangle size={16} /> {inconsistencia}
+                                    </div>
+                                  )}
+
+                                  {/* BOTÓN GUARDAR PRONÓSTICO INDIVIDUAL CON CONFIRMACIÓN EN VIVO */}
+                                  {!estaCerrado && (
+                                    <div style={{ marginTop: 14, paddingTop: 10, borderTop: "1px dashed rgba(255,255,255,0.08)", display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 6 }}>
+                                      <button
+                                        type="button"
+                                        className="btn btn-primary"
+                                        disabled={deshabilitarBotonGuardar}
+                                        onClick={() => handleGuardarPronosticoPartido(partido.id)}
+                                        style={{
+                                          padding: "8px 18px",
+                                          fontSize: "0.88rem",
+                                          fontWeight: 800,
+                                          background: deshabilitarBotonGuardar
+                                            ? "#334155"
+                                            : partidoGuardadoExitoId === partido.id
+                                            ? "linear-gradient(135deg, #059669 0%, #047857 100%)"
+                                            : "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+                                          color: deshabilitarBotonGuardar ? "#94a3b8" : "#fff",
+                                          opacity: deshabilitarBotonGuardar ? 0.65 : 1,
+                                          borderRadius: 8,
+                                          display: "inline-flex",
+                                          alignItems: "center",
+                                          gap: 6,
+                                          cursor: deshabilitarBotonGuardar ? "not-allowed" : "pointer",
+                                          boxShadow: deshabilitarBotonGuardar ? "none" : "0 4px 12px rgba(16, 185, 129, 0.3)",
+                                        }}
+                                      >
+                                        {partidoGuardadoExitoId === partido.id ? (
+                                          <>
+                                            <CheckCircle2 size={16} /> ¡Pronóstico Guardado con Éxito!
+                                          </>
+                                        ) : guardandoPartidoId === partido.id ? (
+                                          "Guardando..."
+                                        ) : (
+                                          <>
+                                            <Save size={16} /> Guardar Pronóstico
+                                          </>
+                                        )}
+                                      </button>
+
+                                      {partidoGuardadoExitoId === partido.id && (
+                                        <div style={{ color: "#34d399", fontSize: "0.82rem", fontWeight: 800, display: "flex", alignItems: "center", gap: 4 }}>
+                                          <CheckCircle2 size={14} /> ✓ Marcador y goleador guardados correctamente en la base de datos
+                                        </div>
+                                      )}
+                                    </div>
+                                  )}
+                                </>
+                              );
+                            })()}
+                          </div>
+                        )}
                       </div>
                     );
                   };
