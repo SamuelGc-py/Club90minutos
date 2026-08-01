@@ -1,10 +1,17 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { sincronizarMarcadoresEnVivo } from "@/app/api/sync-live/route";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
+    try {
+      await sincronizarMarcadoresEnVivo();
+    } catch (e) {
+      console.error("Error silencioso en sincronización en vivo datos-maestros:", e);
+    }
+
     const equipos = await prisma.equipo.findMany({
       orderBy: { nombre: "asc" },
     });

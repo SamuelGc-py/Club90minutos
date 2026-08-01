@@ -1,62 +1,77 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { calcularPuntosPartido } from "@/lib/calculadorPuntos";
 
 export const dynamic = "force-dynamic";
 
-export async function GET() {
-  try {
-    const res = await fetch(
-      "https://site.api.espn.com/apis/site/v2/sports/soccer/col.1/scoreboard",
-      { cache: "no-store" }
-    );
-    const data = await res.json();
-    const events = data.events || [];
+export async function sincronizarMarcadoresEnVivo() {
+  const res = await fetch(
+    "https://site.api.espn.com/apis/site/v2/sports/soccer/col.1/scoreboard",
+    { cache: "no-store" }
+  );
+  const data = await res.json();
+  const events = data.events || [];
 
-    let actualizados = 0;
+  let actualizados = 0;
+  const partidosDb = await prisma.partido.findMany({
+    include: { equipo_local: true, equipo_visitante: true },
+  });
 
-    for (const event of events) {
-      const competition = event.competitions?.[0];
-      if (!competition) continue;
+  const normalize = (str: string) =>
+    str
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/f\.c\.|fc|d.a.f.|c.d./gi, "")
+      .trim();
 
-      const homeTeam = competition.competitors.find((c: any) => c.homeAway === "home");
-      const awayTeam = competition.competitors.find((c: any) => c.homeAway === "away");
-      const status = event.status;
+  for (const event of events) {
+    const competition = event.competitions?.[0];
+    if (!competition) continue;
 
-      if (!homeTeam || !awayTeam) continue;
+    const homeTeam = competition.competitors?.find((c: any) => c.homeAway === "home");
+    const awayTeam = competition.competitors?.find((c: any) => c.homeAway === "away");
+    const status = event.status;
 
-      const homeName = homeTeam.team.name;
-      const awayName = awayTeam.team.name;
+    if (!homeTeam || !awayTeam) continue;
 
-      // Buscar partido correspondiente en BD por coincidencia de equipos
-      const partidosDb = await prisma.partido.findMany({
-        include: { equipo_local: true, equipo_visitante: true },
-      });
+    const homeNameNorm = normalize(homeTeam.team.name);
+    const awayNameNorm = normalize(awayTeam.team.name);
 
-      const partido = partidosDb.find((p) => {
-        const localMatch = p.equipo_local.nombre.toLowerCase().includes(homeName.toLowerCase()) ||
-                           homeName.toLowerCase().includes(p.equipo_local.nombre.toLowerCase());
-        const visitanteMatch = p.equipo_visitante.nombre.toLowerCase().includes(awayName.toLowerCase()) ||
-                               awayName.toLowerCase().includes(p.equipo_visitante.nombre.toLowerCase());
-        return localMatch && visitanteMatch;
-      });
+    const partido = partidosDb.find((p) => {
+      const dbLocalNorm = normalize(p.equipo_local.nombre);
+      const dbVisitanteNorm = normalize(p.equipo_visitante.nombre);
 
-      if (!partido) continue;
+      const localMatch = dbLocalNorm.includes(homeNameNorm) || homeNameNorm.includes(dbLocalNorm);
+      const visitanteMatch = dbVisitanteNorm.includes(awayNameNorm) || awayNameNorm.includes(dbVisitanteNorm);
+      return localMatch && visitanteMatch;
+    });
 
-      const golesLocalReal = parseInt(homeTeam.score || "0", 10);
-      const golesVisitanteReal = parseInt(awayTeam.score || "0", 10);
+    if (!partido) continue;
 
-      let equipoGanadorId = null;
-      if (golesLocalReal > golesVisitanteReal) equipoGanadorId = partido.equipo_local_id;
-      if (golesVisitanteReal > golesLocalReal) equipoGanadorId = partido.equipo_visitante_id;
+    const golesLocalReal = parseInt(homeTeam.score || "0", 10);
+    const golesVisitanteReal = parseInt(awayTeam.score || "0", 10);
 
-      const esFinalizado = status.type.name === "STATUS_FULL_TIME";
-      const nuevoEstado = esFinalizado ? "resultado_cargado" : "resultado_pendiente";
+    let equipoGanadorId: number | null = null;
+    if (golesLocalReal > golesVisitanteReal) equipoGanadorId = partido.equipo_local_id;
+    if (golesVisitanteReal > golesLocalReal) equipoGanadorId = partido.equipo_visitante_id;
 
-      // Admin genérico para registro
-      const admin = await prisma.usuario.findFirst({
-        where: { rol: { nombre: "administrador" } },
-      });
+    const statusCode = status?.type?.name;
+    const esFinalizado = statusCode === "STATUS_FULL_TIME";
 
+    const admin = await prisma.usuario.findFirst({
+      where: { rol: { nombre: "administrador" } },
+    });
+
+    if (esFinalizado) {
+      await calcularPuntosPartido(
+        partido.id,
+        golesLocalReal,
+        golesVisitanteReal,
+        [],
+        admin ? admin.id : 1
+      );
+    } else {
       await prisma.resultadoOficial.upsert({
         where: { partido_id: partido.id },
         update: {
@@ -76,15 +91,22 @@ export async function GET() {
 
       await prisma.partido.update({
         where: { id: partido.id },
-        data: { estado: nuevoEstado },
+        data: { estado: "resultado_pendiente" },
       });
-
-      actualizados++;
     }
 
+    actualizados++;
+  }
+
+  return actualizados;
+}
+
+export async function GET() {
+  try {
+    const total = await sincronizarMarcadoresEnVivo();
     return NextResponse.json({
       exito: true,
-      mensaje: `Partidos en vivo sincronizados (${actualizados}).`,
+      mensaje: `Partidos en vivo sincronizados (${total}).`,
     });
   } catch (error: any) {
     console.error("Error al sincronizar resultados en vivo:", error);
@@ -94,3 +116,4 @@ export async function GET() {
     );
   }
 }
+
