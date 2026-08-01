@@ -46,6 +46,84 @@ interface EstadoMarcador {
   goleador_id: string;
 }
 
+function Cancha2DVisualizador({ partido }: { partido: any }) {
+  const inc = partido.incidencias?.[0];
+  let textoAccion = "⚽ BALÓN EN DISPUTA CENTRAL";
+  let colorAccion = "#38bdf8";
+  let posBall = { x: 50, y: 50 };
+
+  if (inc) {
+    const txt = (inc.texto || "").toLowerCase();
+    if (inc.tipo === "gol" || txt.includes("goal") || txt.includes("gol")) {
+      textoAccion = "⚽ ¡¡¡GOOOOOOL!!!";
+      colorAccion = "#10b981";
+      posBall = inc.equipo === "local" ? { x: 92, y: 50 } : { x: 8, y: 50 };
+    } else if (txt.includes("shot") || txt.includes("remate") || txt.includes("tiro")) {
+      textoAccion = "🔥 ATAQUE PELIGROSO DE GOL";
+      colorAccion = "#ef4444";
+      posBall = inc.equipo === "local" ? { x: 78, y: 40 } : { x: 22, y: 60 };
+    } else if (txt.includes("corner") || txt.includes("esquina")) {
+      textoAccion = "🚩 TIRO DE ESQUINA (CÓRNER)";
+      colorAccion = "#f59e0b";
+      posBall = inc.equipo === "local" ? { x: 96, y: 12 } : { x: 4, y: 88 };
+    } else if (txt.includes("foul") || txt.includes("falta") || inc.tipo === "amarilla" || inc.tipo === "roja") {
+      textoAccion = "🛑 TIRO LIBRE DIRECTO";
+      colorAccion = "#eab308";
+      posBall = { x: 45, y: 35 };
+    }
+  }
+
+  return (
+    <div style={{ background: "#06130b", borderRadius: 14, padding: 16, border: "1px solid #10b981", position: "relative", overflow: "hidden" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12, flexWrap: "wrap", gap: 8 }}>
+        <span style={{ fontSize: "0.85rem", fontWeight: 800, color: "#34d399", display: "flex", alignItems: "center", gap: 6 }}>
+          🌱 CANCHA 2D EN VIVO
+        </span>
+        <span style={{ background: "rgba(0,0,0,0.7)", color: colorAccion, border: `1px solid ${colorAccion}`, padding: "4px 14px", borderRadius: 20, fontSize: "0.8rem", fontWeight: 900, boxShadow: `0 0 10px ${colorAccion}66` }}>
+          {textoAccion}
+        </span>
+      </div>
+
+      <div style={{ position: "relative", width: "100%", height: 190, background: "linear-gradient(180deg, #15803d 0%, #166534 100%)", borderRadius: 10, border: "2px solid #22c55e", boxShadow: "inset 0 0 24px rgba(0,0,0,0.6)" }}>
+        <svg width="100%" height="100%" style={{ position: "absolute", top: 0, left: 0 }}>
+          <line x1="50%" y1="0" x2="50%" y2="100%" stroke="rgba(255,255,255,0.6)" strokeWidth="2" strokeDasharray="4 2" />
+          <circle cx="50%" cy="50%" r="35" fill="none" stroke="rgba(255,255,255,0.6)" strokeWidth="2" />
+          <circle cx="50%" cy="50%" r="3" fill="rgba(255,255,255,0.9)" />
+
+          <rect x="0" y="25%" width="16%" height="50%" fill="none" stroke="rgba(255,255,255,0.6)" strokeWidth="2" />
+          <rect x="0" y="38%" width="6%" height="24%" fill="none" stroke="rgba(255,255,255,0.6)" strokeWidth="2" />
+
+          <rect x="84%" y="25%" width="16%" height="50%" fill="none" stroke="rgba(255,255,255,0.6)" strokeWidth="2" />
+          <rect x="94%" y="38%" width="6%" height="24%" fill="none" stroke="rgba(255,255,255,0.6)" strokeWidth="2" />
+        </svg>
+
+        <div style={{ position: "absolute", left: 12, top: 12, fontWeight: 900, color: "#ffffff", fontSize: "0.85rem", textShadow: "0 2px 4px rgba(0,0,0,0.9)" }}>
+          🏠 {partido.equipoLocal.nombre}
+        </div>
+        <div style={{ position: "absolute", right: 12, top: 12, fontWeight: 900, color: "#ffffff", fontSize: "0.85rem", textShadow: "0 2px 4px rgba(0,0,0,0.9)" }}>
+          ✈️ {partido.equipoVisitante.nombre}
+        </div>
+
+        <div
+          style={{
+            position: "absolute",
+            left: `${posBall.x}%`,
+            top: `${posBall.y}%`,
+            transform: "translate(-50%, -50%)",
+            transition: "all 0.8s ease-in-out",
+            zIndex: 10,
+          }}
+        >
+          <div style={{ position: "absolute", top: -8, left: -8, width: 34, height: 34, borderRadius: "50%", background: colorAccion, opacity: 0.5, animation: "ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite" }} />
+          <div style={{ fontSize: "1.5rem", filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.9))" }}>
+            ⚽
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function BarraEstadistica({ label, valLocal, valVisitante, unit = "" }: { label: string; valLocal: string | number; valVisitante: string | number; unit?: string }) {
   const nL = parseFloat(String(valLocal).replace("%", "")) || 0;
   const nV = parseFloat(String(valVisitante).replace("%", "")) || 0;
@@ -223,7 +301,8 @@ export default function ExpressPage() {
   const [partidosEnVivo, setPartidosEnVivo] = useState<any[]>([]);
   const [cargandoEnVivo, setCargandoEnVivo] = useState<boolean>(false);
   const [partidoDesplegadoId, setPartidoDesplegadoId] = useState<string | null>(null);
-  const [subTabDetalle, setSubTabDetalle] = useState<Record<string, "stats" | "incidencias">>({});
+  const [subTabDetalle, setSubTabDetalle] = useState<Record<string, "cancha" | "stats">>({});
+  const esSamuel = usuario ? (usuario.nombre.toLowerCase().includes("samuel") || usuario.id === 2) : false;
 
   const cargarPartidosEnVivo = async () => {
     setCargandoEnVivo(true);
@@ -2095,6 +2174,19 @@ export default function ExpressPage() {
               >
                 📊 Tabla de Posiciones
               </div>
+              {esSamuel && (
+                <div
+                  className={`menu-drawer-item ${tabActiva === "en_vivo" ? "active" : ""}`}
+                  onClick={() => {
+                    setTabActiva("en_vivo");
+                    setMenuAbierto(false);
+                    cargarPartidosEnVivo();
+                  }}
+                  style={{ color: "#ff4d4d", fontWeight: 800 }}
+                >
+                  🔴 Partidos y Stats En Vivo
+                </div>
+              )}
               {usuario.rol_id === 2 && (
                 <div
                   className={`menu-drawer-item ${tabActiva === "admin" ? "active" : ""}`}
@@ -2213,32 +2305,34 @@ export default function ExpressPage() {
                     📊 Posiciones
                   </button>
 
-                  <button
-                    className={`btn ${tabActiva === "en_vivo" ? "btn-primary" : "btn-secondary"}`}
-                    onClick={() => {
-                      if (tabActiva === "en_vivo") {
-                        setTabActiva("inicio");
-                      } else {
-                        setTabActiva("en_vivo");
-                        cargarPartidosEnVivo();
-                      }
-                    }}
-                    style={{
-                      padding: "8px 12px",
-                      fontSize: "0.82rem",
-                      fontWeight: 800,
-                      background: tabActiva === "en_vivo" ? "rgba(220, 38, 38, 0.3)" : "transparent",
-                      color: tabActiva === "en_vivo" ? "#ff4d4d" : "#ff5c5c",
-                      border: tabActiva === "en_vivo" ? "1px solid #ef4444" : "1px solid rgba(239, 68, 68, 0.4)",
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: 6,
-                      boxShadow: tabActiva === "en_vivo" ? "0 0 10px rgba(239, 68, 68, 0.4)" : "none",
-                    }}
-                  >
-                    <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#ef4444", boxShadow: "0 0 8px #ef4444" }} />
-                    🔴 EN VIVO
-                  </button>
+                  {esSamuel && (
+                    <button
+                      className={`btn ${tabActiva === "en_vivo" ? "btn-primary" : "btn-secondary"}`}
+                      onClick={() => {
+                        if (tabActiva === "en_vivo") {
+                          setTabActiva("inicio");
+                        } else {
+                          setTabActiva("en_vivo");
+                          cargarPartidosEnVivo();
+                        }
+                      }}
+                      style={{
+                        padding: "8px 12px",
+                        fontSize: "0.82rem",
+                        fontWeight: 800,
+                        background: tabActiva === "en_vivo" ? "rgba(220, 38, 38, 0.3)" : "transparent",
+                        color: tabActiva === "en_vivo" ? "#ff4d4d" : "#ff5c5c",
+                        border: tabActiva === "en_vivo" ? "1px solid #ef4444" : "1px solid rgba(239, 68, 68, 0.4)",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: 6,
+                        boxShadow: tabActiva === "en_vivo" ? "0 0 10px rgba(239, 68, 68, 0.4)" : "none",
+                      }}
+                    >
+                      <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#ef4444", boxShadow: "0 0 8px #ef4444" }} />
+                      🔴 EN VIVO
+                    </button>
+                  )}
 
                   {usuario.rol_id === 2 && (
                     <button
@@ -3502,8 +3596,8 @@ export default function ExpressPage() {
             </div>
           )}
 
-          {/* TAB EN VIVO: PARTIDOS Y ESTADÍSTICAS EN VIVO */}
-          {tabActiva === "en_vivo" && (
+          {/* TAB EN VIVO: PARTIDOS Y ESTADÍSTICAS EN VIVO (SOLO SAMUEL) */}
+          {tabActiva === "en_vivo" && esSamuel && (
             <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
               <div
                 className="card"
@@ -3519,11 +3613,11 @@ export default function ExpressPage() {
                     <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                       <span style={{ width: 12, height: 12, borderRadius: "50%", background: "#ef4444", boxShadow: "0 0 12px #ef4444" }} />
                       <h2 style={{ margin: 0, color: "#ffffff", fontSize: "1.3rem", fontWeight: 900 }}>
-                        Partidos y Estadísticas En Vivo
+                        Partidos y Cancha 2D En Vivo
                       </h2>
                     </div>
                     <p style={{ margin: "4px 0 0", color: "#94a3b8", fontSize: "0.88rem" }}>
-                      Liga BetPlay Colombia — Marcadores, posesión, tiros al arco e incidencias minuto a minuto.
+                      Liga BetPlay Colombia — Simulador visual de cancha 2D, marcadores y estadísticas en tiempo real.
                     </p>
                   </div>
                   <button
@@ -3546,14 +3640,14 @@ export default function ExpressPage() {
                     <div style={{ fontSize: "2rem", marginBottom: 8 }}>🏟️</div>
                     <div style={{ color: "#ffffff", fontWeight: 700, fontSize: "1rem", marginBottom: 4 }}>No hay partidos en curso en este momento</div>
                     <div style={{ color: "#94a3b8", fontSize: "0.85rem" }}>
-                      Los marcadores y estadísticas en vivo de la Liga BetPlay se activan automáticamente durante cada encuentro.
+                      Los marcadores y la Cancha 2D en vivo de la Liga BetPlay se activan automáticamente durante cada encuentro.
                     </div>
                   </div>
                 ) : (
                   <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
                     {partidosEnVivo.map((p) => {
                       const estaDesplegado = partidoDesplegadoId === p.eventId;
-                      const subTab = subTabDetalle[p.eventId] || "stats";
+                      const subTab = subTabDetalle[p.eventId] || "cancha";
 
                       return (
                         <div
@@ -3619,7 +3713,7 @@ export default function ExpressPage() {
                             </div>
                           </div>
 
-                          {/* BOTÓN DESPLEGABLE DE ESTADÍSTICAS */}
+                          {/* BOTÓN DESPLEGABLE DE CANCHA Y ESTADÍSTICAS */}
                           <div style={{ marginTop: 14, textAlign: "center" }}>
                             <button
                               onClick={() => setPartidoDesplegadoId(estaDesplegado ? null : p.eventId)}
@@ -3637,7 +3731,7 @@ export default function ExpressPage() {
                                 gap: 8,
                               }}
                             >
-                              <span>📊 Estadísticas e Incidencias</span>
+                              <span>🌱 Cancha 2D y Estadísticas</span>
                               <span>{estaDesplegado ? "▲" : "▼"}</span>
                             </button>
                           </div>
@@ -3648,6 +3742,21 @@ export default function ExpressPage() {
                               {/* SUB-TABS */}
                               <div style={{ display: "flex", gap: 8, marginBottom: 16, justifyContent: "center" }}>
                                 <button
+                                  onClick={() => setSubTabDetalle({ ...subTabDetalle, [p.eventId]: "cancha" })}
+                                  style={{
+                                    padding: "6px 14px",
+                                    borderRadius: 6,
+                                    border: "none",
+                                    fontSize: "0.82rem",
+                                    fontWeight: 700,
+                                    cursor: "pointer",
+                                    background: subTab === "cancha" ? "#10b981" : "rgba(255,255,255,0.08)",
+                                    color: subTab === "cancha" ? "#ffffff" : "var(--graderia)",
+                                  }}
+                                >
+                                  🌱 Cancha 2D En Vivo
+                                </button>
+                                <button
                                   onClick={() => setSubTabDetalle({ ...subTabDetalle, [p.eventId]: "stats" })}
                                   style={{
                                     padding: "6px 14px",
@@ -3656,28 +3765,18 @@ export default function ExpressPage() {
                                     fontSize: "0.82rem",
                                     fontWeight: 700,
                                     cursor: "pointer",
-                                    background: subTab === "stats" ? "#10b981" : "rgba(255,255,255,0.08)",
+                                    background: subTab === "stats" ? "#38bdf8" : "rgba(255,255,255,0.08)",
                                     color: subTab === "stats" ? "#ffffff" : "var(--graderia)",
                                   }}
                                 >
                                   📊 Estadísticas
                                 </button>
-                                <button
-                                  onClick={() => setSubTabDetalle({ ...subTabDetalle, [p.eventId]: "incidencias" })}
-                                  style={{
-                                    padding: "6px 14px",
-                                    borderRadius: 6,
-                                    border: "none",
-                                    fontSize: "0.82rem",
-                                    fontWeight: 700,
-                                    cursor: "pointer",
-                                    background: subTab === "incidencias" ? "#38bdf8" : "rgba(255,255,255,0.08)",
-                                    color: subTab === "incidencias" ? "#ffffff" : "var(--graderia)",
-                                  }}
-                                >
-                                  ⏱️ Minuto a Minuto ({p.incidencias?.length || 0})
-                                </button>
                               </div>
+
+                              {/* VISTA CANCHA 2D */}
+                              {subTab === "cancha" && (
+                                <Cancha2DVisualizador partido={p} />
+                              )}
 
                               {/* VISTA ESTADÍSTICAS */}
                               {subTab === "stats" && (
@@ -3695,59 +3794,6 @@ export default function ExpressPage() {
                                   ) : (
                                     <div style={{ textAlign: "center", color: "var(--graderia)", fontSize: "0.85rem", padding: 12 }}>
                                       Estadísticas detalladas aún no disponibles para este encuentro.
-                                    </div>
-                                  )}
-                                </div>
-                              )}
-
-                              {/* VISTA MINUTO A MINUTO */}
-                              {subTab === "incidencias" && (
-                                <div style={{ maxWidth: 540, margin: "0 auto" }}>
-                                  {p.incidencias && p.incidencias.length > 0 ? (
-                                    <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                                      {p.incidencias.map((inc: any, idx: number) => {
-                                        let icono = "⚽";
-                                        let colorBg = "rgba(16, 185, 129, 0.15)";
-                                        let colorBorder = "#10b981";
-
-                                        if (inc.tipo === "amarilla") {
-                                          icono = "🟨";
-                                          colorBg = "rgba(245, 158, 11, 0.15)";
-                                          colorBorder = "#f59e0b";
-                                        } else if (inc.tipo === "roja") {
-                                          icono = "🟥";
-                                          colorBg = "rgba(239, 68, 68, 0.15)";
-                                          colorBorder = "#ef4444";
-                                        } else if (inc.tipo === "cambio") {
-                                          icono = "🔄";
-                                          colorBg = "rgba(56, 189, 248, 0.15)";
-                                          colorBorder = "#38bdf8";
-                                        }
-
-                                        return (
-                                          <div
-                                            key={inc.id || idx}
-                                            style={{
-                                              display: "flex",
-                                              alignItems: "center",
-                                              gap: 12,
-                                              padding: "8px 12px",
-                                              borderRadius: 8,
-                                              background: colorBg,
-                                              borderLeft: `3px solid ${colorBorder}`,
-                                              fontSize: "0.85rem",
-                                            }}
-                                          >
-                                            <span style={{ fontWeight: 800, color: "#ffffff", minWidth: 32 }}>{inc.minuto}</span>
-                                            <span style={{ fontSize: "1.1rem" }}>{icono}</span>
-                                            <span style={{ color: "#ffffff", fontWeight: 600 }}>{inc.texto}</span>
-                                          </div>
-                                        );
-                                      })}
-                                    </div>
-                                  ) : (
-                                    <div style={{ textAlign: "center", color: "var(--graderia)", fontSize: "0.85rem", padding: 12 }}>
-                                      Aún no se han registrado eventos destacados en este partido.
                                     </div>
                                   )}
                                 </div>
