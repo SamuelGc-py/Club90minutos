@@ -1,18 +1,10 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
-import { sincronizarMarcadoresEnVivo } from "@/lib/syncLive";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(req: Request) {
   try {
-    // Sincronizar automáticamente resultados en vivo de ESPN si hay partidos en juego
-    try {
-      await sincronizarMarcadoresEnVivo();
-    } catch (e) {
-      console.error("Error silencioso al sincronizar marcadores en vivo:", e);
-    }
-
     const { searchParams } = new URL(req.url);
     const usuarioId = searchParams.get("usuario_id");
 

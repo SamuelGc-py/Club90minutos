@@ -53,6 +53,10 @@ export async function sincronizarMarcadoresEnVivo() {
     if (golesVisitanteReal > golesLocalReal) equipoGanadorId = partido.equipo_visitante_id;
 
     const statusCode = status?.type?.name;
+
+    // Ignorar partidos programados que aún no inician
+    if (statusCode === "STATUS_SCHEDULED" || statusCode === "STATUS_POSTPONED") continue;
+
     const esFinalizado = statusCode === "STATUS_FULL_TIME";
     const nuevoEstado = esFinalizado ? "resultado_cargado" : "resultado_pendiente";
 
