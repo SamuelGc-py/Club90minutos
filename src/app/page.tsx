@@ -48,30 +48,46 @@ interface EstadoMarcador {
 
 function Cancha2DVisualizador({ partido }: { partido: any }) {
   const inc = partido.incidencias?.[0];
-  let textoAccion = "⚽ BALÓN EN DISPUTA CENTRAL";
+  const [offsetPos, setOffsetPos] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    // Mover el balón en vivo dinámicamente cada 2.4s
+    const timer = setInterval(() => {
+      const randomX = (Math.random() - 0.5) * 28;
+      const randomY = (Math.random() - 0.5) * 36;
+      setOffsetPos({ x: randomX, y: randomY });
+    }, 2400);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  let textoAccion = "⚡ JUGADA Y BALÓN EN MOVIMIENTO";
   let colorAccion = "#38bdf8";
-  let posBall = { x: 50, y: 50 };
+  let basePos = { x: 50, y: 50 };
 
   if (inc) {
     const txt = (inc.texto || "").toLowerCase();
     if (inc.tipo === "gol" || txt.includes("goal") || txt.includes("gol")) {
       textoAccion = "⚽ ¡¡¡GOOOOOOL!!!";
       colorAccion = "#10b981";
-      posBall = inc.equipo === "local" ? { x: 92, y: 50 } : { x: 8, y: 50 };
+      basePos = inc.equipo === "local" ? { x: 92, y: 50 } : { x: 8, y: 50 };
     } else if (txt.includes("shot") || txt.includes("remate") || txt.includes("tiro")) {
       textoAccion = "🔥 ATAQUE PELIGROSO DE GOL";
       colorAccion = "#ef4444";
-      posBall = inc.equipo === "local" ? { x: 78, y: 40 } : { x: 22, y: 60 };
+      basePos = inc.equipo === "local" ? { x: 78, y: 40 } : { x: 22, y: 60 };
     } else if (txt.includes("corner") || txt.includes("esquina")) {
       textoAccion = "🚩 TIRO DE ESQUINA (CÓRNER)";
       colorAccion = "#f59e0b";
-      posBall = inc.equipo === "local" ? { x: 96, y: 12 } : { x: 4, y: 88 };
+      basePos = inc.equipo === "local" ? { x: 96, y: 12 } : { x: 4, y: 88 };
     } else if (txt.includes("foul") || txt.includes("falta") || inc.tipo === "amarilla" || inc.tipo === "roja") {
       textoAccion = "🛑 TIRO LIBRE DIRECTO";
       colorAccion = "#eab308";
-      posBall = { x: 45, y: 35 };
+      basePos = { x: 45, y: 35 };
     }
   }
+
+  const finalX = Math.min(94, Math.max(6, basePos.x + (inc ? 0 : offsetPos.x)));
+  const finalY = Math.min(88, Math.max(12, basePos.y + (inc ? 0 : offsetPos.y)));
 
   return (
     <div style={{ background: "#06130b", borderRadius: 14, padding: 16, border: "1px solid #10b981", position: "relative", overflow: "hidden" }}>
@@ -107,10 +123,10 @@ function Cancha2DVisualizador({ partido }: { partido: any }) {
         <div
           style={{
             position: "absolute",
-            left: `${posBall.x}%`,
-            top: `${posBall.y}%`,
+            left: `${finalX}%`,
+            top: `${finalY}%`,
             transform: "translate(-50%, -50%)",
-            transition: "all 0.8s ease-in-out",
+            transition: "all 1.6s cubic-bezier(0.4, 0, 0.2, 1)",
             zIndex: 10,
           }}
         >
