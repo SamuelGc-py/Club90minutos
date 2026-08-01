@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
-import { sincronizarMarcadoresEnVivo } from "@/app/api/sync-live/route";
+import { sincronizarMarcadoresEnVivo } from "@/lib/syncLive";
 
 export const dynamic = "force-dynamic";
 
