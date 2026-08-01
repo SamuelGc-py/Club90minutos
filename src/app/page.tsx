@@ -47,55 +47,58 @@ interface EstadoMarcador {
 }
 
 function Cancha2DVisualizador({ partido }: { partido: any }) {
-  const inc = partido.incidencias?.[0];
-  const [offsetPos, setOffsetPos] = useState({ x: 0, y: 0 });
+  const incidencias: any[] = partido.incidencias || [];
+  const [incidenciaSeleccionada, setIncidenciaSeleccionada] = useState<any | null>(null);
 
-  useEffect(() => {
-    // Mover el balón en vivo dinámicamente cada 2.4s
-    const timer = setInterval(() => {
-      const randomX = (Math.random() - 0.5) * 28;
-      const randomY = (Math.random() - 0.5) * 36;
-      setOffsetPos({ x: randomX, y: randomY });
-    }, 2400);
+  // La incidencia actual es la seleccionada o la primera más reciente del feed de ESPN
+  const incActual = incidenciaSeleccionada || incidencias[0] || null;
 
-    return () => clearInterval(timer);
-  }, []);
-
-  let textoAccion = "⚡ JUGADA Y BALÓN EN MOVIMIENTO";
+  let textoAccion = "⚡ JUGADA EN CURSO / DISPUTA EN CENTRO DE CAMPO";
   let colorAccion = "#38bdf8";
-  let basePos = { x: 50, y: 50 };
+  let posCalculada = { x: 50, y: 50 };
 
-  if (inc) {
-    const txt = (inc.texto || "").toLowerCase();
-    if (inc.tipo === "gol" || txt.includes("goal") || txt.includes("gol")) {
-      textoAccion = "⚽ ¡¡¡GOOOOOOL!!!";
+  if (incActual) {
+    const txt = (incActual.texto || "").toLowerCase();
+    const esLocal = incActual.equipo
+      ? incActual.equipo.toLowerCase().includes(partido.equipoLocal.nombre.toLowerCase().split(" ")[0])
+      : true;
+
+    if (incActual.tipo === "gol" || txt.includes("goal") || txt.includes("gol")) {
+      textoAccion = `⚽ ¡GOOOOOOL! ${incActual.minuto || ""} ${incActual.texto || ""}`;
       colorAccion = "#10b981";
-      basePos = inc.equipo === "local" ? { x: 92, y: 50 } : { x: 8, y: 50 };
+      posCalculada = esLocal ? { x: 92, y: 50 } : { x: 8, y: 50 };
     } else if (txt.includes("shot") || txt.includes("remate") || txt.includes("tiro")) {
-      textoAccion = "🔥 ATAQUE PELIGROSO DE GOL";
+      textoAccion = `🔥 REMATE AL ARCO ${incActual.minuto || ""} - ${incActual.texto || ""}`;
       colorAccion = "#ef4444";
-      basePos = inc.equipo === "local" ? { x: 78, y: 40 } : { x: 22, y: 60 };
+      posCalculada = esLocal ? { x: 78, y: 40 } : { x: 22, y: 60 };
     } else if (txt.includes("corner") || txt.includes("esquina")) {
-      textoAccion = "🚩 TIRO DE ESQUINA (CÓRNER)";
+      textoAccion = `🚩 CÓRNER ${incActual.minuto || ""} - ${incActual.texto || ""}`;
       colorAccion = "#f59e0b";
-      basePos = inc.equipo === "local" ? { x: 96, y: 12 } : { x: 4, y: 88 };
-    } else if (txt.includes("foul") || txt.includes("falta") || inc.tipo === "amarilla" || inc.tipo === "roja") {
-      textoAccion = "🛑 TIRO LIBRE DIRECTO";
+      posCalculada = esLocal ? { x: 96, y: 12 } : { x: 4, y: 88 };
+    } else if (txt.includes("foul") || txt.includes("falta") || incActual.tipo === "amarilla" || incActual.tipo === "roja") {
+      textoAccion = `🛑 FALTA / TARJETA ${incActual.minuto || ""} - ${incActual.texto || ""}`;
       colorAccion = "#eab308";
-      basePos = { x: 45, y: 35 };
+      posCalculada = esLocal ? { x: 42, y: 35 } : { x: 58, y: 65 };
+    } else if (incActual.tipo === "cambio" || txt.includes("sustitucion") || txt.includes("cambio")) {
+      textoAccion = `🔄 CAMBIO ${incActual.minuto || ""} - ${incActual.texto || ""}`;
+      colorAccion = "#a855f7";
+      posCalculada = { x: 50, y: 90 };
+    } else {
+      textoAccion = `⚡ ${incActual.minuto || ""} ${incActual.texto || "Jugada en vivo"}`;
+      posCalculada = esLocal ? { x: 65, y: 45 } : { x: 35, y: 55 };
     }
   }
 
-  const finalX = Math.min(94, Math.max(6, basePos.x + (inc ? 0 : offsetPos.x)));
-  const finalY = Math.min(88, Math.max(12, basePos.y + (inc ? 0 : offsetPos.y)));
+  const finalX = Math.min(94, Math.max(6, posCalculada.x));
+  const finalY = Math.min(88, Math.max(12, posCalculada.y));
 
   return (
     <div style={{ background: "#06130b", borderRadius: 14, padding: 16, border: "1px solid #10b981", position: "relative", overflow: "hidden" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12, flexWrap: "wrap", gap: 8 }}>
         <span style={{ fontSize: "0.85rem", fontWeight: 800, color: "#34d399", display: "flex", alignItems: "center", gap: 6 }}>
-          🌱 CANCHA 2D EN VIVO
+          🌱 CANCHA 2D EN VIVO (JUGADAS REALES DE ESPN)
         </span>
-        <span style={{ background: "rgba(0,0,0,0.7)", color: colorAccion, border: `1px solid ${colorAccion}`, padding: "4px 14px", borderRadius: 20, fontSize: "0.8rem", fontWeight: 900, boxShadow: `0 0 10px ${colorAccion}66` }}>
+        <span style={{ background: "rgba(0,0,0,0.7)", color: colorAccion, border: `1px solid ${colorAccion}`, padding: "4px 14px", borderRadius: 20, fontSize: "0.78rem", fontWeight: 900, boxShadow: `0 0 10px ${colorAccion}66`, maxWidth: "100%", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
           {textoAccion}
         </span>
       </div>
@@ -138,29 +141,59 @@ function Cancha2DVisualizador({ partido }: { partido: any }) {
         </div>
       </div>
 
-      {/* CONTROLES DE SIMULACIÓN Y PRUEBA DE CAMPO EN VIVO */}
-      <div style={{ display: "flex", justifyContent: "center", gap: 8, marginTop: 12, flexWrap: "wrap" }}>
-        <button
-          type="button"
-          onClick={() => setOffsetPos({ x: -28, y: -10 })}
-          style={{ background: "rgba(16, 185, 129, 0.2)", border: "1px solid #10b981", color: "#34d399", padding: "4px 10px", borderRadius: 6, fontSize: "0.75rem", fontWeight: 800, cursor: "pointer" }}
-        >
-          ⚽ Ataque {partido.equipoLocal.nombre}
-        </button>
-        <button
-          type="button"
-          onClick={() => setOffsetPos({ x: 0, y: 0 })}
-          style={{ background: "rgba(56, 189, 248, 0.2)", border: "1px solid #38bdf8", color: "#38bdf8", padding: "4px 10px", borderRadius: 6, fontSize: "0.75rem", fontWeight: 800, cursor: "pointer" }}
-        >
-          🔄 Centro del Campo
-        </button>
-        <button
-          type="button"
-          onClick={() => setOffsetPos({ x: 28, y: 10 })}
-          style={{ background: "rgba(239, 68, 68, 0.2)", border: "1px solid #ef4444", color: "#fca5a5", padding: "4px 10px", borderRadius: 6, fontSize: "0.75rem", fontWeight: 800, cursor: "pointer" }}
-        >
-          ⚽ Ataque {partido.equipoVisitante.nombre}
-        </button>
+      {/* FEED DE JUGADAS DEL PARTIDO EN VIVO (ESPN) */}
+      <div style={{ marginTop: 12, background: "rgba(0,0,0,0.4)", borderRadius: 10, padding: 12, border: "1px solid rgba(255,255,255,0.08)" }}>
+        <div style={{ fontSize: "0.78rem", fontWeight: 800, color: "#94a3b8", marginBottom: 8, display: "flex", justifyContent: "space-between" }}>
+          <span>📋 JUGADAS DEL PARTIDO EN DIRECTO (TOCA CUALQUIERA PARA MOVER EL BALÓN)</span>
+          {incidenciaSeleccionada && (
+            <span
+              onClick={() => setIncidenciaSeleccionada(null)}
+              style={{ color: "#38bdf8", cursor: "pointer", textDecoration: "underline" }}
+            >
+              🔄 Volver al vivo
+            </span>
+          )}
+        </div>
+
+        {incidencias.length === 0 ? (
+          <div style={{ fontSize: "0.8rem", color: "#64748b", fontStyle: "italic", textAlign: "center", padding: 8 }}>
+            Sin incidencias registradas en la transmisión en vivo aún. El balón se ubica en el centro de disputas.
+          </div>
+        ) : (
+          <div style={{ display: "flex", flexDirection: "column", gap: 6, maxHeight: 130, overflowY: "auto" }}>
+            {incidencias.map((item: any, idx: number) => {
+              const esActiva = (incidenciaSeleccionada?.id || incidencias[0]?.id) === item.id;
+              return (
+                <div
+                  key={item.id || idx}
+                  onClick={() => setIncidenciaSeleccionada(item)}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 10,
+                    padding: "6px 10px",
+                    borderRadius: 6,
+                    background: esActiva ? "rgba(56, 189, 248, 0.2)" : "rgba(255,255,255,0.03)",
+                    border: `1px solid ${esActiva ? "#38bdf8" : "transparent"}`,
+                    cursor: "pointer",
+                    fontSize: "0.8rem",
+                    transition: "all 0.15s ease",
+                  }}
+                >
+                  <span style={{ fontWeight: 900, color: "#f5b000", minWidth: 32 }}>
+                    {item.minuto || "0'"}
+                  </span>
+                  <span style={{ flex: 1, color: esActiva ? "#ffffff" : "#cbd5e1", fontWeight: esActiva ? 800 : 500 }}>
+                    {item.texto || item.tipo}
+                  </span>
+                  <span style={{ fontSize: "0.72rem", color: "#94a3b8" }}>
+                    {item.equipo || ""}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );
