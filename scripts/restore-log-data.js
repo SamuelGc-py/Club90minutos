@@ -45,6 +45,10 @@ const backupData = [
   // Águilas Doradas vs Santa Fe
   { matchLocal: 'Águilas', user: 'Ricardo Soto', local: 1, vis: 1, golId: 350 },
 
+  // Pasto vs Águilas Doradas
+  { matchLocal: 'Pasto', user: 'Samuel Gutierrez', local: 1, vis: 1, golId: 143 },
+  { matchLocal: 'Pasto', user: 'Nelson Berdugo', local: 1, vis: 1, golId: 143 },
+
   // Alianza vs Fortaleza
   { matchLocal: 'Alianza', user: 'Ricardo Soto', local: 1, vis: 0, golId: 430 },
 
