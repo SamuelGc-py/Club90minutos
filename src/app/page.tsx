@@ -121,20 +121,46 @@ function Cancha2DVisualizador({ partido }: { partido: any }) {
         </div>
 
         <div
+          className="balon-animado-cancha"
           style={{
             position: "absolute",
             left: `${finalX}%`,
             top: `${finalY}%`,
             transform: "translate(-50%, -50%)",
-            transition: "all 1.6s cubic-bezier(0.4, 0, 0.2, 1)",
+            transition: "all 1.4s cubic-bezier(0.4, 0, 0.2, 1)",
             zIndex: 10,
           }}
         >
           <div style={{ position: "absolute", top: -8, left: -8, width: 34, height: 34, borderRadius: "50%", background: colorAccion, opacity: 0.5, animation: "ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite" }} />
-          <div style={{ fontSize: "1.5rem", filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.9))" }}>
+          <div style={{ fontSize: "1.6rem", filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.9))" }}>
             ⚽
           </div>
         </div>
+      </div>
+
+      {/* CONTROLES DE SIMULACIÓN Y PRUEBA DE CAMPO EN VIVO */}
+      <div style={{ display: "flex", justifyContent: "center", gap: 8, marginTop: 12, flexWrap: "wrap" }}>
+        <button
+          type="button"
+          onClick={() => setOffsetPos({ x: -28, y: -10 })}
+          style={{ background: "rgba(16, 185, 129, 0.2)", border: "1px solid #10b981", color: "#34d399", padding: "4px 10px", borderRadius: 6, fontSize: "0.75rem", fontWeight: 800, cursor: "pointer" }}
+        >
+          ⚽ Ataque {partido.equipoLocal.nombre}
+        </button>
+        <button
+          type="button"
+          onClick={() => setOffsetPos({ x: 0, y: 0 })}
+          style={{ background: "rgba(56, 189, 248, 0.2)", border: "1px solid #38bdf8", color: "#38bdf8", padding: "4px 10px", borderRadius: 6, fontSize: "0.75rem", fontWeight: 800, cursor: "pointer" }}
+        >
+          🔄 Centro del Campo
+        </button>
+        <button
+          type="button"
+          onClick={() => setOffsetPos({ x: 28, y: 10 })}
+          style={{ background: "rgba(239, 68, 68, 0.2)", border: "1px solid #ef4444", color: "#fca5a5", padding: "4px 10px", borderRadius: 6, fontSize: "0.75rem", fontWeight: 800, cursor: "pointer" }}
+        >
+          ⚽ Ataque {partido.equipoVisitante.nombre}
+        </button>
       </div>
     </div>
   );
