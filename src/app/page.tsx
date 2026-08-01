@@ -46,6 +46,27 @@ interface EstadoMarcador {
   goleador_id: string;
 }
 
+function BarraEstadistica({ label, valLocal, valVisitante, unit = "" }: { label: string; valLocal: string | number; valVisitante: string | number; unit?: string }) {
+  const nL = parseFloat(String(valLocal).replace("%", "")) || 0;
+  const nV = parseFloat(String(valVisitante).replace("%", "")) || 0;
+  const total = nL + nV || 1;
+  const pctL = Math.round((nL / total) * 100);
+
+  return (
+    <div style={{ marginBottom: 12 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.82rem", fontWeight: 700, marginBottom: 4, color: "#ffffff" }}>
+        <span style={{ color: "#34d399" }}>{valLocal}{unit}</span>
+        <span style={{ color: "#cbd5e1", fontSize: "0.78rem" }}>{label}</span>
+        <span style={{ color: "#38bdf8" }}>{valVisitante}{unit}</span>
+      </div>
+      <div style={{ height: 8, background: "rgba(255,255,255,0.08)", borderRadius: 4, overflow: "hidden", display: "flex" }}>
+        <div style={{ width: `${pctL}%`, background: "#10b981", transition: "width 0.5s ease" }} />
+        <div style={{ flex: 1, background: "#38bdf8", transition: "width 0.5s ease" }} />
+      </div>
+    </div>
+  );
+}
+
 function RelojCuentaRegresiva({
   fechaHoraPartido,
   estado,
@@ -198,7 +219,38 @@ export default function ExpressPage() {
   const [cargandoMaestros, setCargandoMaestros] = useState(false);
 
   // Estado del Formulario (Pestañas)
-  const [tabActiva, setTabActiva] = useState<"inicio" | "partidos" | "inicial" | "mis_pronosticos" | "admin" | "posiciones">("inicio");
+  const [tabActiva, setTabActiva] = useState<"inicio" | "partidos" | "inicial" | "mis_pronosticos" | "admin" | "posiciones" | "en_vivo">("inicio");
+  const [partidosEnVivo, setPartidosEnVivo] = useState<any[]>([]);
+  const [cargandoEnVivo, setCargandoEnVivo] = useState<boolean>(false);
+  const [partidoDesplegadoId, setPartidoDesplegadoId] = useState<string | null>(null);
+  const [subTabDetalle, setSubTabDetalle] = useState<Record<string, "stats" | "incidencias">>({});
+
+  const cargarPartidosEnVivo = async () => {
+    setCargandoEnVivo(true);
+    try {
+      const res = await fetch("/api/partidos-en-vivo", { cache: "no-store" });
+      const data = await res.json();
+      if (data.partidos) {
+        setPartidosEnVivo(data.partidos);
+        if (data.partidos.length > 0 && !partidoDesplegadoId) {
+          setPartidoDesplegadoId(data.partidos[0].eventId);
+        }
+      }
+    } catch (err) {
+      console.error("Error al cargar partidos en vivo:", err);
+    } finally {
+      setCargandoEnVivo(false);
+    }
+  };
+
+  useEffect(() => {
+    if (tabActiva === "en_vivo") {
+      cargarPartidosEnVivo();
+      const interval = setInterval(cargarPartidosEnVivo, 15000);
+      return () => clearInterval(interval);
+    }
+  }, [tabActiva]);
+
   const [menuAbierto, setMenuAbierto] = useState(false);
   const [mostrarBienvenida, setMostrarBienvenida] = useState(true);
   const [campeonId, setCampeonId] = useState<number | "">("");
@@ -2118,6 +2170,29 @@ export default function ExpressPage() {
                     📊 Tabla de Posiciones
                   </button>
 
+                  <button
+                    className={`btn ${tabActiva === "en_vivo" ? "btn-danger" : "btn-secondary"}`}
+                    onClick={() => {
+                      setTabActiva("en_vivo");
+                      cargarPartidosEnVivo();
+                    }}
+                    style={{
+                      padding: "10px 14px",
+                      fontSize: "0.85rem",
+                      background: tabActiva === "en_vivo" ? "linear-gradient(135deg, #b91c1c 0%, #dc2626 100%)" : "rgba(220, 38, 38, 0.15)",
+                      color: "#ff4d4d",
+                      border: "1px solid #ef4444",
+                      fontWeight: 800,
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 6,
+                      boxShadow: "0 0 10px rgba(239, 68, 68, 0.3)",
+                    }}
+                  >
+                    <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#ef4444", boxShadow: "0 0 8px #ef4444" }} />
+                    🔴 EN VIVO
+                  </button>
+
                   {usuario.rol_id === 2 && (
                     <button
                       className={`btn ${tabActiva === "admin" ? "btn-primary" : "btn-secondary"}`}
@@ -2249,6 +2324,25 @@ export default function ExpressPage() {
                     <div style={{ fontSize: "1.8rem", marginBottom: 8 }}>📊</div>
                     <div style={{ fontWeight: 800, fontSize: "1.1rem", color: "#fff", marginBottom: 4 }}>Tabla de Posiciones</div>
                     <div style={{ fontSize: "0.82rem", color: "#bae6fd" }}>Consulta la tabla general de posiciones y puntos acumulados.</div>
+                  </div>
+
+                  <div
+                    onClick={() => {
+                      setTabActiva("en_vivo");
+                      cargarPartidosEnVivo();
+                    }}
+                    style={{
+                      background: "linear-gradient(135deg, #450a0a 0%, #7f1d1d 100%)",
+                      border: "1px solid #ef4444",
+                      borderRadius: 12,
+                      padding: 20,
+                      cursor: "pointer",
+                      boxShadow: "0 4px 14px rgba(239, 68, 68, 0.2)",
+                    }}
+                  >
+                    <div style={{ fontSize: "1.8rem", marginBottom: 8 }}>🔴</div>
+                    <div style={{ fontWeight: 800, fontSize: "1.1rem", color: "#fff", marginBottom: 4 }}>Partidos y Stats En Vivo</div>
+                    <div style={{ fontSize: "0.82rem", color: "#fca5a5" }}>Marcadores, posesión, tiros al arco e incidencias minuto a minuto.</div>
                   </div>
                 </div>
 
@@ -3355,6 +3449,268 @@ export default function ExpressPage() {
                   tabla={consolidados.tablaPosiciones || []}
                 />
               )}
+            </div>
+          )}
+
+          {/* TAB EN VIVO: PARTIDOS Y ESTADÍSTICAS EN VIVO */}
+          {tabActiva === "en_vivo" && (
+            <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+              <div
+                className="card"
+                style={{
+                  background: "linear-gradient(135deg, rgba(24, 15, 20, 0.95) 0%, rgba(35, 18, 25, 0.95) 100%)",
+                  border: "1px solid rgba(239, 68, 68, 0.4)",
+                  borderRadius: 16,
+                  padding: "24px",
+                }}
+              >
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12, marginBottom: 16 }}>
+                  <div>
+                    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                      <span style={{ width: 12, height: 12, borderRadius: "50%", background: "#ef4444", boxShadow: "0 0 12px #ef4444" }} />
+                      <h2 style={{ margin: 0, color: "#ffffff", fontSize: "1.3rem", fontWeight: 900 }}>
+                        Partidos y Estadísticas En Vivo
+                      </h2>
+                    </div>
+                    <p style={{ margin: "4px 0 0", color: "#94a3b8", fontSize: "0.88rem" }}>
+                      Liga BetPlay Colombia — Marcadores, posesión, tiros al arco e incidencias minuto a minuto.
+                    </p>
+                  </div>
+                  <button
+                    className="btn btn-secondary"
+                    onClick={cargarPartidosEnVivo}
+                    disabled={cargandoEnVivo}
+                    style={{ padding: "8px 14px", fontSize: "0.82rem", display: "inline-flex", alignItems: "center", gap: 6 }}
+                  >
+                    <RefreshCw size={14} className={cargandoEnVivo ? "spin" : ""} />
+                    {cargandoEnVivo ? "Actualizando..." : "Actualizar Ahora"}
+                  </button>
+                </div>
+
+                {cargandoEnVivo && partidosEnVivo.length === 0 ? (
+                  <div style={{ textAlign: "center", padding: 40 }}>
+                    <RefreshCw className="spin" size={32} style={{ color: "#ef4444", marginBottom: 12 }} />
+                    <div style={{ color: "#ffffff", fontWeight: 700 }}>Conectando con la API en vivo...</div>
+                  </div>
+                ) : partidosEnVivo.length === 0 ? (
+                  <div style={{ textAlign: "center", padding: 36, background: "rgba(0,0,0,0.2)", borderRadius: 12, border: "1px dashed var(--linea)" }}>
+                    <div style={{ fontSize: "2rem", marginBottom: 8 }}>🏟️</div>
+                    <div style={{ color: "#ffffff", fontWeight: 700, fontSize: "1rem", marginBottom: 4 }}>No hay partidos en curso en este momento</div>
+                    <div style={{ color: "#94a3b8", fontSize: "0.85rem" }}>
+                      Los marcadores y estadísticas en vivo de la Liga BetPlay se activan automáticamente durante cada encuentro.
+                    </div>
+                  </div>
+                ) : (
+                  <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                    {partidosEnVivo.map((p) => {
+                      const estaDesplegado = partidoDesplegadoId === p.eventId;
+                      const subTab = subTabDetalle[p.eventId] || "stats";
+
+                      return (
+                        <div
+                          key={p.eventId}
+                          style={{
+                            background: "var(--tribuna)",
+                            border: p.esEnVivo ? "1px solid rgba(239, 68, 68, 0.5)" : "1px solid var(--linea)",
+                            borderRadius: 12,
+                            padding: 18,
+                            boxShadow: p.esEnVivo ? "0 4px 20px rgba(239, 68, 68, 0.15)" : "none",
+                          }}
+                        >
+                          {/* ENCABEZADO PARTIDO */}
+                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14, fontSize: "0.82rem", color: "var(--graderia)", borderBottom: "1px dashed var(--linea)", paddingBottom: 8, flexWrap: "wrap", gap: 8 }}>
+                            <span style={{ fontWeight: 700, color: "var(--cancha)" }}>
+                              🏟️ {p.estadio}
+                            </span>
+                            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                              {p.esEnVivo ? (
+                                <span style={{ background: "rgba(220, 38, 38, 0.25)", color: "#ff4d4d", border: "1px solid rgba(239, 68, 68, 0.6)", padding: "4px 10px", borderRadius: 20, fontSize: "0.78rem", fontWeight: 800, display: "inline-flex", alignItems: "center", gap: 6, boxShadow: "0 0 10px rgba(239, 68, 68, 0.4)" }}>
+                                  <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#ef4444", boxShadow: "0 0 8px #ef4444" }} />
+                                  🟢 EN VIVO {p.reloj}
+                                </span>
+                              ) : p.esFinalizado ? (
+                                <span style={{ background: "rgba(16, 185, 129, 0.2)", color: "#10b981", border: "1px solid rgba(16, 185, 129, 0.4)", padding: "4px 10px", borderRadius: 20, fontSize: "0.78rem", fontWeight: 800 }}>
+                                  ⚽ FINALIZADO
+                                </span>
+                              ) : (
+                                <span style={{ background: "var(--noche-2)", color: "#ffffff", padding: "4px 10px", borderRadius: 20, fontSize: "0.78rem", fontWeight: 600 }}>
+                                  📅 {p.estadoDetail}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+
+                          {/* TABLERO DE MARCADOR */}
+                          <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", alignItems: "center", gap: 12, margin: "14px 0" }}>
+                            {/* LOCAL */}
+                            <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 10, textAlign: "right" }}>
+                              <span style={{ fontWeight: 800, fontSize: "1.05rem", color: "#ffffff" }}>
+                                {p.equipoLocal.nombre}
+                              </span>
+                              {p.equipoLocal.escudo && (
+                                <img src={p.equipoLocal.escudo} alt={p.equipoLocal.nombre} style={{ width: 36, height: 36, objectFit: "contain" }} />
+                              )}
+                            </div>
+
+                            {/* CAJA MARCADOR */}
+                            <div style={{ background: "var(--noche-2)", padding: "8px 22px", borderRadius: 10, border: "1px solid var(--cancha-borde)", display: "flex", alignItems: "center", gap: 8, fontSize: "1.6rem", fontWeight: 900, color: "#ffffff" }}>
+                              <span>{p.equipoLocal.goles}</span>
+                              <span style={{ color: "var(--graderia)", fontSize: "1.2rem" }}>:</span>
+                              <span>{p.equipoVisitante.goles}</span>
+                            </div>
+
+                            {/* VISITANTE */}
+                            <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-start", gap: 10, textAlign: "left" }}>
+                              {p.equipoVisitante.escudo && (
+                                <img src={p.equipoVisitante.escudo} alt={p.equipoVisitante.nombre} style={{ width: 36, height: 36, objectFit: "contain" }} />
+                              )}
+                              <span style={{ fontWeight: 800, fontSize: "1.05rem", color: "#ffffff" }}>
+                                {p.equipoVisitante.nombre}
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* BOTÓN DESPLEGABLE DE ESTADÍSTICAS */}
+                          <div style={{ marginTop: 14, textAlign: "center" }}>
+                            <button
+                              onClick={() => setPartidoDesplegadoId(estaDesplegado ? null : p.eventId)}
+                              style={{
+                                background: "rgba(255, 255, 255, 0.04)",
+                                border: "1px solid var(--linea)",
+                                color: "#38bdf8",
+                                borderRadius: 8,
+                                padding: "8px 16px",
+                                fontSize: "0.85rem",
+                                fontWeight: 700,
+                                cursor: "pointer",
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: 8,
+                              }}
+                            >
+                              <span>📊 Estadísticas e Incidencias</span>
+                              <span>{estaDesplegado ? "▲" : "▼"}</span>
+                            </button>
+                          </div>
+
+                          {/* CONTENIDO DESPLEGABLE */}
+                          {estaDesplegado && (
+                            <div style={{ marginTop: 16, paddingTop: 16, borderTop: "1px dashed var(--linea)", background: "rgba(0,0,0,0.2)", borderRadius: 10, padding: 16 }}>
+                              {/* SUB-TABS */}
+                              <div style={{ display: "flex", gap: 8, marginBottom: 16, justifyContent: "center" }}>
+                                <button
+                                  onClick={() => setSubTabDetalle({ ...subTabDetalle, [p.eventId]: "stats" })}
+                                  style={{
+                                    padding: "6px 14px",
+                                    borderRadius: 6,
+                                    border: "none",
+                                    fontSize: "0.82rem",
+                                    fontWeight: 700,
+                                    cursor: "pointer",
+                                    background: subTab === "stats" ? "#10b981" : "rgba(255,255,255,0.08)",
+                                    color: subTab === "stats" ? "#ffffff" : "var(--graderia)",
+                                  }}
+                                >
+                                  📊 Estadísticas
+                                </button>
+                                <button
+                                  onClick={() => setSubTabDetalle({ ...subTabDetalle, [p.eventId]: "incidencias" })}
+                                  style={{
+                                    padding: "6px 14px",
+                                    borderRadius: 6,
+                                    border: "none",
+                                    fontSize: "0.82rem",
+                                    fontWeight: 700,
+                                    cursor: "pointer",
+                                    background: subTab === "incidencias" ? "#38bdf8" : "rgba(255,255,255,0.08)",
+                                    color: subTab === "incidencias" ? "#ffffff" : "var(--graderia)",
+                                  }}
+                                >
+                                  ⏱️ Minuto a Minuto ({p.incidencias?.length || 0})
+                                </button>
+                              </div>
+
+                              {/* VISTA ESTADÍSTICAS */}
+                              {subTab === "stats" && (
+                                <div>
+                                  {p.estadisticas ? (
+                                    <div style={{ maxWidth: 500, margin: "0 auto" }}>
+                                      <BarraEstadistica label="Posesión de Balón" valLocal={p.estadisticas.posesionLocal} valVisitante={p.estadisticas.posesionVisitante} unit="%" />
+                                      <BarraEstadistica label="Remates al Arco" valLocal={p.estadisticas.rematesArcoLocal} valVisitante={p.estadisticas.rematesArcoVisitante} />
+                                      <BarraEstadistica label="Remates Totales" valLocal={p.estadisticas.rematesLocal} valVisitante={p.estadisticas.rematesVisitante} />
+                                      <BarraEstadistica label="Tiros de Esquina" valLocal={p.estadisticas.cornersLocal} valVisitante={p.estadisticas.cornersVisitante} />
+                                      <BarraEstadistica label="Faltas Cometidas" valLocal={p.estadisticas.faltasLocal} valVisitante={p.estadisticas.faltasVisitante} />
+                                      <BarraEstadistica label="Tarjetas Amarillas" valLocal={p.estadisticas.amarillasLocal} valVisitante={p.estadisticas.amarillasVisitante} />
+                                      <BarraEstadistica label="Tarjetas Rojas" valLocal={p.estadisticas.rojasLocal} valVisitante={p.estadisticas.rojasVisitante} />
+                                    </div>
+                                  ) : (
+                                    <div style={{ textAlign: "center", color: "var(--graderia)", fontSize: "0.85rem", padding: 12 }}>
+                                      Estadísticas detalladas aún no disponibles para este encuentro.
+                                    </div>
+                                  )}
+                                </div>
+                              )}
+
+                              {/* VISTA MINUTO A MINUTO */}
+                              {subTab === "incidencias" && (
+                                <div style={{ maxWidth: 540, margin: "0 auto" }}>
+                                  {p.incidencias && p.incidencias.length > 0 ? (
+                                    <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                                      {p.incidencias.map((inc: any, idx: number) => {
+                                        let icono = "⚽";
+                                        let colorBg = "rgba(16, 185, 129, 0.15)";
+                                        let colorBorder = "#10b981";
+
+                                        if (inc.tipo === "amarilla") {
+                                          icono = "🟨";
+                                          colorBg = "rgba(245, 158, 11, 0.15)";
+                                          colorBorder = "#f59e0b";
+                                        } else if (inc.tipo === "roja") {
+                                          icono = "🟥";
+                                          colorBg = "rgba(239, 68, 68, 0.15)";
+                                          colorBorder = "#ef4444";
+                                        } else if (inc.tipo === "cambio") {
+                                          icono = "🔄";
+                                          colorBg = "rgba(56, 189, 248, 0.15)";
+                                          colorBorder = "#38bdf8";
+                                        }
+
+                                        return (
+                                          <div
+                                            key={inc.id || idx}
+                                            style={{
+                                              display: "flex",
+                                              alignItems: "center",
+                                              gap: 12,
+                                              padding: "8px 12px",
+                                              borderRadius: 8,
+                                              background: colorBg,
+                                              borderLeft: `3px solid ${colorBorder}`,
+                                              fontSize: "0.85rem",
+                                            }}
+                                          >
+                                            <span style={{ fontWeight: 800, color: "#ffffff", minWidth: 32 }}>{inc.minuto}</span>
+                                            <span style={{ fontSize: "1.1rem" }}>{icono}</span>
+                                            <span style={{ color: "#ffffff", fontWeight: 600 }}>{inc.texto}</span>
+                                          </div>
+                                        );
+                                      })}
+                                    </div>
+                                  ) : (
+                                    <div style={{ textAlign: "center", color: "var(--graderia)", fontSize: "0.85rem", padding: 12 }}>
+                                      Aún no se han registrado eventos destacados en este partido.
+                                    </div>
+                                  )}
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
             </div>
           )}
 
