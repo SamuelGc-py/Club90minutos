@@ -1,5 +1,4 @@
 import { prisma } from "@/lib/db";
-import { calcularPuntosPartido } from "@/lib/calculadorPuntos";
 
 export async function sincronizarMarcadoresEnVivo() {
   const res = await fetch(
@@ -55,42 +54,34 @@ export async function sincronizarMarcadoresEnVivo() {
 
     const statusCode = status?.type?.name;
     const esFinalizado = statusCode === "STATUS_FULL_TIME";
+    const nuevoEstado = esFinalizado ? "resultado_cargado" : "resultado_pendiente";
 
     const admin = await prisma.usuario.findFirst({
       where: { rol: { nombre: "administrador" } },
     });
 
-    if (esFinalizado) {
-      await calcularPuntosPartido(
-        partido.id,
-        golesLocalReal,
-        golesVisitanteReal,
-        [],
-        admin ? admin.id : 1
-      );
-    } else {
-      await prisma.resultadoOficial.upsert({
-        where: { partido_id: partido.id },
-        update: {
-          goles_local_real: golesLocalReal,
-          goles_visitante_real: golesVisitanteReal,
-          equipo_ganador_id: equipoGanadorId,
-          timestamp_ingreso: new Date(),
-        },
-        create: {
-          partido_id: partido.id,
-          goles_local_real: golesLocalReal,
-          goles_visitante_real: golesVisitanteReal,
-          equipo_ganador_id: equipoGanadorId,
-          ingresado_por_usuario_id: admin ? admin.id : 1,
-        },
-      });
+    // ÚNICAMENTE actualiza el Marcador Oficial sin alterar ni liquidar puntos
+    await prisma.resultadoOficial.upsert({
+      where: { partido_id: partido.id },
+      update: {
+        goles_local_real: golesLocalReal,
+        goles_visitante_real: golesVisitanteReal,
+        equipo_ganador_id: equipoGanadorId,
+        timestamp_ingreso: new Date(),
+      },
+      create: {
+        partido_id: partido.id,
+        goles_local_real: golesLocalReal,
+        goles_visitante_real: golesVisitanteReal,
+        equipo_ganador_id: equipoGanadorId,
+        ingresado_por_usuario_id: admin ? admin.id : 1,
+      },
+    });
 
-      await prisma.partido.update({
-        where: { id: partido.id },
-        data: { estado: "resultado_pendiente" },
-      });
-    }
+    await prisma.partido.update({
+      where: { id: partido.id },
+      data: { estado: nuevoEstado },
+    });
 
     actualizados++;
   }
