@@ -2573,7 +2573,7 @@ export default function ExpressPage() {
                     const estaCerrado = estaCerradoGeneral;
                     const deshabilitarMarcador = estaCerradoGeneral;
 
-                    const estaCardAbierta = partidosDesplegados[partido.id] ?? false;
+                    const estaCardAbierta = partidosDesplegados[partido.id] ?? (estaCerrado ? true : false);
 
                     return (
                       <div
@@ -3627,6 +3627,8 @@ export default function ExpressPage() {
               ) : (
                 <TablaPosicionesAfiche
                   tabla={consolidados.tablaPosiciones || []}
+                  prediccionesPartidos={consolidados.prediccionesPartidos || []}
+                  prediccionesIniciales={consolidados.prediccionesIniciales || []}
                 />
               )}
             </div>

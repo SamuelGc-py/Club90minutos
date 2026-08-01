@@ -19,16 +19,21 @@ export interface FilaTablaPosiciones {
 
 interface TablaPosicionesAficheProps {
   tabla: FilaTablaPosiciones[];
+  prediccionesPartidos?: any[];
+  prediccionesIniciales?: any[];
   nombrePolla?: string;
   onDescargarExcelPronosticos?: () => void;
 }
 
 export default function TablaPosicionesAfiche({
   tabla,
+  prediccionesPartidos = [],
+  prediccionesIniciales = [],
   nombrePolla = "Polla Liga BetPlay Dimayor",
 }: TablaPosicionesAficheProps) {
   const printRef = useRef<HTMLDivElement>(null);
   const [generandoImagen, setGenerandoImagen] = useState(false);
+  const [usuariosDesplegados, setUsuariosDesplegados] = useState<Record<number, boolean>>({});
 
   const handlePrint = () => {
     window.print();
@@ -557,9 +562,9 @@ export default function TablaPosicionesAfiche({
                   const esTercero = row.posicion === 3;
 
                   return (
-                    <tr
-                      key={row.usuario_id}
-                      style={{
+                    <React.Fragment key={row.usuario_id}>
+                      <tr
+                        style={{
                         backgroundColor: esPrimero
                           ? "#fffbeb"
                           : esSegundo
@@ -656,11 +661,177 @@ export default function TablaPosicionesAfiche({
                       >
                         {row.pts_total}
                       </td>
+
+                      {/* ACCIÓN VER PRONÓSTICOS */}
+                      <td style={{ padding: "8px 6px", textAlign: "center", borderLeft: "1px solid #cbd5e1" }}>
+                        <button
+                          type="button"
+                          onClick={() => setUsuariosDesplegados(prev => ({ ...prev, [row.usuario_id]: !usuariosDesplegados[row.usuario_id] }))}
+                          style={{
+                            background: usuariosDesplegados[row.usuario_id]
+                              ? "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)"
+                              : "linear-gradient(135deg, #0284c7 0%, #0369a1 100%)",
+                            color: "#ffffff",
+                            border: "none",
+                            borderRadius: 6,
+                            padding: "6px 12px",
+                            fontSize: "0.75rem",
+                            fontWeight: 800,
+                            cursor: "pointer",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: 4,
+                            whiteSpace: "nowrap",
+                            boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
+                            transition: "all 0.15s ease",
+                          }}
+                        >
+                          {usuariosDesplegados[row.usuario_id] ? "❌ Cerrar" : "👁️ Ver Pronósticos"}
+                        </button>
+                      </td>
                     </tr>
-                  );
-                })
-              )}
-            </tbody>
+
+                    {/* PANEL EXPANDIBLE DE PRONÓSTICOS DE ESTE JUGADOR */}
+                    {usuariosDesplegados[row.usuario_id] && (
+                      <tr key={`desplegado-${row.usuario_id}`} style={{ backgroundColor: "#0b192c" }}>
+                        <td colSpan={11} style={{ padding: "16px 20px", color: "#ffffff", textAlign: "left" }}>
+                          <div
+                            style={{
+                              background: "#0f233a",
+                              border: "2px solid #38bdf8",
+                              borderRadius: 12,
+                              padding: 20,
+                              boxShadow: "0 10px 25px rgba(0,0,0,0.4)",
+                            }}
+                          >
+                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16, borderBottom: "1px dashed rgba(255,255,255,0.15)", paddingBottom: 10, flexWrap: "wrap", gap: 8 }}>
+                              <div>
+                                <h4 style={{ margin: 0, color: "#38bdf8", fontSize: "1.1rem", fontWeight: 900, display: "flex", alignItems: "center", gap: 8 }}>
+                                  📋 Pronósticos Registrados de {row.nombre_completo}
+                                </h4>
+                                <span style={{ fontSize: "0.78rem", color: "#cbd5e1" }}>
+                                  {row.correo}
+                                </span>
+                              </div>
+                              <button
+                                type="button"
+                                onClick={() => setUsuariosDesplegados(prev => ({ ...prev, [row.usuario_id]: false }))}
+                                style={{
+                                  background: "rgba(255, 255, 255, 0.08)",
+                                  border: "1px solid #94a3b8",
+                                  color: "#ffffff",
+                                  padding: "4px 10px",
+                                  borderRadius: 6,
+                                  fontSize: "0.75rem",
+                                  fontWeight: 700,
+                                  cursor: "pointer",
+                                }}
+                              >
+                                ✕ Cerrar Vista
+                              </button>
+                            </div>
+
+                            {/* PRONÓSTICO INICIAL TORNEO */}
+                            {(() => {
+                              const pi = prediccionesIniciales.find((p: any) => p.usuario_id === row.usuario_id || p.usuario?.correo === row.correo);
+                              return (
+                                <div style={{ background: "rgba(255, 255, 255, 0.04)", borderRadius: 10, padding: 14, marginBottom: 16, border: "1px solid rgba(245, 176, 0, 0.3)" }}>
+                                  <div style={{ fontSize: "0.85rem", fontWeight: 900, color: "#f5b000", marginBottom: 10, display: "flex", alignItems: "center", gap: 6 }}>
+                                    🏆 PRONÓSTICO INICIAL DEL TORNEO
+                                  </div>
+                                  {pi ? (
+                                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 12, fontSize: "0.85rem" }}>
+                                      <div style={{ background: "rgba(0,0,0,0.3)", padding: 10, borderRadius: 6, border: "1px solid rgba(255,255,255,0.05)" }}>
+                                        <span style={{ color: "#94a3b8", display: "block", fontSize: "0.75rem", fontWeight: 700 }}>🥇 CAMPEÓN PREDICHO</span>
+                                        <strong style={{ color: "#ffffff", fontSize: "0.95rem" }}>{pi.campeon?.nombre || "No seleccionado"}</strong>
+                                      </div>
+                                      <div style={{ background: "rgba(0,0,0,0.3)", padding: 10, borderRadius: 6, border: "1px solid rgba(255,255,255,0.05)" }}>
+                                        <span style={{ color: "#94a3b8", display: "block", fontSize: "0.75rem", fontWeight: 700 }}>🥈 FINALISTA 1</span>
+                                        <strong style={{ color: "#ffffff", fontSize: "0.95rem" }}>{pi.finalista_1?.nombre || "No seleccionado"}</strong>
+                                      </div>
+                                      <div style={{ background: "rgba(0,0,0,0.3)", padding: 10, borderRadius: 6, border: "1px solid rgba(255,255,255,0.05)" }}>
+                                        <span style={{ color: "#94a3b8", display: "block", fontSize: "0.75rem", fontWeight: 700 }}>🥈 FINALISTA 2</span>
+                                        <strong style={{ color: "#ffffff", fontSize: "0.95rem" }}>{pi.finalista_2?.nombre || "No seleccionado"}</strong>
+                                      </div>
+                                      <div style={{ background: "rgba(0,0,0,0.3)", padding: 10, borderRadius: 6, border: "1px solid rgba(255,255,255,0.05)" }}>
+                                        <span style={{ color: "#94a3b8", display: "block", fontSize: "0.75rem", fontWeight: 700 }}>👟 GOLEADOR DEL TORNEO</span>
+                                        <strong style={{ color: "#34d399", fontSize: "0.95rem" }}>{pi.goleador_torneo?.nombre || "No seleccionado"}</strong>
+                                      </div>
+                                    </div>
+                                  ) : (
+                                    <div style={{ fontSize: "0.82rem", color: "#94a3b8", fontStyle: "italic" }}>
+                                      Sin pronóstico de torneo registrado.
+                                    </div>
+                                  )}
+                                </div>
+                              );
+                            })()}
+
+                            {/* PRONÓSTICOS FECHA 2 (PARTIDOS) */}
+                            <div>
+                              <div style={{ fontSize: "0.88rem", fontWeight: 900, color: "#34d399", marginBottom: 12, display: "flex", alignItems: "center", gap: 6 }}>
+                                ⚽ PRONÓSTICOS DE PARTIDOS (FECHA 2)
+                              </div>
+
+                              {(() => {
+                                const listaMatch = prediccionesPartidos.filter((p: any) => p.usuario_id === row.usuario_id || p.usuario?.correo === row.correo);
+                                if (listaMatch.length === 0) {
+                                  return (
+                                    <div style={{ fontSize: "0.85rem", color: "#94a3b8", fontStyle: "italic", background: "rgba(0,0,0,0.3)", padding: 14, borderRadius: 8, textAlign: "center" }}>
+                                      No hay pronósticos de partidos guardados para este participante aún.
+                                    </div>
+                                  );
+                                }
+
+                                return (
+                                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 12 }}>
+                                    {listaMatch.map((pm: any) => {
+                                      const local = pm.partido?.equipo_local?.nombre || "Local";
+                                      const visitante = pm.partido?.equipo_visitante?.nombre || "Visitante";
+                                      const marcador = `${pm.goles_local_predicho} - ${pm.goles_visitante_predicho}`;
+                                      const goleador = pm.jugador_goleador?.nombre || "Sin goleador (0 - 0)";
+
+                                      return (
+                                        <div
+                                          key={pm.id || pm.partido_id}
+                                          style={{
+                                            background: "rgba(0,0,0,0.4)",
+                                            border: "1px solid rgba(56, 189, 248, 0.3)",
+                                            borderRadius: 8,
+                                            padding: 14,
+                                            fontSize: "0.85rem",
+                                            boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
+                                          }}
+                                        >
+                                          <div style={{ fontWeight: 800, color: "#ffffff", marginBottom: 8, borderBottom: "1px dashed rgba(255,255,255,0.1)", paddingBottom: 6, fontSize: "0.9rem" }}>
+                                            🏟️ {local} vs {visitante}
+                                          </div>
+                                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
+                                            <span style={{ color: "#94a3b8" }}>Marcador Predicho:</span>
+                                            <span style={{ background: "rgba(16, 185, 129, 0.2)", color: "#10b981", border: "1px solid rgba(16, 185, 129, 0.4)", padding: "2px 10px", borderRadius: 6, fontWeight: 900, fontSize: "0.95rem" }}>
+                                              {marcador}
+                                            </span>
+                                          </div>
+                                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                            <span style={{ color: "#94a3b8" }}>Goleador Predicho:</span>
+                                            <span style={{ color: "#38bdf8", fontWeight: 700, textAlign: "right" }}>{goleador}</span>
+                                          </div>
+                                        </div>
+                                      );
+                                    })}
+                                  </div>
+                                );
+                              })()}
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    )}
+                  </React.Fragment>
+                );
+              })
+            )}
+          </tbody>
           </table>
         </div>
 
