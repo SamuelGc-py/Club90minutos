@@ -2122,12 +2122,19 @@ export default function ExpressPage() {
           {/* PESTAÑAS NAVEGACIÓN COMPUTADOR (desktop-tabs) - Oculto en la pantalla de Inicio */}
           {tabActiva !== "inicio" && (
             <div className="desktop-tabs" style={{ marginBottom: 20 }}>
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, padding: "8px 0" }}>
-                <div className="no-scrollbar" style={{ display: "flex", alignItems: "center", gap: 8, overflowX: "auto", whiteSpace: "nowrap", scrollbarWidth: "none", msOverflowStyle: "none" }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, flexWrap: "wrap" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
                   <button
-                    className="btn btn-secondary"
+                    className={`btn ${tabActiva === "inicio" ? "btn-primary" : "btn-secondary"}`}
                     onClick={() => setTabActiva("inicio")}
-                    style={{ padding: "9px 13px", fontSize: "0.82rem", flexShrink: 0, background: "var(--tribuna)", border: "1px solid var(--linea)" }}
+                    style={{
+                      padding: "8px 12px",
+                      fontSize: "0.82rem",
+                      fontWeight: 700,
+                      background: tabActiva === "inicio" ? undefined : "transparent",
+                      border: tabActiva === "inicio" ? undefined : "1px solid rgba(255,255,255,0.1)",
+                      color: tabActiva === "inicio" ? undefined : "var(--tiza)",
+                    }}
                   >
                     🏠 Inicio
                   </button>
@@ -2135,7 +2142,14 @@ export default function ExpressPage() {
                   <button
                     className={`btn ${tabActiva === "partidos" ? "btn-primary" : "btn-secondary"}`}
                     onClick={() => setTabActiva(tabActiva === "partidos" ? "inicio" : "partidos")}
-                    style={{ padding: "9px 13px", fontSize: "0.82rem", flexShrink: 0, background: tabActiva === "partidos" ? undefined : "var(--tribuna)", border: tabActiva === "partidos" ? undefined : "1px solid var(--linea)" }}
+                    style={{
+                      padding: "8px 12px",
+                      fontSize: "0.82rem",
+                      fontWeight: 700,
+                      background: tabActiva === "partidos" ? undefined : "transparent",
+                      border: tabActiva === "partidos" ? undefined : "1px solid rgba(255,255,255,0.1)",
+                      color: tabActiva === "partidos" ? undefined : "var(--tiza)",
+                    }}
                   >
                     ⚽ Pronósticos Fecha 2
                   </button>
@@ -2143,7 +2157,14 @@ export default function ExpressPage() {
                   <button
                     className={`btn ${tabActiva === "inicial" ? "btn-primary" : "btn-secondary"}`}
                     onClick={() => setTabActiva(tabActiva === "inicial" ? "inicio" : "inicial")}
-                    style={{ padding: "9px 13px", fontSize: "0.82rem", flexShrink: 0, background: tabActiva === "inicial" ? undefined : "var(--tribuna)", border: tabActiva === "inicial" ? undefined : "1px solid var(--linea)" }}
+                    style={{
+                      padding: "8px 12px",
+                      fontSize: "0.82rem",
+                      fontWeight: 700,
+                      background: tabActiva === "inicial" ? undefined : "transparent",
+                      border: tabActiva === "inicial" ? undefined : "1px solid rgba(255,255,255,0.1)",
+                      color: tabActiva === "inicial" ? undefined : "var(--tiza)",
+                    }}
                   >
                     🏆 Predicciones Torneo
                   </button>
@@ -2158,9 +2179,16 @@ export default function ExpressPage() {
                         cargarConsolidados(usuario.id);
                       }
                     }}
-                    style={{ padding: "9px 13px", fontSize: "0.82rem", flexShrink: 0, background: tabActiva === "mis_pronosticos" ? undefined : "var(--tribuna)", border: tabActiva === "mis_pronosticos" ? undefined : "1px solid var(--linea)" }}
+                    style={{
+                      padding: "8px 12px",
+                      fontSize: "0.82rem",
+                      fontWeight: 700,
+                      background: tabActiva === "mis_pronosticos" ? undefined : "transparent",
+                      border: tabActiva === "mis_pronosticos" ? undefined : "1px solid rgba(255,255,255,0.1)",
+                      color: tabActiva === "mis_pronosticos" ? undefined : "var(--tiza)",
+                    }}
                   >
-                    📋 Tabla de Pronósticos
+                    📋 Pronósticos
                   </button>
 
                   <button
@@ -2173,9 +2201,16 @@ export default function ExpressPage() {
                         cargarConsolidados(usuario.id);
                       }
                     }}
-                    style={{ padding: "9px 13px", fontSize: "0.82rem", flexShrink: 0, background: tabActiva === "posiciones" ? undefined : "var(--tribuna)", border: tabActiva === "posiciones" ? undefined : "1px solid var(--linea)" }}
+                    style={{
+                      padding: "8px 12px",
+                      fontSize: "0.82rem",
+                      fontWeight: 700,
+                      background: tabActiva === "posiciones" ? undefined : "transparent",
+                      border: tabActiva === "posiciones" ? undefined : "1px solid rgba(255,255,255,0.1)",
+                      color: tabActiva === "posiciones" ? undefined : "var(--tiza)",
+                    }}
                   >
-                    📊 Tabla de Posiciones
+                    📊 Posiciones
                   </button>
 
                   <button
@@ -2189,11 +2224,10 @@ export default function ExpressPage() {
                       }
                     }}
                     style={{
-                      padding: "9px 13px",
+                      padding: "8px 12px",
                       fontSize: "0.82rem",
                       fontWeight: 800,
-                      flexShrink: 0,
-                      background: tabActiva === "en_vivo" ? "rgba(220, 38, 38, 0.3)" : "var(--tribuna)",
+                      background: tabActiva === "en_vivo" ? "rgba(220, 38, 38, 0.3)" : "transparent",
                       color: tabActiva === "en_vivo" ? "#ff4d4d" : "#ff5c5c",
                       border: tabActiva === "en_vivo" ? "1px solid #ef4444" : "1px solid rgba(239, 68, 68, 0.4)",
                       display: "inline-flex",
@@ -2217,14 +2251,31 @@ export default function ExpressPage() {
                           cargarConsolidados(usuario.id);
                         }
                       }}
-                      style={{ padding: "9px 13px", fontSize: "0.82rem", flexShrink: 0, background: tabActiva === "admin" ? "#f5b000" : "var(--tribuna)", color: tabActiva === "admin" ? "#000" : undefined, border: tabActiva === "admin" ? undefined : "1px solid var(--linea)" }}
+                      style={{
+                        padding: "8px 12px",
+                        fontSize: "0.82rem",
+                        fontWeight: 700,
+                        background: tabActiva === "admin" ? "#f5b000" : "transparent",
+                        color: tabActiva === "admin" ? "#000" : "#f5b000",
+                        border: tabActiva === "admin" ? undefined : "1px solid rgba(245, 176, 0, 0.4)",
+                      }}
                     >
-                      👑 Panel Admin
+                      👑 Admin
                     </button>
                   )}
                 </div>
 
-                <button className="btn btn-logout" onClick={handleCerrarSesion} style={{ padding: "9px 13px", fontSize: "0.82rem", flexShrink: 0 }}>
+                <button
+                  className="btn btn-logout"
+                  onClick={handleCerrarSesion}
+                  style={{
+                    padding: "8px 12px",
+                    fontSize: "0.82rem",
+                    background: "transparent",
+                    border: "1px solid rgba(255, 92, 92, 0.3)",
+                    color: "var(--rojo)",
+                  }}
+                >
                   <LogOut size={15} /> Salir
                 </button>
               </div>
