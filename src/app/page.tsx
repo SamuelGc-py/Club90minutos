@@ -303,6 +303,7 @@ export default function ExpressPage() {
   const [partidoDesplegadoId, setPartidoDesplegadoId] = useState<string | null>(null);
   const [subTabDetalle, setSubTabDetalle] = useState<Record<string, "cancha" | "stats">>({});
   const [partidosDesplegados, setPartidosDesplegados] = useState<Record<number, boolean>>({});
+  const [pronosticosTablasDesplegadas, setPronosticosTablasDesplegadas] = useState<Record<number, boolean>>({});
   const esSamuel = usuario ? (usuario.nombre.toLowerCase().includes("samuel") || usuario.id === 2) : false;
 
   const cargarPartidosEnVivo = async () => {
@@ -3463,6 +3464,8 @@ export default function ExpressPage() {
                       (p: any) => p.partido_id === partido.id
                     ) || [];
 
+                    const estaDesplegadoTabla = pronosticosTablasDesplegadas[partido.id] ?? false;
+
                     return (
                       <div
                         key={partido.id}
@@ -3474,69 +3477,104 @@ export default function ExpressPage() {
                           background: "var(--noche-2)",
                         }}
                       >
-                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12, flexWrap: "wrap", gap: 8 }}>
-                          <strong style={{ fontSize: "1rem", color: "#ffffff" }}>
-                            ⚽ {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}
-                          </strong>
-                          <RelojCuentaRegresiva fechaHoraPartido={partido.fecha_hora_partido} estado={partido.estado} />
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: estaDesplegadoTabla ? 12 : 0, flexWrap: "wrap", gap: 8 }}>
+                          <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+                            <strong style={{ fontSize: "1rem", color: "#ffffff" }}>
+                              ⚽ {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}
+                            </strong>
+                            {estaCerrado && pronosticosDeEstePartido.length > 0 && (
+                              <span style={{ background: "rgba(16, 185, 129, 0.15)", color: "#34d399", border: "1px solid rgba(16, 185, 129, 0.3)", padding: "2px 8px", borderRadius: 12, fontSize: "0.75rem", fontWeight: 700 }}>
+                                👥 {pronosticosDeEstePartido.length} Pronóstico{pronosticosDeEstePartido.length > 1 ? "s" : ""}
+                              </span>
+                            )}
+                          </div>
+
+                          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                            <RelojCuentaRegresiva fechaHoraPartido={partido.fecha_hora_partido} estado={partido.estado} />
+
+                            <button
+                              type="button"
+                              onClick={() => setPronosticosTablasDesplegadas(prev => ({ ...prev, [partido.id]: !estaDesplegadoTabla }))}
+                              style={{
+                                background: estaDesplegadoTabla ? "rgba(56, 189, 248, 0.25)" : "rgba(255, 255, 255, 0.08)",
+                                border: estaDesplegadoTabla ? "1px solid #38bdf8" : "1px solid var(--linea)",
+                                color: estaDesplegadoTabla ? "#38bdf8" : "#ffffff",
+                                padding: "6px 14px",
+                                borderRadius: 8,
+                                fontSize: "0.8rem",
+                                fontWeight: 800,
+                                cursor: "pointer",
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: 6,
+                                transition: "all 0.15s ease",
+                              }}
+                            >
+                              <span>{estaDesplegadoTabla ? "▲ Cerrar Pronósticos" : "▼ Ver Pronósticos"}</span>
+                            </button>
+                          </div>
                         </div>
 
-                        {estaCerrado ? (
-                          pronosticosDeEstePartido.length > 0 ? (
-                            <div style={{ overflowX: "auto" }}>
-                              <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.85rem", textAlign: "left" }}>
-                                <thead>
-                                  <tr style={{ borderBottom: "1px solid var(--linea)", color: "var(--graderia)" }}>
-                                    <th style={{ padding: "8px" }}>Participante</th>
-                                    <th style={{ padding: "8px", textAlign: "center" }}>Marcador Exacto</th>
-                                    <th style={{ padding: "8px", textAlign: "center" }}>Ganador Predicho</th>
-                                    <th style={{ padding: "8px" }}>Goleador Predicho</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  {pronosticosDeEstePartido.map((p: any) => (
-                                    <tr key={p.id} style={{ borderBottom: "1px dashed rgba(255,255,255,0.1)" }}>
-                                      <td style={{ padding: "8px", fontWeight: 700, color: "#ffffff" }}>
-                                        {p.usuario?.nombre_completo || "Participante"}
-                                      </td>
-                                      <td style={{ padding: "8px", textAlign: "center", fontWeight: 800, color: "var(--cancha)" }}>
-                                        {p.goles_local_predicho} - {p.goles_visitante_predicho}
-                                      </td>
-                                      <td style={{ padding: "8px", textAlign: "center" }}>
-                                         {(() => {
-                                           const gL = Number(p.goles_local_predicho);
-                                           const gV = Number(p.goles_visitante_predicho);
-                                           let ganadorTexto = "Empate";
-                                           if (!isNaN(gL) && !isNaN(gV)) {
-                                             if (gL > gV) {
-                                               ganadorTexto = `Gana ${partido.equipo_local.nombre}`;
-                                             } else if (gV > gL) {
-                                               ganadorTexto = `Gana ${partido.equipo_visitante.nombre}`;
-                                             }
-                                           }
-                                           return (
-                                             <span className="badge" style={{ background: "rgba(56, 189, 248, 0.15)", color: "#38bdf8", fontWeight: 800 }}>
-                                               {ganadorTexto}
-                                             </span>
-                                           );
-                                         })()}
-                                      </td>
-                                      <td style={{ padding: "8px", color: "var(--graderia)" }}>
-                                        {obtenerNombreGoleador(p)}
-                                      </td>
-                                    </tr>
-                                  ))}
-                                </tbody>
-                              </table>
-                            </div>
-                          ) : (
-                            <div style={{ fontSize: "0.85rem", color: "var(--graderia)", fontStyle: "italic", textAlign: "center", padding: 12 }}>
-                              Sin pronósticos registrados para este partido.
-                            </div>
-                          )
-                        ) : (
-                          <div style={{ background: "rgba(255,255,255,0.03)", padding: 12, borderRadius: 8, textAlign: "center", color: "#fbbf24", fontSize: "0.85rem", fontWeight: 600 }}>
-                            🔒 Los pronósticos de todos los participantes permanecen ocultos hasta 30 minutos antes del partido.
+                        {estaDesplegadoTabla && (
+                          <div style={{ marginTop: 12, paddingTop: 12, borderTop: "1px dashed var(--linea)" }}>
+                            {estaCerrado ? (
+                              pronosticosDeEstePartido.length > 0 ? (
+                                <div style={{ overflowX: "auto" }}>
+                                  <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.85rem", textAlign: "left" }}>
+                                    <thead>
+                                      <tr style={{ borderBottom: "1px solid var(--linea)", color: "var(--graderia)" }}>
+                                        <th style={{ padding: "8px" }}>Participante</th>
+                                        <th style={{ padding: "8px", textAlign: "center" }}>Marcador Exacto</th>
+                                        <th style={{ padding: "8px", textAlign: "center" }}>Ganador Predicho</th>
+                                        <th style={{ padding: "8px" }}>Goleador Predicho</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {pronosticosDeEstePartido.map((p: any) => (
+                                        <tr key={p.id} style={{ borderBottom: "1px dashed rgba(255,255,255,0.1)" }}>
+                                          <td style={{ padding: "8px", fontWeight: 700, color: "#ffffff" }}>
+                                            {p.usuario?.nombre_completo || "Participante"}
+                                          </td>
+                                          <td style={{ padding: "8px", textAlign: "center", fontWeight: 800, color: "var(--cancha)" }}>
+                                            {p.goles_local_predicho} - {p.goles_visitante_predicho}
+                                          </td>
+                                          <td style={{ padding: "8px", textAlign: "center" }}>
+                                            {(() => {
+                                              const gL = Number(p.goles_local_predicho);
+                                              const gV = Number(p.goles_visitante_predicho);
+                                              let ganadorTexto = "Empate";
+                                              if (!isNaN(gL) && !isNaN(gV)) {
+                                                if (gL > gV) {
+                                                  ganadorTexto = `Gana ${partido.equipo_local.nombre}`;
+                                                } else if (gV > gL) {
+                                                  ganadorTexto = `Gana ${partido.equipo_visitante.nombre}`;
+                                                }
+                                              }
+                                              return (
+                                                <span className="badge" style={{ background: "rgba(56, 189, 248, 0.15)", color: "#38bdf8", fontWeight: 800 }}>
+                                                  {ganadorTexto}
+                                                </span>
+                                              );
+                                            })()}
+                                          </td>
+                                          <td style={{ padding: "8px", color: "var(--graderia)" }}>
+                                            {obtenerNombreGoleador(p)}
+                                          </td>
+                                        </tr>
+                                      ))}
+                                    </tbody>
+                                  </table>
+                                </div>
+                              ) : (
+                                <div style={{ fontSize: "0.85rem", color: "var(--graderia)", fontStyle: "italic", textAlign: "center", padding: 12 }}>
+                                  Sin pronósticos registrados para este partido.
+                                </div>
+                              )
+                            ) : (
+                              <div style={{ background: "rgba(255,255,255,0.03)", padding: 12, borderRadius: 8, textAlign: "center", color: "#fbbf24", fontSize: "0.85rem", fontWeight: 600 }}>
+                                🔒 Los pronósticos de todos los participantes permanecen ocultos hasta 30 minutos antes del partido.
+                              </div>
+                            )}
                           </div>
                         )}
                       </div>
