@@ -46,50 +46,139 @@ interface EstadoMarcador {
   goleador_id: string;
 }
 
-function RelojCuentaRegresiva({ fechaHoraPartido }: { fechaHoraPartido: string }) {
-  const [tiempoRestante, setTiempoRestante] = useState<string>("");
-  const [cerrado, setCerrado] = useState<boolean>(false);
+function RelojCuentaRegresiva({
+  fechaHoraPartido,
+  estado,
+}: {
+  fechaHoraPartido: string;
+  estado?: string;
+}) {
+  const [etiqueta, setEtiqueta] = useState<string>("");
+  const [tipo, setTipo] = useState<"programado" | "cerrado" | "en_vivo" | "descanso" | "finalizado" | "aplazado">("programado");
 
   useEffect(() => {
     function calcular() {
+      if (estado === "aplazado") {
+        setTipo("aplazado");
+        setEtiqueta("⚠️ APLAZADO");
+        return;
+      }
+
+      if (estado === "resultado_cargado" || estado === "puntaje_calculado") {
+        setTipo("finalizado");
+        setEtiqueta("⚽ FINALIZADO");
+        return;
+      }
+
       const horaPartido = new Date(fechaHoraPartido).getTime();
       const horaCierre = horaPartido - 30 * 60 * 1000; // 30 minutos antes del inicio
       const ahora = new Date().getTime();
-      const dif = horaCierre - ahora;
+      const difCierre = horaCierre - ahora;
+      const difInicio = ahora - horaPartido;
 
-      if (dif <= 0) {
-        setCerrado(true);
-        setTiempoRestante("🔒 Cerrado (30m antes)");
+      if (difCierre > 0) {
+        // Antes del cierre de pronósticos
+        setTipo("programado");
+        const hrs = Math.floor(difCierre / (1000 * 60 * 60));
+        const mins = Math.floor((difCierre % (1000 * 60 * 60)) / (1000 * 60));
+        const segs = Math.floor((difCierre % (1000 * 60)) / 1000);
+        setEtiqueta(`⏳ Cierra en: ${hrs > 0 ? `${hrs}h ` : ""}${mins}m ${segs}s`);
+      } else if (difInicio < 0) {
+        // Pronósticos cerrados (30 min antes del partido), pero aún no pita el inicio
+        setTipo("cerrado");
+        setEtiqueta("🔒 Pronósticos Cerrados (Por Iniciar)");
       } else {
-        setCerrado(false);
-        const hrs = Math.floor(dif / (1000 * 60 * 60));
-        const mins = Math.floor((dif % (1000 * 60 * 60)) / (1000 * 60));
-        const segs = Math.floor((dif % (1000 * 60)) / 1000);
-        setTiempoRestante(`⏳ Cierra en: ${hrs}h ${mins}m ${segs}s`);
+        // Partido EN VIVO / En transcurso (minuto a minuto)
+        const minutosTranscurridos = Math.floor(difInicio / (1000 * 60));
+
+        if (minutosTranscurridos <= 45) {
+          setTipo("en_vivo");
+          setEtiqueta(`🟢 EN VIVO ${minutosTranscurridos}' (1T)`);
+        } else if (minutosTranscurridos <= 60) {
+          setTipo("descanso");
+          setEtiqueta("🟡 EN VIVO (DESCANSO)");
+        } else if (minutosTranscurridos <= 110) {
+          setTipo("en_vivo");
+          const min2T = minutosTranscurridos - 15;
+          setEtiqueta(`🟢 EN VIVO ${min2T}' (2T)`);
+        } else {
+          setTipo("finalizado");
+          setEtiqueta("⚽ FINALIZADO");
+        }
       }
     }
 
     calcular();
     const interval = setInterval(calcular, 1000);
     return () => clearInterval(interval);
-  }, [fechaHoraPartido]);
+  }, [fechaHoraPartido, estado]);
+
+  let styleProps = {
+    background: "rgba(34, 197, 94, 0.15)",
+    color: "#22c55e",
+    border: "1px solid rgba(34, 197, 94, 0.3)",
+  };
+
+  if (tipo === "cerrado") {
+    styleProps = {
+      background: "rgba(239, 68, 68, 0.15)",
+      color: "#ef4444",
+      border: "1px solid rgba(239, 68, 68, 0.3)",
+    };
+  } else if (tipo === "en_vivo") {
+    styleProps = {
+      background: "rgba(220, 38, 38, 0.25)",
+      color: "#ff4d4d",
+      border: "1px solid rgba(239, 68, 68, 0.6)",
+    };
+  } else if (tipo === "descanso") {
+    styleProps = {
+      background: "rgba(245, 158, 11, 0.2)",
+      color: "#fbbf24",
+      border: "1px solid rgba(245, 158, 11, 0.5)",
+    };
+  } else if (tipo === "finalizado") {
+    styleProps = {
+      background: "rgba(16, 185, 129, 0.2)",
+      color: "#10b981",
+      border: "1px solid rgba(16, 185, 129, 0.4)",
+    };
+  } else if (tipo === "aplazado") {
+    styleProps = {
+      background: "rgba(245, 158, 11, 0.2)",
+      color: "#f59e0b",
+      border: "1px solid rgba(245, 158, 11, 0.4)",
+    };
+  }
 
   return (
     <span
       style={{
-        fontSize: "0.78rem",
+        fontSize: "0.8rem",
         fontWeight: 800,
-        padding: "4px 10px",
+        padding: "5px 12px",
         borderRadius: "20px",
         display: "inline-flex",
         alignItems: "center",
-        gap: "4px",
-        background: cerrado ? "rgba(239, 68, 68, 0.15)" : "rgba(34, 197, 94, 0.15)",
-        color: cerrado ? "#ef4444" : "#22c55e",
-        border: `1px solid ${cerrado ? "rgba(239, 68, 68, 0.3)" : "rgba(34, 197, 94, 0.3)"}`,
+        gap: "6px",
+        letterSpacing: "0.3px",
+        boxShadow: tipo === "en_vivo" ? "0 0 10px rgba(239, 68, 68, 0.4)" : "none",
+        ...styleProps,
       }}
     >
-      <Clock size={13} /> {tiempoRestante}
+      {tipo === "en_vivo" && (
+        <span
+          style={{
+            width: 8,
+            height: 8,
+            borderRadius: "50%",
+            background: "#ef4444",
+            boxShadow: "0 0 8px #ef4444",
+          }}
+        />
+      )}
+      {tipo === "programado" && <Clock size={13} />}
+      {etiqueta}
     </span>
   );
 }
@@ -2277,13 +2366,9 @@ export default function ExpressPage() {
                               <span style={{ background: "#f59e0b", padding: "4px 10px", borderRadius: 6, color: "#fff", fontWeight: 800 }}>
                                 ⚠️ APLAZADO
                               </span>
-                            ) : partido.estado === "resultado_cargado" || partido.resultado_oficial ? (
-                              <span style={{ background: "#10b981", padding: "4px 10px", borderRadius: 6, color: "#fff", fontWeight: 800 }}>
-                                ⚽ FINALIZADO
-                              </span>
                             ) : (
                               <>
-                                <RelojCuentaRegresiva fechaHoraPartido={partido.fecha_hora_partido} />
+                                <RelojCuentaRegresiva fechaHoraPartido={partido.fecha_hora_partido} estado={partido.estado} />
                                 <span style={{ background: "var(--noche-2)", padding: "4px 10px", borderRadius: 6, color: "#ffffff", fontWeight: 600 }}>
                                   📅 {new Date(partido.fecha_hora_partido).toLocaleString("es-CO", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}
                                 </span>
@@ -3119,7 +3204,7 @@ export default function ExpressPage() {
                           <strong style={{ fontSize: "1rem", color: "#ffffff" }}>
                             ⚽ {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}
                           </strong>
-                          <RelojCuentaRegresiva fechaHoraPartido={partido.fecha_hora_partido} />
+                          <RelojCuentaRegresiva fechaHoraPartido={partido.fecha_hora_partido} estado={partido.estado} />
                         </div>
 
                         {estaCerrado ? (
