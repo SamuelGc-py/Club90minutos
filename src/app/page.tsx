@@ -2125,15 +2125,15 @@ export default function ExpressPage() {
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, flexWrap: "wrap" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
                   <button
-                    className={`btn ${tabActiva === "inicio" ? "btn-primary" : "btn-secondary"}`}
+                    className="btn btn-secondary"
                     onClick={() => setTabActiva("inicio")}
                     style={{
                       padding: "8px 12px",
                       fontSize: "0.82rem",
                       fontWeight: 700,
-                      background: tabActiva === "inicio" ? undefined : "transparent",
-                      border: tabActiva === "inicio" ? undefined : "1px solid rgba(255,255,255,0.1)",
-                      color: tabActiva === "inicio" ? undefined : "var(--tiza)",
+                      background: "transparent",
+                      border: "1px solid rgba(255,255,255,0.1)",
+                      color: "var(--tiza)",
                     }}
                   >
                     🏠 Inicio
