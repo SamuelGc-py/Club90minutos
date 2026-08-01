@@ -92,24 +92,24 @@ function RelojCuentaRegresiva({
       }
 
       const horaPartido = new Date(fechaHoraPartido).getTime();
-      const horaCierre = horaPartido - 30 * 60 * 1000; // 30 minutos antes del inicio
+      const horaCierre = horaPartido - 30 * 60 * 1000;
       const ahora = new Date().getTime();
       const difCierre = horaCierre - ahora;
       const difInicio = ahora - horaPartido;
 
       if (difCierre > 0) {
-        // Antes del cierre de pronósticos
         setTipo("programado");
         const hrs = Math.floor(difCierre / (1000 * 60 * 60));
         const mins = Math.floor((difCierre % (1000 * 60 * 60)) / (1000 * 60));
         const segs = Math.floor((difCierre % (1000 * 60)) / 1000);
-        setEtiqueta(`⏳ Cierra en: ${hrs > 0 ? `${hrs}h ` : ""}${mins}m ${segs}s`);
+        const hh = String(hrs).padStart(2, "0");
+        const mm = String(mins).padStart(2, "0");
+        const ss = String(segs).padStart(2, "0");
+        setEtiqueta(`⏳ Cierra en ${hh}:${mm}:${ss}`);
       } else if (difInicio < 0) {
-        // Pronósticos cerrados (30 min antes del partido), pero aún no pita el inicio
         setTipo("cerrado");
-        setEtiqueta("🔒 Pronósticos Cerrados (Por Iniciar)");
+        setEtiqueta("🔒 Pronósticos Cerrados");
       } else {
-        // Partido EN VIVO / En transcurso (minuto a minuto)
         const minutosTranscurridos = Math.floor(difInicio / (1000 * 60));
 
         if (minutosTranscurridos <= 45) {
@@ -135,55 +135,56 @@ function RelojCuentaRegresiva({
   }, [fechaHoraPartido, estado]);
 
   let styleProps = {
-    background: "rgba(34, 197, 94, 0.15)",
-    color: "#22c55e",
-    border: "1px solid rgba(34, 197, 94, 0.3)",
+    background: "rgba(56, 189, 248, 0.12)",
+    color: "#38bdf8",
+    border: "1px solid rgba(56, 189, 248, 0.3)",
   };
 
   if (tipo === "cerrado") {
     styleProps = {
-      background: "rgba(239, 68, 68, 0.15)",
-      color: "#ef4444",
-      border: "1px solid rgba(239, 68, 68, 0.3)",
+      background: "rgba(245, 158, 11, 0.12)",
+      color: "#f59e0b",
+      border: "1px solid rgba(245, 158, 11, 0.35)",
     };
   } else if (tipo === "en_vivo") {
     styleProps = {
-      background: "rgba(220, 38, 38, 0.25)",
+      background: "rgba(239, 68, 68, 0.18)",
       color: "#ff4d4d",
-      border: "1px solid rgba(239, 68, 68, 0.6)",
+      border: "1px solid rgba(239, 68, 68, 0.5)",
     };
   } else if (tipo === "descanso") {
     styleProps = {
-      background: "rgba(245, 158, 11, 0.2)",
+      background: "rgba(245, 158, 11, 0.18)",
       color: "#fbbf24",
-      border: "1px solid rgba(245, 158, 11, 0.5)",
+      border: "1px solid rgba(245, 158, 11, 0.45)",
     };
   } else if (tipo === "finalizado") {
     styleProps = {
-      background: "rgba(16, 185, 129, 0.2)",
+      background: "rgba(16, 185, 129, 0.15)",
       color: "#10b981",
-      border: "1px solid rgba(16, 185, 129, 0.4)",
+      border: "1px solid rgba(16, 185, 129, 0.3)",
     };
   } else if (tipo === "aplazado") {
     styleProps = {
-      background: "rgba(245, 158, 11, 0.2)",
+      background: "rgba(245, 158, 11, 0.15)",
       color: "#f59e0b",
-      border: "1px solid rgba(245, 158, 11, 0.4)",
+      border: "1px solid rgba(245, 158, 11, 0.3)",
     };
   }
 
   return (
     <span
       style={{
-        fontSize: "0.8rem",
+        fontSize: "0.82rem",
         fontWeight: 800,
         padding: "5px 12px",
         borderRadius: "20px",
         display: "inline-flex",
         alignItems: "center",
         gap: "6px",
+        fontVariantNumeric: "tabular-nums",
         letterSpacing: "0.3px",
-        boxShadow: tipo === "en_vivo" ? "0 0 10px rgba(239, 68, 68, 0.4)" : "none",
+        boxShadow: tipo === "en_vivo" ? "0 0 10px rgba(239, 68, 68, 0.3)" : "none",
         ...styleProps,
       }}
     >
@@ -198,7 +199,6 @@ function RelojCuentaRegresiva({
           }}
         />
       )}
-      {tipo === "programado" && <Clock size={13} />}
       {etiqueta}
     </span>
   );
@@ -2122,28 +2122,28 @@ export default function ExpressPage() {
           {/* PESTAÑAS NAVEGACIÓN COMPUTADOR (desktop-tabs) - Oculto en la pantalla de Inicio */}
           {tabActiva !== "inicio" && (
             <div className="desktop-tabs" style={{ marginBottom: 24 }}>
-              <div className="card" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap", padding: 14 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+              <div className="card" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, padding: 14 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, overflowX: "auto", whiteSpace: "nowrap" }}>
                   <button
                     className="btn btn-secondary"
                     onClick={() => setTabActiva("inicio")}
-                    style={{ padding: "10px 14px", fontSize: "0.85rem" }}
+                    style={{ padding: "10px 14px", fontSize: "0.85rem", flexShrink: 0 }}
                   >
                     🏠 Inicio
                   </button>
 
                   <button
                     className={`btn ${tabActiva === "partidos" ? "btn-primary" : "btn-secondary"}`}
-                    onClick={() => setTabActiva("partidos")}
-                    style={{ padding: "10px 14px", fontSize: "0.85rem" }}
+                    onClick={() => setTabActiva(tabActiva === "partidos" ? "inicio" : "partidos")}
+                    style={{ padding: "10px 14px", fontSize: "0.85rem", flexShrink: 0 }}
                   >
                     ⚽ Pronósticos Fecha 2
                   </button>
 
                   <button
                     className={`btn ${tabActiva === "inicial" ? "btn-primary" : "btn-secondary"}`}
-                    onClick={() => setTabActiva("inicial")}
-                    style={{ padding: "10px 14px", fontSize: "0.85rem" }}
+                    onClick={() => setTabActiva(tabActiva === "inicial" ? "inicio" : "inicial")}
+                    style={{ padding: "10px 14px", fontSize: "0.85rem", flexShrink: 0 }}
                   >
                     🏆 Predicciones Torneo
                   </button>
@@ -2151,10 +2151,14 @@ export default function ExpressPage() {
                   <button
                     className={`btn ${tabActiva === "mis_pronosticos" ? "btn-primary" : "btn-secondary"}`}
                     onClick={() => {
-                      setTabActiva("mis_pronosticos");
-                      cargarConsolidados(usuario.id);
+                      if (tabActiva === "mis_pronosticos") {
+                        setTabActiva("inicio");
+                      } else {
+                        setTabActiva("mis_pronosticos");
+                        cargarConsolidados(usuario.id);
+                      }
                     }}
-                    style={{ padding: "10px 14px", fontSize: "0.85rem" }}
+                    style={{ padding: "10px 14px", fontSize: "0.85rem", flexShrink: 0 }}
                   >
                     📋 Tabla de Pronósticos
                   </button>
@@ -2162,31 +2166,40 @@ export default function ExpressPage() {
                   <button
                     className={`btn ${tabActiva === "posiciones" ? "btn-primary" : "btn-secondary"}`}
                     onClick={() => {
-                      setTabActiva("posiciones");
-                      cargarConsolidados(usuario.id);
+                      if (tabActiva === "posiciones") {
+                        setTabActiva("inicio");
+                      } else {
+                        setTabActiva("posiciones");
+                        cargarConsolidados(usuario.id);
+                      }
                     }}
-                    style={{ padding: "10px 14px", fontSize: "0.85rem" }}
+                    style={{ padding: "10px 14px", fontSize: "0.85rem", flexShrink: 0 }}
                   >
                     📊 Tabla de Posiciones
                   </button>
 
                   <button
-                    className={`btn ${tabActiva === "en_vivo" ? "btn-danger" : "btn-secondary"}`}
+                    className={`btn ${tabActiva === "en_vivo" ? "btn-primary" : "btn-secondary"}`}
                     onClick={() => {
-                      setTabActiva("en_vivo");
-                      cargarPartidosEnVivo();
+                      if (tabActiva === "en_vivo") {
+                        setTabActiva("inicio");
+                      } else {
+                        setTabActiva("en_vivo");
+                        cargarPartidosEnVivo();
+                      }
                     }}
                     style={{
                       padding: "10px 14px",
                       fontSize: "0.85rem",
-                      background: tabActiva === "en_vivo" ? "linear-gradient(135deg, #b91c1c 0%, #dc2626 100%)" : "rgba(220, 38, 38, 0.15)",
-                      color: "#ff4d4d",
-                      border: "1px solid #ef4444",
                       fontWeight: 800,
+                      flexShrink: 0,
+                      background: tabActiva === "en_vivo" ? "rgba(220, 38, 38, 0.25)" : "var(--noche-2)",
+                      color: tabActiva === "en_vivo" ? "#ff4d4d" : "#ef4444",
+                      border: tabActiva === "en_vivo" ? "1px solid #ef4444" : "1px solid rgba(239, 68, 68, 0.35)",
                       display: "inline-flex",
                       alignItems: "center",
                       gap: 6,
-                      boxShadow: "0 0 10px rgba(239, 68, 68, 0.3)",
+                      boxShadow: tabActiva === "en_vivo" ? "0 0 12px rgba(239, 68, 68, 0.4)" : "none",
                     }}
                   >
                     <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#ef4444", boxShadow: "0 0 8px #ef4444" }} />
@@ -2197,10 +2210,14 @@ export default function ExpressPage() {
                     <button
                       className={`btn ${tabActiva === "admin" ? "btn-primary" : "btn-secondary"}`}
                       onClick={() => {
-                        setTabActiva("admin");
-                        cargarConsolidados(usuario.id);
+                        if (tabActiva === "admin") {
+                          setTabActiva("inicio");
+                        } else {
+                          setTabActiva("admin");
+                          cargarConsolidados(usuario.id);
+                        }
                       }}
-                      style={{ padding: "10px 14px", fontSize: "0.85rem", background: tabActiva === "admin" ? "#f5b000" : undefined, color: tabActiva === "admin" ? "#000" : undefined }}
+                      style={{ padding: "10px 14px", fontSize: "0.85rem", flexShrink: 0, background: tabActiva === "admin" ? "#f5b000" : undefined, color: tabActiva === "admin" ? "#000" : undefined }}
                     >
                       👑 Panel Admin
                     </button>
@@ -2326,24 +2343,6 @@ export default function ExpressPage() {
                     <div style={{ fontSize: "0.82rem", color: "#bae6fd" }}>Consulta la tabla general de posiciones y puntos acumulados.</div>
                   </div>
 
-                  <div
-                    onClick={() => {
-                      setTabActiva("en_vivo");
-                      cargarPartidosEnVivo();
-                    }}
-                    style={{
-                      background: "linear-gradient(135deg, #450a0a 0%, #7f1d1d 100%)",
-                      border: "1px solid #ef4444",
-                      borderRadius: 12,
-                      padding: 20,
-                      cursor: "pointer",
-                      boxShadow: "0 4px 14px rgba(239, 68, 68, 0.2)",
-                    }}
-                  >
-                    <div style={{ fontSize: "1.8rem", marginBottom: 8 }}>🔴</div>
-                    <div style={{ fontWeight: 800, fontSize: "1.1rem", color: "#fff", marginBottom: 4 }}>Partidos y Stats En Vivo</div>
-                    <div style={{ fontSize: "0.82rem", color: "#fca5a5" }}>Marcadores, posesión, tiros al arco e incidencias minuto a minuto.</div>
-                  </div>
                 </div>
 
                 {/* BOTÓN CERRAR SESIÓN EN INICIO */}
@@ -3488,9 +3487,8 @@ export default function ExpressPage() {
                 </div>
 
                 {cargandoEnVivo && partidosEnVivo.length === 0 ? (
-                  <div style={{ textAlign: "center", padding: 40 }}>
-                    <RefreshCw className="spin" size={32} style={{ color: "#ef4444", marginBottom: 12 }} />
-                    <div style={{ color: "#ffffff", fontWeight: 700 }}>Conectando con la API en vivo...</div>
+                  <div style={{ textAlign: "center", padding: 30 }}>
+                    <RefreshCw className="spin" size={28} style={{ color: "#ef4444" }} />
                   </div>
                 ) : partidosEnVivo.length === 0 ? (
                   <div style={{ textAlign: "center", padding: 36, background: "rgba(0,0,0,0.2)", borderRadius: 12, border: "1px dashed var(--linea)" }}>

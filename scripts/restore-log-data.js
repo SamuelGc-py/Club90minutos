@@ -49,6 +49,15 @@ const backupData = [
   { matchLocal: 'Pasto', user: 'Samuel Gutierrez', local: 1, vis: 1, golId: 143 },
   { matchLocal: 'Pasto', user: 'Nelson Berdugo', local: 1, vis: 1, golId: 143 },
 
+  // Alianza vs Tolima
+  { matchLocal: 'Alianza', user: 'Nelson Berdugo', local: 1, vis: 2, golId: 89 },
+
+  // Medellín vs Cali
+  { matchLocal: 'Medellín', user: 'Nelson Berdugo', local: 2, vis: 1, golId: 187 },
+
+  // Junior vs Millonarios
+  { matchLocal: 'Junior', user: 'Nelson Berdugo', local: 2, vis: 1, golId: 241 },
+
   // Alianza vs Fortaleza
   { matchLocal: 'Alianza', user: 'Ricardo Soto', local: 1, vis: 0, golId: 430 },
 
