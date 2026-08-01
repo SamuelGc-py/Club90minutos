@@ -51,6 +51,7 @@ const backupData = [
 
   // Alianza vs Tolima
   { matchLocal: 'Alianza', user: 'Nelson Berdugo', local: 1, vis: 2, golId: 89 },
+  { matchLocal: 'Alianza', user: 'Samuel Gutierrez', local: 1, vis: 3, golId: 89 },
 
   // Medellín vs Cali
   { matchLocal: 'Medellín', user: 'Nelson Berdugo', local: 2, vis: 1, golId: 187 },
