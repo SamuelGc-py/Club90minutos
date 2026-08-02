@@ -1057,10 +1057,11 @@ export default function ExpressPage() {
 
     const horaCierrePartido = new Date(new Date(partido.fecha_hora_partido).getTime() - 30 * 60 * 1000);
     const esAplazado = partido.estado === "aplazado";
+    const esFinalizado = Boolean(partido.resultado_oficial) || partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado";
 
-    const estaCerradoGeneral = (new Date() >= horaCierrePartido);
-    const estaCerrado = estaCerradoGeneral;
-    const deshabilitarMarcador = estaCerradoGeneral;
+    const estaCerradoGeneral = (new Date() >= horaCierrePartido) || esFinalizado;
+    const estaCerrado = esAplazado ? false : estaCerradoGeneral;
+    const deshabilitarMarcador = estaCerrado;
     const deshabilitarBotonGuardar = guardandoPartidoId === partido.id || Boolean(inconsistencia);
 
     const estaCardAbierta = partidosDesplegados[partido.id] ?? false;
@@ -2787,20 +2788,7 @@ export default function ExpressPage() {
                     ⚽ Pronósticos Fecha 2
                   </button>
 
-                  <button
-                    className={`btn ${tabActiva === "aplazados" ? "btn-primary" : "btn-secondary"}`}
-                    onClick={() => setTabActiva(tabActiva === "aplazados" ? "inicio" : "aplazados")}
-                    style={{
-                      padding: "8px 12px",
-                      fontSize: "0.82rem",
-                      fontWeight: 700,
-                      background: tabActiva === "aplazados" ? "#f59e0b" : "transparent",
-                      border: tabActiva === "aplazados" ? "1px solid #f59e0b" : "1px solid rgba(245, 158, 11, 0.4)",
-                      color: tabActiva === "aplazados" ? "#ffffff" : "#f59e0b",
-                    }}
-                  >
-                    ⚠️ Aplazados
-                  </button>
+
 
                   <button
                     className={`btn ${tabActiva === "inicial" ? "btn-primary" : "btn-secondary"}`}
@@ -2889,6 +2877,24 @@ export default function ExpressPage() {
                       🔴 EN VIVO
                     </button>
                   )}
+
+                  <button
+                    className={`btn ${tabActiva === "aplazados" ? "btn-primary" : "btn-secondary"}`}
+                    onClick={() => setTabActiva(tabActiva === "aplazados" ? "inicio" : "aplazados")}
+                    style={{
+                      padding: "8px 12px",
+                      fontSize: "0.82rem",
+                      fontWeight: 800,
+                      background: tabActiva === "aplazados" ? "#f59e0b" : "transparent",
+                      border: tabActiva === "aplazados" ? "1px solid #f59e0b" : "1px solid rgba(245, 158, 11, 0.4)",
+                      color: tabActiva === "aplazados" ? "#ffffff" : "#f59e0b",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 6,
+                    }}
+                  >
+                    ⚠️ Aplazados
+                  </button>
 
                   {usuario.rol_id === 2 && (
                     <button
