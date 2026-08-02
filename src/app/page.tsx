@@ -1034,6 +1034,7 @@ export default function ExpressPage() {
   };
 
   const renderPartidoCard = (partido: any) => {
+    if (!partido || !partido.equipo_local || !partido.equipo_visitante) return null;
     const m = marcadores[partido.id] || { local: "", visitante: "", ganador: "", goleador_id: "" };
 
     let inconsistencia: string | null = null;
@@ -3120,17 +3121,17 @@ export default function ExpressPage() {
                       const nL = Number(m.local);
                       const nV = Number(m.visitante);
                       if (nL > nV && m.ganador !== "local") {
-                        inconsistencia = `Marcador indica victoria de ${partido.equipo_local.nombre}, pero seleccionaste ${m.ganador === "visitante" ? partido.equipo_visitante.nombre : "Empate"}.`;
+                        inconsistencia = `Marcador indica victoria de ${partido.equipo_local?.nombre}, pero seleccionaste ${m.ganador === "visitante" ? partido.equipo_visitante?.nombre : "Empate"}.`;
                       } else if (nV > nL && m.ganador !== "visitante") {
-                        inconsistencia = `Marcador indica victoria de ${partido.equipo_visitante.nombre}, pero seleccionaste ${m.ganador === "local" ? partido.equipo_local.nombre : "Empate"}.`;
+                        inconsistencia = `Marcador indica victoria de ${partido.equipo_visitante?.nombre}, pero seleccionaste ${m.ganador === "local" ? partido.equipo_local?.nombre : "Empate"}.`;
                       } else if (nL === nV && m.ganador !== "empate") {
                         inconsistencia = `Marcador indica Empate, pero seleccionaste a un equipo ganador.`;
                       }
                     }
 
                     const jugadoresPartido = [
-                      ...(partido.equipo_local.jugadores || []),
-                      ...(partido.equipo_visitante.jugadores || []),
+                      ...(partido.equipo_local?.jugadores || []),
+                      ...(partido.equipo_visitante?.jugadores || []),
                     ];
 
                     const horaCierrePartido = new Date(new Date(partido.fecha_hora_partido).getTime() - 30 * 60 * 1000);
@@ -3168,7 +3169,7 @@ export default function ExpressPage() {
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: estaCardAbierta ? 14 : 0, fontSize: "0.82rem", color: "var(--graderia)", borderBottom: estaCardAbierta ? "1px dashed var(--linea)" : "none", paddingBottom: estaCardAbierta ? 8 : 0, flexWrap: "wrap", gap: 8 }}>
                           <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
                             <span style={{ fontWeight: 800, color: "#ffffff", fontSize: "0.95rem" }}>
-                              {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}
+                              {partido.equipo_local?.nombre} vs {partido.equipo_visitante?.nombre}
                             </span>
                             {m.local !== "" && m.visitante !== "" ? (
                               <span style={{ background: "rgba(16, 185, 129, 0.2)", color: "#10b981", border: "1px solid rgba(16, 185, 129, 0.4)", padding: "2px 8px", borderRadius: 12, fontSize: "0.75rem", fontWeight: 800 }}>
@@ -3249,9 +3250,9 @@ export default function ExpressPage() {
                               {/* EQUIPO LOCAL */}
                               <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 8, textAlign: "right" }}>
                                 <span style={{ fontWeight: 800, fontSize: "clamp(0.88rem, 3.8vw, 1.1rem)", color: "#ffffff", lineHeight: 1.2 }}>
-                                  {partido.equipo_local.nombre}
+                                  {partido.equipo_local?.nombre}
                                 </span>
-                                {partido.equipo_local.escudo_url ? (
+                                {partido.equipo_local?.escudo_url ? (
                                   <img src={partido.equipo_local.escudo_url} alt={partido.equipo_local.nombre} style={{ width: 30, height: 30, objectFit: "contain", flexShrink: 0 }} />
                                 ) : (
                                   <div style={{ width: 28, height: 28, background: "var(--linea)", borderRadius: "50%", flexShrink: 0 }} />
@@ -3305,13 +3306,13 @@ export default function ExpressPage() {
 
                               {/* EQUIPO VISITANTE */}
                               <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-start", gap: 8, textAlign: "left" }}>
-                                {partido.equipo_visitante.escudo_url ? (
+                                {partido.equipo_visitante?.escudo_url ? (
                                   <img src={partido.equipo_visitante.escudo_url} alt={partido.equipo_visitante.nombre} style={{ width: 30, height: 30, objectFit: "contain", flexShrink: 0 }} />
                                 ) : (
                                   <div style={{ width: 28, height: 28, background: "var(--linea)", borderRadius: "50%", flexShrink: 0 }} />
                                 )}
                                 <span style={{ fontWeight: 800, fontSize: "clamp(0.88rem, 3.8vw, 1.1rem)", color: "#ffffff", lineHeight: 1.2 }}>
-                                  {partido.equipo_visitante.nombre}
+                                  {partido.equipo_visitante?.nombre}
                                 </span>
                               </div>
                             </div>
@@ -3332,7 +3333,7 @@ export default function ExpressPage() {
                                     </label>
                                     {ganadorEfectivo && (
                                       <span style={{ fontSize: "0.78rem", fontWeight: 800, color: "#38bdf8", background: "rgba(56,189,248,0.15)", padding: "2px 8px", borderRadius: 4 }}>
-                                        {ganadorEfectivo === "local" ? `Gana ${partido.equipo_local.nombre}` : ganadorEfectivo === "visitante" ? `Gana ${partido.equipo_visitante.nombre}` : "Empate"}
+                                        {ganadorEfectivo === "local" ? `Gana ${partido.equipo_local?.nombre}` : ganadorEfectivo === "visitante" ? `Gana ${partido.equipo_visitante?.nombre}` : "Empate"}
                                       </span>
                                     )}
                                   </div>
@@ -3363,7 +3364,7 @@ export default function ExpressPage() {
                                         disabled={deshabilitarMarcador}
                                         style={{ display: "none" }}
                                       />
-                                      <span>Gana {partido.equipo_local.nombre}</span>
+                                      <span>Gana {partido.equipo_local?.nombre}</span>
                                     </label>
 
                                     <label
@@ -3421,7 +3422,7 @@ export default function ExpressPage() {
                                         disabled={deshabilitarMarcador}
                                         style={{ display: "none" }}
                                       />
-                                      <span>Gana {partido.equipo_visitante.nombre}</span>
+                                      <span>Gana {partido.equipo_visitante?.nombre}</span>
                                     </label>
                                   </div>
                                 </div>
@@ -3469,11 +3470,11 @@ export default function ExpressPage() {
                                       {/* GOLEADOR LOCAL */}
                                       <div style={{ flex: 1, minWidth: 200 }}>
                                         <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 700, color: "var(--cancha)", marginBottom: 4 }}>
-                                          🏠 Goleador {partido.equipo_local.nombre}:
+                                          🏠 Goleador {partido.equipo_local?.nombre}:
                                         </label>
                                         <select
                                           value={
-                                            (partido.equipo_local.jugadores || []).some((j: any) => String(j.id) === String(m.goleador_id))
+                                            (partido.equipo_local?.jugadores || []).some((j: any) => String(j.id) === String(m.goleador_id))
                                               ? String(m.goleador_id)
                                               : ""
                                           }
@@ -3483,7 +3484,7 @@ export default function ExpressPage() {
                                             width: "100%",
                                             padding: "9px 12px",
                                             background: "var(--noche-1)",
-                                            border: (partido.equipo_local.jugadores || []).some((j: any) => String(j.id) === String(m.goleador_id))
+                                            border: (partido.equipo_local?.jugadores || []).some((j: any) => String(j.id) === String(m.goleador_id))
                                               ? "1px solid var(--cancha)"
                                               : "1px solid var(--linea)",
                                             borderRadius: 8,
@@ -3492,8 +3493,8 @@ export default function ExpressPage() {
                                             cursor: (estaCerrado || esMarcadorCeroCero || (m.local !== "" && Number(m.local) === 0)) ? "not-allowed" : "pointer",
                                           }}
                                         >
-                                          <option value="">-- Seleccionar de {partido.equipo_local.nombre} --</option>
-                                          {(partido.equipo_local.jugadores || []).map((j: any) => (
+                                          <option value="">-- Seleccionar de {partido.equipo_local?.nombre} --</option>
+                                          {(partido.equipo_local?.jugadores || []).map((j: any) => (
                                             <option key={j.id} value={j.id}>
                                               {j.nombre}
                                             </option>
@@ -3504,11 +3505,11 @@ export default function ExpressPage() {
                                       {/* GOLEADOR VISITANTE */}
                                       <div style={{ flex: 1, minWidth: 200 }}>
                                         <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 700, color: "#38bdf8", marginBottom: 4 }}>
-                                          ✈️ Goleador {partido.equipo_visitante.nombre}:
+                                          ✈️ Goleador {partido.equipo_visitante?.nombre}:
                                         </label>
                                         <select
                                           value={
-                                            (partido.equipo_visitante.jugadores || []).some((j: any) => String(j.id) === String(m.goleador_id))
+                                            (partido.equipo_visitante?.jugadores || []).some((j: any) => String(j.id) === String(m.goleador_id))
                                               ? String(m.goleador_id)
                                               : ""
                                           }
@@ -3518,7 +3519,7 @@ export default function ExpressPage() {
                                             width: "100%",
                                             padding: "9px 12px",
                                             background: "var(--noche-1)",
-                                            border: (partido.equipo_visitante.jugadores || []).some((j: any) => String(j.id) === String(m.goleador_id))
+                                            border: (partido.equipo_visitante?.jugadores || []).some((j: any) => String(j.id) === String(m.goleador_id))
                                               ? "1px solid #38bdf8"
                                               : "1px solid var(--linea)",
                                             borderRadius: 8,
@@ -3527,8 +3528,8 @@ export default function ExpressPage() {
                                             cursor: (estaCerrado || esMarcadorCeroCero || (m.visitante !== "" && Number(m.visitante) === 0)) ? "not-allowed" : "pointer",
                                           }}
                                         >
-                                          <option value="">-- Seleccionar de {partido.equipo_visitante.nombre} --</option>
-                                          {(partido.equipo_visitante.jugadores || []).map((j: any) => (
+                                          <option value="">-- Seleccionar de {partido.equipo_visitante?.nombre} --</option>
+                                          {(partido.equipo_visitante?.jugadores || []).map((j: any) => (
                                             <option key={j.id} value={j.id}>
                                               {j.nombre}
                                             </option>
@@ -3544,7 +3545,7 @@ export default function ExpressPage() {
                                       </div>
                                     ) : m.goleador_id ? (
                                       <div style={{ marginTop: 10, fontSize: "0.85rem", color: "var(--cancha)", fontWeight: 700, display: "flex", alignItems: "center", gap: 6 }}>
-                                        ⚽ Goleador seleccionado: {[...(partido.equipo_local.jugadores || []), ...(partido.equipo_visitante.jugadores || []), ...jugadores].find((j: any) => String(j.id) === String(m.goleador_id))?.nombre || "Seleccionado"}
+                                        ⚽ Goleador seleccionado: {[...(partido.equipo_local?.jugadores || []), ...(partido.equipo_visitante?.jugadores || []), ...jugadores].find((j: any) => String(j.id) === String(m.goleador_id))?.nombre || "Seleccionado"}
                                       </div>
                                     ) : (
                                       <div style={{ marginTop: 8, fontSize: "0.78rem", color: "var(--graderia)", fontStyle: "italic" }}>
