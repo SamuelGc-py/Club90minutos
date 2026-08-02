@@ -80,28 +80,6 @@ html, body {
   scrollbar-width: none !important;
 }
 
-@keyframes balonEnVivoMovimiento {
-  0% {
-    transform: translate(-50%, -50%) translate(0px, 0px) scale(1);
-  }
-  25% {
-    transform: translate(-50%, -50%) translate(22px, -14px) scale(1.1);
-  }
-  50% {
-    transform: translate(-50%, -50%) translate(-18px, 16px) scale(0.92);
-  }
-  75% {
-    transform: translate(-50%, -50%) translate(15px, 12px) scale(1.06);
-  }
-  100% {
-    transform: translate(-50%, -50%) translate(0px, 0px) scale(1);
-  }
-}
-
-.balon-animado-cancha {
-  animation: balonEnVivoMovimiento 2.8s ease-in-out infinite !important;
-}
-
 /* Barra de scroll vertical elegante para la página en PC */
 ::-webkit-scrollbar {
   width: 10px;

@@ -124,7 +124,6 @@ function Cancha2DVisualizador({ partido }: { partido: any }) {
         </div>
 
         <div
-          className="balon-animado-cancha"
           style={{
             position: "absolute",
             left: `${finalX}%`,
