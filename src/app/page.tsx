@@ -371,7 +371,7 @@ export default function ExpressPage() {
   const [cargandoMaestros, setCargandoMaestros] = useState(false);
 
   // Estado del Formulario (Pestañas)
-  const [tabActiva, setTabActiva] = useState<"inicio" | "partidos" | "inicial" | "mis_pronosticos" | "admin" | "posiciones" | "en_vivo">("inicio");
+  const [tabActiva, setTabActiva] = useState<"inicio" | "partidos" | "aplazados" | "inicial" | "mis_pronosticos" | "admin" | "posiciones" | "en_vivo">("inicio");
   const [partidosEnVivo, setPartidosEnVivo] = useState<any[]>([]);
   const [cargandoEnVivo, setCargandoEnVivo] = useState<boolean>(false);
   const [partidoDesplegadoId, setPartidoDesplegadoId] = useState<string | null>(null);
@@ -1031,6 +1031,469 @@ export default function ExpressPage() {
       if (enMaestro) return enMaestro.nombre;
     }
     return "Sin Goleador";
+  };
+
+  const renderPartidoCard = (partido: any) => {
+    const m = marcadores[partido.id] || { local: "", visitante: "", ganador: "", goleador_id: "" };
+
+    let inconsistencia: string | null = null;
+    if (m.local !== "" && m.visitante !== "" && m.ganador) {
+      const nL = Number(m.local);
+      const nV = Number(m.visitante);
+      if (nL > nV && m.ganador !== "local") {
+        inconsistencia = `Marcador indica victoria de ${partido.equipo_local.nombre}, pero seleccionaste ${m.ganador === "visitante" ? partido.equipo_visitante.nombre : "Empate"}.`;
+      } else if (nV > nL && m.ganador !== "visitante") {
+        inconsistencia = `Marcador indica victoria de ${partido.equipo_visitante.nombre}, pero seleccionaste ${m.ganador === "local" ? partido.equipo_local.nombre : "Empate"}.`;
+      } else if (nL === nV && m.ganador !== "empate") {
+        inconsistencia = `Marcador indica Empate, pero seleccionaste a un equipo ganador.`;
+      }
+    }
+
+    const jugadoresPartido = [
+      ...(partido.equipo_local.jugadores || []),
+      ...(partido.equipo_visitante.jugadores || []),
+    ];
+
+    const horaCierrePartido = new Date(new Date(partido.fecha_hora_partido).getTime() - 30 * 60 * 1000);
+    const esAplazado = partido.estado === "aplazado";
+
+    const estaCerradoGeneral = (new Date() >= horaCierrePartido);
+    const estaCerrado = estaCerradoGeneral;
+    const deshabilitarMarcador = estaCerradoGeneral;
+    const deshabilitarBotonGuardar = guardandoPartidoId === partido.id || Boolean(inconsistencia);
+
+    const estaCardAbierta = partidosDesplegados[partido.id] ?? (estaCerrado ? false : true);
+
+    return (
+      <div
+        key={partido.id}
+        className="card"
+        style={{
+          borderLeft: esAplazado
+            ? "4px solid #f59e0b"
+            : estaCerrado
+            ? "4px solid var(--graderia)"
+            : inconsistencia
+            ? "4px solid var(--rojo)"
+            : "1px solid var(--linea)",
+          background: esAplazado
+            ? "rgba(245, 158, 11, 0.1)"
+            : estaCerrado
+            ? "rgba(255, 255, 255, 0.02)"
+            : inconsistencia
+            ? "var(--rojo-suave)"
+            : "var(--tribuna)",
+          opacity: estaCerrado && !esAplazado ? 0.85 : 1,
+        }}
+      >
+        {/* ENCABEZADO MATCH CON BOTÓN DESPLEGABLE Y RESUMEN */}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: estaCardAbierta ? 14 : 0, fontSize: "0.82rem", color: "var(--graderia)", borderBottom: estaCardAbierta ? "1px dashed var(--linea)" : "none", paddingBottom: estaCardAbierta ? 8 : 0, flexWrap: "wrap", gap: 8 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+            <span style={{ fontWeight: 800, color: "#ffffff", fontSize: "0.95rem" }}>
+              {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}
+            </span>
+            {m.local !== "" && m.visitante !== "" ? (
+              <span style={{ background: "rgba(16, 185, 129, 0.2)", color: "#10b981", border: "1px solid rgba(16, 185, 129, 0.4)", padding: "2px 8px", borderRadius: 12, fontSize: "0.75rem", fontWeight: 800 }}>
+                ✅ Pronosticado ({m.local} - {m.visitante})
+              </span>
+            ) : estaCerrado ? (
+              <span style={{ background: "rgba(100, 116, 139, 0.2)", color: "#94a3b8", border: "1px solid rgba(100, 116, 139, 0.4)", padding: "2px 8px", borderRadius: 12, fontSize: "0.75rem", fontWeight: 800 }}>
+                🏁 Terminado
+              </span>
+            ) : (
+              <span style={{ background: "rgba(245, 158, 11, 0.15)", color: "#f59e0b", border: "1px solid rgba(245, 158, 11, 0.3)", padding: "2px 8px", borderRadius: 12, fontSize: "0.75rem", fontWeight: 700 }}>
+                ⏳ Pendiente
+              </span>
+            )}
+          </div>
+
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            {esAplazado ? (
+              <span style={{ background: "#f59e0b", padding: "4px 10px", borderRadius: 6, color: "#fff", fontWeight: 800 }}>
+                ⚠️ APLAZADO
+              </span>
+            ) : (
+              <RelojCuentaRegresiva fechaHoraPartido={partido.fecha_hora_partido} estado={partido.estado} />
+            )}
+
+            {!estaCerrado && (
+              <button
+                type="button"
+                onClick={() => setPartidosDesplegados(prev => ({ ...prev, [partido.id]: !estaCardAbierta }))}
+                style={{
+                  background: estaCardAbierta ? "rgba(56, 189, 248, 0.25)" : "rgba(255, 255, 255, 0.08)",
+                  border: estaCardAbierta ? "1px solid #38bdf8" : "1px solid var(--linea)",
+                  color: estaCardAbierta ? "#38bdf8" : "#ffffff",
+                  padding: "6px 14px",
+                  borderRadius: 8,
+                  fontSize: "0.8rem",
+                  fontWeight: 800,
+                  cursor: "pointer",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 6,
+                  transition: "all 0.15s ease",
+                }}
+              >
+                <span>{estaCardAbierta ? "▲ Ocultar" : "▼ Pronosticar"}</span>
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* CONTENIDO EXPANDIBLE DE PRONÓSTICO */}
+        {estaCardAbierta && (
+          <div style={{ marginTop: 14, paddingTop: 14, borderTop: "1px dashed var(--linea)" }}>
+            {/* BANNER DE MARCADOR OFICIAL SI EXISTE */}
+            {partido.resultado_oficial && (
+              <div style={{ background: "linear-gradient(135deg, #065f46 0%, #047857 100%)", padding: "10px 14px", borderRadius: 8, textAlign: "center", marginBottom: 14, color: "#ffffff", fontWeight: 800, border: "1px solid #34d399", fontSize: "0.95rem" }}>
+                <div>🏁 MARCADOR OFICIAL: {partido.resultado_oficial.goles_local_real} - {partido.resultado_oficial.goles_visitante_real}</div>
+                {partido.resultado_oficial.goleadores && partido.resultado_oficial.goleadores.length > 0 && (
+                  <div style={{ fontSize: "0.82rem", fontWeight: 600, marginTop: 4, color: "#a7f3d0" }}>
+                    ⚽ Goleadores oficiales: {(() => {
+                      const nombres = partido.resultado_oficial.goleadores
+                        .map((g: any) => g.jugador?.nombre)
+                        .filter(Boolean);
+                      if (nombres.length === 0) return "Sin goles anotados";
+                      const counts: Record<string, number> = {};
+                      nombres.forEach((n: string) => { counts[n] = (counts[n] || 0) + 1; });
+                      return Object.entries(counts)
+                        .map(([n, c]) => (c > 1 ? `${n} (x${c})` : n))
+                        .join(", ");
+                    })()}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* MARCADOR EXACTO - DISEÑO RESPONSIVO MÓVIL ALINEADO 3 COLUMNAS */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", alignItems: "center", gap: 10, margin: "16px 0 20px" }}>
+              {/* EQUIPO LOCAL */}
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 8, textAlign: "right" }}>
+                <span style={{ fontWeight: 800, fontSize: "clamp(0.88rem, 3.8vw, 1.1rem)", color: "#ffffff", lineHeight: 1.2 }}>
+                  {partido.equipo_local.nombre}
+                </span>
+                {partido.equipo_local.escudo_url ? (
+                  <img src={partido.equipo_local.escudo_url} alt={partido.equipo_local.nombre} style={{ width: 30, height: 30, objectFit: "contain", flexShrink: 0 }} />
+                ) : (
+                  <div style={{ width: 28, height: 28, background: "var(--linea)", borderRadius: "50%", flexShrink: 0 }} />
+                )}
+              </div>
+
+              {/* INPUTS MARCADOR */}
+              <div style={{ display: "flex", alignItems: "center", gap: 6, flexShrink: 0 }}>
+                <input
+                  type="number"
+                  min="0"
+                  max="20"
+                  value={m.local}
+                  onChange={(e) => handleMarcadorChange(partido.id, "local", e.target.value)}
+                  disabled={deshabilitarMarcador}
+                  style={{
+                    width: 44,
+                    height: 44,
+                    textAlign: "center",
+                    fontSize: "1.2rem",
+                    fontWeight: 900,
+                    background: "var(--noche-2)",
+                    border: m.local !== "" ? "2px solid var(--cancha)" : "1px solid var(--linea)",
+                    borderRadius: 8,
+                    color: "#ffffff",
+                    padding: 0,
+                  }}
+                />
+                <span style={{ fontWeight: 900, fontSize: "1.2rem", color: "var(--graderia)" }}>:</span>
+                <input
+                  type="number"
+                  min="0"
+                  max="20"
+                  value={m.visitante}
+                  onChange={(e) => handleMarcadorChange(partido.id, "visitante", e.target.value)}
+                  disabled={deshabilitarMarcador}
+                  style={{
+                    width: 44,
+                    height: 44,
+                    textAlign: "center",
+                    fontSize: "1.2rem",
+                    fontWeight: 900,
+                    background: "var(--noche-2)",
+                    border: m.visitante !== "" ? "2px solid var(--cancha)" : "1px solid var(--linea)",
+                    borderRadius: 8,
+                    color: "#ffffff",
+                    padding: 0,
+                  }}
+                />
+              </div>
+
+              {/* EQUIPO VISITANTE */}
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-start", gap: 8, textAlign: "left" }}>
+                {partido.equipo_visitante.escudo_url ? (
+                  <img src={partido.equipo_visitante.escudo_url} alt={partido.equipo_visitante.nombre} style={{ width: 30, height: 30, objectFit: "contain", flexShrink: 0 }} />
+                ) : (
+                  <div style={{ width: 28, height: 28, background: "var(--linea)", borderRadius: "50%", flexShrink: 0 }} />
+                )}
+                <span style={{ fontWeight: 800, fontSize: "clamp(0.88rem, 3.8vw, 1.1rem)", color: "#ffffff", lineHeight: 1.2 }}>
+                  {partido.equipo_visitante.nombre}
+                </span>
+              </div>
+            </div>
+
+            {/* GANADOR PREDICHO - BOTONES DE BOTÓN MÓVIL PERFECTOS */}
+            {(() => {
+              const ganadorEfectivo = m.ganador || (
+                m.local !== "" && m.visitante !== ""
+                  ? (Number(m.local) > Number(m.visitante) ? "local" : Number(m.visitante) > Number(m.local) ? "visitante" : "empate")
+                  : ""
+              );
+
+              return (
+                <div style={{ background: "var(--noche-2)", padding: "12px 14px", borderRadius: 8, marginBottom: 12 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8, flexWrap: "wrap", gap: 6 }}>
+                    <label style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--graderia)", margin: 0 }}>
+                      🏆 Equipo Ganador del Partido (3 Pts):
+                    </label>
+                    {ganadorEfectivo && (
+                      <span style={{ fontSize: "0.78rem", fontWeight: 800, color: "#38bdf8", background: "rgba(56,189,248,0.15)", padding: "2px 8px", borderRadius: 4 }}>
+                        {ganadorEfectivo === "local" ? `Gana ${partido.equipo_local.nombre}` : ganadorEfectivo === "visitante" ? `Gana ${partido.equipo_visitante.nombre}` : "Empate"}
+                      </span>
+                    )}
+                  </div>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 6 }}>
+                    <label
+                      onClick={() => !deshabilitarMarcador && handleGanadorChange(partido.id, "local")}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        padding: "8px 4px",
+                        borderRadius: 6,
+                        cursor: deshabilitarMarcador ? "not-allowed" : "pointer",
+                        background: ganadorEfectivo === "local" ? "linear-gradient(135deg, #059669 0%, #047857 100%)" : "rgba(255,255,255,0.05)",
+                        border: ganadorEfectivo === "local" ? "1px solid #34d399" : "1px solid var(--linea)",
+                        color: ganadorEfectivo === "local" ? "#fff" : "var(--tiza)",
+                        fontWeight: 700,
+                        fontSize: "0.78rem",
+                        textAlign: "center",
+                        transition: "all 0.15s ease",
+                      }}
+                    >
+                      Gana {partido.equipo_local.nombre}
+                    </label>
+                    <label
+                      onClick={() => !deshabilitarMarcador && handleGanadorChange(partido.id, "empate")}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        padding: "8px 4px",
+                        borderRadius: 6,
+                        cursor: deshabilitarMarcador ? "not-allowed" : "pointer",
+                        background: ganadorEfectivo === "empate" ? "linear-gradient(135deg, #d97706 0%, #b45309 100%)" : "rgba(255,255,255,0.05)",
+                        border: ganadorEfectivo === "empate" ? "1px solid #fbbf24" : "1px solid var(--linea)",
+                        color: ganadorEfectivo === "empate" ? "#fff" : "var(--tiza)",
+                        fontWeight: 700,
+                        fontSize: "0.78rem",
+                        textAlign: "center",
+                        transition: "all 0.15s ease",
+                      }}
+                    >
+                      Empate
+                    </label>
+                    <label
+                      onClick={() => !deshabilitarMarcador && handleGanadorChange(partido.id, "visitante")}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        padding: "8px 4px",
+                        borderRadius: 6,
+                        cursor: deshabilitarMarcador ? "not-allowed" : "pointer",
+                        background: ganadorEfectivo === "visitante" ? "linear-gradient(135deg, #059669 0%, #047857 100%)" : "rgba(255,255,255,0.05)",
+                        border: ganadorEfectivo === "visitante" ? "1px solid #34d399" : "1px solid var(--linea)",
+                        color: ganadorEfectivo === "visitante" ? "#fff" : "var(--tiza)",
+                        fontWeight: 700,
+                        fontSize: "0.78rem",
+                        textAlign: "center",
+                        transition: "all 0.15s ease",
+                      }}
+                    >
+                      Gana {partido.equipo_visitante.nombre}
+                    </label>
+                  </div>
+                </div>
+              );
+            })()}
+
+            {/* SELECCIÓN DE GOLEADOR PREDICHO (+2 PTS) - BOTÓN DE DESELECCIONAR 'NINGUNO' */}
+            {(() => {
+              const golesL = m.local !== "" ? Number(m.local) : null;
+              const golesV = m.visitante !== "" ? Number(m.visitante) : null;
+              const esCeroCero = golesL === 0 && golesV === 0;
+
+              const jugadoresLocal = partido.equipo_local.jugadores || [];
+              const jugadoresVisitante = partido.equipo_visitante.jugadores || [];
+
+              const deshabilitarLocal = deshabilitarMarcador || golesL === 0;
+              const deshabilitarVisitante = deshabilitarMarcador || golesV === 0;
+
+              return (
+                <div style={{ background: "rgba(255,255,255,0.03)", padding: "12px 14px", borderRadius: 8 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10, flexWrap: "wrap", gap: 6 }}>
+                    <label style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--graderia)", margin: 0, display: "flex", alignItems: "center", gap: 6 }}>
+                      ⚽ Goleador del Partido (+2 Pts):
+                    </label>
+
+                    {esCeroCero ? (
+                      <span style={{ fontSize: "0.75rem", background: "rgba(239, 68, 68, 0.2)", color: "#fca5a5", border: "1px solid rgba(239, 68, 68, 0.4)", padding: "2px 8px", borderRadius: 12, fontWeight: 700 }}>
+                        🚫 Sin Goleador (Activo para 0 - 0)
+                      </span>
+                    ) : m.goleador_id ? (
+                      <button
+                        type="button"
+                        onClick={() => !deshabilitarMarcador && handleGoleadorChange(partido.id, "")}
+                        disabled={deshabilitarMarcador}
+                        style={{
+                          fontSize: "0.75rem",
+                          background: "rgba(239, 68, 68, 0.2)",
+                          color: "#fca5a5",
+                          border: "1px solid rgba(239, 68, 68, 0.4)",
+                          padding: "2px 8px",
+                          borderRadius: 12,
+                          fontWeight: 700,
+                          cursor: deshabilitarMarcador ? "not-allowed" : "pointer",
+                        }}
+                      >
+                        ✕ Quitar Goleador
+                      </button>
+                    ) : null}
+                  </div>
+
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+                    {/* DROPDOWN LOCAL */}
+                    <div>
+                      <div style={{ fontSize: "0.75rem", fontWeight: 700, color: deshabilitarLocal ? "var(--graderia)" : "#34d399", marginBottom: 4 }}>
+                        🏠 Goleador {partido.equipo_local.nombre}:
+                      </div>
+                      <select
+                        value={String(golesL === 0 ? "" : (jugadoresLocal.some((j: any) => String(j.id) === String(m.goleador_id)) ? m.goleador_id : ""))}
+                        onChange={(e) => handleGoleadorChange(partido.id, e.target.value)}
+                        disabled={deshabilitarLocal}
+                        style={{
+                          width: "100%",
+                          padding: "8px 10px",
+                          fontSize: "0.78rem",
+                          background: "var(--noche-2)",
+                          border: jugadoresLocal.some((j: any) => String(j.id) === String(m.goleador_id)) ? "1px solid #34d399" : "1px solid var(--linea)",
+                          borderRadius: 6,
+                          color: deshabilitarLocal ? "var(--graderia)" : "#ffffff",
+                          opacity: deshabilitarLocal ? 0.5 : 1,
+                        }}
+                      >
+                        <option value="">-- Seleccionar de {partido.equipo_local.nombre} --</option>
+                        {jugadoresLocal.map((j: any) => (
+                          <option key={j.id} value={String(j.id)}>
+                            {j.nombre}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    {/* DROPDOWN VISITANTE */}
+                    <div>
+                      <div style={{ fontSize: "0.75rem", fontWeight: 700, color: deshabilitarVisitante ? "var(--graderia)" : "#38bdf8", marginBottom: 4 }}>
+                        ✈️ Goleador {partido.equipo_visitante.nombre}:
+                      </div>
+                      <select
+                        value={String(golesV === 0 ? "" : (jugadoresVisitante.some((j: any) => String(j.id) === String(m.goleador_id)) ? m.goleador_id : ""))}
+                        onChange={(e) => handleGoleadorChange(partido.id, e.target.value)}
+                        disabled={deshabilitarVisitante}
+                        style={{
+                          width: "100%",
+                          padding: "8px 10px",
+                          fontSize: "0.78rem",
+                          background: "var(--noche-2)",
+                          border: jugadoresVisitante.some((j: any) => String(j.id) === String(m.goleador_id)) ? "1px solid #38bdf8" : "1px solid var(--linea)",
+                          borderRadius: 6,
+                          color: deshabilitarVisitante ? "var(--graderia)" : "#ffffff",
+                          opacity: deshabilitarVisitante ? 0.5 : 1,
+                        }}
+                      >
+                        <option value="">-- Seleccionar de {partido.equipo_visitante.nombre} --</option>
+                        {jugadoresVisitante.map((j: any) => (
+                          <option key={j.id} value={String(j.id)}>
+                            {j.nombre}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
+                  {esCeroCero && (
+                    <div style={{ marginTop: 8, fontSize: "0.73rem", color: "#38bdf8", fontStyle: "italic" }}>
+                      ℹ️ Sin goleador seleccionado (válido sólo si el partido termina 0 - 0).
+                    </div>
+                  )}
+
+                  {!estaCerrado && inconsistencia && (
+                    <div style={{ marginTop: 10, color: "var(--rojo)", fontSize: "0.85rem", display: "flex", alignItems: "center", gap: 6, fontWeight: 700 }}>
+                      <AlertTriangle size={16} /> {inconsistencia}
+                    </div>
+                  )}
+
+                  {/* BOTÓN GUARDAR PRONÓSTICO INDIVIDUAL CON CONFIRMACIÓN EN VIVO */}
+                  {!estaCerrado && (
+                    <div style={{ marginTop: 14, paddingTop: 10, borderTop: "1px dashed rgba(255,255,255,0.08)", display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 6 }}>
+                      <button
+                        type="button"
+                        className="btn btn-primary"
+                        disabled={deshabilitarBotonGuardar}
+                        onClick={() => handleGuardarPronosticoPartido(partido.id)}
+                        style={{
+                          padding: "8px 18px",
+                          fontSize: "0.88rem",
+                          fontWeight: 800,
+                          background: deshabilitarBotonGuardar
+                            ? "#334155"
+                            : partidoGuardadoExitoId === partido.id
+                            ? "linear-gradient(135deg, #059669 0%, #047857 100%)"
+                            : "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+                          color: deshabilitarBotonGuardar ? "#94a3b8" : "#fff",
+                          opacity: deshabilitarBotonGuardar ? 0.65 : 1,
+                          borderRadius: 8,
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: 6,
+                          cursor: deshabilitarBotonGuardar ? "not-allowed" : "pointer",
+                          boxShadow: deshabilitarBotonGuardar ? "none" : "0 4px 12px rgba(16, 185, 129, 0.3)",
+                        }}
+                      >
+                        {partidoGuardadoExitoId === partido.id ? (
+                          <>
+                            <CheckCircle2 size={16} /> ¡Pronóstico Guardado con Éxito!
+                          </>
+                        ) : guardandoPartidoId === partido.id ? (
+                          "Guardando..."
+                        ) : (
+                          <>
+                            <Save size={16} /> Guardar Pronóstico
+                          </>
+                        )}
+                      </button>
+
+                      {partidoGuardadoExitoId === partido.id && (
+                        <div style={{ color: "#34d399", fontSize: "0.82rem", fontWeight: 800, display: "flex", alignItems: "center", gap: 4 }}>
+                          <CheckCircle2 size={14} /> ✓ Marcador y goleador guardados correctamente en la base de datos
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              );
+            })()}
+          </div>
+        )}
+      </div>
+    );
   };
 
   // Cerrar Sesión
@@ -2322,6 +2785,21 @@ export default function ExpressPage() {
                   </button>
 
                   <button
+                    className={`btn ${tabActiva === "aplazados" ? "btn-primary" : "btn-secondary"}`}
+                    onClick={() => setTabActiva(tabActiva === "aplazados" ? "inicio" : "aplazados")}
+                    style={{
+                      padding: "8px 12px",
+                      fontSize: "0.82rem",
+                      fontWeight: 700,
+                      background: tabActiva === "aplazados" ? "#f59e0b" : "transparent",
+                      border: tabActiva === "aplazados" ? "1px solid #f59e0b" : "1px solid rgba(245, 158, 11, 0.4)",
+                      color: tabActiva === "aplazados" ? "#ffffff" : "#f59e0b",
+                    }}
+                  >
+                    ⚠️ Aplazados
+                  </button>
+
+                  <button
                     className={`btn ${tabActiva === "inicial" ? "btn-primary" : "btn-secondary"}`}
                     onClick={() => setTabActiva(tabActiva === "inicial" ? "inicio" : "inicial")}
                     style={{
@@ -2563,6 +3041,21 @@ export default function ExpressPage() {
                     <div style={{ fontSize: "0.82rem", color: "#bae6fd" }}>Consulta la tabla general de posiciones y puntos acumulados.</div>
                   </div>
 
+                  <div
+                    onClick={() => setTabActiva("aplazados")}
+                    style={{
+                      background: "linear-gradient(135deg, #3f2b06 0%, #583c08 100%)",
+                      border: "1px solid #f59e0b",
+                      borderRadius: 12,
+                      padding: 20,
+                      cursor: "pointer",
+                    }}
+                  >
+                    <div style={{ fontSize: "1.8rem", marginBottom: 8 }}>⚠️</div>
+                    <div style={{ fontWeight: 800, fontSize: "1.1rem", color: "#fff", marginBottom: 4 }}>Partidos Aplazados</div>
+                    <div style={{ fontSize: "0.82rem", color: "#fef08a" }}>Ingresa o modifica tus pronósticos de los partidos reprogramados.</div>
+                  </div>
+
                 </div>
 
                 {/* BOTÓN CERRAR SESIÓN EN INICIO */}
@@ -2647,7 +3140,7 @@ export default function ExpressPage() {
                     const estaCerrado = estaCerradoGeneral;
                     const deshabilitarMarcador = estaCerradoGeneral;
 
-                    const estaCardAbierta = partidosDesplegados[partido.id] ?? (estaCerrado ? true : false);
+                    const estaCardAbierta = partidosDesplegados[partido.id] ?? (estaCerrado ? false : true);
 
                     return (
                       <div
@@ -2681,6 +3174,10 @@ export default function ExpressPage() {
                               <span style={{ background: "rgba(16, 185, 129, 0.2)", color: "#10b981", border: "1px solid rgba(16, 185, 129, 0.4)", padding: "2px 8px", borderRadius: 12, fontSize: "0.75rem", fontWeight: 800 }}>
                                 ✅ Pronosticado ({m.local} - {m.visitante})
                               </span>
+                            ) : estaCerrado ? (
+                              <span style={{ background: "rgba(100, 116, 139, 0.2)", color: "#94a3b8", border: "1px solid rgba(100, 116, 139, 0.4)", padding: "2px 8px", borderRadius: 12, fontSize: "0.75rem", fontWeight: 800 }}>
+                                🏁 Terminado
+                              </span>
                             ) : (
                               <span style={{ background: "rgba(245, 158, 11, 0.15)", color: "#f59e0b", border: "1px solid rgba(245, 158, 11, 0.3)", padding: "2px 8px", borderRadius: 12, fontSize: "0.75rem", fontWeight: 700 }}>
                                 ⏳ Pendiente
@@ -2697,26 +3194,28 @@ export default function ExpressPage() {
                               <RelojCuentaRegresiva fechaHoraPartido={partido.fecha_hora_partido} estado={partido.estado} />
                             )}
 
-                            <button
-                              type="button"
-                              onClick={() => setPartidosDesplegados(prev => ({ ...prev, [partido.id]: !estaCardAbierta }))}
-                              style={{
-                                background: estaCardAbierta ? "rgba(56, 189, 248, 0.25)" : "rgba(255, 255, 255, 0.08)",
-                                border: estaCardAbierta ? "1px solid #38bdf8" : "1px solid var(--linea)",
-                                color: estaCardAbierta ? "#38bdf8" : "#ffffff",
-                                padding: "6px 14px",
-                                borderRadius: 8,
-                                fontSize: "0.8rem",
-                                fontWeight: 800,
-                                cursor: "pointer",
-                                display: "inline-flex",
-                                alignItems: "center",
-                                gap: 6,
-                                transition: "all 0.15s ease",
-                              }}
-                            >
-                              <span>{estaCardAbierta ? "▲ Ocultar" : "▼ Pronosticar"}</span>
-                            </button>
+                            {!estaCerrado && (
+                              <button
+                                type="button"
+                                onClick={() => setPartidosDesplegados(prev => ({ ...prev, [partido.id]: !estaCardAbierta }))}
+                                style={{
+                                  background: estaCardAbierta ? "rgba(56, 189, 248, 0.25)" : "rgba(255, 255, 255, 0.08)",
+                                  border: estaCardAbierta ? "1px solid #38bdf8" : "1px solid var(--linea)",
+                                  color: estaCardAbierta ? "#38bdf8" : "#ffffff",
+                                  padding: "6px 14px",
+                                  borderRadius: 8,
+                                  fontSize: "0.8rem",
+                                  fontWeight: 800,
+                                  cursor: "pointer",
+                                  display: "inline-flex",
+                                  alignItems: "center",
+                                  gap: 6,
+                                  transition: "all 0.15s ease",
+                                }}
+                              >
+                                <span>{estaCardAbierta ? "▲ Ocultar" : "▼ Pronosticar"}</span>
+                              </button>
+                            )}
                           </div>
                         </div>
 
@@ -3186,6 +3685,56 @@ export default function ExpressPage() {
                           {partidosFinalizadosSinAplazados.map((partido) => renderPartidoCard(partido))}
                         </>
                       )}
+                    </div>
+                  );
+                })()
+              )}
+            </div>
+          )}
+
+          {/* TAB: PARTIDOS APLAZADOS DEDICADO */}
+          {tabActiva === "aplazados" && (
+            <div>
+              <div
+                className="card"
+                style={{
+                  marginBottom: 20,
+                  background: "linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(120, 53, 15, 0.2) 100%)",
+                  border: "2px solid #f59e0b",
+                  boxShadow: "0 4px 20px rgba(245, 158, 11, 0.15)",
+                  padding: 20,
+                }}
+              >
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 8, marginBottom: 8 }}>
+                  <h2 style={{ margin: 0, color: "#fef08a", display: "flex", alignItems: "center", gap: 8 }}>
+                    <span>⚠️</span> Partidos Aplazados y Reprogramados
+                  </h2>
+                  <span style={{ fontSize: "0.8rem", background: "rgba(245, 158, 11, 0.3)", color: "#fef08a", padding: "4px 12px", borderRadius: 12, fontWeight: 800 }}>
+                    Dimayor 2026
+                  </span>
+                </div>
+                <p style={{ color: "#fef3c7", margin: 0, fontSize: "0.88rem", lineHeight: 1.5 }}>
+                  Partidos reprogramados (incluye Atlético Nacional vs Boyacá Chicó y Cúcuta Deportivo vs Internacional). Puedes ingresar o modificar tus pronósticos hasta <strong>30 minutos antes</strong> de su nuevo horario de inicio.
+                </p>
+              </div>
+
+              {cargandoMaestros ? (
+                <div style={{ textAlign: "center", padding: 40, color: "var(--graderia)" }}>
+                  Cargando partidos aplazados...
+                </div>
+              ) : (
+                (() => {
+                  const partidosAplazados = partidos.filter((p) => p.estado === "aplazado");
+                  if (partidosAplazados.length === 0) {
+                    return (
+                      <div className="card" style={{ padding: 24, textAlign: "center", color: "var(--graderia)" }}>
+                        No hay partidos aplazados registrados actualmente.
+                      </div>
+                    );
+                  }
+                  return (
+                    <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                      {partidosAplazados.map((partido) => renderPartidoCard(partido))}
                     </div>
                   );
                 })()
