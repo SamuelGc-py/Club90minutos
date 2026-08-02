@@ -981,11 +981,10 @@ export default function ExpressPage() {
   const validarCoherenciaPronosticos = (): string | null => {
     for (const partido of partidos) {
       const horaCierrePartido = new Date(new Date(partido.fecha_hora_partido).getTime() - 30 * 60 * 1000);
-      const esAplazado = partido.estado === "aplazado";
       const esFinalizado = Boolean(partido.resultado_oficial) || partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado";
-      const estaCerrado = (new Date() >= horaCierrePartido) || esAplazado || esFinalizado;
+      const estaCerrado = (new Date() >= horaCierrePartido) || esFinalizado;
 
-      // Ignorar validación para partidos acabados, cerrados o aplazados
+      // Ignorar validación para partidos acabados o cerrados por tiempo
       if (estaCerrado) continue;
 
       const m = marcadores[partido.id];
@@ -2644,7 +2643,7 @@ export default function ExpressPage() {
                     const horaCierrePartido = new Date(new Date(partido.fecha_hora_partido).getTime() - 30 * 60 * 1000);
                     const esAplazado = partido.estado === "aplazado";
 
-                    const estaCerradoGeneral = (new Date() >= horaCierrePartido) || esAplazado;
+                    const estaCerradoGeneral = (new Date() >= horaCierrePartido);
                     const estaCerrado = estaCerradoGeneral;
                     const deshabilitarMarcador = estaCerradoGeneral;
 
@@ -3548,13 +3547,13 @@ export default function ExpressPage() {
 
                 {(() => {
                   const esPartidoCerrado = (partido: any) => {
-                    const esAplazado = partido.estado === "aplazado";
                     const esFinalizado = Boolean(partido.resultado_oficial) || partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado";
                     const hace2Horas = new Date().getTime() >= new Date(partido.fecha_hora_partido).getTime() + 2 * 60 * 60 * 1000;
-                    return esFinalizado || esAplazado || hace2Horas;
+                    const horaCierre = new Date(new Date(partido.fecha_hora_partido).getTime() - 30 * 60 * 1000);
+                    return esFinalizado || (new Date() >= horaCierre);
                   };
 
-                  const partidosPublicosFiltrados = partidos.filter((p) => p.jornada === 2);
+                  const partidosPublicosFiltrados = partidos.filter((p) => p.jornada === 2 || p.estado === "aplazado");
 
                   const partidosActivosPublicos = partidosPublicosFiltrados
                     .filter((p) => !esPartidoCerrado(p))
