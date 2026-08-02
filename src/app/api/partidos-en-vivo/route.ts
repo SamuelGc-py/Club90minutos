@@ -24,7 +24,8 @@ export async function GET() {
       if (!homeTeam || !awayTeam) continue;
 
       const statusCode = status?.type?.name;
-      const esEnVivo = statusCode === "STATUS_IN_PROGRESS" || statusCode === "STATUS_FIRST_HALF" || statusCode === "STATUS_SECOND_HALF" || statusCode === "STATUS_HALFTIME";
+      const esSuspendido = statusCode === "STATUS_SUSPENDED" || statusCode === "STATUS_DELAYED" || statusCode === "STATUS_RAIN_DELAY";
+      const esEnVivo = statusCode === "STATUS_IN_PROGRESS" || statusCode === "STATUS_FIRST_HALF" || statusCode === "STATUS_SECOND_HALF" || statusCode === "STATUS_HALFTIME" || esSuspendido;
       const esFinalizado = statusCode === "STATUS_FULL_TIME";
 
       let statsObj: any = null;
@@ -110,9 +111,9 @@ export async function GET() {
           escudo: awayTeam.team?.logo,
           goles: parseInt(awayTeam.score || "0", 10),
         },
-        reloj: status?.displayClock || status?.type?.shortDetail || "",
+        reloj: esSuspendido ? "⚠️ RETRASADO" : (status?.displayClock || status?.type?.shortDetail || ""),
         periodo: status?.period || 1,
-        estadoDetail: status?.type?.detail || status?.type?.description || "Programado",
+        estadoDetail: esSuspendido ? "Partido Retrasado / Demorado" : (status?.type?.detail || status?.type?.description || "Programado"),
         esEnVivo,
         esFinalizado,
         estadisticas: statsObj,

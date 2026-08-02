@@ -57,6 +57,16 @@ export async function sincronizarMarcadoresEnVivo() {
     // Ignorar partidos programados que aún no inician
     if (statusCode === "STATUS_SCHEDULED" || statusCode === "STATUS_POSTPONED") continue;
 
+    // Si el partido está suspendido o retrasado por lluvia/clima en ESPN, marcar como aplazado
+    if (statusCode === "STATUS_SUSPENDED" || statusCode === "STATUS_DELAYED" || statusCode === "STATUS_RAIN_DELAY") {
+      await prisma.partido.update({
+        where: { id: partido.id },
+        data: { estado: "aplazado" },
+      });
+      actualizados++;
+      continue;
+    }
+
     const esFinalizado = statusCode === "STATUS_FULL_TIME";
     const nuevoEstado = esFinalizado ? "resultado_cargado" : "resultado_pendiente";
 
