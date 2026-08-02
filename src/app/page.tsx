@@ -1063,7 +1063,7 @@ export default function ExpressPage() {
     const deshabilitarMarcador = estaCerradoGeneral;
     const deshabilitarBotonGuardar = guardandoPartidoId === partido.id || Boolean(inconsistencia);
 
-    const estaCardAbierta = partidosDesplegados[partido.id] ?? (estaCerrado ? false : true);
+    const estaCardAbierta = partidosDesplegados[partido.id] ?? false;
 
     return (
       <div
@@ -1191,7 +1191,7 @@ export default function ExpressPage() {
                   onChange={(e) => handleMarcadorChange(partido.id, "local", e.target.value)}
                   disabled={deshabilitarMarcador}
                   style={{
-                    width: 44,
+                    width: m.local.length > 1 ? 52 : 36,
                     height: 44,
                     textAlign: "center",
                     fontSize: "1.2rem",
@@ -1201,6 +1201,7 @@ export default function ExpressPage() {
                     borderRadius: 8,
                     color: "#ffffff",
                     padding: 0,
+                    transition: "width 0.15s ease",
                   }}
                 />
                 <span style={{ fontWeight: 900, fontSize: "1.2rem", color: "var(--graderia)" }}>:</span>
@@ -1212,7 +1213,7 @@ export default function ExpressPage() {
                   onChange={(e) => handleMarcadorChange(partido.id, "visitante", e.target.value)}
                   disabled={deshabilitarMarcador}
                   style={{
-                    width: 44,
+                    width: m.visitante.length > 1 ? 52 : 36,
                     height: 44,
                     textAlign: "center",
                     fontSize: "1.2rem",
@@ -1222,6 +1223,7 @@ export default function ExpressPage() {
                     borderRadius: 8,
                     color: "#ffffff",
                     padding: 0,
+                    transition: "width 0.15s ease",
                   }}
                 />
               </div>
