@@ -3139,18 +3139,52 @@ export default function ExpressPage() {
                     );
                   };
 
+                  const partidosAplazadosTodos = partidos.filter((p) => p.estado === "aplazado");
+                  const partidosFinalizadosSinAplazados = partidosFinalizados.filter((p) => p.estado !== "aplazado");
+
                   return (
                     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                      {/* SECCIÓN DEDICADA DE JUEGOS APLAZADOS */}
+                      {partidosAplazadosTodos.length > 0 && (
+                        <div
+                          className="card"
+                          style={{
+                            marginBottom: 12,
+                            background: "linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(120, 53, 15, 0.2) 100%)",
+                            border: "2px solid #f59e0b",
+                            boxShadow: "0 4px 20px rgba(245, 158, 11, 0.15)",
+                            padding: 20,
+                          }}
+                        >
+                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12, flexWrap: "wrap", gap: 8 }}>
+                            <h3 style={{ margin: 0, color: "#fef08a", fontSize: "1.15rem", display: "flex", alignItems: "center", gap: 8 }}>
+                              <span>⚠️</span> JUEGOS APLAZADOS ({partidosAplazadosTodos.length})
+                            </h3>
+                            <span style={{ fontSize: "0.78rem", background: "rgba(245, 158, 11, 0.3)", color: "#fef08a", padding: "4px 12px", borderRadius: 12, fontWeight: 800 }}>
+                              Reprogramaciones Dimayor
+                            </span>
+                          </div>
+                          <p style={{ fontSize: "0.84rem", color: "#fef3c7", marginTop: 0, marginBottom: 16, lineHeight: 1.4 }}>
+                            Partidos reprogramados o aplazados por la Dimayor (incluye Atlético Nacional y Cúcuta Deportivo). Podrás ajustar tus pronósticos hasta 30 minutos antes de su nueva hora de inicio.
+                          </p>
+                          <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+                            {partidosAplazadosTodos.map((partido) => renderPartidoCard(partido))}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* PARTIDOS ACTIVOS EN PROGRAMACIÓN */}
                       {partidosActivos.map((partido) => renderPartidoCard(partido))}
 
-                      {partidosFinalizados.length > 0 && (
+                      {/* PARTIDOS FINALIZADOS */}
+                      {partidosFinalizadosSinAplazados.length > 0 && (
                         <>
                           <div style={{ marginTop: 28, marginBottom: 8, borderTop: "2px dashed var(--linea)", paddingTop: 20 }}>
                             <h3 style={{ color: "#34d399", fontSize: "1.15rem", display: "flex", alignItems: "center", gap: 8, margin: 0 }}>
-                              🏁 Partidos Finalizados y Aplazados (Orden Cronológico)
+                              🏁 Partidos Finalizados (Orden Cronológico)
                             </h3>
                           </div>
-                          {partidosFinalizados.map((partido) => renderPartidoCard(partido))}
+                          {partidosFinalizadosSinAplazados.map((partido) => renderPartidoCard(partido))}
                         </>
                       )}
                     </div>
