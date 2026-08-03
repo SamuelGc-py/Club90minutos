@@ -1700,7 +1700,7 @@ function ExpressPageContent() {
               Ingresa el correo electrónico con el que fuiste registrado para acceder a tus pronósticos.
             </p>
 
-            <form onSubmit={handleValidarCorreo} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            <form onSubmit={(e) => { e.preventDefault(); handleValidarCorreo(e); }} action="#" method="POST" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
               <div style={{ textAlign: "left" }}>
                 <label style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--graderia)", marginBottom: 6, display: "block" }}>
                   Correo electrónico autorizado:
@@ -1734,7 +1734,13 @@ function ExpressPageContent() {
                 />
               </div>
 
-              <button type="submit" className="btn btn-primary" disabled={cargandoValidacion} style={{ width: "100%", padding: "14px 20px" }}>
+              <button
+                type="submit"
+                onClick={(e) => { e.preventDefault(); handleValidarCorreo(e); }}
+                className="btn btn-primary"
+                disabled={cargandoValidacion}
+                style={{ width: "100%", padding: "14px 20px" }}
+              >
                 {cargandoValidacion ? (
                   <>
                     <RefreshCw className="spin" size={18} /> Validando acceso...
