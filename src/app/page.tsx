@@ -3297,7 +3297,7 @@ function ExpressPageContent() {
                   </span>
                 </div>
                 <p style={{ color: "#fef3c7", margin: 0, fontSize: "0.88rem", lineHeight: 1.5 }}>
-                  Partidos reprogramados (incluye Atlético Nacional vs Boyacá Chicó y Cúcuta Deportivo vs Internacional). Puedes ingresar o modificar tus pronósticos hasta <strong>30 minutos antes</strong> de su nuevo horario de inicio.
+                  Partidos reprogramados (incluye Deportivo Pereira vs Independiente Santa Fe, Boyacá Chicó vs Atlético Nacional y Cúcuta Deportivo vs Internacional). Puedes ingresar o modificar tus pronósticos hasta <strong>30 minutos antes</strong> de su nuevo horario de inicio.
                 </p>
               </div>
 
