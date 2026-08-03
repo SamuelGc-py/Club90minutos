@@ -421,7 +421,8 @@ function ExpressPageContent() {
   const [subTabDetalle, setSubTabDetalle] = useState<Record<string, "cancha" | "stats">>({});
   const [partidosDesplegados, setPartidosDesplegados] = useState<Record<number, boolean>>({});
   const [pronosticosTablasDesplegadas, setPronosticosTablasDesplegadas] = useState<Record<number, boolean>>({});
-  const esSamuel = usuario ? (usuario.nombre.toLowerCase().includes("samuel") || usuario.id === 2) : false;
+  const nombreUsuarioDisplay = usuario?.nombre || (usuario as any)?.nombre_completo || "";
+  const esSamuel = usuario ? (nombreUsuarioDisplay.toLowerCase().includes("samuel") || usuario.id === 2) : false;
 
   const cargarPartidosEnVivo = async () => {
     setCargandoEnVivo(true);
@@ -823,14 +824,18 @@ function ExpressPageContent() {
       });
       const data = await res.json();
       if (res.ok && data.usuario && data.prediccionesGuardadas) {
-        setUsuario(data.usuario);
+        const usrNorm = {
+          ...data.usuario,
+          nombre: data.usuario.nombre || data.usuario.nombre_completo || "",
+        };
+        setUsuario(usrNorm);
         localStorage.setItem("polla_sesion", JSON.stringify({
-          usuario: data.usuario,
+          usuario: usrNorm,
           prediccionesGuardadas: data.prediccionesGuardadas,
         }));
         aplicarPrediccionesGuardadas(data.prediccionesGuardadas);
-        if (data.usuario.rol_id === 2) {
-          cargarConsolidados(data.usuario.id);
+        if (usrNorm.rol_id === 2) {
+          cargarConsolidados(usrNorm.id);
         }
       }
     } catch (e) {
@@ -844,8 +849,12 @@ function ExpressPageContent() {
       const sesionGuardada = localStorage.getItem("polla_sesion");
       if (sesionGuardada) {
         const dataParsed = JSON.parse(sesionGuardada);
-        const usr = dataParsed?.usuario || dataParsed;
-        if (usr && typeof usr === "object" && usr.nombre) {
+        const usrRaw = dataParsed?.usuario || dataParsed;
+        if (usrRaw && typeof usrRaw === "object") {
+          const usr = {
+            ...usrRaw,
+            nombre: usrRaw.nombre || usrRaw.nombre_completo || "",
+          };
           setUsuario(usr);
           if (usr.rol_id === 2 && usr.id) {
             cargarConsolidados(usr.id);
