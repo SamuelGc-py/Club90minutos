@@ -1,6 +1,9 @@
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export const metadata: Metadata = {
   title: "Polla Liga BetPlay — Demuestra lo que sabes de fútbol",
   description: "Plataforma oficial de pronósticos Liga BetPlay Dimayor II 2026",
