@@ -222,9 +222,11 @@ function BarraEstadistica({ label, valLocal, valVisitante, unit = "" }: { label:
 function RelojCuentaRegresiva({
   fechaHoraPartido,
   estado,
+  esAdmin = false,
 }: {
   fechaHoraPartido: string;
   estado?: string;
+  esAdmin?: boolean;
 }) {
   const [etiqueta, setEtiqueta] = useState<string>("");
   const [tipo, setTipo] = useState<"programado" | "cerrado" | "en_vivo" | "descanso" | "finalizado" | "aplazado">("programado");
@@ -244,12 +246,19 @@ function RelojCuentaRegresiva({
       }
 
       const horaPartido = new Date(fechaHoraPartido).getTime();
+      const horaApertura = horaPartido - 24 * 60 * 60 * 1000;
       const horaCierre = horaPartido - 30 * 60 * 1000;
       const ahora = new Date().getTime();
+      const difApertura = horaApertura - ahora;
       const difCierre = horaCierre - ahora;
       const difInicio = ahora - horaPartido;
 
-      if (difCierre > 0) {
+      if (difApertura > 0 && !esAdmin) {
+        setTipo("cerrado");
+        const hrs = Math.floor(difApertura / (1000 * 60 * 60));
+        const mins = Math.floor((difApertura % (1000 * 60 * 60)) / (1000 * 60));
+        setEtiqueta(`🔒 Se activa en ${hrs}h ${mins}m`);
+      } else if (difCierre > 0) {
         setTipo("programado");
         const hrs = Math.floor(difCierre / (1000 * 60 * 60));
         const mins = Math.floor((difCierre % (1000 * 60 * 60)) / (1000 * 60));
@@ -475,9 +484,34 @@ function ExpressPageContent() {
   const [partidoGuardadoExitoId, setPartidoGuardadoExitoId] = useState<number | null>(null);
 
   // Filtros por Jornada / Fecha
-  const [fechaParticipante, setFechaParticipante] = useState<number>(2); // Default Fecha 2 para participantes
-  const [fechaAdmin, setFechaAdmin] = useState<number>(2); // Default Fecha 2 para admin
+  const [fechaParticipante, setFechaParticipante] = useState<number>(3); // Auto-determinado por progreso de la polla
+  const [fechaAdmin, setFechaAdmin] = useState<number>(3); // Default Fecha 3 para admin
   const [seccionAdmin, setSeccionAdmin] = useState<"partidos" | "torneo">("partidos");
+
+  // Calcular automáticamente la fecha activa para participantes (primera fecha no finalizada)
+  useEffect(() => {
+    if (partidos && partidos.length > 0) {
+      const jornadas = Array.from(new Set(partidos.map((p) => p.jornada))).sort((a, b) => a - b);
+      const ahora = new Date().getTime();
+
+      const jornadaIncompleta = jornadas.find((j) => {
+        const partidosFecha = partidos.filter((p) => p.jornada === j && p.estado !== "aplazado");
+        if (partidosFecha.length === 0) return false;
+
+        const todosFinalizados = partidosFecha.every((p) => {
+          const esFinalizado = Boolean(p.resultado_oficial) || p.estado === "resultado_cargado" || p.estado === "puntaje_calculado";
+          const hace2Horas = ahora >= new Date(p.fecha_hora_partido).getTime() + 2 * 60 * 60 * 1000;
+          return esFinalizado || hace2Horas;
+        });
+
+        return !todosFinalizados;
+      });
+
+      if (jornadaIncompleta) {
+        setFechaParticipante(jornadaIncompleta);
+      }
+    }
+  }, [partidos]);
 
   // Sincronizar pronósticos en vivo con localStorage de sesión
   const actualizarSesionLocalStorage = (partidoId: number, local: number, visitante: number, goleadorId: number | null) => {
@@ -1115,11 +1149,14 @@ function ExpressPageContent() {
       ...(partido.equipo_visitante.jugadores || []),
     ];
 
+    const horaAperturaPartido = new Date(new Date(partido.fecha_hora_partido).getTime() - 24 * 60 * 60 * 1000);
     const horaCierrePartido = new Date(new Date(partido.fecha_hora_partido).getTime() - 30 * 60 * 1000);
     const esAplazado = partido.estado === "aplazado";
     const esFinalizado = Boolean(partido.resultado_oficial) || partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado";
+    const esAdminUser = usuario?.rol_id === 2;
+    const estaPrematuro = !esAdminUser && (typeof window !== "undefined" && new Date() < horaAperturaPartido);
     const estaCerradoGeneral = esFinalizado || (typeof window !== "undefined" && new Date() >= horaCierrePartido);
-    const estaCerrado = esAplazado ? false : estaCerradoGeneral;
+    const estaCerrado = esAplazado ? false : (estaCerradoGeneral || estaPrematuro);
     const deshabilitarMarcador = estaCerrado;
     const deshabilitarBotonGuardar = guardandoPartidoId === partido.id || Boolean(inconsistencia);
 
@@ -1157,6 +1194,10 @@ function ExpressPageContent() {
               <span style={{ background: "rgba(16, 185, 129, 0.2)", color: "#10b981", border: "1px solid rgba(16, 185, 129, 0.4)", padding: "2px 8px", borderRadius: 12, fontSize: "0.75rem", fontWeight: 800 }}>
                 ✅ Pronosticado ({m.local} - {m.visitante})
               </span>
+            ) : estaPrematuro ? (
+              <span style={{ background: "rgba(100, 116, 139, 0.2)", color: "#cbd5e1", border: "1px solid rgba(100, 116, 139, 0.4)", padding: "2px 8px", borderRadius: 12, fontSize: "0.75rem", fontWeight: 800 }}>
+                🔒 Se activa 24h antes
+              </span>
             ) : estaCerrado ? (
               <span style={{ background: "rgba(100, 116, 139, 0.2)", color: "#94a3b8", border: "1px solid rgba(100, 116, 139, 0.4)", padding: "2px 8px", borderRadius: 12, fontSize: "0.75rem", fontWeight: 800 }}>
                 🏁 Terminado
@@ -1174,7 +1215,7 @@ function ExpressPageContent() {
                 ⚠️ APLAZADO
               </span>
             ) : (
-              <RelojCuentaRegresiva fechaHoraPartido={partido.fecha_hora_partido} estado={partido.estado} />
+              <RelojCuentaRegresiva fechaHoraPartido={partido.fecha_hora_partido} estado={partido.estado} esAdmin={esAdminUser} />
             )}
 
             <button
@@ -1981,7 +2022,7 @@ function ExpressPageContent() {
               </div>
               <div>
                 <div style={{ fontSize: "0.8rem", color: "#a7f3d0", fontWeight: 600 }}>
-                  Partidos Fecha 2
+                  Partidos Liga BetPlay
                 </div>
                 <strong style={{ fontSize: "1.6rem", color: "#ffffff", fontWeight: 900 }}>
                   {partidos.length} Partidos
@@ -2039,7 +2080,10 @@ function ExpressPageContent() {
                   </div>
 
                   <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
-                    {[1, 2].map((f) => (
+                    {(Array.from(new Set(partidos.map((p) => p.jornada))).sort((a, b) => a - b).length > 0
+                      ? Array.from(new Set(partidos.map((p) => p.jornada))).sort((a, b) => a - b)
+                      : [1, 2, 3]
+                    ).map((f) => (
                       <button
                         key={f}
                         type="button"
@@ -2757,7 +2801,7 @@ function ExpressPageContent() {
                   setMenuAbierto(false);
                 }}
               >
-                ⚽ Pronósticos Fecha 2
+                ⚽ Pronósticos Fecha {fechaParticipante}
               </div>
               <div
                 className={`menu-drawer-item ${tabActiva === "inicial" ? "active" : ""}`}
@@ -2857,7 +2901,7 @@ function ExpressPageContent() {
                       color: tabActiva === "partidos" ? undefined : "var(--tiza)",
                     }}
                   >
-                    ⚽ Pronósticos Fecha 2
+                    ⚽ Pronósticos Fecha {fechaParticipante}
                   </button>
 
 
@@ -3067,7 +3111,7 @@ function ExpressPageContent() {
                     }}
                   >
                     <div style={{ fontSize: "1.8rem", marginBottom: 8 }}>⚽</div>
-                    <div style={{ fontWeight: 800, fontSize: "1.1rem", color: "#fff", marginBottom: 4 }}>Pronósticos Fecha 2</div>
+                    <div style={{ fontWeight: 800, fontSize: "1.1rem", color: "#fff", marginBottom: 4 }}>Pronósticos Fecha {fechaParticipante}</div>
                     <div style={{ fontSize: "0.82rem", color: "#a7f3d0" }}>Ingresa marcadores exactos, ganadores y goleadores de los partidos.</div>
                   </div>
 
@@ -3144,10 +3188,41 @@ function ExpressPageContent() {
           {tabActiva === "partidos" && (
             <div>
               <div className="card" style={{ marginBottom: 20 }}>
-                <h2>⚽ Pronósticos de Fecha 2</h2>
+                <h2>⚽ Pronósticos de Fecha {fechaParticipante}</h2>
                 <p style={{ color: "var(--graderia)", margin: 0, fontSize: "0.85rem" }}>
                   Ingresa el <strong>Marcador Exacto (5 Pts)</strong>, el <strong>Equipo Ganador (3 Pts)</strong> y opcionalmente el <strong>Goleador del Partido (2 Pts)</strong>.
                 </p>
+              </div>
+
+              {/* BANNER DE FECHA ACTIVA */}
+              <div
+                style={{
+                  background: "linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.25) 100%)",
+                  border: "1px solid #10b981",
+                  borderRadius: 12,
+                  padding: "12px 16px",
+                  marginBottom: 20,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  gap: 12,
+                  flexWrap: "wrap"
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  <span style={{ fontSize: "1.2rem" }}>🔥</span>
+                  <div>
+                    <div style={{ fontSize: "0.88rem", fontWeight: 800, color: "#ffffff" }}>
+                      FECHA ACTIVA EN JUEGO: FECHA {fechaParticipante}
+                    </div>
+                    <div style={{ fontSize: "0.78rem", color: "#a7f3d0" }}>
+                      La Fecha {fechaParticipante + 1} se activará automáticamente al finalizar todos los partidos de esta jornada.
+                    </div>
+                  </div>
+                </div>
+                <span className="badge" style={{ background: "#10b981", color: "#000", fontWeight: 900, fontSize: "0.78rem" }}>
+                  EN CURSO
+                </span>
               </div>
 
               {cargandoMaestros ? (
@@ -3165,7 +3240,7 @@ function ExpressPageContent() {
                   };
 
                   // Excluir partidos aplazados de la lista general (tienen su propio botón/pestaña "⚠️ Aplazados")
-                  const partidosFiltradosParticipante = partidos.filter((p) => p.jornada === 2 && p.estado !== "aplazado");
+                  const partidosFiltradosParticipante = partidos.filter((p) => p.jornada === fechaParticipante && p.estado !== "aplazado");
 
                   const partidosActivos = partidosFiltradosParticipante
                     .filter((p) => !estaSoloFinal(p))
@@ -3608,7 +3683,7 @@ function ExpressPageContent() {
                     return esFinalizado || (new Date() >= horaCierre);
                   };
 
-                  const partidosPublicosFiltrados = partidos.filter((p) => p.jornada === 2 || p.estado === "aplazado");
+                  const partidosPublicosFiltrados = partidos.filter((p) => p.jornada === fechaParticipante || p.estado === "aplazado");
 
                   const partidosActivosPublicos = partidosPublicosFiltrados
                     .filter((p) => !esPartidoCerrado(p))
@@ -4267,7 +4342,10 @@ function ExpressPageContent() {
                   </div>
 
                   <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
-                    {[1, 2].map((f) => (
+                    {(Array.from(new Set(partidos.map((p) => p.jornada))).sort((a, b) => a - b).length > 0
+                      ? Array.from(new Set(partidos.map((p) => p.jornada))).sort((a, b) => a - b)
+                      : [1, 2, 3]
+                    ).map((f) => (
                       <button
                         key={f}
                         type="button"

@@ -113,12 +113,13 @@ export async function POST(req: Request) {
             const partidoDb: any = partidosMap.get(partidoIdNum);
 
             if (partidoDb) {
+              const limiteApertura = new Date(new Date(partidoDb.fecha_hora_partido).getTime() - 24 * 60 * 60 * 1000);
               const limiteCierre = new Date(new Date(partidoDb.fecha_hora_partido).getTime() - 30 * 60 * 1000);
               const esExcepcionHaroldMedellin = usuario.correo === "hberdugodelosreyes0@gmail.com" && partidoDb.id === 24;
               const esExcepcionSamu = usuario.correo === "samucobaggg@gmail.com" && partidoDb.id === 25;
               const esExcepcionIgnacio = usuario.correo === "iangelbarrios16@gmail.com" && (partidoDb.id === 27 || partidoDb.id === 31);
-              // Si ya pasó la hora de cierre (30 minutos antes del partido), no guardar este pronóstico (salvo admin o excepción)
-              if (now >= limiteCierre && !esAdmin && !esExcepcionHaroldMedellin && !esExcepcionSamu && !esExcepcionIgnacio) {
+              // Si aún no abre (24h antes) o ya cerró (30m antes), no guardar (salvo admin o excepción)
+              if ((now < limiteApertura || now >= limiteCierre) && !esAdmin && !esExcepcionHaroldMedellin && !esExcepcionSamu && !esExcepcionIgnacio) {
                 continue;
               }
             }
