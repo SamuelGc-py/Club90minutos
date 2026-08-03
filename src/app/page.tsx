@@ -254,10 +254,13 @@ function RelojCuentaRegresiva({
         const hrs = Math.floor(difCierre / (1000 * 60 * 60));
         const mins = Math.floor((difCierre % (1000 * 60 * 60)) / (1000 * 60));
         const segs = Math.floor((difCierre % (1000 * 60)) / 1000);
-        const hh = String(hrs).padStart(2, "0");
-        const mm = String(mins).padStart(2, "0");
-        const ss = String(segs).padStart(2, "0");
-        setEtiqueta(`⏳ Cierra en ${hh}:${mm}:${ss}`);
+        if (hrs > 0) {
+          setEtiqueta(`⏳ Cierra en ${hrs} hrs ${mins} mins`);
+        } else if (mins > 0) {
+          setEtiqueta(`⏳ Cierra en ${mins} mins ${segs} segs`);
+        } else {
+          setEtiqueta(`⏳ Cierra en ${segs} segs`);
+        }
       } else if (difInicio < 0) {
         setTipo("cerrado");
         setEtiqueta("🔒 Pronósticos Cerrados");

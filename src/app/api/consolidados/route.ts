@@ -166,6 +166,7 @@ export async function GET(req: Request) {
         tablaPosiciones,
         prediccionesPartidos,
         prediccionesIniciales,
+        puntajes,
       },
       {
         headers: {
