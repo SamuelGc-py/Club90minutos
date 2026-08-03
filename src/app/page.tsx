@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, Component } from "react";
 import { CheckCircle2, ShieldAlert, Save, RefreshCw, Trophy, Calendar, LogOut, AlertTriangle, UserCheck, Lock, Clock, Eye, List, Download, Users, Menu, X, Flame } from "lucide-react";
 import Link from "next/link";
 import TablaPosicionesAfiche from "./components/TablaPosicionesAfiche";
@@ -356,7 +356,45 @@ function RelojCuentaRegresiva({
   );
 }
 
-export default function ExpressPage() {
+class GlobalErrorBoundary extends Component<{ children: React.ReactNode }, { hasError: boolean }> {
+  constructor(props: any) {
+    super(props);
+    this.state = { hasError: false };
+  }
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+  componentDidCatch(error: any, errorInfo: any) {
+    console.error("GlobalErrorBoundary caught error:", error, errorInfo);
+  }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div style={{ padding: "40px 20px", textAlign: "center", color: "#ffffff", background: "#0b1622", minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+          <div style={{ fontSize: "2.5rem", marginBottom: 12 }}>⚽</div>
+          <h2 style={{ color: "#38bdf8", marginBottom: 8 }}>Actualización del Sistema en Curso</h2>
+          <p style={{ color: "#94a3b8", maxWidth: 500, margin: "0 auto 20px", fontSize: "0.92rem", lineHeight: 1.5 }}>
+            Se han actualizado los datos de la polla. Haz clic abajo para sincronizar la aplicación.
+          </p>
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={() => {
+              try { localStorage.removeItem("polla_sesion"); } catch(e) {}
+              window.location.href = "/";
+            }}
+            style={{ padding: "10px 24px", fontSize: "0.95rem", fontWeight: 800 }}
+          >
+            🔄 Sincronizar App Ahora
+          </button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+function ExpressPageContent() {
   // Estado de sesión
   const [correoInput, setCorreoInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
@@ -690,47 +728,51 @@ export default function ExpressPage() {
 
   const aplicarPrediccionesGuardadas = (prediccionesGuardadas: any) => {
     if (!prediccionesGuardadas) return;
-    const inicial = prediccionesGuardadas.inicial;
-    const predsPartidos = prediccionesGuardadas.partidos || prediccionesGuardadas.prediccionesPartidos;
-    if (inicial) {
-      if (inicial.campeon_equipo_id) setCampeonId(inicial.campeon_equipo_id);
-      if (inicial.finalista_1_equipo_id) setFinalista1Id(inicial.finalista_1_equipo_id);
-      if (inicial.finalista_2_equipo_id) setFinalista2Id(inicial.finalista_2_equipo_id);
-      if (inicial.goleador_torneo_jugador_id) setGoleadorTorneoId(inicial.goleador_torneo_jugador_id);
-      if (inicial.clasificados) {
-        setClasificadosIds(inicial.clasificados.map((c: any) => c.equipo_id));
-      }
-    }
-    if (predsPartidos && Array.isArray(predsPartidos)) {
-      const mapMarcadores: Record<number, EstadoMarcador> = {};
-      predsPartidos.forEach((p: any) => {
-        const valL = p.goles_local_predicho !== undefined && p.goles_local_predicho !== null ? p.goles_local_predicho : p.goles_local;
-        const valV = p.goles_visitante_predicho !== undefined && p.goles_visitante_predicho !== null ? p.goles_visitante_predicho : p.goles_visitante;
-        
-        const gLocalStr = valL !== undefined && valL !== null ? String(valL) : "";
-        const gVisitanteStr = valV !== undefined && valV !== null ? String(valV) : "";
-
-        let ganador: "local" | "empate" | "visitante" = "empate";
-        if (gLocalStr !== "" && gVisitanteStr !== "") {
-          const nL = Number(gLocalStr);
-          const nV = Number(gVisitanteStr);
-          if (!isNaN(nL) && !isNaN(nV)) {
-            if (nL > nV) ganador = "local";
-            else if (nV > nL) ganador = "visitante";
-            else ganador = "empate";
-          }
+    try {
+      const inicial = prediccionesGuardadas.inicial;
+      const predsPartidos = prediccionesGuardadas.partidos || prediccionesGuardadas.prediccionesPartidos;
+      if (inicial) {
+        if (inicial.campeon_equipo_id) setCampeonId(inicial.campeon_equipo_id);
+        if (inicial.finalista_1_equipo_id) setFinalista1Id(inicial.finalista_1_equipo_id);
+        if (inicial.finalista_2_equipo_id) setFinalista2Id(inicial.finalista_2_equipo_id);
+        if (inicial.goleador_torneo_jugador_id) setGoleadorTorneoId(inicial.goleador_torneo_jugador_id);
+        if (inicial.clasificados) {
+          setClasificadosIds(inicial.clasificados.map((c: any) => c.equipo_id));
         }
+      }
+      if (predsPartidos && Array.isArray(predsPartidos)) {
+        const mapMarcadores: Record<number, EstadoMarcador> = {};
+        predsPartidos.forEach((p: any) => {
+          const valL = p.goles_local_predicho !== undefined && p.goles_local_predicho !== null ? p.goles_local_predicho : p.goles_local;
+          const valV = p.goles_visitante_predicho !== undefined && p.goles_visitante_predicho !== null ? p.goles_visitante_predicho : p.goles_visitante;
+          
+          const gLocalStr = valL !== undefined && valL !== null ? String(valL) : "";
+          const gVisitanteStr = valV !== undefined && valV !== null ? String(valV) : "";
 
-        const goleadorIdRaw = p.jugador_goleador_predicho_id || p.jugador_goleador_id || "";
+          let ganador: "local" | "empate" | "visitante" = "empate";
+          if (gLocalStr !== "" && gVisitanteStr !== "") {
+            const nL = Number(gLocalStr);
+            const nV = Number(gVisitanteStr);
+            if (!isNaN(nL) && !isNaN(nV)) {
+              if (nL > nV) ganador = "local";
+              else if (nV > nL) ganador = "visitante";
+              else ganador = "empate";
+            }
+          }
 
-        mapMarcadores[p.partido_id] = {
-          local: gLocalStr,
-          visitante: gVisitanteStr,
-          ganador,
-          goleador_id: goleadorIdRaw ? String(goleadorIdRaw) : "",
-        };
-      });
-      setMarcadores((prev) => ({ ...prev, ...mapMarcadores }));
+          const goleadorIdRaw = p.jugador_goleador_predicho_id || p.jugador_goleador_id || "";
+
+          mapMarcadores[p.partido_id] = {
+            local: gLocalStr,
+            visitante: gVisitanteStr,
+            ganador,
+            goleador_id: goleadorIdRaw ? String(goleadorIdRaw) : "",
+          };
+        });
+        setMarcadores((prev) => ({ ...prev, ...mapMarcadores }));
+      }
+    } catch (e) {
+      console.error("Error al aplicar predicciones guardadas:", e);
     }
   };
 
@@ -4506,5 +4548,13 @@ export default function ExpressPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function ExpressPage() {
+  return (
+    <GlobalErrorBoundary>
+      <ExpressPageContent />
+    </GlobalErrorBoundary>
   );
 }
