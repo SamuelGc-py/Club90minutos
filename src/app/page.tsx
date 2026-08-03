@@ -470,7 +470,7 @@ function ExpressPageContent() {
 
   // Filtros por Jornada / Fecha
   const [fechaParticipante, setFechaParticipante] = useState<number>(2); // Default Fecha 2 para participantes
-  const [fechaAdmin, setFechaAdmin] = useState<number>(0); // Default Fecha 1 para admin
+  const [fechaAdmin, setFechaAdmin] = useState<number>(2); // Default Fecha 2 para admin
   const [seccionAdmin, setSeccionAdmin] = useState<"partidos" | "torneo">("partidos");
 
   // Sincronizar pronósticos en vivo con localStorage de sesión
