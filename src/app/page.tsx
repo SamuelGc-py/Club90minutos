@@ -222,11 +222,9 @@ function BarraEstadistica({ label, valLocal, valVisitante, unit = "" }: { label:
 function RelojCuentaRegresiva({
   fechaHoraPartido,
   estado,
-  esAdmin = false,
 }: {
   fechaHoraPartido: string;
   estado?: string;
-  esAdmin?: boolean;
 }) {
   const [etiqueta, setEtiqueta] = useState<string>("");
   const [tipo, setTipo] = useState<"programado" | "cerrado" | "en_vivo" | "descanso" | "finalizado" | "aplazado">("programado");
@@ -246,19 +244,12 @@ function RelojCuentaRegresiva({
       }
 
       const horaPartido = new Date(fechaHoraPartido).getTime();
-      const horaApertura = horaPartido - 24 * 60 * 60 * 1000;
       const horaCierre = horaPartido - 30 * 60 * 1000;
       const ahora = new Date().getTime();
-      const difApertura = horaApertura - ahora;
       const difCierre = horaCierre - ahora;
       const difInicio = ahora - horaPartido;
 
-      if (difApertura > 0 && !esAdmin) {
-        setTipo("cerrado");
-        const hrs = Math.floor(difApertura / (1000 * 60 * 60));
-        const mins = Math.floor((difApertura % (1000 * 60 * 60)) / (1000 * 60));
-        setEtiqueta(`🔒 Se activa en ${hrs}h ${mins}m`);
-      } else if (difCierre > 0) {
+      if (difCierre > 0) {
         setTipo("programado");
         const hrs = Math.floor(difCierre / (1000 * 60 * 60));
         const mins = Math.floor((difCierre % (1000 * 60 * 60)) / (1000 * 60));
@@ -1149,14 +1140,11 @@ function ExpressPageContent() {
       ...(partido.equipo_visitante.jugadores || []),
     ];
 
-    const horaAperturaPartido = new Date(new Date(partido.fecha_hora_partido).getTime() - 24 * 60 * 60 * 1000);
     const horaCierrePartido = new Date(new Date(partido.fecha_hora_partido).getTime() - 30 * 60 * 1000);
     const esAplazado = partido.estado === "aplazado";
     const esFinalizado = Boolean(partido.resultado_oficial) || partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado";
-    const esAdminUser = usuario?.rol_id === 2;
-    const estaPrematuro = !esAdminUser && (typeof window !== "undefined" && new Date() < horaAperturaPartido);
     const estaCerradoGeneral = esFinalizado || (typeof window !== "undefined" && new Date() >= horaCierrePartido);
-    const estaCerrado = esAplazado ? false : (estaCerradoGeneral || estaPrematuro);
+    const estaCerrado = esAplazado ? false : estaCerradoGeneral;
     const deshabilitarMarcador = estaCerrado;
     const deshabilitarBotonGuardar = guardandoPartidoId === partido.id || Boolean(inconsistencia);
 
@@ -1194,10 +1182,6 @@ function ExpressPageContent() {
               <span style={{ background: "rgba(16, 185, 129, 0.2)", color: "#10b981", border: "1px solid rgba(16, 185, 129, 0.4)", padding: "2px 8px", borderRadius: 12, fontSize: "0.75rem", fontWeight: 800 }}>
                 ✅ Pronosticado ({m.local} - {m.visitante})
               </span>
-            ) : estaPrematuro ? (
-              <span style={{ background: "rgba(100, 116, 139, 0.2)", color: "#cbd5e1", border: "1px solid rgba(100, 116, 139, 0.4)", padding: "2px 8px", borderRadius: 12, fontSize: "0.75rem", fontWeight: 800 }}>
-                🔒 Se activa 24h antes
-              </span>
             ) : estaCerrado ? (
               <span style={{ background: "rgba(100, 116, 139, 0.2)", color: "#94a3b8", border: "1px solid rgba(100, 116, 139, 0.4)", padding: "2px 8px", borderRadius: 12, fontSize: "0.75rem", fontWeight: 800 }}>
                 🏁 Terminado
@@ -1215,7 +1199,7 @@ function ExpressPageContent() {
                 ⚠️ APLAZADO
               </span>
             ) : (
-              <RelojCuentaRegresiva fechaHoraPartido={partido.fecha_hora_partido} estado={partido.estado} esAdmin={esAdminUser} />
+              <RelojCuentaRegresiva fechaHoraPartido={partido.fecha_hora_partido} estado={partido.estado} />
             )}
 
             <button
