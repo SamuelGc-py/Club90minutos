@@ -3050,20 +3050,7 @@ export default function ExpressPage() {
                     <div style={{ fontSize: "0.82rem", color: "#bae6fd" }}>Consulta la tabla general de posiciones y puntos acumulados.</div>
                   </div>
 
-                  <div
-                    onClick={() => setTabActiva("aplazados")}
-                    style={{
-                      background: "linear-gradient(135deg, #3f2b06 0%, #583c08 100%)",
-                      border: "1px solid #f59e0b",
-                      borderRadius: 12,
-                      padding: 20,
-                      cursor: "pointer",
-                    }}
-                  >
-                    <div style={{ fontSize: "1.8rem", marginBottom: 8 }}>⚠️</div>
-                    <div style={{ fontWeight: 800, fontSize: "1.1rem", color: "#fff", marginBottom: 4 }}>Partidos Aplazados</div>
-                    <div style={{ fontSize: "0.82rem", color: "#fef08a" }}>Ingresa o modifica tus pronósticos de los partidos reprogramados.</div>
-                  </div>
+
 
                 </div>
 
