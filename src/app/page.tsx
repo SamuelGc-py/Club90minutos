@@ -401,6 +401,11 @@ function ExpressPageContent() {
   const [cargandoValidacion, setCargandoValidacion] = useState(false);
   const [mensajeEstado, setMensajeEstado] = useState<{ tipo: "error" | "info" | "exito"; texto: string } | null>(null);
   const [usuario, setUsuario] = useState<UsuarioSesion | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // Estado de datos maestros
   const [equipos, setEquipos] = useState<Equipo[]>([]);
@@ -1105,7 +1110,8 @@ function ExpressPageContent() {
     const esAplazado = partido.estado === "aplazado";
     const esFinalizado = Boolean(partido.resultado_oficial) || partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado";
 
-    const estaCerradoGeneral = (new Date() >= horaCierrePartido) || esFinalizado;
+    const ahora = isMounted ? new Date() : new Date("2000-01-01");
+    const estaCerradoGeneral = (ahora >= horaCierrePartido) || esFinalizado;
     const estaCerrado = esAplazado ? false : estaCerradoGeneral;
     const deshabilitarMarcador = estaCerrado;
     const deshabilitarBotonGuardar = guardandoPartidoId === partido.id || Boolean(inconsistencia);
