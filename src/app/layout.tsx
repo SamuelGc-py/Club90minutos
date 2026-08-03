@@ -20,6 +20,32 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.addEventListener('error', function(e) {
+                if (e.message && (e.message.indexOf('Loading chunk') !== -1 || e.message.indexOf('ChunkLoadError') !== -1)) {
+                  var r = sessionStorage.getItem('chunk_reload');
+                  if (!r) {
+                    sessionStorage.setItem('chunk_reload', 'true');
+                    window.location.reload();
+                  }
+                }
+              }, true);
+              window.addEventListener('unhandledrejection', function(e) {
+                if (e.reason && e.reason.message && (e.reason.message.indexOf('Loading chunk') !== -1 || e.reason.message.indexOf('ChunkLoadError') !== -1)) {
+                  var r = sessionStorage.getItem('chunk_reload');
+                  if (!r) {
+                    sessionStorage.setItem('chunk_reload', 'true');
+                    window.location.reload();
+                  }
+                }
+              });
+            `,
+          }}
+        />
+      </head>
       <body>
         <main>{children}</main>
       </body>
