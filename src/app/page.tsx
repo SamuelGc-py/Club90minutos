@@ -835,25 +835,29 @@ function ExpressPageContent() {
 
   // Persistencia de sesión y auto-sincronización con la base de datos
   useEffect(() => {
-    const sesionGuardada = localStorage.getItem("polla_sesion");
-    if (sesionGuardada) {
-      try {
+    try {
+      const sesionGuardada = localStorage.getItem("polla_sesion");
+      if (sesionGuardada) {
         const dataParsed = JSON.parse(sesionGuardada);
-        const usr = dataParsed.usuario || dataParsed;
-        setUsuario(usr);
-        if (usr.rol_id === 2) {
-          cargarConsolidados(usr.id);
+        const usr = dataParsed?.usuario || dataParsed;
+        if (usr && typeof usr === "object" && usr.nombre) {
+          setUsuario(usr);
+          if (usr.rol_id === 2 && usr.id) {
+            cargarConsolidados(usr.id);
+          }
+          if (dataParsed.prediccionesGuardadas) {
+            aplicarPrediccionesGuardadas(dataParsed.prediccionesGuardadas);
+          }
+          if (usr.correo) {
+            sincronizarSesionBackend(usr.correo);
+          }
+        } else {
+          localStorage.removeItem("polla_sesion");
         }
-        if (dataParsed.prediccionesGuardadas) {
-          aplicarPrediccionesGuardadas(dataParsed.prediccionesGuardadas);
-        }
-        if (usr.correo) {
-          sincronizarSesionBackend(usr.correo);
-        }
-      } catch (e) {
-        console.error("Error leyendo sesión", e);
-        localStorage.removeItem("polla_sesion");
       }
+    } catch (e) {
+      console.error("Error leyendo sesión", e);
+      try { localStorage.removeItem("polla_sesion"); } catch (_) {}
     }
   }, []);
 
