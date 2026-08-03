@@ -1,9 +1,6 @@
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
-
 export const metadata: Metadata = {
   title: "Polla Liga BetPlay — Demuestra lo que sabes de fútbol",
   description: "Plataforma oficial de pronósticos Liga BetPlay Dimayor II 2026",
@@ -28,11 +25,14 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               window.addEventListener('error', function(e) {
-                if (e.message && (e.message.indexOf('Loading chunk') !== -1 || e.message.indexOf('ChunkLoadError') !== -1)) {
+                var target = e.target || e.srcElement;
+                var isScript = target && target.tagName === 'SCRIPT';
+                var isChunkError = e.message && (e.message.indexOf('Loading chunk') !== -1 || e.message.indexOf('ChunkLoadError') !== -1);
+                if (isChunkError || (isScript && target.src && target.src.indexOf('/_next/static/chunks/') !== -1)) {
                   var r = sessionStorage.getItem('chunk_reload');
                   if (!r) {
                     sessionStorage.setItem('chunk_reload', 'true');
-                    window.location.reload();
+                    window.location.reload(true);
                   }
                 }
               }, true);
@@ -41,7 +41,7 @@ export default function RootLayout({
                   var r = sessionStorage.getItem('chunk_reload');
                   if (!r) {
                     sessionStorage.setItem('chunk_reload', 'true');
-                    window.location.reload();
+                    window.location.reload(true);
                   }
                 }
               });
