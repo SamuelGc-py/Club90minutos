@@ -1980,7 +1980,7 @@ function ExpressPageContent() {
                 </strong>
                 {consolidados?.tablaPosiciones?.[0] && (
                   <span style={{ fontSize: "0.8rem", color: "#a5b4fc", fontWeight: 700 }}>
-                    {consolidados.tablaPosiciones[0].pts_total} Pts acumulados
+                    {consolidados?.tablaPosiciones?.[0]?.pts_total ?? 0} Pts acumulados
                   </span>
                 )}
               </div>
@@ -3872,7 +3872,7 @@ function ExpressPageContent() {
                     </strong>
                     {consolidados?.tablaPosiciones?.[0] && (
                       <span style={{ fontSize: "0.8rem", color: "#a5b4fc", fontWeight: 700 }}>
-                        {consolidados.tablaPosiciones[0].pts_total} Pts acumulados
+                        {consolidados?.tablaPosiciones?.[0]?.pts_total ?? 0} Pts acumulados
                       </span>
                     )}
                   </div>
@@ -4261,7 +4261,7 @@ function ExpressPageContent() {
                     </strong>
                     {consolidados?.tablaPosiciones?.[0] && (
                       <span style={{ fontSize: "0.8rem", color: "#a5b4fc", fontWeight: 700 }}>
-                        {consolidados.tablaPosiciones[0].pts_total} Pts acumulados
+                        {consolidados?.tablaPosiciones?.[0]?.pts_total ?? 0} Pts acumulados
                       </span>
                     )}
                   </div>

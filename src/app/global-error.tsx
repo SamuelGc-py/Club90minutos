@@ -27,7 +27,6 @@ export default function GlobalError({
 
   const handleReset = () => {
     try {
-      localStorage.removeItem("polla_sesion");
       sessionStorage.clear();
     } catch (_) {}
     window.location.href = "/";

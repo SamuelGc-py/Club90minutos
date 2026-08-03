@@ -29,7 +29,6 @@ export default function Error({
 
   const handleReset = () => {
     try {
-      localStorage.removeItem("polla_sesion");
       sessionStorage.clear();
     } catch (_) {}
     window.location.href = "/";
