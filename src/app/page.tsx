@@ -1118,9 +1118,7 @@ function ExpressPageContent() {
     const horaCierrePartido = new Date(new Date(partido.fecha_hora_partido).getTime() - 30 * 60 * 1000);
     const esAplazado = partido.estado === "aplazado";
     const esFinalizado = Boolean(partido.resultado_oficial) || partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado";
-
-    const ahora = isMounted ? new Date() : new Date("2000-01-01");
-    const estaCerradoGeneral = (ahora >= horaCierrePartido) || esFinalizado;
+    const estaCerradoGeneral = esFinalizado || (typeof window !== "undefined" && new Date() >= horaCierrePartido);
     const estaCerrado = esAplazado ? false : estaCerradoGeneral;
     const deshabilitarMarcador = estaCerrado;
     const deshabilitarBotonGuardar = guardandoPartidoId === partido.id || Boolean(inconsistencia);
