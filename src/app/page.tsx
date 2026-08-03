@@ -1160,28 +1160,26 @@ function ExpressPageContent() {
               <RelojCuentaRegresiva fechaHoraPartido={partido.fecha_hora_partido} estado={partido.estado} />
             )}
 
-            {!estaCerrado && (
-              <button
-                type="button"
-                onClick={() => setPartidosDesplegados(prev => ({ ...prev, [partido.id]: !estaCardAbierta }))}
-                style={{
-                  background: estaCardAbierta ? "rgba(56, 189, 248, 0.25)" : "rgba(255, 255, 255, 0.08)",
-                  border: estaCardAbierta ? "1px solid #38bdf8" : "1px solid var(--linea)",
-                  color: estaCardAbierta ? "#38bdf8" : "#ffffff",
-                  padding: "6px 14px",
-                  borderRadius: 8,
-                  fontSize: "0.8rem",
-                  fontWeight: 800,
-                  cursor: "pointer",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 6,
-                  transition: "all 0.15s ease",
-                }}
-              >
-                <span>{estaCardAbierta ? "▲ Ocultar" : "▼ Pronosticar"}</span>
-              </button>
-            )}
+            <button
+              type="button"
+              onClick={() => setPartidosDesplegados(prev => ({ ...prev, [partido.id]: !estaCardAbierta }))}
+              style={{
+                background: estaCardAbierta ? "rgba(56, 189, 248, 0.25)" : "rgba(255, 255, 255, 0.08)",
+                border: estaCardAbierta ? "1px solid #38bdf8" : "1px solid var(--linea)",
+                color: estaCardAbierta ? "#38bdf8" : "#ffffff",
+                padding: "6px 14px",
+                borderRadius: 8,
+                fontSize: "0.8rem",
+                fontWeight: 800,
+                cursor: "pointer",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                transition: "all 0.15s ease",
+              }}
+            >
+              <span>{estaCardAbierta ? "▲ Ocultar" : (estaCerrado ? "▼ Ver" : "▼ Pronosticar")}</span>
+            </button>
           </div>
         </div>
 
