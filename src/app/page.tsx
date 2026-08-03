@@ -907,12 +907,12 @@ function ExpressPageContent() {
     cargarMaestros();
   }, []);
 
-  // Borrar automáticamente los mensajes de estado/alertas tras 3 segundos
+  // Borrar automáticamente los mensajes informativos/éxito tras 5 segundos (mantener los de error visibles)
   useEffect(() => {
-    if (mensajeEstado) {
+    if (mensajeEstado && mensajeEstado.tipo !== "error") {
       const timer = setTimeout(() => {
         setMensajeEstado(null);
-      }, 3000);
+      }, 5000);
       return () => clearTimeout(timer);
     }
   }, [mensajeEstado]);
@@ -920,7 +920,11 @@ function ExpressPageContent() {
   // Validar correo y contraseña en PostgreSQL
   const handleValidarCorreo = async (e?: React.FormEvent | React.KeyboardEvent | React.MouseEvent) => {
     if (e && e.preventDefault) e.preventDefault();
-    if (!correoInput.trim() || !passwordInput.trim()) return;
+    
+    if (!correoInput.trim() || !passwordInput.trim()) {
+      setMensajeEstado({ tipo: "error", texto: "Por favor ingresa tanto tu correo como tu contraseña para acceder." });
+      return;
+    }
 
     setCargandoValidacion(true);
     setMensajeEstado(null);
