@@ -1654,6 +1654,15 @@ function ExpressPageContent() {
 
   const totalPronosticados = Object.values(marcadores).filter((m) => m.local !== "" && m.visitante !== "").length;
 
+  if (!isMounted) {
+    return (
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", background: "var(--noche)", color: "#fff", flexDirection: "column" }}>
+        <div style={{ fontSize: "3rem", marginBottom: 16 }}>⚽</div>
+        <div style={{ fontSize: "1.2rem", fontWeight: 800, color: "#38bdf8" }}>Iniciando Polla BetPlay...</div>
+      </div>
+    );
+  }
+
   return (
     <div style={{ paddingBottom: 80 }}>
       {/* PANTALLA DE INGRESO PRIVADA */}
