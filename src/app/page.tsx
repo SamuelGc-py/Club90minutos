@@ -924,8 +924,8 @@ function ExpressPageContent() {
   }, [mensajeEstado]);
 
   // Validar correo y contraseña en PostgreSQL
-  const handleValidarCorreo = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleValidarCorreo = async (e?: React.FormEvent | React.KeyboardEvent | React.MouseEvent) => {
+    if (e && e.preventDefault) e.preventDefault();
     if (!correoInput.trim() || !passwordInput.trim()) return;
 
     setCargandoValidacion(true);
@@ -1741,7 +1741,7 @@ function ExpressPageContent() {
               Ingresa el correo electrónico con el que fuiste registrado para acceder a tus pronósticos.
             </p>
 
-            <form onSubmit={(e) => { e.preventDefault(); handleValidarCorreo(e); }} action="#" method="POST" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
               <div style={{ textAlign: "left" }}>
                 <label style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--graderia)", marginBottom: 6, display: "block" }}>
                   Correo electrónico autorizado:
@@ -1752,6 +1752,7 @@ function ExpressPageContent() {
                   placeholder="ejemplo@correo.com"
                   value={correoInput}
                   onChange={(e) => setCorreoInput(e.target.value)}
+                  onKeyDown={(e) => { if (e.key === "Enter") handleValidarCorreo(e); }}
                   required
                 />
               </div>
@@ -1771,13 +1772,14 @@ function ExpressPageContent() {
                   placeholder="••••••••"
                   value={passwordInput}
                   onChange={(e) => setPasswordInput(e.target.value)}
+                  onKeyDown={(e) => { if (e.key === "Enter") handleValidarCorreo(e); }}
                   required
                 />
               </div>
 
               <button
-                type="submit"
-                onClick={(e) => { e.preventDefault(); handleValidarCorreo(e); }}
+                type="button"
+                onClick={handleValidarCorreo}
                 className="btn btn-primary"
                 disabled={cargandoValidacion}
                 style={{ width: "100%", padding: "14px 20px" }}
@@ -1790,7 +1792,7 @@ function ExpressPageContent() {
                   "Ingresar a mis Pronósticos"
                 )}
               </button>
-            </form>
+            </div>
 
             {mensajeEstado && (
               <div
