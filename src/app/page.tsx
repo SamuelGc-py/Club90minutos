@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState, useEffect, Component } from "react";
-import { CheckCircle2, ShieldAlert, Save, RefreshCw, Trophy, Calendar, LogOut, AlertTriangle, UserCheck, Lock, Clock, Eye, List, Download, Users, Menu, X, Flame } from "lucide-react";
+import { CheckCircle2, ShieldAlert, Save, RefreshCw, Trophy, Calendar, LogOut, AlertTriangle, UserCheck, Lock, Clock, Eye, List, Download, Users, Menu, X, Flame, Camera } from "lucide-react";
 import Link from "next/link";
+import { toPng } from 'html-to-image';
 import TablaPosicionesAfiche from "./components/TablaPosicionesAfiche";
 
 interface Jugador {
@@ -1599,6 +1600,31 @@ function ExpressPageContent() {
   };
 
   // Descargar Excel de Pronósticos por Partido (Diseño exacto Imagen 2)
+  const handleDescargarImagenPronosticos = async (partidoId: number) => {
+    const node = document.getElementById(`tabla-pronosticos-admin-${partidoId}`);
+    if (!node) {
+      alert("No se encontró la tabla de pronósticos.");
+      return;
+    }
+    try {
+      setMensajeEstado({ tipo: "info", texto: "Generando imagen... Espera un momento." });
+      const dataUrl = await toPng(node, {
+        backgroundColor: '#0f172a',
+        style: { padding: '15px', borderRadius: '10px' },
+        pixelRatio: 2
+      });
+      const link = document.createElement('a');
+      link.download = `Pronosticos_Partido_${partidoId}.png`;
+      link.href = dataUrl;
+      link.click();
+      setMensajeEstado({ tipo: "exito", texto: "Imagen descargada correctamente." });
+      setTimeout(() => setMensajeEstado(null), 3000);
+    } catch (error) {
+      console.error(error);
+      setMensajeEstado({ tipo: "error", texto: "Hubo un error al generar la imagen." });
+    }
+  };
+
   const handleDescargarExcelPronosticos = async (partidoId?: number, jornada?: number) => {
     if (!usuario) return;
     try {
@@ -2296,17 +2322,17 @@ function ExpressPageContent() {
                               </div>
 
                               {/* TABLA DE PRONÓSTICOS DE PARTICIPANTES (SIEMPRE VISIBLE EN ADMIN) */}
-                              <div style={{ marginTop: 14, paddingTop: 14, borderTop: "1px dashed rgba(255,255,255,0.15)" }}>
+                              <div id={`tabla-pronosticos-admin-${partido.id}`} style={{ marginTop: 14, paddingTop: 14, borderTop: "1px dashed rgba(255,255,255,0.15)" }}>
                                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
                                   <h4 style={{ margin: 0, color: "#34d399", fontSize: "0.95rem", display: "flex", alignItems: "center", gap: 6 }}>
                                     📋 Pronósticos Recibidos ({pronosticosPartido.length} Participantes)
                                   </h4>
                                   <button
                                     className="btn btn-primary"
-                                    style={{ padding: "5px 12px", fontSize: "0.8rem", background: "linear-gradient(135deg, #059669 0%, #047857 100%)", color: "#fff", border: "1px solid #10b981", fontWeight: 800 }}
-                                    onClick={() => handleDescargarExcelPronosticos(partido.id)}
+                                    style={{ padding: "5px 12px", fontSize: "0.8rem", background: "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)", color: "#fff", border: "1px solid #3b82f6", fontWeight: 800 }}
+                                    onClick={() => handleDescargarImagenPronosticos(partido.id)}
                                   >
-                                    <Download size={13} /> Excel Partido
+                                    <Camera size={13} /> Descargar Imagen
                                   </button>
                                 </div>
 
@@ -2517,16 +2543,16 @@ function ExpressPageContent() {
 
                                   {/* TABLA DE PRONÓSTICOS DE PARTICIPANTES (SIEMPRE VISIBLE EN ADMIN) */}
                                   <div style={{ marginTop: 14, paddingTop: 14, borderTop: "1px dashed rgba(255,255,255,0.15)" }}>
-                                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+                                    <div id={`tabla-pronosticos-admin-${partido.id}`} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
                                       <h4 style={{ margin: 0, color: "#34d399", fontSize: "0.95rem", display: "flex", alignItems: "center", gap: 6 }}>
                                         📋 Pronósticos Recibidos ({pronosticosPartido.length} Participantes)
                                       </h4>
                                       <button
                                         className="btn btn-primary"
-                                        style={{ padding: "5px 12px", fontSize: "0.8rem", background: "linear-gradient(135deg, #059669 0%, #047857 100%)", color: "#fff", border: "1px solid #10b981", fontWeight: 800 }}
-                                        onClick={() => handleDescargarExcelPronosticos(partido.id)}
+                                        style={{ padding: "5px 12px", fontSize: "0.8rem", background: "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)", color: "#fff", border: "1px solid #3b82f6", fontWeight: 800 }}
+                                        onClick={() => handleDescargarImagenPronosticos(partido.id)}
                                       >
-                                        <Download size={13} /> Excel Partido
+                                        <Camera size={13} /> Descargar Imagen
                                       </button>
                                     </div>
 
@@ -4444,16 +4470,16 @@ function ExpressPageContent() {
 
                       {/* TABLA DE PRONÓSTICOS DE PARTICIPANTES (SIEMPRE VISIBLE EN ADMIN) */}
                       <div style={{ marginTop: 14, paddingTop: 14, borderTop: "1px dashed rgba(255,255,255,0.15)" }}>
-                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+                        <div id={`tabla-pronosticos-admin-${partido.id}`} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
                           <h4 style={{ margin: 0, color: "#34d399", fontSize: "0.95rem", display: "flex", alignItems: "center", gap: 6 }}>
                             📋 Pronósticos Recibidos ({pronosticosPartido.length} Participantes)
                           </h4>
                           <button
                             className="btn btn-primary"
-                            style={{ padding: "5px 12px", fontSize: "0.8rem", background: "linear-gradient(135deg, #059669 0%, #047857 100%)", color: "#fff", border: "1px solid #10b981", fontWeight: 800 }}
-                            onClick={() => handleDescargarExcelPronosticos(partido.id)}
+                            style={{ padding: "5px 12px", fontSize: "0.8rem", background: "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)", color: "#fff", border: "1px solid #3b82f6", fontWeight: 800 }}
+                            onClick={() => handleDescargarImagenPronosticos(partido.id)}
                           >
-                            <Download size={13} /> Excel Partido
+                            <Camera size={13} /> Descargar Imagen
                           </button>
                         </div>
 
