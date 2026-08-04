@@ -97,7 +97,7 @@ export default function LandingPage() {
         }}>
           
           {/* LADO IZQUIERDO: TEXTOS */}
-          <div style={{ flex: "1 1 50%", minWidth: "300px", paddingRight: "4rem", display: "flex", flexDirection: "column", gap: 24, position: "relative", zIndex: 20 }}>
+          <div style={{ flex: "1 1 50%", minWidth: "300px", display: "flex", flexDirection: "column", gap: 32, position: "relative", zIndex: 20, alignItems: "flex-start", justifyContent: "center" }}>
             
             {/* Tag */}
             <div style={{
@@ -110,7 +110,7 @@ export default function LandingPage() {
               borderRadius: 30,
               color: "var(--cancha)",
               fontWeight: 700,
-              fontSize: "0.85rem",
+              fontSize: "0.95rem",
               width: "fit-content"
             }}>
               <div style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--cancha)", boxShadow: "0 0 10px var(--cancha)" }} />
@@ -120,10 +120,10 @@ export default function LandingPage() {
             {/* Titular Principal */}
             <h1 style={{
               margin: 0,
-              fontSize: "clamp(3rem, 6vw, 6rem)",
+              fontSize: "clamp(3.5rem, 8vw, 7.5rem)",
               fontWeight: 900,
-              lineHeight: 1,
-              letterSpacing: "-1px",
+              lineHeight: 0.95,
+              letterSpacing: "-2px",
               color: "rgba(255,255,255,0.2)", // Color apagado para la primera linea
               textTransform: "uppercase"
             }}>
@@ -133,7 +133,7 @@ export default function LandingPage() {
                 color: "var(--cancha)", 
                 textShadow: "0 0 40px rgba(29, 185, 84, 0.4)",
                 display: "block",
-                marginTop: 10
+                marginTop: 15
               }}>
                 Sabes de fútbol
               </span>
@@ -196,20 +196,21 @@ export default function LandingPage() {
             minWidth: "300px",
             position: "relative",
             display: "flex",
-            justifyContent: "center",
+            justifyContent: "flex-end", // Align to right side
             alignItems: "center",
             marginTop: "2rem"
           }}>
             {/* Glow detrás del personaje */}
             <div style={{
               position: "absolute",
-              width: "80%",
-              height: "80%",
+              width: "100%",
+              height: "100%",
               background: "var(--cancha)",
-              filter: "blur(120px)",
-              opacity: 0.15,
+              filter: "blur(150px)",
+              opacity: 0.2,
               borderRadius: "50%",
-              zIndex: 0
+              zIndex: 0,
+              right: 0
             }} />
             
             <img 
@@ -217,7 +218,7 @@ export default function LandingPage() {
               alt="Personaje"
               style={{
                 width: "100%",
-                maxWidth: 600,
+                maxWidth: 850, // Make it significantly bigger
                 height: "auto",
                 position: "relative",
                 zIndex: 10,
