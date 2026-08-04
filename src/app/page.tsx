@@ -80,6 +80,16 @@ export default function LandingPage() {
           }}>
             🔥 LIGA BETPLAY & CHAMPIONS LEAGUE
           </div>
+
+          <img 
+            src="/logo_principal.png" 
+            alt="Club 90 Minutos Logo" 
+            style={{ width: "clamp(120px, 20vw, 180px)", height: "auto", filter: "drop-shadow(0 4px 10px rgba(29,185,84,0.3))", marginBottom: "-10px" }}
+            onError={(e) => {
+              // Fallback visual si no hay PNG
+              e.currentTarget.style.display = 'none';
+            }}
+          />
           
           <h2 style={{
             margin: 0,
