@@ -43,15 +43,15 @@ export default function LandingPage() {
 
       {/* HERO SECTION COMPLETO */}
       <section style={{
-        padding: "clamp(30px, 8vw, 80px) 20px clamp(40px, 10vw, 100px)",
+        padding: "clamp(40px, 10vw, 80px) 10px clamp(50px, 12vw, 120px)",
         textAlign: "center",
-        maxWidth: 1000,
-        margin: "0 auto",
+        width: "100%",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: "var(--esp-6)",
-        position: "relative"
+        gap: "var(--esp-5)",
+        position: "relative",
+        overflow: "hidden"
       }}>
         {/* Glow de fondo para matar el espacio negro */}
         <div style={{
@@ -59,15 +59,14 @@ export default function LandingPage() {
           top: "10%",
           left: "50%",
           transform: "translate(-50%, 0)",
-          width: "100%",
-          maxWidth: 600,
+          width: "120%",
           height: 300,
-          background: "radial-gradient(circle, rgba(29, 185, 84, 0.15) 0%, rgba(0,0,0,0) 70%)",
+          background: "radial-gradient(circle, rgba(29, 185, 84, 0.15) 0%, rgba(0,0,0,0) 60%)",
           zIndex: 0,
           pointerEvents: "none"
         }}></div>
 
-        <div style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: "var(--esp-5)" }}>
+        <div style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: "var(--esp-5)", width: "100%", padding: "0 10px" }}>
           <div style={{
             display: "inline-block",
             padding: "6px 14px",
@@ -84,90 +83,46 @@ export default function LandingPage() {
           
           <h2 style={{
             margin: 0,
-            fontSize: "clamp(2.2rem, 8vw, 4.5rem)",
+            fontSize: "clamp(2.5rem, 9vw, 5rem)",
             fontWeight: 900,
             lineHeight: 1.05,
             letterSpacing: "-1px",
             background: "linear-gradient(135deg, #ffffff 0%, #8ba3b4 100%)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
-            filter: "drop-shadow(0 4px 10px rgba(0,0,0,0.5))"
+            filter: "drop-shadow(0 4px 10px rgba(0,0,0,0.5))",
+            width: "100%"
           }}>
             Demuestra lo que sabes <br/> de fútbol.
           </h2>
           
           <p style={{
-            fontSize: "clamp(1rem, 3vw, 1.15rem)",
+            fontSize: "clamp(1.05rem, 4.5vw, 1.25rem)",
             color: "var(--graderia)",
             maxWidth: 600,
             margin: 0,
-            lineHeight: 1.6
+            lineHeight: 1.5,
+            padding: "0 5px"
           }}>
             Únete a la comunidad exclusiva de pronósticos. Acierta resultados, compite con tus amigos y gana los premios acumulados de cada torneo.
           </p>
 
-          <div style={{ display: "flex", gap: "var(--esp-4)", flexWrap: "wrap", justifyContent: "center", marginTop: "var(--esp-2)" }}>
+          <div style={{ display: "flex", gap: "var(--esp-4)", flexWrap: "wrap", justifyContent: "center", marginTop: "var(--esp-3)", width: "100%" }}>
             <Link href="/registro" className="btn btn-primary" style={{ 
               padding: "16px 32px", 
               fontSize: "1.1rem",
               fontWeight: 800,
               display: "flex",
               alignItems: "center",
+              justifyContent: "center",
               gap: 8,
               textDecoration: "none",
               borderRadius: "var(--radio-card)",
-              boxShadow: "0 8px 20px rgba(29, 185, 84, 0.3)"
+              boxShadow: "0 8px 20px rgba(29, 185, 84, 0.3)",
+              width: "clamp(200px, 80%, 300px)"
             }}>
               Jugar Ahora <ArrowRight size={20} />
             </Link>
-          </div>
-        </div>
-
-        {/* MOCKUP VISUAL PARA LLENAR ESPACIO */}
-        <div style={{
-          marginTop: "clamp(30px, 6vw, 60px)",
-          width: "100%",
-          maxWidth: 700,
-          background: "var(--tribuna)",
-          border: "1px solid var(--linea-fuerte)",
-          borderRadius: "var(--radio-card)",
-          padding: "var(--esp-4)",
-          position: "relative",
-          zIndex: 1,
-          boxShadow: "0 20px 40px rgba(0,0,0,0.4), 0 0 40px rgba(29, 185, 84, 0.1) inset",
-          display: "flex",
-          flexDirection: "column",
-          gap: 12,
-          textAlign: "left"
-        }}>
-          {/* Header del Mockup */}
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid var(--linea)", paddingBottom: 12 }}>
-            <span style={{ fontSize: "0.85rem", color: "var(--graderia)", fontWeight: 700, display: "flex", alignItems: "center", gap: 6 }}>
-              <Trophy size={14} color="var(--trofeo)" /> LIGA BETPLAY - JORNADA 10
-            </span>
-            <span style={{ fontSize: "0.75rem", background: "var(--azul-suave)", color: "var(--azul)", padding: "4px 8px", borderRadius: 10, fontWeight: 800 }}>HOY 20:00</span>
-          </div>
-          
-          {/* Partido Mockup */}
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 0" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 10, flex: 1 }}>
-              <div style={{ width: 40, height: 40, borderRadius: "50%", background: "var(--linea)", display: "flex", alignItems: "center", justifyContent: "center" }}>🛡️</div>
-              <span style={{ fontWeight: 800, fontSize: "1.1rem" }}>Bucaramanga</span>
-            </div>
-            
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "0 20px" }}>
-              <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                <div style={{ background: "var(--noche)", border: "1px solid var(--linea-fuerte)", width: 45, height: 50, borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.5rem", fontWeight: 900 }}>2</div>
-                <span style={{ color: "var(--graderia)", fontWeight: 900 }}>-</span>
-                <div style={{ background: "var(--noche)", border: "1px solid var(--linea-fuerte)", width: 45, height: 50, borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.5rem", fontWeight: 900 }}>1</div>
-              </div>
-              <span style={{ fontSize: "0.75rem", color: "var(--cancha)", marginTop: 6, fontWeight: 700 }}>Tu Pronóstico</span>
-            </div>
-
-            <div style={{ display: "flex", alignItems: "center", gap: 10, flex: 1, justifyContent: "flex-end" }}>
-              <span style={{ fontWeight: 800, fontSize: "1.1rem" }}>Cúcuta Dep.</span>
-              <div style={{ width: 40, height: 40, borderRadius: "50%", background: "var(--linea)", display: "flex", alignItems: "center", justifyContent: "center" }}>⚔️</div>
-            </div>
           </div>
         </div>
       </section>
