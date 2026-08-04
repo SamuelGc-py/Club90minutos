@@ -67,6 +67,23 @@ export default function LandingPage() {
         }}></div>
 
         <div style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: "var(--esp-5)", width: "100%", padding: "0 10px" }}>
+          
+          <img 
+            src="/logo_principal.jpg" 
+            alt="Club 90 Minutos Logo" 
+            style={{ 
+              width: "clamp(160px, 30vw, 240px)", 
+              height: "auto", 
+              mixBlendMode: "screen", 
+              filter: "drop-shadow(0 0 25px rgba(29,185,84,0.6)) contrast(1.2)", 
+              marginBottom: "-20px",
+              transform: "translateZ(0)"
+            }}
+            onError={(e) => {
+              e.currentTarget.style.display = 'none';
+            }}
+          />
+
           <div style={{
             display: "inline-block",
             padding: "6px 14px",
@@ -80,16 +97,6 @@ export default function LandingPage() {
           }}>
             🔥 LIGA BETPLAY & CHAMPIONS LEAGUE
           </div>
-
-          <img 
-            src="/logo_principal.jpg" 
-            alt="Club 90 Minutos Logo" 
-            style={{ width: "clamp(120px, 20vw, 180px)", height: "auto", filter: "drop-shadow(0 4px 10px rgba(29,185,84,0.3))", marginBottom: "-10px", borderRadius: "10px" }}
-            onError={(e) => {
-              // Fallback visual si no hay JPG
-              e.currentTarget.style.display = 'none';
-            }}
-          />
           
           <h2 style={{
             margin: 0,
