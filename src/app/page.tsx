@@ -82,11 +82,11 @@ export default function LandingPage() {
           </div>
 
           <img 
-            src="/logo_principal.png" 
+            src="/logo_principal.webp" 
             alt="Club 90 Minutos Logo" 
             style={{ width: "clamp(120px, 20vw, 180px)", height: "auto", filter: "drop-shadow(0 4px 10px rgba(29,185,84,0.3))", marginBottom: "-10px" }}
             onError={(e) => {
-              // Fallback visual si no hay PNG
+              // Fallback visual si no hay WEBP
               e.currentTarget.style.display = 'none';
             }}
           />
