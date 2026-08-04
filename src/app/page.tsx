@@ -97,7 +97,7 @@ export default function LandingPage() {
         }}>
           
           {/* LADO IZQUIERDO: TEXTOS */}
-          <div style={{ flex: "1 1 500px", maxWidth: 700, display: "flex", flexDirection: "column", gap: 24, position: "relative", zIndex: 20 }}>
+          <div style={{ flex: "1 1 50%", minWidth: "300px", paddingRight: "4rem", display: "flex", flexDirection: "column", gap: 24, position: "relative", zIndex: 20 }}>
             
             {/* Tag */}
             <div style={{
@@ -187,38 +187,13 @@ export default function LandingPage() {
               </Link>
             </div>
 
-            {/* Countdown (Visual) */}
-            <div style={{ marginTop: 40 }}>
-              <div style={{ fontSize: "0.8rem", fontWeight: 800, color: "var(--graderia)", letterSpacing: "1px", marginBottom: 12 }}>
-                EL MUNDIAL COMIENZA EN
-              </div>
-              <div style={{ display: "flex", gap: 12 }}>
-                {["00", "00", "00", "00"].map((num, i) => (
-                  <div key={i} style={{
-                    width: 60,
-                    height: 70,
-                    background: "rgba(0,0,0,0.5)",
-                    border: "1px solid rgba(29, 185, 84, 0.3)",
-                    borderRadius: 8,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: "2rem",
-                    fontWeight: 900,
-                    color: "var(--cancha)",
-                    boxShadow: "inset 0 0 20px rgba(29, 185, 84, 0.1)"
-                  }}>
-                    {num}
-                  </div>
-                ))}
-              </div>
-            </div>
-
+            {/* Countdown removido según petición */}
           </div>
 
           {/* LADO DERECHO: IMAGEN HERO */}
           <div style={{ 
-            flex: "1 1 500px", 
+            flex: "1 1 50%", 
+            minWidth: "300px",
             position: "relative",
             display: "flex",
             justifyContent: "center",
