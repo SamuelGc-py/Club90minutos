@@ -15,6 +15,18 @@ export async function GET(req: Request) {
       return NextResponse.json({ success: true, message: `Contraseña de ${emailLimpio} reseteada a null` });
     }
 
+    if (searchParams.get("add_leider")) {
+      const equipo = await prisma.equipo.findFirst({ where: { nombre: 'Cúcuta Deportivo' } });
+      if (equipo) {
+        const existe = await prisma.jugador.findFirst({ where: { nombre: 'Léider Berdugo', equipo_id: equipo.id } });
+        if (!existe) {
+          await prisma.jugador.create({ data: { nombre: 'Léider Berdugo', equipo_id: equipo.id } });
+          return NextResponse.json({ success: true, message: 'Léider Berdugo añadido a Cúcuta Deportivo' });
+        }
+        return NextResponse.json({ success: true, message: 'Léider Berdugo ya existe' });
+      }
+    }
+
     const count = await prisma.usuario.count();
     const users = await prisma.usuario.findMany({
       select: {

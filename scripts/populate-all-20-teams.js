@@ -51,7 +51,7 @@ const plantillasAdicionales = {
     "Mauricio Duarte", "Israel Alba", "Bayron Suaza", "Cristian Álvarez", "Santiago Guzmán",
     "Lucas Ríos", "Jonathan Agudelo", "Jefry Zapata", "Stiven Monsalve", "Valentín Robaldo",
     "Felipe Gómez", "Camilo Mancilla", "Juan Camilo Moreno", "Bladimir Angulo", "Jaime Peralta",
-    "Johan Montes", "Diego Luque", "William Parra", "Federico Arbeláez"
+    "Johan Montes", "Diego Luque", "William Parra", "Federico Arbeláez", "Léider Berdugo"
   ],
   "Internacional de Bogotá": [
     "Juan Camilo Loaiza", "Manuel Arteaga", "Stiven Valencia", "Kalizan Morán", "Pedro Rodríguez",
@@ -76,20 +76,22 @@ async function main() {
     }
 
     const countActual = await prisma.jugador.count({ where: { equipo_id: equipo.id } });
-    if (countActual === 0) {
-      console.log(`Cargando ${jugadores.length} jugadores para ${equipo.nombre} (ID ${equipo.id})...`);
-      for (const nombreJugador of jugadores) {
+    
+    console.log(`Revisando jugadores para ${equipo.nombre} (ID ${equipo.id}). Actualmente tiene ${countActual} jugadores...`);
+    let agregados = 0;
+    for (const nombreJugador of jugadores) {
+      const nombreLimpio = nombreJugador.trim();
+      const existe = await prisma.jugador.findFirst({
+        where: { nombre: nombreLimpio, equipo_id: equipo.id }
+      });
+      if (!existe) {
         await prisma.jugador.create({
-          data: {
-            nombre: nombreJugador.trim(),
-            equipo_id: equipo.id
-          }
+          data: { nombre: nombreLimpio, equipo_id: equipo.id }
         });
+        agregados++;
       }
-      console.log(`✅ ${jugadores.length} jugadores ingresados en ${equipo.nombre}.`);
-    } else {
-      console.log(`ℹ️ ${equipo.nombre} ya tiene ${countActual} jugadores en DB.`);
     }
+    console.log(`✅ ${agregados} NUEVOS jugadores ingresados en ${equipo.nombre}.`);
   }
 
   // Verificación final
