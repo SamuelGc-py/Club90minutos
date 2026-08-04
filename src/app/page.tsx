@@ -78,14 +78,14 @@ export default function LandingPage() {
         paddingTop: "120px",
         paddingBottom: "60px",
         minHeight: "100vh",
+        width: "100%",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         position: "relative"
       }}>
         <div style={{
-          maxWidth: 1400,
-          margin: "0 auto",
+          width: "100%",
           padding: "0 2rem",
           display: "flex",
           flexDirection: "row",
