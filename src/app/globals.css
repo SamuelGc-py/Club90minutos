@@ -607,6 +607,42 @@ main {
 /* ==========================================================================
    ESTILOS HEADER SLOGAN MELO & ICONOS 3D
    ========================================================================== */
+
+/* Utilidades específicas */
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ================= LOGIN SPLIT SCREEN ================= */
+.login-left-panel {
+  display: none;
+}
+@media (min-width: 768px) {
+  .login-left-panel {
+    display: flex !important;
+  }
+}
+
+.bola-flotante {
+  animation: flotar 4s ease-in-out infinite;
+}
+
+@keyframes flotar {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(10deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+.input:focus {
+  border-color: var(--cancha) !important;
+  box-shadow: 0 0 0 3px rgba(29, 185, 84, 0.2) !important;
+}
+
 @keyframes flotarIcono {
   0% {
     transform: translateY(0px) rotate(0deg);

@@ -1722,133 +1722,169 @@ function ExpressPageContent() {
   }
 
   return (
-    <div style={{ paddingBottom: 80 }}>
+    <div style={!usuario ? { minHeight: "100vh", display: "flex", width: "100%", background: "var(--noche)" } : { paddingBottom: 80 }}>
       {/* PANTALLA DE INGRESO PRIVADA */}
       {!usuario ? (
-        <div style={{ maxWidth: 440, margin: "60px auto 0" }}>
-          <div
-            className="card"
-            style={{
-              textAlign: "center",
-              padding: "40px 32px",
-              background: "linear-gradient(180deg, var(--tribuna) 0%, var(--noche-2) 100%)",
-              boxShadow: "0 20px 40px rgba(0,0,0,0.4)",
-              border: "1px solid var(--linea-fuerte)",
-            }}
-          >
-            <div
-              style={{
-                width: 64,
-                height: 64,
-                borderRadius: "50%",
-                background: "var(--cancha-suave)",
-                border: "1px solid var(--cancha-borde)",
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "var(--cancha)",
-                marginBottom: 16,
-              }}
-            >
-              <Lock size={28} />
+        <div style={{ display: "flex", flex: 1, width: "100%" }}>
+          {/* Lado Izquierdo - Animación/Gráfico */}
+          <div className="login-left-panel" style={{
+            flex: 1,
+            background: "linear-gradient(135deg, var(--noche) 0%, var(--cancha-suave) 100%)",
+            position: "relative",
+            overflow: "hidden",
+            flexDirection: "column",
+            justifyContent: "center",
+            padding: "4rem"
+          }}>
+            <div style={{ zIndex: 10 }}>
+              <h1 style={{ fontSize: "4rem", fontWeight: 900, lineHeight: 1.1, marginBottom: 16 }}>
+                DEMUESTRA<br />
+                QUE SABES<br />
+                <span style={{ color: "var(--cancha)", textShadow: "0 0 20px rgba(29, 185, 84, 0.4)" }}>DE FÚTBOL</span>
+              </h1>
+              <p style={{ fontSize: "1.2rem", color: "var(--graderia)", maxWidth: 400 }}>
+                Crea tu polla y compite en vivo con amigos, oficina o familia. ¡Gratis!
+              </p>
             </div>
+            
+            {/* Elementos decorativos */}
+            <div style={{ position: "absolute", top: -100, right: -100, width: 400, height: 400, background: "var(--cancha)", opacity: 0.05, borderRadius: "50%", filter: "blur(50px)" }} />
+            
+            <div className="bola-flotante" style={{ position: "absolute", bottom: "15%", right: "15%", fontSize: "8rem", filter: "drop-shadow(0 20px 30px rgba(0,0,0,0.5))" }}>
+              ⚽
+            </div>
+          </div>
 
-            <h1 style={{ fontSize: "1.75rem", marginBottom: 6 }}>Acceso Privado</h1>
-            <p style={{ color: "var(--graderia)", fontSize: "0.9rem", marginBottom: 28 }}>
-              Ingresa el correo electrónico con el que fuiste registrado para acceder a tus pronósticos.
-            </p>
-
-            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-              <div style={{ textAlign: "left" }}>
-                <label style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--graderia)", marginBottom: 6, display: "block" }}>
-                  Correo electrónico autorizado:
-                </label>
-                <input
-                  type="email"
-                  className="input"
-                  placeholder="ejemplo@correo.com"
-                  value={correoInput}
-                  onChange={(e) => setCorreoInput(e.target.value)}
-                  onKeyDown={(e) => { if (e.key === "Enter") handleValidarCorreo(e); }}
-                  required
-                />
+          {/* Lado Derecho - Formulario */}
+          <div style={{
+            flex: 1,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: "2rem",
+            background: "var(--noche)",
+          }}>
+            <div style={{ width: "100%", maxWidth: 400 }}>
+              <div style={{ marginBottom: 40 }}>
+                <h2 style={{ fontSize: "2rem", fontWeight: 800, marginBottom: 8, color: "#fff" }}>¡Bienvenido! 👋</h2>
+                <p style={{ color: "var(--graderia)", fontSize: "0.95rem" }}>
+                  Ingresa para acceder a tus pronósticos y estadísticas.
+                </p>
               </div>
 
-              <div style={{ textAlign: "left" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
-                  <label style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--graderia)", margin: 0 }}>
-                    Contraseña de acceso:
+              <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+                <div>
+                  <label style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--graderia)", marginBottom: 8, display: "block" }}>
+                    Correo electrónico autorizado
                   </label>
-                  <Link href="/recuperar-password" style={{ fontSize: "0.75rem", color: "var(--cesped)", textDecoration: "none", fontWeight: 600 }}>
-                    ¿Olvidaste tu contraseña?
-                  </Link>
+                  <input
+                    type="email"
+                    className="input"
+                    placeholder="ejemplo@correo.com"
+                    value={correoInput}
+                    onChange={(e) => setCorreoInput(e.target.value)}
+                    onKeyDown={(e) => { if (e.key === "Enter") handleValidarCorreo(e); }}
+                    style={{ width: "100%", padding: "16px", background: "var(--tribuna)", border: "1px solid var(--linea-fuerte)", borderRadius: "12px", color: "#fff", outline: "none", transition: "all 0.3s" }}
+                    required
+                  />
                 </div>
-                <input
-                  type="password"
-                  className="input"
-                  placeholder="••••••••"
-                  value={passwordInput}
-                  onChange={(e) => setPasswordInput(e.target.value)}
-                  onKeyDown={(e) => { if (e.key === "Enter") handleValidarCorreo(e); }}
-                  required
-                />
+
+                <div>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+                    <label style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--graderia)", margin: 0 }}>
+                      Contraseña
+                    </label>
+                    <Link href="/recuperar-password" style={{ fontSize: "0.8rem", color: "var(--cancha)", textDecoration: "none", fontWeight: 600 }}>
+                      ¿Olvidaste tu contraseña?
+                    </Link>
+                  </div>
+                  <input
+                    type="password"
+                    className="input"
+                    placeholder="••••••••"
+                    value={passwordInput}
+                    onChange={(e) => setPasswordInput(e.target.value)}
+                    onKeyDown={(e) => { if (e.key === "Enter") handleValidarCorreo(e); }}
+                    style={{ width: "100%", padding: "16px", background: "var(--tribuna)", border: "1px solid var(--linea-fuerte)", borderRadius: "12px", color: "#fff", outline: "none", transition: "all 0.3s" }}
+                    required
+                  />
+                </div>
+
+                <button
+                  type="button"
+                  onClick={handleValidarCorreo}
+                  disabled={cargandoValidacion}
+                  style={{ 
+                    width: "100%", 
+                    padding: "16px", 
+                    background: "var(--cancha)", 
+                    color: "#000", 
+                    fontWeight: 800, 
+                    fontSize: "1.05rem", 
+                    borderRadius: "12px", 
+                    border: "none", 
+                    cursor: cargandoValidacion ? "not-allowed" : "pointer",
+                    boxShadow: "0 8px 25px rgba(29, 185, 84, 0.3)",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    gap: 10,
+                    marginTop: 8,
+                    transition: "all 0.3s"
+                  }}
+                  onMouseOver={(e) => { if(!cargandoValidacion) { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 12px 30px rgba(29, 185, 84, 0.4)"; } }}
+                  onMouseOut={(e) => { if(!cargandoValidacion) { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 8px 25px rgba(29, 185, 84, 0.3)"; } }}
+                >
+                  {cargandoValidacion ? (
+                    <>
+                      <RefreshCw className="spin" size={20} /> Ingresando...
+                    </>
+                  ) : (
+                    "Ingresar a mis Pronósticos"
+                  )}
+                </button>
               </div>
 
-              <button
-                type="button"
-                onClick={handleValidarCorreo}
-                className="btn btn-primary"
-                disabled={cargandoValidacion}
-                style={{ width: "100%", padding: "14px 20px" }}
-              >
-                {cargandoValidacion ? (
-                  <>
-                    <RefreshCw className="spin" size={18} /> Validando acceso...
-                  </>
-                ) : (
-                  "Ingresar a mis Pronósticos"
-                )}
-              </button>
+              {mensajeEstado && (
+                <div
+                  style={{
+                    marginTop: 24,
+                    padding: "16px",
+                    borderRadius: 12,
+                    fontSize: "0.9rem",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 12,
+                    textAlign: "left",
+                    background:
+                      mensajeEstado.tipo === "exito"
+                        ? "var(--cancha-suave)"
+                        : mensajeEstado.tipo === "error"
+                        ? "var(--rojo-suave)"
+                        : "var(--azul-suave)",
+                    color:
+                      mensajeEstado.tipo === "exito"
+                        ? "var(--cancha)"
+                        : mensajeEstado.tipo === "error"
+                        ? "var(--rojo)"
+                        : "var(--azul)",
+                    border: `1px solid ${
+                      mensajeEstado.tipo === "exito"
+                        ? "var(--cancha-borde)"
+                        : mensajeEstado.tipo === "error"
+                        ? "rgba(255, 92, 92, 0.4)"
+                        : "rgba(77, 163, 255, 0.4)"
+                    }`,
+                  }}
+                >
+                  {mensajeEstado.tipo === "exito" && <CheckCircle2 size={20} style={{ flexShrink: 0 }} />}
+                  {mensajeEstado.tipo === "error" && <ShieldAlert size={20} style={{ flexShrink: 0 }} />}
+                  {mensajeEstado.tipo === "info" && <ShieldAlert size={20} style={{ flexShrink: 0 }} />}
+                  <div>{mensajeEstado.texto}</div>
+                </div>
+              )}
             </div>
-
-            {mensajeEstado && (
-              <div
-                style={{
-                  marginTop: 20,
-                  padding: "14px 16px",
-                  borderRadius: 10,
-                  fontSize: "0.88rem",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 10,
-                  textAlign: "left",
-                  background:
-                    mensajeEstado.tipo === "exito"
-                      ? "var(--cancha-suave)"
-                      : mensajeEstado.tipo === "error"
-                      ? "var(--rojo-suave)"
-                      : "var(--azul-suave)",
-                  color:
-                    mensajeEstado.tipo === "exito"
-                      ? "var(--cancha)"
-                      : mensajeEstado.tipo === "error"
-                      ? "var(--rojo)"
-                      : "var(--azul)",
-                  border: `1px solid ${
-                    mensajeEstado.tipo === "exito"
-                      ? "var(--cancha-borde)"
-                      : mensajeEstado.tipo === "error"
-                      ? "rgba(255, 92, 92, 0.4)"
-                      : "rgba(77, 163, 255, 0.4)"
-                  }`,
-                }}
-              >
-                {mensajeEstado.tipo === "exito" && <CheckCircle2 size={20} style={{ flexShrink: 0 }} />}
-                {mensajeEstado.tipo === "error" && <ShieldAlert size={20} style={{ flexShrink: 0 }} />}
-                {mensajeEstado.tipo === "info" && <ShieldAlert size={20} style={{ flexShrink: 0 }} />}
-                <div>{mensajeEstado.texto}</div>
-              </div>
-            )}
           </div>
         </div>
       ) : usuario.rol_id === 2 ? (
