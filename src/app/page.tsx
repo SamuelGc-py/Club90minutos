@@ -68,21 +68,29 @@ export default function LandingPage() {
 
         <div style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: "var(--esp-5)", width: "100%", padding: "0 10px" }}>
           
-          <img 
-            src="/logo_principal.jpg" 
-            alt="Club 90 Minutos Logo" 
-            style={{ 
-              width: "clamp(160px, 30vw, 240px)", 
-              height: "auto", 
-              mixBlendMode: "screen", 
-              filter: "drop-shadow(0 0 25px rgba(29,185,84,0.6)) contrast(1.2)", 
-              marginBottom: "-20px",
-              transform: "translateZ(0)"
-            }}
-            onError={(e) => {
-              e.currentTarget.style.display = 'none';
-            }}
-          />
+          <div style={{
+            background: "#ffffff",
+            padding: "10px",
+            borderRadius: "20px",
+            boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
+            marginBottom: "-20px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center"
+          }}>
+            <img 
+              src="/logo_principal.jpg" 
+              alt="Club 90 Minutos Logo" 
+              style={{ 
+                width: "clamp(160px, 30vw, 240px)", 
+                height: "auto",
+                borderRadius: "10px"
+              }}
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+              }}
+            />
+          </div>
 
           <div style={{
             display: "inline-block",
