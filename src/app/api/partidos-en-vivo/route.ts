@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 15; // Caché de 15s para no saturar API ESPN ni servidor
 
 export async function GET() {
   try {
