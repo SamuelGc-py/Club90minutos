@@ -1,210 +1,278 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Trophy, Users, Star, ArrowRight, ShieldCheck, HelpCircle } from "lucide-react";
+import { Trophy, ArrowRight, Facebook, Instagram, Twitter, Youtube } from "lucide-react";
 
 export default function LandingPage() {
+  // Simple countdown logic for the visual effect
+  const [timeLeft, setTimeLeft] = useState({ d: 0, h: 0, m: 0, s: 0 });
+
   return (
     <div style={{
       minHeight: "100vh",
-      background: "linear-gradient(180deg, var(--noche) 0%, var(--noche-2) 100%)",
+      background: "var(--noche)",
       color: "var(--tiza)",
-      fontFamily: "var(--fuente-base)"
+      fontFamily: "var(--fuente-base)",
+      overflowX: "hidden"
     }}>
       {/* NAVBAR */}
       <nav style={{
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        padding: "var(--esp-4) var(--esp-6)",
-        background: "rgba(19, 32, 48, 0.8)",
-        backdropFilter: "blur(10px)",
-        borderBottom: "1px solid var(--linea)",
-        position: "sticky",
+        padding: "1rem 2rem",
+        background: "transparent",
+        position: "absolute",
+        width: "100%",
         top: 0,
         zIndex: 50
       }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <Trophy color="var(--cancha)" size={24} />
-          <h1 style={{ margin: 0, fontSize: "1.2rem", fontWeight: 900, letterSpacing: "-0.5px" }}>
-            CLUB 90 MINUTOS
-          </h1>
+        {/* LOGO */}
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <img 
+            src="/logo_principal_recortado.webp" 
+            alt="Club 90 Minutos" 
+            style={{ height: 50, objectFit: "contain" }}
+            onError={(e) => { e.currentTarget.style.display = 'none'; }}
+          />
+          <span style={{ fontWeight: 900, fontSize: "1.2rem", color: "#fff" }}>CLUB 90 MINUTOS</span>
         </div>
-        <div style={{ display: "flex", gap: "var(--esp-4)" }}>
-          <Link href="/dashboard" className="btn btn-secondary" style={{ padding: "8px 16px", textDecoration: "none" }}>
-            Ingresar
-          </Link>
-          <Link href="/registro" className="btn btn-primary" style={{ padding: "8px 16px", textDecoration: "none" }}>
-            Registrarse
+
+        {/* LINKS (Desktop) */}
+        <div style={{ display: "none", gap: "2rem", alignItems: "center", "@media (min-width: 1024px)": { display: "flex" } }} className="nav-links">
+          <Link href="#" style={{ color: "var(--tiza)", textDecoration: "none", fontSize: "0.9rem", fontWeight: 600 }}>JUEGA AQUÍ ▾</Link>
+          <Link href="#" style={{ color: "var(--tiza)", textDecoration: "none", fontSize: "0.9rem", fontWeight: 600 }}>COMO VAS! ▾</Link>
+          <Link href="/dashboard" style={{ color: "var(--tiza)", textDecoration: "none", fontSize: "0.9rem", fontWeight: 600 }}>GRUPOS PRIVADOS</Link>
+          <Link href="#" style={{ color: "var(--tiza)", textDecoration: "none", fontSize: "0.9rem", fontWeight: 600 }}>ESTADÍSTICAS ▾</Link>
+          <Link href="/reglas" style={{ color: "var(--tiza)", textDecoration: "none", fontSize: "0.9rem", fontWeight: 600 }}>REGLAS</Link>
+        </div>
+
+        {/* SOCIAL & CTA */}
+        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+          <div style={{ display: "flex", gap: 8, opacity: 0.7 }}>
+            <Facebook size={18} />
+            <Instagram size={18} />
+            <Twitter size={18} />
+            <Youtube size={18} />
+          </div>
+          <Link href="/registro" className="btn" style={{ 
+            padding: "10px 20px", 
+            background: "var(--cancha)", 
+            color: "#000", 
+            fontWeight: 800,
+            borderRadius: "8px",
+            textDecoration: "none",
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+            boxShadow: "0 0 15px rgba(29, 185, 84, 0.4)"
+          }}>
+            ⚽ JUGAR GRATIS
           </Link>
         </div>
       </nav>
 
-      {/* HERO SECTION COMPLETO */}
+      {/* HERO SECTION */}
       <section style={{
-        padding: "clamp(40px, 10vw, 80px) 10px clamp(50px, 12vw, 120px)",
-        textAlign: "center",
-        width: "100%",
+        paddingTop: "120px",
+        paddingBottom: "60px",
+        minHeight: "100vh",
         display: "flex",
-        flexDirection: "column",
         alignItems: "center",
-        gap: "var(--esp-5)",
-        position: "relative",
-        overflow: "hidden"
+        justifyContent: "center",
+        position: "relative"
       }}>
-        {/* Glow de fondo para matar el espacio negro */}
+        <div style={{
+          maxWidth: 1400,
+          margin: "0 auto",
+          padding: "0 2rem",
+          display: "flex",
+          flexDirection: "row",
+          flexWrap: "wrap",
+          alignItems: "center",
+          justifyContent: "space-between",
+          width: "100%",
+          zIndex: 10
+        }}>
+          
+          {/* LADO IZQUIERDO: TEXTOS */}
+          <div style={{ flex: "1 1 500px", maxWidth: 700, display: "flex", flexDirection: "column", gap: 24, position: "relative", zIndex: 20 }}>
+            
+            {/* Tag */}
+            <div style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              padding: "8px 16px",
+              background: "rgba(29, 185, 84, 0.1)",
+              border: "1px solid var(--cancha-borde)",
+              borderRadius: 30,
+              color: "var(--cancha)",
+              fontWeight: 700,
+              fontSize: "0.85rem",
+              width: "fit-content"
+            }}>
+              <div style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--cancha)", boxShadow: "0 0 10px var(--cancha)" }} />
+              MUNDIAL 2026 • PRONÓSTICOS EN VIVO
+            </div>
+
+            {/* Titular Principal */}
+            <h1 style={{
+              margin: 0,
+              fontSize: "clamp(3rem, 6vw, 6rem)",
+              fontWeight: 900,
+              lineHeight: 1,
+              letterSpacing: "-1px",
+              color: "rgba(255,255,255,0.2)", // Color apagado para la primera linea
+              textTransform: "uppercase"
+            }}>
+              Demuestra que
+              <br/>
+              <span style={{ 
+                color: "var(--cancha)", 
+                textShadow: "0 0 40px rgba(29, 185, 84, 0.4)",
+                display: "block",
+                marginTop: 10
+              }}>
+                Sabes de fútbol
+              </span>
+            </h1>
+
+            {/* Subtítulo */}
+            <p style={{
+              fontSize: "1.2rem",
+              color: "var(--tiza)",
+              lineHeight: 1.5,
+              maxWidth: 500,
+              margin: 0
+            }}>
+              Crea tu <strong>polla</strong> y compite <strong>en vivo</strong> con amigos, oficina o familia.
+              <br/>¡Gratis!
+            </p>
+
+            {/* Botones de acción */}
+            <div style={{ display: "flex", gap: 16, marginTop: 10, flexWrap: "wrap" }}>
+              <Link href="/registro" style={{
+                padding: "16px 32px",
+                background: "var(--cancha)",
+                color: "#000",
+                fontWeight: 800,
+                fontSize: "1.1rem",
+                borderRadius: 12,
+                textDecoration: "none",
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+                boxShadow: "0 0 25px rgba(29, 185, 84, 0.4)",
+                transition: "transform 0.2s"
+              }}>
+                ⚽ JUGAR GRATIS
+              </Link>
+              <Link href="/dashboard" style={{
+                padding: "16px 32px",
+                background: "#7c3aed", /* Morado estilo imagen */
+                color: "#fff",
+                fontWeight: 800,
+                fontSize: "1.1rem",
+                borderRadius: 12,
+                textDecoration: "none",
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+                boxShadow: "0 0 25px rgba(124, 58, 237, 0.4)",
+                transition: "transform 0.2s"
+              }}>
+                🏆 CREAR MI LIGA
+              </Link>
+            </div>
+
+            {/* Countdown (Visual) */}
+            <div style={{ marginTop: 40 }}>
+              <div style={{ fontSize: "0.8rem", fontWeight: 800, color: "var(--graderia)", letterSpacing: "1px", marginBottom: 12 }}>
+                EL MUNDIAL COMIENZA EN
+              </div>
+              <div style={{ display: "flex", gap: 12 }}>
+                {["00", "00", "00", "00"].map((num, i) => (
+                  <div key={i} style={{
+                    width: 60,
+                    height: 70,
+                    background: "rgba(0,0,0,0.5)",
+                    border: "1px solid rgba(29, 185, 84, 0.3)",
+                    borderRadius: 8,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "2rem",
+                    fontWeight: 900,
+                    color: "var(--cancha)",
+                    boxShadow: "inset 0 0 20px rgba(29, 185, 84, 0.1)"
+                  }}>
+                    {num}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </div>
+
+          {/* LADO DERECHO: IMAGEN HERO */}
+          <div style={{ 
+            flex: "1 1 500px", 
+            position: "relative",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: "2rem"
+          }}>
+            {/* Glow detrás del personaje */}
+            <div style={{
+              position: "absolute",
+              width: "80%",
+              height: "80%",
+              background: "var(--cancha)",
+              filter: "blur(120px)",
+              opacity: 0.15,
+              borderRadius: "50%",
+              zIndex: 0
+            }} />
+            
+            <img 
+              src="/images/chilena_3d.png" 
+              alt="Personaje"
+              style={{
+                width: "100%",
+                maxWidth: 600,
+                height: "auto",
+                position: "relative",
+                zIndex: 10,
+                filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.5))"
+              }}
+              onError={(e) => {
+                e.currentTarget.src = "/images/balon_3d.png"; // Fallback si no está la chilena
+              }}
+            />
+          </div>
+
+        </div>
+
+        {/* Partículas de fondo (simuladas con CSS) */}
         <div style={{
           position: "absolute",
-          top: "10%",
-          left: "50%",
-          transform: "translate(-50%, 0)",
-          width: "120%",
-          height: 300,
-          background: "radial-gradient(circle, rgba(29, 185, 84, 0.15) 0%, rgba(0,0,0,0) 60%)",
-          zIndex: 0,
+          top: 0, left: 0, right: 0, bottom: 0,
+          background: "radial-gradient(circle at 70% 30%, rgba(29, 185, 84, 0.05) 0%, transparent 50%)",
+          zIndex: 1,
           pointerEvents: "none"
-        }}></div>
-
-        <div style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: "var(--esp-5)", width: "100%", padding: "0 10px" }}>
-          
-          <img 
-            src="/logo_principal_recortado.webp" 
-            alt="Club 90 Minutos Logo" 
-            style={{ 
-              width: "clamp(160px, 30vw, 240px)", 
-              height: "auto", 
-              mixBlendMode: "screen", 
-              filter: "drop-shadow(0 0 25px rgba(29,185,84,0.6)) contrast(1.2)", 
-              marginBottom: "-20px",
-              transform: "translateZ(0)"
-            }}
-            onError={(e) => {
-              e.currentTarget.style.display = 'none';
-            }}
-          />
-
-          <div style={{
-            display: "inline-block",
-            padding: "6px 14px",
-            background: "var(--cancha-suave)",
-            color: "var(--cancha)",
-            borderRadius: 20,
-            fontSize: "0.85rem",
-            fontWeight: 700,
-            border: "1px solid var(--cancha-borde)",
-            boxShadow: "0 0 20px rgba(29, 185, 84, 0.2)"
-          }}>
-            🔥 LIGA BETPLAY & CHAMPIONS LEAGUE
-          </div>
-          
-          <h2 style={{
-            margin: 0,
-            fontSize: "clamp(2.5rem, 9vw, 5rem)",
-            fontWeight: 900,
-            lineHeight: 1.05,
-            letterSpacing: "-1px",
-            background: "linear-gradient(135deg, #ffffff 0%, #8ba3b4 100%)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            filter: "drop-shadow(0 4px 10px rgba(0,0,0,0.5))",
-            width: "100%"
-          }}>
-            Demuestra lo que sabes <br/> de fútbol.
-          </h2>
-          
-          <p style={{
-            fontSize: "clamp(1.05rem, 4.5vw, 1.25rem)",
-            color: "var(--graderia)",
-            maxWidth: 600,
-            margin: 0,
-            lineHeight: 1.5,
-            padding: "0 5px"
-          }}>
-            Únete a la comunidad exclusiva de pronósticos. Acierta resultados, compite con tus amigos y gana los premios acumulados de cada torneo.
-          </p>
-
-          <div style={{ display: "flex", gap: "var(--esp-4)", flexWrap: "wrap", justifyContent: "center", marginTop: "var(--esp-3)", width: "100%" }}>
-            <Link href="/registro" className="btn btn-primary" style={{ 
-              padding: "16px 32px", 
-              fontSize: "1.1rem",
-              fontWeight: 800,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 8,
-              textDecoration: "none",
-              borderRadius: "var(--radio-card)",
-              boxShadow: "0 8px 20px rgba(29, 185, 84, 0.3)",
-              width: "clamp(200px, 80%, 300px)"
-            }}>
-              Jugar Ahora <ArrowRight size={20} />
-            </Link>
-          </div>
-        </div>
+        }} />
       </section>
-
-      {/* CÓMO FUNCIONA */}
-      <section style={{
-        padding: "60px 20px",
-        background: "var(--tribuna)",
-        borderTop: "1px solid var(--linea)",
-        borderBottom: "1px solid var(--linea)"
-      }}>
-        <div style={{ maxWidth: 1000, margin: "0 auto" }}>
-          <h3 style={{ textAlign: "center", fontSize: "2rem", marginBottom: 40, fontWeight: 800 }}>
-            ¿Cómo Funciona?
-          </h3>
-          
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-            gap: "var(--esp-6)",
-          }}>
-            <div style={{ background: "var(--tribuna-2)", padding: 30, borderRadius: "var(--radio-card)", textAlign: "center", border: "1px solid var(--linea)" }}>
-              <Users size={40} color="var(--cancha)" style={{ margin: "0 auto 20px" }} />
-              <h4 style={{ fontSize: "1.2rem", marginBottom: 10 }}>1. Reserva tu Cupo</h4>
-              <p style={{ color: "var(--graderia)", fontSize: "0.95rem" }}>
-                Regístrate y contacta a los administradores para activar tu cuenta oficial en el torneo.
-              </p>
-            </div>
-            
-            <div style={{ background: "var(--tribuna-2)", padding: 30, borderRadius: "var(--radio-card)", textAlign: "center", border: "1px solid var(--linea)" }}>
-              <HelpCircle size={40} color="var(--azul)" style={{ margin: "0 auto 20px" }} />
-              <h4 style={{ fontSize: "1.2rem", marginBottom: 10 }}>2. Pronostica</h4>
-              <p style={{ color: "var(--graderia)", fontSize: "0.95rem" }}>
-                Ingresa tus marcadores antes del inicio de cada partido oficial de la fecha.
-              </p>
-            </div>
-            
-            <div style={{ background: "var(--tribuna-2)", padding: 30, borderRadius: "var(--radio-card)", textAlign: "center", border: "1px solid var(--linea)" }}>
-              <Star size={40} color="var(--trofeo)" style={{ margin: "0 auto 20px" }} />
-              <h4 style={{ fontSize: "1.2rem", marginBottom: 10 }}>3. Suma y Gana</h4>
-              <p style={{ color: "var(--graderia)", fontSize: "0.95rem" }}>
-                Gana puntos por acertar el ganador, el marcador exacto y los goleadores.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FOOTER */}
-      <footer style={{
-        padding: "40px 20px",
-        textAlign: "center",
-        color: "var(--graderia-2)",
-        fontSize: "0.9rem"
-      }}>
-        <div style={{ display: "flex", justifyContent: "center", gap: 20, marginBottom: 20 }}>
-          <Link href="/terminos" style={{ color: "var(--tiza)", textDecoration: "none" }}>Términos y Condiciones</Link>
-          <Link href="/reglas" style={{ color: "var(--tiza)", textDecoration: "none" }}>Reglamento de Puntos</Link>
-        </div>
-        <p>© 2026 Club 90 Minutos. Todos los derechos reservados.</p>
-        <p style={{ fontSize: "0.8rem", marginTop: 5, opacity: 0.7 }}>
-          <ShieldCheck size={14} style={{ display: "inline", verticalAlign: "middle", marginRight: 4 }} />
-          Plataforma Segura y Privada.
-        </p>
-      </footer>
+      
+      {/* Añadir media query simple global para ocultar links en móvil */}
+      <style dangerouslySetInnerHTML={{__html: `
+        @media (max-width: 1024px) {
+          .nav-links { display: none !important; }
+        }
+      `}} />
     </div>
   );
 }
+
