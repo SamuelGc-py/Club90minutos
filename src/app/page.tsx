@@ -41,65 +41,134 @@ export default function LandingPage() {
         </div>
       </nav>
 
-      {/* HERO SECTION */}
+      {/* HERO SECTION COMPLETO */}
       <section style={{
-        padding: "80px 20px",
+        padding: "clamp(30px, 8vw, 80px) 20px clamp(40px, 10vw, 100px)",
         textAlign: "center",
-        maxWidth: 800,
+        maxWidth: 1000,
         margin: "0 auto",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: "var(--esp-6)"
+        gap: "var(--esp-6)",
+        position: "relative"
       }}>
+        {/* Glow de fondo para matar el espacio negro */}
         <div style={{
-          display: "inline-block",
-          padding: "6px 12px",
-          background: "var(--cancha-suave)",
-          color: "var(--cancha)",
-          borderRadius: 20,
-          fontSize: "0.85rem",
-          fontWeight: 700,
-          border: "1px solid var(--cancha-borde)",
-          marginBottom: -10
-        }}>
-          🔥 LIGA BETPLAY & CHAMPIONS LEAGUE
-        </div>
-        
-        <h2 style={{
-          margin: 0,
-          fontSize: "clamp(2.5rem, 6vw, 4rem)",
-          fontWeight: 900,
-          lineHeight: 1.1,
-          letterSpacing: "-1px",
-          background: "linear-gradient(to right, #ffffff, #8ba3b4)",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent"
-        }}>
-          Demuestra lo que sabes de fútbol.
-        </h2>
-        
-        <p style={{
-          fontSize: "1.1rem",
-          color: "var(--graderia)",
+          position: "absolute",
+          top: "10%",
+          left: "50%",
+          transform: "translate(-50%, 0)",
+          width: "100%",
           maxWidth: 600,
-          margin: 0,
-          lineHeight: 1.6
-        }}>
-          Únete a la comunidad exclusiva de pronósticos. Acierta resultados, compite con tus amigos y gana los premios acumulados de cada torneo.
-        </p>
+          height: 300,
+          background: "radial-gradient(circle, rgba(29, 185, 84, 0.15) 0%, rgba(0,0,0,0) 70%)",
+          zIndex: 0,
+          pointerEvents: "none"
+        }}></div>
 
-        <div style={{ display: "flex", gap: "var(--esp-4)", marginTop: "var(--esp-2)" }}>
-          <Link href="/registro" className="btn btn-primary" style={{ 
-            padding: "14px 28px", 
-            fontSize: "1.1rem",
-            display: "flex",
-            alignItems: "center",
-            gap: 8,
-            textDecoration: "none"
+        <div style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: "var(--esp-5)" }}>
+          <div style={{
+            display: "inline-block",
+            padding: "6px 14px",
+            background: "var(--cancha-suave)",
+            color: "var(--cancha)",
+            borderRadius: 20,
+            fontSize: "0.85rem",
+            fontWeight: 700,
+            border: "1px solid var(--cancha-borde)",
+            boxShadow: "0 0 20px rgba(29, 185, 84, 0.2)"
           }}>
-            Jugar Ahora <ArrowRight size={20} />
-          </Link>
+            🔥 LIGA BETPLAY & CHAMPIONS LEAGUE
+          </div>
+          
+          <h2 style={{
+            margin: 0,
+            fontSize: "clamp(2.2rem, 8vw, 4.5rem)",
+            fontWeight: 900,
+            lineHeight: 1.05,
+            letterSpacing: "-1px",
+            background: "linear-gradient(135deg, #ffffff 0%, #8ba3b4 100%)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            filter: "drop-shadow(0 4px 10px rgba(0,0,0,0.5))"
+          }}>
+            Demuestra lo que sabes <br/> de fútbol.
+          </h2>
+          
+          <p style={{
+            fontSize: "clamp(1rem, 3vw, 1.15rem)",
+            color: "var(--graderia)",
+            maxWidth: 600,
+            margin: 0,
+            lineHeight: 1.6
+          }}>
+            Únete a la comunidad exclusiva de pronósticos. Acierta resultados, compite con tus amigos y gana los premios acumulados de cada torneo.
+          </p>
+
+          <div style={{ display: "flex", gap: "var(--esp-4)", flexWrap: "wrap", justifyContent: "center", marginTop: "var(--esp-2)" }}>
+            <Link href="/registro" className="btn btn-primary" style={{ 
+              padding: "16px 32px", 
+              fontSize: "1.1rem",
+              fontWeight: 800,
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+              textDecoration: "none",
+              borderRadius: "var(--radio-card)",
+              boxShadow: "0 8px 20px rgba(29, 185, 84, 0.3)"
+            }}>
+              Jugar Ahora <ArrowRight size={20} />
+            </Link>
+          </div>
+        </div>
+
+        {/* MOCKUP VISUAL PARA LLENAR ESPACIO */}
+        <div style={{
+          marginTop: "clamp(30px, 6vw, 60px)",
+          width: "100%",
+          maxWidth: 700,
+          background: "var(--tribuna)",
+          border: "1px solid var(--linea-fuerte)",
+          borderRadius: "var(--radio-card)",
+          padding: "var(--esp-4)",
+          position: "relative",
+          zIndex: 1,
+          boxShadow: "0 20px 40px rgba(0,0,0,0.4), 0 0 40px rgba(29, 185, 84, 0.1) inset",
+          display: "flex",
+          flexDirection: "column",
+          gap: 12,
+          textAlign: "left"
+        }}>
+          {/* Header del Mockup */}
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid var(--linea)", paddingBottom: 12 }}>
+            <span style={{ fontSize: "0.85rem", color: "var(--graderia)", fontWeight: 700, display: "flex", alignItems: "center", gap: 6 }}>
+              <Trophy size={14} color="var(--trofeo)" /> LIGA BETPLAY - JORNADA 10
+            </span>
+            <span style={{ fontSize: "0.75rem", background: "var(--azul-suave)", color: "var(--azul)", padding: "4px 8px", borderRadius: 10, fontWeight: 800 }}>HOY 20:00</span>
+          </div>
+          
+          {/* Partido Mockup */}
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 0" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, flex: 1 }}>
+              <div style={{ width: 40, height: 40, borderRadius: "50%", background: "var(--linea)", display: "flex", alignItems: "center", justifyContent: "center" }}>🛡️</div>
+              <span style={{ fontWeight: 800, fontSize: "1.1rem" }}>Bucaramanga</span>
+            </div>
+            
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "0 20px" }}>
+              <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                <div style={{ background: "var(--noche)", border: "1px solid var(--linea-fuerte)", width: 45, height: 50, borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.5rem", fontWeight: 900 }}>2</div>
+                <span style={{ color: "var(--graderia)", fontWeight: 900 }}>-</span>
+                <div style={{ background: "var(--noche)", border: "1px solid var(--linea-fuerte)", width: 45, height: 50, borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.5rem", fontWeight: 900 }}>1</div>
+              </div>
+              <span style={{ fontSize: "0.75rem", color: "var(--cancha)", marginTop: 6, fontWeight: 700 }}>Tu Pronóstico</span>
+            </div>
+
+            <div style={{ display: "flex", alignItems: "center", gap: 10, flex: 1, justifyContent: "flex-end" }}>
+              <span style={{ fontWeight: 800, fontSize: "1.1rem" }}>Cúcuta Dep.</span>
+              <div style={{ width: 40, height: 40, borderRadius: "50%", background: "var(--linea)", display: "flex", alignItems: "center", justifyContent: "center" }}>⚔️</div>
+            </div>
+          </div>
         </div>
       </section>
 
