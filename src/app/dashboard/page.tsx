@@ -419,6 +419,27 @@ function ExpressPageContent() {
 
   // Estado del Formulario (Pestañas)
   const [tabActiva, setTabActiva] = useState<"inicio" | "partidos" | "aplazados" | "inicial" | "mis_pronosticos" | "admin" | "posiciones" | "en_vivo" | "finalizados">("inicio");
+
+  // Sincronizar tabActiva con el hash de la URL para soportar el botón "Atrás" nativo de celulares
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if (window.location.hash !== `#${tabActiva}`) {
+        window.history.pushState(null, "", `#${tabActiva}`);
+      }
+    }
+  }, [tabActiva]);
+
+  useEffect(() => {
+    const onPopState = () => {
+      const hash = window.location.hash.replace("#", "");
+      if (hash && hash !== tabActiva) {
+        setTabActiva(hash as any);
+      }
+    };
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, [tabActiva]);
+
   const [partidosEnVivo, setPartidosEnVivo] = useState<any[]>([]);
   const [cargandoEnVivo, setCargandoEnVivo] = useState<boolean>(false);
   const [partidoDesplegadoId, setPartidoDesplegadoId] = useState<string | null>(null);
@@ -3331,6 +3352,13 @@ function ExpressPageContent() {
           {/* TAB: PARTIDOS FINALIZADOS */}
           {tabActiva === "finalizados" && (
             <div>
+              <button
+                className="btn btn-secondary"
+                onClick={() => setTabActiva("partidos")}
+                style={{ marginBottom: 16, padding: "8px 16px", display: "flex", alignItems: "center", gap: 8, background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8, color: "var(--tiza)" }}
+              >
+                ⬅️ Volver a Partidos Activos
+              </button>
               <div className="card" style={{ marginBottom: 20 }}>
                 <h2>🏁 Partidos Finalizados (Orden Cronológico)</h2>
                 <p style={{ color: "var(--graderia)", margin: 0, fontSize: "0.85rem" }}>
@@ -3376,6 +3404,13 @@ function ExpressPageContent() {
           {/* TAB: PARTIDOS APLAZADOS DEDICADO */}
           {tabActiva === "aplazados" && (
             <div>
+              <button
+                className="btn btn-secondary"
+                onClick={() => setTabActiva("partidos")}
+                style={{ marginBottom: 16, padding: "8px 16px", display: "flex", alignItems: "center", gap: 8, background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8, color: "var(--tiza)" }}
+              >
+                ⬅️ Volver a Partidos Activos
+              </button>
               <div
                 className="card"
                 style={{
