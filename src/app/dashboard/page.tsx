@@ -3084,7 +3084,7 @@ function ExpressPageContent() {
                       color: tabActiva === "partidos" ? undefined : "var(--tiza)",
                     }}
                   >
-                    ⚽ Pronósticos Fecha {fechaParticipante}
+                    ⚽ Fecha {fechaParticipante}
                   </button>
 
                   <button
