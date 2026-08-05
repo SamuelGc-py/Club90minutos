@@ -1780,10 +1780,7 @@ function ExpressPageContent() {
                 <div style={{ fontWeight: 900, fontSize: "1.35rem", color: "#fff", letterSpacing: "0.5px", marginTop: 14 }}>
                   CLUB 90 MINUTOS
                 </div>
-                <div className="login-mobile-tag">
-                  <span className="login-mobile-dot" />
-                  MUNDIAL 2026 • PRONÓSTICOS EN VIVO
-                </div>
+
               </div>
 
               <div style={{ marginBottom: 40 }}>
