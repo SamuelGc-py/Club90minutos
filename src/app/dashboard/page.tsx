@@ -3259,20 +3259,20 @@ function ExpressPageContent() {
               </div>
 
               {/* BOTONES DE NAVEGACIÓN RÁPIDA (Reemplazo del Banner) */}
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: 12, marginBottom: 20 }}>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 20, alignItems: "center" }}>
                 <button
                   className="btn btn-secondary"
                   onClick={() => setTabActiva("finalizados")}
-                  style={{ padding: "10px", fontSize: "0.85rem", fontWeight: 800, background: "rgba(16, 185, 129, 0.15)", color: "#10b981", border: "1px solid rgba(16, 185, 129, 0.4)", borderRadius: 10, display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}
+                  style={{ padding: "6px 14px", fontSize: "0.75rem", fontWeight: 700, background: "var(--tarjeta)", color: "var(--tiza)", border: "1px solid var(--borde)", borderRadius: 50, display: "flex", alignItems: "center", gap: 6 }}
                 >
-                  <span style={{ fontSize: "1.2rem" }}>🏁</span> PARTIDOS FINALIZADOS
+                  <span style={{ fontSize: "1rem" }}>🏁</span> FINALIZADOS
                 </button>
                 <button
                   className="btn btn-secondary"
                   onClick={() => setTabActiva("aplazados")}
-                  style={{ padding: "10px", fontSize: "0.85rem", fontWeight: 800, background: "rgba(245, 158, 11, 0.15)", color: "#f59e0b", border: "1px solid rgba(245, 158, 11, 0.4)", borderRadius: 10, display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}
+                  style={{ padding: "6px 14px", fontSize: "0.75rem", fontWeight: 700, background: "var(--tarjeta)", color: "var(--tiza)", border: "1px solid var(--borde)", borderRadius: 50, display: "flex", alignItems: "center", gap: 6 }}
                 >
-                  <span style={{ fontSize: "1.2rem" }}>⚠️</span> PARTIDOS APLAZADOS
+                  <span style={{ fontSize: "1rem" }}>⚠️</span> APLAZADOS
                 </button>
                 <button
                   className="btn btn-secondary"
@@ -3280,9 +3280,9 @@ function ExpressPageContent() {
                     setTabActiva("posiciones");
                     cargarConsolidados(usuario.id);
                   }}
-                  style={{ padding: "10px", fontSize: "0.85rem", fontWeight: 800, background: "rgba(56, 189, 248, 0.15)", color: "#38bdf8", border: "1px solid rgba(56, 189, 248, 0.4)", borderRadius: 10, display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}
+                  style={{ padding: "6px 14px", fontSize: "0.75rem", fontWeight: 700, background: "var(--tarjeta)", color: "var(--tiza)", border: "1px solid var(--borde)", borderRadius: 50, display: "flex", alignItems: "center", gap: 6 }}
                 >
-                  <span style={{ fontSize: "1.2rem" }}>📊</span> POSICIONES
+                  <span style={{ fontSize: "1rem" }}>📊</span> POSICIONES
                 </button>
               </div>
 
