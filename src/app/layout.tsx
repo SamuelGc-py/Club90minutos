@@ -4,6 +4,19 @@ import type { Metadata, Viewport } from "next";
 export const metadata: Metadata = {
   title: "Polla Liga BetPlay — Demuestra lo que sabes de fútbol",
   description: "Plataforma oficial de pronósticos Liga BetPlay Dimayor II 2026",
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+    },
+  },
+  verification: {
+    google: "uPe2DKottfxU6Pxg7hB5qeEYAp2rbvojjt2YgbwZNHE",
+  },
 };
 
 export const viewport: Viewport = {
