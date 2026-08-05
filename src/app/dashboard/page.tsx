@@ -1750,7 +1750,7 @@ function ExpressPageContent() {
             {/* Elementos decorativos */}
             <div style={{ position: "absolute", top: -100, right: -100, width: 400, height: 400, background: "var(--cancha)", opacity: 0.05, borderRadius: "50%", filter: "blur(50px)" }} />
 
-            <div className="bola-flotante" style={{ position: "absolute", bottom: "15%", right: "15%", fontSize: "8rem", filter: "drop-shadow(0 20px 30px rgba(0,0,0,0.5))" }}>
+            <div className="bola-flotante" style={{ position: "absolute", bottom: "15%", right: "15%", fontSize: "8rem", opacity: 0.3, filter: "drop-shadow(0 20px 30px rgba(0,0,0,0.5))" }}>
               ⚽
             </div>
           </div>
