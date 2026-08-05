@@ -1756,16 +1756,28 @@ function ExpressPageContent() {
           </div>
 
           {/* Lado Derecho - Formulario */}
-          <div style={{
+          <div className="login-right-panel" style={{
             flex: 1,
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
             padding: "2rem",
-            background: "var(--noche)",
           }}>
             <div style={{ width: "100%", maxWidth: 400 }}>
+              <div className="login-mobile-header">
+                <img
+                  src="/logo_principal_recortado.webp"
+                  alt="Club 90 Minutos"
+                  style={{ height: 56, objectFit: "contain", marginBottom: 10 }}
+                  onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                />
+                <div style={{ fontWeight: 900, fontSize: "1.3rem", color: "#fff", letterSpacing: "0.5px" }}>CLUB 90 MINUTOS</div>
+                <div style={{ color: "var(--cancha)", fontSize: "0.9rem", fontWeight: 600, marginTop: 6 }}>
+                  ⚽ Demuestra que sabes de fútbol
+                </div>
+              </div>
+
               <div style={{ marginBottom: 40 }}>
                 <h2 style={{ fontSize: "2rem", fontWeight: 800, marginBottom: 8, color: "#fff" }}>¡Bienvenido! 👋</h2>
                 <p style={{ color: "var(--graderia)", fontSize: "0.95rem" }}>
