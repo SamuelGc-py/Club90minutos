@@ -1743,14 +1743,14 @@ function ExpressPageContent() {
                 <span style={{ color: "var(--cancha)", textShadow: "0 0 20px rgba(29, 185, 84, 0.4)" }}>DE FÚTBOL</span>
               </h1>
               <p style={{ fontSize: "1.2rem", color: "var(--graderia)", maxWidth: 400 }}>
-                Crea tu polla y compite en vivo con amigos, oficina o familia. ¡Gratis!
+                Crea tu polla y compite en vivo con amigos, oficina o familia.
               </p>
             </div>
-            
+
             {/* Elementos decorativos */}
             <div style={{ position: "absolute", top: -100, right: -100, width: 400, height: 400, background: "var(--cancha)", opacity: 0.05, borderRadius: "50%", filter: "blur(50px)" }} />
-            
-            <div className="bola-flotante" style={{ position: "absolute", bottom: "15%", right: "15%", fontSize: "8rem", filter: "drop-shadow(0 20px 30px rgba(0,0,0,0.5))" }}>
+
+            <div className="bola-flotante" style={{ position: "absolute", bottom: "-4%", right: "-3%", fontSize: "5rem", opacity: 0.2, filter: "drop-shadow(0 20px 30px rgba(0,0,0,0.5))" }}>
               ⚽
             </div>
           </div>
