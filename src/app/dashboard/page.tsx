@@ -418,7 +418,7 @@ function ExpressPageContent() {
   const [cargandoMaestros, setCargandoMaestros] = useState(false);
 
   // Estado del Formulario (Pestañas)
-  const [tabActiva, setTabActiva] = useState<"inicio" | "partidos" | "aplazados" | "inicial" | "mis_pronosticos" | "admin" | "posiciones" | "en_vivo">("inicio");
+  const [tabActiva, setTabActiva] = useState<"inicio" | "partidos" | "aplazados" | "inicial" | "mis_pronosticos" | "admin" | "posiciones" | "en_vivo" | "finalizados">("inicio");
   const [partidosEnVivo, setPartidosEnVivo] = useState<any[]>([]);
   const [cargandoEnVivo, setCargandoEnVivo] = useState<boolean>(false);
   const [partidoDesplegadoId, setPartidoDesplegadoId] = useState<string | null>(null);
@@ -2870,7 +2870,6 @@ function ExpressPageContent() {
                 boxShadow: "0 10px 25px rgba(0,0,0,0.5)",
               }}
             >
-
               <div
                 className={`menu-drawer-item ${tabActiva === "partidos" ? "active" : ""}`}
                 onClick={() => {
@@ -2879,6 +2878,15 @@ function ExpressPageContent() {
                 }}
               >
                 ⚽ Pronósticos Fecha {fechaParticipante}
+              </div>
+              <div
+                className={`menu-drawer-item ${tabActiva === "finalizados" ? "active" : ""}`}
+                onClick={() => {
+                  setTabActiva("finalizados");
+                  setMenuAbierto(false);
+                }}
+              >
+                🏁 Partidos Terminados
               </div>
               <div
                 className={`menu-drawer-item ${tabActiva === "inicial" ? "active" : ""}`}
@@ -3055,7 +3063,22 @@ function ExpressPageContent() {
                       color: tabActiva === "partidos" ? undefined : "var(--tiza)",
                     }}
                   >
-                    ⚽ Partidos Terminados
+                    ⚽ Pronósticos Fecha {fechaParticipante}
+                  </button>
+
+                  <button
+                    className={`btn ${tabActiva === "finalizados" ? "btn-primary" : "btn-secondary"}`}
+                    onClick={() => setTabActiva(tabActiva === "finalizados" ? "inicio" : "finalizados")}
+                    style={{
+                      padding: "8px 12px",
+                      fontSize: "0.82rem",
+                      fontWeight: 700,
+                      background: tabActiva === "finalizados" ? undefined : "transparent",
+                      border: tabActiva === "finalizados" ? undefined : "1px solid rgba(255,255,255,0.1)",
+                      color: tabActiva === "finalizados" ? undefined : "var(--tiza)",
+                    }}
+                  >
+                    🏁 Partidos Terminados
                   </button>
 
                   <button
@@ -3235,35 +3258,32 @@ function ExpressPageContent() {
                 </p>
               </div>
 
-              {/* BANNER DE FECHA ACTIVA */}
-              <div
-                style={{
-                  background: "linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.25) 100%)",
-                  border: "1px solid #10b981",
-                  borderRadius: 12,
-                  padding: "12px 16px",
-                  marginBottom: 20,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  gap: 12,
-                  flexWrap: "wrap"
-                }}
-              >
-                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                  <span style={{ fontSize: "1.2rem" }}>🔥</span>
-                  <div>
-                    <div style={{ fontSize: "0.88rem", fontWeight: 800, color: "#ffffff" }}>
-                      FECHA ACTIVA EN JUEGO: FECHA {fechaParticipante}
-                    </div>
-                    <div style={{ fontSize: "0.78rem", color: "#a7f3d0" }}>
-                      La Fecha {fechaParticipante + 1} se activará automáticamente al finalizar todos los partidos de esta jornada.
-                    </div>
-                  </div>
-                </div>
-                <span className="badge" style={{ background: "#10b981", color: "#000", fontWeight: 900, fontSize: "0.78rem" }}>
-                  EN CURSO
-                </span>
+              {/* BOTONES DE NAVEGACIÓN RÁPIDA (Reemplazo del Banner) */}
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: 12, marginBottom: 20 }}>
+                <button
+                  className="btn btn-secondary"
+                  onClick={() => setTabActiva("finalizados")}
+                  style={{ padding: "10px", fontSize: "0.85rem", fontWeight: 800, background: "rgba(16, 185, 129, 0.15)", color: "#10b981", border: "1px solid rgba(16, 185, 129, 0.4)", borderRadius: 10, display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}
+                >
+                  <span style={{ fontSize: "1.2rem" }}>🏁</span> PARTIDOS FINALIZADOS
+                </button>
+                <button
+                  className="btn btn-secondary"
+                  onClick={() => setTabActiva("aplazados")}
+                  style={{ padding: "10px", fontSize: "0.85rem", fontWeight: 800, background: "rgba(245, 158, 11, 0.15)", color: "#f59e0b", border: "1px solid rgba(245, 158, 11, 0.4)", borderRadius: 10, display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}
+                >
+                  <span style={{ fontSize: "1.2rem" }}>⚠️</span> PARTIDOS APLAZADOS
+                </button>
+                <button
+                  className="btn btn-secondary"
+                  onClick={() => {
+                    setTabActiva("posiciones");
+                    cargarConsolidados(usuario.id);
+                  }}
+                  style={{ padding: "10px", fontSize: "0.85rem", fontWeight: 800, background: "rgba(56, 189, 248, 0.15)", color: "#38bdf8", border: "1px solid rgba(56, 189, 248, 0.4)", borderRadius: 10, display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}
+                >
+                  <span style={{ fontSize: "1.2rem" }}>📊</span> POSICIONES
+                </button>
               </div>
 
               {cargandoMaestros ? (
@@ -3294,18 +3314,57 @@ function ExpressPageContent() {
                   return (
                     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
                       {/* PARTIDOS ACTIVOS EN PROGRAMACIÓN */}
-                      {partidosActivos.map((partido) => renderPartidoCard(partido))}
+                      {partidosActivos.length > 0 ? (
+                        partidosActivos.map((partido) => renderPartidoCard(partido))
+                      ) : (
+                        <div style={{ textAlign: "center", padding: "40px 20px", color: "var(--graderia)", border: "1px dashed var(--linea-fuerte)", borderRadius: 12 }}>
+                          No hay partidos pendientes por jugar en esta fecha.
+                        </div>
+                      )}
+                    </div>
+                  );
+                })()
+              )}
+            </div>
+          )}
 
-                      {/* PARTIDOS FINALIZADOS */}
-                      {partidosFinalizados.length > 0 && (
-                        <>
-                          <div style={{ marginTop: 28, marginBottom: 8, borderTop: "2px dashed var(--linea)", paddingTop: 20 }}>
-                            <h3 style={{ color: "#34d399", fontSize: "1.15rem", display: "flex", alignItems: "center", gap: 8, margin: 0 }}>
-                              🏁 Partidos Finalizados (Orden Cronológico)
-                            </h3>
-                          </div>
-                          {partidosFinalizados.map((partido) => renderPartidoCard(partido))}
-                        </>
+          {/* TAB: PARTIDOS FINALIZADOS */}
+          {tabActiva === "finalizados" && (
+            <div>
+              <div className="card" style={{ marginBottom: 20 }}>
+                <h2>🏁 Partidos Finalizados (Orden Cronológico)</h2>
+                <p style={{ color: "var(--graderia)", margin: 0, fontSize: "0.85rem" }}>
+                  Aquí puedes ver el historial de los partidos que ya han finalizado en la fecha actual.
+                </p>
+              </div>
+
+              {cargandoMaestros ? (
+                <div style={{ textAlign: "center", padding: 40, color: "var(--graderia)" }}>
+                  <button className="btn btn-primary" onClick={cargarMaestros} style={{ padding: "10px 18px" }}>
+                    🔄 Cargar Partidos Ahora
+                  </button>
+                </div>
+              ) : (
+                (() => {
+                  const estaSoloFinal = (partido: any) => {
+                    const esFinalizado = Boolean(partido.resultado_oficial) || partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado";
+                    const hace2Horas = new Date().getTime() >= new Date(partido.fecha_hora_partido).getTime() + 2 * 60 * 60 * 1000;
+                    return esFinalizado || hace2Horas;
+                  };
+
+                  const partidosFiltradosParticipante = partidos.filter((p) => p.jornada === fechaParticipante && p.estado !== "aplazado");
+                  const partidosFinalizados = partidosFiltradosParticipante
+                    .filter((p) => estaSoloFinal(p))
+                    .sort((a, b) => new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime());
+
+                  return (
+                    <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                      {partidosFinalizados.length > 0 ? (
+                        partidosFinalizados.map((partido) => renderPartidoCard(partido))
+                      ) : (
+                        <div style={{ textAlign: "center", padding: "40px 20px", color: "var(--graderia)", border: "1px dashed var(--linea-fuerte)", borderRadius: 12 }}>
+                          Todavía no hay partidos finalizados en esta fecha.
+                        </div>
                       )}
                     </div>
                   );
