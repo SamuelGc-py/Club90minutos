@@ -3279,8 +3279,8 @@ function ExpressPageContent() {
                 </p>
               </div>
 
-              {/* BOTONES DE NAVEGACIÓN RÁPIDA (Reemplazo del Banner) */}
-              <div style={{ display: "flex", flexWrap: "nowrap", gap: 6, marginBottom: 20, alignItems: "center", width: "100%" }}>
+              {/* BOTONES DE NAVEGACIÓN RÁPIDA (Solo en Celular) */}
+              <div className="solo-celular" style={{ display: "flex", flexWrap: "nowrap", gap: 6, marginBottom: 20, alignItems: "center", width: "100%" }}>
                 <button
                   className="btn btn-secondary"
                   onClick={() => setTabActiva("finalizados")}

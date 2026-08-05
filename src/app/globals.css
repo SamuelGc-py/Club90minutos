@@ -852,3 +852,9 @@ select optgroup {
   color: #38bdf8 !important;
   background-color: #0b1520 !important;
 }
+
+@media (min-width: 768px) {
+  .solo-celular {
+    display: none !important;
+  }
+}
