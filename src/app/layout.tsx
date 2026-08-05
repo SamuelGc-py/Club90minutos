@@ -37,27 +37,34 @@ export default function RootLayout({
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              window.addEventListener('error', function(e) {
-                var target = e.target || e.srcElement;
-                var isScript = target && target.tagName === 'SCRIPT';
-                var isChunkError = e.message && (e.message.indexOf('Loading chunk') !== -1 || e.message.indexOf('ChunkLoadError') !== -1);
-                if (isChunkError || (isScript && target.src && target.src.indexOf('/_next/static/chunks/') !== -1)) {
-                  var r = sessionStorage.getItem('chunk_reload');
-                  if (!r) {
-                    sessionStorage.setItem('chunk_reload', 'true');
-                    window.location.reload(true);
-                  }
+              (function() {
+                function bustCacheReload() {
+                  var attempts = parseInt(sessionStorage.getItem('chunk_reload_attempts') || '0', 10);
+                  if (attempts >= 2) return;
+                  sessionStorage.setItem('chunk_reload_attempts', String(attempts + 1));
+                  var url = new URL(window.location.href);
+                  url.searchParams.set('_cb', Date.now().toString());
+                  window.location.replace(url.toString());
                 }
-              }, true);
-              window.addEventListener('unhandledrejection', function(e) {
-                if (e.reason && e.reason.message && (e.reason.message.indexOf('Loading chunk') !== -1 || e.reason.message.indexOf('ChunkLoadError') !== -1)) {
-                  var r = sessionStorage.getItem('chunk_reload');
-                  if (!r) {
-                    sessionStorage.setItem('chunk_reload', 'true');
-                    window.location.reload(true);
-                  }
+                function isStaleAsset(target) {
+                  if (!target || !target.tagName) return false;
+                  if (target.tagName === 'SCRIPT' && target.src && target.src.indexOf('/_next/static/') !== -1) return true;
+                  if (target.tagName === 'LINK' && target.rel === 'stylesheet' && target.href && target.href.indexOf('/_next/static/') !== -1) return true;
+                  return false;
                 }
-              });
+                window.addEventListener('error', function(e) {
+                  var target = e.target || e.srcElement;
+                  var isChunkMsgError = e.message && (e.message.indexOf('Loading chunk') !== -1 || e.message.indexOf('ChunkLoadError') !== -1);
+                  if (isChunkMsgError || isStaleAsset(target)) {
+                    bustCacheReload();
+                  }
+                }, true);
+                window.addEventListener('unhandledrejection', function(e) {
+                  if (e.reason && e.reason.message && (e.reason.message.indexOf('Loading chunk') !== -1 || e.reason.message.indexOf('ChunkLoadError') !== -1)) {
+                    bustCacheReload();
+                  }
+                });
+              })();
             `,
           }}
         />
