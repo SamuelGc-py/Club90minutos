@@ -3259,18 +3259,18 @@ function ExpressPageContent() {
               </div>
 
               {/* BOTONES DE NAVEGACIÓN RÁPIDA (Reemplazo del Banner) */}
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 20, alignItems: "center" }}>
+              <div style={{ display: "flex", flexWrap: "nowrap", gap: 8, marginBottom: 20, alignItems: "center", overflowX: "auto", paddingBottom: 4, scrollbarWidth: "none", msOverflowStyle: "none" }}>
                 <button
                   className="btn btn-secondary"
                   onClick={() => setTabActiva("finalizados")}
-                  style={{ padding: "6px 14px", fontSize: "0.75rem", fontWeight: 700, background: "var(--tarjeta)", color: "var(--tiza)", border: "1px solid var(--borde)", borderRadius: 50, display: "flex", alignItems: "center", gap: 6 }}
+                  style={{ flexShrink: 0, whiteSpace: "nowrap", padding: "6px 14px", fontSize: "0.75rem", fontWeight: 700, background: "var(--tarjeta)", color: "var(--tiza)", border: "1px solid var(--borde)", borderRadius: 50, display: "flex", alignItems: "center", gap: 6 }}
                 >
                   <span style={{ fontSize: "1rem" }}>🏁</span> FINALIZADOS
                 </button>
                 <button
                   className="btn btn-secondary"
                   onClick={() => setTabActiva("aplazados")}
-                  style={{ padding: "6px 14px", fontSize: "0.75rem", fontWeight: 700, background: "var(--tarjeta)", color: "var(--tiza)", border: "1px solid var(--borde)", borderRadius: 50, display: "flex", alignItems: "center", gap: 6 }}
+                  style={{ flexShrink: 0, whiteSpace: "nowrap", padding: "6px 14px", fontSize: "0.75rem", fontWeight: 700, background: "var(--tarjeta)", color: "var(--tiza)", border: "1px solid var(--borde)", borderRadius: 50, display: "flex", alignItems: "center", gap: 6 }}
                 >
                   <span style={{ fontSize: "1rem" }}>⚠️</span> APLAZADOS
                 </button>
@@ -3280,7 +3280,7 @@ function ExpressPageContent() {
                     setTabActiva("posiciones");
                     cargarConsolidados(usuario.id);
                   }}
-                  style={{ padding: "6px 14px", fontSize: "0.75rem", fontWeight: 700, background: "var(--tarjeta)", color: "var(--tiza)", border: "1px solid var(--borde)", borderRadius: 50, display: "flex", alignItems: "center", gap: 6 }}
+                  style={{ flexShrink: 0, whiteSpace: "nowrap", padding: "6px 14px", fontSize: "0.75rem", fontWeight: 700, background: "var(--tarjeta)", color: "var(--tiza)", border: "1px solid var(--borde)", borderRadius: 50, display: "flex", alignItems: "center", gap: 6 }}
                 >
                   <span style={{ fontSize: "1rem" }}>📊</span> POSICIONES
                 </button>
