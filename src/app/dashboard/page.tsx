@@ -3100,20 +3100,6 @@ function ExpressPageContent() {
                     </button>
                   )}
                 </div>
-
-                <button
-                  className="btn btn-logout"
-                  onClick={handleCerrarSesion}
-                  style={{
-                    padding: "8px 12px",
-                    fontSize: "0.82rem",
-                    background: "transparent",
-                    border: "1px solid rgba(255, 92, 92, 0.3)",
-                    color: "var(--rojo)",
-                  }}
-                >
-                  <LogOut size={15} /> Salir
-                </button>
               </div>
             </div>
           )}
