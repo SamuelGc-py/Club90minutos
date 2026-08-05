@@ -3259,20 +3259,20 @@ function ExpressPageContent() {
               </div>
 
               {/* BOTONES DE NAVEGACIÓN RÁPIDA (Reemplazo del Banner) */}
-              <div style={{ display: "flex", flexWrap: "nowrap", gap: 8, marginBottom: 20, alignItems: "center", overflowX: "auto", paddingBottom: 4, scrollbarWidth: "none", msOverflowStyle: "none" }}>
+              <div style={{ display: "flex", flexWrap: "nowrap", gap: 6, marginBottom: 20, alignItems: "center", width: "100%" }}>
                 <button
                   className="btn btn-secondary"
                   onClick={() => setTabActiva("finalizados")}
-                  style={{ flexShrink: 0, whiteSpace: "nowrap", padding: "6px 14px", fontSize: "0.75rem", fontWeight: 700, background: "var(--tarjeta)", color: "var(--tiza)", border: "1px solid var(--borde)", borderRadius: 50, display: "flex", alignItems: "center", gap: 6 }}
+                  style={{ flex: 1, whiteSpace: "nowrap", padding: "6px 2px", fontSize: "0.65rem", fontWeight: 700, background: "var(--tarjeta)", color: "var(--tiza)", border: "1px solid var(--borde)", borderRadius: 50, display: "flex", justifyContent: "center", alignItems: "center", gap: 4 }}
                 >
-                  <span style={{ fontSize: "1rem" }}>🏁</span> FINALIZADOS
+                  <span style={{ fontSize: "0.9rem" }}>🏁</span> FINALIZADOS
                 </button>
                 <button
                   className="btn btn-secondary"
                   onClick={() => setTabActiva("aplazados")}
-                  style={{ flexShrink: 0, whiteSpace: "nowrap", padding: "6px 14px", fontSize: "0.75rem", fontWeight: 700, background: "var(--tarjeta)", color: "var(--tiza)", border: "1px solid var(--borde)", borderRadius: 50, display: "flex", alignItems: "center", gap: 6 }}
+                  style={{ flex: 1, whiteSpace: "nowrap", padding: "6px 2px", fontSize: "0.65rem", fontWeight: 700, background: "var(--tarjeta)", color: "var(--tiza)", border: "1px solid var(--borde)", borderRadius: 50, display: "flex", justifyContent: "center", alignItems: "center", gap: 4 }}
                 >
-                  <span style={{ fontSize: "1rem" }}>⚠️</span> APLAZADOS
+                  <span style={{ fontSize: "0.9rem" }}>⚠️</span> APLAZADOS
                 </button>
                 <button
                   className="btn btn-secondary"
@@ -3280,9 +3280,9 @@ function ExpressPageContent() {
                     setTabActiva("posiciones");
                     cargarConsolidados(usuario.id);
                   }}
-                  style={{ flexShrink: 0, whiteSpace: "nowrap", padding: "6px 14px", fontSize: "0.75rem", fontWeight: 700, background: "var(--tarjeta)", color: "var(--tiza)", border: "1px solid var(--borde)", borderRadius: 50, display: "flex", alignItems: "center", gap: 6 }}
+                  style={{ flex: 1, whiteSpace: "nowrap", padding: "6px 2px", fontSize: "0.65rem", fontWeight: 700, background: "var(--tarjeta)", color: "var(--tiza)", border: "1px solid var(--borde)", borderRadius: 50, display: "flex", justifyContent: "center", alignItems: "center", gap: 4 }}
                 >
-                  <span style={{ fontSize: "1rem" }}>📊</span> POSICIONES
+                  <span style={{ fontSize: "0.9rem" }}>📊</span> POSICIONES
                 </button>
               </div>
 
