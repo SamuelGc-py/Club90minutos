@@ -1736,7 +1736,7 @@ function ExpressPageContent() {
             justifyContent: "center",
             padding: "4rem"
           }}>
-            <div style={{ zIndex: 10 }}>
+            <div style={{ position: "relative", zIndex: 10 }}>
               <h1 style={{ fontSize: "4rem", fontWeight: 900, lineHeight: 1.1, marginBottom: 16 }}>
                 DEMUESTRA<br />
                 QUE SABES<br />
@@ -1786,7 +1786,12 @@ function ExpressPageContent() {
               <div style={{ marginBottom: 40 }}>
                 <h2 style={{ fontSize: "2rem", fontWeight: 800, marginBottom: 8, color: "#fff", display: "flex", alignItems: "center", gap: 10 }}>
                   ¡Vamos con Todo, Crack!
-                  <span style={{ fontSize: "1.6rem", filter: "drop-shadow(0 4px 8px rgba(0,0,0,0.4))" }}>⚽</span>
+                  <img
+                    src="/images/balon_3d.png"
+                    alt=""
+                    style={{ width: 30, height: 30, objectFit: "contain", filter: "drop-shadow(0 4px 8px rgba(0,0,0,0.4))" }}
+                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                  />
                 </h2>
                 <p style={{ color: "var(--graderia)", fontSize: "0.95rem" }}>
                   Ingresa para acceder a tus pronósticos y estadísticas.
