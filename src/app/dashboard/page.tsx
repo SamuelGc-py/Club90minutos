@@ -1786,12 +1786,6 @@ function ExpressPageContent() {
               <div style={{ marginBottom: 40 }}>
                 <h2 style={{ fontSize: "2rem", fontWeight: 800, marginBottom: 8, color: "#fff", display: "flex", alignItems: "center", gap: 10 }}>
                   ¡Vamos con Todo, Crack!
-                  <img
-                    src="/images/balon_3d.png"
-                    alt=""
-                    style={{ width: 30, height: 30, objectFit: "contain", filter: "drop-shadow(0 4px 8px rgba(0,0,0,0.4))" }}
-                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
-                  />
                 </h2>
                 <p style={{ color: "var(--graderia)", fontSize: "0.95rem" }}>
                   Ingresa para acceder a tus pronósticos y estadísticas.
