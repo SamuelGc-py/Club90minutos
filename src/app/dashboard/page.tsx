@@ -2791,7 +2791,10 @@ function ExpressPageContent() {
             }}
           >
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <div style={{ fontWeight: 900, fontSize: "1.2rem", color: "#ffffff", display: "flex", alignItems: "center", gap: 8 }}>
+              <div 
+                style={{ fontWeight: 900, fontSize: "1.2rem", color: "#ffffff", display: "flex", alignItems: "center", gap: 8, cursor: "pointer" }}
+                onClick={() => setTabActiva("inicio")}
+              >
                 ⚽ POLLA LIGA BETPLAY
               </div>
             </div>
@@ -2832,6 +2835,14 @@ function ExpressPageContent() {
               <span className="desktop-slogan" style={{ color: "var(--graderia)", fontSize: "0.85rem", fontWeight: 600 }}>
                 {usuario.nombre}
               </span>
+              <button
+                type="button"
+                className="btn desktop-slogan"
+                onClick={handleCerrarSesion}
+                style={{ padding: "6px 12px", fontSize: "0.8rem", background: "rgba(255, 92, 92, 0.1)", color: "#ff5c5c", border: "1px solid rgba(255,92,92,0.3)", display: "flex", alignItems: "center", gap: 6 }}
+              >
+                <LogOut size={14} /> Salir
+              </button>
               {/* BOTÓN MENÚ HAMBURGUESA MOVIL (3 LÍNEAS) */}
               <button
                 type="button"
@@ -2859,15 +2870,7 @@ function ExpressPageContent() {
                 boxShadow: "0 10px 25px rgba(0,0,0,0.5)",
               }}
             >
-              <div
-                className={`menu-drawer-item ${tabActiva === "inicio" ? "active" : ""}`}
-                onClick={() => {
-                  setTabActiva("inicio");
-                  setMenuAbierto(false);
-                }}
-              >
-                🏠 Inicio
-              </div>
+
               <div
                 className={`menu-drawer-item ${tabActiva === "partidos" ? "active" : ""}`}
                 onClick={() => {
@@ -2948,35 +2951,7 @@ function ExpressPageContent() {
             <div className="desktop-tabs" style={{ marginBottom: 20 }}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, flexWrap: "wrap" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
-                  <button
-                    className="btn btn-secondary"
-                    onClick={() => setTabActiva("inicio")}
-                    style={{
-                      padding: "8px 12px",
-                      fontSize: "0.82rem",
-                      fontWeight: 700,
-                      background: "transparent",
-                      border: "1px solid rgba(255,255,255,0.1)",
-                      color: "var(--tiza)",
-                    }}
-                  >
-                    🏠 Inicio
-                  </button>
-
-                  <button
-                    className={`btn ${tabActiva === "partidos" ? "btn-primary" : "btn-secondary"}`}
-                    onClick={() => setTabActiva(tabActiva === "partidos" ? "inicio" : "partidos")}
-                    style={{
-                      padding: "8px 12px",
-                      fontSize: "0.82rem",
-                      fontWeight: 700,
-                      background: tabActiva === "partidos" ? undefined : "transparent",
-                      border: tabActiva === "partidos" ? undefined : "1px solid rgba(255,255,255,0.1)",
-                      color: tabActiva === "partidos" ? undefined : "var(--tiza)",
-                    }}
-                  >
-                    ⚽ Pronósticos Fecha {fechaParticipante}
-                  </button>
+                  {/* Inicio removed, Partidos moved */}
 
 
 
@@ -3067,6 +3042,21 @@ function ExpressPageContent() {
                       🔴 EN VIVO
                     </button>
                   )}
+
+                  <button
+                    className={`btn ${tabActiva === "partidos" ? "btn-primary" : "btn-secondary"}`}
+                    onClick={() => setTabActiva(tabActiva === "partidos" ? "inicio" : "partidos")}
+                    style={{
+                      padding: "8px 12px",
+                      fontSize: "0.82rem",
+                      fontWeight: 700,
+                      background: tabActiva === "partidos" ? undefined : "transparent",
+                      border: tabActiva === "partidos" ? undefined : "1px solid rgba(255,255,255,0.1)",
+                      color: tabActiva === "partidos" ? undefined : "var(--tiza)",
+                    }}
+                  >
+                    ⚽ Partidos Terminados
+                  </button>
 
                   <button
                     className={`btn ${tabActiva === "aplazados" ? "btn-primary" : "btn-secondary"}`}
@@ -3244,16 +3234,7 @@ function ExpressPageContent() {
 
                 </div>
 
-                {/* BOTÓN CERRAR SESIÓN EN INICIO */}
-                <div style={{ marginTop: 24, paddingTop: 16, borderTop: "1px dashed rgba(255,255,255,0.1)", display: "flex", justifyContent: "center" }}>
-                  <button
-                    className="btn btn-logout"
-                    onClick={handleCerrarSesion}
-                    style={{ padding: "10px 24px", fontSize: "0.9rem" }}
-                  >
-                    <LogOut size={18} /> Cerrar Sesión
-                  </button>
-                </div>
+
               </div>
             </div>
           )}

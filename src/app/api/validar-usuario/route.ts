@@ -3,13 +3,23 @@ import { prisma } from "@/lib/db";
 
 export async function POST(req: Request) {
   try {
-    const { correo, password, autoSync } = await req.json();
+    const { correo, password, autoSync, soloConsulta } = await req.json();
 
     if (!correo || typeof correo !== "string") {
       return NextResponse.json(
         { error: "Correo electrónico requerido" },
         { status: 400 }
       );
+    }
+
+    // Consulta liviana: solo indica si la cuenta ya tiene contraseña, sin iniciar sesión.
+    if (soloConsulta) {
+      const emailConsulta = correo.trim().toLowerCase();
+      const usr = await prisma.usuario.findUnique({ where: { correo: emailConsulta } });
+      return NextResponse.json({
+        existe: !!usr,
+        tieneClave: !!(usr && usr.password),
+      });
     }
 
     if (!autoSync && (!password || typeof password !== "string" || !password.trim())) {
