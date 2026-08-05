@@ -49,3 +49,9 @@ Esto aplica a cualquier IA/agente que trabaje en este repositorio (Antigravity, 
 
 11. **Despliegue dual real, no solo en el mensaje al usuario.**
     Si vas a decir "ya quedó desplegado" o "ya está en producción", confirma primero que el `git push` se hizo de verdad a AMBOS repos (`polla-express.git` y `Club90minutos.git`). Decir que algo está listo sin haberlo verificado es peor que no decir nada.
+
+12. **URGENTE — verificar Hostinger en vivo después de CADA cambio de código, siempre, sin excepción.**
+    `git push` no es lo mismo que "ya está en producción". Hostinger (club90minutos.com) tiene su propio pipeline de build conectado a GitHub y **ya falló silenciosamente al menos una vez** (deploy del commit `47ec10ae`, agosto 2026) sin que nadie se diera cuenta hasta que el usuario lo reportó.
+    - Ningún agente (Antigravity, Claude Code, u otro) tiene acceso directo a hPanel/SSH de Hostinger para forzar un deploy o leer sus logs de build. Si el agente en turno sí tiene ese acceso, debe usarlo para revisar el estado del último deploy antes de decir que algo quedó listo.
+    - Después de cada push, hay que confirmar con evidencia real que el cambio llegó a Hostinger — por ejemplo, descargando el HTML/JS servido en `https://club90minutos.com` y buscando ahí un texto o marca del cambio recién hecho — en vez de asumir que el pipeline automático funcionó.
+    - Si no se puede confirmar (por build fallido, caché, o lo que sea), decírselo al usuario de inmediato con el error concreto, no quedarse callado ni reportar éxito a medias.
