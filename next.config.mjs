@@ -9,7 +9,7 @@ const nextConfig = {
       {
         source: '/',
         destination: '/dashboard',
-        permanent: false,
+        permanent: true,
       },
     ];
   },
