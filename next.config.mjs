@@ -26,9 +26,12 @@ const nextConfig = {
         ],
       },
       {
+        // Resto de páginas: se permite que el navegador guarde una copia, pero SIEMPRE debe
+        // revalidar con el servidor antes de usarla (no-cache != no-store). Así se evita el
+        // problema de contenido viejo, sin forzar una re-descarga completa en cada visita.
         source: '/(.*)',
         headers: [
-          { key: 'Cache-Control', value: 'no-cache, no-store, max-age=0, must-revalidate' },
+          { key: 'Cache-Control', value: 'no-cache, must-revalidate' },
           { key: 'X-Frame-Options', value: 'DENY' },
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
@@ -41,6 +44,15 @@ const nextConfig = {
             key: 'Strict-Transport-Security',
             value: 'max-age=31536000; includeSubDomains; preload',
           },
+        ],
+      },
+      {
+        // Rutas de API: esta regla, al ser la más específica y estar declarada al final,
+        // sobrescribe el Cache-Control de la regla general de arriba. Siguen sin cachearse
+        // nunca (evita que Hostinger sirva datos viejos).
+        source: '/api/(.*)',
+        headers: [
+          { key: 'Cache-Control', value: 'no-cache, no-store, max-age=0, must-revalidate' },
         ],
       },
     ];

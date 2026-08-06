@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, Component } from "react";
+import React, { useState, useEffect, useMemo, Component } from "react";
 import { CheckCircle2, ShieldAlert, Save, RefreshCw, Trophy, Calendar, LogOut, AlertTriangle, UserCheck, Lock, Clock, Eye, List, Download, Users, Menu, X, Flame, Camera } from "lucide-react";
 import Link from "next/link";
 import { toPng } from 'html-to-image';
@@ -539,15 +539,28 @@ function ExpressPageContent() {
     }
   };
 
+  // Solo vale la pena consultar ESPN si hay algún partido dentro de su ventana real de juego
+  // (ya arrancó y no ha pasado demasiado tiempo). Evita refrescos/re-renders de fondo cada 15s
+  // cuando no hay nada en vivo, que es la mayor parte del tiempo.
+  const hayPartidoPotencialmenteEnVivo = useMemo(() => {
+    const ahora = Date.now();
+    return partidos.some((p) => {
+      if (p.estado === "resultado_cargado" || p.estado === "puntaje_calculado" || p.estado === "aplazado") return false;
+      const inicio = new Date(p.fecha_hora_partido).getTime();
+      return ahora >= inicio && ahora <= inicio + 3 * 60 * 60 * 1000;
+    });
+  }, [partidos]);
+
   // Se sincroniza también en las pestañas de pronósticos/finalizados para saber en tiempo real
   // (vía ESPN) si un partido ya empezó, sigue en curso o realmente terminó.
   useEffect(() => {
-    if (["en_vivo", "partidos", "finalizados", "mis_pronosticos", "inicio", "aplazados"].includes(tabActiva)) {
+    const enPestañaRelevante = ["en_vivo", "partidos", "finalizados", "mis_pronosticos", "inicio", "aplazados"].includes(tabActiva);
+    if (enPestañaRelevante && (tabActiva === "en_vivo" || hayPartidoPotencialmenteEnVivo)) {
       cargarPartidosEnVivo();
       const interval = setInterval(cargarPartidosEnVivo, 15000);
       return () => clearInterval(interval);
     }
-  }, [tabActiva]);
+  }, [tabActiva, hayPartidoPotencialmenteEnVivo]);
 
   const [menuAbierto, setMenuAbierto] = useState(false);
   const [mostrarBienvenida, setMostrarBienvenida] = useState(true);
