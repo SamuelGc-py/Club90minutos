@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 
-export const revalidate = 30; // Caché de 30 segundos para evitar saturar la base de datos
+export const dynamic = "force-dynamic"; // Siempre consulta datos frescos: ya se manda no-store en los headers, y el revalidate=30 de Next quedaba atascado en Hostinger tras ediciones manuales de partidos
 
 export async function GET() {
   try {
