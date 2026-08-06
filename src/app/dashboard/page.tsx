@@ -456,7 +456,7 @@ class GlobalErrorBoundary extends Component<{ children: React.ReactNode }, { has
             type="button"
             className="btn btn-primary"
             onClick={() => {
-              try { localStorage.removeItem("polla_sesion"); } catch(e) {}
+              try { sessionStorage.removeItem("polla_sesion"); } catch(e) {}
               window.location.href = "/";
             }}
             style={{ padding: "10px 24px", fontSize: "0.95rem", fontWeight: 800 }}
@@ -606,7 +606,7 @@ function ExpressPageContent() {
   // Sincronizar pronósticos en vivo con localStorage de sesión
   const actualizarSesionLocalStorage = (partidoId: number, local: number, visitante: number, goleadorId: number | null) => {
     try {
-      const sesionStr = localStorage.getItem("polla_sesion");
+      const sesionStr = sessionStorage.getItem("polla_sesion");
       if (!sesionStr) return;
       const sesionData = JSON.parse(sesionStr);
       let preds = sesionData.prediccionesGuardadas || { partidos: [], prediccionesPartidos: [], inicial: null };
@@ -630,7 +630,7 @@ function ExpressPageContent() {
       preds.partidos = listaBase;
       preds.prediccionesPartidos = listaBase;
       sesionData.prediccionesGuardadas = preds;
-      localStorage.setItem("polla_sesion", JSON.stringify(sesionData));
+      sessionStorage.setItem("polla_sesion", JSON.stringify(sesionData));
       aplicarPrediccionesGuardadas(preds);
     } catch (e) {
       console.error("Error al actualizar localStorage de sesión:", e);
@@ -994,7 +994,7 @@ function ExpressPageContent() {
           nombre: data.usuario.nombre || data.usuario.nombre_completo || "",
         };
         setUsuario(usrNorm);
-        localStorage.setItem("polla_sesion", JSON.stringify({
+        sessionStorage.setItem("polla_sesion", JSON.stringify({
           usuario: usrNorm,
           prediccionesGuardadas: data.prediccionesGuardadas,
         }));
@@ -1011,7 +1011,7 @@ function ExpressPageContent() {
   // Persistencia de sesión y auto-sincronización con la base de datos
   useEffect(() => {
     try {
-      const sesionGuardada = localStorage.getItem("polla_sesion");
+      const sesionGuardada = sessionStorage.getItem("polla_sesion");
       if (sesionGuardada) {
         const dataParsed = JSON.parse(sesionGuardada);
         const usrRaw = dataParsed?.usuario || dataParsed;
@@ -1031,12 +1031,12 @@ function ExpressPageContent() {
             sincronizarSesionBackend(usr.correo);
           }
         } else {
-          localStorage.removeItem("polla_sesion");
+          sessionStorage.removeItem("polla_sesion");
         }
       }
     } catch (e) {
       console.error("Error leyendo sesión", e);
-      try { localStorage.removeItem("polla_sesion"); } catch (_) {}
+      try { sessionStorage.removeItem("polla_sesion"); } catch (_) {}
     }
   }, []);
 
@@ -1091,7 +1091,7 @@ function ExpressPageContent() {
 
       // Usuario activo habilitado
       setUsuario(data.usuario);
-      localStorage.setItem("polla_sesion", JSON.stringify({
+      sessionStorage.setItem("polla_sesion", JSON.stringify({
         usuario: data.usuario,
         prediccionesGuardadas: data.prediccionesGuardadas
       }));
@@ -1732,7 +1732,7 @@ function ExpressPageContent() {
   // Cerrar Sesión
   const handleCerrarSesion = () => {
     setUsuario(null);
-    localStorage.removeItem("polla_sesion");
+    sessionStorage.removeItem("polla_sesion");
     setCorreoInput("");
     setPasswordInput("");
     setMensajeEstado(null);
@@ -3096,18 +3096,18 @@ function ExpressPageContent() {
 
 
                   <button
-                    className={`btn ${tabActiva === "inicial" ? "btn-primary" : "btn-secondary"}`}
-                    onClick={() => setTabActiva(tabActiva === "inicial" ? "inicio" : "inicial")}
+                    className={`btn ${tabActiva === "partidos" ? "btn-primary" : "btn-secondary"}`}
+                    onClick={() => setTabActiva(tabActiva === "partidos" ? "inicio" : "partidos")}
                     style={{
                       padding: "8px 12px",
                       fontSize: "0.82rem",
                       fontWeight: 700,
-                      background: tabActiva === "inicial" ? undefined : "transparent",
-                      border: tabActiva === "inicial" ? undefined : "1px solid rgba(255,255,255,0.1)",
-                      color: tabActiva === "inicial" ? undefined : "var(--tiza)",
+                      background: tabActiva === "partidos" ? undefined : "transparent",
+                      border: tabActiva === "partidos" ? undefined : "1px solid rgba(255,255,255,0.1)",
+                      color: tabActiva === "partidos" ? undefined : "var(--tiza)",
                     }}
                   >
-                    🏆 Predicciones Torneo
+                    ⚽ Fecha {fechaParticipante}
                   </button>
 
                   <button
@@ -3154,48 +3154,19 @@ function ExpressPageContent() {
                     📊 Posiciones
                   </button>
 
-                  {esSamuel && (
-                    <button
-                      className={`btn ${tabActiva === "en_vivo" ? "btn-primary" : "btn-secondary"}`}
-                      onClick={() => {
-                        if (tabActiva === "en_vivo") {
-                          setTabActiva("inicio");
-                        } else {
-                          setTabActiva("en_vivo");
-                          cargarPartidosEnVivo();
-                        }
-                      }}
-                      style={{
-                        padding: "8px 12px",
-                        fontSize: "0.82rem",
-                        fontWeight: 800,
-                        background: tabActiva === "en_vivo" ? "rgba(220, 38, 38, 0.3)" : "transparent",
-                        color: tabActiva === "en_vivo" ? "#ff4d4d" : "#ff5c5c",
-                        border: tabActiva === "en_vivo" ? "1px solid #ef4444" : "1px solid rgba(239, 68, 68, 0.4)",
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: 6,
-                        boxShadow: tabActiva === "en_vivo" ? "0 0 10px rgba(239, 68, 68, 0.4)" : "none",
-                      }}
-                    >
-                      <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#ef4444", boxShadow: "0 0 8px #ef4444" }} />
-                      🔴 EN VIVO
-                    </button>
-                  )}
-
                   <button
-                    className={`btn ${tabActiva === "partidos" ? "btn-primary" : "btn-secondary"}`}
-                    onClick={() => setTabActiva(tabActiva === "partidos" ? "inicio" : "partidos")}
+                    className={`btn ${tabActiva === "inicial" ? "btn-primary" : "btn-secondary"}`}
+                    onClick={() => setTabActiva(tabActiva === "inicial" ? "inicio" : "inicial")}
                     style={{
                       padding: "8px 12px",
                       fontSize: "0.82rem",
                       fontWeight: 700,
-                      background: tabActiva === "partidos" ? undefined : "transparent",
-                      border: tabActiva === "partidos" ? undefined : "1px solid rgba(255,255,255,0.1)",
-                      color: tabActiva === "partidos" ? undefined : "var(--tiza)",
+                      background: tabActiva === "inicial" ? undefined : "transparent",
+                      border: tabActiva === "inicial" ? undefined : "1px solid rgba(255,255,255,0.1)",
+                      color: tabActiva === "inicial" ? undefined : "var(--tiza)",
                     }}
                   >
-                    ⚽ Fecha {fechaParticipante}
+                    🏆 Predicciones Torneo
                   </button>
 
                   <button
