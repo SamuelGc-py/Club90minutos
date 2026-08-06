@@ -255,12 +255,11 @@ function RelojCuentaRegresiva({
         const hrs = Math.floor(difCierre / (1000 * 60 * 60));
         const mins = Math.floor((difCierre % (1000 * 60 * 60)) / (1000 * 60));
         const segs = Math.floor((difCierre % (1000 * 60)) / 1000);
+        const pad = (n: number) => String(n).padStart(2, "0");
         if (hrs > 0) {
-          setEtiqueta(`⏳ Cierra en ${hrs} hrs ${mins} mins`);
-        } else if (mins > 0) {
-          setEtiqueta(`⏳ Cierra en ${mins} mins ${segs} segs`);
+          setEtiqueta(`⏳ Cierra en ${pad(hrs)}:${pad(mins)}:${pad(segs)} hrs`);
         } else {
-          setEtiqueta(`⏳ Cierra en ${segs} segs`);
+          setEtiqueta(`⏳ Cierra en ${pad(mins)}:${pad(segs)} mins`);
         }
       } else if (difInicio < 0) {
         setTipo("cerrado");
@@ -357,6 +356,79 @@ function RelojCuentaRegresiva({
       )}
       {etiqueta}
     </span>
+  );
+}
+
+function normalizarNombreEquipo(str: string) {
+  return str
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .replace(/f\.c\.|fc|d\.a\.f\.|c\.d\./gi, "")
+    .trim();
+}
+
+// Empareja un partido de la BD con su evento en vivo de ESPN (mismo criterio que sincronizarMarcadoresEnVivo)
+function buscarPartidoEnVivoESPN(partido: any, partidosEnVivo: any[]) {
+  if (!partido?.equipo_local?.nombre || !partido?.equipo_visitante?.nombre || !partidosEnVivo?.length) return null;
+  const localNorm = normalizarNombreEquipo(partido.equipo_local.nombre);
+  const visitanteNorm = normalizarNombreEquipo(partido.equipo_visitante.nombre);
+  return (
+    partidosEnVivo.find((p) => {
+      const pLocalNorm = normalizarNombreEquipo(p.equipoLocal?.nombre || "");
+      const pVisitanteNorm = normalizarNombreEquipo(p.equipoVisitante?.nombre || "");
+      const matchLocal = pLocalNorm.includes(localNorm) || localNorm.includes(pLocalNorm);
+      const matchVisitante = pVisitanteNorm.includes(visitanteNorm) || visitanteNorm.includes(pVisitanteNorm);
+      return matchLocal && matchVisitante;
+    }) || null
+  );
+}
+
+// Un partido solo se considera finalizado cuando la BD lo confirma (admin/cron) o ESPN reporta STATUS_FULL_TIME.
+// Ya NO se usa Boolean(partido.resultado_oficial): ese registro se crea apenas arranca el partido (marcador parcial en vivo)
+// y bajaba el pronóstico a "finalizado" prematuramente.
+function esPartidoFinalizadoReal(partido: any, partidosEnVivo: any[]) {
+  const liveMatch = buscarPartidoEnVivoESPN(partido, partidosEnVivo);
+  return (
+    partido.estado === "resultado_cargado" ||
+    partido.estado === "puntaje_calculado" ||
+    Boolean(liveMatch?.esFinalizado)
+  );
+}
+
+function MarcadorEnVivoMini({ live }: { live: any }) {
+  if (!live) return null;
+  const esSuspendido = /retrasad|suspend/i.test(live.estadoDetail || "");
+  return (
+    <div
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 8,
+        background: esSuspendido ? "rgba(245, 158, 11, 0.15)" : "rgba(239, 68, 68, 0.15)",
+        border: esSuspendido ? "1px solid rgba(245, 158, 11, 0.5)" : "1px solid rgba(239, 68, 68, 0.5)",
+        borderRadius: 12,
+        padding: "5px 12px",
+        boxShadow: esSuspendido ? "none" : "0 0 10px rgba(239, 68, 68, 0.25)",
+      }}
+    >
+      <span
+        style={{
+          width: 8,
+          height: 8,
+          borderRadius: "50%",
+          background: esSuspendido ? "#f59e0b" : "#ef4444",
+          boxShadow: esSuspendido ? "0 0 8px #f59e0b" : "0 0 8px #ef4444",
+          flexShrink: 0,
+        }}
+      />
+      <span style={{ fontWeight: 900, color: "#fff", fontSize: "0.82rem", fontVariantNumeric: "tabular-nums" }}>
+        {live.equipoLocal.goles} - {live.equipoVisitante.goles}
+      </span>
+      <span style={{ fontSize: "0.75rem", color: esSuspendido ? "#fbbf24" : "#fca5a5", fontWeight: 700 }}>
+        {esSuspendido ? "SUSPENDIDO" : (live.reloj || live.estadoDetail || "EN VIVO")}
+      </span>
+    </div>
   );
 }
 
@@ -467,8 +539,10 @@ function ExpressPageContent() {
     }
   };
 
+  // Se sincroniza también en las pestañas de pronósticos/finalizados para saber en tiempo real
+  // (vía ESPN) si un partido ya empezó, sigue en curso o realmente terminó.
   useEffect(() => {
-    if (tabActiva === "en_vivo") {
+    if (["en_vivo", "partidos", "finalizados", "mis_pronosticos", "inicio", "aplazados"].includes(tabActiva)) {
       cargarPartidosEnVivo();
       const interval = setInterval(cargarPartidosEnVivo, 15000);
       return () => clearInterval(interval);
@@ -515,7 +589,7 @@ function ExpressPageContent() {
         if (partidosFecha.length === 0) return false;
 
         const todosFinalizados = partidosFecha.every((p) => {
-          const esFinalizado = Boolean(p.resultado_oficial) || p.estado === "resultado_cargado" || p.estado === "puntaje_calculado";
+          const esFinalizado = esPartidoFinalizadoReal(p, partidosEnVivo);
           const hace2Horas = ahora >= new Date(p.fecha_hora_partido).getTime() + 2 * 60 * 60 * 1000;
           return esFinalizado || hace2Horas;
         });
@@ -527,7 +601,7 @@ function ExpressPageContent() {
         setFechaParticipante(jornadaIncompleta);
       }
     }
-  }, [partidos]);
+  }, [partidos, partidosEnVivo]);
 
   // Sincronizar pronósticos en vivo con localStorage de sesión
   const actualizarSesionLocalStorage = (partidoId: number, local: number, visitante: number, goleadorId: number | null) => {
@@ -1136,7 +1210,7 @@ function ExpressPageContent() {
   const validarCoherenciaPronosticos = (): string | null => {
     for (const partido of partidos) {
       const horaCierrePartido = new Date(new Date(partido.fecha_hora_partido).getTime() - 30 * 60 * 1000);
-      const esFinalizado = Boolean(partido.resultado_oficial) || partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado";
+      const esFinalizado = esPartidoFinalizadoReal(partido, partidosEnVivo);
       const estaCerrado = (new Date() >= horaCierrePartido) || esFinalizado;
 
       // Ignorar validación para partidos acabados o cerrados por tiempo
@@ -1212,7 +1286,8 @@ function ExpressPageContent() {
 
     const horaCierrePartido = new Date(new Date(partido.fecha_hora_partido).getTime() - 30 * 60 * 1000);
     const esAplazado = partido.estado === "aplazado";
-    const esFinalizado = Boolean(partido.resultado_oficial) || partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado";
+    const liveMatch = buscarPartidoEnVivoESPN(partido, partidosEnVivo);
+    const esFinalizado = esPartidoFinalizadoReal(partido, partidosEnVivo);
     const estaCerradoGeneral = esFinalizado || (typeof window !== "undefined" && new Date() >= horaCierrePartido);
     const estaCerrado = esAplazado ? false : estaCerradoGeneral;
     const deshabilitarMarcador = estaCerrado;
@@ -1268,6 +1343,8 @@ function ExpressPageContent() {
               <span style={{ background: "#f59e0b", padding: "4px 10px", borderRadius: 6, color: "#fff", fontWeight: 800 }}>
                 ⚠️ APLAZADO
               </span>
+            ) : liveMatch && liveMatch.esEnVivo && !esFinalizado ? (
+              <MarcadorEnVivoMini live={liveMatch} />
             ) : (
               <RelojCuentaRegresiva fechaHoraPartido={partido.fecha_hora_partido} estado={partido.estado} />
             )}
@@ -3350,7 +3427,7 @@ function ExpressPageContent() {
               ) : (
                 (() => {
                   const estaSoloFinal = (partido: any) => {
-                    const esFinalizado = Boolean(partido.resultado_oficial) || partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado";
+                    const esFinalizado = esPartidoFinalizadoReal(partido, partidosEnVivo);
                     const hace2Horas = new Date().getTime() >= new Date(partido.fecha_hora_partido).getTime() + 2 * 60 * 60 * 1000;
                     return esFinalizado || hace2Horas;
                   };
@@ -3402,7 +3479,7 @@ function ExpressPageContent() {
               ) : (
                 (() => {
                   const estaSoloFinal = (partido: any) => {
-                    const esFinalizado = Boolean(partido.resultado_oficial) || partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado";
+                    const esFinalizado = esPartidoFinalizadoReal(partido, partidosEnVivo);
                     const hace2Horas = new Date().getTime() >= new Date(partido.fecha_hora_partido).getTime() + 2 * 60 * 60 * 1000;
                     return esFinalizado || hace2Horas;
                   };
@@ -3832,8 +3909,7 @@ function ExpressPageContent() {
 
                 {(() => {
                   const esPartidoCerrado = (partido: any) => {
-                    const esFinalizado = Boolean(partido.resultado_oficial) || partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado";
-                    const hace2Horas = new Date().getTime() >= new Date(partido.fecha_hora_partido).getTime() + 2 * 60 * 60 * 1000;
+                    const esFinalizado = esPartidoFinalizadoReal(partido, partidosEnVivo);
                     const horaCierre = new Date(new Date(partido.fecha_hora_partido).getTime() - 30 * 60 * 1000);
                     return esFinalizado || (new Date() >= horaCierre);
                   };
