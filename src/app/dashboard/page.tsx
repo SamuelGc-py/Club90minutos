@@ -422,12 +422,12 @@ function ExpressPageContent() {
 
   // Sincronizar tabActiva con el hash de la URL para soportar el botón "Atrás" nativo de celulares
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== "undefined" && usuario) {
       if (window.location.hash !== `#${tabActiva}`) {
         window.history.pushState(null, "", `#${tabActiva}`);
       }
     }
-  }, [tabActiva]);
+  }, [tabActiva, usuario]);
 
   useEffect(() => {
     const onPopState = () => {
@@ -1733,14 +1733,7 @@ function ExpressPageContent() {
 
   const totalPronosticados = Object.values(marcadores).filter((m) => m.local !== "" && m.visitante !== "").length;
 
-  if (!isMounted) {
-    return (
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", background: "var(--noche)", color: "#fff", flexDirection: "column" }}>
-        <div style={{ fontSize: "3rem", marginBottom: 16 }}>⚽</div>
-        <div style={{ fontSize: "1.2rem", fontWeight: 800, color: "#38bdf8" }}>Iniciando Polla BetPlay...</div>
-      </div>
-    );
-  }
+
 
   return (
     <div style={!usuario ? { minHeight: "100vh", display: "flex", width: "100%", background: "var(--noche)" } : { paddingBottom: 80 }}>
