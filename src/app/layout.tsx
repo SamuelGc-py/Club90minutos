@@ -40,7 +40,7 @@ export default function RootLayout({
               (function() {
                 function bustCacheReload() {
                   var attempts = parseInt(sessionStorage.getItem('chunk_reload_attempts') || '0', 10);
-                  if (attempts >= 2) return;
+                  if (attempts >= 3) return;
                   sessionStorage.setItem('chunk_reload_attempts', String(attempts + 1));
                   var url = new URL(window.location.href);
                   url.searchParams.set('_cb', Date.now().toString());
@@ -63,6 +63,11 @@ export default function RootLayout({
                   if (e.reason && e.reason.message && (e.reason.message.indexOf('Loading chunk') !== -1 || e.reason.message.indexOf('ChunkLoadError') !== -1)) {
                     bustCacheReload();
                   }
+                });
+                window.addEventListener('DOMContentLoaded', function() {
+                  setTimeout(function() {
+                    sessionStorage.removeItem('chunk_reload_attempts');
+                  }, 3000);
                 });
               })();
             `,
