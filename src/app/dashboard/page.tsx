@@ -609,7 +609,7 @@ function ExpressPageContent() {
   const [fechaParticipante, setFechaParticipante] = useState<number>(3); // Auto-determinado por progreso de la polla
   const [fechaAdmin, setFechaAdmin] = useState<number>(3); // Default Fecha 3 para admin
   const [seccionAdmin, setSeccionAdmin] = useState<"partidos" | "torneo">("partidos");
-  const [seccionAdminPanel, setSeccionAdminPanel] = useState<"predicciones" | "liquidacion" | "posiciones">("predicciones");
+  const [seccionAdminPanel, setSeccionAdminPanel] = useState<"predicciones" | "liquidacion" | "posiciones" | "aplazados">("predicciones");
 
   // Calcular automáticamente la fecha activa para participantes (primera fecha no finalizada)
   useEffect(() => {
@@ -2328,22 +2328,13 @@ function ExpressPageContent() {
                       { key: "liquidacion", label: "Liquidación de Puntos", icon: ClipboardCheck, color: "#f59e0b" },
                       { key: "posiciones", label: "Tabla de Posiciones", icon: BarChart3, color: "#34d399" },
                     ] as const).map((item) => {
-                      const activo = item.key === "aplazados"
-                        ? (seccionAdminPanel === "predicciones" && fechaAdmin === -1)
-                        : (seccionAdminPanel === item.key && !(seccionAdminPanel === "predicciones" && fechaAdmin === -1));
+                      const activo = seccionAdminPanel === item.key;
                       const Icono = item.icon;
                       return (
                         <button
                           key={item.key}
                           type="button"
-                          onClick={() => {
-                            if (item.key === "aplazados") {
-                              setSeccionAdminPanel("predicciones");
-                              setFechaAdmin(-1);
-                            } else {
-                              setSeccionAdminPanel(item.key);
-                            }
-                          }}
+                          onClick={() => setSeccionAdminPanel(item.key)}
                           style={{
                             display: "flex",
                             alignItems: "center",
@@ -2406,11 +2397,9 @@ function ExpressPageContent() {
                       return esFinalizado || esAplazado || hace2Horas;
                     };
 
-                    // Filtro de partidos para el Admin (fechaAdmin = -1 muestra SOLO los aplazados)
+                    // Filtro de partidos para el Admin (los aplazados tienen su propia sección dedicada, no aparecen aquí)
                     const partidosAdminFiltrados = fechaAdmin === 0
                       ? []
-                      : fechaAdmin === -1
-                      ? partidos.filter((p) => p.estado === "aplazado")
                       : partidos.filter((p) => p.jornada === fechaAdmin && p.estado !== "aplazado");
                     const partidosActivosAdmin = partidosAdminFiltrados
                       .filter((p) => !estaSoloFinal(p))
@@ -2426,27 +2415,6 @@ function ExpressPageContent() {
                     // Selector compacto de fecha, reutilizado en Predicciones y Liquidación
                     const SelectorFechaCompacto = (
                       <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap", background: "rgba(0,0,0,0.25)", padding: "8px", borderRadius: "18px", marginBottom: 20, boxShadow: "inset 0 2px 6px rgba(0,0,0,0.3)" }}>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setFechaAdmin(-1);
-                            if (usuario) cargarConsolidados(usuario.id);
-                          }}
-                          style={{
-                            padding: "7px 14px",
-                            borderRadius: "10px",
-                            fontWeight: 800,
-                            fontSize: "0.78rem",
-                            background: fechaAdmin === -1 ? "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)" : "transparent",
-                            color: fechaAdmin === -1 ? "#ffffff" : "#f5b000",
-                            border: "1px solid " + (fechaAdmin === -1 ? "transparent" : "rgba(245, 158, 11, 0.4)"),
-                            boxShadow: fechaAdmin === -1 ? "0 8px 20px -6px rgba(245, 158, 11, 0.6)" : "none",
-                            cursor: "pointer",
-                            transition: "all 0.25s ease",
-                          }}
-                        >
-                          ⏳ Aplazados
-                        </button>
                         {listaFechas.map((f) => (
                           <button
                             key={f}
@@ -2694,15 +2662,6 @@ function ExpressPageContent() {
                               >
                                 <Save size={14} /> Guardar Programación
                               </button>
-
-                              <button
-                                type="button"
-                                onClick={() => handleToggleAplazado(partido)}
-                                disabled={guardandoProgramacionId === partido.id}
-                                style={{ display: "flex", alignItems: "center", gap: 6, padding: "9px 16px", borderRadius: "10px", fontWeight: 800, fontSize: "0.82rem", cursor: guardandoProgramacionId === partido.id ? "not-allowed" : "pointer", background: esAplazado ? "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)" : "transparent", color: esAplazado ? "#fff" : "#f59e0b", border: "1px solid " + (esAplazado ? "transparent" : "rgba(245, 158, 11, 0.4)") }}
-                              >
-                                <Hourglass size={14} /> {esAplazado ? "Quitar Aplazado" : "Marcar Aplazado"}
-                              </button>
                             </div>
 
                             <div style={{ fontSize: "1rem", color: "#e2e8f0", fontWeight: 800 }}>
@@ -2873,6 +2832,112 @@ function ExpressPageContent() {
                       );
                     };
 
+                    // ---------- TARJETA: PARTIDO APLAZADO (sección dedicada) ----------
+                    const renderPartidoAplazadoCard = (partido: any) => {
+                      return (
+                        <div key={partido.id} style={{
+                          background: "rgba(15, 23, 42, 0.6)",
+                          backdropFilter: "blur(12px)",
+                          border: "1px solid rgba(245, 158, 11, 0.25)",
+                          borderRadius: "20px",
+                          padding: "24px",
+                          marginBottom: "20px",
+                          boxShadow: "0 20px 40px -10px rgba(0,0,0,0.45)"
+                        }}>
+                          <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 20, flexWrap: "wrap" }}>
+                            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                              <img src={partido.equipo_local.escudo_url} alt={partido.equipo_local.nombre} style={{ width: 36, height: 36, objectFit: "contain" }} />
+                              <span style={{ fontSize: "1rem", fontWeight: 900, color: "#fff" }}>VS</span>
+                              <img src={partido.equipo_visitante.escudo_url} alt={partido.equipo_visitante.nombre} style={{ width: 36, height: 36, objectFit: "contain" }} />
+                            </div>
+                            <div>
+                              <h3 style={{ margin: 0, color: "#ffffff", fontSize: "1.02rem" }}>
+                                {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}
+                              </h3>
+                              <div style={{ marginTop: 4, padding: "4px 10px", background: "rgba(245, 158, 11, 0.15)", color: "#f5b000", borderRadius: 8, fontSize: "0.8rem", fontWeight: 800, display: "inline-block" }}>
+                                📅 Pertenece a Fecha {partido.jornada}
+                              </div>
+                            </div>
+                          </div>
+
+                          <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap", background: "rgba(0,0,0,0.2)", padding: 16, borderRadius: 16, border: "1px solid rgba(255,255,255,0.05)" }}>
+                            <select
+                              value={programacionAdminInput[partido.id]?.jornada ?? String(partido.jornada)}
+                              onChange={(e) => {
+                                const valor = e.target.value;
+                                setProgramacionAdminInput((prev) => ({
+                                  ...prev,
+                                  [partido.id]: {
+                                    fecha_hora: prev[partido.id]?.fecha_hora ?? aInputDatetimeLocal(partido.fecha_hora_partido),
+                                    jornada: valor,
+                                  },
+                                }));
+                              }}
+                              style={{ padding: "9px 12px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(15,23,42,0.8)", color: "#fff", fontWeight: 700, fontSize: "0.85rem" }}
+                            >
+                              {Array.from({ length: Math.max(listaFechas.length, partido.jornada) + 2 }, (_, i) => i + 1).map((f) => (
+                                <option key={f} value={f}>Fecha {f}</option>
+                              ))}
+                            </select>
+
+                            <input
+                              type="datetime-local"
+                              value={programacionAdminInput[partido.id]?.fecha_hora ?? aInputDatetimeLocal(partido.fecha_hora_partido)}
+                              onChange={(e) => {
+                                const valor = e.target.value;
+                                setProgramacionAdminInput((prev) => ({
+                                  ...prev,
+                                  [partido.id]: {
+                                    jornada: prev[partido.id]?.jornada ?? String(partido.jornada),
+                                    fecha_hora: valor,
+                                  },
+                                }));
+                              }}
+                              style={{ padding: "9px 12px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(15,23,42,0.8)", color: "#fff", fontWeight: 700, fontSize: "0.85rem" }}
+                            />
+
+                            <button
+                              type="button"
+                              onClick={() => handleGuardarProgramacion(partido)}
+                              disabled={guardandoProgramacionId === partido.id}
+                              style={{ display: "flex", alignItems: "center", gap: 6, padding: "9px 16px", borderRadius: "10px", border: "none", fontWeight: 800, fontSize: "0.82rem", cursor: guardandoProgramacionId === partido.id ? "not-allowed" : "pointer", background: "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)", color: "#fff", opacity: guardandoProgramacionId === partido.id ? 0.6 : 1 }}
+                            >
+                              <Save size={14} /> Guardar Programación
+                            </button>
+
+                            <button
+                              type="button"
+                              onClick={() => handleToggleAplazado(partido)}
+                              disabled={guardandoProgramacionId === partido.id}
+                              style={{ display: "flex", alignItems: "center", gap: 6, padding: "9px 16px", borderRadius: "10px", border: "none", fontWeight: 800, fontSize: "0.82rem", cursor: guardandoProgramacionId === partido.id ? "not-allowed" : "pointer", background: "linear-gradient(135deg, #10b981 0%, #059669 100%)", color: "#fff", opacity: guardandoProgramacionId === partido.id ? 0.6 : 1 }}
+                            >
+                              <CheckCircle2 size={14} /> Reactivar Partido
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    };
+
+                    // ================= SECCIÓN: PARTIDOS APLAZADOS =================
+                    if (seccionAdminPanel === "aplazados") {
+                      const partidosAplazados = partidos
+                        .filter((p) => p.estado === "aplazado")
+                        .sort((a, b) => a.jornada - b.jornada);
+                      return (
+                        <div>
+                          <h2 style={{ margin: "0 0 4px", color: "#fff", fontSize: "1.3rem", fontWeight: 900 }}>⏳ Partidos Aplazados</h2>
+                          <p style={{ color: "#94a3b8", margin: "0 0 16px", fontSize: "0.82rem" }}>Partidos pospuestos, sin importar la fecha a la que pertenecen. Reprográmalos aquí cuando tengas la nueva fecha, o reactívalos para que vuelvan a su fecha normal.</p>
+                          {partidosAplazados.length === 0 ? (
+                            <div style={{ padding: 40, textAlign: "center", background: "rgba(15, 23, 42, 0.6)", borderRadius: 24, color: "#94a3b8" }}>
+                              No hay partidos aplazados registrados actualmente.
+                            </div>
+                          ) : (
+                            partidosAplazados.map((partido) => renderPartidoAplazadoCard(partido))
+                          )}
+                        </div>
+                      );
+                    }
+
                     // ================= SECCIÓN: FECHAS Y PREDICCIONES (UNIFICADA) =================
                     if (seccionAdminPanel === "predicciones") {
                       return (
@@ -3014,7 +3079,7 @@ function ExpressPageContent() {
                             </div>
                           ) : partidosAdminFiltrados.length === 0 ? (
                             <div style={{ padding: 40, textAlign: "center", background: "rgba(15, 23, 42, 0.6)", borderRadius: 24, color: "#94a3b8" }}>
-                              {fechaAdmin === -1 ? "No hay partidos aplazados registrados actualmente." : `No hay partidos programados para la Fecha ${fechaAdmin}.`}
+                              {`No hay partidos programados para la Fecha ${fechaAdmin}.`}
                             </div>
                           ) : (
                             <>
@@ -3046,7 +3111,7 @@ function ExpressPageContent() {
                             </div>
                           ) : partidosAdminFiltrados.length === 0 ? (
                             <div style={{ padding: 40, textAlign: "center", background: "rgba(15, 23, 42, 0.6)", borderRadius: 24, color: "#94a3b8" }}>
-                              {fechaAdmin === -1 ? "No hay partidos aplazados registrados actualmente." : `No hay partidos programados para la Fecha ${fechaAdmin}.`}
+                              {`No hay partidos programados para la Fecha ${fechaAdmin}.`}
                             </div>
                           ) : (
                             <>
