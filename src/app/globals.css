@@ -168,6 +168,14 @@ main {
   padding: var(--esp-6) 0 var(--esp-12);
 }
 
+/* Panel admin: ocupa todo el ancho disponible, sin el límite de 1000px */
+body.admin-fullscreen main {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: var(--esp-6) clamp(16px, 3vw, 40px) var(--esp-12);
+}
+
 /* Navbar */
 .navbar {
   display: flex;

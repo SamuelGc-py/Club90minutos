@@ -483,6 +483,17 @@ function ExpressPageContent() {
     setIsMounted(true);
   }, []);
 
+  // El panel admin necesita ancho completo; "main" (en globals.css) limita todo a 1000px.
+  // En vez de "escapar" con trucos de 100vw (frágiles con la barra de scroll), se anula
+  // el límite directamente sobre "main" vía una clase en <body>.
+  useEffect(() => {
+    const esAdmin = usuario?.rol_id === 2;
+    document.body.classList.toggle("admin-fullscreen", esAdmin);
+    return () => {
+      document.body.classList.remove("admin-fullscreen");
+    };
+  }, [usuario]);
+
   // Estado de datos maestros
   const [equipos, setEquipos] = useState<Equipo[]>([]);
   const [jugadores, setJugadores] = useState<Jugador[]>([]);
@@ -2058,10 +2069,8 @@ function ExpressPageContent() {
             <div
               style={{
                 animation: "fadeIn 0.5s ease",
-                width: "100vw",
-                marginLeft: "calc(50% - 50vw)",
-                marginRight: "calc(50% - 50vw)",
-                padding: "0 clamp(16px, 3vw, 40px) 40px",
+                width: "100%",
+                paddingBottom: 40,
                 boxSizing: "border-box",
               }}
             >
