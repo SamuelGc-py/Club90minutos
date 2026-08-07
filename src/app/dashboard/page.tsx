@@ -2291,10 +2291,12 @@ function ExpressPageContent() {
                       return esFinalizado || esAplazado || hace2Horas;
                     };
 
-                    // Los aplazados se muestran siempre, sin importar la fecha seleccionada (pueden pertenecer a otra jornada).
+                    // Filtro de partidos para el Admin (fechaAdmin = -1 muestra SOLO los aplazados)
                     const partidosAdminFiltrados = fechaAdmin === 0
+                      ? []
+                      : fechaAdmin === -1
                       ? partidos.filter((p) => p.estado === "aplazado")
-                      : partidos.filter((p) => p.jornada === fechaAdmin || p.estado === "aplazado");
+                      : partidos.filter((p) => p.jornada === fechaAdmin && p.estado !== "aplazado");
                     const partidosActivosAdmin = partidosAdminFiltrados
                       .filter((p) => !estaSoloFinal(p))
                       .sort((a, b) => new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime());
@@ -2309,6 +2311,27 @@ function ExpressPageContent() {
                     // Selector compacto de fecha, reutilizado en Predicciones y Liquidación
                     const SelectorFechaCompacto = (
                       <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap", background: "rgba(0,0,0,0.25)", padding: "8px", borderRadius: "18px", marginBottom: 20, boxShadow: "inset 0 2px 6px rgba(0,0,0,0.3)" }}>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setFechaAdmin(-1);
+                            if (usuario) cargarConsolidados(usuario.id);
+                          }}
+                          style={{
+                            padding: "7px 14px",
+                            borderRadius: "10px",
+                            fontWeight: 800,
+                            fontSize: "0.78rem",
+                            background: fechaAdmin === -1 ? "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)" : "transparent",
+                            color: fechaAdmin === -1 ? "#ffffff" : "#f5b000",
+                            border: "1px solid " + (fechaAdmin === -1 ? "transparent" : "rgba(245, 158, 11, 0.4)"),
+                            boxShadow: fechaAdmin === -1 ? "0 8px 20px -6px rgba(245, 158, 11, 0.6)" : "none",
+                            cursor: "pointer",
+                            transition: "all 0.25s ease",
+                          }}
+                        >
+                          ⏳ Aplazados
+                        </button>
                         {listaFechas.map((f) => (
                           <button
                             key={f}
@@ -2338,6 +2361,18 @@ function ExpressPageContent() {
 
                     // ---------- TARJETA: SOLO PREDICCIONES ----------
                     const renderPartidoPrediccionesCard = (partido: any) => {
+                      const esAplazado = partido.estado === "aplazado";
+                      const horaCierre = new Date(new Date(partido.fecha_hora_partido).getTime() - 30 * 60 * 1000);
+                      const ahora = new Date();
+                      const cerrado = ahora >= horaCierre;
+                      const msFaltantes = horaCierre.getTime() - ahora.getTime();
+                      let conteoFaltante = "";
+                      if (!cerrado && esAplazado) {
+                        const days = Math.floor(msFaltantes / (1000 * 60 * 60 * 24));
+                        const hours = Math.floor((msFaltantes % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        const mins = Math.floor((msFaltantes % (1000 * 60 * 60)) / (1000 * 60));
+                        conteoFaltante = `${days > 0 ? days + "d " : ""}${hours}h ${mins}m`;
+                      }
                       const pronosticosPartido = (consolidados?.prediccionesPartidos || []).filter((p: any) => p.partido_id === partido.id);
                       return (
                         <div key={partido.id} style={{
@@ -2360,6 +2395,11 @@ function ExpressPageContent() {
                                 <h3 style={{ margin: 0, color: "#ffffff", fontSize: "1.02rem" }}>
                                   {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}
                                 </h3>
+                                {esAplazado && (
+                                  <div style={{ marginTop: 4, padding: "4px 10px", background: cerrado ? "rgba(239, 68, 68, 0.2)" : "rgba(245, 158, 11, 0.2)", color: cerrado ? "#ef4444" : "#fef08a", borderRadius: 8, fontSize: "0.85rem", fontWeight: 800, display: "inline-block" }}>
+                                    {cerrado ? "🔒 Pronósticos Cerrados" : `⏳ Cierra pronósticos en: ${conteoFaltante}`}
+                                  </div>
+                                )}
                                 <span style={{ fontSize: "0.9rem", color: "#a78bfa", fontWeight: 700 }}>
                                   {pronosticosPartido.length} pronósticos recibidos
                                 </span>
@@ -2457,6 +2497,18 @@ function ExpressPageContent() {
 
                     // ---------- TARJETA: SOLO LIQUIDACIÓN DE PUNTOS ----------
                     const renderPartidoLiquidacionCard = (partido: any) => {
+                      const esAplazado = partido.estado === "aplazado";
+                      const horaCierre = new Date(new Date(partido.fecha_hora_partido).getTime() - 30 * 60 * 1000);
+                      const ahora = new Date();
+                      const cerrado = ahora >= horaCierre;
+                      const msFaltantes = horaCierre.getTime() - ahora.getTime();
+                      let conteoFaltante = "";
+                      if (!cerrado && esAplazado) {
+                        const days = Math.floor(msFaltantes / (1000 * 60 * 60 * 24));
+                        const hours = Math.floor((msFaltantes % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        const mins = Math.floor((msFaltantes % (1000 * 60 * 60)) / (1000 * 60));
+                        conteoFaltante = `${days > 0 ? days + "d " : ""}${hours}h ${mins}m`;
+                      }
                       if (partido.jornada === 1) return null;
                       return (
                         <div key={partido.id} style={{
@@ -2766,7 +2818,7 @@ function ExpressPageContent() {
                             </div>
                           ) : partidosAdminFiltrados.length === 0 ? (
                             <div style={{ padding: 40, textAlign: "center", background: "rgba(15, 23, 42, 0.6)", borderRadius: 24, color: "#94a3b8" }}>
-                              No hay partidos programados para la Fecha {fechaAdmin}.
+                              {fechaAdmin === -1 ? "No hay partidos aplazados registrados actualmente." : `No hay partidos programados para la Fecha ${fechaAdmin}.`}
                             </div>
                           ) : (
                             <>
@@ -2798,7 +2850,7 @@ function ExpressPageContent() {
                             </div>
                           ) : partidosAdminFiltrados.length === 0 ? (
                             <div style={{ padding: 40, textAlign: "center", background: "rgba(15, 23, 42, 0.6)", borderRadius: 24, color: "#94a3b8" }}>
-                              No hay partidos programados para la Fecha {fechaAdmin}.
+                              {fechaAdmin === -1 ? "No hay partidos aplazados registrados actualmente." : `No hay partidos programados para la Fecha ${fechaAdmin}.`}
                             </div>
                           ) : (
                             <>
