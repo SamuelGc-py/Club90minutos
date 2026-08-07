@@ -396,26 +396,30 @@ function esPartidoFinalizadoReal(partido: any, partidosEnVivo: any[]) {
   );
 }
 
-// Formatea la hora de un partido en formato corto tipo "2:00 p.m."
+// Formatea la hora de un partido en formato corto tipo "2:00 p.m.", siempre en hora de Bogotá
+// (fija, sin importar la zona horaria del navegador/servidor que renderice esto).
 function formatearHoraPartido(iso: string) {
   const d = new Date(iso);
   if (isNaN(d.getTime())) return "";
-  return d.toLocaleTimeString("es-CO", { hour: "numeric", minute: "2-digit", hour12: true });
+  return d.toLocaleTimeString("es-CO", { hour: "numeric", minute: "2-digit", hour12: true, timeZone: "America/Bogota" });
 }
 
-// Formatea la fecha de un partido en formato corto tipo "8 ago"
+// Formatea la fecha de un partido en formato corto tipo "8 ago", siempre en hora de Bogotá.
 function formatearFechaPartido(iso: string) {
   const d = new Date(iso);
   if (isNaN(d.getTime())) return "";
-  return d.toLocaleDateString("es-CO", { day: "numeric", month: "short" });
+  return d.toLocaleDateString("es-CO", { day: "numeric", month: "short", timeZone: "America/Bogota" });
 }
 
-// Convierte un ISO string a formato "YYYY-MM-DDTHH:mm" (hora local) para inputs datetime-local
+// Convierte un ISO string a formato "YYYY-MM-DDTHH:mm" en hora de Bogotá (UTC-5 fijo, sin
+// horario de verano) para precargar inputs datetime-local, sin depender de la zona horaria
+// configurada en el navegador/SO de quien lo mire.
 function aInputDatetimeLocal(iso: string) {
   const d = new Date(iso);
   if (isNaN(d.getTime())) return "";
+  const bogota = new Date(d.getTime() - 5 * 60 * 60 * 1000);
   const pad = (n: number) => String(n).padStart(2, "0");
-  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  return `${bogota.getUTCFullYear()}-${pad(bogota.getUTCMonth() + 1)}-${pad(bogota.getUTCDate())}T${pad(bogota.getUTCHours())}:${pad(bogota.getUTCMinutes())}`;
 }
 
 function MarcadorEnVivoMini({ live }: { live: any }) {
@@ -624,7 +628,7 @@ function ExpressPageContent() {
   const [fechaParticipante, setFechaParticipante] = useState<number>(3); // Auto-determinado por progreso de la polla
   const [fechaAdmin, setFechaAdmin] = useState<number>(3); // Default Fecha 3 para admin
   const [seccionAdmin, setSeccionAdmin] = useState<"partidos" | "torneo">("partidos");
-  const [seccionAdminPanel, setSeccionAdminPanel] = useState<"predicciones" | "liquidacion" | "posiciones" | "aplazados">("predicciones");
+  const [seccionAdminPanel, setSeccionAdminPanel] = useState<"predicciones" | "liquidacion" | "posiciones" | "aplazados" | "editar_partidos">("predicciones");
 
   // Calcular automáticamente la fecha activa para participantes (primera fecha no finalizada)
   useEffect(() => {
@@ -788,6 +792,7 @@ function ExpressPageContent() {
   const [resultadosAdminInput, setResultadosAdminInput] = useState<Record<number, { local: string; visitante: string; goleadores_ids: number[] }>>({});
   const [programacionAdminInput, setProgramacionAdminInput] = useState<Record<number, { jornada: string; fecha_hora: string; estadio: string }>>({});
   const [guardandoProgramacionId, setGuardandoProgramacionId] = useState<number | null>(null);
+  const [programacionGuardadaId, setProgramacionGuardadaId] = useState<number | null>(null);
   const [guardandoInicial, setGuardandoInicial] = useState(false);
 
   const handleGuardarPrediccionInicial = async () => {
@@ -977,6 +982,11 @@ function ExpressPageContent() {
     const fechaHora = input?.fecha_hora ?? aInputDatetimeLocal(partido.fecha_hora_partido);
     const estadio = input?.estadio ?? (partido.estadio || "");
 
+    // La hora del input no trae zona horaria: si no le pegamos el offset de Bogotá (-05:00)
+    // explícitamente, el servidor la interpreta en SU propia zona horaria (normalmente UTC en
+    // Hostinger), corriendo el partido 5 horas. Bogotá no tiene horario de verano, así que -05:00 es fijo.
+    const fechaHoraConOffset = `${fechaHora}:00-05:00`;
+
     try {
       setGuardandoProgramacionId(partido.id);
       const res = await fetch("/api/admin/reprogramar-partido", {
@@ -986,13 +996,17 @@ function ExpressPageContent() {
           usuario_id: usuario.id,
           partido_id: partido.id,
           jornada,
-          fecha_hora_partido: fechaHora,
+          fecha_hora_partido: fechaHoraConOffset,
           estadio,
         }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Error al reprogramar el partido");
       setMensajeEstado({ tipo: "exito", texto: data.mensaje || "Programación actualizada." });
+      setProgramacionGuardadaId(partido.id);
+      setTimeout(() => {
+        setProgramacionGuardadaId((actual) => (actual === partido.id ? null : actual));
+      }, 2500);
       cargarMaestros();
     } catch (err: any) {
       console.error(err);
@@ -2400,6 +2414,7 @@ function ExpressPageContent() {
                   <div className="admin-sidebar-nav no-scrollbar">
                     {([
                       { key: "predicciones", label: "Fechas y Predicciones", icon: Eye, color: "#a78bfa" },
+                      { key: "editar_partidos", label: "Editar Partidos", icon: Calendar, color: "#38bdf8" },
                       { key: "aplazados", label: "Partidos Aplazados", icon: Hourglass, color: "#f5b000" },
                       { key: "liquidacion", label: "Liquidación de Puntos", icon: ClipboardCheck, color: "#f59e0b" },
                       { key: "posiciones", label: "Tabla de Posiciones", icon: BarChart3, color: "#34d399" },
@@ -2704,45 +2719,6 @@ function ExpressPageContent() {
 
                           <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
                             <div style={{ fontSize: "1rem", color: "#e2e8f0", fontWeight: 800 }}>
-                              📅 Programación del Partido
-                            </div>
-                            <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap", background: "rgba(0,0,0,0.2)", padding: 16, borderRadius: 16, border: "1px solid rgba(255,255,255,0.05)" }}>
-                              <select
-                                value={programacionAdminInput[partido.id]?.jornada ?? String(partido.jornada)}
-                                onChange={(e) => actualizarProgramacionInput(partido, "jornada", e.target.value)}
-                                style={{ padding: "9px 12px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(15,23,42,0.8)", color: "#fff", fontWeight: 700, fontSize: "0.85rem" }}
-                              >
-                                {Array.from({ length: Math.max(listaFechas.length, partido.jornada) + 2 }, (_, i) => i + 1).map((f) => (
-                                  <option key={f} value={f}>Fecha {f}</option>
-                                ))}
-                              </select>
-
-                              <input
-                                type="datetime-local"
-                                value={programacionAdminInput[partido.id]?.fecha_hora ?? aInputDatetimeLocal(partido.fecha_hora_partido)}
-                                onChange={(e) => actualizarProgramacionInput(partido, "fecha_hora", e.target.value)}
-                                style={{ padding: "9px 12px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(15,23,42,0.8)", color: "#fff", fontWeight: 700, fontSize: "0.85rem" }}
-                              />
-
-                              <input
-                                type="text"
-                                placeholder="🏟️ Estadio"
-                                value={programacionAdminInput[partido.id]?.estadio ?? (partido.estadio || "")}
-                                onChange={(e) => actualizarProgramacionInput(partido, "estadio", e.target.value)}
-                                style={{ padding: "9px 12px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(15,23,42,0.8)", color: "#fff", fontWeight: 700, fontSize: "0.85rem", minWidth: 180 }}
-                              />
-
-                              <button
-                                type="button"
-                                onClick={() => handleGuardarProgramacion(partido)}
-                                disabled={guardandoProgramacionId === partido.id}
-                                style={{ display: "flex", alignItems: "center", gap: 6, padding: "9px 16px", borderRadius: "10px", border: "none", fontWeight: 800, fontSize: "0.82rem", cursor: guardandoProgramacionId === partido.id ? "not-allowed" : "pointer", background: "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)", color: "#fff", opacity: guardandoProgramacionId === partido.id ? 0.6 : 1 }}
-                              >
-                                <Save size={14} /> Guardar Programación
-                              </button>
-                            </div>
-
-                            <div style={{ fontSize: "1rem", color: "#e2e8f0", fontWeight: 800 }}>
                               ⚙️ Gestión de Resultado Oficial
                             </div>
                             <div style={{ display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap", background: "rgba(0,0,0,0.2)", padding: 20, borderRadius: 16, border: "1px solid rgba(255,255,255,0.05)" }}>
@@ -2973,6 +2949,12 @@ function ExpressPageContent() {
                               <Save size={14} /> Guardar Programación
                             </button>
 
+                            {programacionGuardadaId === partido.id && (
+                              <span style={{ display: "flex", alignItems: "center", gap: 6, color: "#34d399", fontWeight: 800, fontSize: "0.82rem" }}>
+                                <CheckCircle2 size={16} /> Guardado
+                              </span>
+                            )}
+
                             <button
                               type="button"
                               onClick={() => handleToggleAplazado(partido)}
@@ -2985,6 +2967,122 @@ function ExpressPageContent() {
                         </div>
                       );
                     };
+
+                    // ---------- TARJETA: EDITAR PROGRAMACIÓN DE UN PARTIDO (sección dedicada) ----------
+                    const renderPartidoEditarCard = (partido: any) => {
+                      const esAplazado = partido.estado === "aplazado";
+                      return (
+                        <div key={partido.id} style={{
+                          background: "rgba(15, 23, 42, 0.6)",
+                          backdropFilter: "blur(12px)",
+                          border: "1px solid rgba(255, 255, 255, 0.08)",
+                          borderRadius: "20px",
+                          padding: "24px",
+                          marginBottom: "20px",
+                          boxShadow: "0 20px 40px -10px rgba(0,0,0,0.45)"
+                        }}>
+                          <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 20, flexWrap: "wrap" }}>
+                            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                              <img src={partido.equipo_local.escudo_url} alt={partido.equipo_local.nombre} style={{ width: 36, height: 36, objectFit: "contain" }} />
+                              <span style={{ fontSize: "1rem", fontWeight: 900, color: "#fff" }}>VS</span>
+                              <img src={partido.equipo_visitante.escudo_url} alt={partido.equipo_visitante.nombre} style={{ width: 36, height: 36, objectFit: "contain" }} />
+                            </div>
+                            <div>
+                              <h3 style={{ margin: 0, color: "#ffffff", fontSize: "1.02rem" }}>
+                                {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}
+                              </h3>
+                              <span style={{ fontSize: "0.78rem", color: "#94a3b8", fontWeight: 700 }}>
+                                🕒 {formatearFechaPartido(partido.fecha_hora_partido)} · {formatearHoraPartido(partido.fecha_hora_partido)}
+                                {partido.estadio ? ` · 🏟️ ${partido.estadio}` : ""}
+                              </span>
+                            </div>
+                          </div>
+
+                          <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap", background: "rgba(0,0,0,0.2)", padding: 16, borderRadius: 16, border: "1px solid rgba(255,255,255,0.05)" }}>
+                            <select
+                              value={programacionAdminInput[partido.id]?.jornada ?? String(partido.jornada)}
+                              onChange={(e) => actualizarProgramacionInput(partido, "jornada", e.target.value)}
+                              style={{ padding: "9px 12px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(15,23,42,0.8)", color: "#fff", fontWeight: 700, fontSize: "0.85rem" }}
+                            >
+                              {Array.from({ length: Math.max(listaFechas.length, partido.jornada) + 2 }, (_, i) => i + 1).map((f) => (
+                                <option key={f} value={f}>Fecha {f}</option>
+                              ))}
+                            </select>
+
+                            <input
+                              type="datetime-local"
+                              value={programacionAdminInput[partido.id]?.fecha_hora ?? aInputDatetimeLocal(partido.fecha_hora_partido)}
+                              onChange={(e) => actualizarProgramacionInput(partido, "fecha_hora", e.target.value)}
+                              style={{ padding: "9px 12px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(15,23,42,0.8)", color: "#fff", fontWeight: 700, fontSize: "0.85rem" }}
+                            />
+
+                            <input
+                              type="text"
+                              placeholder="🏟️ Estadio"
+                              value={programacionAdminInput[partido.id]?.estadio ?? (partido.estadio || "")}
+                              onChange={(e) => actualizarProgramacionInput(partido, "estadio", e.target.value)}
+                              style={{ padding: "9px 12px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(15,23,42,0.8)", color: "#fff", fontWeight: 700, fontSize: "0.85rem", minWidth: 180 }}
+                            />
+
+                            <button
+                              type="button"
+                              onClick={() => handleGuardarProgramacion(partido)}
+                              disabled={guardandoProgramacionId === partido.id}
+                              style={{ display: "flex", alignItems: "center", gap: 6, padding: "9px 16px", borderRadius: "10px", border: "none", fontWeight: 800, fontSize: "0.82rem", cursor: guardandoProgramacionId === partido.id ? "not-allowed" : "pointer", background: "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)", color: "#fff", opacity: guardandoProgramacionId === partido.id ? 0.6 : 1 }}
+                            >
+                              <Save size={14} /> Guardar Programación
+                            </button>
+
+                            {programacionGuardadaId === partido.id && (
+                              <span style={{ display: "flex", alignItems: "center", gap: 6, color: "#34d399", fontWeight: 800, fontSize: "0.82rem" }}>
+                                <CheckCircle2 size={16} /> Guardado
+                              </span>
+                            )}
+
+                            <button
+                              type="button"
+                              onClick={() => handleToggleAplazado(partido)}
+                              disabled={guardandoProgramacionId === partido.id}
+                              style={{ display: "flex", alignItems: "center", gap: 6, padding: "9px 16px", borderRadius: "10px", fontWeight: 800, fontSize: "0.82rem", cursor: guardandoProgramacionId === partido.id ? "not-allowed" : "pointer", background: esAplazado ? "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)" : "transparent", color: esAplazado ? "#fff" : "#f59e0b", border: "1px solid " + (esAplazado ? "transparent" : "rgba(245, 158, 11, 0.4)") }}
+                            >
+                              <Hourglass size={14} /> {esAplazado ? "Quitar Aplazado" : "Marcar Aplazado"}
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    };
+
+                    // ================= SECCIÓN: EDITAR PARTIDOS (programación) =================
+                    if (seccionAdminPanel === "editar_partidos") {
+                      return (
+                        <div>
+                          <h2 style={{ margin: "0 0 4px", color: "#fff", fontSize: "1.3rem", fontWeight: 900 }}>📅 Editar Partidos</h2>
+                          <p style={{ color: "#94a3b8", margin: "0 0 16px", fontSize: "0.82rem" }}>Cambia la fecha, hora, jornada o estadio de un partido. No afecta resultados ni puntos ya liquidados.</p>
+                          {SelectorFechaCompacto}
+                          {fechaAdmin === 0 ? (
+                            <div style={{ padding: 40, textAlign: "center", background: "rgba(15, 23, 42, 0.6)", border: "2px dashed rgba(245, 158, 11, 0.4)", borderRadius: 24 }}>
+                              <div style={{ fontSize: "1.3rem", fontWeight: 900, color: "#f59e0b" }}>👆 Selecciona una Fecha</div>
+                            </div>
+                          ) : partidosAdminFiltrados.length === 0 ? (
+                            <div style={{ padding: 40, textAlign: "center", background: "rgba(15, 23, 42, 0.6)", borderRadius: 24, color: "#94a3b8" }}>
+                              {`No hay partidos programados para la Fecha ${fechaAdmin}.`}
+                            </div>
+                          ) : (
+                            <>
+                              {partidosActivosAdmin.map((partido) => renderPartidoEditarCard(partido))}
+                              {partidosFinalizadosAdmin.length > 0 && (
+                                <>
+                                  <div style={{ margin: "30px 0 20px", borderTop: "2px dashed rgba(255,255,255,0.1)", paddingTop: 20 }}>
+                                    <h3 style={{ color: "#64748b", fontSize: "1.2rem", fontWeight: 900, margin: 0 }}>Partidos Finalizados</h3>
+                                  </div>
+                                  {partidosFinalizadosAdmin.map((partido) => renderPartidoEditarCard(partido))}
+                                </>
+                              )}
+                            </>
+                          )}
+                        </div>
+                      );
+                    }
 
                     // ================= SECCIÓN: PARTIDOS APLAZADOS =================
                     if (seccionAdminPanel === "aplazados") {
