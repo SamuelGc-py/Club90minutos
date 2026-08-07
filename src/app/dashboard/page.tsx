@@ -396,6 +396,20 @@ function esPartidoFinalizadoReal(partido: any, partidosEnVivo: any[]) {
   );
 }
 
+// Formatea la hora de un partido en formato corto tipo "2:00 p.m."
+function formatearHoraPartido(iso: string) {
+  const d = new Date(iso);
+  if (isNaN(d.getTime())) return "";
+  return d.toLocaleTimeString("es-CO", { hour: "numeric", minute: "2-digit", hour12: true });
+}
+
+// Formatea la fecha de un partido en formato corto tipo "8 ago"
+function formatearFechaPartido(iso: string) {
+  const d = new Date(iso);
+  if (isNaN(d.getTime())) return "";
+  return d.toLocaleDateString("es-CO", { day: "numeric", month: "short" });
+}
+
 // Convierte un ISO string a formato "YYYY-MM-DDTHH:mm" (hora local) para inputs datetime-local
 function aInputDatetimeLocal(iso: string) {
   const d = new Date(iso);
@@ -765,7 +779,7 @@ function ExpressPageContent() {
 
   // Marcadores oficiales por partido para Administrador
   const [resultadosAdminInput, setResultadosAdminInput] = useState<Record<number, { local: string; visitante: string; goleadores_ids: number[] }>>({});
-  const [programacionAdminInput, setProgramacionAdminInput] = useState<Record<number, { jornada: string; fecha_hora: string }>>({});
+  const [programacionAdminInput, setProgramacionAdminInput] = useState<Record<number, { jornada: string; fecha_hora: string; estadio: string }>>({});
   const [guardandoProgramacionId, setGuardandoProgramacionId] = useState<number | null>(null);
   const [guardandoInicial, setGuardandoInicial] = useState(false);
 
@@ -934,11 +948,24 @@ function ExpressPageContent() {
     }
   };
 
+  const actualizarProgramacionInput = (partido: any, campo: "jornada" | "fecha_hora" | "estadio", valor: string) => {
+    setProgramacionAdminInput((prev) => ({
+      ...prev,
+      [partido.id]: {
+        jornada: prev[partido.id]?.jornada ?? String(partido.jornada),
+        fecha_hora: prev[partido.id]?.fecha_hora ?? aInputDatetimeLocal(partido.fecha_hora_partido),
+        estadio: prev[partido.id]?.estadio ?? (partido.estadio || ""),
+        [campo]: valor,
+      },
+    }));
+  };
+
   const handleGuardarProgramacion = async (partido: any) => {
     if (!usuario || usuario.rol_id !== 2) return;
     const input = programacionAdminInput[partido.id];
     const jornada = input?.jornada ?? String(partido.jornada);
     const fechaHora = input?.fecha_hora ?? aInputDatetimeLocal(partido.fecha_hora_partido);
+    const estadio = input?.estadio ?? (partido.estadio || "");
 
     try {
       setGuardandoProgramacionId(partido.id);
@@ -950,6 +977,7 @@ function ExpressPageContent() {
           partido_id: partido.id,
           jornada,
           fecha_hora_partido: fechaHora,
+          estadio,
         }),
       });
       const data = await res.json();
@@ -1454,6 +1482,10 @@ function ExpressPageContent() {
           <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
             <span style={{ fontWeight: 800, color: "#ffffff", fontSize: "0.95rem" }}>
               {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}
+            </span>
+            <span style={{ fontSize: "0.72rem", color: "var(--graderia)", fontWeight: 700 }}>
+              🕒 {formatearFechaPartido(partido.fecha_hora_partido)} · {formatearHoraPartido(partido.fecha_hora_partido)}
+              {partido.estadio ? ` · 🏟️ ${partido.estadio}` : ""}
             </span>
             {m.local !== "" && m.visitante !== "" ? (
               <span style={{ background: "rgba(16, 185, 129, 0.2)", color: "#10b981", border: "1px solid rgba(16, 185, 129, 0.4)", padding: "2px 8px", borderRadius: 12, fontSize: "0.75rem", fontWeight: 800 }}>
@@ -2478,14 +2510,26 @@ function ExpressPageContent() {
                                 <h3 style={{ margin: 0, color: "#ffffff", fontSize: "1.02rem" }}>
                                   {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}
                                 </h3>
+                                <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap", marginTop: 2 }}>
+                                  <span style={{ fontSize: "0.78rem", color: "#94a3b8", fontWeight: 700 }}>
+                                    🕒 {formatearFechaPartido(partido.fecha_hora_partido)} · {formatearHoraPartido(partido.fecha_hora_partido)}
+                                  </span>
+                                  {partido.estadio && (
+                                    <span style={{ fontSize: "0.78rem", color: "#94a3b8", fontWeight: 700 }}>
+                                      🏟️ {partido.estadio}
+                                    </span>
+                                  )}
+                                </div>
                                 {esAplazado && (
                                   <div style={{ marginTop: 4, padding: "4px 10px", background: cerrado ? "rgba(239, 68, 68, 0.2)" : "rgba(245, 158, 11, 0.2)", color: cerrado ? "#ef4444" : "#fef08a", borderRadius: 8, fontSize: "0.85rem", fontWeight: 800, display: "inline-block" }}>
                                     {cerrado ? "🔒 Pronósticos Cerrados" : `⏳ Cierra pronósticos en: ${conteoFaltante}`}
                                   </div>
                                 )}
-                                <span style={{ fontSize: "0.9rem", color: "#a78bfa", fontWeight: 700 }}>
-                                  {pronosticosPartido.length} pronósticos recibidos
-                                </span>
+                                <div>
+                                  <span style={{ fontSize: "0.9rem", color: "#a78bfa", fontWeight: 700 }}>
+                                    {pronosticosPartido.length} pronósticos recibidos
+                                  </span>
+                                </div>
                               </div>
                             </div>
 
@@ -2621,16 +2665,7 @@ function ExpressPageContent() {
                             <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap", background: "rgba(0,0,0,0.2)", padding: 16, borderRadius: 16, border: "1px solid rgba(255,255,255,0.05)" }}>
                               <select
                                 value={programacionAdminInput[partido.id]?.jornada ?? String(partido.jornada)}
-                                onChange={(e) => {
-                                  const valor = e.target.value;
-                                  setProgramacionAdminInput((prev) => ({
-                                    ...prev,
-                                    [partido.id]: {
-                                      fecha_hora: prev[partido.id]?.fecha_hora ?? aInputDatetimeLocal(partido.fecha_hora_partido),
-                                      jornada: valor,
-                                    },
-                                  }));
-                                }}
+                                onChange={(e) => actualizarProgramacionInput(partido, "jornada", e.target.value)}
                                 style={{ padding: "9px 12px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(15,23,42,0.8)", color: "#fff", fontWeight: 700, fontSize: "0.85rem" }}
                               >
                                 {Array.from({ length: Math.max(listaFechas.length, partido.jornada) + 2 }, (_, i) => i + 1).map((f) => (
@@ -2641,17 +2676,16 @@ function ExpressPageContent() {
                               <input
                                 type="datetime-local"
                                 value={programacionAdminInput[partido.id]?.fecha_hora ?? aInputDatetimeLocal(partido.fecha_hora_partido)}
-                                onChange={(e) => {
-                                  const valor = e.target.value;
-                                  setProgramacionAdminInput((prev) => ({
-                                    ...prev,
-                                    [partido.id]: {
-                                      jornada: prev[partido.id]?.jornada ?? String(partido.jornada),
-                                      fecha_hora: valor,
-                                    },
-                                  }));
-                                }}
+                                onChange={(e) => actualizarProgramacionInput(partido, "fecha_hora", e.target.value)}
                                 style={{ padding: "9px 12px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(15,23,42,0.8)", color: "#fff", fontWeight: 700, fontSize: "0.85rem" }}
+                              />
+
+                              <input
+                                type="text"
+                                placeholder="🏟️ Estadio"
+                                value={programacionAdminInput[partido.id]?.estadio ?? (partido.estadio || "")}
+                                onChange={(e) => actualizarProgramacionInput(partido, "estadio", e.target.value)}
+                                style={{ padding: "9px 12px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(15,23,42,0.8)", color: "#fff", fontWeight: 700, fontSize: "0.85rem", minWidth: 180 }}
                               />
 
                               <button
@@ -2863,16 +2897,7 @@ function ExpressPageContent() {
                           <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap", background: "rgba(0,0,0,0.2)", padding: 16, borderRadius: 16, border: "1px solid rgba(255,255,255,0.05)" }}>
                             <select
                               value={programacionAdminInput[partido.id]?.jornada ?? String(partido.jornada)}
-                              onChange={(e) => {
-                                const valor = e.target.value;
-                                setProgramacionAdminInput((prev) => ({
-                                  ...prev,
-                                  [partido.id]: {
-                                    fecha_hora: prev[partido.id]?.fecha_hora ?? aInputDatetimeLocal(partido.fecha_hora_partido),
-                                    jornada: valor,
-                                  },
-                                }));
-                              }}
+                              onChange={(e) => actualizarProgramacionInput(partido, "jornada", e.target.value)}
                               style={{ padding: "9px 12px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(15,23,42,0.8)", color: "#fff", fontWeight: 700, fontSize: "0.85rem" }}
                             >
                               {Array.from({ length: Math.max(listaFechas.length, partido.jornada) + 2 }, (_, i) => i + 1).map((f) => (
@@ -2883,17 +2908,16 @@ function ExpressPageContent() {
                             <input
                               type="datetime-local"
                               value={programacionAdminInput[partido.id]?.fecha_hora ?? aInputDatetimeLocal(partido.fecha_hora_partido)}
-                              onChange={(e) => {
-                                const valor = e.target.value;
-                                setProgramacionAdminInput((prev) => ({
-                                  ...prev,
-                                  [partido.id]: {
-                                    jornada: prev[partido.id]?.jornada ?? String(partido.jornada),
-                                    fecha_hora: valor,
-                                  },
-                                }));
-                              }}
+                              onChange={(e) => actualizarProgramacionInput(partido, "fecha_hora", e.target.value)}
                               style={{ padding: "9px 12px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(15,23,42,0.8)", color: "#fff", fontWeight: 700, fontSize: "0.85rem" }}
+                            />
+
+                            <input
+                              type="text"
+                              placeholder="🏟️ Estadio"
+                              value={programacionAdminInput[partido.id]?.estadio ?? (partido.estadio || "")}
+                              onChange={(e) => actualizarProgramacionInput(partido, "estadio", e.target.value)}
+                              style={{ padding: "9px 12px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(15,23,42,0.8)", color: "#fff", fontWeight: 700, fontSize: "0.85rem", minWidth: 180 }}
                             />
 
                             <button
@@ -4140,6 +4164,10 @@ function ExpressPageContent() {
                             <strong style={{ fontSize: "1rem", color: "#ffffff" }}>
                               ⚽ {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}
                             </strong>
+                            <span style={{ fontSize: "0.72rem", color: "var(--graderia)", fontWeight: 700 }}>
+                              🕒 {formatearFechaPartido(partido.fecha_hora_partido)} · {formatearHoraPartido(partido.fecha_hora_partido)}
+                              {partido.estadio ? ` · 🏟️ ${partido.estadio}` : ""}
+                            </span>
                             {estaCerrado && pronosticosDeEstePartido.length > 0 && (
                               <span style={{ background: "rgba(16, 185, 129, 0.15)", color: "#34d399", border: "1px solid rgba(16, 185, 129, 0.3)", padding: "2px 8px", borderRadius: 12, fontSize: "0.75rem", fontWeight: 700 }}>
                                 👥 {pronosticosDeEstePartido.length} Pronóstico{pronosticosDeEstePartido.length > 1 ? "s" : ""}

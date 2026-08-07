@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   try {
-    const { usuario_id, partido_id, jornada, fecha_hora_partido, estado } = await req.json();
+    const { usuario_id, partido_id, jornada, fecha_hora_partido, estado, estadio } = await req.json();
 
     if (!usuario_id || !partido_id) {
       return NextResponse.json({ error: "Faltan datos requeridos (usuario_id, partido_id)" }, { status: 400 });
@@ -21,10 +21,11 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "No tienes permisos de administrador" }, { status: 403 });
     }
 
-    const data: { jornada?: number; fecha_hora_partido?: Date; estado?: EstadoPartido } = {};
+    const data: { jornada?: number; fecha_hora_partido?: Date; estado?: EstadoPartido; estadio?: string | null } = {};
     if (jornada !== undefined && jornada !== null && jornada !== "") data.jornada = Number(jornada);
     if (fecha_hora_partido) data.fecha_hora_partido = new Date(fecha_hora_partido);
     if (estado) data.estado = estado as EstadoPartido;
+    if (estadio !== undefined && estadio !== null) data.estadio = String(estadio).trim() || null;
 
     if (Object.keys(data).length === 0) {
       return NextResponse.json({ error: "No hay cambios para guardar" }, { status: 400 });
