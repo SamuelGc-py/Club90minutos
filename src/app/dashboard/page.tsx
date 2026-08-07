@@ -4,7 +4,7 @@ import React, { useState, useEffect, useMemo, Component } from "react";
 import { CheckCircle2, ShieldAlert, Save, RefreshCw, Trophy, Calendar, LogOut, AlertTriangle, UserCheck, Lock, Clock, Eye, List, Download, Users, Menu, X, Flame, Camera, BarChart3, ClipboardCheck } from "lucide-react";
 import Link from "next/link";
 import { toPng } from 'html-to-image';
-import TablaPosicionesAfiche from "../components/TablaPosicionesAfiche";
+import TablaPosicionesAfiche, { TABLA_POSICIONES_FIJA } from "../components/TablaPosicionesAfiche";
 
 interface Jugador {
   id: number;
@@ -601,7 +601,7 @@ function ExpressPageContent() {
   const [fechaParticipante, setFechaParticipante] = useState<number>(3); // Auto-determinado por progreso de la polla
   const [fechaAdmin, setFechaAdmin] = useState<number>(3); // Default Fecha 3 para admin
   const [seccionAdmin, setSeccionAdmin] = useState<"partidos" | "torneo">("partidos");
-  const [seccionAdminPanel, setSeccionAdminPanel] = useState<"fechas" | "predicciones" | "liquidacion" | "posiciones">("fechas");
+  const [seccionAdminPanel, setSeccionAdminPanel] = useState<"predicciones" | "liquidacion" | "posiciones">("predicciones");
 
   // Calcular automáticamente la fecha activa para participantes (primera fecha no finalizada)
   useEffect(() => {
@@ -801,11 +801,13 @@ function ExpressPageContent() {
   };
 
   const handleResultadoAdminChange = (partidoId: number, campo: "local" | "visitante", valor: string) => {
+    // Los goles nunca pueden ser negativos: se descarta el signo "-" y cualquier no-numérico.
+    const valorSaneado = valor === "" ? "" : String(Math.max(0, Number(valor.replace(/[^0-9]/g, "") || 0)));
     setResultadosAdminInput((prev) => ({
       ...prev,
       [partidoId]: {
         ...(prev[partidoId] || { local: "", visitante: "", goleadores_ids: [] }),
-        [campo]: valor,
+        [campo]: valorSaneado,
       },
     }));
   };
@@ -2216,8 +2218,7 @@ function ExpressPageContent() {
                   </div>
                   <div className="admin-sidebar-nav no-scrollbar">
                     {([
-                      { key: "fechas", label: "Fechas", icon: Calendar, color: "#38bdf8" },
-                      { key: "predicciones", label: "Predicciones", icon: Eye, color: "#a78bfa" },
+                      { key: "predicciones", label: "Fechas y Predicciones", icon: Eye, color: "#a78bfa" },
                       { key: "liquidacion", label: "Liquidación de Puntos", icon: ClipboardCheck, color: "#f59e0b" },
                       { key: "posiciones", label: "Tabla de Posiciones", icon: BarChart3, color: "#34d399" },
                     ] as const).map((item) => {
@@ -2290,7 +2291,10 @@ function ExpressPageContent() {
                       return esFinalizado || esAplazado || hace2Horas;
                     };
 
-                    const partidosAdminFiltrados = fechaAdmin === 0 ? [] : partidos.filter((p) => p.jornada === fechaAdmin);
+                    // Los aplazados se muestran siempre, sin importar la fecha seleccionada (pueden pertenecer a otra jornada).
+                    const partidosAdminFiltrados = fechaAdmin === 0
+                      ? partidos.filter((p) => p.estado === "aplazado")
+                      : partidos.filter((p) => p.jornada === fechaAdmin || p.estado === "aplazado");
                     const partidosActivosAdmin = partidosAdminFiltrados
                       .filter((p) => !estaSoloFinal(p))
                       .sort((a, b) => new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime());
@@ -2483,6 +2487,7 @@ function ExpressPageContent() {
                               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                                 <input
                                   type="number"
+                                  min="0"
                                   placeholder="Local"
                                   style={{ width: 64, padding: "10px", borderRadius: "10px", border: "2px solid rgba(255,255,255,0.1)", background: "rgba(15,23,42,0.8)", color: "#fff", textAlign: "center", fontWeight: 900, fontSize: "1.1rem" }}
                                   value={resultadosAdminInput[partido.id]?.local || ""}
@@ -2491,6 +2496,7 @@ function ExpressPageContent() {
                                 <span style={{ fontWeight: 900, color: "#cbd5e1" }}>-</span>
                                 <input
                                   type="number"
+                                  min="0"
                                   placeholder="Vis"
                                   style={{ width: 64, padding: "10px", borderRadius: "10px", border: "2px solid rgba(255,255,255,0.1)", background: "rgba(15,23,42,0.8)", color: "#fff", textAlign: "center", fontWeight: 900, fontSize: "1.1rem" }}
                                   value={resultadosAdminInput[partido.id]?.visitante || ""}
@@ -2619,15 +2625,15 @@ function ExpressPageContent() {
                       );
                     };
 
-                    // ================= SECCIÓN: FECHAS (RESUMEN) =================
-                    if (seccionAdminPanel === "fechas") {
+                    // ================= SECCIÓN: FECHAS Y PREDICCIONES (UNIFICADA) =================
+                    if (seccionAdminPanel === "predicciones") {
                       return (
                         <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
                           {/* KPIs */}
                           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 20 }}>
                             {[
                               { label: "Usuarios Registrados", value: consolidados?.usuarios?.length || 0, icon: UserCheck, color: "#38bdf8" },
-                              { label: "Líder Actual", value: consolidados?.tablaPosiciones?.[0]?.nombre_completo || "N/A", sub: consolidados?.tablaPosiciones?.[0] ? `${consolidados?.tablaPosiciones?.[0]?.pts_total ?? 0} Pts` : undefined, icon: Trophy, color: "#f5b000" },
+                              { label: "Líder Actual", value: TABLA_POSICIONES_FIJA[0]?.nombre_completo || "N/A", sub: TABLA_POSICIONES_FIJA[0] ? `${TABLA_POSICIONES_FIJA[0]?.pts_total ?? 0} Pts` : undefined, icon: Trophy, color: "#f5b000" },
                               { label: "Partidos Programados", value: partidos.length, icon: Calendar, color: "#10b981" },
                             ].map((kpi, idx) => {
                               const KpiIcono = kpi.icon;
@@ -2693,10 +2699,10 @@ function ExpressPageContent() {
                             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 20 }}>
                               <div>
                                 <h2 style={{ margin: 0, fontSize: "1.35rem", color: "#ffffff", fontWeight: 900 }}>
-                                  Control de Jornadas
+                                  👁️ Fechas y Predicciones
                                 </h2>
                                 <p style={{ color: "#94a3b8", margin: "6px 0 0 0", fontSize: "0.85rem" }}>
-                                  Selecciona una fecha; luego usa Predicciones o Liquidación de Puntos en el menú.
+                                  Selecciona una fecha para revisar lo que pronosticó cada usuario. Los partidos aplazados aparecen siempre.
                                 </p>
                               </div>
 
@@ -2753,80 +2759,10 @@ function ExpressPageContent() {
                             </div>
                           </div>
 
-                          {/* RESUMEN DE PARTIDOS DE LA FECHA (SOLO LECTURA) */}
-                          {fechaAdmin === 0 ? (
-                            <div style={{ padding: 40, textAlign: "center", background: "rgba(15, 23, 42, 0.6)", backdropFilter: "blur(12px)", border: "2px dashed rgba(56, 189, 248, 0.4)", borderRadius: 24 }}>
-                              <div style={{ fontSize: "1.2rem", fontWeight: 900, color: "#38bdf8", marginBottom: 10 }}>
-                                👆 Selecciona una Fecha
-                              </div>
-                              <div style={{ color: "#cbd5e1", fontSize: "0.85rem" }}>
-                                Verás el resumen de partidos; usa Predicciones o Liquidación de Puntos para gestionarlos.
-                              </div>
-                            </div>
-                          ) : partidosAdminFiltrados.length === 0 ? (
-                            <div style={{ padding: 40, textAlign: "center", background: "rgba(15, 23, 42, 0.6)", borderRadius: 24, border: "1px solid rgba(255,255,255,0.05)", color: "#94a3b8", fontSize: "0.95rem" }}>
-                              No hay partidos programados para la Fecha {fechaAdmin}.
-                            </div>
-                          ) : (
-                            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                              {partidosAdminFiltrados
-                                .sort((a, b) => new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime())
-                                .map((partido) => {
-                                  const finalizado = estaSoloFinal(partido);
-                                  return (
-                                    <div
-                                      key={partido.id}
-                                      style={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "space-between",
-                                        gap: 16,
-                                        padding: "16px 22px",
-                                        background: "rgba(15, 23, 42, 0.55)",
-                                        border: "1px solid rgba(255,255,255,0.06)",
-                                        borderRadius: 16,
-                                        boxShadow: "0 12px 24px -10px rgba(0,0,0,0.4)",
-                                        flexWrap: "wrap",
-                                      }}
-                                    >
-                                      <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                                        <img src={partido.equipo_local.escudo_url} alt="" style={{ width: 26, height: 26, objectFit: "contain" }} />
-                                        <span style={{ color: "#fff", fontWeight: 800, fontSize: "0.95rem" }}>
-                                          {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}
-                                        </span>
-                                        <img src={partido.equipo_visitante.escudo_url} alt="" style={{ width: 26, height: 26, objectFit: "contain" }} />
-                                      </div>
-                                      <span
-                                        style={{
-                                          padding: "5px 14px",
-                                          borderRadius: 20,
-                                          fontSize: "0.78rem",
-                                          fontWeight: 800,
-                                          background: partido.estado === "aplazado" ? "rgba(245,158,11,0.18)" : finalizado ? "rgba(16,185,129,0.18)" : "rgba(56,189,248,0.15)",
-                                          color: partido.estado === "aplazado" ? "#f59e0b" : finalizado ? "#10b981" : "#38bdf8",
-                                        }}
-                                      >
-                                        {partido.estado === "aplazado" ? "⚠️ Aplazado" : finalizado ? "🏁 Finalizado" : "⏳ Pendiente"}
-                                      </span>
-                                    </div>
-                                  );
-                                })}
-                            </div>
-                          )}
-                        </div>
-                      );
-                    }
-
-                    // ================= SECCIÓN: PREDICCIONES =================
-                    if (seccionAdminPanel === "predicciones") {
-                      return (
-                        <div>
-                          <h2 style={{ margin: "0 0 4px", color: "#fff", fontSize: "1.3rem", fontWeight: 900 }}>👁️ Predicciones de los Participantes</h2>
-                          <p style={{ color: "#94a3b8", margin: "0 0 16px", fontSize: "0.82rem" }}>Revisa lo que pronosticó cada usuario, partido por partido.</p>
-                          {SelectorFechaCompacto}
-                          {fechaAdmin === 0 ? (
+                          {/* TARJETAS DE PARTIDOS CON SUS PREDICCIONES (incluye aplazados) */}
+                          {fechaAdmin === 0 && partidosAdminFiltrados.length === 0 ? (
                             <div style={{ padding: 40, textAlign: "center", background: "rgba(15, 23, 42, 0.6)", border: "2px dashed rgba(167, 139, 250, 0.4)", borderRadius: 24 }}>
-                              <div style={{ fontSize: "1.3rem", fontWeight: 900, color: "#a78bfa" }}>👆 Selecciona una Fecha</div>
+                              <div style={{ fontSize: "1.2rem", fontWeight: 900, color: "#a78bfa" }}>👆 Selecciona una Fecha</div>
                             </div>
                           ) : partidosAdminFiltrados.length === 0 ? (
                             <div style={{ padding: 40, textAlign: "center", background: "rgba(15, 23, 42, 0.6)", borderRadius: 24, color: "#94a3b8" }}>
@@ -4047,11 +3983,11 @@ function ExpressPageContent() {
                       👑 Líder Actual de la Polla
                     </div>
                     <strong style={{ fontSize: "1.1rem", color: "#ffd700", fontWeight: 900, display: "block" }}>
-                      {consolidados?.tablaPosiciones?.[0]?.nombre_completo || "Cargando..."}
+                      {TABLA_POSICIONES_FIJA[0]?.nombre_completo || "Cargando..."}
                     </strong>
-                    {consolidados?.tablaPosiciones?.[0] && (
+                    {TABLA_POSICIONES_FIJA[0] && (
                       <span style={{ fontSize: "0.8rem", color: "#a5b4fc", fontWeight: 700 }}>
-                        {consolidados?.tablaPosiciones?.[0]?.pts_total ?? 0} Pts acumulados
+                        {TABLA_POSICIONES_FIJA[0]?.pts_total ?? 0} Pts acumulados
                       </span>
                     )}
                   </div>
