@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useMemo, Component } from "react";
-import { CheckCircle2, ShieldAlert, Save, RefreshCw, Trophy, Calendar, LogOut, AlertTriangle, UserCheck, Lock, Clock, Eye, List, Download, Users, Menu, X, Flame, Camera, BarChart3, ClipboardCheck } from "lucide-react";
+import { CheckCircle2, ShieldAlert, Save, RefreshCw, Trophy, Calendar, LogOut, AlertTriangle, UserCheck, Lock, Clock, Eye, List, Download, Users, Menu, X, Flame, Camera, BarChart3, ClipboardCheck, Trash2, Hourglass } from "lucide-react";
 import Link from "next/link";
 import { toPng } from 'html-to-image';
 import TablaPosicionesAfiche, { TABLA_POSICIONES_FIJA } from "../components/TablaPosicionesAfiche";
@@ -396,6 +396,14 @@ function esPartidoFinalizadoReal(partido: any, partidosEnVivo: any[]) {
   );
 }
 
+// Convierte un ISO string a formato "YYYY-MM-DDTHH:mm" (hora local) para inputs datetime-local
+function aInputDatetimeLocal(iso: string) {
+  const d = new Date(iso);
+  if (isNaN(d.getTime())) return "";
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
 function MarcadorEnVivoMini({ live }: { live: any }) {
   if (!live) return null;
   const esSuspendido = /retrasad|suspend/i.test(live.estadoDetail || "");
@@ -757,6 +765,8 @@ function ExpressPageContent() {
 
   // Marcadores oficiales por partido para Administrador
   const [resultadosAdminInput, setResultadosAdminInput] = useState<Record<number, { local: string; visitante: string; goleadores_ids: number[] }>>({});
+  const [programacionAdminInput, setProgramacionAdminInput] = useState<Record<number, { jornada: string; fecha_hora: string }>>({});
+  const [guardandoProgramacionId, setGuardandoProgramacionId] = useState<number | null>(null);
   const [guardandoInicial, setGuardandoInicial] = useState(false);
 
   const handleGuardarPrediccionInicial = async () => {
@@ -920,6 +930,101 @@ function ExpressPageContent() {
       setMensajeEstado({ tipo: "error", texto: err.message || "Error al liquidar resultado." });
       if (typeof window !== "undefined") {
         alert("❌ Error: " + (err.message || "Error al liquidar resultado."));
+      }
+    }
+  };
+
+  const handleGuardarProgramacion = async (partido: any) => {
+    if (!usuario || usuario.rol_id !== 2) return;
+    const input = programacionAdminInput[partido.id];
+    const jornada = input?.jornada ?? String(partido.jornada);
+    const fechaHora = input?.fecha_hora ?? aInputDatetimeLocal(partido.fecha_hora_partido);
+
+    try {
+      setGuardandoProgramacionId(partido.id);
+      const res = await fetch("/api/admin/reprogramar-partido", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          usuario_id: usuario.id,
+          partido_id: partido.id,
+          jornada,
+          fecha_hora_partido: fechaHora,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Error al reprogramar el partido");
+      setMensajeEstado({ tipo: "exito", texto: data.mensaje || "Programación actualizada." });
+      cargarMaestros();
+    } catch (err: any) {
+      console.error(err);
+      setMensajeEstado({ tipo: "error", texto: err.message || "Error al reprogramar el partido." });
+      if (typeof window !== "undefined") {
+        alert("❌ Error: " + (err.message || "Error al reprogramar el partido."));
+      }
+    } finally {
+      setGuardandoProgramacionId(null);
+    }
+  };
+
+  const handleToggleAplazado = async (partido: any) => {
+    if (!usuario || usuario.rol_id !== 2) return;
+    const nuevoEstado = partido.estado === "aplazado" ? "programado" : "aplazado";
+    try {
+      setGuardandoProgramacionId(partido.id);
+      const res = await fetch("/api/admin/reprogramar-partido", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          usuario_id: usuario.id,
+          partido_id: partido.id,
+          estado: nuevoEstado,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Error al actualizar el estado del partido");
+      setMensajeEstado({ tipo: "exito", texto: nuevoEstado === "aplazado" ? "Partido marcado como aplazado." : "Partido reactivado (ya no está aplazado)." });
+      cargarMaestros();
+    } catch (err: any) {
+      console.error(err);
+      if (typeof window !== "undefined") {
+        alert("❌ Error: " + (err.message || "Error al actualizar el estado del partido."));
+      }
+    } finally {
+      setGuardandoProgramacionId(null);
+    }
+  };
+
+  const handleQuitarResultado = async (partidoId: number) => {
+    if (!usuario || usuario.rol_id !== 2) return;
+    if (typeof window !== "undefined" && !window.confirm("Esto eliminará el marcador oficial cargado y TODOS los puntos ya liquidados de este partido, dejándolo como recién programado. ¿Continuar?")) {
+      return;
+    }
+    try {
+      setMensajeEstado({ tipo: "info", texto: "Quitando resultado..." });
+      const res = await fetch("/api/admin/quitar-resultado", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ usuario_id: usuario.id, partido_id: partidoId }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Error al quitar el resultado");
+      setResultadosAdminInput((prev) => {
+        const copia = { ...prev };
+        delete copia[partidoId];
+        return copia;
+      });
+      setMensajeEstado({ tipo: "exito", texto: data.mensaje || "Resultado eliminado." });
+      if (typeof window !== "undefined") {
+        alert("✅ " + (data.mensaje || "Resultado eliminado."));
+      }
+      cargarMaestros();
+      cargarConsolidados(usuario.id);
+    } catch (err: any) {
+      console.error(err);
+      setMensajeEstado({ tipo: "error", texto: err.message || "Error al quitar el resultado." });
+      if (typeof window !== "undefined") {
+        alert("❌ Error: " + (err.message || "Error al quitar el resultado."));
       }
     }
   };
@@ -2219,16 +2324,26 @@ function ExpressPageContent() {
                   <div className="admin-sidebar-nav no-scrollbar">
                     {([
                       { key: "predicciones", label: "Fechas y Predicciones", icon: Eye, color: "#a78bfa" },
+                      { key: "aplazados", label: "Partidos Aplazados", icon: Hourglass, color: "#f5b000" },
                       { key: "liquidacion", label: "Liquidación de Puntos", icon: ClipboardCheck, color: "#f59e0b" },
                       { key: "posiciones", label: "Tabla de Posiciones", icon: BarChart3, color: "#34d399" },
                     ] as const).map((item) => {
-                      const activo = seccionAdminPanel === item.key;
+                      const activo = item.key === "aplazados"
+                        ? (seccionAdminPanel === "predicciones" && fechaAdmin === -1)
+                        : (seccionAdminPanel === item.key && !(seccionAdminPanel === "predicciones" && fechaAdmin === -1));
                       const Icono = item.icon;
                       return (
                         <button
                           key={item.key}
                           type="button"
-                          onClick={() => setSeccionAdminPanel(item.key)}
+                          onClick={() => {
+                            if (item.key === "aplazados") {
+                              setSeccionAdminPanel("predicciones");
+                              setFechaAdmin(-1);
+                            } else {
+                              setSeccionAdminPanel(item.key);
+                            }
+                          }}
                           style={{
                             display: "flex",
                             alignItems: "center",
@@ -2533,6 +2648,64 @@ function ExpressPageContent() {
 
                           <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
                             <div style={{ fontSize: "1rem", color: "#e2e8f0", fontWeight: 800 }}>
+                              📅 Programación del Partido
+                            </div>
+                            <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap", background: "rgba(0,0,0,0.2)", padding: 16, borderRadius: 16, border: "1px solid rgba(255,255,255,0.05)" }}>
+                              <select
+                                value={programacionAdminInput[partido.id]?.jornada ?? String(partido.jornada)}
+                                onChange={(e) => {
+                                  const valor = e.target.value;
+                                  setProgramacionAdminInput((prev) => ({
+                                    ...prev,
+                                    [partido.id]: {
+                                      fecha_hora: prev[partido.id]?.fecha_hora ?? aInputDatetimeLocal(partido.fecha_hora_partido),
+                                      jornada: valor,
+                                    },
+                                  }));
+                                }}
+                                style={{ padding: "9px 12px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(15,23,42,0.8)", color: "#fff", fontWeight: 700, fontSize: "0.85rem" }}
+                              >
+                                {Array.from({ length: Math.max(listaFechas.length, partido.jornada) + 2 }, (_, i) => i + 1).map((f) => (
+                                  <option key={f} value={f}>Fecha {f}</option>
+                                ))}
+                              </select>
+
+                              <input
+                                type="datetime-local"
+                                value={programacionAdminInput[partido.id]?.fecha_hora ?? aInputDatetimeLocal(partido.fecha_hora_partido)}
+                                onChange={(e) => {
+                                  const valor = e.target.value;
+                                  setProgramacionAdminInput((prev) => ({
+                                    ...prev,
+                                    [partido.id]: {
+                                      jornada: prev[partido.id]?.jornada ?? String(partido.jornada),
+                                      fecha_hora: valor,
+                                    },
+                                  }));
+                                }}
+                                style={{ padding: "9px 12px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(15,23,42,0.8)", color: "#fff", fontWeight: 700, fontSize: "0.85rem" }}
+                              />
+
+                              <button
+                                type="button"
+                                onClick={() => handleGuardarProgramacion(partido)}
+                                disabled={guardandoProgramacionId === partido.id}
+                                style={{ display: "flex", alignItems: "center", gap: 6, padding: "9px 16px", borderRadius: "10px", border: "none", fontWeight: 800, fontSize: "0.82rem", cursor: guardandoProgramacionId === partido.id ? "not-allowed" : "pointer", background: "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)", color: "#fff", opacity: guardandoProgramacionId === partido.id ? 0.6 : 1 }}
+                              >
+                                <Save size={14} /> Guardar Programación
+                              </button>
+
+                              <button
+                                type="button"
+                                onClick={() => handleToggleAplazado(partido)}
+                                disabled={guardandoProgramacionId === partido.id}
+                                style={{ display: "flex", alignItems: "center", gap: 6, padding: "9px 16px", borderRadius: "10px", fontWeight: 800, fontSize: "0.82rem", cursor: guardandoProgramacionId === partido.id ? "not-allowed" : "pointer", background: esAplazado ? "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)" : "transparent", color: esAplazado ? "#fff" : "#f59e0b", border: "1px solid " + (esAplazado ? "transparent" : "rgba(245, 158, 11, 0.4)") }}
+                              >
+                                <Hourglass size={14} /> {esAplazado ? "Quitar Aplazado" : "Marcar Aplazado"}
+                              </button>
+                            </div>
+
+                            <div style={{ fontSize: "1rem", color: "#e2e8f0", fontWeight: 800 }}>
                               ⚙️ Gestión de Resultado Oficial
                             </div>
                             <div style={{ display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap", background: "rgba(0,0,0,0.2)", padding: 20, borderRadius: 16, border: "1px solid rgba(255,255,255,0.05)" }}>
@@ -2665,6 +2838,29 @@ function ExpressPageContent() {
                                 }}
                               >
                                 🏆 Liquidar Puntos (Global)
+                              </button>
+
+                              <button
+                                type="button"
+                                onClick={() => handleQuitarResultado(partido.id)}
+                                disabled={partido.estado !== "resultado_cargado" && partido.estado !== "puntaje_calculado"}
+                                style={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  gap: 6,
+                                  minWidth: "160px",
+                                  padding: "12px",
+                                  borderRadius: "12px",
+                                  fontSize: "0.95rem",
+                                  background: partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado" ? "rgba(239, 68, 68, 0.15)" : "rgba(255,255,255,0.05)",
+                                  color: partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado" ? "#ef4444" : "#64748b",
+                                  border: "1px solid " + (partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado" ? "rgba(239, 68, 68, 0.4)" : "rgba(255,255,255,0.08)"),
+                                  fontWeight: 900,
+                                  cursor: partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado" ? "pointer" : "not-allowed",
+                                }}
+                              >
+                                <Trash2 size={14} /> Quitar Resultado
                               </button>
                             </div>
                             {partido.estado !== "resultado_cargado" && partido.estado !== "puntaje_calculado" && (
