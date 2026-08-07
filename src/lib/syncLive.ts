@@ -33,6 +33,7 @@ export async function sincronizarMarcadoresEnVivo() {
 
     const homeNameNorm = normalize(homeTeam.team.name);
     const awayNameNorm = normalize(awayTeam.team.name);
+    const eventDate = event.date ? new Date(event.date) : null;
 
     const partido = partidosDb.find((p) => {
       const dbLocalNorm = normalize(p.equipo_local.nombre);
@@ -40,10 +41,25 @@ export async function sincronizarMarcadoresEnVivo() {
 
       const localMatch = dbLocalNorm.includes(homeNameNorm) || homeNameNorm.includes(dbLocalNorm);
       const visitanteMatch = dbVisitanteNorm.includes(awayNameNorm) || awayNameNorm.includes(dbVisitanteNorm);
-      return localMatch && visitanteMatch;
+      if (!localMatch || !visitanteMatch) return false;
+
+      // El mismo cruce de equipos puede repetirse en otra fase (ej. fase de grupos vs.
+      // cuadrangulares). Exigir que la fecha del evento de ESPN coincida (±1 día) con la
+      // fecha programada del partido evita actualizar el partido equivocado ya liquidado.
+      if (eventDate) {
+        const diffMs = Math.abs(eventDate.getTime() - new Date(p.fecha_hora_partido).getTime());
+        const unDiaMs = 24 * 60 * 60 * 1000;
+        if (diffMs > unDiaMs) return false;
+      }
+
+      return true;
     });
 
     if (!partido) continue;
+
+    // Nunca sobrescribir un partido que el admin ya liquidó manualmente: el marcador
+    // oficial y los Puntaje ya fueron calculados con esos valores.
+    if (partido.estado === "resultado_cargado") continue;
 
     const golesLocalReal = parseInt(homeTeam.score || "0", 10);
     const golesVisitanteReal = parseInt(awayTeam.score || "0", 10);

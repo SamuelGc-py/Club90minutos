@@ -3,8 +3,9 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  // ESLint no está configurado en este proyecto (sin .eslintrc ni dependencia instalada);
+  // forzarlo en build rompería por eso, no por errores reales de lint.
   eslint: { ignoreDuringBuilds: true },
-  typescript: { ignoreBuildErrors: true },
   async redirects() {
     return [
       {

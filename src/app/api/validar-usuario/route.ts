@@ -1,9 +1,13 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import bcrypt from "bcryptjs";
+import { v4 as uuidv4 } from "uuid";
+
+const ES_HASH_BCRYPT = (valor: string) => /^\$2[aby]\$/.test(valor);
 
 export async function POST(req: Request) {
   try {
-    const { correo, password, autoSync, soloConsulta } = await req.json();
+    const { correo, password, sesionToken, soloConsulta } = await req.json();
 
     if (!correo || typeof correo !== "string") {
       return NextResponse.json(
@@ -22,7 +26,9 @@ export async function POST(req: Request) {
       });
     }
 
-    if (!autoSync && (!password || typeof password !== "string" || !password.trim())) {
+    const esResync = typeof sesionToken === "string" && sesionToken.length > 0;
+
+    if (!esResync && (!password || typeof password !== "string" || !password.trim())) {
       return NextResponse.json(
         { error: "Contraseña requerida" },
         { status: 400 }
@@ -31,6 +37,11 @@ export async function POST(req: Request) {
 
     const emailLimpio = correo.trim().toLowerCase();
     const passLimpio = password ? password.trim() : "";
+    const credencialesInvalidas = NextResponse.json({
+      existe: true, // fingir que existe para que caiga en el error del frontend
+      activo: true,
+      error: "Usuario o contraseña incorrecto. Por favor verifica tus datos.",
+    }, { status: 401 });
 
     // Buscar usuario en PostgreSQL
     const usuario = await prisma.usuario.findUnique({
@@ -46,11 +57,7 @@ export async function POST(req: Request) {
     });
 
     if (!usuario) {
-      return NextResponse.json({
-        existe: true, // fingir que existe para que caiga en el error del frontend
-        activo: true,
-        error: "Usuario o contraseña incorrecto. Por favor verifica tus datos.",
-      }, { status: 401 });
+      return credencialesInvalidas;
     }
 
     if (!usuario.activo) {
@@ -62,20 +69,43 @@ export async function POST(req: Request) {
       });
     }
 
-    // Validar contraseña si no es autoSync
-    if (!autoSync && usuario.password && usuario.password !== passLimpio) {
-      return NextResponse.json({
-        existe: true,
-        activo: true,
-        error: "Usuario o contraseña incorrecto. Por favor verifica tus datos.",
-      }, { status: 401 });
-    }
+    let sesionTokenRespuesta = usuario.sesion_token;
 
-    // Si el usuario no tenía contraseña establecida, asignarla en su primer ingreso
-    if (!usuario.password) {
+    if (esResync) {
+      // Re-sincronización de sesión ya iniciada: exige el token emitido en el login
+      // original en vez de confiar ciegamente en el correo (eso era el bypass real).
+      if (!usuario.sesion_token || usuario.sesion_token !== sesionToken) {
+        return credencialesInvalidas;
+      }
+    } else if (!usuario.password) {
+      // Primer ingreso: la cuenta (creada por el admin en pgAdmin sin clave) queda
+      // asociada a la primera clave con la que alguien inicie sesión. Decisión explícita
+      // del dueño del proyecto: grupo pequeño y de confianza, no se exige flujo de reseteo.
+      const hashNuevo = await bcrypt.hash(passLimpio, 10);
       await prisma.usuario.update({
         where: { id: usuario.id },
-        data: { password: passLimpio },
+        data: { password: hashNuevo },
+      });
+    } else if (ES_HASH_BCRYPT(usuario.password)) {
+      const coincide = await bcrypt.compare(passLimpio, usuario.password);
+      if (!coincide) return credencialesInvalidas;
+    } else {
+      // Compatibilidad con claves antiguas guardadas en texto plano: si coincide,
+      // se re-hashea de una vez para migrar la cuenta de forma transparente.
+      if (usuario.password !== passLimpio) return credencialesInvalidas;
+      const hashMigrado = await bcrypt.hash(passLimpio, 10);
+      await prisma.usuario.update({
+        where: { id: usuario.id },
+        data: { password: hashMigrado },
+      });
+    }
+
+    if (!esResync) {
+      // Emitir un token de sesión nuevo en cada login real con contraseña.
+      sesionTokenRespuesta = uuidv4();
+      await prisma.usuario.update({
+        where: { id: usuario.id },
+        data: { sesion_token: sesionTokenRespuesta },
       });
     }
 
@@ -83,6 +113,7 @@ export async function POST(req: Request) {
     return NextResponse.json({
       existe: true,
       activo: true,
+      sesionToken: sesionTokenRespuesta,
       usuario: {
         id: usuario.id,
         nombre: usuario.nombre_completo,

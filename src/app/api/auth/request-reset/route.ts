@@ -1,10 +1,8 @@
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/lib/db";
 import { Resend } from "resend";
 import nodemailer from "nodemailer";
 import { v4 as uuidv4 } from "uuid";
-
-const prisma = new PrismaClient();
 
 export async function POST(req: Request) {
   try {
@@ -15,7 +13,7 @@ export async function POST(req: Request) {
     }
 
     const usuario = await prisma.usuario.findUnique({
-      where: { correo: correo.trim() },
+      where: { correo: correo.trim().toLowerCase() },
     });
 
     if (!usuario) {
@@ -95,11 +93,12 @@ export async function POST(req: Request) {
 
       if (error) {
         console.error("Resend error:", error);
-        // Si Resend tiene restricciones de dominio en test, devolvemos success: true y el resetUrl directo
+        // Nunca devolver el resetUrl al cliente: filtrarlo permite tomar control de
+        // cualquier cuenta con solo saber su correo. Se registra el fallo en logs
+        // del servidor y se responde con el mismo mensaje genérico de siempre.
         return NextResponse.json({
           success: true,
-          resetUrl,
-          message: "Enlace de recuperación generado exitosamente.",
+          message: "Si el correo existe, se ha enviado un enlace.",
         });
       }
 

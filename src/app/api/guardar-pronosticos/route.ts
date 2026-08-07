@@ -44,10 +44,18 @@ export async function POST(req: Request) {
       ? now > new Date(ultimoPartidoFecha5.fecha_hora_partido)
       : false;
 
+    const seIntentoEnviarInicial = !!(campeon_equipo_id || finalista_1_equipo_id || finalista_2_equipo_id || goleador_torneo_jugador_id || (Array.isArray(clasificados_ids) && clasificados_ids.length > 0));
+    let prediccionInicialRechazada = false;
+    const partidosGuardados: number[] = [];
+    const partidosRechazados: number[] = [];
+
     // Guardar mediante transacción Prisma
     await prisma.$transaction(async (tx: any) => {
       // 1. Predicción inicial (Solo si no están cerradas las de Fecha 5)
-      if (!prediccionesInicialesCerradas && (campeon_equipo_id || finalista_1_equipo_id || finalista_2_equipo_id || goleador_torneo_jugador_id || (Array.isArray(clasificados_ids) && clasificados_ids.length > 0))) {
+      if (prediccionesInicialesCerradas && seIntentoEnviarInicial) {
+        prediccionInicialRechazada = true;
+      }
+      if (!prediccionesInicialesCerradas && seIntentoEnviarInicial) {
         const prediccionInicial = await tx.prediccionInicial.upsert({
           where: { usuario_id: usuario.id },
           create: {
@@ -119,6 +127,7 @@ export async function POST(req: Request) {
               const esExcepcionIgnacio = usuario.correo === "iangelbarrios16@gmail.com" && (partidoDb.id === 27 || partidoDb.id === 31);
               // Si ya pasó la hora de cierre (30 minutos antes del partido), no guardar (salvo admin o excepción)
               if (now >= limiteCierre && !esAdmin && !esExcepcionHaroldMedellin && !esExcepcionSamu && !esExcepcionIgnacio) {
+                partidosRechazados.push(partidoIdNum);
                 continue;
               }
             }
@@ -149,14 +158,24 @@ export async function POST(req: Request) {
                 estado: "enviada",
               },
             });
+
+            partidosGuardados.push(partidoIdNum);
           }
         }
       }
     });
 
+    const mensajeBase = "¡Tus pronósticos se han guardado exitosamente!";
+    const huboRechazos = prediccionInicialRechazada || partidosRechazados.length > 0;
+
     return NextResponse.json({
       exito: true,
-      mensaje: "¡Tus pronósticos se han guardado exitosamente!",
+      mensaje: huboRechazos
+        ? "Algunos pronósticos no se guardaron porque ya cerró el plazo (ver detalle)."
+        : mensajeBase,
+      partidosGuardados,
+      partidosRechazados,
+      prediccionInicialRechazada,
     });
   } catch (error: any) {
     console.error("Error al guardar pronósticos:", error);

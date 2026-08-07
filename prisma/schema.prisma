@@ -68,6 +68,7 @@ model Usuario {
   correo              String    @unique
   telefono            String?
   password            String?
+  sesion_token        String?
   rol_id              Int
   fecha_registro      DateTime  @default(now())
   activo              Boolean   @default(true)
