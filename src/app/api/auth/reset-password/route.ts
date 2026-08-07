@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { prisma } from "@/lib/db";
+import bcrypt from "bcryptjs";
 
 export async function POST(req: Request) {
   try {
@@ -23,10 +22,11 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "El enlace ha expirado." }, { status: 400 });
     }
 
-    // Update password
+    // Update password (hasheada) e invalidar cualquier sesión activa previa
+    const hashNuevo = await bcrypt.hash(password.trim(), 10);
     await prisma.usuario.update({
       where: { correo: resetToken.correo },
-      data: { password: password.trim() },
+      data: { password: hashNuevo, sesion_token: null },
     });
 
     // Mark token as used

@@ -77,12 +77,14 @@ export async function calcularPuntosPartido(
     where: { partido_id: partidoId },
   });
 
-  // Limpiar puntajes anteriores de este partido para recalcular
-  await prisma.puntaje.deleteMany({
-    where: { partido_id: partidoId },
-  });
-
   const realWinner = golesLocalReal > golesVisitanteReal ? "local" : golesVisitanteReal > golesLocalReal ? "visitante" : "empate";
+
+  const nuevosPuntajes: {
+    usuario_id: number;
+    partido_id: number;
+    categoria: CategoriaPuntaje;
+    puntos_obtenidos: number;
+  }[] = [];
 
   for (const pred of predicciones) {
     const pLocal = pred.goles_local_predicho;
@@ -91,25 +93,21 @@ export async function calcularPuntosPartido(
 
     // 1. Acierto ganador / empate: 3 Pts
     if (predWinner === realWinner) {
-      await prisma.puntaje.create({
-        data: {
-          usuario_id: pred.usuario_id,
-          partido_id: partidoId,
-          categoria: CategoriaPuntaje.ganador_partido,
-          puntos_obtenidos: 3,
-        },
+      nuevosPuntajes.push({
+        usuario_id: pred.usuario_id,
+        partido_id: partidoId,
+        categoria: CategoriaPuntaje.ganador_partido,
+        puntos_obtenidos: 3,
       });
     }
 
     // 2. Acierto exacto adicional: 5 Pts
     if (pLocal === golesLocalReal && pVisitante === golesVisitanteReal) {
-      await prisma.puntaje.create({
-        data: {
-          usuario_id: pred.usuario_id,
-          partido_id: partidoId,
-          categoria: CategoriaPuntaje.resultado_exacto,
-          puntos_obtenidos: 5,
-        },
+      nuevosPuntajes.push({
+        usuario_id: pred.usuario_id,
+        partido_id: partidoId,
+        categoria: CategoriaPuntaje.resultado_exacto,
+        puntos_obtenidos: 5,
       });
     }
 
@@ -118,16 +116,21 @@ export async function calcularPuntosPartido(
       pred.jugador_goleador_predicho_id &&
       goleadoresIds.includes(pred.jugador_goleador_predicho_id)
     ) {
-      await prisma.puntaje.create({
-        data: {
-          usuario_id: pred.usuario_id,
-          partido_id: partidoId,
-          categoria: CategoriaPuntaje.goleador,
-          puntos_obtenidos: 2,
-        },
+      nuevosPuntajes.push({
+        usuario_id: pred.usuario_id,
+        partido_id: partidoId,
+        categoria: CategoriaPuntaje.goleador,
+        puntos_obtenidos: 2,
       });
     }
   }
+
+  // Limpiar puntajes anteriores e insertar los nuevos de forma atómica: si algo falla
+  // a mitad de camino, no queda el partido con puntajes borrados y sin recrear.
+  await prisma.$transaction([
+    prisma.puntaje.deleteMany({ where: { partido_id: partidoId } }),
+    ...(nuevosPuntajes.length > 0 ? [prisma.puntaje.createMany({ data: nuevosPuntajes })] : []),
+  ]);
 
   return { exito: true, totalPrediccionesLiquidadas: predicciones.length };
 }

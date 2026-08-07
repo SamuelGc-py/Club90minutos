@@ -32,7 +32,7 @@ export async function GET() {
       let keyEvents: any[] = [];
 
       // Si el partido está en vivo o recién terminado, consultar detalle en vivo (summary)
-      if (event.id) {
+      if (event.id && (esEnVivo || esFinalizado)) {
         try {
           const sumRes = await fetch(
             `https://site.api.espn.com/apis/site/v2/sports/soccer/col.1/summary?event=${event.id}`,

@@ -485,6 +485,7 @@ function ExpressPageContent() {
   const [cargandoValidacion, setCargandoValidacion] = useState(false);
   const [mensajeEstado, setMensajeEstado] = useState<{ tipo: "error" | "info" | "exito"; texto: string } | null>(null);
   const [usuario, setUsuario] = useState<UsuarioSesion | null>(null);
+  const [sesionToken, setSesionToken] = useState<string | null>(null);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -704,8 +705,14 @@ function ExpressPageContent() {
       });
 
       const data = await res.json();
-      if (!res.ok || data.error) {
-        setMensajeEstado({ tipo: "error", texto: data.error || "Error al guardar el pronóstico." });
+      const fueRechazado = Array.isArray(data.partidosRechazados) && data.partidosRechazados.includes(partidoId);
+      if (!res.ok || data.error || fueRechazado) {
+        setMensajeEstado({
+          tipo: "error",
+          texto: fueRechazado
+            ? "⏱️ Ya cerró el plazo para este partido (30 min antes del inicio). No se guardó."
+            : data.error || "Error al guardar el pronóstico.",
+        });
       } else {
         setMensajeEstado({ tipo: "exito", texto: "¡Pronóstico guardado exitosamente para este partido!" });
         setPartidoGuardadoExitoId(partidoId);
@@ -789,13 +796,16 @@ function ExpressPageContent() {
       });
 
       const data = await res.json();
-      if (!res.ok || data.error) {
-        setMensajeEstado({ tipo: "error", texto: data.error || "Error al guardar predicciones del torneo." });
-        if (typeof window !== "undefined") alert("❌ Error: " + (data.error || "Error al guardar."));
+      if (!res.ok || data.error || data.prediccionInicialRechazada) {
+        const texto = data.prediccionInicialRechazada
+          ? "⏱️ Ya cerró el plazo de predicciones iniciales (Fecha 5 ya inició). No se guardó."
+          : data.error || "Error al guardar predicciones del torneo.";
+        setMensajeEstado({ tipo: "error", texto });
+        if (typeof window !== "undefined") alert("❌ " + texto);
       } else {
         setMensajeEstado({ tipo: "exito", texto: "¡Predicciones del torneo guardadas exitosamente!" });
         if (typeof window !== "undefined") alert("✅ ¡Tus predicciones del torneo han sido guardadas exitosamente!");
-        sincronizarSesionBackend(usuario.correo);
+        sincronizarSesionBackend(usuario.correo, sesionToken);
       }
     } catch (err: any) {
       setMensajeEstado({ tipo: "error", texto: "Error al guardar: " + err.message });
@@ -1112,12 +1122,13 @@ function ExpressPageContent() {
     }
   };
 
-  const sincronizarSesionBackend = async (correo: string) => {
+  const sincronizarSesionBackend = async (correo: string, tokenActual: string | null) => {
+    if (!tokenActual) return; // sin token de sesión no hay nada que re-sincronizar
     try {
       const res = await fetch("/api/validar-usuario", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ correo, autoSync: true }),
+        body: JSON.stringify({ correo, sesionToken: tokenActual }),
       });
       const data = await res.json();
       if (res.ok && data.usuario && data.prediccionesGuardadas) {
@@ -1129,11 +1140,17 @@ function ExpressPageContent() {
         sessionStorage.setItem("polla_sesion", JSON.stringify({
           usuario: usrNorm,
           prediccionesGuardadas: data.prediccionesGuardadas,
+          sesionToken: tokenActual,
         }));
         aplicarPrediccionesGuardadas(data.prediccionesGuardadas);
         if (usrNorm.rol_id === 2) {
           cargarConsolidados(usrNorm.id);
         }
+      } else {
+        // El token dejó de ser válido (ej. la clave se reseteó en otro dispositivo): cerrar sesión local.
+        setUsuario(null);
+        setSesionToken(null);
+        sessionStorage.removeItem("polla_sesion");
       }
     } catch (e) {
       console.error("Error al sincronizar sesión backend:", e);
@@ -1153,14 +1170,16 @@ function ExpressPageContent() {
             nombre: usrRaw.nombre || usrRaw.nombre_completo || "",
           };
           setUsuario(usr);
+          const tokenGuardado = dataParsed?.sesionToken || null;
+          setSesionToken(tokenGuardado);
           if (usr.rol_id === 2 && usr.id) {
             cargarConsolidados(usr.id);
           }
           if (dataParsed.prediccionesGuardadas) {
             aplicarPrediccionesGuardadas(dataParsed.prediccionesGuardadas);
           }
-          if (usr.correo) {
-            sincronizarSesionBackend(usr.correo);
+          if (usr.correo && tokenGuardado) {
+            sincronizarSesionBackend(usr.correo, tokenGuardado);
           }
         } else {
           sessionStorage.removeItem("polla_sesion");
@@ -1223,9 +1242,11 @@ function ExpressPageContent() {
 
       // Usuario activo habilitado
       setUsuario(data.usuario);
+      setSesionToken(data.sesionToken || null);
       sessionStorage.setItem("polla_sesion", JSON.stringify({
         usuario: data.usuario,
-        prediccionesGuardadas: data.prediccionesGuardadas
+        prediccionesGuardadas: data.prediccionesGuardadas,
+        sesionToken: data.sesionToken || null,
       }));
       setMensajeEstado(null);
 
@@ -1864,6 +1885,7 @@ function ExpressPageContent() {
   // Cerrar Sesión
   const handleCerrarSesion = () => {
     setUsuario(null);
+    setSesionToken(null);
     sessionStorage.removeItem("polla_sesion");
     setCorreoInput("");
     setPasswordInput("");
@@ -1967,10 +1989,32 @@ function ExpressPageContent() {
       if (!res.ok || data.error) {
         setMensajeEstado({ tipo: "error", texto: data.error || "Error al guardar pronósticos." });
       } else {
-        setMensajeEstado({ tipo: "exito", texto: "¡Tus pronósticos se han guardado exitosamente!" });
-        arrayPartidos.forEach((p) => {
-          actualizarSesionLocalStorage(p.partido_id, p.goles_local, p.goles_visitante, p.jugador_goleador_id);
-        });
+        const partidosRechazados: number[] = Array.isArray(data.partidosRechazados) ? data.partidosRechazados : [];
+        const rechazadosSet = new Set(partidosRechazados);
+
+        // Solo se marca como guardado en sessionStorage lo que el servidor confirmó;
+        // lo rechazado por cierre de plazo no debe quedar registrado como enviado.
+        arrayPartidos
+          .filter((p) => !rechazadosSet.has(p.partido_id))
+          .forEach((p) => {
+            actualizarSesionLocalStorage(p.partido_id, p.goles_local, p.goles_visitante, p.jugador_goleador_id);
+          });
+
+        const huboRechazos = partidosRechazados.length > 0 || data.prediccionInicialRechazada;
+        if (huboRechazos) {
+          const nombresRechazados = partidosRechazados
+            .map((id) => {
+              const p = partidos.find((pp) => pp.id === id);
+              return p ? `${p.equipo_local.nombre} vs ${p.equipo_visitante.nombre}` : `#${id}`;
+            })
+            .join(", ");
+          setMensajeEstado({
+            tipo: "error",
+            texto: `⏱️ Algunos pronósticos ya no se pudieron guardar porque cerró su plazo${nombresRechazados ? ": " + nombresRechazados : ""}${data.prediccionInicialRechazada ? " (predicción inicial también cerrada)" : ""}. El resto sí se guardó.`,
+          });
+        } else {
+          setMensajeEstado({ tipo: "exito", texto: "¡Tus pronósticos se han guardado exitosamente!" });
+        }
         if (usuario) cargarConsolidados(usuario.id);
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
@@ -2716,12 +2760,12 @@ function ExpressPageContent() {
 
                                 {resultadosAdminInput[partido.id]?.goleadores_ids?.length > 0 && (
                                   <div style={{ display: "flex", flexWrap: "wrap", gap: 8, alignItems: "center", marginTop: 4 }}>
-                                    {resultadosAdminInput[partido.id].goleadores_ids.map((jId: any) => {
+                                    {resultadosAdminInput[partido.id].goleadores_ids.map((jId: any, idxGoleador: number) => {
                                       const todosJugadores = [...(partido.equipo_local.jugadores || []), ...(partido.equipo_visitante.jugadores || []), ...jugadores];
                                       const jObj = todosJugadores.find((j) => j.id === jId);
                                       return (
                                         <span
-                                          key={jId}
+                                          key={`${jId}-${idxGoleador}`}
                                           style={{
                                             background: "rgba(245, 176, 0, 0.15)",
                                             color: "#f5b000",
@@ -2738,7 +2782,7 @@ function ExpressPageContent() {
                                           ⚽ {jObj?.nombre || `ID: ${jId}`}
                                           <button
                                             type="button"
-                                            onClick={() => handleRemoverGoleadorAdmin(partido.id, jId)}
+                                            onClick={() => handleRemoverGoleadorAdmin(partido.id, idxGoleador)}
                                             style={{ background: "rgba(0,0,0,0.2)", border: "none", color: "#ef4444", borderRadius: "50%", width: 20, height: 20, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", fontWeight: 900, fontSize: "0.8rem", marginLeft: 4 }}
                                           >
                                             ✕
