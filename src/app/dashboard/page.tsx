@@ -2103,9 +2103,9 @@ function ExpressPageContent() {
                       background: "rgba(245, 176, 0, 0.2)",
                       color: "#f5b000",
                       fontWeight: 900,
-                      fontSize: "0.75rem",
+                      fontSize: "0.65rem",
                       letterSpacing: "1px",
-                      marginBottom: 12,
+                      marginBottom: 10,
                       textTransform: "uppercase",
                       border: "1px solid rgba(245, 176, 0, 0.3)",
                       boxShadow: "0 0 10px rgba(245, 176, 0, 0.2)",
@@ -2113,10 +2113,10 @@ function ExpressPageContent() {
                   >
                     👑 Panel de Control Premium
                   </span>
-                  <h2 style={{ margin: 0, color: "#ffffff", fontSize: "2rem", fontWeight: 900, letterSpacing: "-0.5px" }}>
+                  <h2 style={{ margin: 0, color: "#ffffff", fontSize: "clamp(1.25rem, 3vw, 1.5rem)", fontWeight: 900, letterSpacing: "-0.5px" }}>
                     Administración Polla BetPlay
                   </h2>
-                  <p style={{ color: "#94a3b8", fontSize: "0.95rem", margin: "6px 0 0 0" }}>
+                  <p style={{ color: "#94a3b8", fontSize: "0.82rem", margin: "6px 0 0 0" }}>
                     Hola, <strong style={{ color: "#fff" }}>{usuario.nombre}</strong>. Tienes el control total.
                   </p>
                 </div>
@@ -2126,72 +2126,76 @@ function ExpressPageContent() {
                     onClick={() => handleDescargarExcelPronosticos()}
                     disabled={!consolidados}
                     style={{
-                      padding: "12px 20px",
+                      padding: "10px 16px",
                       background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
                       color: "#ffffff",
                       border: "none",
                       borderRadius: "12px",
                       fontWeight: 800,
+                      fontSize: "0.82rem",
                       cursor: "pointer",
                       display: "flex",
                       alignItems: "center",
-                      gap: 8,
+                      gap: 7,
                       boxShadow: "0 10px 25px -5px rgba(16, 185, 129, 0.45)",
                       transition: "transform 0.2s, boxShadow 0.2s"
                     }}
                     onMouseOver={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
                     onMouseOut={(e) => (e.currentTarget.style.transform = "none")}
                   >
-                    <Download size={18} /> Exportar Global (Excel)
+                    <Download size={15} /> Exportar Global (Excel)
                   </button>
 
                   <button
                     onClick={() => cargarConsolidados(usuario.id)}
                     disabled={cargandoConsolidados}
                     style={{
-                      padding: "12px 20px",
+                      padding: "10px 16px",
                       background: "rgba(255, 255, 255, 0.05)",
                       color: "#ffffff",
                       border: "1px solid rgba(255, 255, 255, 0.1)",
                       borderRadius: "12px",
                       fontWeight: 800,
+                      fontSize: "0.82rem",
                       cursor: "pointer",
                       display: "flex",
                       alignItems: "center",
-                      gap: 8,
+                      gap: 7,
                       transition: "all 0.2s"
                     }}
                     onMouseOver={(e) => (e.currentTarget.style.background = "rgba(255, 255, 255, 0.1)")}
                     onMouseOut={(e) => (e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)")}
                   >
-                    <RefreshCw size={18} className={cargandoConsolidados ? "spin" : ""} /> Sincronizar
+                    <RefreshCw size={15} className={cargandoConsolidados ? "spin" : ""} /> Sincronizar
                   </button>
 
                   <button
                     onClick={handleCerrarSesion}
                     style={{
-                      padding: "12px 20px",
+                      padding: "10px 16px",
                       background: "rgba(255, 92, 92, 0.12)",
                       color: "#ff5c5c",
                       border: "1px solid rgba(255, 92, 92, 0.35)",
                       borderRadius: "12px",
                       fontWeight: 800,
+                      fontSize: "0.82rem",
                       cursor: "pointer",
                       display: "flex",
                       alignItems: "center",
-                      gap: 8,
+                      gap: 7,
                       transition: "all 0.2s"
                     }}
                   >
-                    <LogOut size={18} /> Salir
+                    <LogOut size={15} /> Salir
                   </button>
                 </div>
               </div>
 
               {/* LAYOUT: SIDEBAR + CONTENIDO */}
-              <div style={{ display: "flex", gap: 28, alignItems: "flex-start" }}>
+              <div className="admin-layout-row" style={{ display: "flex", gap: 28, alignItems: "flex-start" }}>
                 {/* SIDEBAR DE NAVEGACIÓN */}
                 <div
+                  className="admin-sidebar"
                   style={{
                     width: 264,
                     flexShrink: 0,
@@ -2207,65 +2211,68 @@ function ExpressPageContent() {
                     boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.65), 0 8px 16px rgba(0,0,0,0.3)",
                   }}
                 >
-                  <div style={{ padding: "6px 10px 14px", color: "#64748b", fontSize: "0.72rem", fontWeight: 900, textTransform: "uppercase", letterSpacing: "1px", borderBottom: "1px dashed rgba(255,255,255,0.08)", marginBottom: 6 }}>
+                  <div className="admin-sidebar-title" style={{ padding: "6px 10px 14px", color: "#64748b", fontSize: "0.68rem", fontWeight: 900, textTransform: "uppercase", letterSpacing: "1px", borderBottom: "1px dashed rgba(255,255,255,0.08)", marginBottom: 6 }}>
                     Navegación
                   </div>
-                  {([
-                    { key: "fechas", label: "Fechas", icon: Calendar, color: "#38bdf8" },
-                    { key: "predicciones", label: "Predicciones", icon: Eye, color: "#a78bfa" },
-                    { key: "liquidacion", label: "Liquidación de Puntos", icon: ClipboardCheck, color: "#f59e0b" },
-                    { key: "posiciones", label: "Tabla de Posiciones", icon: BarChart3, color: "#34d399" },
-                  ] as const).map((item) => {
-                    const activo = seccionAdminPanel === item.key;
-                    const Icono = item.icon;
-                    return (
-                      <button
-                        key={item.key}
-                        type="button"
-                        onClick={() => setSeccionAdminPanel(item.key)}
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: 12,
-                          padding: "14px 16px",
-                          borderRadius: "16px",
-                          border: activo ? `1px solid ${item.color}66` : "1px solid transparent",
-                          background: activo ? `linear-gradient(135deg, ${item.color}33 0%, ${item.color}14 100%)` : "transparent",
-                          color: activo ? "#ffffff" : "#94a3b8",
-                          fontWeight: activo ? 800 : 600,
-                          fontSize: "0.95rem",
-                          cursor: "pointer",
-                          textAlign: "left",
-                          boxShadow: activo ? `0 10px 25px -8px ${item.color}80` : "none",
-                          transition: "all 0.2s ease",
-                        }}
-                        onMouseOver={(e) => { if (!activo) e.currentTarget.style.background = "rgba(255,255,255,0.05)"; }}
-                        onMouseOut={(e) => { if (!activo) e.currentTarget.style.background = "transparent"; }}
-                      >
-                        <span
+                  <div className="admin-sidebar-nav no-scrollbar">
+                    {([
+                      { key: "fechas", label: "Fechas", icon: Calendar, color: "#38bdf8" },
+                      { key: "predicciones", label: "Predicciones", icon: Eye, color: "#a78bfa" },
+                      { key: "liquidacion", label: "Liquidación de Puntos", icon: ClipboardCheck, color: "#f59e0b" },
+                      { key: "posiciones", label: "Tabla de Posiciones", icon: BarChart3, color: "#34d399" },
+                    ] as const).map((item) => {
+                      const activo = seccionAdminPanel === item.key;
+                      const Icono = item.icon;
+                      return (
+                        <button
+                          key={item.key}
+                          type="button"
+                          onClick={() => setSeccionAdminPanel(item.key)}
                           style={{
-                            width: 38,
-                            height: 38,
-                            borderRadius: "12px",
-                            background: activo ? `${item.color}26` : "rgba(255,255,255,0.05)",
-                            color: activo ? item.color : "#64748b",
                             display: "flex",
                             alignItems: "center",
-                            justifyContent: "center",
-                            flexShrink: 0,
+                            gap: 10,
+                            padding: "12px 14px",
+                            borderRadius: "16px",
+                            border: activo ? `1px solid ${item.color}66` : "1px solid transparent",
+                            background: activo ? `linear-gradient(135deg, ${item.color}33 0%, ${item.color}14 100%)` : "transparent",
+                            color: activo ? "#ffffff" : "#94a3b8",
+                            fontWeight: activo ? 800 : 600,
+                            fontSize: "0.85rem",
+                            cursor: "pointer",
+                            textAlign: "left",
+                            whiteSpace: "nowrap",
+                            boxShadow: activo ? `0 10px 25px -8px ${item.color}80` : "none",
+                            transition: "all 0.2s ease",
                           }}
+                          onMouseOver={(e) => { if (!activo) e.currentTarget.style.background = "rgba(255,255,255,0.05)"; }}
+                          onMouseOut={(e) => { if (!activo) e.currentTarget.style.background = "transparent"; }}
                         >
-                          <Icono size={18} />
-                        </span>
-                        {item.label}
-                      </button>
-                    );
-                  })}
+                          <span
+                            style={{
+                              width: 32,
+                              height: 32,
+                              borderRadius: "10px",
+                              background: activo ? `${item.color}26` : "rgba(255,255,255,0.05)",
+                              color: activo ? item.color : "#64748b",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              flexShrink: 0,
+                            }}
+                          >
+                            <Icono size={16} />
+                          </span>
+                          {item.label}
+                        </button>
+                      );
+                    })}
+                  </div>
 
                   {fechaAdmin !== 0 && (
-                    <div style={{ marginTop: 10, padding: "12px 14px", borderRadius: 14, background: "rgba(0,0,0,0.25)", border: "1px dashed rgba(255,255,255,0.1)" }}>
-                      <div style={{ fontSize: "0.7rem", color: "#64748b", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.5px" }}>Fecha activa</div>
-                      <div style={{ fontSize: "1.1rem", color: "#38bdf8", fontWeight: 900 }}>Fecha {fechaAdmin}</div>
+                    <div className="admin-sidebar-fecha" style={{ marginTop: 10, padding: "12px 14px", borderRadius: 14, background: "rgba(0,0,0,0.25)", border: "1px dashed rgba(255,255,255,0.1)" }}>
+                      <div style={{ fontSize: "0.65rem", color: "#64748b", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.5px" }}>Fecha activa</div>
+                      <div style={{ fontSize: "1rem", color: "#38bdf8", fontWeight: 900 }}>Fecha {fechaAdmin}</div>
                     </div>
                   )}
                 </div>
@@ -2297,7 +2304,7 @@ function ExpressPageContent() {
 
                     // Selector compacto de fecha, reutilizado en Predicciones y Liquidación
                     const SelectorFechaCompacto = (
-                      <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap", background: "rgba(0,0,0,0.25)", padding: "8px", borderRadius: "18px", marginBottom: 24, boxShadow: "inset 0 2px 6px rgba(0,0,0,0.3)" }}>
+                      <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap", background: "rgba(0,0,0,0.25)", padding: "8px", borderRadius: "18px", marginBottom: 20, boxShadow: "inset 0 2px 6px rgba(0,0,0,0.3)" }}>
                         {listaFechas.map((f) => (
                           <button
                             key={f}
@@ -2307,10 +2314,10 @@ function ExpressPageContent() {
                               if (usuario) cargarConsolidados(usuario.id);
                             }}
                             style={{
-                              padding: "9px 20px",
-                              borderRadius: "12px",
+                              padding: "7px 14px",
+                              borderRadius: "10px",
                               fontWeight: 800,
-                              fontSize: "0.9rem",
+                              fontSize: "0.78rem",
                               background: fechaAdmin === f ? "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)" : "transparent",
                               color: fechaAdmin === f ? "#ffffff" : "#cbd5e1",
                               border: "none",
@@ -2342,11 +2349,11 @@ function ExpressPageContent() {
                             <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
                               <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                                 <img src={partido.equipo_local.logo_url} alt={partido.equipo_local.nombre} style={{ width: 36, height: 36, objectFit: "contain" }} />
-                                <span style={{ fontSize: "1.2rem", fontWeight: 900, color: "#fff" }}>VS</span>
+                                <span style={{ fontSize: "1rem", fontWeight: 900, color: "#fff" }}>VS</span>
                                 <img src={partido.equipo_visitante.logo_url} alt={partido.equipo_visitante.nombre} style={{ width: 36, height: 36, objectFit: "contain" }} />
                               </div>
                               <div>
-                                <h3 style={{ margin: 0, color: "#ffffff", fontSize: "1.2rem" }}>
+                                <h3 style={{ margin: 0, color: "#ffffff", fontSize: "1.02rem" }}>
                                   {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}
                                 </h3>
                                 <span style={{ fontSize: "0.9rem", color: "#a78bfa", fontWeight: 700 }}>
@@ -2460,10 +2467,10 @@ function ExpressPageContent() {
                           <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 20 }}>
                             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                               <img src={partido.equipo_local.logo_url} alt={partido.equipo_local.nombre} style={{ width: 36, height: 36, objectFit: "contain" }} />
-                              <span style={{ fontSize: "1.2rem", fontWeight: 900, color: "#fff" }}>VS</span>
+                              <span style={{ fontSize: "1rem", fontWeight: 900, color: "#fff" }}>VS</span>
                               <img src={partido.equipo_visitante.logo_url} alt={partido.equipo_visitante.nombre} style={{ width: 36, height: 36, objectFit: "contain" }} />
                             </div>
-                            <h3 style={{ margin: 0, color: "#ffffff", fontSize: "1.2rem" }}>
+                            <h3 style={{ margin: 0, color: "#ffffff", fontSize: "1.02rem" }}>
                               {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}
                             </h3>
                           </div>
@@ -2628,10 +2635,10 @@ function ExpressPageContent() {
                                 <div
                                   key={idx}
                                   style={{
-                                    padding: "24px",
+                                    padding: "18px 20px",
                                     display: "flex",
                                     alignItems: "center",
-                                    gap: 20,
+                                    gap: 16,
                                     background: "rgba(15, 23, 42, 0.6)",
                                     backdropFilter: "blur(10px)",
                                     border: `1px solid ${kpi.color}33`,
@@ -2644,9 +2651,9 @@ function ExpressPageContent() {
                                   <div style={{ position: "absolute", top: -20, right: -20, width: 100, height: 100, background: `${kpi.color}22`, filter: "blur(30px)", borderRadius: "50%" }}></div>
                                   <div
                                     style={{
-                                      width: 64,
-                                      height: 64,
-                                      borderRadius: "16px",
+                                      width: 52,
+                                      height: 52,
+                                      borderRadius: "14px",
                                       background: `linear-gradient(135deg, ${kpi.color}33 0%, ${kpi.color}66 100%)`,
                                       color: kpi.color,
                                       display: "flex",
@@ -2656,16 +2663,16 @@ function ExpressPageContent() {
                                       border: `1px solid ${kpi.color}4d`,
                                     }}
                                   >
-                                    <KpiIcono size={32} />
+                                    <KpiIcono size={26} />
                                   </div>
                                   <div style={{ zIndex: 1, minWidth: 0 }}>
-                                    <div style={{ fontSize: "0.85rem", color: "#94a3b8", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.5px" }}>
+                                    <div style={{ fontSize: "0.72rem", color: "#94a3b8", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.5px" }}>
                                       {kpi.label}
                                     </div>
-                                    <strong style={{ fontSize: typeof kpi.value === "string" && kpi.value.length > 14 ? "1.2rem" : "2.2rem", color: "#ffffff", fontWeight: 900, lineHeight: 1.15, display: "block", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                                    <strong style={{ fontSize: typeof kpi.value === "string" && kpi.value.length > 14 ? "1.05rem" : "1.6rem", color: "#ffffff", fontWeight: 900, lineHeight: 1.15, display: "block", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                                       {kpi.value}
                                     </strong>
-                                    {kpi.sub && <span style={{ fontSize: "0.9rem", color: kpi.color, fontWeight: 800 }}>{kpi.sub}</span>}
+                                    {kpi.sub && <span style={{ fontSize: "0.8rem", color: kpi.color, fontWeight: 800 }}>{kpi.sub}</span>}
                                   </div>
                                 </div>
                               );
@@ -2679,16 +2686,16 @@ function ExpressPageContent() {
                               backdropFilter: "blur(16px)",
                               border: "1px solid rgba(255, 255, 255, 0.05)",
                               borderRadius: "24px",
-                              padding: "32px",
+                              padding: "24px",
                               boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.55)",
                             }}
                           >
                             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 20 }}>
                               <div>
-                                <h2 style={{ margin: 0, fontSize: "1.8rem", color: "#ffffff", fontWeight: 900 }}>
+                                <h2 style={{ margin: 0, fontSize: "1.35rem", color: "#ffffff", fontWeight: 900 }}>
                                   Control de Jornadas
                                 </h2>
-                                <p style={{ color: "#94a3b8", margin: "8px 0 0 0", fontSize: "1rem" }}>
+                                <p style={{ color: "#94a3b8", margin: "6px 0 0 0", fontSize: "0.85rem" }}>
                                   Selecciona una fecha; luego usa Predicciones o Liquidación de Puntos en el menú.
                                 </p>
                               </div>
@@ -2703,10 +2710,10 @@ function ExpressPageContent() {
                                       if (usuario) cargarConsolidados(usuario.id);
                                     }}
                                     style={{
-                                      padding: "10px 24px",
-                                      borderRadius: "14px",
+                                      padding: "8px 18px",
+                                      borderRadius: "12px",
                                       fontWeight: 800,
-                                      fontSize: "0.95rem",
+                                      fontSize: "0.8rem",
                                       background: fechaAdmin === f ? "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)" : "transparent",
                                       color: fechaAdmin === f ? "#ffffff" : "#cbd5e1",
                                       border: "none",
@@ -2724,23 +2731,23 @@ function ExpressPageContent() {
                                   onClick={() => handleDescargarExcelPronosticos(undefined, fechaAdmin)}
                                   disabled={fechaAdmin === 0}
                                   style={{
-                                    padding: "10px 24px",
-                                    fontSize: "0.95rem",
+                                    padding: "8px 18px",
+                                    fontSize: "0.8rem",
                                     background: fechaAdmin === 0 ? "rgba(255,255,255,0.05)" : "linear-gradient(135deg, #10b981 0%, #059669 100%)",
                                     color: fechaAdmin === 0 ? "#64748b" : "#fff",
                                     border: "none",
-                                    borderRadius: "14px",
+                                    borderRadius: "12px",
                                     fontWeight: 900,
                                     boxShadow: fechaAdmin === 0 ? "none" : "0 8px 20px -6px rgba(16, 185, 129, 0.6)",
                                     cursor: fechaAdmin === 0 ? "not-allowed" : "pointer",
                                     display: "flex",
                                     alignItems: "center",
-                                    gap: 8,
+                                    gap: 7,
                                     marginLeft: 8,
                                     transition: "all 0.3s"
                                   }}
                                 >
-                                  <Download size={18} /> Excel F{fechaAdmin || "-"}
+                                  <Download size={15} /> Excel F{fechaAdmin || "-"}
                                 </button>
                               </div>
                             </div>
@@ -2749,15 +2756,15 @@ function ExpressPageContent() {
                           {/* RESUMEN DE PARTIDOS DE LA FECHA (SOLO LECTURA) */}
                           {fechaAdmin === 0 ? (
                             <div style={{ padding: 40, textAlign: "center", background: "rgba(15, 23, 42, 0.6)", backdropFilter: "blur(12px)", border: "2px dashed rgba(56, 189, 248, 0.4)", borderRadius: 24 }}>
-                              <div style={{ fontSize: "1.5rem", fontWeight: 900, color: "#38bdf8", marginBottom: 12 }}>
+                              <div style={{ fontSize: "1.2rem", fontWeight: 900, color: "#38bdf8", marginBottom: 10 }}>
                                 👆 Selecciona una Fecha
                               </div>
-                              <div style={{ color: "#cbd5e1", fontSize: "1rem" }}>
+                              <div style={{ color: "#cbd5e1", fontSize: "0.85rem" }}>
                                 Verás el resumen de partidos; usa Predicciones o Liquidación de Puntos para gestionarlos.
                               </div>
                             </div>
                           ) : partidosAdminFiltrados.length === 0 ? (
-                            <div style={{ padding: 40, textAlign: "center", background: "rgba(15, 23, 42, 0.6)", borderRadius: 24, border: "1px solid rgba(255,255,255,0.05)", color: "#94a3b8", fontSize: "1.1rem" }}>
+                            <div style={{ padding: 40, textAlign: "center", background: "rgba(15, 23, 42, 0.6)", borderRadius: 24, border: "1px solid rgba(255,255,255,0.05)", color: "#94a3b8", fontSize: "0.95rem" }}>
                               No hay partidos programados para la Fecha {fechaAdmin}.
                             </div>
                           ) : (
@@ -2814,8 +2821,8 @@ function ExpressPageContent() {
                     if (seccionAdminPanel === "predicciones") {
                       return (
                         <div>
-                          <h2 style={{ margin: "0 0 4px", color: "#fff", fontSize: "1.6rem", fontWeight: 900 }}>👁️ Predicciones de los Participantes</h2>
-                          <p style={{ color: "#94a3b8", margin: "0 0 20px", fontSize: "0.95rem" }}>Revisa lo que pronosticó cada usuario, partido por partido.</p>
+                          <h2 style={{ margin: "0 0 4px", color: "#fff", fontSize: "1.3rem", fontWeight: 900 }}>👁️ Predicciones de los Participantes</h2>
+                          <p style={{ color: "#94a3b8", margin: "0 0 16px", fontSize: "0.82rem" }}>Revisa lo que pronosticó cada usuario, partido por partido.</p>
                           {SelectorFechaCompacto}
                           {fechaAdmin === 0 ? (
                             <div style={{ padding: 40, textAlign: "center", background: "rgba(15, 23, 42, 0.6)", border: "2px dashed rgba(167, 139, 250, 0.4)", borderRadius: 24 }}>
@@ -2846,8 +2853,8 @@ function ExpressPageContent() {
                     if (seccionAdminPanel === "liquidacion") {
                       return (
                         <div>
-                          <h2 style={{ margin: "0 0 4px", color: "#fff", fontSize: "1.6rem", fontWeight: 900 }}>🏆 Liquidación de Puntos</h2>
-                          <p style={{ color: "#94a3b8", margin: "0 0 20px", fontSize: "0.95rem" }}>Carga el marcador oficial y liquida los puntos de cada partido.</p>
+                          <h2 style={{ margin: "0 0 4px", color: "#fff", fontSize: "1.3rem", fontWeight: 900 }}>🏆 Liquidación de Puntos</h2>
+                          <p style={{ color: "#94a3b8", margin: "0 0 16px", fontSize: "0.82rem" }}>Carga el marcador oficial y liquida los puntos de cada partido.</p>
                           {SelectorFechaCompacto}
                           {fechaAdmin === 0 ? (
                             <div style={{ padding: 40, textAlign: "center", background: "rgba(15, 23, 42, 0.6)", border: "2px dashed rgba(245, 158, 11, 0.4)", borderRadius: 24 }}>
@@ -2877,8 +2884,8 @@ function ExpressPageContent() {
                     // ================= SECCIÓN: TABLA DE POSICIONES =================
                     return (
                       <div>
-                        <h2 style={{ margin: "0 0 4px", color: "#fff", fontSize: "1.6rem", fontWeight: 900 }}>📊 Tabla de Posiciones</h2>
-                        <p style={{ color: "#94a3b8", margin: "0 0 20px", fontSize: "0.95rem" }}>Puntos verificados de todos los participantes.</p>
+                        <h2 style={{ margin: "0 0 4px", color: "#fff", fontSize: "1.3rem", fontWeight: 900 }}>📊 Tabla de Posiciones</h2>
+                        <p style={{ color: "#94a3b8", margin: "0 0 16px", fontSize: "0.82rem" }}>Puntos verificados de todos los participantes.</p>
                         {cargandoConsolidados ? (
                           <div style={{ textAlign: "center", padding: 50, background: "rgba(15, 23, 42, 0.6)", borderRadius: 24 }}>
                             <RefreshCw className="spin" size={36} style={{ color: "#38bdf8", marginBottom: 16 }} />

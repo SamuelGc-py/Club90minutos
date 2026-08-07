@@ -176,6 +176,39 @@ body.admin-fullscreen main {
   padding: var(--esp-6) clamp(16px, 3vw, 40px) var(--esp-12);
 }
 
+/* Panel admin responsive: el sidebar pasa a ser una barra horizontal de pestañas */
+.admin-sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+@media (max-width: 880px) {
+  .admin-layout-row {
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+  .admin-sidebar {
+    width: 100% !important;
+    position: static !important;
+    padding: 12px !important;
+  }
+  .admin-sidebar-title {
+    display: none;
+  }
+  .admin-sidebar-nav {
+    flex-direction: row !important;
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+  .admin-sidebar-nav button {
+    flex-shrink: 0;
+  }
+  .admin-sidebar-fecha {
+    margin-top: 0 !important;
+  }
+}
+
 /* Navbar */
 .navbar {
   display: flex;
