@@ -2348,9 +2348,9 @@ function ExpressPageContent() {
                           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16 }}>
                             <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
                               <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                                <img src={partido.equipo_local.logo_url} alt={partido.equipo_local.nombre} style={{ width: 36, height: 36, objectFit: "contain" }} />
+                                <img src={partido.equipo_local.escudo_url} alt={partido.equipo_local.nombre} style={{ width: 36, height: 36, objectFit: "contain" }} />
                                 <span style={{ fontSize: "1rem", fontWeight: 900, color: "#fff" }}>VS</span>
-                                <img src={partido.equipo_visitante.logo_url} alt={partido.equipo_visitante.nombre} style={{ width: 36, height: 36, objectFit: "contain" }} />
+                                <img src={partido.equipo_visitante.escudo_url} alt={partido.equipo_visitante.nombre} style={{ width: 36, height: 36, objectFit: "contain" }} />
                               </div>
                               <div>
                                 <h3 style={{ margin: 0, color: "#ffffff", fontSize: "1.02rem" }}>
@@ -2466,9 +2466,9 @@ function ExpressPageContent() {
                         }}>
                           <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 20 }}>
                             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                              <img src={partido.equipo_local.logo_url} alt={partido.equipo_local.nombre} style={{ width: 36, height: 36, objectFit: "contain" }} />
+                              <img src={partido.equipo_local.escudo_url} alt={partido.equipo_local.nombre} style={{ width: 36, height: 36, objectFit: "contain" }} />
                               <span style={{ fontSize: "1rem", fontWeight: 900, color: "#fff" }}>VS</span>
-                              <img src={partido.equipo_visitante.logo_url} alt={partido.equipo_visitante.nombre} style={{ width: 36, height: 36, objectFit: "contain" }} />
+                              <img src={partido.equipo_visitante.escudo_url} alt={partido.equipo_visitante.nombre} style={{ width: 36, height: 36, objectFit: "contain" }} />
                             </div>
                             <h3 style={{ margin: 0, color: "#ffffff", fontSize: "1.02rem" }}>
                               {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}
