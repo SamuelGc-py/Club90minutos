@@ -220,6 +220,41 @@ body.inicio-fullscreen main {
   }
 }
 
+/* Menú rápido de Inicio en celular: nada de scroll horizontal ni tarjetas grandes.
+   Cuadrícula compacta 2x2, solo ícono + nombre, sin descripción, para que quepa
+   de un vistazo y no haya que bajar para encontrar el menú. */
+@media (max-width: 640px) {
+  .inicio-sidebar-nav {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px !important;
+    overflow-x: visible !important;
+  }
+
+  .inicio-sidebar-nav button {
+    flex-direction: column !important;
+    justify-content: center;
+    text-align: center !important;
+    gap: 6px !important;
+    padding: 10px 6px !important;
+  }
+
+  .inicio-sidebar-nav .inicio-card-icon {
+    width: 30px !important;
+    height: 30px !important;
+    font-size: 1rem !important;
+  }
+
+  .inicio-sidebar-nav .inicio-card-desc {
+    display: none;
+  }
+
+  .inicio-sidebar-nav .inicio-card-label {
+    font-size: 0.74rem !important;
+    white-space: normal !important;
+  }
+}
+
 /* Navbar */
 .navbar {
   display: flex;

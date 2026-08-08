@@ -3735,6 +3735,7 @@ function ExpressPageContent() {
                       }}
                     >
                       <span
+                        className="inicio-card-icon"
                         style={{
                           width: 40,
                           height: 40,
@@ -3750,10 +3751,10 @@ function ExpressPageContent() {
                         {item.emoji}
                       </span>
                       <span style={{ minWidth: 0 }}>
-                        <div style={{ fontWeight: 800, fontSize: "0.92rem", color: "#fff", lineHeight: 1.3 }}>
+                        <div className="inicio-card-label" style={{ fontWeight: 800, fontSize: "0.92rem", color: "#fff", lineHeight: 1.3 }}>
                           {item.label}
                         </div>
-                        <div style={{ fontSize: "0.74rem", color: "var(--graderia)", lineHeight: 1.3, marginTop: 2 }}>
+                        <div className="inicio-card-desc" style={{ fontSize: "0.74rem", color: "var(--graderia)", lineHeight: 1.3, marginTop: 2 }}>
                           {item.desc}
                         </div>
                       </span>
