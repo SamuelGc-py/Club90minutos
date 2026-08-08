@@ -169,7 +169,8 @@ main {
 }
 
 /* Panel admin: ocupa todo el ancho disponible, sin el límite de 1000px */
-body.admin-fullscreen main {
+body.admin-fullscreen main,
+body.inicio-fullscreen main {
   width: 100%;
   max-width: 100%;
   margin: 0;
