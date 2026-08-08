@@ -3645,7 +3645,6 @@ function ExpressPageContent() {
 
           {/* TAB 0: PANTALLA DE INICIO Y BIENVENIDA (con sidebar de navegación) */}
           {tabActiva === "inicio" && (
-            <>
             <div className="inicio-layout-row" style={{ display: "flex", gap: 20, alignItems: "stretch" }}>
               {/* SIDEBAR DE MENÚ RÁPIDO (a la izquierda) */}
               <div
@@ -3789,78 +3788,68 @@ function ExpressPageContent() {
                 <p style={{ maxWidth: 560, margin: "0 auto", color: "var(--graderia)", fontSize: "1rem", lineHeight: 1.6 }}>
                   ¡Hola, <strong style={{ color: "#fff" }}>{usuario.nombre}</strong>! Elige una opción del menú para ingresar tus pronósticos o revisar la tabla de posiciones en vivo.
                 </p>
+
+                {/* TU RENDIMIENTO: integrado en la misma tarjeta, no como caja aparte */}
+                {(() => {
+                  const miFila = TABLA_POSICIONES_FIJA.find((f) => f.usuario_id === usuario.id);
+                  if (!miFila) return null;
+                  const desglose = [
+                    { label: "Resultado Exacto", val: miFila.pts_resultado_exacto, emoji: "🎯" },
+                    { label: "Ganador Partido", val: miFila.pts_ganador_partido, emoji: "⚽" },
+                    { label: "Goleador Partido", val: miFila.pts_goleador_partido, emoji: "🥅" },
+                    { label: "Campeón", val: miFila.pts_campeon, emoji: "🏆" },
+                    { label: "Finalistas", val: miFila.pts_finalistas, emoji: "🥈" },
+                    { label: "Clasificados", val: miFila.pts_clasificados, emoji: "✅" },
+                    { label: "Goleador Torneo", val: miFila.pts_goleador_torneo, emoji: "👑" },
+                  ];
+                  return (
+                    <div style={{ width: "100%", marginTop: 32, paddingTop: 28, borderTop: "1px dashed rgba(255,255,255,0.1)" }}>
+                      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 18 }}>
+                        <h2 style={{ margin: 0, fontSize: "1rem", fontWeight: 900, color: "#fff", display: "flex", alignItems: "center", gap: 8 }}>
+                          📈 Tu Rendimiento
+                        </h2>
+                        <span style={{ fontSize: "0.74rem", color: "var(--graderia)" }}>· según la tabla oficial verificada</span>
+                      </div>
+
+                      <div style={{ display: "flex", justifyContent: "center", gap: 32, marginBottom: 20, flexWrap: "wrap" }}>
+                        <div style={{ textAlign: "center" }}>
+                          <div style={{ fontSize: "2rem", fontWeight: 900, color: "#38bdf8" }}>#{miFila.posicion}</div>
+                          <div style={{ fontSize: "0.7rem", color: "var(--graderia)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em" }}>Posición</div>
+                        </div>
+                        <div style={{ width: 1, background: "rgba(255,255,255,0.1)" }} />
+                        <div style={{ textAlign: "center" }}>
+                          <div style={{ fontSize: "2rem", fontWeight: 900, color: "#34d399" }}>{miFila.pts_total}</div>
+                          <div style={{ fontSize: "0.7rem", color: "var(--graderia)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em" }}>Puntos Totales</div>
+                        </div>
+                      </div>
+
+                      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 10, textAlign: "left" }}>
+                        {desglose.map((s) => (
+                          <div
+                            key={s.label}
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "space-between",
+                              gap: 8,
+                              background: "rgba(255,255,255,0.03)",
+                              border: "1px solid rgba(255,255,255,0.06)",
+                              borderRadius: 10,
+                              padding: "10px 12px",
+                            }}
+                          >
+                            <span style={{ fontSize: "0.8rem", color: "var(--graderia)", display: "flex", alignItems: "center", gap: 6 }}>
+                              <span>{s.emoji}</span> {s.label}
+                            </span>
+                            <span style={{ fontWeight: 900, color: "#fff", fontSize: "0.95rem" }}>{s.val}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })()}
               </div>
             </div>
-
-            {/* TU RENDIMIENTO: MINI DASHBOARD DE ESTADÍSTICAS PERSONALES */}
-            {(() => {
-              const miFila = TABLA_POSICIONES_FIJA.find((f) => f.usuario_id === usuario.id);
-              if (!miFila) return null;
-              const desglose = [
-                { label: "Resultado Exacto", val: miFila.pts_resultado_exacto, emoji: "🎯" },
-                { label: "Ganador Partido", val: miFila.pts_ganador_partido, emoji: "⚽" },
-                { label: "Goleador Partido", val: miFila.pts_goleador_partido, emoji: "🥅" },
-                { label: "Campeón", val: miFila.pts_campeon, emoji: "🏆" },
-                { label: "Finalistas", val: miFila.pts_finalistas, emoji: "🥈" },
-                { label: "Clasificados", val: miFila.pts_clasificados, emoji: "✅" },
-                { label: "Goleador Torneo", val: miFila.pts_goleador_torneo, emoji: "👑" },
-              ];
-              return (
-                <div
-                  className="card"
-                  style={{
-                    marginTop: 20,
-                    background: "linear-gradient(135deg, rgba(14, 26, 39, 0.95) 0%, rgba(19, 32, 48, 0.95) 100%)",
-                    border: "1px solid var(--cancha-borde)",
-                    borderRadius: 16,
-                    padding: "28px 24px",
-                    boxShadow: "0 12px 36px rgba(0,0,0,0.5)",
-                  }}
-                >
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 12, marginBottom: 20 }}>
-                    <h2 style={{ margin: 0, fontSize: "1.1rem", fontWeight: 900, color: "#fff", display: "flex", alignItems: "center", gap: 8 }}>
-                      📈 Tu Rendimiento
-                    </h2>
-                    <span style={{ fontSize: "0.78rem", color: "var(--graderia)" }}>Según la tabla oficial verificada</span>
-                  </div>
-
-                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: 14, marginBottom: 20 }}>
-                    <div style={{ background: "rgba(56, 189, 248, 0.12)", border: "1px solid rgba(56, 189, 248, 0.3)", borderRadius: 14, padding: 16, textAlign: "center" }}>
-                      <div style={{ fontSize: "1.8rem", fontWeight: 900, color: "#38bdf8" }}>#{miFila.posicion}</div>
-                      <div style={{ fontSize: "0.72rem", color: "var(--graderia)", fontWeight: 700, textTransform: "uppercase" }}>Posición</div>
-                    </div>
-                    <div style={{ background: "rgba(52, 211, 153, 0.12)", border: "1px solid rgba(52, 211, 153, 0.3)", borderRadius: 14, padding: 16, textAlign: "center" }}>
-                      <div style={{ fontSize: "1.8rem", fontWeight: 900, color: "#34d399" }}>{miFila.pts_total}</div>
-                      <div style={{ fontSize: "0.72rem", color: "var(--graderia)", fontWeight: 700, textTransform: "uppercase" }}>Puntos Totales</div>
-                    </div>
-                  </div>
-
-                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 10 }}>
-                    {desglose.map((s) => (
-                      <div
-                        key={s.label}
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "space-between",
-                          gap: 8,
-                          background: "rgba(255,255,255,0.03)",
-                          border: "1px solid rgba(255,255,255,0.06)",
-                          borderRadius: 10,
-                          padding: "10px 12px",
-                        }}
-                      >
-                        <span style={{ fontSize: "0.8rem", color: "var(--graderia)", display: "flex", alignItems: "center", gap: 6 }}>
-                          <span>{s.emoji}</span> {s.label}
-                        </span>
-                        <span style={{ fontWeight: 900, color: "#fff", fontSize: "0.95rem" }}>{s.val}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              );
-            })()}
-            </>
           )}
 
           {/* TAB 1: PRONÓSTICOS DE PARTIDOS (FECHAS) */}
