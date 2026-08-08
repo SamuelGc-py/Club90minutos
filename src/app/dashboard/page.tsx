@@ -4,6 +4,7 @@ import React, { useState, useEffect, useMemo, Component } from "react";
 import { CheckCircle2, ShieldAlert, Save, RefreshCw, Trophy, Calendar, LogOut, AlertTriangle, UserCheck, Lock, Clock, Eye, List, Download, Users, Menu, X, Flame, Camera, BarChart3, ClipboardCheck, Trash2, Hourglass } from "lucide-react";
 import Link from "next/link";
 import { toPng } from 'html-to-image';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis, YAxis } from "recharts";
 import TablaPosicionesAfiche, { TABLA_POSICIONES_FIJA } from "../components/TablaPosicionesAfiche";
 
 interface Jugador {
@@ -3693,6 +3694,22 @@ function ExpressPageContent() {
                       },
                     },
                     {
+                      key: "aplazados",
+                      emoji: "⏳",
+                      label: "Partidos Aplazados",
+                      desc: "Partidos pospuestos",
+                      color: "#f59e0b",
+                      onClick: () => setTabActiva("aplazados"),
+                    },
+                    {
+                      key: "finalizados",
+                      emoji: "🏁",
+                      label: "Partidos Terminados",
+                      desc: "Resultados ya jugados",
+                      color: "#ef4444",
+                      onClick: () => setTabActiva("finalizados"),
+                    },
+                    {
                       key: "posiciones",
                       emoji: "📊",
                       label: "Tabla de Posiciones",
@@ -3789,19 +3806,22 @@ function ExpressPageContent() {
                   ¡Hola, <strong style={{ color: "#fff" }}>{usuario.nombre}</strong>! Elige una opción del menú para ingresar tus pronósticos o revisar la tabla de posiciones en vivo.
                 </p>
 
-                {/* TU RENDIMIENTO: integrado en la misma tarjeta, no como caja aparte */}
+                {/* TU RENDIMIENTO: integrado en la misma tarjeta, con gráficos estilo dashboard */}
                 {(() => {
                   const miFila = TABLA_POSICIONES_FIJA.find((f) => f.usuario_id === usuario.id);
                   if (!miFila) return null;
                   const desglose = [
-                    { label: "Resultado Exacto", val: miFila.pts_resultado_exacto, emoji: "🎯" },
-                    { label: "Ganador Partido", val: miFila.pts_ganador_partido, emoji: "⚽" },
-                    { label: "Goleador Partido", val: miFila.pts_goleador_partido, emoji: "🥅" },
-                    { label: "Campeón", val: miFila.pts_campeon, emoji: "🏆" },
-                    { label: "Finalistas", val: miFila.pts_finalistas, emoji: "🥈" },
-                    { label: "Clasificados", val: miFila.pts_clasificados, emoji: "✅" },
-                    { label: "Goleador Torneo", val: miFila.pts_goleador_torneo, emoji: "👑" },
+                    { label: "Resultado Exacto", val: miFila.pts_resultado_exacto, emoji: "🎯", color: "#34d399" },
+                    { label: "Ganador Partido", val: miFila.pts_ganador_partido, emoji: "⚽", color: "#38bdf8" },
+                    { label: "Goleador Partido", val: miFila.pts_goleador_partido, emoji: "🥅", color: "#f59e0b" },
+                    { label: "Campeón", val: miFila.pts_campeon, emoji: "🏆", color: "#f5b000" },
+                    { label: "Finalistas", val: miFila.pts_finalistas, emoji: "🥈", color: "#a78bfa" },
+                    { label: "Clasificados", val: miFila.pts_clasificados, emoji: "✅", color: "#10b981" },
+                    { label: "Goleador Torneo", val: miFila.pts_goleador_torneo, emoji: "👑", color: "#ec4899" },
                   ];
+                  const datosDona = desglose.filter((s) => s.val > 0);
+                  const hayPuntos = datosDona.length > 0;
+
                   return (
                     <div style={{ width: "100%", marginTop: 32, paddingTop: 28, borderTop: "1px dashed rgba(255,255,255,0.1)" }}>
                       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 18 }}>
@@ -3811,7 +3831,7 @@ function ExpressPageContent() {
                         <span style={{ fontSize: "0.74rem", color: "var(--graderia)" }}>· según la tabla oficial verificada</span>
                       </div>
 
-                      <div style={{ display: "flex", justifyContent: "center", gap: 32, marginBottom: 20, flexWrap: "wrap" }}>
+                      <div style={{ display: "flex", justifyContent: "center", gap: 32, marginBottom: 24, flexWrap: "wrap" }}>
                         <div style={{ textAlign: "center" }}>
                           <div style={{ fontSize: "2rem", fontWeight: 900, color: "#38bdf8" }}>#{miFila.posicion}</div>
                           <div style={{ fontSize: "0.7rem", color: "var(--graderia)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em" }}>Posición</div>
@@ -3823,28 +3843,69 @@ function ExpressPageContent() {
                         </div>
                       </div>
 
-                      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 10, textAlign: "left" }}>
-                        {desglose.map((s) => (
-                          <div
-                            key={s.label}
-                            style={{
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "space-between",
-                              gap: 8,
-                              background: "rgba(255,255,255,0.03)",
-                              border: "1px solid rgba(255,255,255,0.06)",
-                              borderRadius: 10,
-                              padding: "10px 12px",
-                            }}
-                          >
-                            <span style={{ fontSize: "0.8rem", color: "var(--graderia)", display: "flex", alignItems: "center", gap: 6 }}>
-                              <span>{s.emoji}</span> {s.label}
-                            </span>
-                            <span style={{ fontWeight: 900, color: "#fff", fontSize: "0.95rem" }}>{s.val}</span>
+                      {!hayPuntos ? (
+                        <div style={{ textAlign: "center", padding: "20px 0", color: "var(--graderia)", fontSize: "0.85rem" }}>
+                          Todavía no tienes puntos registrados. En cuanto se liquide tu primer partido, aquí verás tu gráfico de rendimiento.
+                        </div>
+                      ) : (
+                        <div style={{ display: "flex", gap: 24, flexWrap: "wrap", alignItems: "center", textAlign: "left" }}>
+                          {/* DONA: distribución de puntos por categoría */}
+                          <div style={{ flex: "1 1 220px", minWidth: 220, height: 220 }}>
+                            <ResponsiveContainer width="100%" height="100%">
+                              <PieChart>
+                                <Pie
+                                  data={datosDona}
+                                  dataKey="val"
+                                  nameKey="label"
+                                  cx="50%"
+                                  cy="50%"
+                                  innerRadius="58%"
+                                  outerRadius="85%"
+                                  paddingAngle={3}
+                                  strokeWidth={0}
+                                >
+                                  {datosDona.map((s) => (
+                                    <Cell key={s.label} fill={s.color} />
+                                  ))}
+                                </Pie>
+                                <Tooltip
+                                  contentStyle={{ background: "rgba(15,23,42,0.95)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 10, fontSize: "0.8rem" }}
+                                  labelStyle={{ color: "#fff", fontWeight: 800 }}
+                                  itemStyle={{ color: "#fff" }}
+                                />
+                              </PieChart>
+                            </ResponsiveContainer>
                           </div>
-                        ))}
-                      </div>
+
+                          {/* BARRAS: comparación por categoría (incluye las que están en 0) */}
+                          <div style={{ flex: "2 1 280px", minWidth: 260, height: 220 }}>
+                            <ResponsiveContainer width="100%" height="100%">
+                              <BarChart data={desglose} layout="vertical" margin={{ top: 4, right: 16, left: 4, bottom: 4 }}>
+                                <XAxis type="number" hide />
+                                <YAxis
+                                  type="category"
+                                  dataKey="label"
+                                  width={130}
+                                  tick={{ fill: "var(--graderia)", fontSize: 11 }}
+                                  axisLine={false}
+                                  tickLine={false}
+                                />
+                                <Tooltip
+                                  cursor={{ fill: "rgba(255,255,255,0.04)" }}
+                                  contentStyle={{ background: "rgba(15,23,42,0.95)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 10, fontSize: "0.8rem" }}
+                                  labelStyle={{ color: "#fff", fontWeight: 800 }}
+                                  itemStyle={{ color: "#fff" }}
+                                />
+                                <Bar dataKey="val" radius={[0, 6, 6, 0]} barSize={14}>
+                                  {desglose.map((s) => (
+                                    <Cell key={s.label} fill={s.color} />
+                                  ))}
+                                </Bar>
+                              </BarChart>
+                            </ResponsiveContainer>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   );
                 })()}
