@@ -1512,79 +1512,81 @@ function ExpressPageContent() {
         key={partido.id}
         className="card"
         style={{
+          background: "rgba(15, 23, 42, 0.6)",
+          backdropFilter: "blur(12px)",
+          border: "1px solid rgba(255, 255, 255, 0.08)",
           borderLeft: esAplazado
             ? "4px solid #f59e0b"
             : estaCerrado
               ? "4px solid var(--graderia)"
               : inconsistencia
                 ? "4px solid var(--rojo)"
-                : "1px solid var(--linea)",
-          background: esAplazado
-            ? "rgba(245, 158, 11, 0.1)"
-            : estaCerrado
-              ? "rgba(255, 255, 255, 0.02)"
-              : inconsistencia
-                ? "var(--rojo-suave)"
-                : "var(--tribuna)",
+                : "4px solid #38bdf8",
           opacity: estaCerrado && !esAplazado ? 0.85 : 1,
         }}
       >
-        {/* ENCABEZADO MATCH CON BOTÓN DESPLEGABLE Y RESUMEN */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: estaCardAbierta ? 14 : 0, fontSize: "0.82rem", color: "var(--graderia)", borderBottom: estaCardAbierta ? "1px dashed var(--linea)" : "none", paddingBottom: estaCardAbierta ? 8 : 0, flexWrap: "wrap", gap: 8 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+        {/* ENCABEZADO MATCH: 2 filas fijas para que todas las tarjetas se alineen igual */}
+        <div style={{ marginBottom: estaCardAbierta ? 14 : 0, borderBottom: estaCardAbierta ? "1px dashed rgba(255,255,255,0.1)" : "none", paddingBottom: estaCardAbierta ? 10 : 0 }}>
+          {/* FILA 1: nombre del partido + estado del pronóstico */}
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8, flexWrap: "wrap", marginBottom: 6 }}>
             <span style={{ fontWeight: 800, color: "#ffffff", fontSize: "0.95rem" }}>
               {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}
             </span>
-            <span style={{ fontSize: "0.72rem", color: "var(--graderia)", fontWeight: 700 }}>
-              🕒 {formatearFechaPartido(partido.fecha_hora_partido)} · {formatearHoraPartido(partido.fecha_hora_partido)}
-              {partido.estadio ? ` · 🏟️ ${partido.estadio}` : ""}
-            </span>
             {m.local !== "" && m.visitante !== "" ? (
-              <span style={{ background: "rgba(16, 185, 129, 0.2)", color: "#10b981", border: "1px solid rgba(16, 185, 129, 0.4)", padding: "2px 8px", borderRadius: 12, fontSize: "0.75rem", fontWeight: 800 }}>
+              <span style={{ background: "rgba(16, 185, 129, 0.2)", color: "#10b981", border: "1px solid rgba(16, 185, 129, 0.4)", padding: "2px 8px", borderRadius: 12, fontSize: "0.75rem", fontWeight: 800, whiteSpace: "nowrap" }}>
                 ✅ Pronosticado ({m.local} - {m.visitante})
               </span>
             ) : estaCerrado ? (
-              <span style={{ background: "rgba(100, 116, 139, 0.2)", color: "#94a3b8", border: "1px solid rgba(100, 116, 139, 0.4)", padding: "2px 8px", borderRadius: 12, fontSize: "0.75rem", fontWeight: 800 }}>
+              <span style={{ background: "rgba(100, 116, 139, 0.2)", color: "#94a3b8", border: "1px solid rgba(100, 116, 139, 0.4)", padding: "2px 8px", borderRadius: 12, fontSize: "0.75rem", fontWeight: 800, whiteSpace: "nowrap" }}>
                 🏁 Terminado
               </span>
             ) : (
-              <span style={{ background: "rgba(245, 158, 11, 0.15)", color: "#f59e0b", border: "1px solid rgba(245, 158, 11, 0.3)", padding: "2px 8px", borderRadius: 12, fontSize: "0.75rem", fontWeight: 700 }}>
+              <span style={{ background: "rgba(245, 158, 11, 0.15)", color: "#f59e0b", border: "1px solid rgba(245, 158, 11, 0.3)", padding: "2px 8px", borderRadius: 12, fontSize: "0.75rem", fontWeight: 700, whiteSpace: "nowrap" }}>
                 ⏳ Pendiente
               </span>
             )}
           </div>
 
-          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            {esAplazado ? (
-              <span style={{ background: "#f59e0b", padding: "4px 10px", borderRadius: 6, color: "#fff", fontWeight: 800 }}>
-                ⚠️ APLAZADO
-              </span>
-            ) : liveMatch && liveMatch.esEnVivo && !esFinalizado ? (
-              <MarcadorEnVivoMini live={liveMatch} />
-            ) : (
-              <RelojCuentaRegresiva fechaHoraPartido={partido.fecha_hora_partido} estado={partido.estado} />
-            )}
+          {/* FILA 2: fecha/hora/estadio + reloj + botón de acción */}
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+            <span style={{ fontSize: "0.72rem", color: "var(--graderia)", fontWeight: 700 }}>
+              🕒 {formatearFechaPartido(partido.fecha_hora_partido)} · {formatearHoraPartido(partido.fecha_hora_partido)}
+              {partido.estadio ? ` · 🏟️ ${partido.estadio}` : ""}
+            </span>
 
-            <button
-              type="button"
-              onClick={() => setPartidosDesplegados(prev => ({ ...prev, [partido.id]: !estaCardAbierta }))}
-              style={{
-                background: estaCardAbierta ? "rgba(56, 189, 248, 0.25)" : "rgba(255, 255, 255, 0.08)",
-                border: estaCardAbierta ? "1px solid #38bdf8" : "1px solid var(--linea)",
-                color: estaCardAbierta ? "#38bdf8" : "#ffffff",
-                padding: "6px 14px",
-                borderRadius: 8,
-                fontSize: "0.8rem",
-                fontWeight: 800,
-                cursor: "pointer",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 6,
-                transition: "all 0.15s ease",
-              }}
-            >
-              <span>{estaCardAbierta ? "▲ Ocultar" : (estaCerrado ? "▼ Ver" : "▼ Pronosticar")}</span>
-            </button>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              {esAplazado ? (
+                <span style={{ background: "#f59e0b", padding: "4px 10px", borderRadius: 6, color: "#fff", fontWeight: 800, fontSize: "0.75rem" }}>
+                  ⚠️ APLAZADO
+                </span>
+              ) : liveMatch && liveMatch.esEnVivo && !esFinalizado ? (
+                <MarcadorEnVivoMini live={liveMatch} />
+              ) : (
+                <RelojCuentaRegresiva fechaHoraPartido={partido.fecha_hora_partido} estado={partido.estado} />
+              )}
+
+              <button
+                type="button"
+                onClick={() => setPartidosDesplegados(prev => ({ ...prev, [partido.id]: !estaCardAbierta }))}
+                style={{
+                  background: estaCardAbierta ? "rgba(56, 189, 248, 0.25)" : "rgba(255, 255, 255, 0.08)",
+                  border: estaCardAbierta ? "1px solid #38bdf8" : "1px solid rgba(255,255,255,0.12)",
+                  color: estaCardAbierta ? "#38bdf8" : "#ffffff",
+                  padding: "6px 14px",
+                  borderRadius: 8,
+                  fontSize: "0.8rem",
+                  fontWeight: 800,
+                  cursor: "pointer",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 6,
+                  whiteSpace: "nowrap",
+                  transition: "all 0.15s ease",
+                }}
+              >
+                <span>{estaCardAbierta ? "▲ Ocultar" : (estaCerrado ? "▼ Ver" : "▼ Pronosticar")}</span>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -3673,14 +3675,13 @@ function ExpressPageContent() {
                   background: "linear-gradient(135deg, rgba(14, 26, 39, 0.95) 0%, rgba(19, 32, 48, 0.95) 50%, rgba(16, 42, 33, 0.95) 100%)",
                   border: "1px solid var(--cancha-borde)",
                   borderRadius: 16,
-                  padding: "48px 32px",
+                  padding: "28px 28px",
                   textAlign: "center",
                   boxShadow: "0 12px 36px rgba(0,0,0,0.5)",
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
                   justifyContent: "center",
-                  minHeight: 360,
                 }}
               >
                 <div style={{ fontSize: "0.85rem", textTransform: "uppercase", letterSpacing: "0.14em", color: "#34d399", fontWeight: 800, marginBottom: 8 }}>
@@ -3693,51 +3694,50 @@ function ExpressPageContent() {
                   ¡Hola, <strong style={{ color: "#fff" }}>{usuario.nombre}</strong>! Elige una opción del menú para ingresar tus pronósticos o revisar la tabla de posiciones en vivo.
                 </p>
 
-                {/* TU RENDIMIENTO: integrado en la misma tarjeta, con gráficos estilo dashboard */}
+                {/* TU RENDIMIENTO: integrado en la misma tarjeta, compacto, sin caja separada */}
                 {(() => {
-                  const miFila = TABLA_POSICIONES_FIJA.find((f) => f.usuario_id === usuario.id);
+                  const miFila = TABLA_POSICIONES_FIJA.find((f) => f.correo.toLowerCase() === (usuario.correo || "").toLowerCase());
                   if (!miFila) return null;
                   const desglose = [
-                    { label: "Resultado Exacto", val: miFila.pts_resultado_exacto, emoji: "🎯", color: "#34d399" },
-                    { label: "Ganador Partido", val: miFila.pts_ganador_partido, emoji: "⚽", color: "#38bdf8" },
-                    { label: "Goleador Partido", val: miFila.pts_goleador_partido, emoji: "🥅", color: "#f59e0b" },
-                    { label: "Campeón", val: miFila.pts_campeon, emoji: "🏆", color: "#f5b000" },
-                    { label: "Finalistas", val: miFila.pts_finalistas, emoji: "🥈", color: "#a78bfa" },
-                    { label: "Clasificados", val: miFila.pts_clasificados, emoji: "✅", color: "#10b981" },
-                    { label: "Goleador Torneo", val: miFila.pts_goleador_torneo, emoji: "👑", color: "#ec4899" },
+                    { label: "Resultado Exacto", val: miFila.pts_resultado_exacto, color: "#34d399" },
+                    { label: "Ganador Partido", val: miFila.pts_ganador_partido, color: "#38bdf8" },
+                    { label: "Goleador Partido", val: miFila.pts_goleador_partido, color: "#f59e0b" },
+                    { label: "Campeón", val: miFila.pts_campeon, color: "#f5b000" },
+                    { label: "Finalistas", val: miFila.pts_finalistas, color: "#a78bfa" },
+                    { label: "Clasificados", val: miFila.pts_clasificados, color: "#ef4444" },
+                    { label: "Goleador Torneo", val: miFila.pts_goleador_torneo, color: "#6366f1" },
                   ];
                   const datosDona = desglose.filter((s) => s.val > 0);
                   const hayPuntos = datosDona.length > 0;
 
                   return (
-                    <div style={{ width: "100%", marginTop: 32, paddingTop: 28, borderTop: "1px dashed rgba(255,255,255,0.1)" }}>
-                      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 18 }}>
-                        <h2 style={{ margin: 0, fontSize: "1rem", fontWeight: 900, color: "#fff", display: "flex", alignItems: "center", gap: 8 }}>
+                    <div style={{ width: "100%", marginTop: 20, paddingTop: 16, borderTop: "1px dashed rgba(255,255,255,0.1)" }}>
+                      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, flexWrap: "wrap", marginBottom: 10 }}>
+                        <h2 style={{ margin: 0, fontSize: "0.92rem", fontWeight: 900, color: "#fff" }}>
                           📈 Tu Rendimiento
                         </h2>
-                        <span style={{ fontSize: "0.74rem", color: "var(--graderia)" }}>· según la tabla oficial verificada</span>
+                        <span style={{ fontSize: "0.7rem", color: "var(--graderia)" }}>· tabla oficial verificada</span>
                       </div>
 
-                      <div style={{ display: "flex", justifyContent: "center", gap: 32, marginBottom: 24, flexWrap: "wrap" }}>
+                      <div style={{ display: "flex", justifyContent: "center", gap: 24, marginBottom: 14, flexWrap: "wrap" }}>
                         <div style={{ textAlign: "center" }}>
-                          <div style={{ fontSize: "2rem", fontWeight: 900, color: "#38bdf8" }}>#{miFila.posicion}</div>
-                          <div style={{ fontSize: "0.7rem", color: "var(--graderia)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em" }}>Posición</div>
+                          <div style={{ fontSize: "1.5rem", fontWeight: 900, color: "#38bdf8" }}>#{miFila.posicion}</div>
+                          <div style={{ fontSize: "0.65rem", color: "var(--graderia)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em" }}>Posición</div>
                         </div>
-                        <div style={{ width: 1, background: "rgba(255,255,255,0.1)" }} />
                         <div style={{ textAlign: "center" }}>
-                          <div style={{ fontSize: "2rem", fontWeight: 900, color: "#34d399" }}>{miFila.pts_total}</div>
-                          <div style={{ fontSize: "0.7rem", color: "var(--graderia)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em" }}>Puntos Totales</div>
+                          <div style={{ fontSize: "1.5rem", fontWeight: 900, color: "#34d399" }}>{miFila.pts_total}</div>
+                          <div style={{ fontSize: "0.65rem", color: "var(--graderia)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em" }}>Puntos</div>
                         </div>
                       </div>
 
                       {!hayPuntos ? (
-                        <div style={{ textAlign: "center", padding: "20px 0", color: "var(--graderia)", fontSize: "0.85rem" }}>
-                          Todavía no tienes puntos registrados. En cuanto se liquide tu primer partido, aquí verás tu gráfico de rendimiento.
+                        <div style={{ textAlign: "center", padding: "12px 0", color: "var(--graderia)", fontSize: "0.82rem" }}>
+                          Todavía no tienes puntos registrados. En cuanto se liquide tu primer partido, aquí verás tu gráfico.
                         </div>
                       ) : (
-                        <div style={{ display: "flex", gap: 24, flexWrap: "wrap", alignItems: "center", textAlign: "left" }}>
+                        <div style={{ display: "flex", gap: 16, flexWrap: "wrap", alignItems: "center", justifyContent: "center", textAlign: "left" }}>
                           {/* DONA: distribución de puntos por categoría */}
-                          <div style={{ flex: "1 1 220px", minWidth: 220, height: 220 }}>
+                          <div style={{ flex: "0 0 140px", width: 140, height: 140 }}>
                             <ResponsiveContainer width="100%" height="100%">
                               <PieChart>
                                 <Pie
@@ -3747,16 +3747,17 @@ function ExpressPageContent() {
                                   cx="50%"
                                   cy="50%"
                                   innerRadius="58%"
-                                  outerRadius="85%"
+                                  outerRadius="90%"
                                   paddingAngle={3}
                                   strokeWidth={0}
+                                  isAnimationActive={false}
                                 >
                                   {datosDona.map((s) => (
                                     <Cell key={s.label} fill={s.color} />
                                   ))}
                                 </Pie>
                                 <Tooltip
-                                  contentStyle={{ background: "rgba(15,23,42,0.95)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 10, fontSize: "0.8rem" }}
+                                  contentStyle={{ background: "rgba(15,23,42,0.95)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 10, fontSize: "0.75rem" }}
                                   labelStyle={{ color: "#fff", fontWeight: 800 }}
                                   itemStyle={{ color: "#fff" }}
                                 />
@@ -3765,25 +3766,25 @@ function ExpressPageContent() {
                           </div>
 
                           {/* BARRAS: comparación por categoría (incluye las que están en 0) */}
-                          <div style={{ flex: "2 1 280px", minWidth: 260, height: 220 }}>
+                          <div style={{ flex: "1 1 260px", minWidth: 240, height: 150 }}>
                             <ResponsiveContainer width="100%" height="100%">
-                              <BarChart data={desglose} layout="vertical" margin={{ top: 4, right: 16, left: 4, bottom: 4 }}>
+                              <BarChart data={desglose} layout="vertical" margin={{ top: 0, right: 12, left: 0, bottom: 0 }}>
                                 <XAxis type="number" hide />
                                 <YAxis
                                   type="category"
                                   dataKey="label"
-                                  width={130}
-                                  tick={{ fill: "var(--graderia)", fontSize: 11 }}
+                                  width={110}
+                                  tick={{ fill: "var(--graderia)", fontSize: 10 }}
                                   axisLine={false}
                                   tickLine={false}
                                 />
                                 <Tooltip
                                   cursor={{ fill: "rgba(255,255,255,0.04)" }}
-                                  contentStyle={{ background: "rgba(15,23,42,0.95)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 10, fontSize: "0.8rem" }}
+                                  contentStyle={{ background: "rgba(15,23,42,0.95)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 10, fontSize: "0.75rem" }}
                                   labelStyle={{ color: "#fff", fontWeight: 800 }}
                                   itemStyle={{ color: "#fff" }}
                                 />
-                                <Bar dataKey="val" radius={[0, 6, 6, 0]} barSize={14}>
+                                <Bar dataKey="val" radius={[0, 6, 6, 0]} barSize={11} isAnimationActive={false}>
                                   {desglose.map((s) => (
                                     <Cell key={s.label} fill={s.color} />
                                   ))}

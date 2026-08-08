@@ -3,6 +3,14 @@
    Dark-first design matching original polla-fpc theme.
    ========================================================================== */
 
+/* Quita el recuadro de foco que el navegador dibuja sobre el SVG de recharts
+   al hacer click (se ve como un cuadro blanco/gris pegado al gráfico). */
+.recharts-wrapper:focus,
+.recharts-wrapper *:focus,
+.recharts-surface:focus {
+  outline: none !important;
+}
+
 :root {
   color-scheme: dark;
 
