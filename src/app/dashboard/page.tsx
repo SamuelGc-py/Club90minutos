@@ -1032,6 +1032,10 @@ function ExpressPageContent() {
   const handleToggleAplazado = async (partido: any) => {
     if (!usuario || usuario.rol_id !== 2) return;
     const nuevoEstado = partido.estado === "aplazado" ? "programado" : "aplazado";
+    // Al reactivar, el partido se asigna a la fecha que está activa para los participantes
+    // ahora mismo (no a su jornada vieja/original) — así no se abre de sorpresa una fecha
+    // ya pasada ni se altera la fecha activa de todo el grupo.
+    const jornadaDestino = nuevoEstado === "programado" ? fechaParticipante : undefined;
     try {
       setGuardandoProgramacionId(partido.id);
       const res = await fetch("/api/admin/reprogramar-partido", {
@@ -1041,13 +1045,14 @@ function ExpressPageContent() {
           usuario_id: usuario.id,
           partido_id: partido.id,
           estado: nuevoEstado,
+          ...(jornadaDestino ? { jornada: jornadaDestino } : {}),
         }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Error al actualizar el estado del partido");
       const texto = nuevoEstado === "aplazado"
         ? "Partido marcado como aplazado."
-        : `Partido reactivado. Sigue perteneciendo a la Fecha ${partido.jornada} — búscalo ahí en "Editar Partidos" o "Fechas y Predicciones".`;
+        : `Partido reactivado y asignado a la Fecha ${jornadaDestino} (la fecha activa ahora mismo).`;
       setMensajeEstado({ tipo: "exito", texto });
       if (nuevoEstado !== "aplazado" && typeof window !== "undefined") {
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -1536,9 +1541,13 @@ function ExpressPageContent() {
               <span style={{ background: "rgba(16, 185, 129, 0.2)", color: "#10b981", border: "1px solid rgba(16, 185, 129, 0.4)", padding: "2px 8px", borderRadius: 12, fontSize: "0.75rem", fontWeight: 800, whiteSpace: "nowrap" }}>
                 ✅ Pronosticado ({m.local} - {m.visitante})
               </span>
-            ) : estaCerrado ? (
+            ) : esFinalizado ? (
               <span style={{ background: "rgba(100, 116, 139, 0.2)", color: "#94a3b8", border: "1px solid rgba(100, 116, 139, 0.4)", padding: "2px 8px", borderRadius: 12, fontSize: "0.75rem", fontWeight: 800, whiteSpace: "nowrap" }}>
                 🏁 Terminado
+              </span>
+            ) : estaCerrado ? (
+              <span style={{ background: "rgba(100, 116, 139, 0.2)", color: "#94a3b8", border: "1px solid rgba(100, 116, 139, 0.4)", padding: "2px 8px", borderRadius: 12, fontSize: "0.75rem", fontWeight: 800, whiteSpace: "nowrap" }}>
+                🔒 Pronósticos Cerrados
               </span>
             ) : (
               <span style={{ background: "rgba(245, 158, 11, 0.15)", color: "#f59e0b", border: "1px solid rgba(245, 158, 11, 0.3)", padding: "2px 8px", borderRadius: 12, fontSize: "0.75rem", fontWeight: 700, whiteSpace: "nowrap" }}>
@@ -3858,10 +3867,6 @@ function ExpressPageContent() {
 
                   const partidosActivos = partidosFiltradosParticipante
                     .filter((p) => !estaSoloFinal(p))
-                    .sort((a, b) => new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime());
-
-                  const partidosFinalizados = partidosFiltradosParticipante
-                    .filter((p) => estaSoloFinal(p))
                     .sort((a, b) => new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime());
 
                   return (
