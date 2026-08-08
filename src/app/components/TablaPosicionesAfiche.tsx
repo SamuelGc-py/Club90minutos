@@ -31,7 +31,7 @@ interface TablaPosicionesAficheProps {
 // Se exporta para que otras vistas (ej. panel admin) muestren al líder real
 // sin mantener una copia separada de estos números.
 // Fecha 4 liquidada: Santa Fe 2-0 Boyaca Chico (gol de Hugo Rodallega; el segundo gol fue autogol y no cuenta para goleador).
-// Fecha 5 liquidada: Fortaleza 2-0 Cucuta Deportivo (gol de un juvenil Sub-20, nadie lo acerto como goleador).
+// Fecha 5 liquidada: Fortaleza 2-0 Cucuta Deportivo (goleador correcto: Richardson Rivas; Harold Berdugo lo acerto).
 export const TABLA_POSICIONES_FIJA: FilaTablaPosiciones[] = [
   { posicion: 1, usuario_id: 2, nombre_completo: "Pedro Cantero", correo: "pedrocanterojr@gmail.com", pts_campeon: 0, pts_finalistas: 0, pts_clasificados: 0, pts_goleador_torneo: 0, pts_resultado_exacto: 25, pts_ganador_partido: 36, pts_goleador_partido: 20, pts_total: 81 },
   { posicion: 2, usuario_id: 1, nombre_completo: "Nelson Berdugo", correo: "nelson.berdugo05@gmail.com", pts_campeon: 0, pts_finalistas: 0, pts_clasificados: 0, pts_goleador_torneo: 0, pts_resultado_exacto: 20, pts_ganador_partido: 45, pts_goleador_partido: 12, pts_total: 77 },
@@ -40,7 +40,7 @@ export const TABLA_POSICIONES_FIJA: FilaTablaPosiciones[] = [
   { posicion: 5, usuario_id: 6, nombre_completo: "Rene Osorio", correo: "rene26203@gmail.com", pts_campeon: 0, pts_finalistas: 0, pts_clasificados: 0, pts_goleador_torneo: 0, pts_resultado_exacto: 15, pts_ganador_partido: 36, pts_goleador_partido: 14, pts_total: 65 },
   { posicion: 6, usuario_id: 5, nombre_completo: "Lucas Saavedra", correo: "moisessaavedra496@gmail.com", pts_campeon: 0, pts_finalistas: 0, pts_clasificados: 0, pts_goleador_torneo: 0, pts_resultado_exacto: 15, pts_ganador_partido: 36, pts_goleador_partido: 12, pts_total: 63 },
   { posicion: 7, usuario_id: 7, nombre_completo: "Romario Gomez", correo: "gomezromario24@gmail.com", pts_campeon: 0, pts_finalistas: 0, pts_clasificados: 0, pts_goleador_torneo: 0, pts_resultado_exacto: 10, pts_ganador_partido: 30, pts_goleador_partido: 16, pts_total: 56 },
-  { posicion: 8, usuario_id: 9, nombre_completo: "Harold Berdugo", correo: "hberdugodelosreyes0@gmail.com", pts_campeon: 0, pts_finalistas: 0, pts_clasificados: 0, pts_goleador_torneo: 0, pts_resultado_exacto: 20, pts_ganador_partido: 18, pts_goleador_partido: 10, pts_total: 48 },
+  { posicion: 8, usuario_id: 9, nombre_completo: "Harold Berdugo", correo: "hberdugodelosreyes0@gmail.com", pts_campeon: 0, pts_finalistas: 0, pts_clasificados: 0, pts_goleador_torneo: 0, pts_resultado_exacto: 20, pts_ganador_partido: 18, pts_goleador_partido: 12, pts_total: 50 },
   { posicion: 9, usuario_id: 8, nombre_completo: "Ricardo Vanegas", correo: "ricardo101228@gmail.com", pts_campeon: 0, pts_finalistas: 0, pts_clasificados: 0, pts_goleador_torneo: 0, pts_resultado_exacto: 10, pts_ganador_partido: 24, pts_goleador_partido: 6, pts_total: 40 },
   { posicion: 10, usuario_id: 14, nombre_completo: "Luis Betancourt", correo: "luismibetara15@hotmail.com", pts_campeon: 0, pts_finalistas: 0, pts_clasificados: 0, pts_goleador_torneo: 0, pts_resultado_exacto: 5, pts_ganador_partido: 21, pts_goleador_partido: 12, pts_total: 38 },
   { posicion: 11, usuario_id: 13, nombre_completo: "Erick Andrade", correo: "andradeferrer@hotmail.com", pts_campeon: 0, pts_finalistas: 0, pts_clasificados: 0, pts_goleador_torneo: 0, pts_resultado_exacto: 0, pts_ganador_partido: 27, pts_goleador_partido: 10, pts_total: 37 },
