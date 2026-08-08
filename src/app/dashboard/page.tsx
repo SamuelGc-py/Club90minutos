@@ -482,7 +482,7 @@ class GlobalErrorBoundary extends Component<{ children: React.ReactNode }, { has
             type="button"
             className="btn btn-primary"
             onClick={() => {
-              try { sessionStorage.removeItem("polla_sesion"); } catch(e) {}
+              try { sessionStorage.removeItem("polla_sesion"); } catch (e) { }
               window.location.href = "/";
             }}
             style={{ padding: "10px 24px", fontSize: "0.95rem", fontWeight: 800 }}
@@ -744,7 +744,7 @@ function ExpressPageContent() {
         setMensajeEstado({ tipo: "exito", texto: "¡Pronóstico guardado exitosamente para este partido!" });
         setPartidoGuardadoExitoId(partidoId);
         actualizarSesionLocalStorage(partidoId, Number(m.local), Number(m.visitante), m.goleador_id ? Number(m.goleador_id) : null);
-        
+
         // Actualizar consolidados en memoria de forma instantánea sin retraso de red
         if (consolidados && usuario) {
           const newPartidos = [...(consolidados.prediccionesPartidos || [])];
@@ -1109,7 +1109,7 @@ function ExpressPageContent() {
         predsPartidos.forEach((p: any) => {
           const valL = p.goles_local_predicho !== undefined && p.goles_local_predicho !== null ? p.goles_local_predicho : p.goles_local;
           const valV = p.goles_visitante_predicho !== undefined && p.goles_visitante_predicho !== null ? p.goles_visitante_predicho : p.goles_visitante;
-          
+
           const gLocalStr = valL !== undefined && valL !== null ? String(valL) : "";
           const gVisitanteStr = valV !== undefined && valV !== null ? String(valV) : "";
 
@@ -1238,7 +1238,7 @@ function ExpressPageContent() {
       }
     } catch (e) {
       console.error("Error leyendo sesión", e);
-      try { sessionStorage.removeItem("polla_sesion"); } catch (_) {}
+      try { sessionStorage.removeItem("polla_sesion"); } catch (_) { }
     }
   }, []);
 
@@ -1259,7 +1259,7 @@ function ExpressPageContent() {
   // Validar correo y contraseña en PostgreSQL
   const handleValidarCorreo = async (e?: React.FormEvent | React.KeyboardEvent | React.MouseEvent) => {
     if (e && e.preventDefault) e.preventDefault();
-    
+
     if (!correoInput.trim() || !passwordInput.trim()) {
       setMensajeEstado({ tipo: "error", texto: "Por favor ingresa tanto tu correo como tu contraseña para acceder." });
       return;
@@ -1507,17 +1507,17 @@ function ExpressPageContent() {
           borderLeft: esAplazado
             ? "4px solid #f59e0b"
             : estaCerrado
-            ? "4px solid var(--graderia)"
-            : inconsistencia
-            ? "4px solid var(--rojo)"
-            : "1px solid var(--linea)",
+              ? "4px solid var(--graderia)"
+              : inconsistencia
+                ? "4px solid var(--rojo)"
+                : "1px solid var(--linea)",
           background: esAplazado
             ? "rgba(245, 158, 11, 0.1)"
             : estaCerrado
-            ? "rgba(255, 255, 255, 0.02)"
-            : inconsistencia
-            ? "var(--rojo-suave)"
-            : "var(--tribuna)",
+              ? "rgba(255, 255, 255, 0.02)"
+              : inconsistencia
+                ? "var(--rojo-suave)"
+                : "var(--tribuna)",
           opacity: estaCerrado && !esAplazado ? 0.85 : 1,
         }}
       >
@@ -1896,8 +1896,8 @@ function ExpressPageContent() {
                           background: deshabilitarBotonGuardar
                             ? "#334155"
                             : partidoGuardadoExitoId === partido.id
-                            ? "linear-gradient(135deg, #059669 0%, #047857 100%)"
-                            : "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+                              ? "linear-gradient(135deg, #059669 0%, #047857 100%)"
+                              : "linear-gradient(135deg, #10b981 0%, #059669 100%)",
                           color: deshabilitarBotonGuardar ? "#94a3b8" : "#fff",
                           opacity: deshabilitarBotonGuardar ? 0.65 : 1,
                           borderRadius: 8,
@@ -1981,7 +1981,7 @@ function ExpressPageContent() {
       if (partidoId) url += `&partido_id=${partidoId}`;
       if (jornada) url += `&jornada=${jornada}`;
       const res = await fetch(url);
-      
+
       if (!res.ok) {
         const data = await res.json();
         throw new Error(data.error || "Error al descargar el archivo");
@@ -2197,15 +2197,15 @@ function ExpressPageContent() {
                   type="button"
                   onClick={handleValidarCorreo}
                   disabled={cargandoValidacion}
-                  style={{ 
-                    width: "100%", 
-                    padding: "16px", 
-                    background: "var(--cancha)", 
-                    color: "#000", 
-                    fontWeight: 800, 
-                    fontSize: "1.05rem", 
-                    borderRadius: "12px", 
-                    border: "none", 
+                  style={{
+                    width: "100%",
+                    padding: "16px",
+                    background: "var(--cancha)",
+                    color: "#000",
+                    fontWeight: 800,
+                    fontSize: "1.05rem",
+                    borderRadius: "12px",
+                    border: "none",
                     cursor: cargandoValidacion ? "not-allowed" : "pointer",
                     boxShadow: "0 8px 25px rgba(29, 185, 84, 0.3)",
                     display: "flex",
@@ -2215,8 +2215,8 @@ function ExpressPageContent() {
                     marginTop: 8,
                     transition: "all 0.3s"
                   }}
-                  onMouseOver={(e) => { if(!cargandoValidacion) { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 12px 30px rgba(29, 185, 84, 0.4)"; } }}
-                  onMouseOut={(e) => { if(!cargandoValidacion) { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 8px 25px rgba(29, 185, 84, 0.3)"; } }}
+                  onMouseOver={(e) => { if (!cargandoValidacion) { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 12px 30px rgba(29, 185, 84, 0.4)"; } }}
+                  onMouseOut={(e) => { if (!cargandoValidacion) { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 8px 25px rgba(29, 185, 84, 0.3)"; } }}
                 >
                   {cargandoValidacion ? (
                     <>
@@ -2243,21 +2243,20 @@ function ExpressPageContent() {
                       mensajeEstado.tipo === "exito"
                         ? "var(--cancha-suave)"
                         : mensajeEstado.tipo === "error"
-                        ? "var(--rojo-suave)"
-                        : "var(--azul-suave)",
+                          ? "var(--rojo-suave)"
+                          : "var(--azul-suave)",
                     color:
                       mensajeEstado.tipo === "exito"
                         ? "var(--cancha)"
                         : mensajeEstado.tipo === "error"
-                        ? "var(--rojo)"
-                        : "var(--azul)",
-                    border: `1px solid ${
-                      mensajeEstado.tipo === "exito"
-                        ? "var(--cancha-borde)"
-                        : mensajeEstado.tipo === "error"
+                          ? "var(--rojo)"
+                          : "var(--azul)",
+                    border: `1px solid ${mensajeEstado.tipo === "exito"
+                      ? "var(--cancha-borde)"
+                      : mensajeEstado.tipo === "error"
                         ? "rgba(255, 92, 92, 0.4)"
                         : "rgba(77, 163, 255, 0.4)"
-                    }`,
+                      }`,
                   }}
                 >
                   {mensajeEstado.tipo === "exito" && <CheckCircle2 size={20} style={{ flexShrink: 0 }} />}
@@ -2272,1067 +2271,1067 @@ function ExpressPageContent() {
       ) : usuario.rol_id === 2 ? (
         /* ================= VISTA ADMIN EXCLUSIVA (PANTALLA COMPLETA) ================= */
         <div>
+          <div
+            style={{
+              animation: "fadeIn 0.5s ease",
+              width: "100%",
+              paddingBottom: 40,
+              boxSizing: "border-box",
+            }}
+          >
+            {/* BARRA SUPERIOR DASHBOARD ADMIN */}
             <div
               style={{
-                animation: "fadeIn 0.5s ease",
-                width: "100%",
-                paddingBottom: 40,
-                boxSizing: "border-box",
+                marginBottom: 24,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                flexWrap: "wrap",
+                gap: 16,
+                background: "linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 58, 138, 0.9) 100%)",
+                backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
+                border: "1px solid rgba(255, 255, 255, 0.1)",
+                borderRadius: "22px",
+                padding: "24px 32px",
+                boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 10px 20px rgba(0,0,0,0.35)",
               }}
             >
-              {/* BARRA SUPERIOR DASHBOARD ADMIN */}
-              <div
-                style={{
-                  marginBottom: 24,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  flexWrap: "wrap",
-                  gap: 16,
-                  background: "linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 58, 138, 0.9) 100%)",
-                  backdropFilter: "blur(12px)",
-                  WebkitBackdropFilter: "blur(12px)",
-                  border: "1px solid rgba(255, 255, 255, 0.1)",
-                  borderRadius: "22px",
-                  padding: "24px 32px",
-                  boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 10px 20px rgba(0,0,0,0.35)",
-                }}
-              >
-                <div>
-                  <span
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: 6,
-                      padding: "6px 14px",
-                      borderRadius: "20px",
-                      background: "rgba(245, 176, 0, 0.2)",
-                      color: "#f5b000",
-                      fontWeight: 900,
-                      fontSize: "0.65rem",
-                      letterSpacing: "1px",
-                      marginBottom: 10,
-                      textTransform: "uppercase",
-                      border: "1px solid rgba(245, 176, 0, 0.3)",
-                      boxShadow: "0 0 10px rgba(245, 176, 0, 0.2)",
-                    }}
-                  >
-                    👑 Panel de Control Premium
-                  </span>
-                  <h2 style={{ margin: 0, color: "#ffffff", fontSize: "clamp(1.25rem, 3vw, 1.5rem)", fontWeight: 900, letterSpacing: "-0.5px" }}>
-                    Administración Polla BetPlay
-                  </h2>
-                  <p style={{ color: "#94a3b8", fontSize: "0.82rem", margin: "6px 0 0 0" }}>
-                    Hola, <strong style={{ color: "#fff" }}>{usuario.nombre}</strong>. Tienes el control total.
-                  </p>
-                </div>
-
-                <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
-                  <button
-                    onClick={() => handleDescargarExcelPronosticos()}
-                    disabled={!consolidados}
-                    style={{
-                      padding: "10px 16px",
-                      background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
-                      color: "#ffffff",
-                      border: "none",
-                      borderRadius: "12px",
-                      fontWeight: 800,
-                      fontSize: "0.82rem",
-                      cursor: "pointer",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 7,
-                      boxShadow: "0 10px 25px -5px rgba(16, 185, 129, 0.45)",
-                      transition: "transform 0.2s, boxShadow 0.2s"
-                    }}
-                    onMouseOver={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
-                    onMouseOut={(e) => (e.currentTarget.style.transform = "none")}
-                  >
-                    <Download size={15} /> Exportar Global (Excel)
-                  </button>
-
-                  <button
-                    onClick={() => cargarConsolidados(usuario.id)}
-                    disabled={cargandoConsolidados}
-                    style={{
-                      padding: "10px 16px",
-                      background: "rgba(255, 255, 255, 0.05)",
-                      color: "#ffffff",
-                      border: "1px solid rgba(255, 255, 255, 0.1)",
-                      borderRadius: "12px",
-                      fontWeight: 800,
-                      fontSize: "0.82rem",
-                      cursor: "pointer",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 7,
-                      transition: "all 0.2s"
-                    }}
-                    onMouseOver={(e) => (e.currentTarget.style.background = "rgba(255, 255, 255, 0.1)")}
-                    onMouseOut={(e) => (e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)")}
-                  >
-                    <RefreshCw size={15} className={cargandoConsolidados ? "spin" : ""} /> Sincronizar
-                  </button>
-
-                  <button
-                    onClick={handleCerrarSesion}
-                    style={{
-                      padding: "10px 16px",
-                      background: "rgba(255, 92, 92, 0.12)",
-                      color: "#ff5c5c",
-                      border: "1px solid rgba(255, 92, 92, 0.35)",
-                      borderRadius: "12px",
-                      fontWeight: 800,
-                      fontSize: "0.82rem",
-                      cursor: "pointer",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 7,
-                      transition: "all 0.2s"
-                    }}
-                  >
-                    <LogOut size={15} /> Salir
-                  </button>
-                </div>
-              </div>
-
-              {/* LAYOUT: SIDEBAR + CONTENIDO */}
-              <div className="admin-layout-row" style={{ display: "flex", gap: 28, alignItems: "flex-start" }}>
-                {/* SIDEBAR DE NAVEGACIÓN */}
-                <div
-                  className="admin-sidebar"
+              <div>
+                <span
                   style={{
-                    width: 264,
-                    flexShrink: 0,
-                    position: "sticky",
-                    top: 20,
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 8,
-                    background: "linear-gradient(180deg, rgba(15, 23, 42, 0.9) 0%, rgba(11, 21, 32, 0.95) 100%)",
-                    border: "1px solid rgba(255, 255, 255, 0.06)",
-                    borderRadius: "24px",
-                    padding: "18px",
-                    boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.65), 0 8px 16px rgba(0,0,0,0.3)",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 6,
+                    padding: "6px 14px",
+                    borderRadius: "20px",
+                    background: "rgba(245, 176, 0, 0.2)",
+                    color: "#f5b000",
+                    fontWeight: 900,
+                    fontSize: "0.65rem",
+                    letterSpacing: "1px",
+                    marginBottom: 10,
+                    textTransform: "uppercase",
+                    border: "1px solid rgba(245, 176, 0, 0.3)",
+                    boxShadow: "0 0 10px rgba(245, 176, 0, 0.2)",
                   }}
                 >
-                  <div className="admin-sidebar-title" style={{ padding: "6px 10px 14px", color: "#64748b", fontSize: "0.68rem", fontWeight: 900, textTransform: "uppercase", letterSpacing: "1px", borderBottom: "1px dashed rgba(255,255,255,0.08)", marginBottom: 6 }}>
-                    Navegación
-                  </div>
-                  <div className="admin-sidebar-nav no-scrollbar">
-                    {([
-                      { key: "predicciones", label: "Fechas y Predicciones", icon: Eye, color: "#a78bfa" },
-                      { key: "editar_partidos", label: "Editar Partidos", icon: Calendar, color: "#38bdf8" },
-                      { key: "aplazados", label: "Partidos Aplazados", icon: Hourglass, color: "#f5b000" },
-                      { key: "liquidacion", label: "Liquidación de Puntos", icon: ClipboardCheck, color: "#f59e0b" },
-                      { key: "posiciones", label: "Tabla de Posiciones", icon: BarChart3, color: "#34d399" },
-                    ] as const).map((item) => {
-                      const activo = seccionAdminPanel === item.key;
-                      const Icono = item.icon;
-                      return (
-                        <button
-                          key={item.key}
-                          type="button"
-                          onClick={() => setSeccionAdminPanel(item.key)}
+                  👑 Panel de Control Premium
+                </span>
+                <h2 style={{ margin: 0, color: "#ffffff", fontSize: "clamp(1.25rem, 3vw, 1.5rem)", fontWeight: 900, letterSpacing: "-0.5px" }}>
+                  Administración Polla BetPlay
+                </h2>
+                <p style={{ color: "#94a3b8", fontSize: "0.82rem", margin: "6px 0 0 0" }}>
+                  Hola, <strong style={{ color: "#fff" }}>{usuario.nombre}</strong>. Tienes el control total.
+                </p>
+              </div>
+
+              <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+                <button
+                  onClick={() => handleDescargarExcelPronosticos()}
+                  disabled={!consolidados}
+                  style={{
+                    padding: "10px 16px",
+                    background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+                    color: "#ffffff",
+                    border: "none",
+                    borderRadius: "12px",
+                    fontWeight: 800,
+                    fontSize: "0.82rem",
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 7,
+                    boxShadow: "0 10px 25px -5px rgba(16, 185, 129, 0.45)",
+                    transition: "transform 0.2s, boxShadow 0.2s"
+                  }}
+                  onMouseOver={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
+                  onMouseOut={(e) => (e.currentTarget.style.transform = "none")}
+                >
+                  <Download size={15} /> Exportar Global (Excel)
+                </button>
+
+                <button
+                  onClick={() => cargarConsolidados(usuario.id)}
+                  disabled={cargandoConsolidados}
+                  style={{
+                    padding: "10px 16px",
+                    background: "rgba(255, 255, 255, 0.05)",
+                    color: "#ffffff",
+                    border: "1px solid rgba(255, 255, 255, 0.1)",
+                    borderRadius: "12px",
+                    fontWeight: 800,
+                    fontSize: "0.82rem",
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 7,
+                    transition: "all 0.2s"
+                  }}
+                  onMouseOver={(e) => (e.currentTarget.style.background = "rgba(255, 255, 255, 0.1)")}
+                  onMouseOut={(e) => (e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)")}
+                >
+                  <RefreshCw size={15} className={cargandoConsolidados ? "spin" : ""} /> Sincronizar
+                </button>
+
+                <button
+                  onClick={handleCerrarSesion}
+                  style={{
+                    padding: "10px 16px",
+                    background: "rgba(255, 92, 92, 0.12)",
+                    color: "#ff5c5c",
+                    border: "1px solid rgba(255, 92, 92, 0.35)",
+                    borderRadius: "12px",
+                    fontWeight: 800,
+                    fontSize: "0.82rem",
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 7,
+                    transition: "all 0.2s"
+                  }}
+                >
+                  <LogOut size={15} /> Salir
+                </button>
+              </div>
+            </div>
+
+            {/* LAYOUT: SIDEBAR + CONTENIDO */}
+            <div className="admin-layout-row" style={{ display: "flex", gap: 28, alignItems: "flex-start" }}>
+              {/* SIDEBAR DE NAVEGACIÓN */}
+              <div
+                className="admin-sidebar"
+                style={{
+                  width: 264,
+                  flexShrink: 0,
+                  position: "sticky",
+                  top: 20,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 8,
+                  background: "linear-gradient(180deg, rgba(15, 23, 42, 0.9) 0%, rgba(11, 21, 32, 0.95) 100%)",
+                  border: "1px solid rgba(255, 255, 255, 0.06)",
+                  borderRadius: "24px",
+                  padding: "18px",
+                  boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.65), 0 8px 16px rgba(0,0,0,0.3)",
+                }}
+              >
+                <div className="admin-sidebar-title" style={{ padding: "6px 10px 14px", color: "#64748b", fontSize: "0.68rem", fontWeight: 900, textTransform: "uppercase", letterSpacing: "1px", borderBottom: "1px dashed rgba(255,255,255,0.08)", marginBottom: 6 }}>
+                  Navegación
+                </div>
+                <div className="admin-sidebar-nav no-scrollbar">
+                  {([
+                    { key: "predicciones", label: "Fechas y Predicciones", icon: Eye, color: "#a78bfa" },
+                    { key: "editar_partidos", label: "Editar Partidos", icon: Calendar, color: "#38bdf8" },
+                    { key: "aplazados", label: "Partidos Aplazados", icon: Hourglass, color: "#f5b000" },
+                    { key: "liquidacion", label: "Liquidación de Puntos", icon: ClipboardCheck, color: "#f59e0b" },
+                    { key: "posiciones", label: "Tabla de Posiciones", icon: BarChart3, color: "#34d399" },
+                  ] as const).map((item) => {
+                    const activo = seccionAdminPanel === item.key;
+                    const Icono = item.icon;
+                    return (
+                      <button
+                        key={item.key}
+                        type="button"
+                        onClick={() => setSeccionAdminPanel(item.key)}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 10,
+                          padding: "12px 14px",
+                          borderRadius: "16px",
+                          border: activo ? `1px solid ${item.color}66` : "1px solid transparent",
+                          background: activo ? `linear-gradient(135deg, ${item.color}33 0%, ${item.color}14 100%)` : "transparent",
+                          color: activo ? "#ffffff" : "#94a3b8",
+                          fontWeight: activo ? 800 : 600,
+                          fontSize: "0.85rem",
+                          cursor: "pointer",
+                          textAlign: "left",
+                          whiteSpace: "nowrap",
+                          boxShadow: activo ? `0 10px 25px -8px ${item.color}80` : "none",
+                          transition: "all 0.2s ease",
+                        }}
+                        onMouseOver={(e) => { if (!activo) e.currentTarget.style.background = "rgba(255,255,255,0.05)"; }}
+                        onMouseOut={(e) => { if (!activo) e.currentTarget.style.background = "transparent"; }}
+                      >
+                        <span
                           style={{
+                            width: 32,
+                            height: 32,
+                            borderRadius: "10px",
+                            background: activo ? `${item.color}26` : "rgba(255,255,255,0.05)",
+                            color: activo ? item.color : "#64748b",
                             display: "flex",
                             alignItems: "center",
-                            gap: 10,
-                            padding: "12px 14px",
-                            borderRadius: "16px",
-                            border: activo ? `1px solid ${item.color}66` : "1px solid transparent",
-                            background: activo ? `linear-gradient(135deg, ${item.color}33 0%, ${item.color}14 100%)` : "transparent",
-                            color: activo ? "#ffffff" : "#94a3b8",
-                            fontWeight: activo ? 800 : 600,
-                            fontSize: "0.85rem",
-                            cursor: "pointer",
-                            textAlign: "left",
-                            whiteSpace: "nowrap",
-                            boxShadow: activo ? `0 10px 25px -8px ${item.color}80` : "none",
-                            transition: "all 0.2s ease",
+                            justifyContent: "center",
+                            flexShrink: 0,
                           }}
-                          onMouseOver={(e) => { if (!activo) e.currentTarget.style.background = "rgba(255,255,255,0.05)"; }}
-                          onMouseOut={(e) => { if (!activo) e.currentTarget.style.background = "transparent"; }}
                         >
-                          <span
-                            style={{
-                              width: 32,
-                              height: 32,
-                              borderRadius: "10px",
-                              background: activo ? `${item.color}26` : "rgba(255,255,255,0.05)",
-                              color: activo ? item.color : "#64748b",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              flexShrink: 0,
-                            }}
-                          >
-                            <Icono size={16} />
-                          </span>
-                          {item.label}
-                        </button>
-                      );
-                    })}
-                  </div>
-
-                  {fechaAdmin !== 0 && (
-                    <div className="admin-sidebar-fecha" style={{ marginTop: 10, padding: "12px 14px", borderRadius: 14, background: "rgba(0,0,0,0.25)", border: "1px dashed rgba(255,255,255,0.1)" }}>
-                      <div style={{ fontSize: "0.65rem", color: "#64748b", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.5px" }}>Fecha activa</div>
-                      <div style={{ fontSize: "1rem", color: "#38bdf8", fontWeight: 900 }}>Fecha {fechaAdmin}</div>
-                    </div>
-                  )}
+                          <Icono size={16} />
+                        </span>
+                        {item.label}
+                      </button>
+                    );
+                  })}
                 </div>
 
-                {/* CONTENIDO PRINCIPAL */}
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  {(() => {
-                    const fechasDisponibles = Array.from(new Set(partidos.map((p) => p.jornada))).sort((a, b) => a - b);
-                    const listaFechas = fechasDisponibles.length > 0 ? fechasDisponibles : [1, 2, 3];
+                {fechaAdmin !== 0 && (
+                  <div className="admin-sidebar-fecha" style={{ marginTop: 10, padding: "12px 14px", borderRadius: 14, background: "rgba(0,0,0,0.25)", border: "1px dashed rgba(255,255,255,0.1)" }}>
+                    <div style={{ fontSize: "0.65rem", color: "#64748b", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.5px" }}>Fecha activa</div>
+                    <div style={{ fontSize: "1rem", color: "#38bdf8", fontWeight: 900 }}>Fecha {fechaAdmin}</div>
+                  </div>
+                )}
+              </div>
 
-                    const estaSoloFinal = (partido: any) => {
-                      const esAplazado = partido.estado === "aplazado";
-                      const esFinalizado = esPartidoFinalizadoReal(partido, partidosEnVivo);
-                      const hace2Horas = new Date().getTime() >= new Date(partido.fecha_hora_partido).getTime() + 2 * 60 * 60 * 1000;
-                      return esFinalizado || esAplazado || hace2Horas;
-                    };
+              {/* CONTENIDO PRINCIPAL */}
+              <div style={{ flex: 1, minWidth: 0 }}>
+                {(() => {
+                  const fechasDisponibles = Array.from(new Set(partidos.map((p) => p.jornada))).sort((a, b) => a - b);
+                  const listaFechas = fechasDisponibles.length > 0 ? fechasDisponibles : [1, 2, 3];
 
-                    // Filtro de partidos para el Admin (los aplazados tienen su propia sección dedicada, no aparecen aquí)
-                    const partidosAdminFiltrados = fechaAdmin === 0
-                      ? []
-                      : partidos.filter((p) => p.jornada === fechaAdmin && p.estado !== "aplazado");
-                    const partidosActivosAdmin = partidosAdminFiltrados
-                      .filter((p) => !estaSoloFinal(p))
-                      .sort((a, b) => new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime());
-                    const partidosFinalizadosAdmin = partidosAdminFiltrados
-                      .filter((p) => estaSoloFinal(p))
-                      .sort((a, b) => {
-                        if (a.estado === "aplazado" && b.estado !== "aplazado") return 1;
-                        if (a.estado !== "aplazado" && b.estado === "aplazado") return -1;
-                        return new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime();
-                      });
+                  const estaSoloFinal = (partido: any) => {
+                    const esAplazado = partido.estado === "aplazado";
+                    const esFinalizado = esPartidoFinalizadoReal(partido, partidosEnVivo);
+                    const hace2Horas = new Date().getTime() >= new Date(partido.fecha_hora_partido).getTime() + 2 * 60 * 60 * 1000;
+                    return esFinalizado || esAplazado || hace2Horas;
+                  };
 
-                    // Selector compacto de fecha, reutilizado en Predicciones y Liquidación
-                    const SelectorFechaCompacto = (
-                      <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap", background: "rgba(0,0,0,0.25)", padding: "8px", borderRadius: "18px", marginBottom: 20, boxShadow: "inset 0 2px 6px rgba(0,0,0,0.3)" }}>
-                        {listaFechas.map((f) => (
-                          <button
-                            key={f}
-                            type="button"
-                            onClick={() => {
-                              setFechaAdmin(f);
-                              if (usuario) cargarConsolidados(usuario.id);
-                            }}
-                            style={{
-                              padding: "7px 14px",
-                              borderRadius: "10px",
-                              fontWeight: 800,
-                              fontSize: "0.78rem",
-                              background: fechaAdmin === f ? "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)" : "transparent",
-                              color: fechaAdmin === f ? "#ffffff" : "#cbd5e1",
-                              border: "none",
-                              boxShadow: fechaAdmin === f ? "0 8px 20px -6px rgba(59, 130, 246, 0.6)" : "none",
-                              cursor: "pointer",
-                              transition: "all 0.25s ease",
-                            }}
-                          >
-                            Fecha {f}
-                          </button>
-                        ))}
-                      </div>
-                    );
+                  // Filtro de partidos para el Admin (los aplazados tienen su propia sección dedicada, no aparecen aquí)
+                  const partidosAdminFiltrados = fechaAdmin === 0
+                    ? []
+                    : partidos.filter((p) => p.jornada === fechaAdmin && p.estado !== "aplazado");
+                  const partidosActivosAdmin = partidosAdminFiltrados
+                    .filter((p) => !estaSoloFinal(p))
+                    .sort((a, b) => new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime());
+                  const partidosFinalizadosAdmin = partidosAdminFiltrados
+                    .filter((p) => estaSoloFinal(p))
+                    .sort((a, b) => {
+                      if (a.estado === "aplazado" && b.estado !== "aplazado") return 1;
+                      if (a.estado !== "aplazado" && b.estado === "aplazado") return -1;
+                      return new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime();
+                    });
 
-                    // ---------- TARJETA: SOLO PREDICCIONES ----------
-                    const renderPartidoPrediccionesCard = (partido: any) => {
-                      const esAplazado = partido.estado === "aplazado";
-                      const horaCierre = new Date(new Date(partido.fecha_hora_partido).getTime() - 30 * 60 * 1000);
-                      const ahora = new Date();
-                      const cerrado = ahora >= horaCierre;
-                      const msFaltantes = horaCierre.getTime() - ahora.getTime();
-                      let conteoFaltante = "";
-                      if (!cerrado && esAplazado) {
-                        const days = Math.floor(msFaltantes / (1000 * 60 * 60 * 24));
-                        const hours = Math.floor((msFaltantes % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                        const mins = Math.floor((msFaltantes % (1000 * 60 * 60)) / (1000 * 60));
-                        conteoFaltante = `${days > 0 ? days + "d " : ""}${hours}h ${mins}m`;
-                      }
-                      const pronosticosPartido = (consolidados?.prediccionesPartidos || []).filter((p: any) => p.partido_id === partido.id);
-                      return (
-                        <div key={partido.id} style={{
-                          background: "rgba(15, 23, 42, 0.6)",
-                          backdropFilter: "blur(12px)",
-                          border: "1px solid rgba(255, 255, 255, 0.08)",
-                          borderRadius: "20px",
-                          padding: "24px",
-                          marginBottom: "20px",
-                          boxShadow: "0 20px 40px -10px rgba(0,0,0,0.45)"
-                        }}>
-                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16 }}>
-                            <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-                              <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                                <img src={partido.equipo_local.escudo_url} alt={partido.equipo_local.nombre} style={{ width: 36, height: 36, objectFit: "contain" }} />
-                                <span style={{ fontSize: "1rem", fontWeight: 900, color: "#fff" }}>VS</span>
-                                <img src={partido.equipo_visitante.escudo_url} alt={partido.equipo_visitante.nombre} style={{ width: 36, height: 36, objectFit: "contain" }} />
-                              </div>
-                              <div>
-                                <h3 style={{ margin: 0, color: "#ffffff", fontSize: "1.02rem" }}>
-                                  {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}
-                                </h3>
-                                <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap", marginTop: 2 }}>
-                                  <span style={{ fontSize: "0.78rem", color: "#94a3b8", fontWeight: 700 }}>
-                                    🕒 {formatearFechaPartido(partido.fecha_hora_partido)} · {formatearHoraPartido(partido.fecha_hora_partido)}
-                                  </span>
-                                  {partido.estadio && (
-                                    <span style={{ fontSize: "0.78rem", color: "#94a3b8", fontWeight: 700 }}>
-                                      🏟️ {partido.estadio}
-                                    </span>
-                                  )}
-                                </div>
-                                {esAplazado && (
-                                  <div style={{ marginTop: 4, padding: "4px 10px", background: cerrado ? "rgba(239, 68, 68, 0.2)" : "rgba(245, 158, 11, 0.2)", color: cerrado ? "#ef4444" : "#fef08a", borderRadius: 8, fontSize: "0.85rem", fontWeight: 800, display: "inline-block" }}>
-                                    {cerrado ? "🔒 Pronósticos Cerrados" : `⏳ Cierra pronósticos en: ${conteoFaltante}`}
-                                  </div>
-                                )}
-                                <div>
-                                  <span style={{ fontSize: "0.9rem", color: "#a78bfa", fontWeight: 700 }}>
-                                    {pronosticosPartido.length} pronósticos recibidos
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
+                  // Selector compacto de fecha, reutilizado en Predicciones y Liquidación
+                  const SelectorFechaCompacto = (
+                    <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap", background: "rgba(0,0,0,0.25)", padding: "8px", borderRadius: "18px", marginBottom: 20, boxShadow: "inset 0 2px 6px rgba(0,0,0,0.3)" }}>
+                      {listaFechas.map((f) => (
+                        <button
+                          key={f}
+                          type="button"
+                          onClick={() => {
+                            setFechaAdmin(f);
+                            if (usuario) cargarConsolidados(usuario.id);
+                          }}
+                          style={{
+                            padding: "7px 14px",
+                            borderRadius: "10px",
+                            fontWeight: 800,
+                            fontSize: "0.78rem",
+                            background: fechaAdmin === f ? "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)" : "transparent",
+                            color: fechaAdmin === f ? "#ffffff" : "#cbd5e1",
+                            border: "none",
+                            boxShadow: fechaAdmin === f ? "0 8px 20px -6px rgba(59, 130, 246, 0.6)" : "none",
+                            cursor: "pointer",
+                            transition: "all 0.25s ease",
+                          }}
+                        >
+                          Fecha {f}
+                        </button>
+                      ))}
+                    </div>
+                  );
 
-                            <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-                              <button
-                                onClick={() => setPartidoAdminVer(partidoAdminVer === partido.id ? null : partido.id)}
-                                style={{ padding: "8px 16px", borderRadius: "10px", fontSize: "0.85rem", background: "rgba(255,255,255,0.1)", color: "#fff", border: "1px solid rgba(255,255,255,0.2)", cursor: "pointer", fontWeight: 700, display: "flex", alignItems: "center", gap: 6 }}
-                              >
-                                <Users size={16} /> Ver Participantes
-                              </button>
-
-                              <button
-                                onClick={() => handleDescargarExcelPronosticos(partido.id)}
-                                style={{ padding: "8px 16px", borderRadius: "10px", fontSize: "0.85rem", background: "rgba(16, 185, 129, 0.2)", color: "#10b981", border: "1px solid rgba(16, 185, 129, 0.4)", cursor: "pointer", fontWeight: 700, display: "flex", alignItems: "center", gap: 6 }}
-                              >
-                                <Download size={16} /> Bajar Excel
-                              </button>
-                            </div>
-                          </div>
-
-                          {partidoAdminVer === partido.id && (
-                            <div style={{ marginTop: 24, paddingTop: 20, borderTop: "1px solid rgba(255,255,255,0.1)", animation: "fadeIn 0.3s ease" }}>
-                              <div id={`tabla-pronosticos-admin-${partido.id}`} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
-                                <h4 style={{ margin: 0, color: "#a78bfa", fontSize: "1.1rem", display: "flex", alignItems: "center", gap: 8, fontWeight: 800 }}>
-                                  📋 Tabla de Predicciones ({pronosticosPartido.length})
-                                </h4>
-                                <button
-                                  onClick={() => handleDescargarImagenPronosticos(partido.id)}
-                                  style={{ padding: "8px 16px", borderRadius: "10px", fontSize: "0.85rem", background: "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)", color: "#fff", border: "none", cursor: "pointer", fontWeight: 800, display: "flex", alignItems: "center", gap: 6 }}
-                                >
-                                  <Camera size={14} /> Captura
-                                </button>
-                              </div>
-
-                              {pronosticosPartido.length === 0 ? (
-                                <div style={{ padding: 20, background: "rgba(0,0,0,0.2)", borderRadius: 12, color: "#94a3b8", textAlign: "center" }}>
-                                  Nadie ha enviado pronósticos para este partido.
-                                </div>
-                              ) : (
-                                <div style={{ overflowX: "auto", background: "rgba(0, 0, 0, 0.3)", borderRadius: "16px", border: "1px solid rgba(255,255,255,0.05)" }}>
-                                  <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.9rem", textAlign: "left" }}>
-                                    <thead>
-                                      <tr style={{ background: "rgba(255,255,255,0.02)", color: "#cbd5e1" }}>
-                                        <th style={{ padding: "12px 16px", fontWeight: 800 }}>Participante</th>
-                                        <th style={{ padding: "12px 16px", textAlign: "center", fontWeight: 800 }}>Marcador</th>
-                                        <th style={{ padding: "12px 16px", textAlign: "center", fontWeight: 800 }}>Ganador</th>
-                                        <th style={{ padding: "12px 16px", fontWeight: 800 }}>Goleador</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      {pronosticosPartido.map((p: any, idx: number) => (
-                                        <tr key={idx} style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
-                                          <td style={{ padding: "12px 16px", fontWeight: 700, color: "#ffffff" }}>
-                                            {p.usuario.nombre_completo}
-                                          </td>
-                                          <td style={{ padding: "12px 16px", textAlign: "center", fontWeight: 900, color: "#34d399", fontSize: "1.1rem" }}>
-                                            {p.goles_local_predicho} - {p.goles_visitante_predicho}
-                                          </td>
-                                          <td style={{ padding: "12px 16px", textAlign: "center" }}>
-                                            {(() => {
-                                              const valL = p.goles_local_predicho !== undefined && p.goles_local_predicho !== null ? p.goles_local_predicho : p.goles_local;
-                                              const valV = p.goles_visitante_predicho !== undefined && p.goles_visitante_predicho !== null ? p.goles_visitante_predicho : p.goles_visitante;
-                                              const gL = Number(valL);
-                                              const gV = Number(valV);
-                                              let ganadorTexto = "Empate";
-                                              if (!isNaN(gL) && !isNaN(gV)) {
-                                                if (gL > gV) ganadorTexto = `Gana ${partido.equipo_local.nombre}`;
-                                                else if (gV > gL) ganadorTexto = `Gana ${partido.equipo_visitante.nombre}`;
-                                                else ganadorTexto = "Empate";
-                                              }
-                                              return (
-                                                <span style={{ padding: "4px 10px", borderRadius: 10, background: "rgba(56, 189, 248, 0.15)", color: "#38bdf8", fontWeight: 800, fontSize: "0.8rem" }}>
-                                                  {ganadorTexto}
-                                                </span>
-                                              );
-                                            })()}
-                                          </td>
-                                          <td style={{ padding: "12px 16px", color: "#f5b000", fontWeight: 700 }}>
-                                            {obtenerNombreGoleador(p)}
-                                          </td>
-                                        </tr>
-                                      ))}
-                                    </tbody>
-                                  </table>
-                                </div>
-                              )}
-                            </div>
-                          )}
-                        </div>
-                      );
-                    };
-
-                    // ---------- TARJETA: SOLO LIQUIDACIÓN DE PUNTOS ----------
-                    const renderPartidoLiquidacionCard = (partido: any) => {
-                      const esAplazado = partido.estado === "aplazado";
-                      const horaCierre = new Date(new Date(partido.fecha_hora_partido).getTime() - 30 * 60 * 1000);
-                      const ahora = new Date();
-                      const cerrado = ahora >= horaCierre;
-                      const msFaltantes = horaCierre.getTime() - ahora.getTime();
-                      let conteoFaltante = "";
-                      if (!cerrado && esAplazado) {
-                        const days = Math.floor(msFaltantes / (1000 * 60 * 60 * 24));
-                        const hours = Math.floor((msFaltantes % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                        const mins = Math.floor((msFaltantes % (1000 * 60 * 60)) / (1000 * 60));
-                        conteoFaltante = `${days > 0 ? days + "d " : ""}${hours}h ${mins}m`;
-                      }
-                      if (partido.jornada === 1) return null;
-                      return (
-                        <div key={partido.id} style={{
-                          background: "rgba(15, 23, 42, 0.6)",
-                          backdropFilter: "blur(12px)",
-                          border: "1px solid rgba(255, 255, 255, 0.08)",
-                          borderRadius: "20px",
-                          padding: "24px",
-                          marginBottom: "20px",
-                          boxShadow: "0 20px 40px -10px rgba(0,0,0,0.45)"
-                        }}>
-                          <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 20 }}>
-                            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                              <img src={partido.equipo_local.escudo_url} alt={partido.equipo_local.nombre} style={{ width: 36, height: 36, objectFit: "contain" }} />
-                              <span style={{ fontSize: "1rem", fontWeight: 900, color: "#fff" }}>VS</span>
-                              <img src={partido.equipo_visitante.escudo_url} alt={partido.equipo_visitante.nombre} style={{ width: 36, height: 36, objectFit: "contain" }} />
-                            </div>
-                            <h3 style={{ margin: 0, color: "#ffffff", fontSize: "1.02rem" }}>
-                              {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}
-                            </h3>
-                          </div>
-
-                          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-                            <div style={{ fontSize: "1rem", color: "#e2e8f0", fontWeight: 800 }}>
-                              ⚙️ Gestión de Resultado Oficial
-                            </div>
-                            <div style={{ display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap", background: "rgba(0,0,0,0.2)", padding: 20, borderRadius: 16, border: "1px solid rgba(255,255,255,0.05)" }}>
-                              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                                <input
-                                  type="number"
-                                  min="0"
-                                  placeholder="Local"
-                                  style={{ width: 64, padding: "10px", borderRadius: "10px", border: "2px solid rgba(255,255,255,0.1)", background: "rgba(15,23,42,0.8)", color: "#fff", textAlign: "center", fontWeight: 900, fontSize: "1.1rem" }}
-                                  value={resultadosAdminInput[partido.id]?.local || ""}
-                                  onChange={(e) => handleResultadoAdminChange(partido.id, "local", e.target.value)}
-                                />
-                                <span style={{ fontWeight: 900, color: "#cbd5e1" }}>-</span>
-                                <input
-                                  type="number"
-                                  min="0"
-                                  placeholder="Vis"
-                                  style={{ width: 64, padding: "10px", borderRadius: "10px", border: "2px solid rgba(255,255,255,0.1)", background: "rgba(15,23,42,0.8)", color: "#fff", textAlign: "center", fontWeight: 900, fontSize: "1.1rem" }}
-                                  value={resultadosAdminInput[partido.id]?.visitante || ""}
-                                  onChange={(e) => handleResultadoAdminChange(partido.id, "visitante", e.target.value)}
-                                />
-                              </div>
-
-                              <div style={{ display: "flex", flexDirection: "column", gap: 8, flex: 1, minWidth: 280 }}>
-                                <select
-                                  style={{ padding: "10px 14px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(15,23,42,0.8)", color: "#fff", fontSize: "0.9rem", fontWeight: 600, cursor: "pointer", appearance: "none" }}
-                                  value=""
-                                  onChange={(e) => {
-                                    handleAgregarGoleadorAdmin(partido.id, e.target.value);
-                                    e.target.value = "";
-                                  }}
-                                >
-                                  <option value="">➕ Seleccionar Goleador Oficial (Opcional)</option>
-                                  {partido.equipo_local.jugadores && partido.equipo_local.jugadores.length > 0 && (
-                                    <optgroup label={`🏠 ${partido.equipo_local.nombre}`}>
-                                      {partido.equipo_local.jugadores.map((j: any) => (
-                                        <option key={j.id} value={j.id}>{j.nombre}</option>
-                                      ))}
-                                    </optgroup>
-                                  )}
-                                  {partido.equipo_visitante.jugadores && partido.equipo_visitante.jugadores.length > 0 && (
-                                    <optgroup label={`✈️ ${partido.equipo_visitante.nombre}`}>
-                                      {partido.equipo_visitante.jugadores.map((j: any) => (
-                                        <option key={j.id} value={j.id}>{j.nombre}</option>
-                                      ))}
-                                    </optgroup>
-                                  )}
-                                </select>
-
-                                {resultadosAdminInput[partido.id]?.goleadores_ids?.length > 0 && (
-                                  <div style={{ display: "flex", flexWrap: "wrap", gap: 8, alignItems: "center", marginTop: 4 }}>
-                                    {resultadosAdminInput[partido.id].goleadores_ids.map((jId: any, idxGoleador: number) => {
-                                      const todosJugadores = [...(partido.equipo_local.jugadores || []), ...(partido.equipo_visitante.jugadores || []), ...jugadores];
-                                      const jObj = todosJugadores.find((j) => j.id === jId);
-                                      return (
-                                        <span
-                                          key={`${jId}-${idxGoleador}`}
-                                          style={{
-                                            background: "rgba(245, 176, 0, 0.15)",
-                                            color: "#f5b000",
-                                            border: "1px solid rgba(245, 176, 0, 0.3)",
-                                            borderRadius: "20px",
-                                            padding: "4px 12px",
-                                            fontSize: "0.85rem",
-                                            display: "inline-flex",
-                                            alignItems: "center",
-                                            gap: 8,
-                                            fontWeight: 700,
-                                          }}
-                                        >
-                                          ⚽ {jObj?.nombre || `ID: ${jId}`}
-                                          <button
-                                            type="button"
-                                            onClick={() => handleRemoverGoleadorAdmin(partido.id, idxGoleador)}
-                                            style={{ background: "rgba(0,0,0,0.2)", border: "none", color: "#ef4444", borderRadius: "50%", width: 20, height: 20, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", fontWeight: 900, fontSize: "0.8rem", marginLeft: 4 }}
-                                          >
-                                            ✕
-                                          </button>
-                                        </span>
-                                      );
-                                    })}
-                                  </div>
-                                )}
-                              </div>
-                            </div>
-
-                            <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-                              <button
-                                onClick={() => handleCargarMarcadorPantalla(partido.id)}
-                                style={{
-                                  flex: 1,
-                                  minWidth: "200px",
-                                  padding: "12px",
-                                  borderRadius: "12px",
-                                  fontSize: "0.95rem",
-                                  background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
-                                  color: "#fff",
-                                  border: "none",
-                                  fontWeight: 900,
-                                  cursor: "pointer",
-                                  boxShadow: "0 10px 25px -6px rgba(16, 185, 129, 0.5)",
-                                  transition: "transform 0.2s"
-                                }}
-                                onMouseOver={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
-                                onMouseOut={(e) => (e.currentTarget.style.transform = "none")}
-                              >
-                                ⚽ Cargar Marcador en Pantalla
-                              </button>
-
-                              <button
-                                onClick={() => {
-                                  if (window.confirm("ATENCIÓN: Esto ejecutará el cálculo de puntos para TODOS los usuarios y modificará la tabla general. ¿Estás seguro de que quieres LIQUIDAR PUNTOS ahora mismo?")) {
-                                    handleCargarResultadoOficial(partido.id);
-                                  }
-                                }}
-                                disabled={partido.estado !== "resultado_cargado" && partido.estado !== "puntaje_calculado"}
-                                style={{
-                                  flex: 1,
-                                  minWidth: "200px",
-                                  padding: "12px",
-                                  borderRadius: "12px",
-                                  fontSize: "0.95rem",
-                                  background: partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado" ? "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)" : "rgba(255,255,255,0.05)",
-                                  color: partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado" ? "#fff" : "#64748b",
-                                  border: "none",
-                                  fontWeight: 900,
-                                  cursor: partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado" ? "pointer" : "not-allowed",
-                                  boxShadow: partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado" ? "0 10px 25px -6px rgba(245, 158, 11, 0.5)" : "none",
-                                  transition: "all 0.2s"
-                                }}
-                              >
-                                🏆 Liquidar Puntos (Global)
-                              </button>
-
-                              <button
-                                type="button"
-                                onClick={() => handleQuitarResultado(partido.id)}
-                                disabled={partido.estado !== "resultado_cargado" && partido.estado !== "puntaje_calculado"}
-                                style={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                  justifyContent: "center",
-                                  gap: 6,
-                                  minWidth: "160px",
-                                  padding: "12px",
-                                  borderRadius: "12px",
-                                  fontSize: "0.95rem",
-                                  background: partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado" ? "rgba(239, 68, 68, 0.15)" : "rgba(255,255,255,0.05)",
-                                  color: partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado" ? "#ef4444" : "#64748b",
-                                  border: "1px solid " + (partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado" ? "rgba(239, 68, 68, 0.4)" : "rgba(255,255,255,0.08)"),
-                                  fontWeight: 900,
-                                  cursor: partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado" ? "pointer" : "not-allowed",
-                                }}
-                              >
-                                <Trash2 size={14} /> Quitar Resultado
-                              </button>
-                            </div>
-                            {partido.estado !== "resultado_cargado" && partido.estado !== "puntaje_calculado" && (
-                              <div style={{ fontSize: "0.8rem", color: "#f59e0b", fontStyle: "italic", textAlign: "right" }}>
-                                * Primero carga el marcador en pantalla para habilitar la liquidación.
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      );
-                    };
-
-                    // ---------- TARJETA: PARTIDO APLAZADO (sección dedicada) ----------
-                    const renderPartidoAplazadoCard = (partido: any) => {
-                      return (
-                        <div key={partido.id} style={{
-                          background: "rgba(15, 23, 42, 0.6)",
-                          backdropFilter: "blur(12px)",
-                          border: "1px solid rgba(245, 158, 11, 0.25)",
-                          borderRadius: "20px",
-                          padding: "24px",
-                          marginBottom: "20px",
-                          boxShadow: "0 20px 40px -10px rgba(0,0,0,0.45)"
-                        }}>
-                          <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 20, flexWrap: "wrap" }}>
-                            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                              <img src={partido.equipo_local.escudo_url} alt={partido.equipo_local.nombre} style={{ width: 36, height: 36, objectFit: "contain" }} />
-                              <span style={{ fontSize: "1rem", fontWeight: 900, color: "#fff" }}>VS</span>
-                              <img src={partido.equipo_visitante.escudo_url} alt={partido.equipo_visitante.nombre} style={{ width: 36, height: 36, objectFit: "contain" }} />
-                            </div>
-                            <div>
-                              <h3 style={{ margin: 0, color: "#ffffff", fontSize: "1.02rem" }}>
-                                {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}
-                              </h3>
-                              <div style={{ marginTop: 4, padding: "4px 10px", background: "rgba(245, 158, 11, 0.15)", color: "#f5b000", borderRadius: 8, fontSize: "0.8rem", fontWeight: 800, display: "inline-block" }}>
-                                📅 Pertenece a Fecha {partido.jornada}
-                              </div>
-                            </div>
-                          </div>
-
-                          <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap", background: "rgba(0,0,0,0.2)", padding: 16, borderRadius: 16, border: "1px solid rgba(255,255,255,0.05)" }}>
-                            <select
-                              value={programacionAdminInput[partido.id]?.jornada ?? String(partido.jornada)}
-                              onChange={(e) => actualizarProgramacionInput(partido, "jornada", e.target.value)}
-                              style={{ padding: "9px 12px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(15,23,42,0.8)", color: "#fff", fontWeight: 700, fontSize: "0.85rem" }}
-                            >
-                              {Array.from({ length: Math.max(listaFechas.length, partido.jornada) + 2 }, (_, i) => i + 1).map((f) => (
-                                <option key={f} value={f}>Fecha {f}</option>
-                              ))}
-                            </select>
-
-                            <input
-                              type="datetime-local"
-                              value={programacionAdminInput[partido.id]?.fecha_hora ?? aInputDatetimeLocal(partido.fecha_hora_partido)}
-                              onChange={(e) => actualizarProgramacionInput(partido, "fecha_hora", e.target.value)}
-                              style={{ padding: "9px 12px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(15,23,42,0.8)", color: "#fff", fontWeight: 700, fontSize: "0.85rem" }}
-                            />
-
-                            <input
-                              type="text"
-                              placeholder="🏟️ Estadio"
-                              value={programacionAdminInput[partido.id]?.estadio ?? (partido.estadio || "")}
-                              onChange={(e) => actualizarProgramacionInput(partido, "estadio", e.target.value)}
-                              style={{ padding: "9px 12px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(15,23,42,0.8)", color: "#fff", fontWeight: 700, fontSize: "0.85rem", minWidth: 180 }}
-                            />
-
-                            <button
-                              type="button"
-                              onClick={() => handleGuardarProgramacion(partido)}
-                              disabled={guardandoProgramacionId === partido.id}
-                              style={{ display: "flex", alignItems: "center", gap: 6, padding: "9px 16px", borderRadius: "10px", border: "none", fontWeight: 800, fontSize: "0.82rem", cursor: guardandoProgramacionId === partido.id ? "not-allowed" : "pointer", background: "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)", color: "#fff", opacity: guardandoProgramacionId === partido.id ? 0.6 : 1 }}
-                            >
-                              <Save size={14} /> Guardar Programación
-                            </button>
-
-                            {programacionGuardadaId === partido.id && (
-                              <span style={{ display: "flex", alignItems: "center", gap: 6, color: "#34d399", fontWeight: 800, fontSize: "0.82rem" }}>
-                                <CheckCircle2 size={16} /> Guardado
-                              </span>
-                            )}
-
-                            <button
-                              type="button"
-                              onClick={() => handleToggleAplazado(partido)}
-                              disabled={guardandoProgramacionId === partido.id}
-                              style={{ display: "flex", alignItems: "center", gap: 6, padding: "9px 16px", borderRadius: "10px", border: "none", fontWeight: 800, fontSize: "0.82rem", cursor: guardandoProgramacionId === partido.id ? "not-allowed" : "pointer", background: "linear-gradient(135deg, #10b981 0%, #059669 100%)", color: "#fff", opacity: guardandoProgramacionId === partido.id ? 0.6 : 1 }}
-                            >
-                              <CheckCircle2 size={14} /> Reactivar Partido
-                            </button>
-                          </div>
-                        </div>
-                      );
-                    };
-
-                    // ---------- TARJETA: EDITAR PROGRAMACIÓN DE UN PARTIDO (sección dedicada) ----------
-                    const renderPartidoEditarCard = (partido: any) => {
-                      const esAplazado = partido.estado === "aplazado";
-                      return (
-                        <div key={partido.id} style={{
-                          background: "rgba(15, 23, 42, 0.6)",
-                          backdropFilter: "blur(12px)",
-                          border: "1px solid rgba(255, 255, 255, 0.08)",
-                          borderRadius: "20px",
-                          padding: "24px",
-                          marginBottom: "20px",
-                          boxShadow: "0 20px 40px -10px rgba(0,0,0,0.45)"
-                        }}>
-                          <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 20, flexWrap: "wrap" }}>
-                            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                              <img src={partido.equipo_local.escudo_url} alt={partido.equipo_local.nombre} style={{ width: 36, height: 36, objectFit: "contain" }} />
-                              <span style={{ fontSize: "1rem", fontWeight: 900, color: "#fff" }}>VS</span>
-                              <img src={partido.equipo_visitante.escudo_url} alt={partido.equipo_visitante.nombre} style={{ width: 36, height: 36, objectFit: "contain" }} />
-                            </div>
-                            <div>
-                              <h3 style={{ margin: 0, color: "#ffffff", fontSize: "1.02rem" }}>
-                                {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}
-                              </h3>
-                              <span style={{ fontSize: "0.78rem", color: "#94a3b8", fontWeight: 700 }}>
-                                🕒 {formatearFechaPartido(partido.fecha_hora_partido)} · {formatearHoraPartido(partido.fecha_hora_partido)}
-                                {partido.estadio ? ` · 🏟️ ${partido.estadio}` : ""}
-                              </span>
-                            </div>
-                          </div>
-
-                          <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap", background: "rgba(0,0,0,0.2)", padding: 16, borderRadius: 16, border: "1px solid rgba(255,255,255,0.05)" }}>
-                            <select
-                              value={programacionAdminInput[partido.id]?.jornada ?? String(partido.jornada)}
-                              onChange={(e) => actualizarProgramacionInput(partido, "jornada", e.target.value)}
-                              style={{ padding: "9px 12px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(15,23,42,0.8)", color: "#fff", fontWeight: 700, fontSize: "0.85rem" }}
-                            >
-                              {Array.from({ length: Math.max(listaFechas.length, partido.jornada) + 2 }, (_, i) => i + 1).map((f) => (
-                                <option key={f} value={f}>Fecha {f}</option>
-                              ))}
-                            </select>
-
-                            <input
-                              type="datetime-local"
-                              value={programacionAdminInput[partido.id]?.fecha_hora ?? aInputDatetimeLocal(partido.fecha_hora_partido)}
-                              onChange={(e) => actualizarProgramacionInput(partido, "fecha_hora", e.target.value)}
-                              style={{ padding: "9px 12px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(15,23,42,0.8)", color: "#fff", fontWeight: 700, fontSize: "0.85rem" }}
-                            />
-
-                            <input
-                              type="text"
-                              placeholder="🏟️ Estadio"
-                              value={programacionAdminInput[partido.id]?.estadio ?? (partido.estadio || "")}
-                              onChange={(e) => actualizarProgramacionInput(partido, "estadio", e.target.value)}
-                              style={{ padding: "9px 12px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(15,23,42,0.8)", color: "#fff", fontWeight: 700, fontSize: "0.85rem", minWidth: 180 }}
-                            />
-
-                            <button
-                              type="button"
-                              onClick={() => handleGuardarProgramacion(partido)}
-                              disabled={guardandoProgramacionId === partido.id}
-                              style={{ display: "flex", alignItems: "center", gap: 6, padding: "9px 16px", borderRadius: "10px", border: "none", fontWeight: 800, fontSize: "0.82rem", cursor: guardandoProgramacionId === partido.id ? "not-allowed" : "pointer", background: "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)", color: "#fff", opacity: guardandoProgramacionId === partido.id ? 0.6 : 1 }}
-                            >
-                              <Save size={14} /> Guardar Programación
-                            </button>
-
-                            {programacionGuardadaId === partido.id && (
-                              <span style={{ display: "flex", alignItems: "center", gap: 6, color: "#34d399", fontWeight: 800, fontSize: "0.82rem" }}>
-                                <CheckCircle2 size={16} /> Guardado
-                              </span>
-                            )}
-
-                            <button
-                              type="button"
-                              onClick={() => handleToggleAplazado(partido)}
-                              disabled={guardandoProgramacionId === partido.id}
-                              style={{ display: "flex", alignItems: "center", gap: 6, padding: "9px 16px", borderRadius: "10px", fontWeight: 800, fontSize: "0.82rem", cursor: guardandoProgramacionId === partido.id ? "not-allowed" : "pointer", background: esAplazado ? "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)" : "transparent", color: esAplazado ? "#fff" : "#f59e0b", border: "1px solid " + (esAplazado ? "transparent" : "rgba(245, 158, 11, 0.4)") }}
-                            >
-                              <Hourglass size={14} /> {esAplazado ? "Quitar Aplazado" : "Marcar Aplazado"}
-                            </button>
-                          </div>
-                        </div>
-                      );
-                    };
-
-                    // ================= SECCIÓN: EDITAR PARTIDOS (programación) =================
-                    if (seccionAdminPanel === "editar_partidos") {
-                      return (
-                        <div>
-                          <h2 style={{ margin: "0 0 4px", color: "#fff", fontSize: "1.3rem", fontWeight: 900 }}>📅 Editar Partidos</h2>
-                          <p style={{ color: "#94a3b8", margin: "0 0 16px", fontSize: "0.82rem" }}>Cambia la fecha, hora, jornada o estadio de un partido. No afecta resultados ni puntos ya liquidados.</p>
-                          {SelectorFechaCompacto}
-                          {fechaAdmin === 0 ? (
-                            <div style={{ padding: 40, textAlign: "center", background: "rgba(15, 23, 42, 0.6)", border: "2px dashed rgba(245, 158, 11, 0.4)", borderRadius: 24 }}>
-                              <div style={{ fontSize: "1.3rem", fontWeight: 900, color: "#f59e0b" }}>👆 Selecciona una Fecha</div>
-                            </div>
-                          ) : partidosAdminFiltrados.length === 0 ? (
-                            <div style={{ padding: 40, textAlign: "center", background: "rgba(15, 23, 42, 0.6)", borderRadius: 24, color: "#94a3b8" }}>
-                              {`No hay partidos programados para la Fecha ${fechaAdmin}.`}
-                            </div>
-                          ) : (
-                            <>
-                              {partidosActivosAdmin.map((partido) => renderPartidoEditarCard(partido))}
-                              {partidosFinalizadosAdmin.length > 0 && (
-                                <>
-                                  <div style={{ margin: "30px 0 20px", borderTop: "2px dashed rgba(255,255,255,0.1)", paddingTop: 20 }}>
-                                    <h3 style={{ color: "#64748b", fontSize: "1.2rem", fontWeight: 900, margin: 0 }}>Partidos Finalizados</h3>
-                                  </div>
-                                  {partidosFinalizadosAdmin.map((partido) => renderPartidoEditarCard(partido))}
-                                </>
-                              )}
-                            </>
-                          )}
-                        </div>
-                      );
+                  // ---------- TARJETA: SOLO PREDICCIONES ----------
+                  const renderPartidoPrediccionesCard = (partido: any) => {
+                    const esAplazado = partido.estado === "aplazado";
+                    const horaCierre = new Date(new Date(partido.fecha_hora_partido).getTime() - 30 * 60 * 1000);
+                    const ahora = new Date();
+                    const cerrado = ahora >= horaCierre;
+                    const msFaltantes = horaCierre.getTime() - ahora.getTime();
+                    let conteoFaltante = "";
+                    if (!cerrado && esAplazado) {
+                      const days = Math.floor(msFaltantes / (1000 * 60 * 60 * 24));
+                      const hours = Math.floor((msFaltantes % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                      const mins = Math.floor((msFaltantes % (1000 * 60 * 60)) / (1000 * 60));
+                      conteoFaltante = `${days > 0 ? days + "d " : ""}${hours}h ${mins}m`;
                     }
-
-                    // ================= SECCIÓN: PARTIDOS APLAZADOS =================
-                    if (seccionAdminPanel === "aplazados") {
-                      const partidosAplazados = partidos
-                        .filter((p) => p.estado === "aplazado")
-                        .sort((a, b) => a.jornada - b.jornada);
-                      return (
-                        <div>
-                          <h2 style={{ margin: "0 0 4px", color: "#fff", fontSize: "1.3rem", fontWeight: 900 }}>⏳ Partidos Aplazados</h2>
-                          <p style={{ color: "#94a3b8", margin: "0 0 16px", fontSize: "0.82rem" }}>Partidos pospuestos, sin importar la fecha a la que pertenecen. Reprográmalos aquí cuando tengas la nueva fecha, o reactívalos para que vuelvan a su fecha normal.</p>
-                          {partidosAplazados.length === 0 ? (
-                            <div style={{ padding: 40, textAlign: "center", background: "rgba(15, 23, 42, 0.6)", borderRadius: 24, color: "#94a3b8" }}>
-                              No hay partidos aplazados registrados actualmente.
-                            </div>
-                          ) : (
-                            partidosAplazados.map((partido) => renderPartidoAplazadoCard(partido))
-                          )}
-                        </div>
-                      );
-                    }
-
-                    // ================= SECCIÓN: FECHAS Y PREDICCIONES (UNIFICADA) =================
-                    if (seccionAdminPanel === "predicciones") {
-                      return (
-                        <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-                          {/* KPIs */}
-                          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 20 }}>
-                            {[
-                              { label: "Usuarios Registrados", value: consolidados?.usuarios?.length || 0, icon: UserCheck, color: "#38bdf8" },
-                              { label: "Líder Actual", value: TABLA_POSICIONES_FIJA[0]?.nombre_completo || "N/A", sub: TABLA_POSICIONES_FIJA[0] ? `${TABLA_POSICIONES_FIJA[0]?.pts_total ?? 0} Pts` : undefined, icon: Trophy, color: "#f5b000" },
-                              { label: "Partidos Programados", value: partidos.length, icon: Calendar, color: "#10b981" },
-                            ].map((kpi, idx) => {
-                              const KpiIcono = kpi.icon;
-                              return (
-                                <div
-                                  key={idx}
-                                  style={{
-                                    padding: "18px 20px",
-                                    display: "flex",
-                                    alignItems: "center",
-                                    gap: 16,
-                                    background: "rgba(15, 23, 42, 0.6)",
-                                    backdropFilter: "blur(10px)",
-                                    border: `1px solid ${kpi.color}33`,
-                                    borderRadius: "20px",
-                                    boxShadow: "0 20px 40px -12px rgba(0,0,0,0.5)",
-                                    position: "relative",
-                                    overflow: "hidden",
-                                  }}
-                                >
-                                  <div style={{ position: "absolute", top: -20, right: -20, width: 100, height: 100, background: `${kpi.color}22`, filter: "blur(30px)", borderRadius: "50%" }}></div>
-                                  <div
-                                    style={{
-                                      width: 52,
-                                      height: 52,
-                                      borderRadius: "14px",
-                                      background: `linear-gradient(135deg, ${kpi.color}33 0%, ${kpi.color}66 100%)`,
-                                      color: kpi.color,
-                                      display: "flex",
-                                      alignItems: "center",
-                                      justifyContent: "center",
-                                      flexShrink: 0,
-                                      border: `1px solid ${kpi.color}4d`,
-                                    }}
-                                  >
-                                    <KpiIcono size={26} />
-                                  </div>
-                                  <div style={{ zIndex: 1, minWidth: 0 }}>
-                                    <div style={{ fontSize: "0.72rem", color: "#94a3b8", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.5px" }}>
-                                      {kpi.label}
-                                    </div>
-                                    <strong style={{ fontSize: typeof kpi.value === "string" && kpi.value.length > 14 ? "1.05rem" : "1.6rem", color: "#ffffff", fontWeight: 900, lineHeight: 1.15, display: "block", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                                      {kpi.value}
-                                    </strong>
-                                    {kpi.sub && <span style={{ fontSize: "0.8rem", color: kpi.color, fontWeight: 800 }}>{kpi.sub}</span>}
-                                  </div>
-                                </div>
-                              );
-                            })}
-                          </div>
-
-                          {/* SELECTOR GRANDE DE FECHA */}
-                          <div
-                            style={{
-                              background: "rgba(15, 23, 42, 0.7)",
-                              backdropFilter: "blur(16px)",
-                              border: "1px solid rgba(255, 255, 255, 0.05)",
-                              borderRadius: "24px",
-                              padding: "24px",
-                              boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.55)",
-                            }}
-                          >
-                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 20 }}>
-                              <div>
-                                <h2 style={{ margin: 0, fontSize: "1.35rem", color: "#ffffff", fontWeight: 900 }}>
-                                  👁️ Fechas y Predicciones
-                                </h2>
-                                <p style={{ color: "#94a3b8", margin: "6px 0 0 0", fontSize: "0.85rem" }}>
-                                  Selecciona una fecha para revisar lo que pronosticó cada usuario. Los partidos aplazados aparecen siempre.
-                                </p>
-                              </div>
-
-                              <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap", background: "rgba(0,0,0,0.2)", padding: "6px", borderRadius: "20px" }}>
-                                {listaFechas.map((f) => (
-                                  <button
-                                    key={f}
-                                    type="button"
-                                    onClick={() => {
-                                      setFechaAdmin(f);
-                                      if (usuario) cargarConsolidados(usuario.id);
-                                    }}
-                                    style={{
-                                      padding: "8px 18px",
-                                      borderRadius: "12px",
-                                      fontWeight: 800,
-                                      fontSize: "0.8rem",
-                                      background: fechaAdmin === f ? "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)" : "transparent",
-                                      color: fechaAdmin === f ? "#ffffff" : "#cbd5e1",
-                                      border: "none",
-                                      boxShadow: fechaAdmin === f ? "0 8px 20px -6px rgba(59, 130, 246, 0.6)" : "none",
-                                      cursor: "pointer",
-                                      transition: "all 0.3s ease",
-                                    }}
-                                  >
-                                    Fecha {f}
-                                  </button>
-                                ))}
-
-                                <button
-                                  type="button"
-                                  onClick={() => handleDescargarExcelPronosticos(undefined, fechaAdmin)}
-                                  disabled={fechaAdmin === 0}
-                                  style={{
-                                    padding: "8px 18px",
-                                    fontSize: "0.8rem",
-                                    background: fechaAdmin === 0 ? "rgba(255,255,255,0.05)" : "linear-gradient(135deg, #10b981 0%, #059669 100%)",
-                                    color: fechaAdmin === 0 ? "#64748b" : "#fff",
-                                    border: "none",
-                                    borderRadius: "12px",
-                                    fontWeight: 900,
-                                    boxShadow: fechaAdmin === 0 ? "none" : "0 8px 20px -6px rgba(16, 185, 129, 0.6)",
-                                    cursor: fechaAdmin === 0 ? "not-allowed" : "pointer",
-                                    display: "flex",
-                                    alignItems: "center",
-                                    gap: 7,
-                                    marginLeft: 8,
-                                    transition: "all 0.3s"
-                                  }}
-                                >
-                                  <Download size={15} /> Excel F{fechaAdmin || "-"}
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* TARJETAS DE PARTIDOS CON SUS PREDICCIONES (incluye aplazados) */}
-                          {fechaAdmin === 0 && partidosAdminFiltrados.length === 0 ? (
-                            <div style={{ padding: 40, textAlign: "center", background: "rgba(15, 23, 42, 0.6)", border: "2px dashed rgba(167, 139, 250, 0.4)", borderRadius: 24 }}>
-                              <div style={{ fontSize: "1.2rem", fontWeight: 900, color: "#a78bfa" }}>👆 Selecciona una Fecha</div>
-                            </div>
-                          ) : partidosAdminFiltrados.length === 0 ? (
-                            <div style={{ padding: 40, textAlign: "center", background: "rgba(15, 23, 42, 0.6)", borderRadius: 24, color: "#94a3b8" }}>
-                              {`No hay partidos programados para la Fecha ${fechaAdmin}.`}
-                            </div>
-                          ) : (
-                            <>
-                              {partidosActivosAdmin.map((partido) => renderPartidoPrediccionesCard(partido))}
-                              {partidosFinalizadosAdmin.length > 0 && (
-                                <>
-                                  <div style={{ margin: "30px 0 20px", borderTop: "2px dashed rgba(255,255,255,0.1)", paddingTop: 20 }}>
-                                    <h3 style={{ color: "#64748b", fontSize: "1.2rem", fontWeight: 900, margin: 0 }}>Partidos Finalizados o Aplazados</h3>
-                                  </div>
-                                  {partidosFinalizadosAdmin.map((partido) => renderPartidoPrediccionesCard(partido))}
-                                </>
-                              )}
-                            </>
-                          )}
-                        </div>
-                      );
-                    }
-
-                    // ================= SECCIÓN: LIQUIDACIÓN DE PUNTOS =================
-                    if (seccionAdminPanel === "liquidacion") {
-                      return (
-                        <div>
-                          <h2 style={{ margin: "0 0 4px", color: "#fff", fontSize: "1.3rem", fontWeight: 900 }}>🏆 Liquidación de Puntos</h2>
-                          <p style={{ color: "#94a3b8", margin: "0 0 16px", fontSize: "0.82rem" }}>Carga el marcador oficial y liquida los puntos de cada partido.</p>
-                          {SelectorFechaCompacto}
-                          {fechaAdmin === 0 ? (
-                            <div style={{ padding: 40, textAlign: "center", background: "rgba(15, 23, 42, 0.6)", border: "2px dashed rgba(245, 158, 11, 0.4)", borderRadius: 24 }}>
-                              <div style={{ fontSize: "1.3rem", fontWeight: 900, color: "#f59e0b" }}>👆 Selecciona una Fecha</div>
-                            </div>
-                          ) : partidosAdminFiltrados.length === 0 ? (
-                            <div style={{ padding: 40, textAlign: "center", background: "rgba(15, 23, 42, 0.6)", borderRadius: 24, color: "#94a3b8" }}>
-                              {`No hay partidos programados para la Fecha ${fechaAdmin}.`}
-                            </div>
-                          ) : (
-                            <>
-                              {partidosActivosAdmin.map((partido) => renderPartidoLiquidacionCard(partido))}
-                              {partidosFinalizadosAdmin.length > 0 && (
-                                <>
-                                  <div style={{ margin: "30px 0 20px", borderTop: "2px dashed rgba(255,255,255,0.1)", paddingTop: 20 }}>
-                                    <h3 style={{ color: "#64748b", fontSize: "1.2rem", fontWeight: 900, margin: 0 }}>Partidos Finalizados o Aplazados</h3>
-                                  </div>
-                                  {partidosFinalizadosAdmin.map((partido) => renderPartidoLiquidacionCard(partido))}
-                                </>
-                              )}
-                            </>
-                          )}
-                        </div>
-                      );
-                    }
-
-                    // ================= SECCIÓN: TABLA DE POSICIONES =================
+                    const pronosticosPartido = (consolidados?.prediccionesPartidos || []).filter((p: any) => p.partido_id === partido.id);
                     return (
-                      <div>
-                        <h2 style={{ margin: "0 0 4px", color: "#fff", fontSize: "1.3rem", fontWeight: 900 }}>📊 Tabla de Posiciones</h2>
-                        <p style={{ color: "#94a3b8", margin: "0 0 16px", fontSize: "0.82rem" }}>Puntos verificados de todos los participantes.</p>
-                        {cargandoConsolidados ? (
-                          <div style={{ textAlign: "center", padding: 50, background: "rgba(15, 23, 42, 0.6)", borderRadius: 24 }}>
-                            <RefreshCw className="spin" size={36} style={{ color: "#38bdf8", marginBottom: 16 }} />
-                            <div style={{ fontSize: "1.1rem", fontWeight: 700, color: "#fff" }}>Cargando tabla de posiciones...</div>
+                      <div key={partido.id} style={{
+                        background: "rgba(15, 23, 42, 0.6)",
+                        backdropFilter: "blur(12px)",
+                        border: "1px solid rgba(255, 255, 255, 0.08)",
+                        borderRadius: "20px",
+                        padding: "24px",
+                        marginBottom: "20px",
+                        boxShadow: "0 20px 40px -10px rgba(0,0,0,0.45)"
+                      }}>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16 }}>
+                          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+                            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                              <img src={partido.equipo_local.escudo_url} alt={partido.equipo_local.nombre} style={{ width: 36, height: 36, objectFit: "contain" }} />
+                              <span style={{ fontSize: "1rem", fontWeight: 900, color: "#fff" }}>VS</span>
+                              <img src={partido.equipo_visitante.escudo_url} alt={partido.equipo_visitante.nombre} style={{ width: 36, height: 36, objectFit: "contain" }} />
+                            </div>
+                            <div>
+                              <h3 style={{ margin: 0, color: "#ffffff", fontSize: "1.02rem" }}>
+                                {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}
+                              </h3>
+                              <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap", marginTop: 2 }}>
+                                <span style={{ fontSize: "0.78rem", color: "#94a3b8", fontWeight: 700 }}>
+                                  🕒 {formatearFechaPartido(partido.fecha_hora_partido)} · {formatearHoraPartido(partido.fecha_hora_partido)}
+                                </span>
+                                {partido.estadio && (
+                                  <span style={{ fontSize: "0.78rem", color: "#94a3b8", fontWeight: 700 }}>
+                                    🏟️ {partido.estadio}
+                                  </span>
+                                )}
+                              </div>
+                              {esAplazado && (
+                                <div style={{ marginTop: 4, padding: "4px 10px", background: cerrado ? "rgba(239, 68, 68, 0.2)" : "rgba(245, 158, 11, 0.2)", color: cerrado ? "#ef4444" : "#fef08a", borderRadius: 8, fontSize: "0.85rem", fontWeight: 800, display: "inline-block" }}>
+                                  {cerrado ? "🔒 Pronósticos Cerrados" : `⏳ Cierra pronósticos en: ${conteoFaltante}`}
+                                </div>
+                              )}
+                              <div>
+                                <span style={{ fontSize: "0.9rem", color: "#a78bfa", fontWeight: 700 }}>
+                                  {pronosticosPartido.length} pronósticos recibidos
+                                </span>
+                              </div>
+                            </div>
                           </div>
-                        ) : !consolidados ? (
-                          <div style={{ textAlign: "center", padding: 40, background: "rgba(15, 23, 42, 0.6)", borderRadius: 24, color: "#94a3b8" }}>
-                            No se pudieron cargar los datos.
+
+                          <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+                            <button
+                              onClick={() => setPartidoAdminVer(partidoAdminVer === partido.id ? null : partido.id)}
+                              style={{ padding: "8px 16px", borderRadius: "10px", fontSize: "0.85rem", background: "rgba(255,255,255,0.1)", color: "#fff", border: "1px solid rgba(255,255,255,0.2)", cursor: "pointer", fontWeight: 700, display: "flex", alignItems: "center", gap: 6 }}
+                            >
+                              <Users size={16} /> Ver Participantes
+                            </button>
+
+                            <button
+                              onClick={() => handleDescargarExcelPronosticos(partido.id)}
+                              style={{ padding: "8px 16px", borderRadius: "10px", fontSize: "0.85rem", background: "rgba(16, 185, 129, 0.2)", color: "#10b981", border: "1px solid rgba(16, 185, 129, 0.4)", cursor: "pointer", fontWeight: 700, display: "flex", alignItems: "center", gap: 6 }}
+                            >
+                              <Download size={16} /> Bajar Excel
+                            </button>
                           </div>
-                        ) : (
-                          <div style={{ borderRadius: 24, overflow: "hidden", boxShadow: "0 25px 50px -12px rgba(0,0,0,0.6)" }}>
-                            <TablaPosicionesAfiche
-                              tabla={consolidados.tablaPosiciones || []}
-                              onDescargarExcelPronosticos={handleDescargarExcelPronosticos}
-                            />
+                        </div>
+
+                        {partidoAdminVer === partido.id && (
+                          <div style={{ marginTop: 24, paddingTop: 20, borderTop: "1px solid rgba(255,255,255,0.1)", animation: "fadeIn 0.3s ease" }}>
+                            <div id={`tabla-pronosticos-admin-${partido.id}`} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+                              <h4 style={{ margin: 0, color: "#a78bfa", fontSize: "1.1rem", display: "flex", alignItems: "center", gap: 8, fontWeight: 800 }}>
+                                📋 Tabla de Predicciones ({pronosticosPartido.length})
+                              </h4>
+                              <button
+                                onClick={() => handleDescargarImagenPronosticos(partido.id)}
+                                style={{ padding: "8px 16px", borderRadius: "10px", fontSize: "0.85rem", background: "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)", color: "#fff", border: "none", cursor: "pointer", fontWeight: 800, display: "flex", alignItems: "center", gap: 6 }}
+                              >
+                                <Camera size={14} /> Captura
+                              </button>
+                            </div>
+
+                            {pronosticosPartido.length === 0 ? (
+                              <div style={{ padding: 20, background: "rgba(0,0,0,0.2)", borderRadius: 12, color: "#94a3b8", textAlign: "center" }}>
+                                Nadie ha enviado pronósticos para este partido.
+                              </div>
+                            ) : (
+                              <div style={{ overflowX: "auto", background: "rgba(0, 0, 0, 0.3)", borderRadius: "16px", border: "1px solid rgba(255,255,255,0.05)" }}>
+                                <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.9rem", textAlign: "left" }}>
+                                  <thead>
+                                    <tr style={{ background: "rgba(255,255,255,0.02)", color: "#cbd5e1" }}>
+                                      <th style={{ padding: "12px 16px", fontWeight: 800 }}>Participante</th>
+                                      <th style={{ padding: "12px 16px", textAlign: "center", fontWeight: 800 }}>Marcador</th>
+                                      <th style={{ padding: "12px 16px", textAlign: "center", fontWeight: 800 }}>Ganador</th>
+                                      <th style={{ padding: "12px 16px", fontWeight: 800 }}>Goleador</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {pronosticosPartido.map((p: any, idx: number) => (
+                                      <tr key={idx} style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+                                        <td style={{ padding: "12px 16px", fontWeight: 700, color: "#ffffff" }}>
+                                          {p.usuario.nombre_completo}
+                                        </td>
+                                        <td style={{ padding: "12px 16px", textAlign: "center", fontWeight: 900, color: "#34d399", fontSize: "1.1rem" }}>
+                                          {p.goles_local_predicho} - {p.goles_visitante_predicho}
+                                        </td>
+                                        <td style={{ padding: "12px 16px", textAlign: "center" }}>
+                                          {(() => {
+                                            const valL = p.goles_local_predicho !== undefined && p.goles_local_predicho !== null ? p.goles_local_predicho : p.goles_local;
+                                            const valV = p.goles_visitante_predicho !== undefined && p.goles_visitante_predicho !== null ? p.goles_visitante_predicho : p.goles_visitante;
+                                            const gL = Number(valL);
+                                            const gV = Number(valV);
+                                            let ganadorTexto = "Empate";
+                                            if (!isNaN(gL) && !isNaN(gV)) {
+                                              if (gL > gV) ganadorTexto = `Gana ${partido.equipo_local.nombre}`;
+                                              else if (gV > gL) ganadorTexto = `Gana ${partido.equipo_visitante.nombre}`;
+                                              else ganadorTexto = "Empate";
+                                            }
+                                            return (
+                                              <span style={{ padding: "4px 10px", borderRadius: 10, background: "rgba(56, 189, 248, 0.15)", color: "#38bdf8", fontWeight: 800, fontSize: "0.8rem" }}>
+                                                {ganadorTexto}
+                                              </span>
+                                            );
+                                          })()}
+                                        </td>
+                                        <td style={{ padding: "12px 16px", color: "#f5b000", fontWeight: 700 }}>
+                                          {obtenerNombreGoleador(p)}
+                                        </td>
+                                      </tr>
+                                    ))}
+                                  </tbody>
+                                </table>
+                              </div>
+                            )}
                           </div>
                         )}
                       </div>
                     );
-                  })()}
-                </div>
+                  };
+
+                  // ---------- TARJETA: SOLO LIQUIDACIÓN DE PUNTOS ----------
+                  const renderPartidoLiquidacionCard = (partido: any) => {
+                    const esAplazado = partido.estado === "aplazado";
+                    const horaCierre = new Date(new Date(partido.fecha_hora_partido).getTime() - 30 * 60 * 1000);
+                    const ahora = new Date();
+                    const cerrado = ahora >= horaCierre;
+                    const msFaltantes = horaCierre.getTime() - ahora.getTime();
+                    let conteoFaltante = "";
+                    if (!cerrado && esAplazado) {
+                      const days = Math.floor(msFaltantes / (1000 * 60 * 60 * 24));
+                      const hours = Math.floor((msFaltantes % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                      const mins = Math.floor((msFaltantes % (1000 * 60 * 60)) / (1000 * 60));
+                      conteoFaltante = `${days > 0 ? days + "d " : ""}${hours}h ${mins}m`;
+                    }
+                    if (partido.jornada === 1) return null;
+                    return (
+                      <div key={partido.id} style={{
+                        background: "rgba(15, 23, 42, 0.6)",
+                        backdropFilter: "blur(12px)",
+                        border: "1px solid rgba(255, 255, 255, 0.08)",
+                        borderRadius: "20px",
+                        padding: "24px",
+                        marginBottom: "20px",
+                        boxShadow: "0 20px 40px -10px rgba(0,0,0,0.45)"
+                      }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 20 }}>
+                          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                            <img src={partido.equipo_local.escudo_url} alt={partido.equipo_local.nombre} style={{ width: 36, height: 36, objectFit: "contain" }} />
+                            <span style={{ fontSize: "1rem", fontWeight: 900, color: "#fff" }}>VS</span>
+                            <img src={partido.equipo_visitante.escudo_url} alt={partido.equipo_visitante.nombre} style={{ width: 36, height: 36, objectFit: "contain" }} />
+                          </div>
+                          <h3 style={{ margin: 0, color: "#ffffff", fontSize: "1.02rem" }}>
+                            {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}
+                          </h3>
+                        </div>
+
+                        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                          <div style={{ fontSize: "1rem", color: "#e2e8f0", fontWeight: 800 }}>
+                            ⚙️ Gestión de Resultado Oficial
+                          </div>
+                          <div style={{ display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap", background: "rgba(0,0,0,0.2)", padding: 20, borderRadius: 16, border: "1px solid rgba(255,255,255,0.05)" }}>
+                            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                              <input
+                                type="number"
+                                min="0"
+                                placeholder="Local"
+                                style={{ width: 64, padding: "10px", borderRadius: "10px", border: "2px solid rgba(255,255,255,0.1)", background: "rgba(15,23,42,0.8)", color: "#fff", textAlign: "center", fontWeight: 900, fontSize: "1.1rem" }}
+                                value={resultadosAdminInput[partido.id]?.local || ""}
+                                onChange={(e) => handleResultadoAdminChange(partido.id, "local", e.target.value)}
+                              />
+                              <span style={{ fontWeight: 900, color: "#cbd5e1" }}>-</span>
+                              <input
+                                type="number"
+                                min="0"
+                                placeholder="Vis"
+                                style={{ width: 64, padding: "10px", borderRadius: "10px", border: "2px solid rgba(255,255,255,0.1)", background: "rgba(15,23,42,0.8)", color: "#fff", textAlign: "center", fontWeight: 900, fontSize: "1.1rem" }}
+                                value={resultadosAdminInput[partido.id]?.visitante || ""}
+                                onChange={(e) => handleResultadoAdminChange(partido.id, "visitante", e.target.value)}
+                              />
+                            </div>
+
+                            <div style={{ display: "flex", flexDirection: "column", gap: 8, flex: 1, minWidth: 280 }}>
+                              <select
+                                style={{ padding: "10px 14px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(15,23,42,0.8)", color: "#fff", fontSize: "0.9rem", fontWeight: 600, cursor: "pointer", appearance: "none" }}
+                                value=""
+                                onChange={(e) => {
+                                  handleAgregarGoleadorAdmin(partido.id, e.target.value);
+                                  e.target.value = "";
+                                }}
+                              >
+                                <option value="">➕ Seleccionar Goleador Oficial (Opcional)</option>
+                                {partido.equipo_local.jugadores && partido.equipo_local.jugadores.length > 0 && (
+                                  <optgroup label={`🏠 ${partido.equipo_local.nombre}`}>
+                                    {partido.equipo_local.jugadores.map((j: any) => (
+                                      <option key={j.id} value={j.id}>{j.nombre}</option>
+                                    ))}
+                                  </optgroup>
+                                )}
+                                {partido.equipo_visitante.jugadores && partido.equipo_visitante.jugadores.length > 0 && (
+                                  <optgroup label={`✈️ ${partido.equipo_visitante.nombre}`}>
+                                    {partido.equipo_visitante.jugadores.map((j: any) => (
+                                      <option key={j.id} value={j.id}>{j.nombre}</option>
+                                    ))}
+                                  </optgroup>
+                                )}
+                              </select>
+
+                              {resultadosAdminInput[partido.id]?.goleadores_ids?.length > 0 && (
+                                <div style={{ display: "flex", flexWrap: "wrap", gap: 8, alignItems: "center", marginTop: 4 }}>
+                                  {resultadosAdminInput[partido.id].goleadores_ids.map((jId: any, idxGoleador: number) => {
+                                    const todosJugadores = [...(partido.equipo_local.jugadores || []), ...(partido.equipo_visitante.jugadores || []), ...jugadores];
+                                    const jObj = todosJugadores.find((j) => j.id === jId);
+                                    return (
+                                      <span
+                                        key={`${jId}-${idxGoleador}`}
+                                        style={{
+                                          background: "rgba(245, 176, 0, 0.15)",
+                                          color: "#f5b000",
+                                          border: "1px solid rgba(245, 176, 0, 0.3)",
+                                          borderRadius: "20px",
+                                          padding: "4px 12px",
+                                          fontSize: "0.85rem",
+                                          display: "inline-flex",
+                                          alignItems: "center",
+                                          gap: 8,
+                                          fontWeight: 700,
+                                        }}
+                                      >
+                                        ⚽ {jObj?.nombre || `ID: ${jId}`}
+                                        <button
+                                          type="button"
+                                          onClick={() => handleRemoverGoleadorAdmin(partido.id, idxGoleador)}
+                                          style={{ background: "rgba(0,0,0,0.2)", border: "none", color: "#ef4444", borderRadius: "50%", width: 20, height: 20, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", fontWeight: 900, fontSize: "0.8rem", marginLeft: 4 }}
+                                        >
+                                          ✕
+                                        </button>
+                                      </span>
+                                    );
+                                  })}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+
+                          <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+                            <button
+                              onClick={() => handleCargarMarcadorPantalla(partido.id)}
+                              style={{
+                                flex: 1,
+                                minWidth: "200px",
+                                padding: "12px",
+                                borderRadius: "12px",
+                                fontSize: "0.95rem",
+                                background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+                                color: "#fff",
+                                border: "none",
+                                fontWeight: 900,
+                                cursor: "pointer",
+                                boxShadow: "0 10px 25px -6px rgba(16, 185, 129, 0.5)",
+                                transition: "transform 0.2s"
+                              }}
+                              onMouseOver={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
+                              onMouseOut={(e) => (e.currentTarget.style.transform = "none")}
+                            >
+                              ⚽ Cargar Marcador en Pantalla
+                            </button>
+
+                            <button
+                              onClick={() => {
+                                if (window.confirm("ATENCIÓN: Esto ejecutará el cálculo de puntos para TODOS los usuarios y modificará la tabla general. ¿Estás seguro de que quieres LIQUIDAR PUNTOS ahora mismo?")) {
+                                  handleCargarResultadoOficial(partido.id);
+                                }
+                              }}
+                              disabled={partido.estado !== "resultado_cargado" && partido.estado !== "puntaje_calculado"}
+                              style={{
+                                flex: 1,
+                                minWidth: "200px",
+                                padding: "12px",
+                                borderRadius: "12px",
+                                fontSize: "0.95rem",
+                                background: partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado" ? "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)" : "rgba(255,255,255,0.05)",
+                                color: partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado" ? "#fff" : "#64748b",
+                                border: "none",
+                                fontWeight: 900,
+                                cursor: partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado" ? "pointer" : "not-allowed",
+                                boxShadow: partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado" ? "0 10px 25px -6px rgba(245, 158, 11, 0.5)" : "none",
+                                transition: "all 0.2s"
+                              }}
+                            >
+                              🏆 Liquidar Puntos (Global)
+                            </button>
+
+                            <button
+                              type="button"
+                              onClick={() => handleQuitarResultado(partido.id)}
+                              disabled={partido.estado !== "resultado_cargado" && partido.estado !== "puntaje_calculado"}
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                gap: 6,
+                                minWidth: "160px",
+                                padding: "12px",
+                                borderRadius: "12px",
+                                fontSize: "0.95rem",
+                                background: partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado" ? "rgba(239, 68, 68, 0.15)" : "rgba(255,255,255,0.05)",
+                                color: partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado" ? "#ef4444" : "#64748b",
+                                border: "1px solid " + (partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado" ? "rgba(239, 68, 68, 0.4)" : "rgba(255,255,255,0.08)"),
+                                fontWeight: 900,
+                                cursor: partido.estado === "resultado_cargado" || partido.estado === "puntaje_calculado" ? "pointer" : "not-allowed",
+                              }}
+                            >
+                              <Trash2 size={14} /> Quitar Resultado
+                            </button>
+                          </div>
+                          {partido.estado !== "resultado_cargado" && partido.estado !== "puntaje_calculado" && (
+                            <div style={{ fontSize: "0.8rem", color: "#f59e0b", fontStyle: "italic", textAlign: "right" }}>
+                              * Primero carga el marcador en pantalla para habilitar la liquidación.
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  };
+
+                  // ---------- TARJETA: PARTIDO APLAZADO (sección dedicada) ----------
+                  const renderPartidoAplazadoCard = (partido: any) => {
+                    return (
+                      <div key={partido.id} style={{
+                        background: "rgba(15, 23, 42, 0.6)",
+                        backdropFilter: "blur(12px)",
+                        border: "1px solid rgba(245, 158, 11, 0.25)",
+                        borderRadius: "20px",
+                        padding: "24px",
+                        marginBottom: "20px",
+                        boxShadow: "0 20px 40px -10px rgba(0,0,0,0.45)"
+                      }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 20, flexWrap: "wrap" }}>
+                          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                            <img src={partido.equipo_local.escudo_url} alt={partido.equipo_local.nombre} style={{ width: 36, height: 36, objectFit: "contain" }} />
+                            <span style={{ fontSize: "1rem", fontWeight: 900, color: "#fff" }}>VS</span>
+                            <img src={partido.equipo_visitante.escudo_url} alt={partido.equipo_visitante.nombre} style={{ width: 36, height: 36, objectFit: "contain" }} />
+                          </div>
+                          <div>
+                            <h3 style={{ margin: 0, color: "#ffffff", fontSize: "1.02rem" }}>
+                              {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}
+                            </h3>
+                            <div style={{ marginTop: 4, padding: "4px 10px", background: "rgba(245, 158, 11, 0.15)", color: "#f5b000", borderRadius: 8, fontSize: "0.8rem", fontWeight: 800, display: "inline-block" }}>
+                              📅 Pertenece a Fecha {partido.jornada}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap", background: "rgba(0,0,0,0.2)", padding: 16, borderRadius: 16, border: "1px solid rgba(255,255,255,0.05)" }}>
+                          <select
+                            value={programacionAdminInput[partido.id]?.jornada ?? String(partido.jornada)}
+                            onChange={(e) => actualizarProgramacionInput(partido, "jornada", e.target.value)}
+                            style={{ padding: "9px 12px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(15,23,42,0.8)", color: "#fff", fontWeight: 700, fontSize: "0.85rem" }}
+                          >
+                            {Array.from({ length: Math.max(listaFechas.length, partido.jornada) + 2 }, (_, i) => i + 1).map((f) => (
+                              <option key={f} value={f}>Fecha {f}</option>
+                            ))}
+                          </select>
+
+                          <input
+                            type="datetime-local"
+                            value={programacionAdminInput[partido.id]?.fecha_hora ?? aInputDatetimeLocal(partido.fecha_hora_partido)}
+                            onChange={(e) => actualizarProgramacionInput(partido, "fecha_hora", e.target.value)}
+                            style={{ padding: "9px 12px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(15,23,42,0.8)", color: "#fff", fontWeight: 700, fontSize: "0.85rem" }}
+                          />
+
+                          <input
+                            type="text"
+                            placeholder="🏟️ Estadio"
+                            value={programacionAdminInput[partido.id]?.estadio ?? (partido.estadio || "")}
+                            onChange={(e) => actualizarProgramacionInput(partido, "estadio", e.target.value)}
+                            style={{ padding: "9px 12px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(15,23,42,0.8)", color: "#fff", fontWeight: 700, fontSize: "0.85rem", minWidth: 180 }}
+                          />
+
+                          <button
+                            type="button"
+                            onClick={() => handleGuardarProgramacion(partido)}
+                            disabled={guardandoProgramacionId === partido.id}
+                            style={{ display: "flex", alignItems: "center", gap: 6, padding: "9px 16px", borderRadius: "10px", border: "none", fontWeight: 800, fontSize: "0.82rem", cursor: guardandoProgramacionId === partido.id ? "not-allowed" : "pointer", background: "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)", color: "#fff", opacity: guardandoProgramacionId === partido.id ? 0.6 : 1 }}
+                          >
+                            <Save size={14} /> Guardar Programación
+                          </button>
+
+                          {programacionGuardadaId === partido.id && (
+                            <span style={{ display: "flex", alignItems: "center", gap: 6, color: "#34d399", fontWeight: 800, fontSize: "0.82rem" }}>
+                              <CheckCircle2 size={16} /> Guardado
+                            </span>
+                          )}
+
+                          <button
+                            type="button"
+                            onClick={() => handleToggleAplazado(partido)}
+                            disabled={guardandoProgramacionId === partido.id}
+                            style={{ display: "flex", alignItems: "center", gap: 6, padding: "9px 16px", borderRadius: "10px", border: "none", fontWeight: 800, fontSize: "0.82rem", cursor: guardandoProgramacionId === partido.id ? "not-allowed" : "pointer", background: "linear-gradient(135deg, #10b981 0%, #059669 100%)", color: "#fff", opacity: guardandoProgramacionId === partido.id ? 0.6 : 1 }}
+                          >
+                            <CheckCircle2 size={14} /> Reactivar Partido
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  };
+
+                  // ---------- TARJETA: EDITAR PROGRAMACIÓN DE UN PARTIDO (sección dedicada) ----------
+                  const renderPartidoEditarCard = (partido: any) => {
+                    const esAplazado = partido.estado === "aplazado";
+                    return (
+                      <div key={partido.id} style={{
+                        background: "rgba(15, 23, 42, 0.6)",
+                        backdropFilter: "blur(12px)",
+                        border: "1px solid rgba(255, 255, 255, 0.08)",
+                        borderRadius: "20px",
+                        padding: "24px",
+                        marginBottom: "20px",
+                        boxShadow: "0 20px 40px -10px rgba(0,0,0,0.45)"
+                      }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 20, flexWrap: "wrap" }}>
+                          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                            <img src={partido.equipo_local.escudo_url} alt={partido.equipo_local.nombre} style={{ width: 36, height: 36, objectFit: "contain" }} />
+                            <span style={{ fontSize: "1rem", fontWeight: 900, color: "#fff" }}>VS</span>
+                            <img src={partido.equipo_visitante.escudo_url} alt={partido.equipo_visitante.nombre} style={{ width: 36, height: 36, objectFit: "contain" }} />
+                          </div>
+                          <div>
+                            <h3 style={{ margin: 0, color: "#ffffff", fontSize: "1.02rem" }}>
+                              {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}
+                            </h3>
+                            <span style={{ fontSize: "0.78rem", color: "#94a3b8", fontWeight: 700 }}>
+                              🕒 {formatearFechaPartido(partido.fecha_hora_partido)} · {formatearHoraPartido(partido.fecha_hora_partido)}
+                              {partido.estadio ? ` · 🏟️ ${partido.estadio}` : ""}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap", background: "rgba(0,0,0,0.2)", padding: 16, borderRadius: 16, border: "1px solid rgba(255,255,255,0.05)" }}>
+                          <select
+                            value={programacionAdminInput[partido.id]?.jornada ?? String(partido.jornada)}
+                            onChange={(e) => actualizarProgramacionInput(partido, "jornada", e.target.value)}
+                            style={{ padding: "9px 12px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(15,23,42,0.8)", color: "#fff", fontWeight: 700, fontSize: "0.85rem" }}
+                          >
+                            {Array.from({ length: Math.max(listaFechas.length, partido.jornada) + 2 }, (_, i) => i + 1).map((f) => (
+                              <option key={f} value={f}>Fecha {f}</option>
+                            ))}
+                          </select>
+
+                          <input
+                            type="datetime-local"
+                            value={programacionAdminInput[partido.id]?.fecha_hora ?? aInputDatetimeLocal(partido.fecha_hora_partido)}
+                            onChange={(e) => actualizarProgramacionInput(partido, "fecha_hora", e.target.value)}
+                            style={{ padding: "9px 12px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(15,23,42,0.8)", color: "#fff", fontWeight: 700, fontSize: "0.85rem" }}
+                          />
+
+                          <input
+                            type="text"
+                            placeholder="🏟️ Estadio"
+                            value={programacionAdminInput[partido.id]?.estadio ?? (partido.estadio || "")}
+                            onChange={(e) => actualizarProgramacionInput(partido, "estadio", e.target.value)}
+                            style={{ padding: "9px 12px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(15,23,42,0.8)", color: "#fff", fontWeight: 700, fontSize: "0.85rem", minWidth: 180 }}
+                          />
+
+                          <button
+                            type="button"
+                            onClick={() => handleGuardarProgramacion(partido)}
+                            disabled={guardandoProgramacionId === partido.id}
+                            style={{ display: "flex", alignItems: "center", gap: 6, padding: "9px 16px", borderRadius: "10px", border: "none", fontWeight: 800, fontSize: "0.82rem", cursor: guardandoProgramacionId === partido.id ? "not-allowed" : "pointer", background: "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)", color: "#fff", opacity: guardandoProgramacionId === partido.id ? 0.6 : 1 }}
+                          >
+                            <Save size={14} /> Guardar Programación
+                          </button>
+
+                          {programacionGuardadaId === partido.id && (
+                            <span style={{ display: "flex", alignItems: "center", gap: 6, color: "#34d399", fontWeight: 800, fontSize: "0.82rem" }}>
+                              <CheckCircle2 size={16} /> Guardado
+                            </span>
+                          )}
+
+                          <button
+                            type="button"
+                            onClick={() => handleToggleAplazado(partido)}
+                            disabled={guardandoProgramacionId === partido.id}
+                            style={{ display: "flex", alignItems: "center", gap: 6, padding: "9px 16px", borderRadius: "10px", fontWeight: 800, fontSize: "0.82rem", cursor: guardandoProgramacionId === partido.id ? "not-allowed" : "pointer", background: esAplazado ? "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)" : "transparent", color: esAplazado ? "#fff" : "#f59e0b", border: "1px solid " + (esAplazado ? "transparent" : "rgba(245, 158, 11, 0.4)") }}
+                          >
+                            <Hourglass size={14} /> {esAplazado ? "Quitar Aplazado" : "Marcar Aplazado"}
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  };
+
+                  // ================= SECCIÓN: EDITAR PARTIDOS (programación) =================
+                  if (seccionAdminPanel === "editar_partidos") {
+                    return (
+                      <div>
+                        <h2 style={{ margin: "0 0 4px", color: "#fff", fontSize: "1.3rem", fontWeight: 900 }}>📅 Editar Partidos</h2>
+                        <p style={{ color: "#94a3b8", margin: "0 0 16px", fontSize: "0.82rem" }}>Cambia la fecha, hora, jornada o estadio de un partido. No afecta resultados ni puntos ya liquidados.</p>
+                        {SelectorFechaCompacto}
+                        {fechaAdmin === 0 ? (
+                          <div style={{ padding: 40, textAlign: "center", background: "rgba(15, 23, 42, 0.6)", border: "2px dashed rgba(245, 158, 11, 0.4)", borderRadius: 24 }}>
+                            <div style={{ fontSize: "1.3rem", fontWeight: 900, color: "#f59e0b" }}>👆 Selecciona una Fecha</div>
+                          </div>
+                        ) : partidosAdminFiltrados.length === 0 ? (
+                          <div style={{ padding: 40, textAlign: "center", background: "rgba(15, 23, 42, 0.6)", borderRadius: 24, color: "#94a3b8" }}>
+                            {`No hay partidos programados para la Fecha ${fechaAdmin}.`}
+                          </div>
+                        ) : (
+                          <>
+                            {partidosActivosAdmin.map((partido) => renderPartidoEditarCard(partido))}
+                            {partidosFinalizadosAdmin.length > 0 && (
+                              <>
+                                <div style={{ margin: "30px 0 20px", borderTop: "2px dashed rgba(255,255,255,0.1)", paddingTop: 20 }}>
+                                  <h3 style={{ color: "#64748b", fontSize: "1.2rem", fontWeight: 900, margin: 0 }}>Partidos Finalizados</h3>
+                                </div>
+                                {partidosFinalizadosAdmin.map((partido) => renderPartidoEditarCard(partido))}
+                              </>
+                            )}
+                          </>
+                        )}
+                      </div>
+                    );
+                  }
+
+                  // ================= SECCIÓN: PARTIDOS APLAZADOS =================
+                  if (seccionAdminPanel === "aplazados") {
+                    const partidosAplazados = partidos
+                      .filter((p) => p.estado === "aplazado")
+                      .sort((a, b) => a.jornada - b.jornada);
+                    return (
+                      <div>
+                        <h2 style={{ margin: "0 0 4px", color: "#fff", fontSize: "1.3rem", fontWeight: 900 }}>⏳ Partidos Aplazados</h2>
+                        <p style={{ color: "#94a3b8", margin: "0 0 16px", fontSize: "0.82rem" }}>Partidos pospuestos, sin importar la fecha a la que pertenecen. Reprográmalos aquí cuando tengas la nueva fecha, o reactívalos para que vuelvan a su fecha normal.</p>
+                        {partidosAplazados.length === 0 ? (
+                          <div style={{ padding: 40, textAlign: "center", background: "rgba(15, 23, 42, 0.6)", borderRadius: 24, color: "#94a3b8" }}>
+                            No hay partidos aplazados registrados actualmente.
+                          </div>
+                        ) : (
+                          partidosAplazados.map((partido) => renderPartidoAplazadoCard(partido))
+                        )}
+                      </div>
+                    );
+                  }
+
+                  // ================= SECCIÓN: FECHAS Y PREDICCIONES (UNIFICADA) =================
+                  if (seccionAdminPanel === "predicciones") {
+                    return (
+                      <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+                        {/* KPIs */}
+                        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 20 }}>
+                          {[
+                            { label: "Usuarios Registrados", value: consolidados?.usuarios?.length || 0, icon: UserCheck, color: "#38bdf8" },
+                            { label: "Líder Actual", value: TABLA_POSICIONES_FIJA[0]?.nombre_completo || "N/A", sub: TABLA_POSICIONES_FIJA[0] ? `${TABLA_POSICIONES_FIJA[0]?.pts_total ?? 0} Pts` : undefined, icon: Trophy, color: "#f5b000" },
+                            { label: "Partidos Programados", value: partidos.length, icon: Calendar, color: "#10b981" },
+                          ].map((kpi, idx) => {
+                            const KpiIcono = kpi.icon;
+                            return (
+                              <div
+                                key={idx}
+                                style={{
+                                  padding: "18px 20px",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  gap: 16,
+                                  background: "rgba(15, 23, 42, 0.6)",
+                                  backdropFilter: "blur(10px)",
+                                  border: `1px solid ${kpi.color}33`,
+                                  borderRadius: "20px",
+                                  boxShadow: "0 20px 40px -12px rgba(0,0,0,0.5)",
+                                  position: "relative",
+                                  overflow: "hidden",
+                                }}
+                              >
+                                <div style={{ position: "absolute", top: -20, right: -20, width: 100, height: 100, background: `${kpi.color}22`, filter: "blur(30px)", borderRadius: "50%" }}></div>
+                                <div
+                                  style={{
+                                    width: 52,
+                                    height: 52,
+                                    borderRadius: "14px",
+                                    background: `linear-gradient(135deg, ${kpi.color}33 0%, ${kpi.color}66 100%)`,
+                                    color: kpi.color,
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    flexShrink: 0,
+                                    border: `1px solid ${kpi.color}4d`,
+                                  }}
+                                >
+                                  <KpiIcono size={26} />
+                                </div>
+                                <div style={{ zIndex: 1, minWidth: 0 }}>
+                                  <div style={{ fontSize: "0.72rem", color: "#94a3b8", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.5px" }}>
+                                    {kpi.label}
+                                  </div>
+                                  <strong style={{ fontSize: typeof kpi.value === "string" && kpi.value.length > 14 ? "1.05rem" : "1.6rem", color: "#ffffff", fontWeight: 900, lineHeight: 1.15, display: "block", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                                    {kpi.value}
+                                  </strong>
+                                  {kpi.sub && <span style={{ fontSize: "0.8rem", color: kpi.color, fontWeight: 800 }}>{kpi.sub}</span>}
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+
+                        {/* SELECTOR GRANDE DE FECHA */}
+                        <div
+                          style={{
+                            background: "rgba(15, 23, 42, 0.7)",
+                            backdropFilter: "blur(16px)",
+                            border: "1px solid rgba(255, 255, 255, 0.05)",
+                            borderRadius: "24px",
+                            padding: "24px",
+                            boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.55)",
+                          }}
+                        >
+                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 20 }}>
+                            <div>
+                              <h2 style={{ margin: 0, fontSize: "1.35rem", color: "#ffffff", fontWeight: 900 }}>
+                                👁️ Fechas y Predicciones
+                              </h2>
+                              <p style={{ color: "#94a3b8", margin: "6px 0 0 0", fontSize: "0.85rem" }}>
+                                Selecciona una fecha para revisar lo que pronosticó cada usuario. Los partidos aplazados aparecen siempre.
+                              </p>
+                            </div>
+
+                            <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap", background: "rgba(0,0,0,0.2)", padding: "6px", borderRadius: "20px" }}>
+                              {listaFechas.map((f) => (
+                                <button
+                                  key={f}
+                                  type="button"
+                                  onClick={() => {
+                                    setFechaAdmin(f);
+                                    if (usuario) cargarConsolidados(usuario.id);
+                                  }}
+                                  style={{
+                                    padding: "8px 18px",
+                                    borderRadius: "12px",
+                                    fontWeight: 800,
+                                    fontSize: "0.8rem",
+                                    background: fechaAdmin === f ? "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)" : "transparent",
+                                    color: fechaAdmin === f ? "#ffffff" : "#cbd5e1",
+                                    border: "none",
+                                    boxShadow: fechaAdmin === f ? "0 8px 20px -6px rgba(59, 130, 246, 0.6)" : "none",
+                                    cursor: "pointer",
+                                    transition: "all 0.3s ease",
+                                  }}
+                                >
+                                  Fecha {f}
+                                </button>
+                              ))}
+
+                              <button
+                                type="button"
+                                onClick={() => handleDescargarExcelPronosticos(undefined, fechaAdmin)}
+                                disabled={fechaAdmin === 0}
+                                style={{
+                                  padding: "8px 18px",
+                                  fontSize: "0.8rem",
+                                  background: fechaAdmin === 0 ? "rgba(255,255,255,0.05)" : "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+                                  color: fechaAdmin === 0 ? "#64748b" : "#fff",
+                                  border: "none",
+                                  borderRadius: "12px",
+                                  fontWeight: 900,
+                                  boxShadow: fechaAdmin === 0 ? "none" : "0 8px 20px -6px rgba(16, 185, 129, 0.6)",
+                                  cursor: fechaAdmin === 0 ? "not-allowed" : "pointer",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  gap: 7,
+                                  marginLeft: 8,
+                                  transition: "all 0.3s"
+                                }}
+                              >
+                                <Download size={15} /> Excel F{fechaAdmin || "-"}
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* TARJETAS DE PARTIDOS CON SUS PREDICCIONES (incluye aplazados) */}
+                        {fechaAdmin === 0 && partidosAdminFiltrados.length === 0 ? (
+                          <div style={{ padding: 40, textAlign: "center", background: "rgba(15, 23, 42, 0.6)", border: "2px dashed rgba(167, 139, 250, 0.4)", borderRadius: 24 }}>
+                            <div style={{ fontSize: "1.2rem", fontWeight: 900, color: "#a78bfa" }}>👆 Selecciona una Fecha</div>
+                          </div>
+                        ) : partidosAdminFiltrados.length === 0 ? (
+                          <div style={{ padding: 40, textAlign: "center", background: "rgba(15, 23, 42, 0.6)", borderRadius: 24, color: "#94a3b8" }}>
+                            {`No hay partidos programados para la Fecha ${fechaAdmin}.`}
+                          </div>
+                        ) : (
+                          <>
+                            {partidosActivosAdmin.map((partido) => renderPartidoPrediccionesCard(partido))}
+                            {partidosFinalizadosAdmin.length > 0 && (
+                              <>
+                                <div style={{ margin: "30px 0 20px", borderTop: "2px dashed rgba(255,255,255,0.1)", paddingTop: 20 }}>
+                                  <h3 style={{ color: "#64748b", fontSize: "1.2rem", fontWeight: 900, margin: 0 }}>Partidos Finalizados o Aplazados</h3>
+                                </div>
+                                {partidosFinalizadosAdmin.map((partido) => renderPartidoPrediccionesCard(partido))}
+                              </>
+                            )}
+                          </>
+                        )}
+                      </div>
+                    );
+                  }
+
+                  // ================= SECCIÓN: LIQUIDACIÓN DE PUNTOS =================
+                  if (seccionAdminPanel === "liquidacion") {
+                    return (
+                      <div>
+                        <h2 style={{ margin: "0 0 4px", color: "#fff", fontSize: "1.3rem", fontWeight: 900 }}>🏆 Liquidación de Puntos</h2>
+                        <p style={{ color: "#94a3b8", margin: "0 0 16px", fontSize: "0.82rem" }}>Carga el marcador oficial y liquida los puntos de cada partido.</p>
+                        {SelectorFechaCompacto}
+                        {fechaAdmin === 0 ? (
+                          <div style={{ padding: 40, textAlign: "center", background: "rgba(15, 23, 42, 0.6)", border: "2px dashed rgba(245, 158, 11, 0.4)", borderRadius: 24 }}>
+                            <div style={{ fontSize: "1.3rem", fontWeight: 900, color: "#f59e0b" }}>👆 Selecciona una Fecha</div>
+                          </div>
+                        ) : partidosAdminFiltrados.length === 0 ? (
+                          <div style={{ padding: 40, textAlign: "center", background: "rgba(15, 23, 42, 0.6)", borderRadius: 24, color: "#94a3b8" }}>
+                            {`No hay partidos programados para la Fecha ${fechaAdmin}.`}
+                          </div>
+                        ) : (
+                          <>
+                            {partidosActivosAdmin.map((partido) => renderPartidoLiquidacionCard(partido))}
+                            {partidosFinalizadosAdmin.length > 0 && (
+                              <>
+                                <div style={{ margin: "30px 0 20px", borderTop: "2px dashed rgba(255,255,255,0.1)", paddingTop: 20 }}>
+                                  <h3 style={{ color: "#64748b", fontSize: "1.2rem", fontWeight: 900, margin: 0 }}>Partidos Finalizados o Aplazados</h3>
+                                </div>
+                                {partidosFinalizadosAdmin.map((partido) => renderPartidoLiquidacionCard(partido))}
+                              </>
+                            )}
+                          </>
+                        )}
+                      </div>
+                    );
+                  }
+
+                  // ================= SECCIÓN: TABLA DE POSICIONES =================
+                  return (
+                    <div>
+                      <h2 style={{ margin: "0 0 4px", color: "#fff", fontSize: "1.3rem", fontWeight: 900 }}>📊 Tabla de Posiciones</h2>
+                      <p style={{ color: "#94a3b8", margin: "0 0 16px", fontSize: "0.82rem" }}>Puntos verificados de todos los participantes.</p>
+                      {cargandoConsolidados ? (
+                        <div style={{ textAlign: "center", padding: 50, background: "rgba(15, 23, 42, 0.6)", borderRadius: 24 }}>
+                          <RefreshCw className="spin" size={36} style={{ color: "#38bdf8", marginBottom: 16 }} />
+                          <div style={{ fontSize: "1.1rem", fontWeight: 700, color: "#fff" }}>Cargando tabla de posiciones...</div>
+                        </div>
+                      ) : !consolidados ? (
+                        <div style={{ textAlign: "center", padding: 40, background: "rgba(15, 23, 42, 0.6)", borderRadius: 24, color: "#94a3b8" }}>
+                          No se pudieron cargar los datos.
+                        </div>
+                      ) : (
+                        <div style={{ borderRadius: 24, overflow: "hidden", boxShadow: "0 25px 50px -12px rgba(0,0,0,0.6)" }}>
+                          <TablaPosicionesAfiche
+                            tabla={consolidados.tablaPosiciones || []}
+                            onDescargarExcelPronosticos={handleDescargarExcelPronosticos}
+                          />
+                        </div>
+                      )}
+                    </div>
+                  );
+                })()}
               </div>
             </div>
+          </div>
         </div>
       ) : (
         /* ================= VISTA NORMAL DE PARTICIPANTE ================= */
@@ -3353,7 +3352,7 @@ function ExpressPageContent() {
             }}
           >
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <div 
+              <div
                 style={{ fontWeight: 900, fontSize: "1.2rem", color: "#ffffff", display: "flex", alignItems: "center", gap: 8, cursor: "pointer" }}
                 onClick={() => setTabActiva("inicio")}
               >
@@ -3646,7 +3645,8 @@ function ExpressPageContent() {
 
           {/* TAB 0: PANTALLA DE INICIO Y BIENVENIDA (con sidebar de navegación) */}
           {tabActiva === "inicio" && (
-            <div className="inicio-layout-row" style={{ display: "flex", gap: 20, alignItems: "flex-start" }}>
+            <>
+            <div className="inicio-layout-row" style={{ display: "flex", gap: 20, alignItems: "stretch" }}>
               {/* SIDEBAR DE MENÚ RÁPIDO (a la izquierda) */}
               <div
                 className="inicio-sidebar"
@@ -3663,15 +3663,13 @@ function ExpressPageContent() {
                   boxShadow: "0 12px 36px rgba(0,0,0,0.5)",
                 }}
               >
-                <div style={{ padding: "6px 10px 14px", color: "var(--graderia)", fontSize: "0.68rem", fontWeight: 900, textTransform: "uppercase", letterSpacing: "1px", borderBottom: "1px dashed rgba(255,255,255,0.08)", marginBottom: 6 }}>
-                  🔥 Menú Rápido
-                </div>
+
                 <div className="inicio-sidebar-nav no-scrollbar">
                   {([
                     {
                       key: "partidos",
                       emoji: "⚽",
-                      label: `Pronósticos Fecha ${fechaParticipante}`,
+                      label: `Pronósticos`,
                       desc: "Marcadores, ganadores y goleadores",
                       color: "#10b981",
                       onClick: () => setTabActiva("partidos"),
@@ -3688,7 +3686,7 @@ function ExpressPageContent() {
                       key: "mis_pronosticos",
                       emoji: "📋",
                       label: "Tabla de Pronósticos",
-                      desc: "Lo que cargó cada participante",
+                      desc: "Pronosticos Globales",
                       color: "#6366f1",
                       onClick: () => {
                         setTabActiva("mis_pronosticos");
@@ -3699,7 +3697,7 @@ function ExpressPageContent() {
                       key: "posiciones",
                       emoji: "📊",
                       label: "Tabla de Posiciones",
-                      desc: "Puntos acumulados en vivo",
+                      desc: "Puntos acumulados",
                       color: "#38bdf8",
                       onClick: () => {
                         setTabActiva("posiciones");
@@ -3783,22 +3781,86 @@ function ExpressPageContent() {
                 }}
               >
                 <div style={{ fontSize: "0.85rem", textTransform: "uppercase", letterSpacing: "0.14em", color: "#34d399", fontWeight: 800, marginBottom: 8 }}>
-                  🔥 BIENVENIDO AL DESAFÍO LIGA BETPLAY 2026 🔥
+                  🔥 BIENVENIDO AL DESAFÍO, LIGA BETPLAY 2026 🔥
                 </div>
                 <h1 style={{ fontSize: "clamp(1.6rem, 4vw, 2.5rem)", fontWeight: 900, color: "#ffffff", marginBottom: 12 }}>
-                  DEMUESTRA LO QUE SABES DE FÚTBOL
+                  ¿CREES QUE NADIE TE GANA? DEMUÉSTRALO
                 </h1>
                 <p style={{ maxWidth: 560, margin: "0 auto", color: "var(--graderia)", fontSize: "1rem", lineHeight: 1.6 }}>
                   ¡Hola, <strong style={{ color: "#fff" }}>{usuario.nombre}</strong>! Elige una opción del menú para ingresar tus pronósticos o revisar la tabla de posiciones en vivo.
                 </p>
-                <img
-                  src="/images/balon_3d.png"
-                  alt=""
-                  className="icono-3d-flotante"
-                  style={{ width: 110, marginTop: 28, opacity: 0.9 }}
-                />
               </div>
             </div>
+
+            {/* TU RENDIMIENTO: MINI DASHBOARD DE ESTADÍSTICAS PERSONALES */}
+            {(() => {
+              const miFila = TABLA_POSICIONES_FIJA.find((f) => f.usuario_id === usuario.id);
+              if (!miFila) return null;
+              const desglose = [
+                { label: "Resultado Exacto", val: miFila.pts_resultado_exacto, emoji: "🎯" },
+                { label: "Ganador Partido", val: miFila.pts_ganador_partido, emoji: "⚽" },
+                { label: "Goleador Partido", val: miFila.pts_goleador_partido, emoji: "🥅" },
+                { label: "Campeón", val: miFila.pts_campeon, emoji: "🏆" },
+                { label: "Finalistas", val: miFila.pts_finalistas, emoji: "🥈" },
+                { label: "Clasificados", val: miFila.pts_clasificados, emoji: "✅" },
+                { label: "Goleador Torneo", val: miFila.pts_goleador_torneo, emoji: "👑" },
+              ];
+              return (
+                <div
+                  className="card"
+                  style={{
+                    marginTop: 20,
+                    background: "linear-gradient(135deg, rgba(14, 26, 39, 0.95) 0%, rgba(19, 32, 48, 0.95) 100%)",
+                    border: "1px solid var(--cancha-borde)",
+                    borderRadius: 16,
+                    padding: "28px 24px",
+                    boxShadow: "0 12px 36px rgba(0,0,0,0.5)",
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 12, marginBottom: 20 }}>
+                    <h2 style={{ margin: 0, fontSize: "1.1rem", fontWeight: 900, color: "#fff", display: "flex", alignItems: "center", gap: 8 }}>
+                      📈 Tu Rendimiento
+                    </h2>
+                    <span style={{ fontSize: "0.78rem", color: "var(--graderia)" }}>Según la tabla oficial verificada</span>
+                  </div>
+
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: 14, marginBottom: 20 }}>
+                    <div style={{ background: "rgba(56, 189, 248, 0.12)", border: "1px solid rgba(56, 189, 248, 0.3)", borderRadius: 14, padding: 16, textAlign: "center" }}>
+                      <div style={{ fontSize: "1.8rem", fontWeight: 900, color: "#38bdf8" }}>#{miFila.posicion}</div>
+                      <div style={{ fontSize: "0.72rem", color: "var(--graderia)", fontWeight: 700, textTransform: "uppercase" }}>Posición</div>
+                    </div>
+                    <div style={{ background: "rgba(52, 211, 153, 0.12)", border: "1px solid rgba(52, 211, 153, 0.3)", borderRadius: 14, padding: 16, textAlign: "center" }}>
+                      <div style={{ fontSize: "1.8rem", fontWeight: 900, color: "#34d399" }}>{miFila.pts_total}</div>
+                      <div style={{ fontSize: "0.72rem", color: "var(--graderia)", fontWeight: 700, textTransform: "uppercase" }}>Puntos Totales</div>
+                    </div>
+                  </div>
+
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 10 }}>
+                    {desglose.map((s) => (
+                      <div
+                        key={s.label}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          gap: 8,
+                          background: "rgba(255,255,255,0.03)",
+                          border: "1px solid rgba(255,255,255,0.06)",
+                          borderRadius: 10,
+                          padding: "10px 12px",
+                        }}
+                      >
+                        <span style={{ fontSize: "0.8rem", color: "var(--graderia)", display: "flex", alignItems: "center", gap: 6 }}>
+                          <span>{s.emoji}</span> {s.label}
+                        </span>
+                        <span style={{ fontWeight: 900, color: "#fff", fontSize: "0.95rem" }}>{s.val}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })()}
+            </>
           )}
 
           {/* TAB 1: PRONÓSTICOS DE PARTIDOS (FECHAS) */}
