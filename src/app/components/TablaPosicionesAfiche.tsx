@@ -32,6 +32,7 @@ interface TablaPosicionesAficheProps {
 // sin mantener una copia separada de estos números.
 export const TABLA_POSICIONES_FIJA: FilaTablaPosiciones[] = [
   { posicion: 1, usuario_id: 1, nombre_completo: "Nelson Berdugo", correo: "nelson.berdugo05@gmail.com", pts_campeon: 0, pts_finalistas: 0, pts_clasificados: 0, pts_goleador_torneo: 0, pts_resultado_exacto: 20, pts_ganador_partido: 39, pts_goleador_partido: 12, pts_total: 71 },
+  { posicion: 1, usuario_id: 17, nombre_completo: "Samuel de Santa Fe", correo: "", pts_campeon: 0, pts_finalistas: 0, pts_clasificados: 0, pts_goleador_torneo: 0, pts_resultado_exacto: 20, pts_ganador_partido: 39, pts_goleador_partido: 12, pts_total: 71 },
   { posicion: 2, usuario_id: 2, nombre_completo: "Pedro Cantero", correo: "pedrocanterojr@gmail.com", pts_campeon: 0, pts_finalistas: 0, pts_clasificados: 0, pts_goleador_torneo: 0, pts_resultado_exacto: 20, pts_ganador_partido: 30, pts_goleador_partido: 18, pts_total: 68 },
   { posicion: 3, usuario_id: 3, nombre_completo: "Juan Hernandez", correo: "juanhermon24@gmail.com", pts_campeon: 0, pts_finalistas: 0, pts_clasificados: 0, pts_goleador_torneo: 0, pts_resultado_exacto: 15, pts_ganador_partido: 33, pts_goleador_partido: 14, pts_total: 62 },
   { posicion: 4, usuario_id: 4, nombre_completo: "Hernando Davila", correo: "nandorafa@hotmail.com", pts_campeon: 0, pts_finalistas: 0, pts_clasificados: 0, pts_goleador_torneo: 0, pts_resultado_exacto: 20, pts_ganador_partido: 30, pts_goleador_partido: 8, pts_total: 58 },
