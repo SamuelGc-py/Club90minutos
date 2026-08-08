@@ -3635,18 +3635,141 @@ function ExpressPageContent() {
             </div>
           )}
 
-          {/* TAB 0: PANTALLA DE INICIO Y BIENVENIDA */}
+          {/* TAB 0: PANTALLA DE INICIO Y BIENVENIDA (con sidebar de navegación) */}
           {tabActiva === "inicio" && (
-            <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+            <div className="inicio-layout-row" style={{ display: "flex", gap: 20, alignItems: "flex-start" }}>
+              {/* SIDEBAR DE MENÚ RÁPIDO */}
+              <div
+                className="inicio-sidebar"
+                style={{
+                  width: 280,
+                  flexShrink: 0,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 8,
+                  background: "linear-gradient(180deg, rgba(14, 26, 39, 0.95) 0%, rgba(16, 42, 33, 0.92) 100%)",
+                  border: "1px solid var(--cancha-borde)",
+                  borderRadius: 16,
+                  padding: 18,
+                  boxShadow: "0 12px 36px rgba(0,0,0,0.5)",
+                }}
+              >
+                <div style={{ padding: "6px 10px 14px", color: "var(--graderia)", fontSize: "0.68rem", fontWeight: 900, textTransform: "uppercase", letterSpacing: "1px", borderBottom: "1px dashed rgba(255,255,255,0.08)", marginBottom: 6 }}>
+                  🔥 Menú Rápido
+                </div>
+                <div className="inicio-sidebar-nav no-scrollbar">
+                  {([
+                    {
+                      key: "partidos",
+                      emoji: "⚽",
+                      label: `Pronósticos Fecha ${fechaParticipante}`,
+                      desc: "Marcadores, ganadores y goleadores",
+                      color: "#10b981",
+                      onClick: () => setTabActiva("partidos"),
+                    },
+                    {
+                      key: "inicial",
+                      emoji: "🏆",
+                      label: "Predicciones Torneo",
+                      desc: "Campeón, finalistas y clasificados",
+                      color: "#f5b000",
+                      onClick: () => setTabActiva("inicial"),
+                    },
+                    {
+                      key: "mis_pronosticos",
+                      emoji: "📋",
+                      label: "Tabla de Pronósticos",
+                      desc: "Lo que cargó cada participante",
+                      color: "#6366f1",
+                      onClick: () => {
+                        setTabActiva("mis_pronosticos");
+                        cargarConsolidados(usuario.id);
+                      },
+                    },
+                    {
+                      key: "posiciones",
+                      emoji: "📊",
+                      label: "Tabla de Posiciones",
+                      desc: "Puntos acumulados en vivo",
+                      color: "#38bdf8",
+                      onClick: () => {
+                        setTabActiva("posiciones");
+                        cargarConsolidados(usuario.id);
+                      },
+                    },
+                  ]).map((item) => (
+                    <button
+                      key={item.key}
+                      type="button"
+                      onClick={item.onClick}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 12,
+                        padding: "14px",
+                        borderRadius: 14,
+                        border: `1px solid ${item.color}40`,
+                        background: `linear-gradient(135deg, ${item.color}22 0%, ${item.color}0d 100%)`,
+                        color: "#fff",
+                        cursor: "pointer",
+                        textAlign: "left",
+                        width: "100%",
+                        transition: "transform 0.2s ease, box-shadow 0.2s ease",
+                      }}
+                      onMouseOver={(e) => {
+                        e.currentTarget.style.transform = "translateX(4px)";
+                        e.currentTarget.style.boxShadow = `0 8px 20px -8px ${item.color}90`;
+                      }}
+                      onMouseOut={(e) => {
+                        e.currentTarget.style.transform = "none";
+                        e.currentTarget.style.boxShadow = "none";
+                      }}
+                    >
+                      <span
+                        style={{
+                          width: 40,
+                          height: 40,
+                          borderRadius: 12,
+                          background: `${item.color}30`,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontSize: "1.3rem",
+                          flexShrink: 0,
+                        }}
+                      >
+                        {item.emoji}
+                      </span>
+                      <span style={{ minWidth: 0 }}>
+                        <div style={{ fontWeight: 800, fontSize: "0.92rem", color: "#fff", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                          {item.label}
+                        </div>
+                        <div style={{ fontSize: "0.74rem", color: "var(--graderia)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                          {item.desc}
+                        </div>
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* CONTENIDO PRINCIPAL: HERO DE BIENVENIDA */}
               <div
                 className="card"
                 style={{
+                  flex: 1,
+                  minWidth: 0,
                   background: "linear-gradient(135deg, rgba(14, 26, 39, 0.95) 0%, rgba(19, 32, 48, 0.95) 50%, rgba(16, 42, 33, 0.95) 100%)",
                   border: "1px solid var(--cancha-borde)",
                   borderRadius: 16,
-                  padding: "32px 24px",
+                  padding: "48px 32px",
                   textAlign: "center",
                   boxShadow: "0 12px 36px rgba(0,0,0,0.5)",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  minHeight: 360,
                 }}
               >
                 <div style={{ fontSize: "0.85rem", textTransform: "uppercase", letterSpacing: "0.14em", color: "#34d399", fontWeight: 800, marginBottom: 8 }}>
@@ -3655,83 +3778,15 @@ function ExpressPageContent() {
                 <h1 style={{ fontSize: "clamp(1.6rem, 4vw, 2.5rem)", fontWeight: 900, color: "#ffffff", marginBottom: 12 }}>
                   DEMUESTRA LO QUE SABES DE FÚTBOL
                 </h1>
-                <p style={{ maxWidth: 640, margin: "0 auto 24px", color: "var(--graderia)", fontSize: "1rem", lineHeight: 1.6 }}>
-                  ¡Hola, <strong style={{ color: "#fff" }}>{usuario.nombre}</strong>! Selecciona la sección a la que deseas acceder para ingresar tus pronósticos o revisar la tabla de posiciones en vivo.
+                <p style={{ maxWidth: 560, margin: "0 auto", color: "var(--graderia)", fontSize: "1rem", lineHeight: 1.6 }}>
+                  ¡Hola, <strong style={{ color: "#fff" }}>{usuario.nombre}</strong>! Elige una opción del menú para ingresar tus pronósticos o revisar la tabla de posiciones en vivo.
                 </p>
-
-                {/* TARJETAS DE ACCESO RÁPIDO */}
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 16, textAlign: "left" }}>
-                  <div
-                    onClick={() => setTabActiva("partidos")}
-                    style={{
-                      background: "linear-gradient(135deg, #0f291e 0%, #133a2a 100%)",
-                      border: "1px solid #10b981",
-                      borderRadius: 12,
-                      padding: 20,
-                      cursor: "pointer",
-                    }}
-                  >
-                    <div style={{ fontSize: "1.8rem", marginBottom: 8 }}>⚽</div>
-                    <div style={{ fontWeight: 800, fontSize: "1.1rem", color: "#fff", marginBottom: 4 }}>Pronósticos Fecha {fechaParticipante}</div>
-                    <div style={{ fontSize: "0.82rem", color: "#a7f3d0" }}>Ingresa marcadores exactos, ganadores y goleadores de los partidos.</div>
-                  </div>
-
-                  <div
-                    onClick={() => setTabActiva("inicial")}
-                    style={{
-                      background: "linear-gradient(135deg, #34290e 0%, #4a3b15 100%)",
-                      border: "1px solid #f5b000",
-                      borderRadius: 12,
-                      padding: 20,
-                      cursor: "pointer",
-                    }}
-                  >
-                    <div style={{ fontSize: "1.8rem", marginBottom: 8 }}>🏆</div>
-                    <div style={{ fontWeight: 800, fontSize: "1.1rem", color: "#fff", marginBottom: 4 }}>Predicciones Torneo</div>
-                    <div style={{ fontSize: "0.82rem", color: "#fef08a" }}>Elige Campeón, Finalistas, Goleador General y 8 Clasificados.</div>
-                  </div>
-
-                  <div
-                    onClick={() => {
-                      setTabActiva("mis_pronosticos");
-                      cargarConsolidados(usuario.id);
-                    }}
-                    style={{
-                      background: "linear-gradient(135deg, #1e1b4b 0%, #312e81 100%)",
-                      border: "1px solid #6366f1",
-                      borderRadius: 12,
-                      padding: 20,
-                      cursor: "pointer",
-                    }}
-                  >
-                    <div style={{ fontSize: "1.8rem", marginBottom: 8 }}>📋</div>
-                    <div style={{ fontWeight: 800, fontSize: "1.1rem", color: "#fff", marginBottom: 4 }}>Tabla de Pronósticos</div>
-                    <div style={{ fontSize: "0.82rem", color: "#c7d2fe" }}>Revisa los pronósticos cargados por los participantes.</div>
-                  </div>
-
-                  <div
-                    onClick={() => {
-                      setTabActiva("posiciones");
-                      cargarConsolidados(usuario.id);
-                    }}
-                    style={{
-                      background: "linear-gradient(135deg, #0c4a6e 0%, #0369a1 100%)",
-                      border: "1px solid #38bdf8",
-                      borderRadius: 12,
-                      padding: 20,
-                      cursor: "pointer",
-                    }}
-                  >
-                    <div style={{ fontSize: "1.8rem", marginBottom: 8 }}>📊</div>
-                    <div style={{ fontWeight: 800, fontSize: "1.1rem", color: "#fff", marginBottom: 4 }}>Tabla de Posiciones</div>
-                    <div style={{ fontSize: "0.82rem", color: "#bae6fd" }}>Consulta la tabla general de posiciones y puntos acumulados.</div>
-                  </div>
-
-
-
-                </div>
-
-
+                <img
+                  src="/images/balon_3d.png"
+                  alt=""
+                  className="icono-3d-flotante"
+                  style={{ width: 110, marginTop: 28, opacity: 0.9 }}
+                />
               </div>
             </div>
           )}
