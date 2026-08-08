@@ -166,6 +166,50 @@ export default function TablaPosicionesAfiche({
           border: "2px solid #0f2942",
         }}
       >
+        {/* PODIO: TOP 3 DESTACADO ARRIBA DE LA TABLA */}
+        {tablaFinal.length > 0 && (
+          <div
+            style={{
+              display: "flex",
+              gap: 12,
+              padding: "20px 24px 4px",
+              background: "linear-gradient(135deg, #0b1e36 0%, #153b66 100%)",
+              flexWrap: "wrap",
+            }}
+          >
+            {tablaFinal.slice(0, 3).map((row) => {
+              const medalla = row.posicion === 1 ? "🥇" : row.posicion === 2 ? "🥈" : "🥉";
+              const acento = row.posicion === 1 ? "#f5b000" : row.posicion === 2 ? "#cbd5e1" : "#c2410c";
+              return (
+                <div
+                  key={row.usuario_id}
+                  style={{
+                    flex: "1 1 160px",
+                    minWidth: 160,
+                    background: "rgba(255,255,255,0.06)",
+                    border: `1px solid ${acento}66`,
+                    borderRadius: 12,
+                    padding: "14px 16px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 12,
+                  }}
+                >
+                  <span style={{ fontSize: "1.8rem" }}>{medalla}</span>
+                  <div style={{ minWidth: 0 }}>
+                    <div style={{ color: "#ffffff", fontWeight: 800, fontSize: "0.9rem", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                      {row.nombre_completo}
+                    </div>
+                    <div style={{ color: acento, fontWeight: 900, fontSize: "1.2rem" }}>
+                      {row.pts_total} pts
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
         {/* CABECERA CON CURVAS Y TROFEO BETPLAY */}
         <div
           style={{

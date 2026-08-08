@@ -1045,7 +1045,14 @@ function ExpressPageContent() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Error al actualizar el estado del partido");
-      setMensajeEstado({ tipo: "exito", texto: nuevoEstado === "aplazado" ? "Partido marcado como aplazado." : "Partido reactivado (ya no está aplazado)." });
+      const texto = nuevoEstado === "aplazado"
+        ? "Partido marcado como aplazado."
+        : `Partido reactivado. Sigue perteneciendo a la Fecha ${partido.jornada} — búscalo ahí en "Editar Partidos" o "Fechas y Predicciones".`;
+      setMensajeEstado({ tipo: "exito", texto });
+      if (nuevoEstado !== "aplazado" && typeof window !== "undefined") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        alert("✅ " + texto);
+      }
       cargarMaestros();
     } catch (err: any) {
       console.error(err);
@@ -2619,8 +2626,8 @@ function ExpressPageContent() {
                         </div>
 
                         {partidoAdminVer === partido.id && (
-                          <div style={{ marginTop: 24, paddingTop: 20, borderTop: "1px solid rgba(255,255,255,0.1)", animation: "fadeIn 0.3s ease" }}>
-                            <div id={`tabla-pronosticos-admin-${partido.id}`} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+                          <div id={`tabla-pronosticos-admin-${partido.id}`} style={{ marginTop: 24, paddingTop: 20, borderTop: "1px solid rgba(255,255,255,0.1)", animation: "fadeIn 0.3s ease" }}>
+                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
                               <h4 style={{ margin: 0, color: "#a78bfa", fontSize: "1.1rem", display: "flex", alignItems: "center", gap: 8, fontWeight: 800 }}>
                                 📋 Tabla de Predicciones ({pronosticosPartido.length})
                               </h4>
@@ -3262,7 +3269,7 @@ function ExpressPageContent() {
                             {partidosFinalizadosAdmin.length > 0 && (
                               <>
                                 <div style={{ margin: "30px 0 20px", borderTop: "2px dashed rgba(255,255,255,0.1)", paddingTop: 20 }}>
-                                  <h3 style={{ color: "#64748b", fontSize: "1.2rem", fontWeight: 900, margin: 0 }}>Partidos Finalizados o Aplazados</h3>
+                                  <h3 style={{ color: "#64748b", fontSize: "1.2rem", fontWeight: 900, margin: 0 }}>Partidos Finalizados</h3>
                                 </div>
                                 {partidosFinalizadosAdmin.map((partido) => renderPartidoPrediccionesCard(partido))}
                               </>
@@ -3294,7 +3301,7 @@ function ExpressPageContent() {
                             {partidosFinalizadosAdmin.length > 0 && (
                               <>
                                 <div style={{ margin: "30px 0 20px", borderTop: "2px dashed rgba(255,255,255,0.1)", paddingTop: 20 }}>
-                                  <h3 style={{ color: "#64748b", fontSize: "1.2rem", fontWeight: 900, margin: 0 }}>Partidos Finalizados o Aplazados</h3>
+                                  <h3 style={{ color: "#64748b", fontSize: "1.2rem", fontWeight: 900, margin: 0 }}>Partidos Finalizados</h3>
                                 </div>
                                 {partidosFinalizadosAdmin.map((partido) => renderPartidoLiquidacionCard(partido))}
                               </>
@@ -3503,126 +3510,6 @@ function ExpressPageContent() {
           )}
 
 
-
-          {/* PESTAÑAS NAVEGACIÓN COMPUTADOR (desktop-tabs) - Oculto en la pantalla de Inicio */}
-          {tabActiva !== "inicio" && (
-            <div className="desktop-tabs" style={{ marginBottom: 20 }}>
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, flexWrap: "wrap" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
-                  {/* Inicio removed, Partidos moved */}
-
-
-
-                  <button
-                    className={`btn ${tabActiva === "partidos" ? "btn-primary" : "btn-secondary"}`}
-                    onClick={() => setTabActiva(tabActiva === "partidos" ? "inicio" : "partidos")}
-                    style={{
-                      padding: "8px 12px",
-                      fontSize: "0.82rem",
-                      fontWeight: 700,
-                      background: tabActiva === "partidos" ? undefined : "transparent",
-                      border: tabActiva === "partidos" ? undefined : "1px solid rgba(255,255,255,0.1)",
-                      color: tabActiva === "partidos" ? undefined : "var(--tiza)",
-                    }}
-                  >
-                    ⚽ Fecha {fechaParticipante}
-                  </button>
-
-                  <button
-                    className={`btn ${tabActiva === "mis_pronosticos" ? "btn-primary" : "btn-secondary"}`}
-                    onClick={() => {
-                      if (tabActiva === "mis_pronosticos") {
-                        setTabActiva("inicio");
-                      } else {
-                        setTabActiva("mis_pronosticos");
-                        cargarConsolidados(usuario.id);
-                      }
-                    }}
-                    style={{
-                      padding: "8px 12px",
-                      fontSize: "0.82rem",
-                      fontWeight: 700,
-                      background: tabActiva === "mis_pronosticos" ? undefined : "transparent",
-                      border: tabActiva === "mis_pronosticos" ? undefined : "1px solid rgba(255,255,255,0.1)",
-                      color: tabActiva === "mis_pronosticos" ? undefined : "var(--tiza)",
-                    }}
-                  >
-                    📋 Pronósticos
-                  </button>
-
-                  <button
-                    className={`btn ${tabActiva === "posiciones" ? "btn-primary" : "btn-secondary"}`}
-                    onClick={() => {
-                      if (tabActiva === "posiciones") {
-                        setTabActiva("inicio");
-                      } else {
-                        setTabActiva("posiciones");
-                        cargarConsolidados(usuario.id);
-                      }
-                    }}
-                    style={{
-                      padding: "8px 12px",
-                      fontSize: "0.82rem",
-                      fontWeight: 700,
-                      background: tabActiva === "posiciones" ? undefined : "transparent",
-                      border: tabActiva === "posiciones" ? undefined : "1px solid rgba(255,255,255,0.1)",
-                      color: tabActiva === "posiciones" ? undefined : "var(--tiza)",
-                    }}
-                  >
-                    📊 Posiciones
-                  </button>
-
-                  <button
-                    className={`btn ${tabActiva === "inicial" ? "btn-primary" : "btn-secondary"}`}
-                    onClick={() => setTabActiva(tabActiva === "inicial" ? "inicio" : "inicial")}
-                    style={{
-                      padding: "8px 12px",
-                      fontSize: "0.82rem",
-                      fontWeight: 700,
-                      background: tabActiva === "inicial" ? undefined : "transparent",
-                      border: tabActiva === "inicial" ? undefined : "1px solid rgba(255,255,255,0.1)",
-                      color: tabActiva === "inicial" ? undefined : "var(--tiza)",
-                    }}
-                  >
-                    🏆 Predicciones Torneo
-                  </button>
-
-                  <button
-                    className={`btn ${tabActiva === "finalizados" ? "btn-primary" : "btn-secondary"}`}
-                    onClick={() => setTabActiva(tabActiva === "finalizados" ? "inicio" : "finalizados")}
-                    style={{
-                      padding: "8px 12px",
-                      fontSize: "0.82rem",
-                      fontWeight: 700,
-                      background: tabActiva === "finalizados" ? undefined : "transparent",
-                      border: tabActiva === "finalizados" ? undefined : "1px solid rgba(255,255,255,0.1)",
-                      color: tabActiva === "finalizados" ? undefined : "var(--tiza)",
-                    }}
-                  >
-                    🏁 Partidos Terminados
-                  </button>
-
-                  <button
-                    className={`btn ${tabActiva === "aplazados" ? "btn-primary" : "btn-secondary"}`}
-                    onClick={() => setTabActiva(tabActiva === "aplazados" ? "inicio" : "aplazados")}
-                    style={{
-                      padding: "8px 12px",
-                      fontSize: "0.82rem",
-                      fontWeight: 800,
-                      background: tabActiva === "aplazados" ? "#f59e0b" : "transparent",
-                      border: tabActiva === "aplazados" ? "1px solid #f59e0b" : "1px solid rgba(245, 158, 11, 0.4)",
-                      color: tabActiva === "aplazados" ? "#ffffff" : "#f59e0b",
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: 6,
-                    }}
-                  >
-                    ⚠️ Aplazados
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
 
           {/* MENSAJE DE ESTADO DE OPERACIÓN */}
           {mensajeEstado && (
