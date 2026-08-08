@@ -3647,47 +3647,11 @@ function ExpressPageContent() {
           {/* TAB 0: PANTALLA DE INICIO Y BIENVENIDA (con sidebar de navegación) */}
           {tabActiva === "inicio" && (
             <div className="inicio-layout-row" style={{ display: "flex", gap: 20, alignItems: "flex-start" }}>
-              {/* CONTENIDO PRINCIPAL: HERO DE BIENVENIDA */}
-              <div
-                className="card"
-                style={{
-                  flex: 1,
-                  minWidth: 0,
-                  background: "linear-gradient(135deg, rgba(14, 26, 39, 0.95) 0%, rgba(19, 32, 48, 0.95) 50%, rgba(16, 42, 33, 0.95) 100%)",
-                  border: "1px solid var(--cancha-borde)",
-                  borderRadius: 16,
-                  padding: "48px 32px",
-                  textAlign: "center",
-                  boxShadow: "0 12px 36px rgba(0,0,0,0.5)",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  minHeight: 360,
-                }}
-              >
-                <div style={{ fontSize: "0.85rem", textTransform: "uppercase", letterSpacing: "0.14em", color: "#34d399", fontWeight: 800, marginBottom: 8 }}>
-                  🔥 BIENVENIDO AL DESAFÍO LIGA BETPLAY 2026 🔥
-                </div>
-                <h1 style={{ fontSize: "clamp(1.6rem, 4vw, 2.5rem)", fontWeight: 900, color: "#ffffff", marginBottom: 12 }}>
-                  DEMUESTRA LO QUE SABES DE FÚTBOL
-                </h1>
-                <p style={{ maxWidth: 560, margin: "0 auto", color: "var(--graderia)", fontSize: "1rem", lineHeight: 1.6 }}>
-                  ¡Hola, <strong style={{ color: "#fff" }}>{usuario.nombre}</strong>! Elige una opción del menú para ingresar tus pronósticos o revisar la tabla de posiciones en vivo.
-                </p>
-                <img
-                  src="/images/balon_3d.png"
-                  alt=""
-                  className="icono-3d-flotante"
-                  style={{ width: 110, marginTop: 28, opacity: 0.9 }}
-                />
-              </div>
-
-              {/* SIDEBAR DE MENÚ RÁPIDO (a la derecha) */}
+              {/* SIDEBAR DE MENÚ RÁPIDO (a la izquierda) */}
               <div
                 className="inicio-sidebar"
                 style={{
-                  width: 280,
+                  width: 300,
                   flexShrink: 0,
                   display: "flex",
                   flexDirection: "column",
@@ -3786,16 +3750,52 @@ function ExpressPageContent() {
                         {item.emoji}
                       </span>
                       <span style={{ minWidth: 0 }}>
-                        <div style={{ fontWeight: 800, fontSize: "0.92rem", color: "#fff", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                        <div style={{ fontWeight: 800, fontSize: "0.92rem", color: "#fff", lineHeight: 1.3 }}>
                           {item.label}
                         </div>
-                        <div style={{ fontSize: "0.74rem", color: "var(--graderia)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                        <div style={{ fontSize: "0.74rem", color: "var(--graderia)", lineHeight: 1.3, marginTop: 2 }}>
                           {item.desc}
                         </div>
                       </span>
                     </button>
                   ))}
                 </div>
+              </div>
+
+              {/* CONTENIDO PRINCIPAL: HERO DE BIENVENIDA */}
+              <div
+                className="card"
+                style={{
+                  flex: 1,
+                  minWidth: 0,
+                  background: "linear-gradient(135deg, rgba(14, 26, 39, 0.95) 0%, rgba(19, 32, 48, 0.95) 50%, rgba(16, 42, 33, 0.95) 100%)",
+                  border: "1px solid var(--cancha-borde)",
+                  borderRadius: 16,
+                  padding: "48px 32px",
+                  textAlign: "center",
+                  boxShadow: "0 12px 36px rgba(0,0,0,0.5)",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  minHeight: 360,
+                }}
+              >
+                <div style={{ fontSize: "0.85rem", textTransform: "uppercase", letterSpacing: "0.14em", color: "#34d399", fontWeight: 800, marginBottom: 8 }}>
+                  🔥 BIENVENIDO AL DESAFÍO LIGA BETPLAY 2026 🔥
+                </div>
+                <h1 style={{ fontSize: "clamp(1.6rem, 4vw, 2.5rem)", fontWeight: 900, color: "#ffffff", marginBottom: 12 }}>
+                  DEMUESTRA LO QUE SABES DE FÚTBOL
+                </h1>
+                <p style={{ maxWidth: 560, margin: "0 auto", color: "var(--graderia)", fontSize: "1rem", lineHeight: 1.6 }}>
+                  ¡Hola, <strong style={{ color: "#fff" }}>{usuario.nombre}</strong>! Elige una opción del menú para ingresar tus pronósticos o revisar la tabla de posiciones en vivo.
+                </p>
+                <img
+                  src="/images/balon_3d.png"
+                  alt=""
+                  className="icono-3d-flotante"
+                  style={{ width: 110, marginTop: 28, opacity: 0.9 }}
+                />
               </div>
             </div>
           )}
