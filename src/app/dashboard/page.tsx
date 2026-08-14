@@ -2771,7 +2771,6 @@ function ExpressPageContent() {
                                 type="button"
                                 onClick={async () => {
                                   try {
-                                    const toastId = toast.loading(`Obteniendo datos de ESPN para ${partido.equipo_local.nombre}...`);
                                     const res = await fetch("/api/admin/espn-resultado", {
                                       method: "POST",
                                       headers: { "Content-Type": "application/json" },
@@ -2793,12 +2792,12 @@ function ExpressPageContent() {
                                     if (data.espnStatus !== "STATUS_FULL_TIME") {
                                       msg += " (¡OJO! Partido NO finalizado en ESPN)";
                                     }
-                                    toast.success(msg, { id: toastId });
+                                    alert(msg);
                                     if (data.logs && data.logs.length > 0) {
                                       console.log("ESPN Logs:", data.logs);
                                     }
                                   } catch (err: any) {
-                                    toast.error(err.message);
+                                    alert("❌ Error: " + err.message);
                                   }
                                 }}
                                 style={{
