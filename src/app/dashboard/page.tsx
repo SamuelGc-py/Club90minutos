@@ -2758,15 +2758,65 @@ function ExpressPageContent() {
                                 value={resultadosAdminInput[partido.id]?.local || ""}
                                 onChange={(e) => handleResultadoAdminChange(partido.id, "local", e.target.value)}
                               />
-                              <span style={{ fontWeight: 900, color: "#cbd5e1" }}>-</span>
+                              <span style={{ fontSize: "1.2rem", fontWeight: 900, color: "var(--texto-secundario)", padding: "0 4px" }}>-</span>
                               <input
                                 type="number"
                                 min="0"
-                                placeholder="Vis"
+                                placeholder="Visita"
                                 style={{ width: 64, padding: "10px", borderRadius: "10px", border: "2px solid rgba(255,255,255,0.1)", background: "rgba(15,23,42,0.8)", color: "#fff", textAlign: "center", fontWeight: 900, fontSize: "1.1rem" }}
                                 value={resultadosAdminInput[partido.id]?.visitante || ""}
                                 onChange={(e) => handleResultadoAdminChange(partido.id, "visitante", e.target.value)}
                               />
+                              <button
+                                type="button"
+                                onClick={async () => {
+                                  try {
+                                    const toastId = toast.loading(`Obteniendo datos de ESPN para ${partido.equipo_local.nombre}...`);
+                                    const res = await fetch("/api/admin/espn-resultado", {
+                                      method: "POST",
+                                      headers: { "Content-Type": "application/json" },
+                                      body: JSON.stringify({ partidoId: partido.id }),
+                                    });
+                                    const data = await res.json();
+                                    if (!res.ok) throw new Error(data.error || "Error al obtener de ESPN");
+                                    
+                                    setResultadosAdminInput((prev: any) => ({
+                                      ...prev,
+                                      [partido.id]: {
+                                        local: data.golesLocal.toString(),
+                                        visitante: data.golesVisitante.toString(),
+                                        goleadores_ids: data.goleadoresIds || [],
+                                      },
+                                    }));
+
+                                    let msg = `Marcador auto-completado: ${data.golesLocal}-${data.golesVisitante}`;
+                                    if (data.espnStatus !== "STATUS_FULL_TIME") {
+                                      msg += " (¡OJO! Partido NO finalizado en ESPN)";
+                                    }
+                                    toast.success(msg, { id: toastId });
+                                    if (data.logs && data.logs.length > 0) {
+                                      console.log("ESPN Logs:", data.logs);
+                                    }
+                                  } catch (err: any) {
+                                    toast.error(err.message);
+                                  }
+                                }}
+                                style={{
+                                  marginLeft: 16,
+                                  padding: "8px 16px",
+                                  borderRadius: "8px",
+                                  background: "rgba(59, 130, 246, 0.2)",
+                                  color: "#60a5fa",
+                                  border: "1px solid rgba(59, 130, 246, 0.5)",
+                                  fontWeight: 700,
+                                  cursor: "pointer",
+                                  transition: "all 0.2s"
+                                }}
+                                onMouseOver={(e) => { e.currentTarget.style.background = "rgba(59, 130, 246, 0.4)"; }}
+                                onMouseOut={(e) => { e.currentTarget.style.background = "rgba(59, 130, 246, 0.2)"; }}
+                              >
+                                🔄 Extraer ESPN
+                              </button>
                             </div>
 
                             <div style={{ display: "flex", flexDirection: "column", gap: 8, flex: 1, minWidth: 280 }}>
