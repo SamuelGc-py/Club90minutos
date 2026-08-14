@@ -3971,9 +3971,57 @@ function ExpressPageContent() {
                       </div>
                     );
                   }
+                  const partidosPorJornada = partidosAplazados.reduce((acc, partido) => {
+                    if (!acc[partido.jornada]) acc[partido.jornada] = [];
+                    acc[partido.jornada].push(partido);
+                    return acc;
+                  }, {} as Record<number, typeof partidosAplazados>);
+
                   return (
                     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-                      {partidosAplazados.map((partido) => renderPartidoCard(partido))}
+                      {Object.keys(partidosPorJornada)
+                        .sort((a, b) => Number(a) - Number(b))
+                        .map((jornadaStr) => {
+                          const jornada = Number(jornadaStr);
+                          const partidosDeLaJornada = partidosPorJornada[jornada];
+                          return (
+                            <details
+                              key={`aplazados-jornada-${jornada}`}
+                              style={{
+                                background: "var(--bg-card)",
+                                borderRadius: 12,
+                                border: "1px solid var(--cancha-borde)",
+                                overflow: "hidden",
+                              }}
+                              open
+                            >
+                              <summary
+                                style={{
+                                  padding: "16px 20px",
+                                  cursor: "pointer",
+                                  background: "linear-gradient(90deg, rgba(16, 42, 33, 0.8) 0%, rgba(13, 27, 42, 0.8) 100%)",
+                                  color: "var(--texto-principal)",
+                                  display: "flex",
+                                  justifyContent: "space-between",
+                                  alignItems: "center",
+                                  listStyle: "none",
+                                  fontWeight: 800,
+                                  borderBottom: "1px solid rgba(255,255,255,0.05)",
+                                }}
+                              >
+                                <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                                  📅 Fecha {jornada}
+                                </span>
+                                <span style={{ fontSize: "0.8rem", background: "rgba(255,255,255,0.1)", padding: "4px 10px", borderRadius: 12, color: "var(--graderia)" }}>
+                                  {partidosDeLaJornada.length} {partidosDeLaJornada.length === 1 ? "Partido" : "Partidos"}
+                                </span>
+                              </summary>
+                              <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 16, background: "rgba(0,0,0,0.15)" }}>
+                                {partidosDeLaJornada.map((partido) => renderPartidoCard(partido))}
+                              </div>
+                            </details>
+                          );
+                        })}
                     </div>
                   );
                 })()
