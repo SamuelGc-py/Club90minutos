@@ -2515,10 +2515,10 @@ function ExpressPageContent() {
                     return esFinalizado || esAplazado || hace2Horas;
                   };
 
-                  // Filtro de partidos para el Admin (los aplazados tienen su propia sección dedicada, no aparecen aquí)
+                  // Filtro de partidos para el Admin
                   const partidosAdminFiltrados = fechaAdmin === 0
                     ? []
-                    : partidos.filter((p) => p.jornada === fechaAdmin && p.estado !== "aplazado");
+                    : partidos.filter((p) => p.jornada === fechaAdmin && (seccionAdminPanel === "liquidacion" || p.estado !== "aplazado"));
                   const partidosActivosAdmin = partidosAdminFiltrados
                     .filter((p) => !estaSoloFinal(p))
                     .sort((a, b) => new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime());

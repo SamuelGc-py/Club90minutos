@@ -71,7 +71,8 @@ export async function POST(req: Request) {
           let playerName = goal.shortText || goal.text;
           if (!playerName) continue;
 
-          playerName = playerName.replace(/\(.*\)/g, "").trim();
+          // ESPN format: "Jorge Obregón Goal" or "Player Name (Team) Goal at 14'"
+          playerName = playerName.replace(/ Goal.*/i, "").replace(/\(.*\)/g, "").trim();
           const parts = playerName.split(" ");
           const lastName = parts[parts.length - 1];
           
