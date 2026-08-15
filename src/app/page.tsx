@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { ChevronRight, Trophy, Users, TrendingUp, Calendar, Lock, Play, ArrowRight, Activity, Zap, ShieldCheck, AlertCircle } from "lucide-react";
+import { ChevronRight, Trophy, Users, TrendingUp, Calendar, Lock, Play, ArrowRight, Activity, Zap, ShieldCheck, AlertCircle, Facebook, Instagram, Twitter, Youtube, Music2 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -301,10 +301,91 @@ export default function LandingPage() {
 
         {/* FOOTER */}
         <footer style={{ 
-          marginTop: "auto", borderTop: "1px solid rgba(255,255,255,0.05)", padding: "32px 20px", 
-          textAlign: "center", color: "#6B7280", fontSize: "0.85rem" 
+          marginTop: "auto", borderTop: "1px solid rgba(255,255,255,0.05)", padding: "60px 20px 20px", 
+          background: "#04060A", color: "#6B7280", fontSize: "0.85rem" 
         }}>
-          &copy; {new Date().getFullYear()} Club 90 Minutos. Todos los derechos reservados.
+          <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+            
+            {/* Coljuegos Banner */}
+            <div style={{ 
+              display: "flex", alignItems: "center", justifyContent: "center", gap: 16, 
+              background: "#111418", padding: "16px 24px", borderRadius: 12, border: "1px solid rgba(255,255,255,0.05)",
+              marginBottom: 40, flexWrap: "wrap", textAlign: "center"
+            }}>
+              <div style={{ background: "#EF4444", color: "#FFF", width: 32, height: 32, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: "0.8rem" }}>
+                18+
+              </div>
+              <div style={{ fontFamily: "'Orbitron', sans-serif", fontWeight: 900, fontSize: "1.4rem", color: "#FFF", letterSpacing: "1px" }}>
+                Coljueg<span style={{ color: "#EFCC36" }}>O</span>s
+              </div>
+              <span style={{ color: "#E5E7EB", fontWeight: 600, fontSize: "0.95rem" }}>
+                Juega bien. Ser responsable es parte del juego...
+              </span>
+            </div>
+
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 40, marginBottom: 40 }}>
+              
+              {/* Columna Logo & Desc */}
+              <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}>
+                  <img src="/logo_principal_recortado.webp" alt="Logo" style={{ height: 36, width: "auto" }} />
+                  <span style={{ fontFamily: "'Orbitron', sans-serif", fontWeight: 800, fontSize: "1.1rem", color: "#FFF" }}>
+                    CLUB<span style={{ color: "#74CC10" }}>90</span>MINUTOS
+                  </span>
+                </div>
+                <p style={{ color: "#9CA3AF", lineHeight: 1.6, margin: 0, maxWidth: 280 }}>
+                  La plataforma de pronósticos de fútbol más divertida. Compite con amigos en todas las ligas.
+                </p>
+                <div style={{ display: "flex", gap: 12, marginTop: 8 }}>
+                  <a href="#" style={{ width: 36, height: 36, borderRadius: 8, background: "rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "center", color: "#FFF", textDecoration: "none" }}><Facebook size={18} /></a>
+                  <a href="#" style={{ width: 36, height: 36, borderRadius: 8, background: "rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "center", color: "#FFF", textDecoration: "none" }}><Instagram size={18} /></a>
+                  <a href="#" style={{ width: 36, height: 36, borderRadius: 8, background: "rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "center", color: "#FFF", textDecoration: "none" }}><Twitter size={18} /></a>
+                  <a href="#" style={{ width: 36, height: 36, borderRadius: 8, background: "rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "center", color: "#FFF", textDecoration: "none" }}><Music2 size={18} /></a>
+                  <a href="#" style={{ width: 36, height: 36, borderRadius: 8, background: "rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "center", color: "#FFF", textDecoration: "none" }}><Youtube size={18} /></a>
+                </div>
+              </div>
+
+              {/* Columna Plataforma */}
+              <div>
+                <h4 style={{ color: "#FFF", fontWeight: 800, fontSize: "0.95rem", marginBottom: 20, letterSpacing: "1px" }}>PLATAFORMA</h4>
+                <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                  <Link href="#" style={{ color: "#9CA3AF", textDecoration: "none", transition: "color 0.2s" }}>Quiénes Somos</Link>
+                  <Link href="#" style={{ color: "#9CA3AF", textDecoration: "none", transition: "color 0.2s" }}>Reglas y Puntajes</Link>
+                </div>
+              </div>
+
+              {/* Columna Soporte */}
+              <div>
+                <h4 style={{ color: "#FFF", fontWeight: 800, fontSize: "0.95rem", marginBottom: 20, letterSpacing: "1px" }}>SOPORTE</h4>
+                <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                  <Link href="#" style={{ color: "#9CA3AF", textDecoration: "none", transition: "color 0.2s" }}>FAQ's</Link>
+                </div>
+              </div>
+
+              {/* Columna Legal */}
+              <div>
+                <h4 style={{ color: "#FFF", fontWeight: 800, fontSize: "0.95rem", marginBottom: 20, letterSpacing: "1px" }}>LEGAL</h4>
+                <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                  <Link href="#" style={{ color: "#9CA3AF", textDecoration: "none", transition: "color 0.2s" }}>Política de privacidad</Link>
+                  <Link href="#" style={{ color: "#9CA3AF", textDecoration: "none", transition: "color 0.2s" }}>Política de Cookies</Link>
+                  <Link href="/terminos" style={{ color: "#9CA3AF", textDecoration: "none", transition: "color 0.2s" }}>Términos y Condiciones</Link>
+                </div>
+              </div>
+
+            </div>
+
+            {/* Copyright Row */}
+            <div style={{ 
+              display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16,
+              paddingTop: 24, borderTop: "1px solid rgba(255,255,255,0.05)", fontSize: "0.8rem", color: "#6B7280"
+            }}>
+              <div>&copy; {new Date().getFullYear()} Club 90 Minutos. Todos los derechos reservados.</div>
+              <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                Hecho con ⚽ para los amantes del fútbol
+              </div>
+            </div>
+            
+          </div>
         </footer>
       </div>
     </div>
