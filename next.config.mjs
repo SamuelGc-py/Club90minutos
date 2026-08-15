@@ -6,15 +6,7 @@ const nextConfig = {
   // ESLint no está configurado en este proyecto (sin .eslintrc ni dependencia instalada);
   // forzarlo en build rompería por eso, no por errores reales de lint.
   eslint: { ignoreDuringBuilds: true },
-  async redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/dashboard',
-        permanent: false,
-      },
-    ];
-  },
+
   async headers() {
     return [
       {
