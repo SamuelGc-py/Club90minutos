@@ -1,14 +1,20 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { ChevronRight, Trophy, Users, TrendingUp, Calendar, Lock, Play, ArrowRight, Activity, Zap, ShieldCheck, AlertCircle, Facebook, Instagram, Twitter, Youtube, Music2 } from "lucide-react";
 import Link from "next/link";
 
 export default function LandingPage() {
 
+  useEffect(() => {
+    document.body.classList.add("inicio-fullscreen");
+    return () => {
+      document.body.classList.remove("inicio-fullscreen");
+    };
+  }, []);
 
   return (
-    <div style={{ minHeight: "100vh", background: "#04060A", color: "#FFFFFF", fontFamily: "'Inter', sans-serif" }}>
+    <div style={{ minHeight: "100vh", color: "#FFFFFF", fontFamily: "'Inter', sans-serif" }}>
       {/* HEADER / NAVBAR */}
       <header style={{ 
         position: "sticky", top: 0, zIndex: 100, 
@@ -52,15 +58,16 @@ export default function LandingPage() {
       <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
         
         {/* LAYOUT PRINCIPAL CON SIDEBAR GLOBAL AL ESTILO DASHBOARD */}
-        <main className="admin-layout-row" style={{ flex: 1, display: "flex", gap: 32, padding: "24px", width: "100%", maxWidth: "100%", margin: 0, alignItems: "flex-start" }}>
+        <main className="admin-layout-row" style={{ flex: 1, display: "flex", gap: 28, alignItems: "flex-start" }}>
           
           {/* SIDEBAR LATERAL GLOBAL */}
           <aside className="admin-sidebar" style={{ 
-            background: "rgba(15, 23, 42, 0.6)", backdropFilter: "blur(12px)", 
-            padding: 24, border: "1px solid rgba(255, 255, 255, 0.08)", borderRadius: 16,
-            width: 280, flexShrink: 0,
+            background: "linear-gradient(180deg, rgba(15, 23, 42, 0.9) 0%, rgba(11, 21, 32, 0.95) 100%)",
+            padding: 18, border: "1px solid rgba(255, 255, 255, 0.06)", borderRadius: 24,
+            width: 264, flexShrink: 0,
             display: "flex", flexDirection: "column",
-            position: "sticky", top: 100
+            position: "sticky", top: 100,
+            boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.65), 0 8px 16px rgba(0,0,0,0.3)"
           }}>
             <h3 style={{ fontFamily: "'Orbitron', sans-serif", fontSize: "1.2rem", fontWeight: 800, marginBottom: 20, display: "flex", alignItems: "center", gap: 10, color: "#FFFFFF" }}>
               <Trophy color="#EFCC36" size={22} /> Torneos Activos
@@ -118,12 +125,12 @@ export default function LandingPage() {
           </aside>
 
           {/* CONTENIDO DERECHO (Hero + Info) */}
-          <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: 32 }}>
+          <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: 28 }}>
             {/* HERO SECTION */}
             <section style={{ 
               display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
               padding: "40px 20px", textAlign: "center", position: "relative", overflow: "hidden",
-              background: "#1A1F26", borderRadius: 16, border: "1px solid rgba(255,255,255,0.05)"
+              background: "rgba(15, 23, 42, 0.4)", backdropFilter: "blur(20px)", border: "1px solid rgba(255, 255, 255, 0.05)", borderRadius: 24
             }}>
           {/* Background Glow */}
           <div style={{ 
@@ -171,10 +178,10 @@ export default function LandingPage() {
         </section>
 
             {/* CÓMO JUGAR & TYC */}
-            <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
             
             {/* Cómo Funciona */}
-            <div id="como-funciona" style={{ background: "#1A1F26", borderRadius: 16, padding: 32, border: "1px solid rgba(255,255,255,0.05)" }}>
+            <div id="como-funciona" style={{ background: "rgba(15, 23, 42, 0.4)", backdropFilter: "blur(20px)", border: "1px solid rgba(255, 255, 255, 0.05)", borderRadius: 24, padding: 32 }}>
               <h2 style={{ fontFamily: "'Orbitron', sans-serif", fontSize: "1.8rem", fontWeight: 800, marginBottom: 24, color: "#74CC10" }}>
                 ¿Cómo Funciona?
               </h2>
@@ -213,7 +220,7 @@ export default function LandingPage() {
             </div>
 
             {/* Sistema de Puntuación */}
-            <div id="sistema-puntuacion" style={{ background: "#1A1F26", borderRadius: 16, padding: 32, border: "1px solid rgba(255,255,255,0.05)" }}>
+            <div id="sistema-puntuacion" style={{ background: "rgba(15, 23, 42, 0.4)", backdropFilter: "blur(20px)", border: "1px solid rgba(255, 255, 255, 0.05)", borderRadius: 24, padding: 32 }}>
               <h2 style={{ fontFamily: "'Orbitron', sans-serif", fontSize: "1.8rem", fontWeight: 800, marginBottom: 24, color: "#fff" }}>
                 Sistema de Puntuación
               </h2>
@@ -254,7 +261,7 @@ export default function LandingPage() {
             </div>
 
             {/* Términos y Condiciones Resumen */}
-            <div id="terminos" style={{ background: "#1A1F26", borderRadius: 16, padding: 32, border: "1px solid rgba(255,255,255,0.05)" }}>
+            <div id="terminos" style={{ background: "rgba(15, 23, 42, 0.4)", backdropFilter: "blur(20px)", border: "1px solid rgba(255, 255, 255, 0.05)", borderRadius: 24, padding: 32 }}>
               <h2 style={{ fontFamily: "'Orbitron', sans-serif", fontSize: "1.8rem", fontWeight: 800, marginBottom: 24, color: "#fff", display: "flex", alignItems: "center", gap: 12 }}>
                 <ShieldCheck color="#74CC10" size={28} /> Términos y Condiciones
               </h2>
