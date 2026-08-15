@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
 
-export const revalidate = 15; // Caché de 15s para no saturar API ESPN ni servidor
+export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
     const res = await fetch(
       "https://site.api.espn.com/apis/site/v2/sports/soccer/col.1/scoreboard",
-      { next: { revalidate: 15 } }
+      { cache: "no-store" }
     );
     const data = await res.json();
     const events = data.events || [];
@@ -36,7 +36,7 @@ export async function GET() {
         try {
           const sumRes = await fetch(
             `https://site.api.espn.com/apis/site/v2/sports/soccer/col.1/summary?event=${event.id}`,
-            { next: { revalidate: 15 } }
+            { cache: "no-store" }
           );
           const summary = await sumRes.json();
 
@@ -124,6 +124,10 @@ export async function GET() {
     return NextResponse.json({
       exito: true,
       partidos: listaPartidos,
+    }, {
+      headers: {
+        "Cache-Control": "public, s-maxage=15, stale-while-revalidate=30"
+      }
     });
   } catch (error: any) {
     console.error("Error al consultar partidos en vivo:", error);

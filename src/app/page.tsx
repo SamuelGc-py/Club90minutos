@@ -1,13 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { ChevronRight, Trophy, Users, TrendingUp, Calendar, Lock, Play, ArrowRight, Activity, Zap, ShieldCheck, AlertCircle, Facebook, Instagram, Twitter, Youtube, Music2 } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
 
 export default function LandingPage() {
-  const router = useRouter();
+
 
   return (
     <div style={{ minHeight: "100vh", background: "#04060A", color: "#FFFFFF", fontFamily: "'Inter', sans-serif" }}>
