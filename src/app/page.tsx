@@ -52,14 +52,15 @@ export default function LandingPage() {
       <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
         
         {/* LAYOUT PRINCIPAL CON SIDEBAR GLOBAL AL ESTILO DASHBOARD */}
-        <div style={{ flex: 1, display: "flex", overflow: "hidden" }}>
+        <main className="admin-layout-row" style={{ flex: 1, display: "flex", gap: 32, padding: "24px", width: "100%", maxWidth: "100%", margin: 0, alignItems: "flex-start" }}>
           
           {/* SIDEBAR LATERAL GLOBAL */}
-          <aside style={{ 
+          <aside className="admin-sidebar" style={{ 
             background: "rgba(15, 23, 42, 0.6)", backdropFilter: "blur(12px)", 
-            padding: 24, borderRight: "1px solid rgba(255, 255, 255, 0.08)",
+            padding: 24, border: "1px solid rgba(255, 255, 255, 0.08)", borderRadius: 16,
             width: 280, flexShrink: 0,
-            display: "flex", flexDirection: "column", overflowY: "auto"
+            display: "flex", flexDirection: "column",
+            position: "sticky", top: 100
           }}>
             <h3 style={{ fontFamily: "'Orbitron', sans-serif", fontSize: "1.2rem", fontWeight: 800, marginBottom: 20, display: "flex", alignItems: "center", gap: 10, color: "#FFFFFF" }}>
               <Trophy color="#EFCC36" size={22} /> Torneos Activos
@@ -116,10 +117,8 @@ export default function LandingPage() {
             </div>
           </aside>
 
-          {/* CONTENIDO DERECHO (Hero + Info + Footer) */}
-          <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", overflowY: "auto" }}>
-            
-            <div style={{ padding: 24, display: "flex", flexDirection: "column", gap: 32 }}>
+          {/* CONTENIDO DERECHO (Hero + Info) */}
+          <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: 32 }}>
             {/* HERO SECTION */}
             <section style={{ 
               display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
@@ -314,66 +313,50 @@ export default function LandingPage() {
             </div>
             
             </div>
+          </main>
 
         {/* FOOTER */}
         <footer style={{ 
-          marginTop: "auto", borderTop: "1px solid rgba(255,255,255,0.05)", padding: "60px 20px 20px", 
-          background: "#04060A", color: "#6B7280", fontSize: "0.85rem" 
+          background: "rgba(11, 21, 32, 0.95)", borderTop: "1px solid rgba(255,255,255,0.05)",
+          padding: "60px 24px 30px", marginTop: "auto"
         }}>
-          <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+          <div style={{ maxWidth: 1400, margin: "0 auto", display: "flex", flexDirection: "column", gap: 40 }}>
             
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 40, marginBottom: 40 }}>
-              
-              {/* Columna Logo & Desc */}
-              <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}>
-                  <img src="/logo_principal_recortado.webp" alt="Logo" style={{ height: 36, width: "auto" }} />
-                  <span style={{ fontFamily: "'Orbitron', sans-serif", fontWeight: 800, fontSize: "1.1rem", color: "#FFFFFF" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 40 }}>
+              <div style={{ flex: "1 1 300px", display: "flex", flexDirection: "column", gap: 20 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                  <img src="/logo_principal_recortado.webp" alt="Logo" style={{ height: 48 }} />
+                  <span style={{ fontFamily: "'Orbitron', sans-serif", fontWeight: 800, fontSize: "1.4rem", letterSpacing: "0.5px", color: "#FFFFFF" }}>
                     CLUB<span style={{ color: "#74CC10" }}>90</span>MINUTOS
                   </span>
                 </div>
-                <p style={{ color: "#9CA3AF", lineHeight: 1.6, margin: 0, maxWidth: 280 }}>
-                  La plataforma de pronósticos de fútbol más divertida. Compite con amigos en todas las ligas.
+                <p style={{ color: "#8ba3b4", fontSize: "0.95rem", lineHeight: 1.6, maxWidth: 400 }}>
+                  La plataforma definitiva para los amantes del fútbol colombiano. Pronostica, compite y demuestra que eres el que más sabe de la Liga BetPlay.
                 </p>
-                <div style={{ display: "flex", gap: 12, marginTop: 8 }}>
-                  <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" style={{ width: 36, height: 36, borderRadius: 8, background: "rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "center", color: "#FFFFFF", textDecoration: "none" }}><Facebook size={18} /></a>
-                  <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" style={{ width: 36, height: 36, borderRadius: 8, background: "rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "center", color: "#FFFFFF", textDecoration: "none" }}><Instagram size={18} /></a>
-                  <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" style={{ width: 36, height: 36, borderRadius: 8, background: "rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "center", color: "#FFFFFF", textDecoration: "none" }}><Twitter size={18} /></a>
-                  <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" style={{ width: 36, height: 36, borderRadius: 8, background: "rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "center", color: "#FFFFFF", textDecoration: "none" }}><Music2 size={18} /></a>
-                  <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" style={{ width: 36, height: 36, borderRadius: 8, background: "rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "center", color: "#FFFFFF", textDecoration: "none" }}><Youtube size={18} /></a>
+                <div style={{ display: "flex", gap: 16, marginTop: 8 }}>
+                  <a href="#" style={{ width: 40, height: 40, borderRadius: "50%", background: "rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "center", color: "#FFFFFF", transition: "background 0.2s" }}><Facebook size={20} /></a>
+                  <a href="#" style={{ width: 40, height: 40, borderRadius: "50%", background: "rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "center", color: "#FFFFFF", transition: "background 0.2s" }}><Instagram size={20} /></a>
+                  <a href="#" style={{ width: 40, height: 40, borderRadius: "50%", background: "rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "center", color: "#FFFFFF", transition: "background 0.2s" }}><Twitter size={20} /></a>
+                  <a href="#" style={{ width: 40, height: 40, borderRadius: "50%", background: "rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "center", color: "#FFFFFF", transition: "background 0.2s" }}><Youtube size={20} /></a>
                 </div>
               </div>
 
-              {/* Columna Plataforma */}
-              <div>
-                <h4 style={{ color: "#FFFFFF", fontWeight: 800, fontSize: "0.95rem", marginBottom: 20, letterSpacing: "1px" }}>PLATAFORMA</h4>
-                <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                  <span style={{ color: "#9CA3AF", cursor: "pointer", transition: "color 0.2s" }} onMouseOver={(e) => (e.currentTarget.style.color = "#FFFFFF")} onMouseOut={(e) => (e.currentTarget.style.color = "#9CA3AF")}>Quiénes Somos</span>
-                  <a href="#sistema-puntuacion" style={{ color: "#9CA3AF", textDecoration: "none", transition: "color 0.2s" }} onMouseOver={(e) => (e.currentTarget.style.color = "#FFFFFF")} onMouseOut={(e) => (e.currentTarget.style.color = "#9CA3AF")}>Reglas y Puntajes</a>
+              <div style={{ display: "flex", gap: 60, flexWrap: "wrap" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                  <h4 style={{ color: "#FFFFFF", fontWeight: 700, fontSize: "1.05rem" }}>Torneos</h4>
+                  <a href="/dashboard" style={{ color: "#8ba3b4", textDecoration: "none", fontSize: "0.95rem" }}>Liga BetPlay</a>
+                  <a href="/construccion" style={{ color: "#8ba3b4", textDecoration: "none", fontSize: "0.95rem" }}>Champions League</a>
+                  <a href="/construccion" style={{ color: "#8ba3b4", textDecoration: "none", fontSize: "0.95rem" }}>Copa Libertadores</a>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                  <h4 style={{ color: "#FFFFFF", fontWeight: 700, fontSize: "1.05rem" }}>Ayuda</h4>
+                  <Link href="/terminos" style={{ color: "#8ba3b4", textDecoration: "none", fontSize: "0.95rem" }}>Términos y Condiciones</Link>
+                  <a href="/construccion" style={{ color: "#8ba3b4", textDecoration: "none", fontSize: "0.95rem" }}>Cómo jugar</a>
+                  <a href="/construccion" style={{ color: "#8ba3b4", textDecoration: "none", fontSize: "0.95rem" }}>Preguntas Frecuentes</a>
                 </div>
               </div>
-
-              {/* Columna Soporte */}
-              <div>
-                <h4 style={{ color: "#FFFFFF", fontWeight: 800, fontSize: "0.95rem", marginBottom: 20, letterSpacing: "1px" }}>SOPORTE</h4>
-                <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                  <span style={{ color: "#9CA3AF", cursor: "pointer", transition: "color 0.2s" }} onMouseOver={(e) => (e.currentTarget.style.color = "#FFFFFF")} onMouseOut={(e) => (e.currentTarget.style.color = "#9CA3AF")}>FAQ's</span>
-                </div>
-              </div>
-
-              {/* Columna Legal */}
-              <div>
-                <h4 style={{ color: "#FFFFFF", fontWeight: 800, fontSize: "0.95rem", marginBottom: 20, letterSpacing: "1px" }}>LEGAL</h4>
-                <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                  <span style={{ color: "#9CA3AF", cursor: "pointer", transition: "color 0.2s" }} onMouseOver={(e) => (e.currentTarget.style.color = "#FFFFFF")} onMouseOut={(e) => (e.currentTarget.style.color = "#9CA3AF")}>Política de privacidad</span>
-                  <span style={{ color: "#9CA3AF", cursor: "pointer", transition: "color 0.2s" }} onMouseOver={(e) => (e.currentTarget.style.color = "#FFFFFF")} onMouseOut={(e) => (e.currentTarget.style.color = "#9CA3AF")}>Política de Cookies</span>
-                  <Link href="/terminos" style={{ color: "#9CA3AF", textDecoration: "none", transition: "color 0.2s" }} onMouseOver={(e) => (e.currentTarget.style.color = "#FFFFFF")} onMouseOut={(e) => (e.currentTarget.style.color = "#9CA3AF")}>Términos y Condiciones</Link>
-                </div>
-              </div>
-
             </div>
 
-            {/* Copyright Row */}
             <div style={{ 
               display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16,
               paddingTop: 24, borderTop: "1px solid rgba(255,255,255,0.05)", fontSize: "0.8rem", color: "#6B7280"
@@ -386,9 +369,6 @@ export default function LandingPage() {
             
           </div>
         </footer>
-
-          </div>
-        </div>
       </div>
     </div>
   );
