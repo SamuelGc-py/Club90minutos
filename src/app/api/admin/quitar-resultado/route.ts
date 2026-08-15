@@ -26,6 +26,7 @@ export async function POST(req: Request) {
       where: { partido_id: idPartido },
     });
 
+    // Restaurar eliminación automática de puntos para que la tabla baje en tiempo real
     await prisma.puntaje.deleteMany({ where: { partido_id: idPartido } });
 
     if (resultadoOficial) {

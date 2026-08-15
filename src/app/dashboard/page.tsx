@@ -5,7 +5,8 @@ import { CheckCircle2, ShieldAlert, Save, RefreshCw, Trophy, Calendar, LogOut, A
 import Link from "next/link";
 import { toPng } from 'html-to-image';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis, YAxis } from "recharts";
-import TablaPosicionesAfiche, { TABLA_POSICIONES_FIJA } from "../components/TablaPosicionesAfiche";
+import { toast } from "sonner";
+import TablaPosicionesAfiche from "../components/TablaPosicionesAfiche";
 
 interface Jugador {
   id: number;
@@ -830,15 +831,15 @@ function ExpressPageContent() {
           ? "⏱️ Ya cerró el plazo de predicciones iniciales (Fecha 5 ya inició). No se guardó."
           : data.error || "Error al guardar predicciones del torneo.";
         setMensajeEstado({ tipo: "error", texto });
-        if (typeof window !== "undefined") alert("❌ " + texto);
+        if (typeof window !== "undefined") toast.error(texto);
       } else {
         setMensajeEstado({ tipo: "exito", texto: "¡Predicciones del torneo guardadas exitosamente!" });
-        if (typeof window !== "undefined") alert("✅ ¡Tus predicciones del torneo han sido guardadas exitosamente!");
+        if (typeof window !== "undefined") toast.success("¡Tus predicciones del torneo han sido guardadas exitosamente!");
         sincronizarSesionBackend(usuario.correo, sesionToken);
       }
     } catch (err: any) {
       setMensajeEstado({ tipo: "error", texto: "Error al guardar: " + err.message });
-      if (typeof window !== "undefined") alert("❌ Error: " + err.message);
+      if (typeof window !== "undefined") toast.error(err.message);
     } finally {
       setGuardandoInicial(false);
     }
@@ -919,7 +920,7 @@ function ExpressPageContent() {
       setMensajeEstado({ tipo: "exito", texto: data.mensaje || "¡Marcador guardado en pantalla!" });
       window.scrollTo({ top: 0, behavior: "smooth" });
       if (typeof window !== "undefined") {
-        alert("✅ " + (data.mensaje || "¡Marcador guardado en pantalla!"));
+        toast.success(data.mensaje || "¡Marcador guardado en pantalla!");
       }
       cargarMaestros();
       cargarConsolidados(usuario.id);
@@ -927,7 +928,7 @@ function ExpressPageContent() {
       console.error(err);
       setMensajeEstado({ tipo: "error", texto: err.message || "Error al cargar marcador." });
       if (typeof window !== "undefined") {
-        alert("❌ Error: " + (err.message || "Error al cargar marcador."));
+        toast.error(err.message || "Error al cargar marcador.");
       }
     }
   };
@@ -960,7 +961,7 @@ function ExpressPageContent() {
       setMensajeEstado({ tipo: "exito", texto: data.mensaje || "¡Resultado oficial publicado y puntos calculados!" });
       window.scrollTo({ top: 0, behavior: "smooth" });
       if (typeof window !== "undefined") {
-        alert("✅ " + (data.mensaje || "¡Resultado oficial publicado y puntos calculados!"));
+        toast.success(data.mensaje || "¡Resultado oficial publicado y puntos calculados!");
       }
       cargarMaestros();
       cargarConsolidados(usuario.id);
@@ -968,7 +969,7 @@ function ExpressPageContent() {
       console.error(err);
       setMensajeEstado({ tipo: "error", texto: err.message || "Error al liquidar resultado." });
       if (typeof window !== "undefined") {
-        alert("❌ Error: " + (err.message || "Error al liquidar resultado."));
+        toast.error(err.message || "Error al liquidar resultado.");
       }
     }
   };
@@ -1022,7 +1023,7 @@ function ExpressPageContent() {
       console.error(err);
       setMensajeEstado({ tipo: "error", texto: err.message || "Error al reprogramar el partido." });
       if (typeof window !== "undefined") {
-        alert("❌ Error: " + (err.message || "Error al reprogramar el partido."));
+        toast.error(err.message || "Error al reprogramar el partido.");
       }
     } finally {
       setGuardandoProgramacionId(null);
@@ -1056,13 +1057,13 @@ function ExpressPageContent() {
       setMensajeEstado({ tipo: "exito", texto });
       if (nuevoEstado !== "aplazado" && typeof window !== "undefined") {
         window.scrollTo({ top: 0, behavior: "smooth" });
-        alert("✅ " + texto);
+        toast.success(texto);
       }
       cargarMaestros();
     } catch (err: any) {
       console.error(err);
       if (typeof window !== "undefined") {
-        alert("❌ Error: " + (err.message || "Error al actualizar el estado del partido."));
+        toast.error(err.message || "Error al actualizar el estado del partido.");
       }
     } finally {
       setGuardandoProgramacionId(null);
@@ -1071,7 +1072,7 @@ function ExpressPageContent() {
 
   const handleQuitarResultado = async (partidoId: number) => {
     if (!usuario || usuario.rol_id !== 2) return;
-    if (typeof window !== "undefined" && !window.confirm("Esto eliminará el marcador oficial y goleadores cargados de este partido, dejándolo como recién programado. Tus puntos de la tabla NO se verán afectados. ¿Continuar?")) {
+    if (typeof window !== "undefined" && !window.confirm("Esto eliminará el marcador oficial, goleadores y TODOS los puntos ya liquidados de la tabla de posiciones. ¿Continuar?")) {
       return;
     }
     try {
@@ -1089,16 +1090,16 @@ function ExpressPageContent() {
         return copia;
       });
       setMensajeEstado({ tipo: "exito", texto: data.mensaje || "Resultado eliminado." });
-      if (typeof window !== "undefined") {
-        alert("✅ " + (data.mensaje || "Resultado eliminado."));
-      }
+        if (typeof window !== "undefined") {
+          toast.success(data.mensaje || "Resultado eliminado.");
+        }
       cargarMaestros();
       cargarConsolidados(usuario.id);
     } catch (err: any) {
       console.error(err);
       setMensajeEstado({ tipo: "error", texto: err.message || "Error al quitar el resultado." });
       if (typeof window !== "undefined") {
-        alert("❌ Error: " + (err.message || "Error al quitar el resultado."));
+        toast.error(err.message || "Error al quitar el resultado.");
       }
     }
   };
@@ -1335,7 +1336,7 @@ function ExpressPageContent() {
       setClasificadosIds(clasificadosIds.filter((id) => id !== equipoId));
     } else {
       if (clasificadosIds.length >= 8) {
-        alert("Ya has seleccionado el máximo permitido de 8 clasificados.");
+        toast.error("Ya has seleccionado el máximo permitido de 8 clasificados.");
         return;
       }
       setClasificadosIds([...clasificadosIds, equipoId]);
@@ -1970,7 +1971,7 @@ function ExpressPageContent() {
   const handleDescargarImagenPronosticos = async (partidoId: number) => {
     const node = document.getElementById(`tabla-pronosticos-admin-${partidoId}`);
     if (!node) {
-      alert("No se encontró la tabla de pronósticos.");
+      toast.error("No se encontró la tabla de pronósticos.");
       return;
     }
     try {
@@ -2770,6 +2771,7 @@ function ExpressPageContent() {
                               <button
                                 type="button"
                                 onClick={async () => {
+                                  const toastId = toast.loading(`Obteniendo datos de ESPN para ${partido.equipo_local.nombre}...`);
                                   try {
                                     const res = await fetch("/api/admin/extraer-resultado-externo", {
                                       method: "POST",
@@ -2792,12 +2794,14 @@ function ExpressPageContent() {
                                     if (data.espnStatus !== "STATUS_FULL_TIME") {
                                       msg += " (¡OJO! Partido NO finalizado en ESPN)";
                                     }
-                                    alert(msg);
+                                    
                                     if (data.logs && data.logs.length > 0) {
-                                      console.log("ESPN Logs:", data.logs);
+                                      toast.success(`${msg}. Goleadores: ${data.logs.join(' | ')}`, { id: toastId, duration: 6000 });
+                                    } else {
+                                      toast.success(msg, { id: toastId });
                                     }
                                   } catch (err: any) {
-                                    alert("❌ Error: " + err.message);
+                                    toast.error(err.message, { id: toastId });
                                   }
                                 }}
                                 style={{
@@ -3188,7 +3192,7 @@ function ExpressPageContent() {
                         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 20 }}>
                           {[
                             { label: "Usuarios Registrados", value: consolidados?.usuarios?.length || 0, icon: UserCheck, color: "#38bdf8" },
-                            { label: "Líder Actual", value: TABLA_POSICIONES_FIJA[0]?.nombre_completo || "N/A", sub: TABLA_POSICIONES_FIJA[0] ? `${TABLA_POSICIONES_FIJA[0]?.pts_total ?? 0} Pts` : undefined, icon: Trophy, color: "#f5b000" },
+                            { label: "Líder Actual", value: consolidados?.tablaPosiciones?.[0]?.nombre_completo || "N/A", sub: consolidados?.tablaPosiciones?.[0] ? `${consolidados.tablaPosiciones[0]?.pts_total ?? 0} Pts` : undefined, icon: Trophy, color: "#f5b000" },
                             { label: "Partidos Programados", value: partidos.length, icon: Calendar, color: "#10b981" },
                           ].map((kpi, idx) => {
                             const KpiIcono = kpi.icon;
@@ -3754,7 +3758,7 @@ function ExpressPageContent() {
 
                 {/* TU RENDIMIENTO: integrado en la misma tarjeta, compacto, sin caja separada */}
                 {(() => {
-                  const miFila = TABLA_POSICIONES_FIJA.find((f) => f.correo.toLowerCase() === (usuario.correo || "").toLowerCase());
+                  const miFila = consolidados?.tablaPosiciones?.find((f: any) => f.correo.toLowerCase() === (usuario.correo || "").toLowerCase());
                   if (!miFila) return null;
                   const desglose = [
                     { label: "Resultado Exacto", val: miFila.pts_resultado_exacto, color: "#34d399" },
@@ -4633,11 +4637,11 @@ function ExpressPageContent() {
                       👑 Líder Actual de la Polla
                     </div>
                     <strong style={{ fontSize: "1.1rem", color: "#ffd700", fontWeight: 900, display: "block" }}>
-                      {TABLA_POSICIONES_FIJA[0]?.nombre_completo || "Cargando..."}
+                      {consolidados?.tablaPosiciones?.[0]?.nombre_completo || "Cargando..."}
                     </strong>
-                    {TABLA_POSICIONES_FIJA[0] && (
+                    {consolidados?.tablaPosiciones?.[0] && (
                       <span style={{ fontSize: "0.8rem", color: "#a5b4fc", fontWeight: 700 }}>
-                        {TABLA_POSICIONES_FIJA[0]?.pts_total ?? 0} Pts acumulados
+                        {consolidados?.tablaPosiciones?.[0]?.pts_total ?? 0} Pts acumulados
                       </span>
                     )}
                   </div>

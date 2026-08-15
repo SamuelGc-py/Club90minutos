@@ -85,7 +85,7 @@ export default function TablaPosicionesAfiche({
     }
   };
 
-  const tablaFinal: FilaTablaPosiciones[] = TABLA_POSICIONES_FIJA;
+  const tablaFinal: FilaTablaPosiciones[] = tabla || [];
 
   return (
     <div style={{ margin: "20px 0" }}>

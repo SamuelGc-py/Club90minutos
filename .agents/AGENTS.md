@@ -56,10 +56,8 @@ Esto aplica a cualquier IA/agente que trabaje en este repositorio (Antigravity, 
     - Después de cada push, hay que confirmar con evidencia real que el cambio llegó a Hostinger — por ejemplo, descargando el HTML/JS servido en `https://club90minutos.com` y buscando ahí un texto o marca del cambio recién hecho — en vez de asumir que el pipeline automático funcionó.
     - Si no se puede confirmar (por build fallido, caché, o lo que sea), decírselo al usuario de inmediato con el error concreto, no quedarse callado ni reportar éxito a medias.
 
-13. **PROHIBIDO tocar la Tabla de Posiciones / puntos automáticamente.**
-    - Ningún agente (Claude, Antigravity, u otro) debe recalcular, actualizar o "sincronizar" los puntos de la Tabla de Posiciones (`src/app/components/TablaPosicionesAfiche.tsx`) por iniciativa propia. Los valores de `tablaFinal` en ese archivo los actualiza Samuel manualmente, a mano, con los números que él verifique (normalmente contra un afiche/tabla oficial que él mismo genera).
-    - Solo se edita esa tabla cuando Samuel pega los números nuevos explícitamente y pide actualizarla. Ni siquiera si el cálculo automático (`calcularPuntosPartido` en `src/lib/calculadorPuntos.ts`) da un resultado distinto — eso NO es motivo para "corregir" la tabla fija sin que él lo pida.
-    - Motivo: hubo confusión previa por un agente recalculando la tabla sola vez y luego otro agente restaurándola a modo dinámico sin coordinación (commits `fa976b1` y `c9272da`, 2026-08-05). Samuel prefiere control manual total sobre esta tabla específica.
+13. **(OBSOLETA) Tabla de Posiciones Dinámica.**
+    - A partir del 15 de agosto de 2026, la tabla de posiciones volvió a ser 100% dinámica. Los puntos se calculan automáticamente y se eliminan automáticamente de la base de datos si se quita el resultado de un partido. Ya NO se actualiza manualmente.
 
 14. **Cargar resultado de un partido SIN sumar puntos ("liquidar en pantalla").**
     - Cuando Samuel pida cargar el marcador y goleadores de un partido pero indique explícitamente que NO se sumen puntos todavía, no uses el endpoint `/api/admin/cargar-resultado` ni la función `calcularPuntosPartido` completa — esa función guarda el resultado Y calcula/inserta los `Puntaje` de todos los participantes en la misma operación, no se pueden separar tal cual está hoy.
