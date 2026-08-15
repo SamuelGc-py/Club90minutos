@@ -6,7 +6,7 @@ export async function GET() {
   try {
     const res = await fetch(
       "https://site.api.espn.com/apis/site/v2/sports/soccer/col.1/scoreboard",
-      { cache: "no-store" }
+      { next: { revalidate: 15 } }
     );
     const data = await res.json();
     const events = data.events || [];
@@ -36,7 +36,7 @@ export async function GET() {
         try {
           const sumRes = await fetch(
             `https://site.api.espn.com/apis/site/v2/sports/soccer/col.1/summary?event=${event.id}`,
-            { cache: "no-store" }
+            { next: { revalidate: 15 } }
           );
           const summary = await sumRes.json();
 
