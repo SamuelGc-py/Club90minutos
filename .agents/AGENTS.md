@@ -24,9 +24,8 @@
 
 Esto aplica a cualquier IA/agente que trabaje en este repositorio (Antigravity, Claude Code, o cualquier otro). El dueño del proyecto es Samuel — estas reglas existen porque ya se perdió trabajo y tiempo por no seguirlas.
 
-6. **La palabra del usuario es la única autoridad final.**
-   Ante cualquier duda o instrucción previa que parezca contradictoria, manda la instrucción explícita MÁS RECIENTE del usuario. Nunca reinterpretes, "mejores" ni reviertas en silencio una decisión que el usuario ya tomó explícitamente.
-   - Caso real: el 2026-08-04 el usuario pidió expresamente ocultar la landing pública y dejar `/` como redirect directo a `/dashboard` (acceso privado). El 2026-08-05, sin que el usuario lo pidiera, un agente revirtió ese cambio y restauró la landing pública, deshaciendo trabajo ya aprobado. Esto no debe repetirse: si no hay una instrucción nueva y explícita que pida deshacer algo, no se deshace.
+6. **(REVOCADA) La palabra del usuario es la única autoridad final.**
+   *(Revocada el 2026-08-15: El usuario solicitó explícitamente construir una Landing Page pública en `/`, por lo que esta regla que obligaba a ocultarla queda sin efecto).*
 
 7. **No seas lambón.**
    No le digas al usuario lo que quiere oír ni actúes solo para parecer productivo o quedar bien. Si una petición tiene un problema técnico, un riesgo, o contradice algo ya decidido antes, dilo directamente ANTES de ejecutar el cambio, no después de romper algo. Es preferible hacer una pregunta incómoda que dar una sorpresa destructiva.

@@ -502,6 +502,8 @@ function ExpressPageContent() {
   // Estado de sesión
   const [correoInput, setCorreoInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
+  const [nombreInput, setNombreInput] = useState("");
+  const [modoRegistro, setModoRegistro] = useState(false);
   const [cargandoValidacion, setCargandoValidacion] = useState(false);
   const [mensajeEstado, setMensajeEstado] = useState<{ tipo: "error" | "info" | "exito"; texto: string } | null>(null);
   const [usuario, setUsuario] = useState<UsuarioSesion | null>(null);
@@ -1323,6 +1325,40 @@ function ExpressPageContent() {
       if (data.prediccionesGuardadas) {
         aplicarPrediccionesGuardadas(data.prediccionesGuardadas);
       }
+    } catch (err: any) {
+      setMensajeEstado({ tipo: "error", texto: "Error de conexión: " + err.message });
+    } finally {
+      setCargandoValidacion(false);
+    }
+  };
+
+  const handleRegistro = async (e?: React.FormEvent | React.KeyboardEvent | React.MouseEvent) => {
+    if (e && e.preventDefault) e.preventDefault();
+
+    if (!nombreInput.trim() || !correoInput.trim() || !passwordInput.trim()) {
+      setMensajeEstado({ tipo: "error", texto: "Por favor llena todos los campos para crear tu cuenta." });
+      return;
+    }
+
+    setCargandoValidacion(true);
+    setMensajeEstado(null);
+
+    try {
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nombre_completo: nombreInput, correo: correoInput, password: passwordInput }),
+      });
+      const data = await res.json();
+
+      if (!res.ok || data.error) {
+        setMensajeEstado({ tipo: "error", texto: data.error || "Error al crear la cuenta." });
+        return;
+      }
+
+      // Registro exitoso, iniciar sesión automáticamente
+      setMensajeEstado({ tipo: "exito", texto: "¡Cuenta creada exitosamente! Iniciando sesión..." });
+      await handleValidarCorreo(); // Usamos la misma función de login que ya tiene el estado listo
     } catch (err: any) {
       setMensajeEstado({ tipo: "error", texto: "Error de conexión: " + err.message });
     } finally {
@@ -2168,14 +2204,31 @@ function ExpressPageContent() {
 
               <div style={{ marginBottom: 40 }}>
                 <h2 style={{ fontSize: "2rem", fontWeight: 800, marginBottom: 8, color: "#fff", display: "flex", alignItems: "center", gap: 10 }}>
-                  ¡Vamos con Todo, Crack!
+                  {modoRegistro ? "Únete al Club, Crack" : "¡Vamos con Todo, Crack!"}
                 </h2>
                 <p style={{ color: "var(--graderia)", fontSize: "0.95rem" }}>
-                  Ingresa para acceder a tus pronósticos y estadísticas.
+                  {modoRegistro ? "Crea tu cuenta para empezar a predecir." : "Ingresa para acceder a tus pronósticos y estadísticas."}
                 </p>
               </div>
 
               <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+                {modoRegistro && (
+                  <div>
+                    <label style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--graderia)", marginBottom: 8, display: "block" }}>
+                      Nombre Completo
+                    </label>
+                    <input
+                      type="text"
+                      className="input"
+                      placeholder="Ej. Juan Pérez"
+                      value={nombreInput}
+                      onChange={(e) => setNombreInput(e.target.value)}
+                      onKeyDown={(e) => { if (e.key === "Enter") handleRegistro(e); }}
+                      style={{ width: "100%", padding: "16px", background: "var(--tribuna)", border: "1px solid var(--linea-fuerte)", borderRadius: "12px", color: "#fff", outline: "none", transition: "all 0.3s" }}
+                      required
+                    />
+                  </div>
+                )}
                 <div>
                   <label style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--graderia)", marginBottom: 8, display: "block" }}>
                     Correo electrónico autorizado
@@ -2186,7 +2239,7 @@ function ExpressPageContent() {
                     placeholder="ejemplo@correo.com"
                     value={correoInput}
                     onChange={(e) => setCorreoInput(e.target.value)}
-                    onKeyDown={(e) => { if (e.key === "Enter") handleValidarCorreo(e); }}
+                    onKeyDown={(e) => { if (e.key === "Enter") modoRegistro ? handleRegistro(e) : handleValidarCorreo(e); }}
                     style={{ width: "100%", padding: "16px", background: "var(--tribuna)", border: "1px solid var(--linea-fuerte)", borderRadius: "12px", color: "#fff", outline: "none", transition: "all 0.3s" }}
                     required
                   />
@@ -2207,7 +2260,7 @@ function ExpressPageContent() {
                     placeholder="••••••••"
                     value={passwordInput}
                     onChange={(e) => setPasswordInput(e.target.value)}
-                    onKeyDown={(e) => { if (e.key === "Enter") handleValidarCorreo(e); }}
+                    onKeyDown={(e) => { if (e.key === "Enter") modoRegistro ? handleRegistro(e) : handleValidarCorreo(e); }}
                     style={{ width: "100%", padding: "16px", background: "var(--tribuna)", border: "1px solid var(--linea-fuerte)", borderRadius: "12px", color: "#fff", outline: "none", transition: "all 0.3s" }}
                     required
                   />
@@ -2215,7 +2268,7 @@ function ExpressPageContent() {
 
                 <button
                   type="button"
-                  onClick={handleValidarCorreo}
+                  onClick={modoRegistro ? handleRegistro : handleValidarCorreo}
                   disabled={cargandoValidacion}
                   style={{
                     width: "100%",
@@ -2240,11 +2293,24 @@ function ExpressPageContent() {
                 >
                   {cargandoValidacion ? (
                     <>
-                      <RefreshCw className="spin" size={20} /> Ingresando...
+                      <RefreshCw className="spin" size={20} /> {modoRegistro ? "Creando cuenta..." : "Ingresando..."}
                     </>
                   ) : (
-                    "Ingresar a mis Pronósticos"
+                    modoRegistro ? "Crear Mi Cuenta" : "Ingresar a mis Pronósticos"
                   )}
+                </button>
+              </div>
+
+              <div style={{ marginTop: 24, textAlign: "center" }}>
+                <span style={{ color: "var(--graderia)", fontSize: "0.9rem" }}>
+                  {modoRegistro ? "¿Ya tienes una cuenta?" : "¿No tienes una cuenta?"}
+                </span>{" "}
+                <button
+                  type="button"
+                  onClick={() => setModoRegistro(!modoRegistro)}
+                  style={{ background: "none", border: "none", color: "var(--cancha)", fontWeight: 700, fontSize: "0.9rem", cursor: "pointer", textDecoration: "underline" }}
+                >
+                  {modoRegistro ? "Inicia Sesión aquí" : "Regístrate ahora"}
                 </button>
               </div>
 
