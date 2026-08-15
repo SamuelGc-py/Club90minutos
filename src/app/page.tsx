@@ -113,13 +113,13 @@ export default function LandingPage() {
           {/* SIDEBAR: TORNEOS DISPONIBLES */}
           <aside style={{ 
             background: "#1A1F26", borderRadius: 16, padding: 24, border: "1px solid rgba(255,255,255,0.05)",
-            height: "fit-content"
+            height: "fit-content", position: "sticky", top: 100
           }}>
-            <h3 style={{ fontFamily: "'Orbitron', sans-serif", fontSize: "1.2rem", fontWeight: 800, marginBottom: 20, display: "flex", alignItems: "center", gap: 10 }}>
+            <h3 style={{ fontFamily: "'Orbitron', sans-serif", fontSize: "1.2rem", fontWeight: 800, marginBottom: 20, display: "flex", alignItems: "center", gap: 10, color: "#FFF" }}>
               <Trophy color="#EFCC36" size={22} /> Torneos Activos
             </h3>
             
-            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
               {/* Torneo Activo */}
               <Link href="/dashboard" style={{ textDecoration: "none" }}>
                 <div style={{ 
@@ -127,11 +127,11 @@ export default function LandingPage() {
                   borderRadius: 12, cursor: "pointer", transition: "all 0.2s ease",
                   display: "flex", alignItems: "center", gap: 16
                 }}>
-                  <div style={{ width: 48, height: 48, background: "#fff", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", padding: 4 }}>
+                  <div style={{ width: 48, height: 48, background: "#FFFFFF", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", padding: 4 }}>
                     <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Logo_Liga_BetPlay_Dimayor_2020.png" alt="Liga BetPlay" style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }} />
                   </div>
                   <div>
-                    <div style={{ fontWeight: 800, color: "#fff", fontSize: "1.05rem" }}>Liga BetPlay</div>
+                    <div style={{ fontWeight: 800, color: "#FFFFFF", fontSize: "1.05rem" }}>Liga BetPlay</div>
                     <div style={{ fontSize: "0.8rem", color: "#74CC10", fontWeight: 700, marginTop: 4 }}>En Juego • Ingresar</div>
                   </div>
                 </div>
@@ -144,23 +144,40 @@ export default function LandingPage() {
                   borderRadius: 12, cursor: "pointer", transition: "all 0.2s ease", opacity: 0.7,
                   display: "flex", alignItems: "center", gap: 16
                 }}>
-                  <div style={{ width: 48, height: 48, background: "#fff", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", padding: 4 }}>
+                  <div style={{ width: 48, height: 48, background: "#FFFFFF", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", padding: 4 }}>
                     <img src="https://upload.wikimedia.org/wikipedia/en/thumb/b/bf/UEFA_Champions_League_logo_2.svg/1200px-UEFA_Champions_League_logo_2.svg.png" alt="Champions League" style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }} />
                   </div>
                   <div>
-                    <div style={{ fontWeight: 800, color: "#fff", fontSize: "1.05rem" }}>Champions League</div>
+                    <div style={{ fontWeight: 800, color: "#FFFFFF", fontSize: "1.05rem" }}>Champions League</div>
                     <div style={{ fontSize: "0.8rem", color: "#6B7280", fontWeight: 600, marginTop: 4 }}>Próximamente</div>
                   </div>
                 </div>
               </Link>
             </div>
+
+            <h3 style={{ fontFamily: "'Orbitron', sans-serif", fontSize: "1.2rem", fontWeight: 800, marginBottom: 20, display: "flex", alignItems: "center", gap: 10, color: "#FFF" }}>
+              <Activity color="#438AFF" size={22} /> Información
+            </h3>
+            
+            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+              <a href="#como-funciona" style={{ color: "#E5E7EB", textDecoration: "none", fontSize: "0.95rem", fontWeight: 600, transition: "color 0.2s", display: "flex", alignItems: "center", gap: 12 }}>
+                <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#438AFF" }} /> Cómo Funciona
+              </a>
+              <a href="#sistema-puntuacion" style={{ color: "#E5E7EB", textDecoration: "none", fontSize: "0.95rem", fontWeight: 600, transition: "color 0.2s", display: "flex", alignItems: "center", gap: 12 }}>
+                <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#EFCC36" }} /> Sistema de Puntuación
+              </a>
+              <a href="#terminos" style={{ color: "#E5E7EB", textDecoration: "none", fontSize: "0.95rem", fontWeight: 600, transition: "color 0.2s", display: "flex", alignItems: "center", gap: 12 }}>
+                <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#EA3D35" }} /> Términos y Condiciones
+              </a>
+            </div>
+
           </aside>
 
           {/* MAIN CONTENT: CÓMO JUGAR & TYC */}
           <main style={{ display: "flex", flexDirection: "column", gap: 40 }}>
             
             {/* Cómo Funciona */}
-            <div style={{ background: "#1A1F26", borderRadius: 16, padding: 32, border: "1px solid rgba(255,255,255,0.05)" }}>
+            <div id="como-funciona" style={{ background: "#1A1F26", borderRadius: 16, padding: 32, border: "1px solid rgba(255,255,255,0.05)" }}>
               <h2 style={{ fontFamily: "'Orbitron', sans-serif", fontSize: "1.8rem", fontWeight: 800, marginBottom: 24, color: "#74CC10" }}>
                 ¿Cómo Funciona?
               </h2>
@@ -198,8 +215,8 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Sistema de Puntuación (Términos Básicos) */}
-            <div style={{ background: "#1A1F26", borderRadius: 16, padding: 32, border: "1px solid rgba(255,255,255,0.05)" }}>
+            {/* Sistema de Puntuación */}
+            <div id="sistema-puntuacion" style={{ background: "#1A1F26", borderRadius: 16, padding: 32, border: "1px solid rgba(255,255,255,0.05)" }}>
               <h2 style={{ fontFamily: "'Orbitron', sans-serif", fontSize: "1.8rem", fontWeight: 800, marginBottom: 24, color: "#fff" }}>
                 Sistema de Puntuación
               </h2>
@@ -239,8 +256,8 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Términos y Condiciones */}
-            <div style={{ background: "#1A1F26", borderRadius: 16, padding: 32, border: "1px solid rgba(255,255,255,0.05)" }}>
+            {/* Términos y Condiciones Resumen */}
+            <div id="terminos" style={{ background: "#1A1F26", borderRadius: 16, padding: 32, border: "1px solid rgba(255,255,255,0.05)" }}>
               <h2 style={{ fontFamily: "'Orbitron', sans-serif", fontSize: "1.8rem", fontWeight: 800, marginBottom: 24, color: "#fff", display: "flex", alignItems: "center", gap: 12 }}>
                 <ShieldCheck color="#74CC10" size={28} /> Términos y Condiciones
               </h2>
@@ -306,30 +323,13 @@ export default function LandingPage() {
         }}>
           <div style={{ maxWidth: 1200, margin: "0 auto" }}>
             
-            {/* Coljuegos Banner */}
-            <div style={{ 
-              display: "flex", alignItems: "center", justifyContent: "center", gap: 16, 
-              background: "#111418", padding: "16px 24px", borderRadius: 12, border: "1px solid rgba(255,255,255,0.05)",
-              marginBottom: 40, flexWrap: "wrap", textAlign: "center"
-            }}>
-              <div style={{ background: "#EF4444", color: "#FFF", width: 32, height: 32, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: "0.8rem" }}>
-                18+
-              </div>
-              <div style={{ fontFamily: "'Orbitron', sans-serif", fontWeight: 900, fontSize: "1.4rem", color: "#FFF", letterSpacing: "1px" }}>
-                Coljueg<span style={{ color: "#EFCC36" }}>O</span>s
-              </div>
-              <span style={{ color: "#E5E7EB", fontWeight: 600, fontSize: "0.95rem" }}>
-                Juega bien. Ser responsable es parte del juego...
-              </span>
-            </div>
-
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 40, marginBottom: 40 }}>
               
               {/* Columna Logo & Desc */}
               <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}>
                   <img src="/logo_principal_recortado.webp" alt="Logo" style={{ height: 36, width: "auto" }} />
-                  <span style={{ fontFamily: "'Orbitron', sans-serif", fontWeight: 800, fontSize: "1.1rem", color: "#FFF" }}>
+                  <span style={{ fontFamily: "'Orbitron', sans-serif", fontWeight: 800, fontSize: "1.1rem", color: "#FFFFFF" }}>
                     CLUB<span style={{ color: "#74CC10" }}>90</span>MINUTOS
                   </span>
                 </div>
@@ -337,38 +337,38 @@ export default function LandingPage() {
                   La plataforma de pronósticos de fútbol más divertida. Compite con amigos en todas las ligas.
                 </p>
                 <div style={{ display: "flex", gap: 12, marginTop: 8 }}>
-                  <a href="#" style={{ width: 36, height: 36, borderRadius: 8, background: "rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "center", color: "#FFF", textDecoration: "none" }}><Facebook size={18} /></a>
-                  <a href="#" style={{ width: 36, height: 36, borderRadius: 8, background: "rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "center", color: "#FFF", textDecoration: "none" }}><Instagram size={18} /></a>
-                  <a href="#" style={{ width: 36, height: 36, borderRadius: 8, background: "rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "center", color: "#FFF", textDecoration: "none" }}><Twitter size={18} /></a>
-                  <a href="#" style={{ width: 36, height: 36, borderRadius: 8, background: "rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "center", color: "#FFF", textDecoration: "none" }}><Music2 size={18} /></a>
-                  <a href="#" style={{ width: 36, height: 36, borderRadius: 8, background: "rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "center", color: "#FFF", textDecoration: "none" }}><Youtube size={18} /></a>
+                  <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" style={{ width: 36, height: 36, borderRadius: 8, background: "rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "center", color: "#FFFFFF", textDecoration: "none" }}><Facebook size={18} /></a>
+                  <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" style={{ width: 36, height: 36, borderRadius: 8, background: "rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "center", color: "#FFFFFF", textDecoration: "none" }}><Instagram size={18} /></a>
+                  <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" style={{ width: 36, height: 36, borderRadius: 8, background: "rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "center", color: "#FFFFFF", textDecoration: "none" }}><Twitter size={18} /></a>
+                  <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" style={{ width: 36, height: 36, borderRadius: 8, background: "rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "center", color: "#FFFFFF", textDecoration: "none" }}><Music2 size={18} /></a>
+                  <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" style={{ width: 36, height: 36, borderRadius: 8, background: "rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "center", color: "#FFFFFF", textDecoration: "none" }}><Youtube size={18} /></a>
                 </div>
               </div>
 
               {/* Columna Plataforma */}
               <div>
-                <h4 style={{ color: "#FFF", fontWeight: 800, fontSize: "0.95rem", marginBottom: 20, letterSpacing: "1px" }}>PLATAFORMA</h4>
+                <h4 style={{ color: "#FFFFFF", fontWeight: 800, fontSize: "0.95rem", marginBottom: 20, letterSpacing: "1px" }}>PLATAFORMA</h4>
                 <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                  <Link href="#" style={{ color: "#9CA3AF", textDecoration: "none", transition: "color 0.2s" }}>Quiénes Somos</Link>
-                  <Link href="#" style={{ color: "#9CA3AF", textDecoration: "none", transition: "color 0.2s" }}>Reglas y Puntajes</Link>
+                  <span style={{ color: "#9CA3AF", cursor: "pointer", transition: "color 0.2s" }} onMouseOver={(e) => (e.currentTarget.style.color = "#FFFFFF")} onMouseOut={(e) => (e.currentTarget.style.color = "#9CA3AF")}>Quiénes Somos</span>
+                  <a href="#sistema-puntuacion" style={{ color: "#9CA3AF", textDecoration: "none", transition: "color 0.2s" }} onMouseOver={(e) => (e.currentTarget.style.color = "#FFFFFF")} onMouseOut={(e) => (e.currentTarget.style.color = "#9CA3AF")}>Reglas y Puntajes</a>
                 </div>
               </div>
 
               {/* Columna Soporte */}
               <div>
-                <h4 style={{ color: "#FFF", fontWeight: 800, fontSize: "0.95rem", marginBottom: 20, letterSpacing: "1px" }}>SOPORTE</h4>
+                <h4 style={{ color: "#FFFFFF", fontWeight: 800, fontSize: "0.95rem", marginBottom: 20, letterSpacing: "1px" }}>SOPORTE</h4>
                 <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                  <Link href="#" style={{ color: "#9CA3AF", textDecoration: "none", transition: "color 0.2s" }}>FAQ's</Link>
+                  <span style={{ color: "#9CA3AF", cursor: "pointer", transition: "color 0.2s" }} onMouseOver={(e) => (e.currentTarget.style.color = "#FFFFFF")} onMouseOut={(e) => (e.currentTarget.style.color = "#9CA3AF")}>FAQ's</span>
                 </div>
               </div>
 
               {/* Columna Legal */}
               <div>
-                <h4 style={{ color: "#FFF", fontWeight: 800, fontSize: "0.95rem", marginBottom: 20, letterSpacing: "1px" }}>LEGAL</h4>
+                <h4 style={{ color: "#FFFFFF", fontWeight: 800, fontSize: "0.95rem", marginBottom: 20, letterSpacing: "1px" }}>LEGAL</h4>
                 <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                  <Link href="#" style={{ color: "#9CA3AF", textDecoration: "none", transition: "color 0.2s" }}>Política de privacidad</Link>
-                  <Link href="#" style={{ color: "#9CA3AF", textDecoration: "none", transition: "color 0.2s" }}>Política de Cookies</Link>
-                  <Link href="/terminos" style={{ color: "#9CA3AF", textDecoration: "none", transition: "color 0.2s" }}>Términos y Condiciones</Link>
+                  <span style={{ color: "#9CA3AF", cursor: "pointer", transition: "color 0.2s" }} onMouseOver={(e) => (e.currentTarget.style.color = "#FFFFFF")} onMouseOut={(e) => (e.currentTarget.style.color = "#9CA3AF")}>Política de privacidad</span>
+                  <span style={{ color: "#9CA3AF", cursor: "pointer", transition: "color 0.2s" }} onMouseOver={(e) => (e.currentTarget.style.color = "#FFFFFF")} onMouseOut={(e) => (e.currentTarget.style.color = "#9CA3AF")}>Política de Cookies</span>
+                  <Link href="/terminos" style={{ color: "#9CA3AF", textDecoration: "none", transition: "color 0.2s" }} onMouseOver={(e) => (e.currentTarget.style.color = "#FFFFFF")} onMouseOut={(e) => (e.currentTarget.style.color = "#9CA3AF")}>Términos y Condiciones</Link>
                 </div>
               </div>
 
