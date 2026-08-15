@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { ChevronRight, Trophy, Users, TrendingUp, Calendar, Lock, Play, ArrowRight, Activity, Zap } from "lucide-react";
+import { ChevronRight, Trophy, Users, TrendingUp, Calendar, Lock, Play, ArrowRight, Activity, Zap, ShieldCheck, AlertCircle } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -235,6 +235,63 @@ export default function LandingPage() {
                 <Lock size={18} style={{ flexShrink: 0, marginTop: 2 }} />
                 <p style={{ margin: 0 }}>
                   <strong>Cierre de Predicciones:</strong> Todos los pronósticos se bloquean automáticamente 30 minutos antes de la hora de inicio oficial del partido. Ningún usuario puede modificar sus pronósticos después de ese momento.
+                </p>
+              </div>
+            </div>
+
+            {/* Términos y Condiciones */}
+            <div style={{ background: "#1A1F26", borderRadius: 16, padding: 32, border: "1px solid rgba(255,255,255,0.05)" }}>
+              <h2 style={{ fontFamily: "'Orbitron', sans-serif", fontSize: "1.8rem", fontWeight: 800, marginBottom: 24, color: "#fff", display: "flex", alignItems: "center", gap: 12 }}>
+                <ShieldCheck color="#74CC10" size={28} /> Términos y Condiciones
+              </h2>
+              
+              <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+                <div style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
+                  <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#74CC10", marginTop: 8, flexShrink: 0 }} />
+                  <div>
+                    <h4 style={{ fontWeight: 800, fontSize: "1.1rem", marginBottom: 6 }}>Participación y Cuentas</h4>
+                    <p style={{ color: "#E5E7EB", fontSize: "0.9rem", lineHeight: 1.5, margin: 0 }}>
+                      Para participar es obligatorio crear una cuenta con un correo válido. Cada usuario es responsable de la seguridad de sus credenciales. No se permiten multicuentas para un mismo torneo.
+                    </p>
+                  </div>
+                </div>
+
+                <div style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
+                  <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#74CC10", marginTop: 8, flexShrink: 0 }} />
+                  <div>
+                    <h4 style={{ fontWeight: 800, fontSize: "1.1rem", marginBottom: 6 }}>Cierre de Pronósticos</h4>
+                    <p style={{ color: "#E5E7EB", fontSize: "0.9rem", lineHeight: 1.5, margin: 0 }}>
+                      Los pronósticos se bloquean irreversiblemente <strong>30 minutos antes</strong> de la hora oficial programada para el pitazo inicial de cada partido.
+                    </p>
+                  </div>
+                </div>
+
+                <div style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
+                  <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#74CC10", marginTop: 8, flexShrink: 0 }} />
+                  <div>
+                    <h4 style={{ fontWeight: 800, fontSize: "1.1rem", marginBottom: 6 }}>Partidos Aplazados o Suspendidos</h4>
+                    <p style={{ color: "#E5E7EB", fontSize: "0.9rem", lineHeight: 1.5, margin: 0 }}>
+                      Si un partido es suspendido tras haber iniciado, el resultado se mantendrá en espera hasta resolución oficial. Si es aplazado antes de iniciar, las predicciones se mantendrán hasta la nueva fecha programada.
+                    </p>
+                  </div>
+                </div>
+
+                <div style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
+                  <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#74CC10", marginTop: 8, flexShrink: 0 }} />
+                  <div>
+                    <h4 style={{ fontWeight: 800, fontSize: "1.1rem", marginBottom: 6 }}>Liquidación de Puntos</h4>
+                    <p style={{ color: "#E5E7EB", fontSize: "0.9rem", lineHeight: 1.5, margin: 0 }}>
+                      Los puntos se calculan basándose estrictamente en el resultado final del tiempo regular (90 minutos + adición). En fases eliminatorias, NO se cuenta el tiempo extra ni penales, a menos que se especifique lo contrario.
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+
+              <div style={{ marginTop: 24, padding: 16, background: "rgba(239, 68, 68, 0.1)", border: "1px solid rgba(239, 68, 68, 0.3)", borderRadius: 8, color: "#FCA5A5", fontSize: "0.85rem", display: "flex", alignItems: "flex-start", gap: 10 }}>
+                <AlertCircle size={18} style={{ flexShrink: 0, marginTop: 2 }} />
+                <p style={{ margin: 0 }}>
+                  <strong>Importante:</strong> La administración se reserva el derecho de anular partidos de la polla o ajustar puntajes si se comprueba manipulación de resultados externos o fallas en el sistema oficial de la plataforma.
                 </p>
               </div>
             </div>
