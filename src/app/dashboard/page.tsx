@@ -1071,7 +1071,7 @@ function ExpressPageContent() {
 
   const handleQuitarResultado = async (partidoId: number) => {
     if (!usuario || usuario.rol_id !== 2) return;
-    if (typeof window !== "undefined" && !window.confirm("Esto eliminará el marcador oficial cargado y TODOS los puntos ya liquidados de este partido, dejándolo como recién programado. ¿Continuar?")) {
+    if (typeof window !== "undefined" && !window.confirm("Esto eliminará el marcador oficial y goleadores cargados de este partido, dejándolo como recién programado. Tus puntos de la tabla NO se verán afectados. ¿Continuar?")) {
       return;
     }
     try {
@@ -2771,7 +2771,7 @@ function ExpressPageContent() {
                                 type="button"
                                 onClick={async () => {
                                   try {
-                                    const res = await fetch("/api/admin/espn-resultado", {
+                                    const res = await fetch("/api/admin/extraer-resultado-externo", {
                                       method: "POST",
                                       headers: { "Content-Type": "application/json" },
                                       body: JSON.stringify({ partidoId: partido.id }),
