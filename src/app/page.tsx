@@ -51,26 +51,17 @@ export default function LandingPage() {
         </div>
       </header>
 
-      <div style={{ display: "flex", flexDirection: "column", minHeight: "calc(100vh - 73px)" }}>
+      <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
         
-        {/* LAYOUT PRINCIPAL CON SIDEBAR GLOBAL */}
-        <div style={{ 
-          display: "flex", 
-          flexDirection: "row", // Desktop default
-          gap: 32, 
-          maxWidth: 1400, 
-          margin: "0 auto", 
-          width: "100%", 
-          padding: "24px 20px",
-          flexWrap: "wrap" // Para que baje en móvil
-        }}>
+        {/* LAYOUT PRINCIPAL CON SIDEBAR GLOBAL AL ESTILO DASHBOARD */}
+        <div style={{ flex: 1, display: "flex", overflow: "hidden" }}>
           
           {/* SIDEBAR LATERAL GLOBAL */}
           <aside style={{ 
-            background: "#1A1F26", borderRadius: 16, padding: 24, border: "1px solid rgba(255,255,255,0.05)",
-            height: "fit-content", position: "sticky", top: 100,
-            width: "100%", maxWidth: 300, flexShrink: 0,
-            // En móvil se va para abajo o arriba, pero en desktop se queda fijo a la izquierda
+            background: "rgba(15, 23, 42, 0.6)", backdropFilter: "blur(12px)", 
+            padding: 24, borderRight: "1px solid rgba(255, 255, 255, 0.08)",
+            width: 280, flexShrink: 0,
+            display: "flex", flexDirection: "column", overflowY: "auto"
           }}>
             <h3 style={{ fontFamily: "'Orbitron', sans-serif", fontSize: "1.2rem", fontWeight: 800, marginBottom: 20, display: "flex", alignItems: "center", gap: 10, color: "#FFFFFF" }}>
               <Trophy color="#EFCC36" size={22} /> Torneos Activos
@@ -127,9 +118,10 @@ export default function LandingPage() {
             </div>
           </aside>
 
-          {/* CONTENIDO DERECHO (Hero + Info) */}
-          <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: 40 }}>
+          {/* CONTENIDO DERECHO (Hero + Info + Footer) */}
+          <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", overflowY: "auto" }}>
             
+            <div style={{ padding: 24, display: "flex", flexDirection: "column", gap: 32 }}>
             {/* HERO SECTION */}
             <section style={{ 
               display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
@@ -322,8 +314,8 @@ export default function LandingPage() {
             </div>
 
             </div>
-          </div>
-        </div>
+            
+            </div>
 
         {/* FOOTER */}
         <footer style={{ 
@@ -396,6 +388,9 @@ export default function LandingPage() {
             
           </div>
         </footer>
+
+          </div>
+        </div>
       </div>
     </div>
   );
