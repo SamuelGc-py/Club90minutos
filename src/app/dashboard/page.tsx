@@ -611,7 +611,7 @@ function ExpressPageContent() {
     }
   }, [tabActiva, hayPartidoPotencialmenteEnVivo]);
 
-  const [menuAbierto, setMenuAbierto] = useState(false);
+
   const [mostrarBienvenida, setMostrarBienvenida] = useState(true);
   const [campeonId, setCampeonId] = useState<number | "">("");
   const [finalista1Id, setFinalista1Id] = useState<number | "">("");
@@ -3476,103 +3476,8 @@ function ExpressPageContent() {
               >
                 <LogOut size={14} /> Salir
               </button>
-              {/* BOTÓN MENÚ HAMBURGUESA MOVIL (3 LÍNEAS) */}
-              <button
-                type="button"
-                className="mobile-menu-btn btn"
-                onClick={() => setMenuAbierto(!menuAbierto)}
-                style={{ padding: "8px 14px", background: "var(--noche-2)", border: "1px solid var(--linea-fuerte)", color: "#fff", cursor: "pointer" }}
-              >
-                {menuAbierto ? <X size={22} /> : <Menu size={22} />}
-              </button>
             </div>
           </header>
-
-          {/* MENÚ DESPLEGABLE HAMBURGUESA PARA CELULARES (3 LÍNEAS) */}
-          {menuAbierto && (
-            <div
-              style={{
-                marginBottom: 20,
-                padding: 16,
-                background: "var(--tribuna)",
-                border: "1px solid var(--cancha-borde)",
-                borderRadius: 14,
-                display: "flex",
-                flexDirection: "column",
-                gap: 10,
-                boxShadow: "0 10px 25px rgba(0,0,0,0.5)",
-              }}
-            >
-              <div
-                className={`menu-drawer-item ${tabActiva === "partidos" ? "active" : ""}`}
-                onClick={() => {
-                  setTabActiva("partidos");
-                  setMenuAbierto(false);
-                }}
-              >
-                ⚽ Pronósticos Fecha {fechaParticipante}
-              </div>
-              <div
-                className={`menu-drawer-item ${tabActiva === "finalizados" ? "active" : ""}`}
-                onClick={() => {
-                  setTabActiva("finalizados");
-                  setMenuAbierto(false);
-                }}
-              >
-                🏁 Partidos Terminados
-              </div>
-              <div
-                className={`menu-drawer-item ${tabActiva === "inicial" ? "active" : ""}`}
-                onClick={() => {
-                  setTabActiva("inicial");
-                  setMenuAbierto(false);
-                }}
-              >
-                🏆 Predicciones Torneo (Campeón y Clasificados)
-              </div>
-              <div
-                className={`menu-drawer-item ${tabActiva === "mis_pronosticos" ? "active" : ""}`}
-                onClick={() => {
-                  setTabActiva("mis_pronosticos");
-                  setMenuAbierto(false);
-                  cargarConsolidados(usuario.id);
-                }}
-              >
-                📋 Mis Pronósticos y Públicos
-              </div>
-              <div
-                className={`menu-drawer-item ${tabActiva === "posiciones" ? "active" : ""}`}
-                onClick={() => {
-                  setTabActiva("posiciones");
-                  setMenuAbierto(false);
-                  cargarConsolidados(usuario.id);
-                }}
-              >
-                📊 Tabla de Posiciones
-              </div>
-              {esSamuel && (
-                <div
-                  className={`menu-drawer-item ${tabActiva === "en_vivo" ? "active" : ""}`}
-                  onClick={() => {
-                    setTabActiva("en_vivo");
-                    setMenuAbierto(false);
-                    cargarPartidosEnVivo();
-                  }}
-                  style={{ color: "#ff4d4d", fontWeight: 800 }}
-                >
-                  🔴 Partidos y Stats En Vivo
-                </div>
-              )}
-              <div
-                className="menu-drawer-item"
-                onClick={handleCerrarSesion}
-                style={{ color: "var(--rojo)", borderColor: "rgba(255,92,92,0.3)" }}
-              >
-                <LogOut size={18} /> Salir (Cerrar Sesión)
-              </div>
-            </div>
-          )}
-
 
 
           {/* MENSAJE DE ESTADO DE OPERACIÓN */}
