@@ -37,6 +37,9 @@ export default function LandingPage() {
           gap: 28px;
           align-items: flex-start;
           padding: 0 24px 24px;
+          max-width: 1200px;
+          width: 100%;
+          margin: 0 auto;
         }
         .landing-sidebar {
           background: linear-gradient(180deg, rgba(15, 23, 42, 0.9) 0%, rgba(11, 21, 32, 0.95) 100%);
@@ -82,36 +85,38 @@ export default function LandingPage() {
 
       {/* HEADER / NAVBAR */}
       <header className="landing-header">
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <img 
-            src="/logo_principal_recortado.webp" 
-            alt="Logo Club 90 Minutos" 
-            style={{ height: 40, width: "auto" }}
-          />
-          <span style={{ fontFamily: "'Orbitron', sans-serif", fontWeight: 800, fontSize: "1.2rem", letterSpacing: "0.5px" }}>
-            CLUB<span style={{ color: "#74CC10" }}>90</span>MINUTOS
-          </span>
-        </div>
-        <div className="landing-header-buttons">
-          <Link href="/dashboard" style={{ textDecoration: "none", flex: 1 }}>
-            <button style={{ 
-              width: "100%", padding: "10px 20px", background: "transparent", color: "#FFFFFF", 
-              border: "1px solid rgba(255,255,255,0.2)", borderRadius: "8px", 
-              fontWeight: 600, fontSize: "0.9rem", cursor: "pointer", transition: "all 0.2s"
-            }}>
-              Iniciar Sesión
-            </button>
-          </Link>
-          <Link href="/dashboard" style={{ textDecoration: "none", flex: 1 }}>
-            <button style={{ 
-              width: "100%", padding: "10px 20px", background: "#74CC10", color: "#04060A", 
-              border: "none", borderRadius: "8px", 
-              fontWeight: 800, fontSize: "0.9rem", cursor: "pointer", boxShadow: "0 4px 15px rgba(116, 204, 16, 0.3)",
-              transition: "transform 0.2s ease"
-            }}>
-              Únete al Club
-            </button>
-          </Link>
+        <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <img 
+              src="/logo_principal_recortado.webp" 
+              alt="Logo Club 90 Minutos" 
+              style={{ height: 40, width: "auto" }}
+            />
+            <span style={{ fontFamily: "'Orbitron', sans-serif", fontWeight: 800, fontSize: "1.2rem", letterSpacing: "0.5px" }}>
+              CLUB<span style={{ color: "#74CC10" }}>90</span>MINUTOS
+            </span>
+          </div>
+          <div className="landing-header-buttons">
+            <Link href="/dashboard" style={{ textDecoration: "none", flex: 1 }}>
+              <button style={{ 
+                width: "100%", padding: "10px 20px", background: "transparent", color: "#FFFFFF", 
+                border: "1px solid rgba(255,255,255,0.2)", borderRadius: "8px", 
+                fontWeight: 600, fontSize: "0.9rem", cursor: "pointer", transition: "all 0.2s"
+              }}>
+                Iniciar Sesión
+              </button>
+            </Link>
+            <Link href="/dashboard" style={{ textDecoration: "none", flex: 1 }}>
+              <button style={{ 
+                width: "100%", padding: "10px 20px", background: "#74CC10", color: "#04060A", 
+                border: "none", borderRadius: "8px", 
+                fontWeight: 800, fontSize: "0.9rem", cursor: "pointer", boxShadow: "0 4px 15px rgba(116, 204, 16, 0.3)",
+                transition: "transform 0.2s ease"
+              }}>
+                Únete al Club
+              </button>
+            </Link>
+          </div>
         </div>
       </header>
 
