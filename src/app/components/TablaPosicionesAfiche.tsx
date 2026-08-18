@@ -201,53 +201,24 @@ export default function TablaPosicionesAfiche({
             borderBottom: "4px solid #f5b000",
           }}
         >
-          {/* LOGO / COPA LIGA BETPLAY SVG CUSTOM */}
+          {/* LOGO CLUB 90 MINUTOS A LA IZQUIERDA */}
           <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
             <div
               style={{
-                width: 64,
-                height: 64,
+                width: 80,
+                height: 80,
                 borderRadius: "50%",
-                background: "radial-gradient(circle, #fdba74 0%, #ea580c 60%, #9a3412 100%)",
+                background: "#ffffff",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                boxShadow: "0 4px 15px rgba(245, 176, 0, 0.4)",
-                border: "2px solid #ffd700",
+                boxShadow: "0 4px 15px rgba(0, 0, 0, 0.4)",
+                border: "3px solid #f5b000",
                 flexShrink: 0,
+                overflow: "hidden"
               }}
             >
-              {/* TROFEO BETPLAY SVG */}
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M6 3H18V7C18 10.3137 15.3137 13 12 13C8.68629 13 6 10.3137 6 7V3Z" fill="#FFD700" stroke="#78350F" strokeWidth="1.5" />
-                <path d="M4 4C4 4 2 5 2 8C2 10.5 4 11 6 10" stroke="#FFD700" strokeWidth="2" strokeLinecap="round" />
-                <path d="M20 4C20 4 22 5 22 8C22 10.5 20 11 18 10" stroke="#FFD700" strokeWidth="2" strokeLinecap="round" />
-                <path d="M12 13V18" stroke="#FFD700" strokeWidth="3" strokeLinecap="round" />
-                <path d="M7 21H17L15 18H9L7 21Z" fill="#F59E0B" stroke="#78350F" strokeWidth="1.5" />
-                <circle cx="12" cy="7" r="1.5" fill="#FFFFFF" />
-              </svg>
-            </div>
-            <div>
-              <div
-                style={{
-                  fontSize: "0.75rem",
-                  fontWeight: 800,
-                  letterSpacing: "2px",
-                  color: "#38bdf8",
-                  textTransform: "uppercase",
-                }}
-              >
-                Liga BetPlay Dimayor
-              </div>
-              <div
-                style={{
-                  fontSize: "0.85rem",
-                  color: "#cbd5e1",
-                  fontWeight: 600,
-                }}
-              >
-                Clasificación Oficial
-              </div>
+              <img src="/logo_principal_recortado.webp" alt="Club 90 Minutos" style={{ width: "85%", height: "85%", objectFit: "contain" }} />
             </div>
           </div>
 
@@ -256,48 +227,47 @@ export default function TablaPosicionesAfiche({
             <h1
               style={{
                 margin: 0,
-                fontSize: "2.5rem",
+                fontSize: "2.2rem",
                 fontWeight: 900,
                 color: "#ffffff",
                 textTransform: "uppercase",
                 lineHeight: 1,
                 textShadow: "0 2px 10px rgba(0,0,0,0.5)",
-                fontStyle: "italic",
-                letterSpacing: "-1px"
+                letterSpacing: "1px"
               }}
             >
               TABLA DE POSICIONES
             </h1>
-            <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: "-5px" }}>
-              <div
-                style={{
-                  color: "#f5b000",
-                  fontWeight: 900,
-                  fontSize: "4.5rem",
-                  textTransform: "uppercase",
-                  letterSpacing: "1px",
-                  fontFamily: "'Brush Script MT', 'Caveat', cursive",
-                  textShadow: "2px 2px 4px rgba(0,0,0,0.8)",
-                  transform: "rotate(-5deg)",
-                  lineHeight: 0.8
-                }}
-              >
-                POLLA
-              </div>
-              <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", background: "#0b1e36", padding: "5px 15px", borderRadius: "8px", border: "2px solid #ffffff" }}>
-                 <div style={{ fontSize: "1.6rem", fontWeight: 900, color: "#f5b000", fontStyle: "italic", lineHeight: 1 }}>Liga BetPlay</div>
-                 <div style={{ display: "flex", gap: 5, marginTop: 4 }}>
-                   <span style={{ background: "#1e3a8a", color: "#fff", padding: "2px 8px", fontSize: "0.85rem", fontWeight: 800, borderRadius: 4 }}>DIMAYOR</span>
-                   <span style={{ background: "#16a34a", color: "#fff", padding: "2px 8px", fontSize: "0.85rem", fontWeight: 800, borderRadius: 4 }}>2026-II</span>
-                 </div>
-              </div>
+            <div
+              style={{
+                color: "#f5b000",
+                fontWeight: 900,
+                fontSize: "4rem",
+                textTransform: "uppercase",
+                letterSpacing: "2px",
+                fontFamily: "'Brush Script MT', 'Caveat', cursive",
+                textShadow: "3px 3px 6px rgba(0,0,0,0.8)",
+                marginTop: "-5px",
+                lineHeight: 1
+              }}
+            >
+              POLLA
             </div>
           </div>
           
-          {/* BALON DERECHA */}
+          {/* LIGA BETPLAY A LA DERECHA */}
           <div style={{ display: "flex", alignItems: "center" }}>
-            <div style={{ width: 100, height: 100, background: "#fff", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", border: "3px solid #f5b000" }}>
-               <img src="/logo_principal_recortado.webp" alt="Balon" style={{ width: "90%", height: "90%", objectFit: "contain" }} />
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", background: "rgba(255,255,255,0.1)", padding: "10px 20px", borderRadius: "12px", border: "1px solid rgba(255,255,255,0.2)", boxShadow: "0 4px 10px rgba(0,0,0,0.3)" }}>
+              <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "#cbd5e1", textTransform: "uppercase", letterSpacing: "1px", marginBottom: 2 }}>
+                Torneo Oficial
+              </div>
+              <div style={{ fontSize: "1.4rem", fontWeight: 900, color: "#f5b000", fontStyle: "italic", lineHeight: 1 }}>
+                Liga BetPlay
+              </div>
+              <div style={{ display: "flex", gap: 6, marginTop: 6 }}>
+                <span style={{ background: "#1e3a8a", color: "#fff", padding: "3px 10px", fontSize: "0.8rem", fontWeight: 800, borderRadius: 6, letterSpacing: "0.5px" }}>DIMAYOR</span>
+                <span style={{ background: "#16a34a", color: "#fff", padding: "3px 10px", fontSize: "0.8rem", fontWeight: 800, borderRadius: 6 }}>2026-II</span>
+              </div>
             </div>
           </div>
         </div>
