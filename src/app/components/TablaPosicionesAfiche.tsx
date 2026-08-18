@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Printer, Trophy, Award, Users, Flame, CheckSquare, Target, UserCheck, Star, Camera } from "lucide-react";
+import { Printer, Trophy, Camera } from "lucide-react";
 import { toPng } from "html-to-image";
 
 export interface FilaTablaPosiciones {
@@ -25,33 +25,7 @@ interface TablaPosicionesAficheProps {
   onDescargarExcelPronosticos?: () => void;
 }
 
-// TABLA FIJA — actualizada manualmente por el dueño de la polla (Samuel).
-// NINGÚN AGENTE debe recalcular ni sobrescribir estos valores automáticamente.
-// Ver regla 13 en .agents/AGENTS.md.
-// Se exporta para que otras vistas (ej. panel admin) muestren al líder real
-// sin mantener una copia separada de estos números.
-// Fecha 4 liquidada: Santa Fe 2-0 Boyaca Chico (gol de Hugo Rodallega; el segundo gol fue autogol y no cuenta para goleador).
-// Fecha 5 liquidada: Fortaleza 2-0 Cucuta Deportivo (goleador correcto: Richardson Rivas; Harold Berdugo lo acerto).
-// Fecha 6 liquidada: Deportes Tolima 2-1 Internacional de Bogota (goles de Ever Valencia y Adrian Parra; descuento de Sanguinetti; nadie predijo a ninguno de los 3).
-// Fecha 6 liquidada: Deportivo Cali 2-0 Deportivo Pasto (goles de Steven Rodriguez y Eduard Bello; nadie predijo a Eduard Bello).
-export const TABLA_POSICIONES_FIJA: FilaTablaPosiciones[] = [
-  { posicion: 1, usuario_id: 2, nombre_completo: "Pedro Cantero", correo: "pedrocanterojr@gmail.com", pts_campeon: 0, pts_finalistas: 0, pts_clasificados: 0, pts_goleador_torneo: 0, pts_resultado_exacto: 30, pts_ganador_partido: 45, pts_goleador_partido: 24, pts_total: 99 },
-  { posicion: 2, usuario_id: 1, nombre_completo: "Nelson Berdugo", correo: "nelson.berdugo05@gmail.com", pts_campeon: 0, pts_finalistas: 0, pts_clasificados: 0, pts_goleador_torneo: 0, pts_resultado_exacto: 25, pts_ganador_partido: 54, pts_goleador_partido: 16, pts_total: 95 },
-  { posicion: 3, usuario_id: 3, nombre_completo: "Juan Hernandez", correo: "juanhermon24@gmail.com", pts_campeon: 0, pts_finalistas: 0, pts_clasificados: 0, pts_goleador_torneo: 0, pts_resultado_exacto: 25, pts_ganador_partido: 48, pts_goleador_partido: 18, pts_total: 91 },
-  { posicion: 4, usuario_id: 6, nombre_completo: "Rene Osorio", correo: "rene26203@gmail.com", pts_campeon: 0, pts_finalistas: 0, pts_clasificados: 0, pts_goleador_torneo: 0, pts_resultado_exacto: 20, pts_ganador_partido: 45, pts_goleador_partido: 18, pts_total: 83 },
-  { posicion: 5, usuario_id: 4, nombre_completo: "Hernando Davila", correo: "nandorafa@hotmail.com", pts_campeon: 0, pts_finalistas: 0, pts_clasificados: 0, pts_goleador_torneo: 0, pts_resultado_exacto: 20, pts_ganador_partido: 42, pts_goleador_partido: 10, pts_total: 72 },
-  { posicion: 6, usuario_id: 5, nombre_completo: "Lucas Saavedra", correo: "moisessaavedra496@gmail.com", pts_campeon: 0, pts_finalistas: 0, pts_clasificados: 0, pts_goleador_torneo: 0, pts_resultado_exacto: 15, pts_ganador_partido: 42, pts_goleador_partido: 14, pts_total: 71 },
-  { posicion: 7, usuario_id: 8, nombre_completo: "Ricardo Vanegas", correo: "ricardo101228@gmail.com", pts_campeon: 0, pts_finalistas: 0, pts_clasificados: 0, pts_goleador_torneo: 0, pts_resultado_exacto: 20, pts_ganador_partido: 36, pts_goleador_partido: 10, pts_total: 66 },
-  { posicion: 8, usuario_id: 7, nombre_completo: "Romario Gomez", correo: "gomezromario24@gmail.com", pts_campeon: 0, pts_finalistas: 0, pts_clasificados: 0, pts_goleador_torneo: 0, pts_resultado_exacto: 10, pts_ganador_partido: 33, pts_goleador_partido: 18, pts_total: 61 },
-  { posicion: 9, usuario_id: 9, nombre_completo: "Harold Berdugo", correo: "hberdugodelosreyes0@gmail.com", pts_campeon: 0, pts_finalistas: 0, pts_clasificados: 0, pts_goleador_torneo: 0, pts_resultado_exacto: 20, pts_ganador_partido: 27, pts_goleador_partido: 14, pts_total: 61 },
-  { posicion: 10, usuario_id: 15, nombre_completo: "Ignacio Barrios", correo: "iangelbarrios16@gmail.com", pts_campeon: 0, pts_finalistas: 0, pts_clasificados: 0, pts_goleador_torneo: 0, pts_resultado_exacto: 10, pts_ganador_partido: 27, pts_goleador_partido: 10, pts_total: 47 },
-  { posicion: 11, usuario_id: 10, nombre_completo: "Ricardo Soto", correo: "ricardosotogom@gmail.com", pts_campeon: 0, pts_finalistas: 0, pts_clasificados: 0, pts_goleador_torneo: 0, pts_resultado_exacto: 5, pts_ganador_partido: 27, pts_goleador_partido: 14, pts_total: 46 },
-  { posicion: 12, usuario_id: 13, nombre_completo: "Erick Andrade", correo: "andradeferrer@hotmail.com", pts_campeon: 0, pts_finalistas: 0, pts_clasificados: 0, pts_goleador_torneo: 0, pts_resultado_exacto: 0, pts_ganador_partido: 30, pts_goleador_partido: 14, pts_total: 44 },
-  { posicion: 13, usuario_id: 11, nombre_completo: "Samuel Gutierrez", correo: "samucobaggg@gmail.com", pts_campeon: 0, pts_finalistas: 0, pts_clasificados: 0, pts_goleador_torneo: 0, pts_resultado_exacto: 5, pts_ganador_partido: 30, pts_goleador_partido: 8, pts_total: 43 },
-  { posicion: 14, usuario_id: 14, nombre_completo: "Luis Betancourt", correo: "luismibetara15@hotmail.com", pts_campeon: 0, pts_finalistas: 0, pts_clasificados: 0, pts_goleador_torneo: 0, pts_resultado_exacto: 5, pts_ganador_partido: 24, pts_goleador_partido: 14, pts_total: 43 },
-  { posicion: 15, usuario_id: 12, nombre_completo: "Andres Del Toro", correo: "pipedeltoro@hotmail.com", pts_campeon: 0, pts_finalistas: 0, pts_clasificados: 0, pts_goleador_torneo: 0, pts_resultado_exacto: 10, pts_ganador_partido: 21, pts_goleador_partido: 4, pts_total: 35 },
-  { posicion: 16, usuario_id: 16, nombre_completo: "Manuel Cabarcas", correo: "stherton@gmail.com", pts_campeon: 0, pts_finalistas: 0, pts_clasificados: 0, pts_goleador_torneo: 0, pts_resultado_exacto: 0, pts_ganador_partido: 18, pts_goleador_partido: 2, pts_total: 20 },
-];
+// La tabla fija ha sido movida a @/lib/tablaFija.ts para evitar errores de importación en componentes de servidor.
 
 export default function TablaPosicionesAfiche({
   tabla,
@@ -278,36 +252,52 @@ export default function TablaPosicionesAfiche({
           </div>
 
           {/* TÍTULO PRINCIPAL ESTILO BANNER */}
-          <div style={{ textAlign: "right" }}>
+          <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
             <h1
               style={{
                 margin: 0,
-                fontSize: "2.2rem",
+                fontSize: "2.5rem",
                 fontWeight: 900,
-                letterSpacing: "1px",
                 color: "#ffffff",
                 textTransform: "uppercase",
-                lineHeight: 1.1,
+                lineHeight: 1,
                 textShadow: "0 2px 10px rgba(0,0,0,0.5)",
+                fontStyle: "italic",
+                letterSpacing: "-1px"
               }}
             >
               TABLA DE POSICIONES
             </h1>
-            <div
-              style={{
-                display: "inline-block",
-                marginTop: 4,
-                padding: "2px 14px",
-                backgroundColor: "#f5b000",
-                color: "#0b1e36",
-                fontWeight: 900,
-                fontSize: "0.95rem",
-                borderRadius: "4px",
-                textTransform: "uppercase",
-                letterSpacing: "0.5px",
-              }}
-            >
-              {nombrePolla}
+            <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: "-5px" }}>
+              <div
+                style={{
+                  color: "#f5b000",
+                  fontWeight: 900,
+                  fontSize: "4.5rem",
+                  textTransform: "uppercase",
+                  letterSpacing: "1px",
+                  fontFamily: "'Brush Script MT', 'Caveat', cursive",
+                  textShadow: "2px 2px 4px rgba(0,0,0,0.8)",
+                  transform: "rotate(-5deg)",
+                  lineHeight: 0.8
+                }}
+              >
+                POLLA
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", background: "#0b1e36", padding: "5px 15px", borderRadius: "8px", border: "2px solid #ffffff" }}>
+                 <div style={{ fontSize: "1.6rem", fontWeight: 900, color: "#f5b000", fontStyle: "italic", lineHeight: 1 }}>Liga BetPlay</div>
+                 <div style={{ display: "flex", gap: 5, marginTop: 4 }}>
+                   <span style={{ background: "#1e3a8a", color: "#fff", padding: "2px 8px", fontSize: "0.85rem", fontWeight: 800, borderRadius: 4 }}>DIMAYOR</span>
+                   <span style={{ background: "#16a34a", color: "#fff", padding: "2px 8px", fontSize: "0.85rem", fontWeight: 800, borderRadius: 4 }}>2026-II</span>
+                 </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* BALON DERECHA */}
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <div style={{ width: 100, height: 100, background: "#fff", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", border: "3px solid #f5b000" }}>
+               <img src="/logo_principal_recortado.webp" alt="Balon" style={{ width: "90%", height: "90%", objectFit: "contain" }} />
             </div>
           </div>
         </div>
@@ -364,9 +354,10 @@ export default function TablaPosicionesAfiche({
                   style={{
                     width: "48px",
                     padding: "10px 6px",
-                    backgroundColor: "#0b1e36",
-                    color: "#ffffff",
-                    borderRight: "1px solid #1e3a8a",
+                    backgroundColor: "#1c2b39",
+                    color: "#f5b000",
+                    borderRight: "1px solid #334155",
+                    fontSize: "1rem"
                   }}
                 >
                   Pos.
@@ -377,246 +368,261 @@ export default function TablaPosicionesAfiche({
                   style={{
                     minWidth: "160px",
                     padding: "10px 14px",
-                    backgroundColor: "#0b1e36",
+                    backgroundColor: "#1c2b39",
                     color: "#ffffff",
-                    textAlign: "left",
-                    borderRight: "2px solid #0f2942",
+                    textAlign: "center",
+                    borderRight: "1px solid #334155",
                   }}
                 >
-                  Jugador / Participante
+                  <div
+                    style={{
+                      background: "#2563eb",
+                      borderRadius: "50%",
+                      width: "36px",
+                      height: "36px",
+                      margin: "0 auto 6px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "#fff",
+                      border: "2px solid #60a5fa"
+                    }}
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  </div>
+                  Jugador
                 </th>
 
-                {/* CAMPEÓN (DORADO) */}
+                {/* CAMPEÓN */}
                 <th
                   style={{
                     width: "90px",
                     padding: "8px 4px",
-                    backgroundColor: "#1e3a5f",
+                    backgroundColor: "#1c2b39",
                     color: "#ffffff",
                     borderRight: "1px solid #334155",
                   }}
                 >
                   <div
                     style={{
-                      background: "#d97706",
-                      borderRadius: "6px",
-                      padding: "4px",
-                      margin: "0 auto 4px",
-                      width: "28px",
-                      height: "28px",
+                      background: "#2563eb",
+                      borderRadius: "50%",
+                      width: "36px",
+                      height: "36px",
+                      margin: "0 auto 6px",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      color: "#fff",
+                      color: "#f5b000",
+                      border: "2px solid #60a5fa"
                     }}
                   >
-                    <Trophy size={16} />
+                    <Trophy size={20} fill="#f5b000" />
                   </div>
-                  Campeón (30P)
+                  Campeón
                 </th>
 
-                {/* FINALISTAS (PLATA) */}
+                {/* FINALISTAS */}
                 <th
                   style={{
                     width: "90px",
                     padding: "8px 4px",
-                    backgroundColor: "#1e3a5f",
+                    backgroundColor: "#1c2b39",
                     color: "#ffffff",
                     borderRight: "1px solid #334155",
                   }}
                 >
                   <div
                     style={{
-                      background: "#64748b",
-                      borderRadius: "6px",
-                      padding: "4px",
-                      margin: "0 auto 4px",
-                      width: "28px",
-                      height: "28px",
+                      background: "#2563eb",
+                      borderRadius: "50%",
+                      width: "36px",
+                      height: "36px",
+                      margin: "0 auto 6px",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      color: "#fff",
+                      color: "#cbd5e1",
+                      border: "2px solid #60a5fa"
                     }}
                   >
-                    <Award size={16} />
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#cbd5e1" stroke="#cbd5e1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
                   </div>
-                  Finalistas (25P)
+                  Finalistas
                 </th>
 
-                {/* CLASIFICADOS CUADRANGULARES (VERDE) */}
+                {/* GOLEADOR DEL TORNEO */}
+                <th
+                  style={{
+                    width: "100px",
+                    padding: "8px 4px",
+                    backgroundColor: "#1c2b39",
+                    color: "#ffffff",
+                    borderRight: "1px solid #334155",
+                  }}
+                >
+                  <div
+                    style={{
+                      background: "#2563eb",
+                      borderRadius: "50%",
+                      width: "36px",
+                      height: "36px",
+                      margin: "0 auto 6px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "#f5b000",
+                      border: "2px solid #60a5fa"
+                    }}
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#f5b000"/></svg>
+                  </div>
+                  Goleador<br/>del Torneo
+                </th>
+
+                {/* 8 CLASIFICADOS */}
                 <th
                   style={{
                     width: "110px",
                     padding: "8px 4px",
-                    backgroundColor: "#166534",
+                    backgroundColor: "#1c2b39",
                     color: "#ffffff",
                     borderRight: "1px solid #334155",
                   }}
                 >
                   <div
                     style={{
-                      background: "#22c55e",
-                      borderRadius: "6px",
-                      padding: "4px",
-                      margin: "0 auto 4px",
-                      width: "28px",
-                      height: "28px",
+                      background: "#2563eb",
+                      borderRadius: "50%",
+                      width: "36px",
+                      height: "36px",
+                      margin: "0 auto 6px",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      color: "#052e16",
+                      color: "#22c55e",
+                      border: "2px solid #60a5fa"
                     }}
                   >
-                    <Users size={16} />
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                   </div>
-                  Clas. Cuadrangulares (20P)
+                  8 Clasificados
                 </th>
 
-                {/* GOLEADOR TORNEO (VERDE CLARO) */}
+                {/* RESULTADOS CORRECTOS */}
                 <th
                   style={{
                     width: "100px",
                     padding: "8px 4px",
-                    backgroundColor: "#15803d",
+                    backgroundColor: "#1c2b39",
                     color: "#ffffff",
                     borderRight: "1px solid #334155",
                   }}
                 >
                   <div
                     style={{
-                      background: "#84cc16",
-                      borderRadius: "6px",
-                      padding: "4px",
-                      margin: "0 auto 4px",
-                      width: "28px",
-                      height: "28px",
+                      background: "#2563eb",
+                      borderRadius: "50%",
+                      width: "36px",
+                      height: "36px",
+                      margin: "0 auto 6px",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      color: "#1a2e05",
+                      color: "#ffffff",
+                      border: "2px solid #60a5fa"
                     }}
                   >
-                    <Flame size={16} />
+                    <div style={{ background: "#000", border: "1px solid #fff", borderRadius: 4, padding: "2px 4px", fontWeight: 900, fontSize: "0.75rem" }}>2-1</div>
                   </div>
-                  Goleador Torneo (15P)
+                  Resultados<br/>Correctos
                 </th>
 
-                {/* RESULTADOS EXACTOS (ROJO) */}
+                {/* GANADOR PARTIDO */}
                 <th
                   style={{
                     width: "100px",
                     padding: "8px 4px",
-                    backgroundColor: "#b91c1c",
+                    backgroundColor: "#1c2b39",
                     color: "#ffffff",
                     borderRight: "1px solid #334155",
                   }}
                 >
                   <div
                     style={{
-                      background: "#ef4444",
-                      borderRadius: "6px",
-                      padding: "4px",
-                      margin: "0 auto 4px",
-                      width: "28px",
-                      height: "28px",
+                      background: "#2563eb",
+                      borderRadius: "50%",
+                      width: "36px",
+                      height: "36px",
+                      margin: "0 auto 6px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "#22c55e",
+                      border: "2px solid #60a5fa"
+                    }}
+                  >
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  </div>
+                  Ganador<br/>Partido
+                </th>
+
+                {/* GOLEADORES */}
+                <th
+                  style={{
+                    width: "100px",
+                    padding: "8px 4px",
+                    backgroundColor: "#1c2b39",
+                    color: "#ffffff",
+                    borderRight: "2px solid #334155",
+                  }}
+                >
+                  <div
+                    style={{
+                      background: "#2563eb",
+                      borderRadius: "50%",
+                      width: "36px",
+                      height: "36px",
+                      margin: "0 auto 6px",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
                       color: "#fff",
+                      border: "2px solid #60a5fa"
                     }}
                   >
-                    <CheckSquare size={16} />
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="12 4 15 9 20 10 16 14 17 20 12 17 7 20 8 14 4 10 9 9 12 4"/></svg>
                   </div>
-                  Marcador Exacto (5P)
+                  Goleadores
                 </th>
 
-                {/* GANADOR PARTIDO (NARANJA) */}
-                <th
-                  style={{
-                    width: "100px",
-                    padding: "8px 4px",
-                    backgroundColor: "#c2410c",
-                    color: "#ffffff",
-                    borderRight: "1px solid #334155",
-                  }}
-                >
-                  <div
-                    style={{
-                      background: "#f97316",
-                      borderRadius: "6px",
-                      padding: "4px",
-                      margin: "0 auto 4px",
-                      width: "28px",
-                      height: "28px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: "#fff",
-                    }}
-                  >
-                    <Target size={16} />
-                  </div>
-                  Ganador Partido (3P)
-                </th>
-
-                {/* GOLEADOR PARTIDO (MORADO) */}
-                <th
-                  style={{
-                    width: "100px",
-                    padding: "8px 4px",
-                    backgroundColor: "#6b21a8",
-                    color: "#ffffff",
-                    borderRight: "2px solid #0f2942",
-                  }}
-                >
-                  <div
-                    style={{
-                      background: "#a855f7",
-                      borderRadius: "6px",
-                      padding: "4px",
-                      margin: "0 auto 4px",
-                      width: "28px",
-                      height: "28px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: "#fff",
-                    }}
-                  >
-                    <UserCheck size={16} />
-                  </div>
-                  Goleador Partido (2P)
-                </th>
-
-                {/* TOTAL PUNTOS (AZUL MARINO / DORADO) */}
+                {/* TOTAL PUNTOS */}
                 <th
                   style={{
                     width: "110px",
                     padding: "10px 6px",
-                    backgroundColor: "#0b1e36",
-                    color: "#ffd700",
+                    backgroundColor: "#14532d",
+                    color: "#f5b000",
                     fontWeight: 900,
-                    fontSize: "0.85rem",
+                    fontSize: "0.95rem",
                   }}
                 >
                   <div
                     style={{
                       background: "#f5b000",
-                      borderRadius: "6px",
-                      padding: "4px",
-                      margin: "0 auto 4px",
-                      width: "28px",
-                      height: "28px",
+                      borderRadius: "50%",
+                      width: "36px",
+                      height: "36px",
+                      margin: "0 auto 6px",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      color: "#0b1e36",
+                      color: "#000",
                     }}
                   >
-                    <Star size={16} />
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#000" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
                   </div>
-                  Total Puntos
+                  Total<br/>Puntos
                 </th>
               </tr>
             </thead>
@@ -658,14 +664,10 @@ export default function TablaPosicionesAfiche({
                         style={{
                           padding: "10px 4px",
                           fontWeight: 900,
-                          color: esPrimero
-                            ? "#b45309"
-                            : esSegundo
-                            ? "#475569"
-                            : esTercero
-                            ? "#c2410c"
-                            : "#0f172a",
-                          borderRight: "1px solid #cbd5e1",
+                          color: "#f5b000",
+                          backgroundColor: "#1c2b39",
+                          borderRight: "1px solid #334155",
+                          borderBottom: "1px solid #334155"
                         }}
                       >
                         {row.posicion}
@@ -676,50 +678,48 @@ export default function TablaPosicionesAfiche({
                         style={{
                           padding: "10px 14px",
                           textAlign: "left",
-                          color: "#0f172a",
-                          borderRight: "2px solid #cbd5e1",
+                          color: "#000",
+                          borderRight: "1px solid #cbd5e1",
+                          borderBottom: "1px solid #cbd5e1",
                         }}
                       >
                         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                          {esPrimero && <span>🥇</span>}
-                          {esSegundo && <span>🥈</span>}
-                          {esTercero && <span>🥉</span>}
                           <span>{row.nombre_completo}</span>
                         </div>
                       </td>
 
                       {/* PTS CAMPEÓN */}
-                      <td style={{ padding: "10px 4px", borderRight: "1px solid #e2e8f0" }}>
+                      <td style={{ padding: "10px 4px", borderRight: "1px solid #cbd5e1", borderBottom: "1px solid #cbd5e1", color: "#000" }}>
                         {row.pts_campeon}
                       </td>
 
                       {/* PTS FINALISTAS */}
-                      <td style={{ padding: "10px 4px", borderRight: "1px solid #e2e8f0" }}>
+                      <td style={{ padding: "10px 4px", borderRight: "1px solid #cbd5e1", borderBottom: "1px solid #cbd5e1", color: "#000" }}>
                         {row.pts_finalistas}
                       </td>
 
                       {/* PTS CLASIFICADOS */}
-                      <td style={{ padding: "10px 4px", borderRight: "1px solid #e2e8f0" }}>
+                      <td style={{ padding: "10px 4px", borderRight: "1px solid #cbd5e1", borderBottom: "1px solid #cbd5e1", color: "#000" }}>
                         {row.pts_clasificados}
                       </td>
 
                       {/* PTS GOLEADOR TORNEO */}
-                      <td style={{ padding: "10px 4px", borderRight: "1px solid #e2e8f0" }}>
+                      <td style={{ padding: "10px 4px", borderRight: "1px solid #cbd5e1", borderBottom: "1px solid #cbd5e1", color: "#000" }}>
                         {row.pts_goleador_torneo}
                       </td>
 
                       {/* PTS RESULTADO EXACTO */}
-                      <td style={{ padding: "10px 4px", borderRight: "1px solid #e2e8f0" }}>
+                      <td style={{ padding: "10px 4px", borderRight: "1px solid #cbd5e1", borderBottom: "1px solid #cbd5e1", color: "#000" }}>
                         {row.pts_resultado_exacto}
                       </td>
 
                       {/* PTS GANADOR PARTIDO */}
-                      <td style={{ padding: "10px 4px", borderRight: "1px solid #e2e8f0" }}>
+                      <td style={{ padding: "10px 4px", borderRight: "1px solid #cbd5e1", borderBottom: "1px solid #cbd5e1", color: "#000" }}>
                         {row.pts_ganador_partido}
                       </td>
 
                       {/* PTS GOLEADOR PARTIDO */}
-                      <td style={{ padding: "10px 4px", borderRight: "2px solid #cbd5e1" }}>
+                      <td style={{ padding: "10px 4px", borderRight: "1px solid #cbd5e1", borderBottom: "1px solid #cbd5e1", color: "#000" }}>
                         {row.pts_goleador_partido}
                       </td>
 
@@ -728,9 +728,10 @@ export default function TablaPosicionesAfiche({
                         style={{
                           padding: "10px 6px",
                           fontWeight: 900,
-                          fontSize: "1rem",
-                          color: "#0f172a",
-                          backgroundColor: esPrimero ? "#fef3c7" : "#f1f5f9",
+                          fontSize: "1.05rem",
+                          color: "#000",
+                          backgroundColor: row.posicion >= 8 ? "#fecaca" : "#dcfce7",
+                          borderBottom: "1px solid #cbd5e1"
                         }}
                       >
                         {row.pts_total}

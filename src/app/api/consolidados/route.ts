@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { TABLA_POSICIONES_FIJA } from "@/lib/tablaFija";
 
 export const dynamic = "force-dynamic";
 
@@ -112,18 +113,21 @@ export async function GET(req: Request) {
     }>();
 
     for (const u of usuarios) {
+      // Buscar si el usuario tiene puntos base en la tabla fija
+      const baseFija = TABLA_POSICIONES_FIJA.find(f => f.correo.toLowerCase() === u.correo.toLowerCase());
+      
       tablaPosicionesMap.set(u.id, {
         usuario_id: u.id,
         nombre_completo: u.nombre_completo,
         correo: u.correo,
-        pts_campeon: 0,
-        pts_finalistas: 0,
-        pts_clasificados: 0,
-        pts_goleador_torneo: 0,
-        pts_resultado_exacto: 0,
-        pts_ganador_partido: 0,
-        pts_goleador_partido: 0,
-        pts_total: 0,
+        pts_campeon: baseFija ? baseFija.pts_campeon : 0,
+        pts_finalistas: baseFija ? baseFija.pts_finalistas : 0,
+        pts_clasificados: baseFija ? baseFija.pts_clasificados : 0,
+        pts_goleador_torneo: baseFija ? baseFija.pts_goleador_torneo : 0,
+        pts_resultado_exacto: baseFija ? baseFija.pts_resultado_exacto : 0,
+        pts_ganador_partido: baseFija ? baseFija.pts_ganador_partido : 0,
+        pts_goleador_partido: baseFija ? baseFija.pts_goleador_partido : 0,
+        pts_total: baseFija ? baseFija.pts_total : 0,
       });
     }
 
