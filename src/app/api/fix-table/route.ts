@@ -16,13 +16,17 @@ export async function GET() {
           ro.goles_local_real + ro.goles_visitante_real === 0
             ? [-1]
             : ro.goleadores.map((g) => g.jugador_id);
-        await calcularPuntosPartido(
-          ro.partido_id,
-          ro.goles_local_real,
-          ro.goles_visitante_real,
-          goleadoresIds,
-          2
-        );
+        try {
+          await calcularPuntosPartido(
+            ro.partido_id,
+            ro.goles_local_real,
+            ro.goles_visitante_real,
+            goleadoresIds,
+            2
+          );
+        } catch (err: any) {
+          console.error(`Error on partido_id ${ro.partido_id}:`, err.message);
+        }
       }
     }
     return NextResponse.json({ success: true, count: resultadosOficiales.length });
