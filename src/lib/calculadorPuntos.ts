@@ -58,12 +58,21 @@ export async function calcularPuntosPartido(
   });
 
   if (goleadoresIds.length > 0) {
-    await prisma.resultadoGoleador.createMany({
-      data: goleadoresIds.map((jid) => ({
-        resultado_oficial_id: resultadoOficial.id,
-        jugador_id: jid,
-      })),
+    const validPlayers = await prisma.jugador.findMany({
+      where: { id: { in: goleadoresIds } },
+      select: { id: true }
     });
+    const validPlayerIds = validPlayers.map(p => p.id);
+    const validGoleadoresIds = goleadoresIds.filter(id => validPlayerIds.includes(id) || id === -1);
+
+    if (validGoleadoresIds.length > 0) {
+      await prisma.resultadoGoleador.createMany({
+        data: validGoleadoresIds.map((jid) => ({
+          resultado_oficial_id: resultadoOficial.id,
+          jugador_id: jid === -1 ? null : jid,
+        })),
+      });
+    }
   }
 
   // 3. Cambiar el estado del partido a resultado_cargado
