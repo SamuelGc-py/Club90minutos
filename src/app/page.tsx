@@ -61,11 +61,21 @@ export default function LandingPage() {
           flex-direction: column;
           gap: 28px;
         }
+          .landing-header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+          }
         @media (max-width: 768px) {
           .landing-header {
+            padding: 16px;
+          }
+          .landing-header-inner {
             flex-direction: column;
             gap: 16px;
-            padding: 16px;
           }
           .landing-header-buttons {
             width: 100%;
@@ -85,7 +95,7 @@ export default function LandingPage() {
 
       {/* HEADER / NAVBAR */}
       <header className="landing-header">
-        <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div className="landing-header-inner">
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
             <img 
               src="/logo_principal_recortado.webp" 
