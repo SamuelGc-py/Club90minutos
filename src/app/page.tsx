@@ -77,18 +77,34 @@ export default function LandingPage() {
             flex-direction: column;
             gap: 16px;
           }
+          .landing-nav {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            width: 100%;
+            padding-bottom: 8px;
+            justify-content: flex-start;
+          }
+          .landing-nav::-webkit-scrollbar {
+            height: 4px;
+          }
+          .landing-nav::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.2);
+            border-radius: 4px;
+          }
           .landing-header-buttons {
             width: 100%;
             justify-content: center;
           }
           .landing-layout {
-            flex-direction: column;
             padding: 0 16px 24px;
-            gap: 20px;
           }
-          .landing-sidebar {
-            width: 100%;
-            position: static;
+        }
+        @media (min-width: 769px) {
+          .landing-nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
           }
         }
       `}</style>
@@ -106,12 +122,43 @@ export default function LandingPage() {
               CLUB<span style={{ color: "#74CC10" }}>90</span>MINUTOS
             </span>
           </div>
+          {/* NAVIGATION IN HEADER */}
+          <nav className="landing-nav">
+            {[
+              { key: "inicio", label: "Inicio" },
+              { key: "como-funciona", label: "Cómo Funciona" },
+              { key: "puntuacion", label: "Puntuación" },
+              { key: "terminos", label: "Términos" },
+            ].map((item) => (
+              <button
+                key={item.key}
+                type="button"
+                onClick={() => setActiveTab(item.key)}
+                style={{
+                  background: "transparent",
+                  border: "none",
+                  color: activeTab === item.key ? "#74CC10" : "#94a3b8",
+                  fontWeight: activeTab === item.key ? 800 : 600,
+                  fontSize: "0.95rem",
+                  cursor: "pointer",
+                  padding: "8px 4px",
+                  borderBottom: activeTab === item.key ? "2px solid #74CC10" : "2px solid transparent",
+                  transition: "all 0.2s ease",
+                  whiteSpace: "nowrap"
+                }}
+              >
+                {item.label}
+              </button>
+            ))}
+          </nav>
+
           <div className="landing-header-buttons">
             <Link href="/dashboard" style={{ textDecoration: "none", flex: 1 }}>
               <button style={{ 
                 width: "100%", padding: "10px 20px", background: "transparent", color: "#FFFFFF", 
                 border: "1px solid rgba(255,255,255,0.2)", borderRadius: "8px", 
-                fontWeight: 600, fontSize: "0.9rem", cursor: "pointer", transition: "all 0.2s"
+                fontWeight: 600, fontSize: "0.9rem", cursor: "pointer", transition: "all 0.2s",
+                whiteSpace: "nowrap"
               }}>
                 Iniciar Sesión
               </button>
@@ -121,7 +168,8 @@ export default function LandingPage() {
                 width: "100%", padding: "10px 20px", background: "#74CC10", color: "#04060A", 
                 border: "none", borderRadius: "8px", 
                 fontWeight: 800, fontSize: "0.9rem", cursor: "pointer", boxShadow: "0 4px 15px rgba(116, 204, 16, 0.3)",
-                transition: "transform 0.2s ease"
+                transition: "transform 0.2s ease",
+                whiteSpace: "nowrap"
               }}>
                 Únete al Club
               </button>
@@ -133,72 +181,23 @@ export default function LandingPage() {
       <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh", marginTop: 24 }}>
         
         {/* LAYOUT PRINCIPAL */}
-        <main className="landing-layout">
-          
-          {/* SIDEBAR LATERAL GLOBAL */}
-          <aside className="landing-sidebar">
-            <div style={{ padding: "6px 10px 14px", color: "#64748b", fontSize: "0.68rem", fontWeight: 900, textTransform: "uppercase", letterSpacing: "1px", borderBottom: "1px dashed rgba(255,255,255,0.08)", marginBottom: 6 }}>
-              Navegación
-            </div>
-            
-            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-              {[
-                { key: "inicio", label: "Inicio", icon: Home, color: "#38bdf8" },
-                { key: "como-funciona", label: "Cómo Funciona", icon: Play, color: "#a78bfa" },
-                { key: "puntuacion", label: "Sistema de Puntuación", icon: Zap, color: "#f5b000" },
-                { key: "terminos", label: "Términos y Condiciones", icon: ShieldCheck, color: "#34d399" },
-              ].map((item) => {
-                const activo = activeTab === item.key;
-                const Icono = item.icon;
-                return (
-                  <button
-                    key={item.key}
-                    type="button"
-                    onClick={() => setActiveTab(item.key)}
-                    style={{
-                      display: "flex", alignItems: "center", gap: 10,
-                      padding: "12px 14px", borderRadius: "16px",
-                      border: activo ? `1px solid ${item.color}66` : "1px solid transparent",
-                      background: activo ? `linear-gradient(135deg, ${item.color}33 0%, ${item.color}14 100%)` : "transparent",
-                      color: activo ? "#ffffff" : "#94a3b8",
-                      fontWeight: activo ? 800 : 600, fontSize: "0.85rem",
-                      cursor: "pointer", textAlign: "left",
-                      boxShadow: activo ? `0 10px 25px -8px ${item.color}80` : "none",
-                      transition: "all 0.2s ease",
-                    }}
-                    onMouseOver={(e) => { if (!activo) e.currentTarget.style.background = "rgba(255,255,255,0.05)"; }}
-                    onMouseOut={(e) => { if (!activo) e.currentTarget.style.background = "transparent"; }}
-                  >
-                    <span style={{
-                      width: 32, height: 32, borderRadius: "10px",
-                      background: activo ? `${item.color}26` : "rgba(255,255,255,0.05)",
-                      color: activo ? item.color : "#64748b",
-                      display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0
-                    }}>
-                      <Icono size={16} strokeWidth={activo ? 2.5 : 2} />
-                    </span>
-                    {item.label}
-                  </button>
-                );
-              })}
-            </div>
-          </aside>
+        <main className="landing-layout" style={{ display: "block", textAlign: "center" }}>
 
           {/* CONTENIDO DERECHO */}
-          <div className="landing-content">
+          <div className="landing-content" style={{ margin: "0 auto", maxWidth: "1000px" }}>
             
             {activeTab === "inicio" && (
               <>
                 {/* HERO SECTION */}
                 <section style={{ 
                   display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-                  padding: "40px 20px", textAlign: "center", position: "relative", overflow: "hidden",
-                  background: "rgba(15, 23, 42, 0.4)", backdropFilter: "blur(20px)", border: "1px solid rgba(255, 255, 255, 0.05)", borderRadius: 24
+                  padding: "40px 20px", textAlign: "center", position: "relative"
                 }}>
                   {/* Background Glow */}
                   <div style={{ 
                     position: "absolute", top: "20%", left: "50%", transform: "translate(-50%, -50%)",
-                    width: "60vw", height: "60vw", background: "radial-gradient(circle, rgba(116,204,16,0.15) 0%, rgba(4,6,10,0) 70%)",
+                    width: "80vw", height: "80vw", maxWidth: "800px", maxHeight: "800px",
+                    background: "radial-gradient(circle, rgba(116,204,16,0.12) 0%, rgba(4,6,10,0) 70%)",
                     zIndex: 0, pointerEvents: "none"
                   }} />
 
