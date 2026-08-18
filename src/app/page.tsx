@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { ChevronRight, Trophy, Users, TrendingUp, Calendar, Lock, Play, ArrowRight, Activity, Zap, ShieldCheck, AlertCircle, Facebook, Instagram, Twitter, Youtube, Music2, Home } from "lucide-react";
 import Link from "next/link";
+import { TerminosCompletos } from "./components/TerminosCompletos";
 
 export default function LandingPage() {
   const [activeTab, setActiveTab] = useState("inicio");
@@ -71,11 +72,25 @@ export default function LandingPage() {
           }
         @media (max-width: 768px) {
           .landing-header {
-            padding: 16px;
+            padding: 12px 16px;
           }
           .landing-header-inner {
             flex-direction: column;
-            gap: 16px;
+            gap: 12px;
+            align-items: stretch;
+          }
+          .landing-header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+          }
+          .landing-header-top .logo-img {
+            height: 34px !important;
+            margin-right: 8px;
+          }
+          .landing-header-top .logo-text {
+            font-size: 1rem !important;
           }
           .landing-nav {
             display: flex;
@@ -112,16 +127,29 @@ export default function LandingPage() {
       {/* HEADER / NAVBAR */}
       <header className="landing-header">
         <div className="landing-header-inner">
-          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <img 
-              src="/logo_principal_recortado.webp" 
-              alt="Logo Club 90 Minutos" 
-              style={{ height: 40, width: "auto" }}
-            />
-            <span style={{ fontFamily: "'Orbitron', sans-serif", fontWeight: 800, fontSize: "1.2rem", letterSpacing: "0.5px" }}>
-              CLUB<span style={{ color: "#74CC10" }}>90</span>MINUTOS
-            </span>
+          
+          {/* TOP FOR MOBILE: LOGO AND MAYBE BUTTONS */}
+          <div className="landing-header-top">
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <img 
+                src="/logo_principal_recortado.webp" 
+                alt="Logo Club 90 Minutos" 
+                className="logo-img"
+                style={{ 
+                  height: 44, width: "auto", 
+                  filter: "drop-shadow(0px 2px 8px rgba(116, 204, 16, 0.4))", 
+                  borderRadius: "10px",
+                  marginRight: 12
+                }}
+              />
+              <span className="logo-text" style={{ fontFamily: "'Orbitron', sans-serif", fontWeight: 800, fontSize: "1.2rem", letterSpacing: "0.5px" }}>
+                CLUB<span style={{ color: "#74CC10" }}>90</span>MINUTOS
+              </span>
+            </div>
+            
+            {/* Buttons hidden on mobile from here, moved below? No, let's keep buttons below nav on mobile */}
           </div>
+
           {/* NAVIGATION IN HEADER */}
           <nav className="landing-nav">
             {[
@@ -211,15 +239,15 @@ export default function LandingPage() {
                     </div>
                     
                     <h1 style={{ 
-                      fontFamily: "'Orbitron', sans-serif", fontSize: "clamp(2.5rem, 6vw, 4.5rem)", 
+                      fontFamily: "'Orbitron', sans-serif", fontSize: "clamp(2rem, 6vw, 4.5rem)", 
                       fontWeight: 900, lineHeight: 1.1, marginBottom: 24, letterSpacing: "-1px"
                     }}>
-                      DEMUESTRA QUE <br/>
-                      <span style={{ color: "#74CC10" }}>SABES DE FÚTBOL</span>
+                      VIVE LA PASIÓN DE LA <br/>
+                      <span style={{ color: "#74CC10" }}>LIGA BETPLAY</span>
                     </h1>
                     
                     <p style={{ color: "#E5E7EB", fontSize: "1.1rem", lineHeight: 1.6, marginBottom: 40, maxWidth: 600, margin: "0 auto 40px" }}>
-                      Crea tu polla, compite en vivo con amigos y escala en la tabla de posiciones jornada tras jornada. La pasión del fútbol, con esteroides.
+                      Pronostica los marcadores, compite en vivo y demuestra tu conocimiento en la polla más emocionante de Colombia. La pasión del fútbol, con esteroides.
                     </p>
                     
                     <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
@@ -243,7 +271,13 @@ export default function LandingPage() {
                   <Trophy color="#EFCC36" size={26} /> Torneos Disponibles
                 </h3>
                 
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20 }}>
+                <div style={{ 
+                  display: "grid", 
+                  gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", 
+                  gap: 20, 
+                  maxWidth: 700, 
+                  margin: "0 auto" 
+                }}>
                   <Link href="/dashboard" style={{ textDecoration: "none" }}>
                     <div style={{ 
                       padding: "24px", background: "rgba(116, 204, 16, 0.05)", border: "1px solid rgba(116, 204, 16, 0.2)",
@@ -355,59 +389,11 @@ export default function LandingPage() {
             )}
 
             {activeTab === "terminos" && (
-              <div id="terminos" style={{ background: "rgba(15, 23, 42, 0.4)", backdropFilter: "blur(20px)", border: "1px solid rgba(255, 255, 255, 0.05)", borderRadius: 24, padding: "40px" }}>
+              <div id="terminos" style={{ background: "rgba(15, 23, 42, 0.4)", backdropFilter: "blur(20px)", border: "1px solid rgba(255, 255, 255, 0.05)", borderRadius: 24, padding: "40px 20px" }}>
                 <h2 style={{ fontFamily: "'Orbitron', sans-serif", fontSize: "2rem", fontWeight: 800, marginBottom: 32, color: "#34d399", display: "flex", alignItems: "center", gap: 12 }}>
                   <ShieldCheck color="#34d399" size={28} /> Términos y Condiciones
                 </h2>
-                
-                <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-                  <div style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
-                    <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#34d399", marginTop: 8, flexShrink: 0 }} />
-                    <div>
-                      <h4 style={{ fontWeight: 800, fontSize: "1.15rem", marginBottom: 8 }}>Participación y Cuentas</h4>
-                      <p style={{ color: "#E5E7EB", fontSize: "0.95rem", lineHeight: 1.6, margin: 0 }}>
-                        Para participar es obligatorio crear una cuenta con un correo válido. Cada usuario es responsable de la seguridad de sus credenciales. No se permiten multicuentas para un mismo torneo.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
-                    <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#34d399", marginTop: 8, flexShrink: 0 }} />
-                    <div>
-                      <h4 style={{ fontWeight: 800, fontSize: "1.15rem", marginBottom: 8 }}>Cierre de Pronósticos</h4>
-                      <p style={{ color: "#E5E7EB", fontSize: "0.95rem", lineHeight: 1.6, margin: 0 }}>
-                        Los pronósticos se bloquean irreversiblemente <strong>30 minutos antes</strong> de la hora oficial programada para el pitazo inicial de cada partido.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
-                    <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#34d399", marginTop: 8, flexShrink: 0 }} />
-                    <div>
-                      <h4 style={{ fontWeight: 800, fontSize: "1.15rem", marginBottom: 8 }}>Partidos Aplazados o Suspendidos</h4>
-                      <p style={{ color: "#E5E7EB", fontSize: "0.95rem", lineHeight: 1.6, margin: 0 }}>
-                        Si un partido es suspendido tras haber iniciado, el resultado se mantendrá en espera hasta resolución oficial. Si es aplazado antes de iniciar, las predicciones se mantendrán hasta la nueva fecha programada.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
-                    <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#34d399", marginTop: 8, flexShrink: 0 }} />
-                    <div>
-                      <h4 style={{ fontWeight: 800, fontSize: "1.15rem", marginBottom: 8 }}>Liquidación de Puntos</h4>
-                      <p style={{ color: "#E5E7EB", fontSize: "0.95rem", lineHeight: 1.6, margin: 0 }}>
-                        Los puntos se calculan basándose estrictamente en el resultado final del tiempo regular (90 minutos + adición). En fases eliminatorias, NO se cuenta el tiempo extra ni penales, a menos que se especifique lo contrario.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div style={{ marginTop: 32, padding: 20, background: "rgba(239, 68, 68, 0.1)", border: "1px solid rgba(239, 68, 68, 0.3)", borderRadius: 12, color: "#FCA5A5", fontSize: "0.95rem", display: "flex", alignItems: "flex-start", gap: 12 }}>
-                  <AlertCircle size={20} style={{ flexShrink: 0, marginTop: 2 }} />
-                  <p style={{ margin: 0, lineHeight: 1.5 }}>
-                    <strong>Importante:</strong> La administración se reserva el derecho de anular partidos de la polla o ajustar puntajes si se comprueba manipulación de resultados externos o fallas en el sistema oficial de la plataforma.
-                  </p>
-                </div>
+                <TerminosCompletos />
               </div>
             )}
             
