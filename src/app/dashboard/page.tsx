@@ -647,20 +647,35 @@ function ExpressPageContent() {
   useEffect(() => {
     if (partidos && partidos.length > 0) {
       const jornadas = Array.from(new Set(partidos.map((p) => p.jornada))).sort((a, b) => a - b);
+      
+      // Buscar la jornada activa real (la que tiene más partidos pendientes en este momento)
       const ahora = new Date().getTime();
-
-      const jornadaIncompleta = jornadas.find((j) => {
-        const partidosFecha = partidos.filter((p) => p.jornada === j && p.estado !== "aplazado");
-        if (partidosFecha.length === 0) return false;
-
-        const todosFinalizados = partidosFecha.every((p) => {
-          const esFinalizado = esPartidoFinalizadoReal(p, partidosEnVivo);
-          const hace2Horas = ahora >= new Date(p.fecha_hora_partido).getTime() + 2 * 60 * 60 * 1000;
-          return esFinalizado || hace2Horas;
-        });
-
-        return !todosFinalizados;
+      const partidosPendientes = partidos.filter(p => {
+        if (p.estado === "aplazado") return false;
+        const esFinalizado = esPartidoFinalizadoReal(p, partidosEnVivo);
+        const hace2Horas = ahora >= new Date(p.fecha_hora_partido).getTime() + 2 * 60 * 60 * 1000;
+        return !esFinalizado && !hace2Horas;
       });
+
+      const conteoPorJornada = partidosPendientes.reduce((acc, p) => {
+        acc[p.jornada] = (acc[p.jornada] || 0) + 1;
+        return acc;
+      }, {} as Record<number, number>);
+
+      let mejorJornada = 0;
+      let maxPendientes = 0;
+      Object.entries(conteoPorJornada).forEach(([jornadaStr, count]) => {
+        const jornadaNum = Number(jornadaStr);
+        if (count > maxPendientes) {
+          maxPendientes = count;
+          mejorJornada = jornadaNum;
+        } else if (count === maxPendientes && jornadaNum > mejorJornada) {
+          mejorJornada = jornadaNum;
+        }
+      });
+
+      // Si no hay pendientes, usamos la última jornada disponible
+      const jornadaIncompleta = mejorJornada > 0 ? mejorJornada : (jornadas[jornadas.length - 1] || 1);
 
       if (jornadaIncompleta) {
         setFechaParticipante(jornadaIncompleta);
@@ -3842,6 +3857,38 @@ function ExpressPageContent() {
               </div>
             </div>
           )}
+
+          {/* SELECTOR DE FECHAS (Participante) */}
+          {["partidos", "finalizados", "mis_pronosticos", "aplazados"].includes(tabActiva) && (() => {
+            const fechasDisponibles = Array.from(new Set(partidos.map((p) => p.jornada))).sort((a, b) => a - b);
+            const listaFechas = fechasDisponibles.length > 0 ? fechasDisponibles : [1, 2, 3];
+            return (
+              <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap", background: "rgba(0,0,0,0.25)", padding: "10px", borderRadius: "18px", marginBottom: 20, boxShadow: "inset 0 2px 6px rgba(0,0,0,0.3)" }}>
+                <span style={{ color: "var(--graderia)", fontSize: "0.85rem", fontWeight: 700, paddingLeft: 8 }}>Seleccionar Fecha:</span>
+                {listaFechas.map((f) => (
+                  <button
+                    key={f}
+                    type="button"
+                    onClick={() => setFechaParticipante(f)}
+                    style={{
+                      padding: "7px 14px",
+                      borderRadius: "10px",
+                      fontWeight: 800,
+                      fontSize: "0.78rem",
+                      background: fechaParticipante === f ? "linear-gradient(135deg, #10b981 0%, #059669 100%)" : "transparent",
+                      color: fechaParticipante === f ? "#ffffff" : "#cbd5e1",
+                      border: "none",
+                      boxShadow: fechaParticipante === f ? "0 8px 20px -6px rgba(16, 185, 129, 0.6)" : "none",
+                      cursor: "pointer",
+                      transition: "all 0.25s ease",
+                    }}
+                  >
+                    Fecha {f}
+                  </button>
+                ))}
+              </div>
+            );
+          })()}
 
           {/* TAB 1: PRONÓSTICOS DE PARTIDOS (FECHAS) */}
           {tabActiva === "partidos" && (
