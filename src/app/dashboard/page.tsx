@@ -639,7 +639,7 @@ function ExpressPageContent() {
 
   // Filtros por Jornada / Fecha
   const [fechaParticipante, setFechaParticipante] = useState<number>(3); // Auto-determinado por progreso de la polla
-  const [fechaAdmin, setFechaAdmin] = useState<number>(3); // Default Fecha 3 para admin
+  const [fechaAdmin, setFechaAdmin] = useState<number>(0); // 0 indica que no se ha seteado aún
   const [seccionAdmin, setSeccionAdmin] = useState<"partidos" | "torneo">("partidos");
   const [seccionAdminPanel, setSeccionAdminPanel] = useState<"predicciones" | "liquidacion" | "posiciones" | "aplazados" | "editar_partidos">("predicciones");
 
@@ -664,6 +664,10 @@ function ExpressPageContent() {
 
       if (jornadaIncompleta) {
         setFechaParticipante(jornadaIncompleta);
+        setFechaAdmin((prev) => (prev === 0 ? jornadaIncompleta : prev));
+      } else {
+        setFechaParticipante(jornadas[jornadas.length - 1] || 1);
+        setFechaAdmin((prev) => (prev === 0 ? (jornadas[jornadas.length - 1] || 1) : prev));
       }
     }
   }, [partidos, partidosEnVivo]);
@@ -3891,11 +3895,11 @@ function ExpressPageContent() {
                     return esFinalizado || hace2Horas;
                   };
 
-                  // Incluir partidos de la fecha activa y partidos aplazados reactivados pertenecientes a otras fechas
+                  // Filtro estricto para participantes: solo mostrar la jornada activa y los reprogramados que se juegan ahora
                   const partidosFiltradosParticipante = partidos.filter((p) => {
                     if (p.estado === "aplazado") return false;
                     if (p.jornada === fechaParticipante) return true;
-                    if (p.jornada !== fechaParticipante && p.estado !== "aplazado") return true;
+                    if (p.jornada < fechaParticipante && p.estado === "programado") return true;
                     return false;
                   });
 
@@ -3947,7 +3951,7 @@ function ExpressPageContent() {
                   const partidosFiltradosParticipante = partidos.filter((p) => {
                     if (p.estado === "aplazado") return false;
                     if (p.jornada === fechaParticipante) return true;
-                    if (p.jornada !== fechaParticipante && p.estado !== "aplazado") return true;
+                    // Ocultamos los resultado_cargado de jornadas anteriores en esta vista para evitar confusión (se ven en la tabla general)
                     return false;
                   });
                   const partidosFinalizados = partidosFiltradosParticipante
@@ -4410,13 +4414,24 @@ function ExpressPageContent() {
 
               {/* SECCIÓN PRONÓSTICOS PÚBLICOS DE TODOS LOS PARTICIPANTES */}
               <div className="card">
-                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
-                  <Eye size={24} style={{ color: "#34d399" }} />
+                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16, flexWrap: "wrap", justifyContent: "space-between" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                    <Eye size={24} style={{ color: "#34d399" }} />
+                    <div>
+                      <h2 style={{ margin: 0, fontSize: "1.2rem" }}>Tabla de Pronósticos</h2>
+                      <p style={{ color: "var(--graderia)", margin: 0, fontSize: "0.85rem" }}>
+                        Los pronósticos de todos los participantes se liberan públicamente <strong>30 MINUTOS ANTES</strong> del inicio de cada partido.
+                      </p>
+                    </div>
+                  </div>
                   <div>
-                    <h2 style={{ margin: 0, fontSize: "1.2rem" }}>Tabla de Pronósticos</h2>
-                    <p style={{ color: "var(--graderia)", margin: 0, fontSize: "0.85rem" }}>
-                      Los pronósticos de todos los participantes se liberan públicamente <strong>30 MINUTOS ANTES</strong> del inicio de cada partido.
-                    </p>
+                    <button
+                      className="btn btn-secondary"
+                      onClick={() => handleDescargarExcelPronosticos(undefined, fechaParticipante)}
+                      style={{ display: "flex", alignItems: "center", gap: 8, padding: "8px 14px", fontSize: "0.85rem" }}
+                    >
+                      <Download size={18} /> Descargar Todos los Pronósticos
+                    </button>
                   </div>
                 </div>
 
@@ -4427,7 +4442,12 @@ function ExpressPageContent() {
                     return esFinalizado || (new Date() >= horaCierre);
                   };
 
-                  const partidosPublicosFiltrados = partidos.filter((p) => p.jornada === fechaParticipante || p.estado === "aplazado" || (p.jornada !== fechaParticipante && p.estado !== "aplazado"));
+                  const partidosPublicosFiltrados = partidos.filter((p) => {
+                    if (p.estado === "aplazado") return false;
+                    if (p.jornada === fechaParticipante) return true;
+                    if (p.jornada < fechaParticipante && p.estado === "programado") return true;
+                    return false;
+                  });
 
                   const partidosActivosPublicos = partidosPublicosFiltrados
                     .filter((p) => !esPartidoCerrado(p))

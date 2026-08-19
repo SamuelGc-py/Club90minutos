@@ -615,15 +615,7 @@ export default function TablaPosicionesAfiche({
                     <tr
                       key={row.usuario_id}
                       style={{
-                        backgroundColor: esPrimero
-                          ? "#fffbeb"
-                          : esSegundo
-                          ? "#f8fafc"
-                          : esTercero
-                          ? "#fff7ed"
-                          : esPar
-                          ? "#ffffff"
-                          : "#f8fafc",
+                        backgroundColor: "transparent",
                         borderBottom: "1px solid #e2e8f0",
                         fontSize: "0.88rem",
                         fontWeight: esPrimero || esSegundo || esTercero ? 700 : 500,
@@ -648,9 +640,9 @@ export default function TablaPosicionesAfiche({
                         style={{
                           padding: "10px 14px",
                           textAlign: "left",
-                          color: "#000",
-                          borderRight: "1px solid #cbd5e1",
-                          borderBottom: "1px solid #cbd5e1",
+                          color: "#ffffff",
+                          borderRight: "1px solid #334155",
+                          borderBottom: "1px solid #334155",
                         }}
                       >
                         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
@@ -659,37 +651,37 @@ export default function TablaPosicionesAfiche({
                       </td>
 
                       {/* PTS CAMPEÓN */}
-                      <td style={{ padding: "10px 4px", borderRight: "1px solid #cbd5e1", borderBottom: "1px solid #cbd5e1", color: "#000" }}>
+                      <td style={{ padding: "10px 4px", borderRight: "1px solid #334155", borderBottom: "1px solid #334155", color: "#ffffff" }}>
                         {row.pts_campeon}
                       </td>
 
                       {/* PTS FINALISTAS */}
-                      <td style={{ padding: "10px 4px", borderRight: "1px solid #cbd5e1", borderBottom: "1px solid #cbd5e1", color: "#000" }}>
+                      <td style={{ padding: "10px 4px", borderRight: "1px solid #334155", borderBottom: "1px solid #334155", color: "#ffffff" }}>
                         {row.pts_finalistas}
                       </td>
 
                       {/* PTS GOLEADOR TORNEO */}
-                      <td style={{ padding: "10px 4px", borderRight: "1px solid #cbd5e1", borderBottom: "1px solid #cbd5e1", color: "#000" }}>
+                      <td style={{ padding: "10px 4px", borderRight: "1px solid #334155", borderBottom: "1px solid #334155", color: "#ffffff" }}>
                         {row.pts_goleador_torneo}
                       </td>
 
                       {/* PTS CLASIFICADOS */}
-                      <td style={{ padding: "10px 4px", borderRight: "1px solid #cbd5e1", borderBottom: "1px solid #cbd5e1", color: "#000" }}>
+                      <td style={{ padding: "10px 4px", borderRight: "1px solid #334155", borderBottom: "1px solid #334155", color: "#ffffff" }}>
                         {row.pts_clasificados}
                       </td>
 
                       {/* PTS RESULTADO EXACTO */}
-                      <td style={{ padding: "10px 4px", borderRight: "1px solid #cbd5e1", borderBottom: "1px solid #cbd5e1", color: "#000" }}>
+                      <td style={{ padding: "10px 4px", borderRight: "1px solid #334155", borderBottom: "1px solid #334155", color: "#ffffff" }}>
                         {row.pts_resultado_exacto}
                       </td>
 
                       {/* PTS GANADOR PARTIDO */}
-                      <td style={{ padding: "10px 4px", borderRight: "1px solid #cbd5e1", borderBottom: "1px solid #cbd5e1", color: "#000" }}>
+                      <td style={{ padding: "10px 4px", borderRight: "1px solid #334155", borderBottom: "1px solid #334155", color: "#ffffff" }}>
                         {row.pts_ganador_partido}
                       </td>
 
                       {/* PTS GOLEADOR PARTIDO */}
-                      <td style={{ padding: "10px 4px", borderRight: "1px solid #cbd5e1", borderBottom: "1px solid #cbd5e1", color: "#000" }}>
+                      <td style={{ padding: "10px 4px", borderRight: "1px solid #334155", borderBottom: "1px solid #334155", color: "#ffffff" }}>
                         {row.pts_goleador_partido}
                       </td>
 
@@ -699,9 +691,9 @@ export default function TablaPosicionesAfiche({
                           padding: "10px 6px",
                           fontWeight: 900,
                           fontSize: "1.05rem",
-                          color: "#000",
-                          backgroundColor: row.posicion >= 8 ? "#fecaca" : "#dcfce7",
-                          borderBottom: "1px solid #cbd5e1"
+                          color: "#ffffff",
+                          backgroundColor: "transparent",
+                          borderBottom: "1px solid #334155"
                         }}
                       >
                         {row.pts_total}
