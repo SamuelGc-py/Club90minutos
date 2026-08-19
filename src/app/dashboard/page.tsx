@@ -1035,10 +1035,6 @@ function ExpressPageContent() {
   const handleToggleAplazado = async (partido: any) => {
     if (!usuario || usuario.rol_id !== 2) return;
     const nuevoEstado = partido.estado === "aplazado" ? "programado" : "aplazado";
-    // Al reactivar, el partido se asigna a la fecha que está activa para los participantes
-    // ahora mismo (no a su jornada vieja/original) — así no se abre de sorpresa una fecha
-    // ya pasada ni se altera la fecha activa de todo el grupo.
-    const jornadaDestino = nuevoEstado === "programado" ? fechaParticipante : undefined;
     try {
       setGuardandoProgramacionId(partido.id);
       const res = await fetch("/api/admin/reprogramar-partido", {
@@ -1048,14 +1044,13 @@ function ExpressPageContent() {
           usuario_id: usuario.id,
           partido_id: partido.id,
           estado: nuevoEstado,
-          ...(jornadaDestino ? { jornada: jornadaDestino } : {}),
         }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Error al actualizar el estado del partido");
       const texto = nuevoEstado === "aplazado"
         ? "Partido marcado como aplazado."
-        : `Partido reactivado y asignado a la Fecha ${jornadaDestino} (la fecha activa ahora mismo).`;
+        : `Partido reactivado (se mostrará con la insignia Aplazado (Fecha ${partido.jornada}) en la fecha activa).`;
       setMensajeEstado({ tipo: "exito", texto });
       if (nuevoEstado !== "aplazado" && typeof window !== "undefined") {
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -1571,8 +1566,13 @@ function ExpressPageContent() {
         <div style={{ marginBottom: estaCardAbierta ? 14 : 0, borderBottom: estaCardAbierta ? "1px dashed rgba(255,255,255,0.1)" : "none", paddingBottom: estaCardAbierta ? 10 : 0 }}>
           {/* FILA 1: nombre del partido + estado del pronóstico */}
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8, flexWrap: "wrap", marginBottom: 6 }}>
-            <span style={{ fontWeight: 800, color: "#ffffff", fontSize: "0.95rem" }}>
-              {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}
+            <span style={{ fontWeight: 800, color: "#ffffff", fontSize: "0.95rem", display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+              <span>{partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}</span>
+              {(partido.jornada !== fechaParticipante || esAplazado) && (
+                <span style={{ background: "rgba(245, 158, 11, 0.25)", color: "#fef08a", border: "1px solid rgba(245, 158, 11, 0.5)", padding: "2px 8px", borderRadius: 12, fontSize: "0.72rem", fontWeight: 800 }}>
+                  ⚠️ Aplazado (Fecha {partido.jornada})
+                </span>
+              )}
             </span>
             {m.local !== "" && m.visitante !== "" ? (
               <span style={{ background: "rgba(16, 185, 129, 0.2)", color: "#10b981", border: "1px solid rgba(16, 185, 129, 0.4)", padding: "2px 8px", borderRadius: 12, fontSize: "0.75rem", fontWeight: 800, whiteSpace: "nowrap" }}>
@@ -2585,7 +2585,7 @@ function ExpressPageContent() {
                   // Filtro de partidos para el Admin
                   const partidosAdminFiltrados = fechaAdmin === 0
                     ? []
-                    : partidos.filter((p) => p.jornada === fechaAdmin && (seccionAdminPanel === "liquidacion" || p.estado !== "aplazado"));
+                    : partidos.filter((p) => (p.jornada === fechaAdmin || (p.estado !== "aplazado" && fechaAdmin === fechaParticipante && p.jornada !== fechaAdmin)) && (seccionAdminPanel === "liquidacion" || p.estado !== "aplazado"));
                   const partidosActivosAdmin = partidosAdminFiltrados
                     .filter((p) => !estaSoloFinal(p))
                     .sort((a, b) => new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime());
@@ -2660,8 +2660,13 @@ function ExpressPageContent() {
                               <img src={partido.equipo_visitante.escudo_url} alt={partido.equipo_visitante.nombre} style={{ width: 36, height: 36, objectFit: "contain" }} />
                             </div>
                             <div>
-                              <h3 style={{ margin: 0, color: "#ffffff", fontSize: "1.02rem" }}>
-                                {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}
+                              <h3 style={{ margin: 0, color: "#ffffff", fontSize: "1.02rem", display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+                                <span>{partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}</span>
+                                {(partido.jornada !== fechaAdmin || partido.estado === "aplazado") && (
+                                  <span style={{ background: "rgba(245, 158, 11, 0.25)", color: "#fef08a", border: "1px solid rgba(245, 158, 11, 0.5)", padding: "2px 8px", borderRadius: 12, fontSize: "0.72rem", fontWeight: 800 }}>
+                                    ⚠️ Aplazado (Fecha {partido.jornada})
+                                  </span>
+                                )}
                               </h3>
                               <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap", marginTop: 2 }}>
                                 <span style={{ fontSize: "0.78rem", color: "#94a3b8", fontWeight: 700 }}>
@@ -3886,8 +3891,13 @@ function ExpressPageContent() {
                     return esFinalizado || hace2Horas;
                   };
 
-                  // Excluir partidos aplazados de la lista general (tienen su propio botón/pestaña "⚠️ Aplazados")
-                  const partidosFiltradosParticipante = partidos.filter((p) => p.jornada === fechaParticipante && p.estado !== "aplazado");
+                  // Incluir partidos de la fecha activa y partidos aplazados reactivados pertenecientes a otras fechas
+                  const partidosFiltradosParticipante = partidos.filter((p) => {
+                    if (p.estado === "aplazado") return false;
+                    if (p.jornada === fechaParticipante) return true;
+                    if (p.jornada !== fechaParticipante && p.estado !== "aplazado") return true;
+                    return false;
+                  });
 
                   const partidosActivos = partidosFiltradosParticipante
                     .filter((p) => !estaSoloFinal(p))
@@ -3934,7 +3944,12 @@ function ExpressPageContent() {
                     return esFinalizado || hace2Horas;
                   };
 
-                  const partidosFiltradosParticipante = partidos.filter((p) => p.jornada === fechaParticipante && p.estado !== "aplazado");
+                  const partidosFiltradosParticipante = partidos.filter((p) => {
+                    if (p.estado === "aplazado") return false;
+                    if (p.jornada === fechaParticipante) return true;
+                    if (p.jornada !== fechaParticipante && p.estado !== "aplazado") return true;
+                    return false;
+                  });
                   const partidosFinalizados = partidosFiltradosParticipante
                     .filter((p) => estaSoloFinal(p))
                     .sort((a, b) => new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime());
@@ -4412,7 +4427,7 @@ function ExpressPageContent() {
                     return esFinalizado || (new Date() >= horaCierre);
                   };
 
-                  const partidosPublicosFiltrados = partidos.filter((p) => p.jornada === fechaParticipante || p.estado === "aplazado");
+                  const partidosPublicosFiltrados = partidos.filter((p) => p.jornada === fechaParticipante || p.estado === "aplazado" || (p.jornada !== fechaParticipante && p.estado !== "aplazado"));
 
                   const partidosActivosPublicos = partidosPublicosFiltrados
                     .filter((p) => !esPartidoCerrado(p))
@@ -4445,8 +4460,13 @@ function ExpressPageContent() {
                       >
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: estaDesplegadoTabla ? 12 : 0, flexWrap: "wrap", gap: 8 }}>
                           <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
-                            <strong style={{ fontSize: "1rem", color: "#ffffff" }}>
-                              ⚽ {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}
+                            <strong style={{ fontSize: "1rem", color: "#ffffff", display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+                              <span>⚽ {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}</span>
+                              {(partido.jornada !== fechaParticipante || partido.estado === "aplazado") && (
+                                <span style={{ background: "rgba(245, 158, 11, 0.25)", color: "#fef08a", border: "1px solid rgba(245, 158, 11, 0.5)", padding: "2px 8px", borderRadius: 12, fontSize: "0.72rem", fontWeight: 800 }}>
+                                  ⚠️ Aplazado (Fecha {partido.jornada})
+                                </span>
+                              )}
                             </strong>
                             <span style={{ fontSize: "0.72rem", color: "var(--graderia)", fontWeight: 700 }}>
                               🕒 {formatearFechaPartido(partido.fecha_hora_partido)} · {formatearHoraPartido(partido.fecha_hora_partido)}
