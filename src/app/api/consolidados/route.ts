@@ -31,7 +31,9 @@ export async function GET(req: Request) {
     const correosExcluidos = [
       "adminpollabetplay@gmail.com",
       "prueba.admin@pollabetplay.com",
-      "pruebas@pollabetplay.com"
+      "pruebas@pollabetplay.com",
+      "prueba@gmail.com",
+      "PRUEBA@GMAIL.COM"
     ];
 
     // Obtener todos los usuarios participantes activos (excluyendo la cuenta del Administrador y cuentas de prueba)

@@ -26,7 +26,7 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: "No tienes permisos de administrador" }, { status: 403 });
     }
 
-    const correosExcluidos = ["adminpollabetplay@gmail.com", "prueba.admin@pollabetplay.com", "pruebas@pollabetplay.com"];
+    const correosExcluidos = ["adminpollabetplay@gmail.com", "prueba.admin@pollabetplay.com", "pruebas@pollabetplay.com", "prueba@gmail.com", "PRUEBA@GMAIL.COM"];
 
     // SI TIPO === "INICIAL", GENERAR EXCEL DE PREDICCIONES DE TORNEO
     if (tipo === "inicial") {
@@ -103,7 +103,7 @@ export async function GET(req: Request) {
     const whereClause: any = {
       usuario: {
         NOT: {
-          correo: { in: ["adminpollabetplay@gmail.com", "prueba.admin@pollabetplay.com", "pruebas@pollabetplay.com"] },
+          correo: { in: correosExcluidos },
         },
       },
     };

@@ -668,14 +668,14 @@ export default function TablaPosicionesAfiche({
                         {row.pts_finalistas}
                       </td>
 
-                      {/* PTS CLASIFICADOS */}
-                      <td style={{ padding: "10px 4px", borderRight: "1px solid #cbd5e1", borderBottom: "1px solid #cbd5e1", color: "#000" }}>
-                        {row.pts_clasificados}
-                      </td>
-
                       {/* PTS GOLEADOR TORNEO */}
                       <td style={{ padding: "10px 4px", borderRight: "1px solid #cbd5e1", borderBottom: "1px solid #cbd5e1", color: "#000" }}>
                         {row.pts_goleador_torneo}
+                      </td>
+
+                      {/* PTS CLASIFICADOS */}
+                      <td style={{ padding: "10px 4px", borderRight: "1px solid #cbd5e1", borderBottom: "1px solid #cbd5e1", color: "#000" }}>
+                        {row.pts_clasificados}
                       </td>
 
                       {/* PTS RESULTADO EXACTO */}
@@ -714,39 +714,50 @@ export default function TablaPosicionesAfiche({
           </table>
         </div>
 
-        {/* PIE DE PÁGINA DEL AFICHE CON FRANJA MULTICOLOR LIGA BETPLAY */}
+        {/* PIE DE PÁGINA DEL AFICHE ESTILO LIGA BETPLAY */}
         <div
           style={{
             position: "relative",
-            backgroundColor: "#0b1e36",
+            backgroundColor: "#06101e",
             color: "#ffffff",
-            padding: "12px 24px",
+            padding: "14px 24px",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
             borderTop: "3px solid #f5b000",
+            flexWrap: "wrap",
+            gap: 12,
           }}
         >
-          <div
-            style={{
-              fontSize: "0.8rem",
-              fontWeight: 800,
-              letterSpacing: "3px",
-              color: "#e2e8f0",
-              textTransform: "uppercase",
-            }}
-          >
-            U N I D O S &nbsp; P O R &nbsp; E L &nbsp; F Ú T B O L ™
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <span style={{ fontSize: "1.3rem" }}>⚽</span>
+            <span
+              style={{
+                fontSize: "0.95rem",
+                fontWeight: 900,
+                color: "#ffffff",
+                fontStyle: "italic",
+                letterSpacing: "0.5px",
+              }}
+            >
+              ¡PON A PRUEBA TU CONOCIMIENTO{" "}
+              <span style={{ color: "#f5b000" }}>
+                Y COMPITE POR LA GRAN PREMIACIÓN!
+              </span>
+            </span>
+            <span style={{ fontSize: "1.2rem" }}>🏆</span>
           </div>
 
           <div
             style={{
-              fontSize: "0.75rem",
+              fontSize: "0.8rem",
               color: "#94a3b8",
-              fontWeight: 600,
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: "1px",
             }}
           >
-            Polla Express • Liga BetPlay Dimayor 2026
+            Club 90 Minutos • Liga BetPlay Dimayor 2026-II
           </div>
         </div>
 
