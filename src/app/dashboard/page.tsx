@@ -1229,6 +1229,12 @@ function ExpressPageContent() {
         setUsuario(null);
         setSesionToken(null);
         sessionStorage.removeItem("polla_sesion");
+        setTabActiva("inicio");
+        setPartidosDesplegados({});
+        setPronosticosTablasDesplegadas({});
+        if (typeof window !== "undefined") {
+          window.history.pushState(null, "", window.location.pathname);
+        }
       }
     } catch (e) {
       console.error("Error al sincronizar sesión backend:", e);
@@ -1327,6 +1333,12 @@ function ExpressPageContent() {
         sesionToken: data.sesionToken || null,
       }));
       setMensajeEstado(null);
+      setTabActiva("inicio");
+      setPartidosDesplegados({});
+      setPronosticosTablasDesplegadas({});
+      if (typeof window !== "undefined") {
+        window.history.pushState(null, "", window.location.pathname);
+      }
 
       if (data.usuario.rol_id === 2) {
         cargarConsolidados(data.usuario.id);
@@ -2017,6 +2029,12 @@ function ExpressPageContent() {
     setCorreoInput("");
     setPasswordInput("");
     setMensajeEstado(null);
+    setTabActiva("inicio");
+    setPartidosDesplegados({});
+    setPronosticosTablasDesplegadas({});
+    if (typeof window !== "undefined") {
+      window.history.pushState(null, "", window.location.pathname);
+    }
   };
 
   // Descargar Excel de Pronósticos por Partido (Diseño exacto Imagen 2)
