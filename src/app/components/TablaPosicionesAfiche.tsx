@@ -135,8 +135,8 @@ export default function TablaPosicionesAfiche({
         className="afiche-container"
         style={{
           width: "100%",
-          backgroundColor: "#ffffff",
-          color: "#1e293b",
+          backgroundColor: "#06101e",
+          color: "#ffffff",
           fontFamily: "'Inter', 'Segoe UI', Roboto, sans-serif",
           borderRadius: "12px",
           overflow: "hidden",
@@ -615,8 +615,16 @@ export default function TablaPosicionesAfiche({
                     <tr
                       key={row.usuario_id}
                       style={{
-                        backgroundColor: "transparent",
-                        borderBottom: "1px solid #e2e8f0",
+                        backgroundColor: esPrimero
+                          ? "rgba(245, 176, 0, 0.15)" // Oro
+                          : esSegundo
+                          ? "rgba(203, 213, 225, 0.1)" // Plata
+                          : esTercero
+                          ? "rgba(194, 65, 12, 0.1)" // Bronce
+                          : esPar
+                          ? "transparent"
+                          : "rgba(255, 255, 255, 0.02)",
+                        borderBottom: "1px solid #1e293b",
                         fontSize: "0.88rem",
                         fontWeight: esPrimero || esSegundo || esTercero ? 700 : 500,
                       }}
