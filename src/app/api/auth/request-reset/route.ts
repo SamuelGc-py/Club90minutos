@@ -42,15 +42,31 @@ export async function POST(req: Request) {
     const gmailUser = process.env.GMAIL_USER;
     const gmailPass = process.env.GMAIL_PASS;
 
-    // Opción 1: Enviar mediante Gmail SMTP si están configuradas las credenciales en Vercel
+    // Opción 1: Enviar mediante SMTP (Gmail o Hostinger Email) si están configuradas las credenciales
     if (gmailUser && gmailPass) {
-      const transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-          user: gmailUser,
-          pass: gmailPass,
-        },
-      });
+      const isGmail = gmailUser.toLowerCase().includes("@gmail.com");
+      const smtpHost = process.env.SMTP_HOST || (!isGmail ? "smtp.hostinger.com" : undefined);
+      const smtpPort = Number(process.env.SMTP_PORT) || 465;
+
+      const transporter = nodemailer.createTransport(
+        smtpHost
+          ? {
+              host: smtpHost,
+              port: smtpPort,
+              secure: smtpPort === 465,
+              auth: {
+                user: gmailUser,
+                pass: gmailPass,
+              },
+            }
+          : {
+              service: "gmail",
+              auth: {
+                user: gmailUser,
+                pass: gmailPass,
+              },
+            }
+      );
 
       await transporter.sendMail({
         from: `"Polla Betplay" <${gmailUser}>`,
