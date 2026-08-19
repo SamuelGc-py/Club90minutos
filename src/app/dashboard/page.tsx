@@ -655,9 +655,9 @@ function ExpressPageContent() {
 
       const promediosJornada: Record<number, number> = {};
       jornadas.forEach(j => {
-        const partidosJornada = partidos.filter(p => p.jornada === j);
+        // EXCLUIR partidos aplazados del promedio, ya que sus fechas futuras (a veces meses después) destruyen el cálculo de la jornada actual
+        const partidosJornada = partidos.filter(p => p.jornada === j && p.estado !== "aplazado");
         if (partidosJornada.length > 0) {
-          // Usamos todos los partidos para el promedio, incluso aplazados si tienen fecha, para mayor precisión
           const sum = partidosJornada.reduce((acc, p) => acc + new Date(p.fecha_hora_partido).getTime(), 0);
           promediosJornada[j] = sum / partidosJornada.length;
         }
