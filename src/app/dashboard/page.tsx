@@ -648,33 +648,30 @@ function ExpressPageContent() {
     if (partidos && partidos.length > 0) {
       const jornadas = Array.from(new Set(partidos.map((p) => p.jornada))).sort((a, b) => a - b);
       
-      // Buscar la jornada activa real (la que tiene más partidos pendientes en este momento)
+      // Buscar la jornada activa real basada en el promedio de fechas de sus partidos
+      // Esto ignora partidos individuales reprogramados de jornadas viejas
       const ahora = new Date().getTime();
-      const partidosPendientes = partidos.filter(p => {
-        if (p.estado === "aplazado") return false;
-        const esFinalizado = esPartidoFinalizadoReal(p, partidosEnVivo);
-        const hace2Horas = ahora >= new Date(p.fecha_hora_partido).getTime() + 2 * 60 * 60 * 1000;
-        return !esFinalizado && !hace2Horas;
-      });
+      const ahoraGracia = ahora - (2 * 24 * 60 * 60 * 1000); // 2 días de gracia para no saltar de jornada prematuramente
 
-      const conteoPorJornada = partidosPendientes.reduce((acc, p) => {
-        acc[p.jornada] = (acc[p.jornada] || 0) + 1;
-        return acc;
-      }, {} as Record<number, number>);
-
-      let mejorJornada = 0;
-      let maxPendientes = 0;
-      Object.entries(conteoPorJornada).forEach(([jornadaStr, count]) => {
-        const jornadaNum = Number(jornadaStr);
-        if (count > maxPendientes) {
-          maxPendientes = count;
-          mejorJornada = jornadaNum;
-        } else if (count === maxPendientes && jornadaNum > mejorJornada) {
-          mejorJornada = jornadaNum;
+      const promediosJornada: Record<number, number> = {};
+      jornadas.forEach(j => {
+        const partidosJornada = partidos.filter(p => p.jornada === j);
+        if (partidosJornada.length > 0) {
+          // Usamos todos los partidos para el promedio, incluso aplazados si tienen fecha, para mayor precisión
+          const sum = partidosJornada.reduce((acc, p) => acc + new Date(p.fecha_hora_partido).getTime(), 0);
+          promediosJornada[j] = sum / partidosJornada.length;
         }
       });
 
-      // Si no hay pendientes, usamos la última jornada disponible
+      let mejorJornada = 0;
+      for (const j of jornadas) {
+        if (promediosJornada[j] && promediosJornada[j] >= ahoraGracia) {
+          mejorJornada = j;
+          break;
+        }
+      }
+
+      // Si no hay pendientes en el futuro, usamos la última jornada disponible
       const jornadaIncompleta = mejorJornada > 0 ? mejorJornada : (jornadas[jornadas.length - 1] || 1);
 
       if (jornadaIncompleta) {
@@ -3857,38 +3854,6 @@ function ExpressPageContent() {
               </div>
             </div>
           )}
-
-          {/* SELECTOR DE FECHAS (Participante) */}
-          {["partidos", "finalizados", "mis_pronosticos", "aplazados"].includes(tabActiva) && (() => {
-            const fechasDisponibles = Array.from(new Set(partidos.map((p) => p.jornada))).sort((a, b) => a - b);
-            const listaFechas = fechasDisponibles.length > 0 ? fechasDisponibles : [1, 2, 3];
-            return (
-              <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap", background: "rgba(0,0,0,0.25)", padding: "10px", borderRadius: "18px", marginBottom: 20, boxShadow: "inset 0 2px 6px rgba(0,0,0,0.3)" }}>
-                <span style={{ color: "var(--graderia)", fontSize: "0.85rem", fontWeight: 700, paddingLeft: 8 }}>Seleccionar Fecha:</span>
-                {listaFechas.map((f) => (
-                  <button
-                    key={f}
-                    type="button"
-                    onClick={() => setFechaParticipante(f)}
-                    style={{
-                      padding: "7px 14px",
-                      borderRadius: "10px",
-                      fontWeight: 800,
-                      fontSize: "0.78rem",
-                      background: fechaParticipante === f ? "linear-gradient(135deg, #10b981 0%, #059669 100%)" : "transparent",
-                      color: fechaParticipante === f ? "#ffffff" : "#cbd5e1",
-                      border: "none",
-                      boxShadow: fechaParticipante === f ? "0 8px 20px -6px rgba(16, 185, 129, 0.6)" : "none",
-                      cursor: "pointer",
-                      transition: "all 0.25s ease",
-                    }}
-                  >
-                    Fecha {f}
-                  </button>
-                ))}
-              </div>
-            );
-          })()}
 
           {/* TAB 1: PRONÓSTICOS DE PARTIDOS (FECHAS) */}
           {tabActiva === "partidos" && (
