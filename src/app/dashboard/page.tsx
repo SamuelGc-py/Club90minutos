@@ -2616,10 +2616,15 @@ function ExpressPageContent() {
                     return esFinalizado || esAplazado || hace2Horas;
                   };
 
-                  // Filtro de partidos para el Admin
+                  // Filtro de partidos para el Admin (Limpio y estricto por Jornada)
                   const partidosAdminFiltrados = fechaAdmin === 0
                     ? []
-                    : partidos.filter((p) => (p.jornada === fechaAdmin || (p.estado !== "aplazado" && fechaAdmin === fechaParticipante && p.jornada !== fechaAdmin)) && (seccionAdminPanel === "liquidacion" || p.estado !== "aplazado"));
+                    : partidos.filter((p) => {
+                        if (p.estado === "aplazado" && seccionAdminPanel !== "aplazados") return false;
+                        if (p.jornada === fechaAdmin) return true;
+                        if (p.jornada < fechaAdmin && p.estado === "programado") return true;
+                        return false;
+                      });
                   const partidosActivosAdmin = partidosAdminFiltrados
                     .filter((p) => !estaSoloFinal(p))
                     .sort((a, b) => new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime());
