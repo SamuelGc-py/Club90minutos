@@ -1690,21 +1690,21 @@ function ExpressPageContent() {
             )}
 
             {/* MARCADOR EXACTO - DISEÑO RESPONSIVO MÓVIL ALINEADO 3 COLUMNAS */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", alignItems: "center", gap: 10, margin: "16px 0 20px" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) auto minmax(0, 1fr)", alignItems: "center", gap: 6, margin: "16px 0 20px" }}>
               {/* EQUIPO LOCAL */}
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 8, textAlign: "right" }}>
-                <span style={{ fontWeight: 800, fontSize: "clamp(0.88rem, 3.8vw, 1.1rem)", color: "#ffffff", lineHeight: 1.2 }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 6, textAlign: "right", minWidth: 0 }}>
+                <span style={{ fontWeight: 800, fontSize: "clamp(0.8rem, 3.4vw, 1.05rem)", color: "#ffffff", lineHeight: 1.15, wordBreak: "break-word" }}>
                   {partido.equipo_local.nombre}
                 </span>
                 {partido.equipo_local.escudo_url ? (
-                  <img src={partido.equipo_local.escudo_url} alt={partido.equipo_local.nombre} style={{ width: 30, height: 30, objectFit: "contain", flexShrink: 0 }} />
+                  <img src={partido.equipo_local.escudo_url} alt={partido.equipo_local.nombre} style={{ width: 28, height: 28, objectFit: "contain", flexShrink: 0 }} />
                 ) : (
-                  <div style={{ width: 28, height: 28, background: "var(--linea)", borderRadius: "50%", flexShrink: 0 }} />
+                  <div style={{ width: 26, height: 26, background: "var(--linea)", borderRadius: "50%", flexShrink: 0 }} />
                 )}
               </div>
 
               {/* INPUTS MARCADOR */}
-              <div style={{ display: "flex", alignItems: "center", gap: 6, flexShrink: 0 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 4, flexShrink: 0 }}>
                 <input
                   type="number"
                   min="0"
@@ -1713,10 +1713,10 @@ function ExpressPageContent() {
                   onChange={(e) => handleMarcadorChange(partido.id, "local", e.target.value)}
                   disabled={deshabilitarMarcador}
                   style={{
-                    width: m.local.length > 1 ? 52 : 36,
-                    height: 44,
+                    width: m.local.length > 1 ? 48 : 34,
+                    height: 42,
                     textAlign: "center",
-                    fontSize: "1.2rem",
+                    fontSize: "1.15rem",
                     fontWeight: 900,
                     background: "var(--noche-2)",
                     border: m.local !== "" ? "2px solid var(--cancha)" : "1px solid var(--linea)",
@@ -1726,7 +1726,7 @@ function ExpressPageContent() {
                     transition: "width 0.15s ease",
                   }}
                 />
-                <span style={{ fontWeight: 900, fontSize: "1.2rem", color: "var(--graderia)" }}>:</span>
+                <span style={{ fontWeight: 900, fontSize: "1.15rem", color: "var(--graderia)" }}>:</span>
                 <input
                   type="number"
                   min="0"
@@ -1735,10 +1735,10 @@ function ExpressPageContent() {
                   onChange={(e) => handleMarcadorChange(partido.id, "visitante", e.target.value)}
                   disabled={deshabilitarMarcador}
                   style={{
-                    width: m.visitante.length > 1 ? 52 : 36,
-                    height: 44,
+                    width: m.visitante.length > 1 ? 48 : 34,
+                    height: 42,
                     textAlign: "center",
-                    fontSize: "1.2rem",
+                    fontSize: "1.15rem",
                     fontWeight: 900,
                     background: "var(--noche-2)",
                     border: m.visitante !== "" ? "2px solid var(--cancha)" : "1px solid var(--linea)",
@@ -1751,13 +1751,13 @@ function ExpressPageContent() {
               </div>
 
               {/* EQUIPO VISITANTE */}
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-start", gap: 8, textAlign: "left" }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-start", gap: 6, textAlign: "left", minWidth: 0 }}>
                 {partido.equipo_visitante.escudo_url ? (
-                  <img src={partido.equipo_visitante.escudo_url} alt={partido.equipo_visitante.nombre} style={{ width: 30, height: 30, objectFit: "contain", flexShrink: 0 }} />
+                  <img src={partido.equipo_visitante.escudo_url} alt={partido.equipo_visitante.nombre} style={{ width: 28, height: 28, objectFit: "contain", flexShrink: 0 }} />
                 ) : (
-                  <div style={{ width: 28, height: 28, background: "var(--linea)", borderRadius: "50%", flexShrink: 0 }} />
+                  <div style={{ width: 26, height: 26, background: "var(--linea)", borderRadius: "50%", flexShrink: 0 }} />
                 )}
-                <span style={{ fontWeight: 800, fontSize: "clamp(0.88rem, 3.8vw, 1.1rem)", color: "#ffffff", lineHeight: 1.2 }}>
+                <span style={{ fontWeight: 800, fontSize: "clamp(0.8rem, 3.4vw, 1.05rem)", color: "#ffffff", lineHeight: 1.15, wordBreak: "break-word" }}>
                   {partido.equipo_visitante.nombre}
                 </span>
               </div>
