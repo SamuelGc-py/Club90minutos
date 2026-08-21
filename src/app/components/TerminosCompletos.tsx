@@ -5,7 +5,7 @@ export function TerminosCompletos() {
     <div style={{ textAlign: "left", lineHeight: 1.6, color: "#E5E7EB", fontSize: "0.95rem" }}>
       <h3 style={{ fontWeight: 800, color: "#FFFFFF", marginTop: 24 }}>1. Objeto</h3>
       <p>
-        La Polla Liga BetPlay DIMAYOR 2026-II es un juego de predicciones en el que los participantes
+        La Club 90 Minutos DIMAYOR 2026-II es un juego de predicciones en el que los participantes
         pondrán a prueba sus conocimientos sobre el fútbol profesional colombiano pronosticando
         diferentes eventos del campeonato. Durante el desarrollo del torneo, los participantes
         acumularán puntos de acuerdo con la precisión de sus predicciones. Al finalizar la

@@ -62,7 +62,7 @@ export default function GlobalError({
         >
           <div style={{ fontSize: "3rem", marginBottom: "16px" }}>⚽</div>
           <h2 style={{ color: "#38bdf8", fontSize: "1.3rem", fontWeight: 800, marginBottom: "8px" }}>
-            Polla Liga BetPlay
+            Club 90 Minutos
           </h2>
           <h3 style={{ color: "#ffffff", fontSize: "1.1rem", fontWeight: 700, marginBottom: "12px" }}>
             Actualización de Sistema

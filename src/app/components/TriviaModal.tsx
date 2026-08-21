@@ -1,0 +1,202 @@
+import React, { useState } from 'react';
+import { X, BrainCircuit, CheckCircle2, XCircle, RefreshCw } from 'lucide-react';
+import { toast } from 'sonner';
+
+interface TriviaPregunta {
+  pregunta: string;
+  opciones: string[];
+  respuesta_correcta_index: number;
+  dato_curioso: string;
+}
+
+export default function TriviaModal({ onClose }: { onClose: () => void }) {
+  const [cargando, setCargando] = useState(false);
+  const [trivia, setTrivia] = useState<TriviaPregunta | null>(null);
+  const [opcionSeleccionada, setOpcionSeleccionada] = useState<number | null>(null);
+  const [yaRespondio, setYaRespondio] = useState(false);
+
+  const generarTrivia = async () => {
+    setCargando(true);
+    setYaRespondio(false);
+    setOpcionSeleccionada(null);
+    setTrivia(null);
+    
+    try {
+      const res = await fetch('/api/ai/trivia');
+      if (!res.ok) throw new Error('Error al cargar la trivia');
+      
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+      
+      setTrivia(data);
+    } catch (error: any) {
+      console.error(error);
+      toast.error(error.message || 'Error conectando con el Oráculo');
+    } finally {
+      setCargando(false);
+    }
+  };
+
+  const seleccionarOpcion = (index: number) => {
+    if (yaRespondio) return;
+    setOpcionSeleccionada(index);
+    setYaRespondio(true);
+    
+    if (index === trivia?.respuesta_correcta_index) {
+        toast.success("¡Correcto! Eres un crack del FPC.");
+    } else {
+        toast.error("¡Uf! Te fuiste lejos mi pez.");
+    }
+  };
+
+  return (
+    <div style={{
+      position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+      background: 'rgba(0,0,0,0.85)',
+      backdropFilter: 'blur(8px)',
+      display: 'flex', justifyContent: 'center', alignItems: 'center',
+      zIndex: 9999, padding: 20
+    }}>
+      <div style={{
+        background: '#06130b',
+        border: '1px solid #10b981',
+        borderRadius: 20,
+        width: '100%', maxWidth: 500,
+        overflow: 'hidden',
+        boxShadow: '0 10px 40px rgba(16, 185, 129, 0.2)'
+      }}>
+        {/* Header */}
+        <div style={{
+          padding: '20px', background: 'linear-gradient(90deg, #064e3b 0%, #06130b 100%)',
+          display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+          borderBottom: '1px solid rgba(16, 185, 129, 0.3)'
+        }}>
+          <h2 style={{ margin: 0, color: '#34d399', display: 'flex', alignItems: 'center', gap: 10, fontSize: '1.2rem', fontWeight: 800 }}>
+            <BrainCircuit size={24} color="#10b981" />
+            Trivia BetPlay IA
+          </h2>
+          <button onClick={onClose} style={{ background: 'transparent', border: 'none', color: '#94a3b8', cursor: 'pointer' }}>
+            <X size={24} />
+          </button>
+        </div>
+
+        {/* Content */}
+        <div style={{ padding: '24px' }}>
+          {!trivia && !cargando && (
+            <div style={{ textAlign: 'center', padding: '20px 0' }}>
+              <p style={{ color: '#cbd5e1', marginBottom: 20, fontSize: '1rem', lineHeight: '1.5' }}>
+                ¿Crees que te las sabes todas del Fútbol Profesional Colombiano? Ponte a prueba con preguntas generadas por Gemini IA.
+              </p>
+              <button 
+                onClick={generarTrivia}
+                style={{
+                  background: '#10b981', color: '#000', border: 'none', padding: '12px 24px',
+                  borderRadius: 30, fontWeight: 800, fontSize: '1rem', cursor: 'pointer',
+                  boxShadow: '0 4px 15px rgba(16, 185, 129, 0.4)',
+                  display: 'flex', alignItems: 'center', gap: 8, margin: '0 auto'
+                }}
+              >
+                <BrainCircuit size={20} />
+                Generar Pregunta
+              </button>
+            </div>
+          )}
+
+          {cargando && (
+            <div style={{ textAlign: 'center', padding: '40px 0' }}>
+              <RefreshCw size={40} color="#10b981" style={{ animation: 'spin 1s linear infinite', margin: '0 auto' }} />
+              <p style={{ color: '#34d399', marginTop: 16, fontWeight: 600 }}>Gemini está pensando una pregunta perra...</p>
+            </div>
+          )}
+
+          {trivia && !cargando && (
+            <div>
+              <h3 style={{ color: '#f8fafc', fontSize: '1.1rem', marginBottom: 24, lineHeight: '1.5', fontWeight: 600 }}>
+                {trivia.pregunta}
+              </h3>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                {trivia.opciones.map((opcion, idx) => {
+                  const esCorrecta = idx === trivia.respuesta_correcta_index;
+                  const fueSeleccionada = idx === opcionSeleccionada;
+                  
+                  let bg = 'rgba(255,255,255,0.05)';
+                  let border = '1px solid rgba(255,255,255,0.1)';
+                  
+                  if (yaRespondio) {
+                    if (esCorrecta) {
+                        bg = 'rgba(16, 185, 129, 0.2)';
+                        border = '1px solid #10b981';
+                    } else if (fueSeleccionada) {
+                        bg = 'rgba(239, 68, 68, 0.2)';
+                        border = '1px solid #ef4444';
+                    }
+                  } else if (fueSeleccionada) {
+                     bg = 'rgba(56, 189, 248, 0.2)';
+                     border = '1px solid #38bdf8';
+                  }
+
+                  return (
+                    <button
+                      key={idx}
+                      onClick={() => seleccionarOpcion(idx)}
+                      disabled={yaRespondio}
+                      style={{
+                        background: bg,
+                        border: border,
+                        color: '#f8fafc',
+                        padding: '14px 18px',
+                        borderRadius: 12,
+                        textAlign: 'left',
+                        fontSize: '0.95rem',
+                        cursor: yaRespondio ? 'default' : 'pointer',
+                        transition: 'all 0.2s',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center'
+                      }}
+                    >
+                      {opcion}
+                      {yaRespondio && esCorrecta && <CheckCircle2 size={20} color="#10b981" />}
+                      {yaRespondio && fueSeleccionada && !esCorrecta && <XCircle size={20} color="#ef4444" />}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {yaRespondio && (
+                <div style={{ 
+                  marginTop: 24, background: 'rgba(56, 189, 248, 0.1)', border: '1px solid rgba(56, 189, 248, 0.3)',
+                  padding: 16, borderRadius: 12 
+                }}>
+                  <p style={{ margin: 0, color: '#7dd3fc', fontSize: '0.9rem', lineHeight: '1.5' }}>
+                    <strong>💡 Dato curioso:</strong> {trivia.dato_curioso}
+                  </p>
+                </div>
+              )}
+
+              {yaRespondio && (
+                <button 
+                  onClick={generarTrivia}
+                  style={{
+                    width: '100%', background: 'transparent', color: '#10b981', border: '1px solid #10b981', 
+                    padding: '12px 24px', marginTop: 24,
+                    borderRadius: 30, fontWeight: 800, fontSize: '1rem', cursor: 'pointer',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8
+                  }}
+                >
+                  <RefreshCw size={20} />
+                  Siguiente Pregunta
+                </button>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+      
+      <style>{`
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+      `}</style>
+    </div>
+  );
+}

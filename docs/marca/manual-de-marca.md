@@ -18,6 +18,13 @@ Los archivos utilizables directamente están en esta misma carpeta:
 > contenido (se les quitó el margen blanco de página que traía la
 > exportación original en PDF/WebP a tamaño carta).
 
+> **Versiones con fondo transparente:** cada master tiene además un archivo
+> `-transparente.png` / `-transparente.webp` en `assets/`, con el cuadro
+> negro de fondo eliminado (fondo real transparente, no una simulación) y
+> recortado al pixel del contenido. **Son los archivos que deben usarse en
+> la página web** — los originales sin sufijo se conservan solo como
+> referencia/fuente. Ver la nota de uso en la sección 06.
+
 ---
 
 ## Índice
@@ -199,13 +206,38 @@ Verifica tu conexión
 - [`integracion.html`](./integracion.html) — snippet de referencia: preconnect
   de Google Fonts, hoja de tokens, isotipo inline, botón CTA con las
   variables, y `<picture>` con WebP/PNG.
-- `assets/` — los 5 masters del logo, cada uno en PNG y WebP:
-  - `logo-club90-principal` — escudo completo con "CLUB 90 MINUTOS", versión
-    principal sobre fondo oscuro.
-  - `logo-club90-circular` — el principal insertado en un círculo, para
-    avatares/redes sociales.
+- `assets/` — los 5 masters del logo, cada uno en PNG y WebP (más su
+  versión `-transparente` — ver más abajo):
+  - `logo-club90-principal` — velocímetro + balón + "CLUB 90 MINUTOS" sin
+    escudo, versión principal para usar sobre fondo oscuro.
+  - `logo-club90-circular` — el isotipo del escudo insertado en una moneda/
+    roundel circular con marco propio, para avatares/redes sociales.
   - `logo-club90-escudo` — solo el isotipo (escudo + velocímetro + balón +
     check), sin texto. El más cercano al "isotipo" de la sección 03.
   - `logo-club90-monograma` — el monograma "C90", para tamaños muy pequeños
     (favicon, app icon).
-  - `logo-club90-blanco-negro` — versión monocromática.
+  - `logo-club90-blanco-negro` — versión monocromática de `principal`.
+
+### Fondo transparente y cuándo usar cada variante
+
+Los 5 masters se dividen en dos familias según si tienen **relleno propio**
+detrás del dibujo o no — esto determina sobre qué fondo se ven bien:
+
+- **Con relleno propio (funcionan sobre cualquier fondo):**
+  `logo-club90-escudo` y `logo-club90-circular`. El interior del escudo
+  (el "cuadrante" del velocímetro) tiene un relleno Negro Estadio sólido
+  que forma parte del diseño — al quitar el fondo negro exterior, ese
+  relleno interior se conserva opaco. Son medallones autocontenidos: úsalos
+  sobre foto, sobre blanco, sobre Verde Club, donde sea.
+- **Sin relleno propio (requieren fondo oscuro de marca):**
+  `logo-club90-principal`, `logo-club90-monograma` y
+  `logo-club90-blanco-negro`. Son trazos/tipografía sueltos sin un fondo
+  cerrado detrás — igual que el hueco de una letra "O", su "interior" es
+  en realidad transparencia. **Colócalos siempre sobre Negro Estadio (o un
+  fondo oscuro equivalente)**; sobre blanco o foto clara el trazo blanco
+  del contorno se pierde.
+
+Las versiones `-transparente.png`/`.webp` de `assets/` tienen el fondo
+negro exterior ya removido (transparencia real, recortada al pixel del
+contenido) — son las que debe consumir la web. Los archivos sin sufijo
+(fondo negro sólido) se conservan solo como respaldo/fuente de edición.

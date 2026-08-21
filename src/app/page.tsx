@@ -8,16 +8,16 @@ import { TerminosCompletos } from "./components/TerminosCompletos";
 export default function LandingPage() {
   const [activeTab, setActiveTab] = useState("inicio");
 
-  useEffect(() => {
-    document.body.classList.add("inicio-fullscreen");
-    return () => {
-      document.body.classList.remove("inicio-fullscreen");
-    };
-  }, []);
 
   return (
     <div style={{ minHeight: "100vh", color: "#FFFFFF", fontFamily: "'Inter', sans-serif" }}>
       <style>{`
+        body main {
+          width: 100% !important;
+          max-width: 100% !important;
+          margin: 0 !important;
+          padding: 0 !important;
+        }
         .landing-header {
           padding: 16px 24px;
           display: flex;
@@ -285,7 +285,7 @@ export default function LandingPage() {
                       display: "flex", alignItems: "center", gap: 20
                     }}>
                       <div style={{ width: 64, height: 64, background: "#FFFFFF", borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center", padding: 6 }}>
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Logo_Liga_BetPlay_Dimayor_2020.png" alt="Liga BetPlay" style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }} />
+                        <img src="/images/tournaments/betplay.webp" alt="Liga BetPlay" style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }} />
                       </div>
                       <div>
                         <div style={{ fontWeight: 800, color: "#FFFFFF", fontSize: "1.2rem" }}>Liga BetPlay</div>
@@ -301,7 +301,7 @@ export default function LandingPage() {
                       display: "flex", alignItems: "center", gap: 20
                     }}>
                       <div style={{ width: 64, height: 64, background: "#FFFFFF", borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center", padding: 6 }}>
-                        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/b/bf/UEFA_Champions_League_logo_2.svg/1200px-UEFA_Champions_League_logo_2.svg.png" alt="Champions League" style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }} />
+                        <img src="/images/tournaments/champions.webp" alt="Champions League" style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }} />
                       </div>
                       <div>
                         <div style={{ fontWeight: 800, color: "#FFFFFF", fontSize: "1.2rem" }}>Champions League</div>

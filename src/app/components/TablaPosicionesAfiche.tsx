@@ -31,7 +31,7 @@ export default function TablaPosicionesAfiche({
   tabla,
   prediccionesPartidos = [],
   prediccionesIniciales = [],
-  nombrePolla = "Polla Liga BetPlay Dimayor",
+  nombrePolla = "Club 90 Minutos Dimayor",
 }: TablaPosicionesAficheProps) {
   const printRef = useRef<HTMLDivElement>(null);
   const [generandoImagen, setGenerandoImagen] = useState(false);

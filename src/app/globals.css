@@ -953,4 +953,30 @@ select optgroup {
   .solo-celular {
     display: none !important;
   }
+}:root {
+  --color-verde-club: #74CC10;
+  --color-negro-estadio: #04060A;
+  --color-blanco: #FFFFFF;
+  --color-azul-electrico: #438AFF;
+  --color-amarillo-energia: #EFCC36;
+  --color-rojo-alerta: #EA3D35;
+  --color-gris-oscuro: #1A1F26;
+  --color-gris-medio: #6B7280;
+  --color-gris-claro: #E5E7EB;
+
+  --bg-primary: var(--color-negro-estadio);
+  --text-primary: var(--color-blanco);
+  --cta-bg: var(--color-verde-club);
+  --cta-text: var(--color-negro-estadio);
+  --state-warning: var(--color-amarillo-energia);
+  --state-error: var(--color-rojo-alerta);
+  --link: var(--color-azul-electrico);
+
+  --font-display: 'Orbitron', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --radius-pill: 999px;
+  --shadow-glow: 0 0 24px rgba(116, 204, 16, .35);
 }
+
