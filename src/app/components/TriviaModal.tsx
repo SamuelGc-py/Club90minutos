@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, BrainCircuit, CheckCircle2, XCircle, RefreshCw } from 'lucide-react';
 import { toast } from 'sonner';
 
@@ -14,12 +14,24 @@ export default function TriviaModal({ onClose }: { onClose: () => void }) {
   const [trivia, setTrivia] = useState<TriviaPregunta | null>(null);
   const [opcionSeleccionada, setOpcionSeleccionada] = useState<number | null>(null);
   const [yaRespondio, setYaRespondio] = useState(false);
+  const [timeLeft, setTimeLeft] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (trivia && !yaRespondio && timeLeft !== null && timeLeft > 0) {
+      const t = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
+      return () => clearTimeout(t);
+    } else if (timeLeft === 0 && !yaRespondio) {
+      setYaRespondio(true);
+      toast.error("¡Se acabó el tiempo!");
+    }
+  }, [trivia, yaRespondio, timeLeft]);
 
   const generarTrivia = async () => {
     setCargando(true);
     setYaRespondio(false);
     setOpcionSeleccionada(null);
     setTrivia(null);
+    setTimeLeft(null);
     
     try {
       const res = await fetch('/api/ai/trivia');
@@ -29,6 +41,7 @@ export default function TriviaModal({ onClose }: { onClose: () => void }) {
       if (data.error) throw new Error(data.error);
       
       setTrivia(data);
+      setTimeLeft(10);
     } catch (error: any) {
       console.error(error);
       toast.error(error.message || 'Error conectando con el Oráculo');
@@ -73,7 +86,7 @@ export default function TriviaModal({ onClose }: { onClose: () => void }) {
         }}>
           <h2 style={{ margin: 0, color: '#34d399', display: 'flex', alignItems: 'center', gap: 10, fontSize: '1.2rem', fontWeight: 800 }}>
             <BrainCircuit size={24} color="#10b981" />
-            Trivia BetPlay IA
+            Preguntas con club90min
           </h2>
           <button onClick={onClose} style={{ background: 'transparent', border: 'none', color: '#94a3b8', cursor: 'pointer' }}>
             <X size={24} />
@@ -114,6 +127,12 @@ export default function TriviaModal({ onClose }: { onClose: () => void }) {
               <h3 style={{ color: '#f8fafc', fontSize: '1.1rem', marginBottom: 24, lineHeight: '1.5', fontWeight: 600 }}>
                 {trivia.pregunta}
               </h3>
+
+              {timeLeft !== null && !yaRespondio && (
+                <div style={{ width: '100%', height: 6, background: 'rgba(255,255,255,0.1)', borderRadius: 3, marginBottom: 20, overflow: 'hidden' }}>
+                  <div style={{ height: '100%', background: '#10b981', width: `${(timeLeft / 10) * 100}%`, transition: 'width 1s linear' }} />
+                </div>
+              )}
               
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                 {trivia.opciones.map((opcion, idx) => {

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useMemo, Component } from "react";
-import { CheckCircle2, ShieldAlert, Save, RefreshCw, Trophy, Calendar, LogOut, AlertTriangle, UserCheck, Lock, Clock, Eye, List, Download, Users, Menu, X, Flame, Camera, BarChart3, ClipboardCheck, Trash2, Hourglass, BrainCircuit, User } from "lucide-react";
+import { CheckCircle2, ShieldAlert, Save, RefreshCw, Trophy, Calendar, LogOut, AlertTriangle, UserCheck, Lock, Clock, Eye, List, Download, Users, Menu, X, Flame, Camera, BarChart3, ClipboardCheck, Trash2, Hourglass, BrainCircuit, User, ArrowRight, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { toPng } from 'html-to-image';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis, YAxis } from "recharts";
@@ -486,8 +486,11 @@ class GlobalErrorBoundary extends Component<{ children: React.ReactNode }, { has
             type="button"
             className="btn btn-primary"
             onClick={() => {
-              try { sessionStorage.removeItem("polla_sesion"); } catch (e) { }
-              window.location.href = "/";
+              const handleCerrarSesion = () => {
+                sessionStorage.removeItem("polla_sesion");
+                window.location.href = "/";
+              };
+              handleCerrarSesion();
             }}
             style={{ padding: "10px 24px", fontSize: "0.95rem", fontWeight: 800 }}
           >
@@ -535,7 +538,29 @@ function ExpressPageContent() {
 
   // Estado del Formulario (Pestañas)
   const [tabActiva, setTabActiva] = useState<"inicio" | "partidos" | "aplazados" | "inicial" | "mis_pronosticos" | "admin" | "posiciones" | "en_vivo" | "finalizados" | "historial" | "oraculo">("inicio");
+  const [desgloseAbierto, setDesgloseAbierto] = useState<"exacto" | "ganador" | "goleador" | "torneo" | null>(null);
+  const [mostrarTrivia, setMostrarTrivia] = useState(false);
+  const [modalPrediccionAbierto, setModalPrediccionAbierto] = useState<"campeon" | "finalistas" | "clasificados" | "goleador" | null>(null);
+  const [fechaFiltroAplazados, setFechaFiltroAplazados] = useState<string>("todas");
+  const [fechaFiltroFinalizados, setFechaFiltroFinalizados] = useState<string>("todas");
   const necesitaFullscreen = true;
+
+  // Frases animadas para el Noticiero del banner superior
+  const frasesNoticiero = [
+    "📺 NOTICIERO 90 MINUTOS: ¡BIENVENIDO A LA POLLA LIGA BETPLAY 2026!",
+    "⚽ DEMUESTRA LO QUE SABES DE FÚTBOL Y GANA CON TUS PRONÓSTICOS",
+    "🎯 MARCADOR EXACTO OTORGA 5 PTS, GANADOR 3 PTS Y GOLEADOR 2 PTS",
+    "📊 CONSULTA LA TABLA DE POSICIONES EN VIVO Y TUS PUNTUACIONES",
+    "🤖 UTILIZA RECOMENDACIONES IA PARA ANALIZAR PARTIDOS CON GEMINI",
+  ];
+  const [fraseIndice, setFraseIndice] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setFraseIndice((prev) => (prev + 1) % frasesNoticiero.length);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, []);
 
   // Pantalla de Inicio del participante: también ocupa toda la pantalla (igual que el admin).
   useEffect(() => {
@@ -1236,7 +1261,7 @@ function ExpressPageContent() {
         setPartidosDesplegados({});
         setPronosticosTablasDesplegadas({});
         if (typeof window !== "undefined") {
-          window.history.pushState(null, "", window.location.pathname);
+          window.location.href = "/";
         }
       }
     } catch (e) {
@@ -2026,15 +2051,10 @@ function ExpressPageContent() {
 
   // Cerrar Sesión
   const handleCerrarSesion = () => {
+    sessionStorage.removeItem("polla_sesion");
     setUsuario(null);
     setSesionToken(null);
-    sessionStorage.removeItem("polla_sesion");
-    setCorreoInput("");
-    setPasswordInput("");
-    setMensajeEstado(null);
     setTabActiva("inicio");
-    setPartidosDesplegados({});
-    setPronosticosTablasDesplegadas({});
     if (typeof window !== "undefined") {
       window.history.pushState(null, "", window.location.pathname);
     }
@@ -2214,12 +2234,35 @@ function ExpressPageContent() {
               </p>
             </div>
 
+            {/* MARCA DE AGUA EN GIGANTE CON EL LOGO PRINCIPAL DE CLUB 90 MINUTOS DETRÁS DE LAS LETRAS */}
+            <div
+              style={{
+                position: "absolute",
+                top: "63%",
+                right: "-8%",
+                transform: "translateY(-50%)",
+                width: "75%",
+                maxWidth: 600,
+                height: "auto",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                opacity: 0.40,
+                pointerEvents: "none",
+                zIndex: 1,
+                filter: "drop-shadow(0 0 30px rgba(52, 211, 153, 0.2))",
+              }}
+            >
+              <img
+                src="/marca/logo-club90-principal-transparente.webp"
+                alt="Logo Principal Club 90 Minutos"
+                style={{ width: "100%", height: "auto", objectFit: "contain", border: "none", outline: "none" }}
+              />
+            </div>
+
             {/* Elementos decorativos */}
             <div style={{ position: "absolute", top: -100, right: -100, width: 400, height: 400, background: "var(--cancha)", opacity: 0.05, borderRadius: "50%", filter: "blur(50px)" }} />
 
-            <div className="bola-flotante" style={{ position: "absolute", bottom: "15%", right: "15%", fontSize: "8rem", opacity: 0.3, filter: "drop-shadow(0 20px 30px rgba(0,0,0,0.5))" }}>
-              ⚽
-            </div>
           </div>
 
           {/* Lado Derecho - Formulario */}
@@ -2233,10 +2276,6 @@ function ExpressPageContent() {
           }}>
             <div style={{ width: "100%", maxWidth: 400 }}>
               <div className="login-mobile-header">
-                <div className="login-mobile-banner">
-                  <span className="login-mobile-ball">⚽</span>
-                  <span className="login-mobile-ball login-mobile-ball-2">⚽</span>
-                </div>
                 <div className="login-mobile-badge">
                   <img
                     src="/logo_principal_recortado.webp"
@@ -2250,7 +2289,7 @@ function ExpressPageContent() {
 
               </div>
 
-              <div style={{ marginBottom: 40 }}>
+              <div style={{ marginBottom: 32 }}>
                 <h2 style={{ fontSize: "2rem", fontWeight: 800, marginBottom: 8, color: "#fff", display: "flex", alignItems: "center", gap: 10 }}>
                   {modoRegistro ? "Únete al Club, Crack" : "¡Vamos con Todo, Crack!"}
                 </h2>
@@ -2453,7 +2492,7 @@ function ExpressPageContent() {
                   👑 Panel de Control Premium
                 </span>
                 <h2 style={{ margin: 0, color: "#ffffff", fontSize: "clamp(1.25rem, 3vw, 1.5rem)", fontWeight: 900, letterSpacing: "-0.5px" }}>
-                  Administración Polla BetPlay
+                  Administración Club 90 Minutos
                 </h2>
                 <p style={{ color: "#94a3b8", fontSize: "0.82rem", margin: "6px 0 0 0" }}>
                   Hola, <strong style={{ color: "#fff" }}>{usuario.nombre}</strong>. Tienes el control total.
@@ -2512,9 +2551,9 @@ function ExpressPageContent() {
                   onClick={handleCerrarSesion}
                   style={{
                     padding: "10px 16px",
-                    background: "rgba(255, 92, 92, 0.12)",
-                    color: "#ff5c5c",
-                    border: "1px solid rgba(255, 92, 92, 0.35)",
+                    background: "rgba(239, 68, 68, 0.2)",
+                    color: "#f87171",
+                    border: "1px solid rgba(239, 68, 68, 0.4)",
                     borderRadius: "12px",
                     fontWeight: 800,
                     fontSize: "0.82rem",
@@ -2524,8 +2563,10 @@ function ExpressPageContent() {
                     gap: 7,
                     transition: "all 0.2s"
                   }}
+                  onMouseOver={(e) => (e.currentTarget.style.background = "rgba(239, 68, 68, 0.35)")}
+                  onMouseOut={(e) => (e.currentTarget.style.background = "rgba(239, 68, 68, 0.2)")}
                 >
-                  <LogOut size={15} /> Salir
+                  <LogOut size={15} /> Cerrar Sesión
                 </button>
               </div>
             </div>
@@ -3531,7 +3572,7 @@ function ExpressPageContent() {
         </div>
       ) : (
         /* ================= VISTA NORMAL DE PARTICIPANTE ================= */
-        <div>
+        <div style={{ maxWidth: 1260, margin: "0 auto", padding: "0 16px" }}>
           {/* HEADER PRINCIPAL RESPONSIVO */}
           <header
             style={{
@@ -3548,15 +3589,19 @@ function ExpressPageContent() {
             }}
           >
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <img
+                src="/marca/logo-club90-principal-transparente.webp"
+                alt="Club 90 Minutos"
+                style={{ height: 36, objectFit: "contain" }}
+              />
               <div
-                style={{ fontWeight: 900, fontSize: "1.2rem", color: "#ffffff", display: "flex", alignItems: "center", gap: 8, cursor: "pointer" }}
+                style={{ fontWeight: 900, fontSize: "1.1rem", color: "#ffffff", display: "flex", alignItems: "center", gap: 8, cursor: "pointer" }}
                 onClick={() => setTabActiva("inicio")}
               >
-                ⚽ POLLA LIGA BETPLAY
+                CLUB 90 MINUTOS
               </div>
             </div>
 
-            {/* CENTRO: ES LOGAN LÍMPIO EN BLANCO CON ICONOS 3D ANIMADOS */}
             <div
               className="desktop-slogan"
               style={{
@@ -3564,29 +3609,33 @@ function ExpressPageContent() {
                 alignItems: "center",
                 gap: 12,
                 justifyContent: "center",
+                overflow: "hidden",
+                position: "relative",
+                height: "40px"
               }}
             >
-              {/* BALÓN 3D */}
-              <img
-                src="/images/balon_3d.png"
-                alt="Balón 3D"
-                className="icono-3d-flotante"
-                style={{ width: 32, height: 32 }}
-              />
-
-              {/* TEXTO EN BLANCO LÍMPIO */}
-              <span style={{ fontSize: "0.95rem", fontWeight: 900, color: "#ffffff", letterSpacing: "0.6px", textTransform: "uppercase" }}>
-                DEMUESTRA LO QUE SABES DE FÚTBOL ⚽🔥
+              <style dangerouslySetInnerHTML={{__html: `
+                @keyframes slideDownText {
+                  0% { transform: translateY(-100%); opacity: 0; }
+                  100% { transform: translateY(0); opacity: 1; }
+                }
+              `}} />
+              <span
+                key={fraseIndice}
+                style={{ 
+                  fontSize: "0.9rem", 
+                  fontWeight: 900, 
+                  color: "#ffffff", 
+                  letterSpacing: "0.5px", 
+                  textTransform: "uppercase",
+                  animation: "slideDownText 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards"
+                }}
+              >
+                {frasesNoticiero[fraseIndice]}
               </span>
-
-              {/* CAMISETA #10 3D */}
-              <img
-                src="/images/camiseta_3d.png"
-                alt="Camiseta 10 3D"
-                className="icono-3d-flotante-delay"
-                style={{ width: 32, height: 32 }}
-              />
             </div>
+
+
 
             <div style={{ display: "flex", alignItems: "center", gap: 12, background: "rgba(0,0,0,0.3)", padding: "4px 12px 4px 4px", borderRadius: 50, border: "1px solid rgba(255,255,255,0.05)" }}>
               <div style={{ width: 36, height: 36, borderRadius: "50%", background: "linear-gradient(135deg, var(--cancha) 0%, #16a34a 100%)", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: 900, fontSize: "1.1rem", boxShadow: "0 0 10px rgba(16, 185, 129, 0.3)" }}>
@@ -3594,7 +3643,6 @@ function ExpressPageContent() {
               </div>
               <div className="desktop-slogan" style={{ display: "flex", flexDirection: "column", justifyContent: "center", marginRight: 8 }}>
                 <span style={{ color: "#fff", fontSize: "0.85rem", fontWeight: 800, lineHeight: 1.2 }}>{usuario.nombre}</span>
-                <span style={{ color: "#10b981", fontSize: "0.65rem", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.05em" }}>Jugador Pro</span>
               </div>
               <button
                 onClick={handleCerrarSesion}
@@ -3631,25 +3679,25 @@ function ExpressPageContent() {
 
           {/* TAB 0: PANTALLA DE INICIO Y BIENVENIDA (con sidebar de navegación) */}
           {tabActiva === "inicio" && (
-            <div className="inicio-layout-row" style={{ display: "flex", gap: 20, alignItems: "stretch" }}>
+            <div className="inicio-layout-row" style={{ display: "flex", gap: 20, alignItems: "stretch", maxWidth: 1260, margin: "0 auto", minHeight: "calc(100vh - 120px)" }}>
               {/* SIDEBAR DE MENÚ RÁPIDO (a la izquierda) */}
               <div
-                className="inicio-sidebar"
+                className="inicio-sidebar sidebar-scroll"
                 style={{
-                  width: 300,
+                  width: 270,
                   flexShrink: 0,
                   display: "flex",
                   flexDirection: "column",
                   gap: 8,
                   background: "linear-gradient(180deg, rgba(14, 26, 39, 0.95) 0%, rgba(16, 42, 33, 0.92) 100%)",
-                  border: "1px solid var(--cancha-borde)",
+                  border: "none",
                   borderRadius: 16,
                   padding: 18,
                   boxShadow: "0 12px 36px rgba(0,0,0,0.5)",
+                  overflowY: "auto",
                 }}
               >
-
-                <div className="inicio-sidebar-nav no-scrollbar">
+                <div className="inicio-sidebar-nav" style={{ flex: 1 }}>
                   {([
                     {
                       key: "partidos",
@@ -3667,17 +3715,7 @@ function ExpressPageContent() {
                       color: "#f5b000",
                       onClick: () => setTabActiva("inicial"),
                     },
-                    {
-                      key: "mis_pronosticos",
-                      emoji: "📋",
-                      label: "Tabla de Pronósticos",
-                      desc: "Pronosticos Globales",
-                      color: "#6366f1",
-                      onClick: () => {
-                        setTabActiva("mis_pronosticos");
-                        cargarConsolidados(usuario.id);
-                      },
-                    },
+
                     {
                       key: "aplazados",
                       emoji: "⏳",
@@ -3706,9 +3744,20 @@ function ExpressPageContent() {
                       },
                     },
                     {
+                      key: "mis_pronosticos",
+                      emoji: "📋",
+                      label: "Tus Puntuaciones",
+                      desc: "Ver tus puntos y posición",
+                      color: "#6366f1",
+                      onClick: () => {
+                        setTabActiva("mis_pronosticos");
+                        cargarConsolidados(usuario.id);
+                      },
+                    },
+                    {
                       key: "oraculo",
                       emoji: "🤖",
-                      label: "Oráculo IA",
+                      label: "Recomendaciones",
                       desc: "Estadísticas y pronósticos",
                       color: "#d946ef",
                       onClick: () => setTabActiva("oraculo"),
@@ -3724,7 +3773,7 @@ function ExpressPageContent() {
                         gap: 12,
                         padding: "14px",
                         borderRadius: 14,
-                        border: `1px solid ${item.color}40`,
+                        border: "none",
                         background: `linear-gradient(135deg, ${item.color}22 0%, ${item.color}0d 100%)`,
                         color: "#fff",
                         cursor: "pointer",
@@ -3770,137 +3819,106 @@ function ExpressPageContent() {
                 </div>
               </div>
 
-              {/* CONTENIDO PRINCIPAL: HERO DE BIENVENIDA */}
+              {/* CONTENIDO PRINCIPAL: HERO DE BIENVENIDA + TRIVIA */}
               <div
-                className="card"
                 style={{
                   flex: 1,
                   minWidth: 0,
-                  background: "linear-gradient(135deg, rgba(14, 26, 39, 0.95) 0%, rgba(19, 32, 48, 0.95) 50%, rgba(16, 42, 33, 0.95) 100%)",
-                  border: "1px solid var(--cancha-borde)",
-                  borderRadius: 16,
-                  padding: "28px 28px",
-                  textAlign: "center",
-                  boxShadow: "0 12px 36px rgba(0,0,0,0.5)",
                   display: "flex",
                   flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
+                  gap: 8,
                 }}
               >
-                <div style={{ fontSize: "0.85rem", textTransform: "uppercase", letterSpacing: "0.14em", color: "#34d399", fontWeight: 800, marginBottom: 8 }}>
-                  🔥 BIENVENIDO AL DESAFÍO, LIGA BETPLAY 2026 🔥
+                {/* HERO BANNER DE BIENVENIDA */}
+                <div
+                  className="card"
+                  style={{
+                    background: "linear-gradient(135deg, rgba(14, 26, 39, 0.95) 0%, rgba(19, 32, 48, 0.95) 50%, rgba(16, 42, 33, 0.95) 100%)",
+                    border: "none",
+                    borderRadius: 16,
+                    padding: "24px",
+                    textAlign: "center",
+                    boxShadow: "0 12px 36px rgba(0,0,0,0.5)",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <div style={{ fontSize: "0.85rem", textTransform: "uppercase", letterSpacing: "0.14em", color: "#34d399", fontWeight: 800, marginBottom: 8 }}>
+                    🔥 BIENVENIDO AL DESAFÍO, {usuario.nombre?.toUpperCase()} 🔥
+                  </div>
+                  <h1 style={{ fontSize: "clamp(1.5rem, 3.5vw, 2.2rem)", fontWeight: 900, color: "#ffffff", margin: 0 }}>
+                    ¿CREES QUE NADIE TE GANA? DEMUÉSTRALO
+                  </h1>
                 </div>
-                <h1 style={{ fontSize: "clamp(1.6rem, 4vw, 2.5rem)", fontWeight: 900, color: "#ffffff", marginBottom: 12 }}>
-                  ¿CREES QUE NADIE TE GANA? DEMUÉSTRALO
-                </h1>
-                <p style={{ maxWidth: 560, margin: "0 auto", color: "var(--graderia)", fontSize: "1rem", lineHeight: 1.6 }}>
-                  ¡Hola, <strong style={{ color: "#fff" }}>{usuario.nombre}</strong>! Elige una opción del menú para ingresar tus pronósticos o revisar la tabla de posiciones en vivo.
-                </p>
 
-                {/* TU RENDIMIENTO: integrado en la misma tarjeta, compacto, sin caja separada */}
-                {(() => {
-                  const miFila = consolidados?.tablaPosiciones?.find((f: any) => f.correo.toLowerCase() === (usuario.correo || "").toLowerCase());
-                  if (!miFila) return null;
-                  const desglose = [
-                    { label: "Resultado Exacto", val: miFila.pts_resultado_exacto, color: "#34d399" },
-                    { label: "Ganador Partido", val: miFila.pts_ganador_partido, color: "#38bdf8" },
-                    { label: "Goleador Partido", val: miFila.pts_goleador_partido, color: "#f59e0b" },
-                    { label: "Campeón", val: miFila.pts_campeon, color: "#f5b000" },
-                    { label: "Finalistas", val: miFila.pts_finalistas, color: "#a78bfa" },
-                    { label: "Clasificados", val: miFila.pts_clasificados, color: "#ef4444" },
-                    { label: "Goleador Torneo", val: miFila.pts_goleador_torneo, color: "#6366f1" },
-                  ];
-                  const datosDona = desglose.filter((s) => s.val > 0);
-                  const hayPuntos = datosDona.length > 0;
+                {/* BANNER DE TRIVIA GIGANTE PARA RELLENAR ESPACIO */}
+                <div
+                  onClick={() => setMostrarTrivia(true)}
+                  style={{
+                    flex: 1,
+                    background: "linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(153, 27, 27, 0.4) 100%)",
+                    border: "1px solid rgba(239, 68, 68, 0.4)",
+                    borderRadius: 16,
+                    padding: "40px 30px",
+                    cursor: "pointer",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: 24,
+                    transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+                    boxShadow: "0 12px 40px rgba(220, 38, 38, 0.15)",
+                    position: "relative",
+                    overflow: "hidden"
+                  }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.transform = "translateY(-4px) scale(1.01)";
+                    e.currentTarget.style.boxShadow = "0 20px 50px rgba(239, 68, 68, 0.25)";
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.transform = "none";
+                    e.currentTarget.style.boxShadow = "0 12px 40px rgba(220, 38, 38, 0.15)";
+                  }}
+                >
+                  {/* Círculo decorativo de fondo */}
+                  <div style={{ position: "absolute", top: -50, right: -50, width: 200, height: 200, background: "rgba(239, 68, 68, 0.1)", borderRadius: "50%", filter: "blur(30px)" }} />
+                  <div style={{ position: "absolute", bottom: -50, left: -50, width: 250, height: 250, background: "rgba(220, 38, 38, 0.15)", borderRadius: "50%", filter: "blur(40px)" }} />
 
-                  return (
-                    <div style={{ width: "100%", marginTop: 20, paddingTop: 16, borderTop: "1px dashed rgba(255,255,255,0.1)" }}>
-                      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, flexWrap: "wrap", marginBottom: 10 }}>
-                        <h2 style={{ margin: 0, fontSize: "0.92rem", fontWeight: 900, color: "#fff" }}>
-                          📈 Tu Rendimiento
-                        </h2>
-                        <span style={{ fontSize: "0.7rem", color: "var(--graderia)" }}>· tabla oficial verificada</span>
-                      </div>
-
-                      <div style={{ display: "flex", justifyContent: "center", gap: 24, marginBottom: 14, flexWrap: "wrap" }}>
-                        <div style={{ textAlign: "center" }}>
-                          <div style={{ fontSize: "1.5rem", fontWeight: 900, color: "#38bdf8" }}>#{miFila.posicion}</div>
-                          <div style={{ fontSize: "0.65rem", color: "var(--graderia)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em" }}>Posición</div>
-                        </div>
-                        <div style={{ textAlign: "center" }}>
-                          <div style={{ fontSize: "1.5rem", fontWeight: 900, color: "#34d399" }}>{miFila.pts_total}</div>
-                          <div style={{ fontSize: "0.65rem", color: "var(--graderia)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em" }}>Puntos</div>
-                        </div>
-                      </div>
-
-                      {!hayPuntos ? (
-                        <div style={{ textAlign: "center", padding: "12px 0", color: "var(--graderia)", fontSize: "0.82rem" }}>
-                          Todavía no tienes puntos registrados. En cuanto se liquide tu primer partido, aquí verás tu gráfico.
-                        </div>
-                      ) : (
-                        <div style={{ display: "flex", gap: 16, flexWrap: "wrap", alignItems: "center", justifyContent: "center", textAlign: "left" }}>
-                          {/* DONA: distribución de puntos por categoría */}
-                          <div style={{ flex: "0 0 140px", width: 140, height: 140 }}>
-                            <ResponsiveContainer width="100%" height="100%">
-                              <PieChart>
-                                <Pie
-                                  data={datosDona}
-                                  dataKey="val"
-                                  nameKey="label"
-                                  cx="50%"
-                                  cy="50%"
-                                  innerRadius="58%"
-                                  outerRadius="90%"
-                                  paddingAngle={3}
-                                  strokeWidth={0}
-                                  isAnimationActive={false}
-                                >
-                                  {datosDona.map((s) => (
-                                    <Cell key={s.label} fill={s.color} />
-                                  ))}
-                                </Pie>
-                                <Tooltip
-                                  contentStyle={{ background: "rgba(15,23,42,0.95)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 10, fontSize: "0.75rem" }}
-                                  labelStyle={{ color: "#fff", fontWeight: 800 }}
-                                  itemStyle={{ color: "#fff" }}
-                                />
-                              </PieChart>
-                            </ResponsiveContainer>
-                          </div>
-
-                          {/* BARRAS: comparación por categoría (incluye las que están en 0) */}
-                          <div style={{ flex: "1 1 260px", minWidth: 240, height: 150 }}>
-                            <ResponsiveContainer width="100%" height="100%">
-                              <BarChart data={desglose} layout="vertical" margin={{ top: 0, right: 12, left: 0, bottom: 0 }}>
-                                <XAxis type="number" hide />
-                                <YAxis
-                                  type="category"
-                                  dataKey="label"
-                                  width={110}
-                                  tick={{ fill: "var(--graderia)", fontSize: 10 }}
-                                  axisLine={false}
-                                  tickLine={false}
-                                />
-                                <Tooltip
-                                  cursor={{ fill: "rgba(255,255,255,0.04)" }}
-                                  contentStyle={{ background: "rgba(15,23,42,0.95)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 10, fontSize: "0.75rem" }}
-                                  labelStyle={{ color: "#fff", fontWeight: 800 }}
-                                  itemStyle={{ color: "#fff" }}
-                                />
-                                <Bar dataKey="val" radius={[0, 6, 6, 0]} barSize={11} isAnimationActive={false}>
-                                  {desglose.map((s) => (
-                                    <Cell key={s.label} fill={s.color} />
-                                  ))}
-                                </Bar>
-                              </BarChart>
-                            </ResponsiveContainer>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  );
-                })()}
+                  <div style={{ padding: "12px 20px", background: "#ef4444", color: "#fff", borderRadius: 12, fontSize: "0.85rem", fontWeight: 900, letterSpacing: "0.08em", display: "inline-block", zIndex: 1 }}>
+                    🔥 NUEVA FUNCIONALIDAD
+                  </div>
+                  
+                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", zIndex: 1 }}>
+                    <h3 style={{ margin: 0, fontSize: "clamp(1.8rem, 4vw, 2.8rem)", fontWeight: 900, color: "#ffffff", display: "flex", alignItems: "center", gap: 14, textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>
+                      <BrainCircuit size={42} color="#fca5a5" style={{ filter: "drop-shadow(0 0 10px rgba(239, 68, 68, 0.8))" }} /> 
+                      TRIVIA 90 MINUTOS
+                    </h3>
+                    <p style={{ margin: "16px auto 0", color: "#fecaca", fontSize: "1.1rem", lineHeight: 1.6, maxWidth: 600 }}>
+                      ¿Crees que te las sabes todas? Pon a prueba tu conocimiento futbolístico con preguntas generadas en tiempo real por la Inteligencia Artificial de Gemini. 
+                    </p>
+                  </div>
+                  
+                  <div
+                    style={{
+                      marginTop: 10,
+                      background: "#ef4444",
+                      color: "#fff",
+                      padding: "16px 32px",
+                      borderRadius: 30,
+                      fontSize: "1.1rem",
+                      fontWeight: 800,
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 12,
+                      boxShadow: "0 8px 25px rgba(239, 68, 68, 0.5)",
+                      zIndex: 1
+                    }}
+                  >
+                    JUGAR AHORA <ArrowRight size={22} />
+                  </div>
+                </div>
               </div>
             </div>
           )}
@@ -3915,33 +3933,7 @@ function ExpressPageContent() {
                 </p>
               </div>
 
-              {/* BOTONES DE NAVEGACIÓN RÁPIDA (Solo en Celular) */}
-              <div className="solo-celular" style={{ display: "flex", flexWrap: "nowrap", gap: 6, marginBottom: 20, alignItems: "center", width: "100%" }}>
-                <button
-                  className="btn btn-secondary"
-                  onClick={() => setTabActiva("finalizados")}
-                  style={{ flex: 1, whiteSpace: "nowrap", padding: "6px 2px", fontSize: "0.65rem", fontWeight: 700, background: "var(--tarjeta)", color: "var(--tiza)", border: "1px solid var(--borde)", borderRadius: 50, display: "flex", justifyContent: "center", alignItems: "center", gap: 4 }}
-                >
-                  <span style={{ fontSize: "0.9rem" }}>🏁</span> FINALIZADOS
-                </button>
-                <button
-                  className="btn btn-secondary"
-                  onClick={() => setTabActiva("aplazados")}
-                  style={{ flex: 1, whiteSpace: "nowrap", padding: "6px 2px", fontSize: "0.65rem", fontWeight: 700, background: "var(--tarjeta)", color: "var(--tiza)", border: "1px solid var(--borde)", borderRadius: 50, display: "flex", justifyContent: "center", alignItems: "center", gap: 4 }}
-                >
-                  <span style={{ fontSize: "0.9rem" }}>⚠️</span> APLAZADOS
-                </button>
-                <button
-                  className="btn btn-secondary"
-                  onClick={() => {
-                    setTabActiva("posiciones");
-                    cargarConsolidados(usuario.id);
-                  }}
-                  style={{ flex: 1, whiteSpace: "nowrap", padding: "6px 2px", fontSize: "0.65rem", fontWeight: 700, background: "var(--tarjeta)", color: "var(--tiza)", border: "1px solid var(--borde)", borderRadius: 50, display: "flex", justifyContent: "center", alignItems: "center", gap: 4 }}
-                >
-                  <span style={{ fontSize: "0.9rem" }}>📊</span> POSICIONES
-                </button>
-              </div>
+              {/* (Botones de navegación rápida para celular fueron removidos según petición) */}
 
               {cargandoMaestros ? (
                 <div style={{ textAlign: "center", padding: 40, color: "var(--graderia)" }}>
@@ -4009,23 +4001,63 @@ function ExpressPageContent() {
                     return esFinalizado || hace2Horas;
                   };
 
-                  const partidosFiltradosParticipante = partidos.filter((p) => {
-                    if (p.estado === "aplazado") return false;
-                    if (p.jornada === fechaParticipante) return true;
-                    // Ocultamos los resultado_cargado de jornadas anteriores en esta vista para evitar confusión (se ven en la tabla general)
-                    return false;
-                  });
-                  const partidosFinalizados = partidosFiltradosParticipante
-                    .filter((p) => estaSoloFinal(p))
-                    .sort((a, b) => new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime());
+                  // Obtener todos los partidos finalizados (sin importar la jornada actual)
+                  const todosLosFinalizados = partidos.filter(p => p.estado !== "aplazado" && estaSoloFinal(p));
+                  
+                  // Agrupar por jornada
+                  const finalizadosPorJornada = todosLosFinalizados.reduce((acc, partido) => {
+                    if (!acc[partido.jornada]) acc[partido.jornada] = [];
+                    acc[partido.jornada].push(partido);
+                    return acc;
+                  }, {} as Record<number, typeof todosLosFinalizados>);
+
+                  const jornadasDisponibles = Object.keys(finalizadosPorJornada).sort((a, b) => Number(a) - Number(b));
+
+                  // Si no hay filtro y hay jornadas, autoseleccionar la última jugada (la mayor)
+                  const jornadaInicialFiltro = fechaFiltroFinalizados === "todas" && jornadasDisponibles.length > 0 
+                    ? jornadasDisponibles[jornadasDisponibles.length - 1] 
+                    : fechaFiltroFinalizados;
+
+                  const partidosARenderizar = jornadaInicialFiltro === "todas" 
+                    ? todosLosFinalizados 
+                    : finalizadosPorJornada[Number(jornadaInicialFiltro)] || [];
+
+                  // Orden cronológico
+                  partidosARenderizar.sort((a, b) => new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime());
 
                   return (
                     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-                      {partidosFinalizados.length > 0 ? (
-                        partidosFinalizados.map((partido) => renderPartidoCard(partido))
+                      {jornadasDisponibles.length > 0 ? (
+                        <>
+                          {/* Pestañas de Filtro por Fecha */}
+                          <div className="sidebar-scroll" style={{ display: "flex", gap: 8, overflowX: "auto", paddingBottom: 8, marginTop: -4 }}>
+                            {jornadasDisponibles.map(j => (
+                              <button
+                                key={`filtro-finalizado-${j}`}
+                                onClick={() => setFechaFiltroFinalizados(j)}
+                                style={{
+                                  padding: "8px 16px", borderRadius: 20, whiteSpace: "nowrap", border: "none", cursor: "pointer", fontWeight: 700, fontSize: "0.85rem",
+                                  background: jornadaInicialFiltro === j ? "var(--cancha)" : "var(--noche-2)",
+                                  color: jornadaInicialFiltro === j ? "#000" : "var(--tiza)"
+                                }}
+                              >
+                                Fecha {j}
+                              </button>
+                            ))}
+                          </div>
+
+                          {/* Lista de Partidos Filtrados */}
+                          {partidosARenderizar.length > 0 ? (
+                            partidosARenderizar.map((partido) => renderPartidoCard(partido))
+                          ) : (
+                            <div style={{ textAlign: "center", padding: "40px 20px", color: "var(--graderia)" }}>
+                              No hay partidos finalizados en la fecha seleccionada.
+                            </div>
+                          )}
+                        </>
                       ) : (
                         <div style={{ textAlign: "center", padding: "40px 20px", color: "var(--graderia)", border: "1px dashed var(--linea-fuerte)", borderRadius: 12 }}>
-                          Todavía no hay partidos finalizados en esta fecha.
+                          Todavía no hay partidos finalizados en el torneo.
                         </div>
                       )}
                     </div>
@@ -4083,8 +4115,37 @@ function ExpressPageContent() {
 
                   return (
                     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                      {/* Pestañas de Filtro por Fecha */}
+                      <div className="sidebar-scroll" style={{ display: "flex", gap: 8, overflowX: "auto", paddingBottom: 8, marginTop: -4 }}>
+                        <button
+                          onClick={() => setFechaFiltroAplazados("todas")}
+                          style={{
+                            padding: "8px 16px", borderRadius: 20, whiteSpace: "nowrap", border: "none", cursor: "pointer", fontWeight: 700, fontSize: "0.85rem",
+                            background: fechaFiltroAplazados === "todas" ? "var(--cancha)" : "var(--noche-2)",
+                            color: fechaFiltroAplazados === "todas" ? "#000" : "var(--tiza)"
+                          }}
+                        >
+                          Todas
+                        </button>
+                        {Object.keys(partidosPorJornada).sort((a, b) => Number(a) - Number(b)).map(j => (
+                          <button
+                            key={`filtro-aplazado-${j}`}
+                            onClick={() => setFechaFiltroAplazados(j)}
+                            style={{
+                              padding: "8px 16px", borderRadius: 20, whiteSpace: "nowrap", border: "none", cursor: "pointer", fontWeight: 700, fontSize: "0.85rem",
+                              background: fechaFiltroAplazados === j ? "var(--cancha)" : "var(--noche-2)",
+                              color: fechaFiltroAplazados === j ? "#000" : "var(--tiza)"
+                            }}
+                          >
+                            Fecha {j}
+                          </button>
+                        ))}
+                      </div>
+
+                      {/* Lista de Partidos Filtrados */}
                       {Object.keys(partidosPorJornada)
                         .sort((a, b) => Number(a) - Number(b))
+                        .filter(jornadaStr => fechaFiltroAplazados === "todas" || fechaFiltroAplazados === jornadaStr)
                         .map((jornadaStr) => {
                           const jornada = Number(jornadaStr);
                           const partidosDeLaJornada = partidosPorJornada[jornada];
@@ -4097,7 +4158,7 @@ function ExpressPageContent() {
                                 border: "1px solid var(--cancha-borde)",
                                 overflow: "hidden",
                               }}
-                              open
+                              open={fechaFiltroAplazados !== "todas" ? true : undefined}
                             >
                               <summary
                                 style={{
@@ -4164,229 +4225,263 @@ function ExpressPageContent() {
                     gap: 16,
                   }}
                 >
+                  {/* BOTÓN CAMPEÓN */}
                   <div
+                    onClick={() => setModalPrediccionAbierto("campeon")}
                     style={{
                       background: "rgba(255, 255, 255, 0.05)",
                       border: "1px solid rgba(255, 215, 0, 0.3)",
                       borderRadius: 12,
                       padding: "16px",
                       textAlign: "center",
+                      cursor: "pointer",
+                      transition: "transform 0.2s, box-shadow 0.2s",
+                      boxShadow: campeonId ? "0 0 15px rgba(255, 215, 0, 0.2)" : "none",
+                    }}
+                    onMouseOver={(e) => {
+                      e.currentTarget.style.transform = "scale(1.02)";
+                      e.currentTarget.style.background = "rgba(255, 215, 0, 0.1)";
+                    }}
+                    onMouseOut={(e) => {
+                      e.currentTarget.style.transform = "none";
+                      e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
                     }}
                   >
                     <div style={{ fontSize: "2rem", marginBottom: 4 }}>🏆</div>
                     <div style={{ fontWeight: 700, fontSize: "0.95rem", color: "#ffffff" }}>Campeón del Torneo</div>
-                    <div style={{ fontSize: "1.8rem", fontWeight: 900, color: "var(--cancha)", marginTop: 6 }}>
-                      30 <span style={{ fontSize: "0.85rem", fontWeight: 600 }}>PTS</span>
-                    </div>
+                    
+                    {campeonId ? (
+                      <div style={{ marginTop: 10, background: "rgba(16, 185, 129, 0.2)", padding: "6px", borderRadius: 8, color: "var(--cancha)", fontWeight: 800 }}>
+                        {equipos.find(e => e.id === campeonId)?.nombre}
+                      </div>
+                    ) : (
+                      <div style={{ fontSize: "1.8rem", fontWeight: 900, color: "var(--cancha)", marginTop: 6 }}>
+                        30 <span style={{ fontSize: "0.85rem", fontWeight: 600 }}>PTS</span>
+                      </div>
+                    )}
                   </div>
 
+                  {/* BOTÓN FINALISTAS */}
                   <div
+                    onClick={() => setModalPrediccionAbierto("finalistas")}
                     style={{
                       background: "rgba(255, 255, 255, 0.05)",
                       border: "1px solid rgba(77, 163, 255, 0.3)",
                       borderRadius: 12,
                       padding: "16px",
                       textAlign: "center",
+                      cursor: "pointer",
+                      transition: "transform 0.2s, box-shadow 0.2s",
+                      boxShadow: (finalista1Id || finalista2Id) ? "0 0 15px rgba(77, 163, 255, 0.2)" : "none",
+                    }}
+                    onMouseOver={(e) => {
+                      e.currentTarget.style.transform = "scale(1.02)";
+                      e.currentTarget.style.background = "rgba(77, 163, 255, 0.1)";
+                    }}
+                    onMouseOut={(e) => {
+                      e.currentTarget.style.transform = "none";
+                      e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
                     }}
                   >
                     <div style={{ fontSize: "2rem", marginBottom: 4 }}>🥇</div>
                     <div style={{ fontWeight: 700, fontSize: "0.95rem", color: "#ffffff" }}>Finalistas</div>
                     <div style={{ fontSize: "0.75rem", color: "var(--graderia)" }}>(por equipo acertado)</div>
-                    <div style={{ fontSize: "1.8rem", fontWeight: 900, color: "var(--cancha)", marginTop: 2 }}>
-                      25 <span style={{ fontSize: "0.85rem", fontWeight: 600 }}>PTS</span>
-                    </div>
+                    
+                    {(finalista1Id || finalista2Id) ? (
+                      <div style={{ marginTop: 10, display: "flex", flexDirection: "column", gap: 4 }}>
+                        {finalista1Id && <div style={{ background: "rgba(77, 163, 255, 0.15)", padding: "4px", borderRadius: 6, color: "#38bdf8", fontWeight: 700, fontSize: "0.8rem" }}>{equipos.find(e => e.id === finalista1Id)?.nombre}</div>}
+                        {finalista2Id && <div style={{ background: "rgba(77, 163, 255, 0.15)", padding: "4px", borderRadius: 6, color: "#38bdf8", fontWeight: 700, fontSize: "0.8rem" }}>{equipos.find(e => e.id === finalista2Id)?.nombre}</div>}
+                      </div>
+                    ) : (
+                      <div style={{ fontSize: "1.8rem", fontWeight: 900, color: "var(--cancha)", marginTop: 2 }}>
+                        25 <span style={{ fontSize: "0.85rem", fontWeight: 600 }}>PTS</span>
+                      </div>
+                    )}
                   </div>
 
+                  {/* BOTÓN CLASIFICADOS */}
                   <div
+                    onClick={() => setModalPrediccionAbierto("clasificados")}
                     style={{
                       background: "rgba(255, 255, 255, 0.05)",
                       border: "1px solid rgba(0, 230, 153, 0.3)",
                       borderRadius: 12,
                       padding: "16px",
                       textAlign: "center",
+                      cursor: "pointer",
+                      transition: "transform 0.2s, box-shadow 0.2s",
+                      boxShadow: clasificadosIds.length > 0 ? "0 0 15px rgba(0, 230, 153, 0.2)" : "none",
+                    }}
+                    onMouseOver={(e) => {
+                      e.currentTarget.style.transform = "scale(1.02)";
+                      e.currentTarget.style.background = "rgba(0, 230, 153, 0.1)";
+                    }}
+                    onMouseOut={(e) => {
+                      e.currentTarget.style.transform = "none";
+                      e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
                     }}
                   >
                     <div style={{ fontSize: "2rem", marginBottom: 4 }}>👥</div>
                     <div style={{ fontWeight: 700, fontSize: "0.95rem", color: "#ffffff" }}>Clasificados Cuadrangulares</div>
                     <div style={{ fontSize: "0.75rem", color: "var(--graderia)" }}>(por equipo acertado)</div>
-                    <div style={{ fontSize: "1.8rem", fontWeight: 900, color: "var(--cancha)", marginTop: 2 }}>
-                      20 <span style={{ fontSize: "0.85rem", fontWeight: 600 }}>PTS</span>
-                    </div>
+                    
+                    {clasificadosIds.length > 0 ? (
+                      <div style={{ marginTop: 10, background: clasificadosIds.length === 8 ? "rgba(16, 185, 129, 0.2)" : "rgba(255, 255, 255, 0.1)", padding: "6px", borderRadius: 8, color: clasificadosIds.length === 8 ? "var(--cancha)" : "#fff", fontWeight: 800 }}>
+                        {clasificadosIds.length} / 8 Seleccionados
+                      </div>
+                    ) : (
+                      <div style={{ fontSize: "1.8rem", fontWeight: 900, color: "var(--cancha)", marginTop: 2 }}>
+                        20 <span style={{ fontSize: "0.85rem", fontWeight: 600 }}>PTS</span>
+                      </div>
+                    )}
                   </div>
 
+                  {/* BOTÓN GOLEADOR */}
                   <div
+                    onClick={() => setModalPrediccionAbierto("goleador")}
                     style={{
                       background: "rgba(255, 255, 255, 0.05)",
                       border: "1px solid rgba(255, 92, 92, 0.3)",
                       borderRadius: 12,
                       padding: "16px",
                       textAlign: "center",
+                      cursor: "pointer",
+                      transition: "transform 0.2s, box-shadow 0.2s",
+                      boxShadow: goleadorTorneoId ? "0 0 15px rgba(255, 92, 92, 0.2)" : "none",
+                    }}
+                    onMouseOver={(e) => {
+                      e.currentTarget.style.transform = "scale(1.02)";
+                      e.currentTarget.style.background = "rgba(255, 92, 92, 0.1)";
+                    }}
+                    onMouseOut={(e) => {
+                      e.currentTarget.style.transform = "none";
+                      e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
                     }}
                   >
                     <div style={{ fontSize: "2rem", marginBottom: 4 }}>👟</div>
                     <div style={{ fontWeight: 700, fontSize: "0.95rem", color: "#ffffff" }}>Goleador del Torneo</div>
-                    <div style={{ fontSize: "1.8rem", fontWeight: 900, color: "var(--cancha)", marginTop: 6 }}>
-                      15 <span style={{ fontSize: "0.85rem", fontWeight: 600 }}>PTS</span>
+                    
+                    {goleadorTorneoId ? (
+                      <div style={{ marginTop: 10, background: "rgba(239, 68, 68, 0.15)", padding: "6px", borderRadius: 8, color: "#f87171", fontWeight: 800 }}>
+                        {jugadores.find(j => j.id === goleadorTorneoId)?.nombre}
+                      </div>
+                    ) : (
+                      <div style={{ fontSize: "1.8rem", fontWeight: 900, color: "var(--cancha)", marginTop: 6 }}>
+                        15 <span style={{ fontSize: "0.85rem", fontWeight: 600 }}>PTS</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* VENTANAS FLOTANTES (MODALS) PARA PREDICCIONES */}
+              {modalPrediccionAbierto && (
+                <div style={{
+                  position: "fixed", top: 0, left: 0, width: "100%", height: "100%",
+                  background: "rgba(0,0,0,0.8)", backdropFilter: "blur(4px)",
+                  display: "flex", justifyContent: "center", alignItems: "center",
+                  zIndex: 9999, padding: 20
+                }}>
+                  <div style={{
+                    background: "#0f172a", border: "1px solid var(--borde)", borderRadius: 16,
+                    width: "100%", maxWidth: 500, overflow: "hidden", boxShadow: "0 25px 50px -12px rgba(0,0,0,0.5)"
+                  }}>
+                    {/* Header del Modal */}
+                    <div style={{ padding: "20px 24px", background: "rgba(255,255,255,0.02)", borderBottom: "1px solid var(--borde)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                      <h3 style={{ margin: 0, color: "#fff", fontSize: "1.2rem", fontWeight: 800 }}>
+                        {modalPrediccionAbierto === "campeon" && "🏆 Elegir Campeón"}
+                        {modalPrediccionAbierto === "finalistas" && "🥇 Elegir Finalistas"}
+                        {modalPrediccionAbierto === "clasificados" && "👥 Elegir Clasificados"}
+                        {modalPrediccionAbierto === "goleador" && "👟 Elegir Goleador"}
+                      </h3>
+                      <button onClick={() => setModalPrediccionAbierto(null)} style={{ background: "transparent", border: "none", color: "#94a3b8", cursor: "pointer", padding: 4 }}>
+                        <X size={24} />
+                      </button>
+                    </div>
+
+                    {/* Contenido del Modal */}
+                    <div style={{ padding: "24px", maxHeight: "60vh", overflowY: "auto" }}>
+                      {modalPrediccionAbierto === "campeon" && (
+                        <div>
+                          <p style={{ color: "var(--graderia)", marginBottom: 16, fontSize: "0.9rem" }}>Selecciona al equipo que crees que ganará el campeonato (30 Pts).</p>
+                          <select className="input" value={campeonId} onChange={(e) => setCampeonId(e.target.value ? Number(e.target.value) : "")}>
+                            <option value="">-- Seleccionar Campeón --</option>
+                            {equipos.map(eq => <option key={eq.id} value={eq.id}>{eq.nombre}</option>)}
+                          </select>
+                        </div>
+                      )}
+
+                      {modalPrediccionAbierto === "finalistas" && (
+                        <div>
+                          <p style={{ color: "var(--graderia)", marginBottom: 16, fontSize: "0.9rem" }}>Selecciona a los 2 equipos que llegarán a la gran final (25 Pts c/u).</p>
+                          <label style={{ display: "block", marginBottom: 8, fontWeight: 600, color: "#cbd5e1" }}>Finalista 1</label>
+                          <select className="input" style={{ marginBottom: 20 }} value={finalista1Id} onChange={(e) => setFinalista1Id(e.target.value ? Number(e.target.value) : "")}>
+                            <option value="">-- Seleccionar Finalista 1 --</option>
+                            {equipos.map(eq => <option key={eq.id} value={eq.id}>{eq.nombre}</option>)}
+                          </select>
+                          
+                          <label style={{ display: "block", marginBottom: 8, fontWeight: 600, color: "#cbd5e1" }}>Finalista 2</label>
+                          <select className="input" value={finalista2Id} onChange={(e) => setFinalista2Id(e.target.value ? Number(e.target.value) : "")}>
+                            <option value="">-- Seleccionar Finalista 2 --</option>
+                            {equipos.map(eq => <option key={eq.id} value={eq.id}>{eq.nombre}</option>)}
+                          </select>
+                        </div>
+                      )}
+
+                      {modalPrediccionAbierto === "clasificados" && (
+                        <div>
+                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+                            <p style={{ color: "var(--graderia)", margin: 0, fontSize: "0.9rem", flex: 1 }}>Selecciona los 8 equipos que avanzarán a cuadrangulares (20 Pts c/u).</p>
+                            <span className={`badge ${clasificadosIds.length === 8 ? "badge-cancha" : "badge-trofeo"}`}>{clasificadosIds.length} / 8</span>
+                          </div>
+                          <div className="grid-clasificados" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))", gap: 10 }}>
+                            {equipos.map(eq => {
+                              const seleccionado = clasificadosIds.includes(eq.id);
+                              return (
+                                <div key={eq.id} onClick={() => toggleClasificado(eq.id)} style={{
+                                  padding: "8px 10px", borderRadius: 8, cursor: "pointer", display: "flex", alignItems: "center", gap: 8, fontSize: "0.8rem", fontWeight: 600,
+                                  border: `1px solid ${seleccionado ? "var(--cancha)" : "var(--linea)"}`, background: seleccionado ? "var(--cancha-suave)" : "var(--noche-2)",
+                                }}>
+                                  <img src={eq.escudo_url || "https://placehold.co/30x30/1e3145/ffffff?text=FPC"} alt={eq.nombre} style={{ width: 22, height: 22, objectFit: "contain" }} />
+                                  <span style={{ flex: 1, textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap" }}>{eq.nombre}</span>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      )}
+
+                      {modalPrediccionAbierto === "goleador" && (
+                        <div>
+                          <p style={{ color: "var(--graderia)", marginBottom: 16, fontSize: "0.9rem" }}>Selecciona al jugador que terminará como máximo anotador (15 Pts).</p>
+                          <select className="input" value={goleadorTorneoId} onChange={(e) => setGoleadorTorneoId(e.target.value ? Number(e.target.value) : "")}>
+                            <option value="">-- Seleccionar Goleador --</option>
+                            {Object.entries(
+                              jugadores.reduce((acc: { [key: string]: Jugador[] }, j) => {
+                                const eq = j.equipo?.nombre || "Otros / Sin Equipo";
+                                if (!acc[eq]) acc[eq] = [];
+                                acc[eq].push(j);
+                                return acc;
+                              }, {})
+                            ).map(([equipoNombre, jugList]) => (
+                              <optgroup key={equipoNombre} label={equipoNombre}>
+                                {jugList.map(j => <option key={j.id} value={j.id}>{j.nombre}</option>)}
+                              </optgroup>
+                            ))}
+                          </select>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Footer del Modal */}
+                    <div style={{ padding: "16px 24px", background: "rgba(0,0,0,0.2)", borderTop: "1px solid var(--borde)", textAlign: "right" }}>
+                      <button className="btn btn-primary" onClick={() => setModalPrediccionAbierto(null)} style={{ padding: "10px 24px", borderRadius: 8, fontWeight: 700 }}>
+                        Hecho
+                      </button>
                     </div>
                   </div>
                 </div>
-              </div>
-
-              {/* CONTROLES DE PREDICCIÓN TORNEO */}
-              {/* BLOQUE 1: CAMPEÓN Y FINALISTAS */}
-              <div className="card">
-                <div className="card-header">
-                  <h2 style={{ color: "#ffffff" }}>🏆 1. Campeón y Finalistas (30 Pts Campeón / 25 Pts Finalista)</h2>
-                  <p style={{ color: "var(--graderia)", margin: 0, fontSize: "0.85rem" }}>
-                    Selecciona al equipo campeón y a los 2 finalistas oficiales del campeonato.
-                  </p>
-                </div>
-
-                <div className="grid-iniciales" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 16 }}>
-                  <div>
-                    <label style={{ display: "block", fontWeight: 700, marginBottom: 8, color: "#f5b000" }}>
-                      🥇 Equipo Campeón (30 Pts)
-                    </label>
-                    <select
-                      className="input"
-                      value={campeonId}
-                      onChange={(e) => setCampeonId(e.target.value ? Number(e.target.value) : "")}
-                    >
-                      <option value="">-- Seleccionar Campeón --</option>
-                      {equipos.map((eq) => (
-                        <option key={eq.id} value={eq.id}>
-                          {eq.nombre}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div>
-                    <label style={{ display: "block", fontWeight: 700, marginBottom: 8, color: "#cbd5e1" }}>
-                      🥈 Finalista 1 (25 Pts)
-                    </label>
-                    <select
-                      className="input"
-                      value={finalista1Id}
-                      onChange={(e) => setFinalista1Id(e.target.value ? Number(e.target.value) : "")}
-                    >
-                      <option value="">-- Seleccionar Finalista --</option>
-                      {equipos.map((eq) => (
-                        <option key={eq.id} value={eq.id}>
-                          {eq.nombre}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div>
-                    <label style={{ display: "block", fontWeight: 700, marginBottom: 8, color: "#cbd5e1" }}>
-                      🥈 Finalista 2 (25 Pts)
-                    </label>
-                    <select
-                      className="input"
-                      value={finalista2Id}
-                      onChange={(e) => setFinalista2Id(e.target.value ? Number(e.target.value) : "")}
-                    >
-                      <option value="">-- Seleccionar Finalista --</option>
-                      {equipos.map((eq) => (
-                        <option key={eq.id} value={eq.id}>
-                          {eq.nombre}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              {/* BLOQUE 2: GOLEADOR DEL TORNEO */}
-              <div className="card">
-                <div className="card-header">
-                  <h2 style={{ color: "#ffffff" }}>👟 2. Goleador del Torneo (15 Pts)</h2>
-                  <p style={{ color: "var(--graderia)", margin: 0, fontSize: "0.85rem" }}>
-                    Selecciona al jugador que terminará como máximo anotador del campeonato.
-                  </p>
-                </div>
-
-                <div style={{ maxWidth: 450 }}>
-                  <label style={{ display: "block", fontWeight: 700, marginBottom: 8, color: "var(--cancha)" }}>
-                    ⚽ Máximo Goleador Predicho
-                  </label>
-                  <select
-                    className="input"
-                    value={goleadorTorneoId}
-                    onChange={(e) => setGoleadorTorneoId(e.target.value ? Number(e.target.value) : "")}
-                  >
-                    <option value="">-- Seleccionar Goleador del Torneo --</option>
-                    {Object.entries(
-                      jugadores.reduce((acc: { [key: string]: Jugador[] }, j) => {
-                        const eq = j.equipo?.nombre || "Otros / Sin Equipo";
-                        if (!acc[eq]) acc[eq] = [];
-                        acc[eq].push(j);
-                        return acc;
-                      }, {})
-                    ).map(([equipoNombre, jugList]) => (
-                      <optgroup key={equipoNombre} label={equipoNombre}>
-                        {jugList.map((j) => (
-                          <option key={j.id} value={j.id}>
-                            {j.nombre}
-                          </option>
-                        ))}
-                      </optgroup>
-                    ))}
-                  </select>
-                </div>
-              </div>
-
-              {/* BLOQUE 3: 8 CLASIFICADOS A CUADRANGULARES */}
-              <div className="card">
-                <div className="card-header" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 10 }}>
-                  <div>
-                    <h2 style={{ color: "#ffffff" }}>⚡ 3. Equipos Clasificados a Cuadrangulares (20 Pts c/u)</h2>
-                    <p style={{ color: "var(--graderia)", margin: 0, fontSize: "0.85rem" }}>
-                      Selecciona los 8 equipos que avanzarán a fase semifinal.
-                    </p>
-                  </div>
-                  <span className={`badge ${clasificadosIds.length === 8 ? "badge-cancha" : "badge-trofeo"}`}>
-                    {clasificadosIds.length} / 8 Seleccionados
-                  </span>
-                </div>
-
-                <div className="grid-clasificados" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: 10, marginTop: 16 }}>
-                  {equipos.map((eq) => {
-                    const seleccionado = clasificadosIds.includes(eq.id);
-                    return (
-                      <div
-                        key={eq.id}
-                        className={`item-clasificado ${seleccionado ? "selected" : ""}`}
-                        onClick={() => toggleClasificado(eq.id)}
-                        style={{
-                          padding: "10px 12px",
-                          borderRadius: 8,
-                          cursor: "pointer",
-                          border: `1px solid ${seleccionado ? "var(--cancha)" : "var(--linea)"}`,
-                          background: seleccionado ? "var(--cancha-suave)" : "var(--noche-2)",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: 10,
-                          fontSize: "0.85rem",
-                          fontWeight: 600,
-                        }}
-                      >
-                        <img
-                          src={eq.escudo_url || "https://placehold.co/30x30/1e3145/ffffff?text=FPC"}
-                          alt={eq.nombre}
-                          style={{ width: 26, height: 26, objectFit: "contain", flexShrink: 0 }}
-                        />
-                        <span style={{ flex: 1, textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap" }}>
-                          {eq.nombre}
-                        </span>
-                        {seleccionado && <span style={{ color: "var(--cancha)", fontWeight: 900 }}>✓</span>}
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
+              )}
 
               {/* BOTÓN GUARDAR PREDICCIONES DEL TORNEO (PARTICIPANTE) */}
               <div style={{ marginTop: 8, marginBottom: 16, textAlign: "center" }}>
@@ -4424,252 +4519,212 @@ function ExpressPageContent() {
             </div>
           )}
 
-          {/* TAB 3: MIS PRONÓSTICOS & TABLA DE PRONÓSTICOS PÚBLICOS */}
+          {/* TAB 3: MIS PRONÓSTICOS & TUS PUNTUACIONES */}
           {tabActiva === "mis_pronosticos" && (
             <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-              {/* RESUMEN DE MIS PRONÓSTICOS REGISTRADOS */}
-              <div className="card" style={{ background: "linear-gradient(135deg, #0b1e36 0%, #17375e 100%)", border: "1px solid #1e3a8a" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
-                  <List size={28} style={{ color: "#38bdf8" }} />
-                  <div>
-                    <h2 style={{ margin: 0, color: "#ffffff", fontSize: "1.3rem" }}>Mis Pronósticos Registrados</h2>
-                    <span style={{ color: "#94a3b8", fontSize: "0.85rem" }}>
-                      Resumen personal de tus selecciones guardadas para la Polla BetPlay.
-                    </span>
-                  </div>
-                </div>
+              {/* DESGLOSE OFICIAL DE TUS PUNTUACIONES DESDE LA BD CON ACCORDION INTERACTIVO */}
+              {(() => {
+                const miFila = consolidados?.tablaPosiciones?.find((f: any) => f.correo?.toLowerCase() === (usuario.correo || "").toLowerCase());
+                const misPuntajes = (consolidados as any)?.puntajes?.filter((p: any) => p.usuario_id === usuario.id) || [];
+                const misPredicciones = consolidados?.prediccionesPartidos?.filter((p: any) => p.usuario_id === usuario.id) || [];
 
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 14 }}>
-                  <div style={{ background: "rgba(255,255,255,0.05)", padding: 12, borderRadius: 8 }}>
-                    <div style={{ fontSize: "0.75rem", color: "#f5b000", fontWeight: 700 }}>🏆 Campeón:</div>
-                    <div style={{ fontWeight: 800, color: "#ffffff", fontSize: "0.95rem" }}>
-                      {equipos.find((e) => e.id === Number(campeonId))?.nombre || "Sin definir"}
-                    </div>
-                  </div>
+                return (
+                  <div
+                    className="card"
+                    style={{
+                      position: "relative",
+                      background: "linear-gradient(135deg, rgba(16, 42, 33, 0.95) 0%, rgba(14, 26, 39, 0.95) 100%)",
+                      border: "none",
+                      borderRadius: 16,
+                      padding: 24,
+                      boxShadow: "0 10px 30px rgba(0,0,0,0.4)",
+                      overflow: "hidden"
+                    }}
+                  >
+                    {/* MARCA DE AGUA CLUB 90 */}
+                    <div
+                      style={{
+                        position: "absolute",
+                        right: -10,
+                        bottom: -10,
+                        width: 180,
+                        height: 180,
+                        backgroundImage: "url('/marca/logo-club90-escudo-transparente.webp')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "center",
+                        opacity: 0.05,
+                        pointerEvents: "none",
+                        zIndex: 0,
+                      }}
+                    />
 
-                  <div style={{ background: "rgba(255,255,255,0.05)", padding: 12, borderRadius: 8 }}>
-                    <div style={{ fontSize: "0.75rem", color: "#cbd5e1", fontWeight: 700 }}>🥈 Finalistas:</div>
-                    <div style={{ fontWeight: 800, color: "#ffffff", fontSize: "0.95rem" }}>
-                      {[
-                        equipos.find((e) => e.id === Number(finalista1Id))?.nombre,
-                        equipos.find((e) => e.id === Number(finalista2Id))?.nombre,
-                      ].filter(Boolean).join(" y ") || "Sin definir"}
-                    </div>
-                  </div>
-
-                  <div style={{ background: "rgba(255,255,255,0.05)", padding: 12, borderRadius: 8 }}>
-                    <div style={{ fontSize: "0.75rem", color: "#38bdf8", fontWeight: 700 }}>👟 Goleador Torneo:</div>
-                    <div style={{ fontWeight: 800, color: "#ffffff", fontSize: "0.95rem" }}>
-                      {jugadores.find((j) => j.id === Number(goleadorTorneoId))?.nombre || "Sin definir"}
-                    </div>
-                  </div>
-
-                  <div style={{ background: "rgba(255,255,255,0.05)", padding: 12, borderRadius: 8 }}>
-                    <div style={{ fontSize: "0.75rem", color: "#34d399", fontWeight: 700 }}>⚡ Clasificados (8):</div>
-                    <div style={{ fontWeight: 700, color: "#ffffff", fontSize: "0.85rem" }}>
-                      {clasificadosIds.map((id) => equipos.find((e) => e.id === id)?.nombre).filter(Boolean).join(", ") || "Sin seleccionar"}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* SECCIÓN PRONÓSTICOS PÚBLICOS DE TODOS LOS PARTICIPANTES */}
-              <div className="card">
-                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16, flexWrap: "wrap", justifyContent: "space-between" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                    <Eye size={24} style={{ color: "#34d399" }} />
-                    <div>
-                      <h2 style={{ margin: 0, fontSize: "1.2rem" }}>Tabla de Pronósticos</h2>
-                      <p style={{ color: "var(--graderia)", margin: 0, fontSize: "0.85rem" }}>
-                        Los pronósticos de todos los participantes se liberan públicamente <strong>30 MINUTOS ANTES</strong> del inicio de cada partido.
-                      </p>
-                    </div>
-                  </div>
-                  <div>
-                    <button
-                      className="btn btn-secondary"
-                      onClick={() => handleDescargarExcelPronosticos(undefined, fechaParticipante)}
-                      style={{ display: "flex", alignItems: "center", gap: 8, padding: "8px 14px", fontSize: "0.85rem" }}
-                    >
-                      <Download size={18} /> Descargar Todos los Pronósticos
-                    </button>
-                  </div>
-                </div>
-
-                {(() => {
-                  const esPartidoCerrado = (partido: any) => {
-                    const esFinalizado = esPartidoFinalizadoReal(partido, partidosEnVivo);
-                    const horaCierre = new Date(new Date(partido.fecha_hora_partido).getTime() - 30 * 60 * 1000);
-                    return esFinalizado || (new Date() >= horaCierre);
-                  };
-
-                  const partidosPublicosFiltrados = partidos.filter((p) => {
-                    if (p.estado === "aplazado") return false;
-                    if (p.jornada === fechaParticipante) return true;
-                    if (p.jornada < fechaParticipante && p.estado === "programado") return true;
-                    return false;
-                  });
-
-                  const partidosActivosPublicos = partidosPublicosFiltrados
-                    .filter((p) => !esPartidoCerrado(p))
-                    .sort((a, b) => new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime());
-
-                  const partidosCerradosPublicos = partidosPublicosFiltrados
-                    .filter((p) => esPartidoCerrado(p))
-                    .sort((a, b) => new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime());
-
-                  const renderTablaPronosticoPartido = (partido: any) => {
-                    const horaCierre = new Date(new Date(partido.fecha_hora_partido).getTime() - 30 * 60 * 1000);
-                    const estaCerrado = new Date() >= horaCierre || usuario?.rol_id === 2;
-
-                    const pronosticosDeEstePartido = consolidados?.prediccionesPartidos?.filter(
-                      (p: any) => p.partido_id === partido.id
-                    ) || [];
-
-                    const estaDesplegadoTabla = pronosticosTablasDesplegadas[partido.id] ?? false;
-
-                    return (
-                      <div
-                        key={partido.id}
-                        style={{
-                          marginBottom: 16,
-                          border: "1px solid var(--linea)",
-                          borderRadius: 10,
-                          padding: 16,
-                          background: "var(--noche-2)",
-                        }}
-                      >
-                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: estaDesplegadoTabla ? 12 : 0, flexWrap: "wrap", gap: 8 }}>
-                          <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
-                            <strong style={{ fontSize: "1rem", color: "#ffffff", display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
-                              <span>⚽ {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}</span>
-                              {(partido.jornada !== fechaParticipante || partido.estado === "aplazado") && (
-                                <span style={{ background: "rgba(245, 158, 11, 0.25)", color: "#fef08a", border: "1px solid rgba(245, 158, 11, 0.5)", padding: "2px 8px", borderRadius: 12, fontSize: "0.72rem", fontWeight: 800 }}>
-                                  ⚠️ Aplazado (Fecha {partido.jornada})
-                                </span>
-                              )}
-                            </strong>
-                            <span style={{ fontSize: "0.72rem", color: "var(--graderia)", fontWeight: 700 }}>
-                              🕒 {formatearFechaPartido(partido.fecha_hora_partido)} · {formatearHoraPartido(partido.fecha_hora_partido)}
-                              {partido.estadio ? ` · 🏟️ ${partido.estadio}` : ""}
-                            </span>
-                            {estaCerrado && pronosticosDeEstePartido.length > 0 && (
-                              <span style={{ background: "rgba(16, 185, 129, 0.15)", color: "#34d399", border: "1px solid rgba(16, 185, 129, 0.3)", padding: "2px 8px", borderRadius: 12, fontSize: "0.75rem", fontWeight: 700 }}>
-                                👥 {pronosticosDeEstePartido.length} Pronóstico{pronosticosDeEstePartido.length > 1 ? "s" : ""}
-                              </span>
-                            )}
+                    <div style={{ position: "relative", zIndex: 1 }}>
+                      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16, marginBottom: 20 }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                          <div style={{ width: 44, height: 44, borderRadius: 12, background: "linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff" }}>
+                            <Trophy size={24} />
                           </div>
-
-                          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                            <RelojCuentaRegresiva fechaHoraPartido={partido.fecha_hora_partido} estado={partido.estado} />
-
-                            <button
-                              type="button"
-                              onClick={() => setPronosticosTablasDesplegadas(prev => ({ ...prev, [partido.id]: !estaDesplegadoTabla }))}
-                              style={{
-                                background: estaDesplegadoTabla ? "rgba(56, 189, 248, 0.25)" : "rgba(255, 255, 255, 0.08)",
-                                border: estaDesplegadoTabla ? "1px solid #38bdf8" : "1px solid var(--linea)",
-                                color: estaDesplegadoTabla ? "#38bdf8" : "#ffffff",
-                                padding: "6px 14px",
-                                borderRadius: 8,
-                                fontSize: "0.8rem",
-                                fontWeight: 800,
-                                cursor: "pointer",
-                                display: "inline-flex",
-                                alignItems: "center",
-                                gap: 6,
-                                transition: "all 0.15s ease",
-                              }}
-                            >
-                              <span>{estaDesplegadoTabla ? "▲ Cerrar Pronósticos" : "▼ Ver Pronósticos"}</span>
-                            </button>
+                          <div>
+                            <h2 style={{ margin: 0, color: "#ffffff", fontSize: "1.3rem", fontWeight: 900 }}>Tus Puntuaciones y Aciertos</h2>
+                            <span style={{ color: "var(--graderia)", fontSize: "0.85rem" }}>
+                              Haz clic en cualquier categoría para desplegar la lista de aciertos
+                            </span>
                           </div>
                         </div>
 
-                        {estaDesplegadoTabla && (
-                          <div style={{ marginTop: 12, paddingTop: 12, borderTop: "1px dashed var(--linea)" }}>
-                            {estaCerrado ? (
-                              pronosticosDeEstePartido.length > 0 ? (
-                                <div style={{ overflowX: "auto" }}>
-                                  <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.85rem", textAlign: "left" }}>
-                                    <thead>
-                                      <tr style={{ borderBottom: "1px solid var(--linea)", color: "var(--graderia)" }}>
-                                        <th style={{ padding: "8px" }}>Participante</th>
-                                        <th style={{ padding: "8px", textAlign: "center" }}>Marcador Exacto</th>
-                                        <th style={{ padding: "8px", textAlign: "center" }}>Ganador Predicho</th>
-                                        <th style={{ padding: "8px" }}>Goleador Predicho</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      {pronosticosDeEstePartido.map((p: any) => (
-                                        <tr key={p.id} style={{ borderBottom: "1px dashed rgba(255,255,255,0.1)" }}>
-                                          <td style={{ padding: "8px", fontWeight: 700, color: "#ffffff" }}>
-                                            {p.usuario?.nombre_completo || "Participante"}
-                                          </td>
-                                          <td style={{ padding: "8px", textAlign: "center", fontWeight: 800, color: "var(--cancha)" }}>
-                                            {p.goles_local_predicho} - {p.goles_visitante_predicho}
-                                          </td>
-                                          <td style={{ padding: "8px", textAlign: "center" }}>
-                                            {(() => {
-                                              const gL = Number(p.goles_local_predicho);
-                                              const gV = Number(p.goles_visitante_predicho);
-                                              let ganadorTexto = "Empate";
-                                              if (!isNaN(gL) && !isNaN(gV)) {
-                                                if (gL > gV) {
-                                                  ganadorTexto = `Gana ${partido.equipo_local.nombre}`;
-                                                } else if (gV > gL) {
-                                                  ganadorTexto = `Gana ${partido.equipo_visitante.nombre}`;
-                                                }
-                                              }
-                                              return (
-                                                <span className="badge" style={{ background: "rgba(56, 189, 248, 0.15)", color: "#38bdf8", fontWeight: 800 }}>
-                                                  {ganadorTexto}
-                                                </span>
-                                              );
-                                            })()}
-                                          </td>
-                                          <td style={{ padding: "8px", color: "var(--graderia)" }}>
-                                            {obtenerNombreGoleador(p)}
-                                          </td>
-                                        </tr>
-                                      ))}
-                                    </tbody>
-                                  </table>
-                                </div>
-                              ) : (
-                                <div style={{ fontSize: "0.85rem", color: "var(--graderia)", fontStyle: "italic", textAlign: "center", padding: 12 }}>
-                                  Sin pronósticos registrados para este partido.
-                                </div>
-                              )
-                            ) : (
-                              <div style={{ background: "rgba(255,255,255,0.03)", padding: 12, borderRadius: 8, textAlign: "center", color: "#fbbf24", fontSize: "0.85rem", fontWeight: 600 }}>
-                                🔒 Los pronósticos de todos los participantes permanecen ocultos hasta 30 minutos antes del partido.
-                              </div>
-                            )}
+                        {miFila && (
+                          <div style={{ display: "flex", gap: 16, alignItems: "center", background: "rgba(0,0,0,0.3)", padding: "10px 20px", borderRadius: 50 }}>
+                            <div style={{ textAlign: "center" }}>
+                              <span style={{ fontSize: "0.7rem", color: "var(--graderia)", textTransform: "uppercase", fontWeight: 700 }}>Posición</span>
+                              <div style={{ fontSize: "1.2rem", fontWeight: 900, color: "#38bdf8" }}>#{miFila.posicion}</div>
+                            </div>
+                            <div style={{ width: 1, height: 24, background: "rgba(255,255,255,0.1)" }} />
+                            <div style={{ textAlign: "center" }}>
+                              <span style={{ fontSize: "0.7rem", color: "var(--graderia)", textTransform: "uppercase", fontWeight: 700 }}>Puntos Totales</span>
+                              <div style={{ fontSize: "1.2rem", fontWeight: 900, color: "#34d399" }}>{miFila.pts_total} PTS</div>
+                            </div>
                           </div>
                         )}
                       </div>
-                    );
-                  };
 
-                  return (
-                    <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-                      {partidosActivosPublicos.map((partido) => renderTablaPronosticoPartido(partido))}
+                      {/* BOTONES INTERACTIVOS DE RESUMEN POR CATEGORÍA */}
+                      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 12 }}>
+                        {[
+                          { id: "exacto", title: "🎯 MARCADORES EXACTOS (5 PTS)", pts: miFila ? miFila.pts_resultado_exacto : 0, count: miFila ? Math.floor(miFila.pts_resultado_exacto / 5) : 0, color: "#34d399" },
+                          { id: "ganador", title: "⚽ GANADOR PARTIDO (3 PTS)", pts: miFila ? miFila.pts_ganador_partido : 0, count: miFila ? Math.floor(miFila.pts_ganador_partido / 3) : 0, color: "#38bdf8" },
+                          { id: "goleador", title: "👟 GOLEADOR PARTIDO (2 PTS)", pts: miFila ? miFila.pts_goleador_partido : 0, count: miFila ? Math.floor(miFila.pts_goleador_partido / 2) : 0, color: "#f59e0b" },
+                          { id: "torneo", title: "🏆 PUNTOS DE TORNEO", pts: miFila ? (miFila.pts_campeon + miFila.pts_finalistas + miFila.pts_clasificados + miFila.pts_goleador_torneo) : 0, count: null, color: "#f5b000" },
+                        ].map((cat) => (
+                          <button
+                            key={cat.id}
+                            type="button"
+                            onClick={() => setDesgloseAbierto(desgloseAbierto === cat.id ? null : cat.id as any)}
+                            style={{
+                              background: desgloseAbierto === cat.id ? `linear-gradient(135deg, ${cat.color}25 0%, rgba(15,23,42,0.9) 100%)` : "rgba(255,255,255,0.04)",
+                              border: desgloseAbierto === cat.id ? `1px solid ${cat.color}60` : "none",
+                              padding: 16,
+                              borderRadius: 14,
+                              textAlign: "left",
+                              cursor: "pointer",
+                              transition: "all 0.2s ease",
+                              boxShadow: desgloseAbierto === cat.id ? `0 6px 20px ${cat.color}30` : "none",
+                            }}
+                            onMouseOver={(e) => { if (desgloseAbierto !== cat.id) e.currentTarget.style.transform = "translateY(-2px)"; }}
+                            onMouseOut={(e) => { if (desgloseAbierto !== cat.id) e.currentTarget.style.transform = "none"; }}
+                          >
+                            <div style={{ fontSize: "0.75rem", color: cat.color, fontWeight: 800, textTransform: "uppercase", marginBottom: 6, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                              <span>{cat.title}</span>
+                              <span style={{ fontSize: "0.7rem", opacity: 0.8 }}>{desgloseAbierto === cat.id ? "▲ CERRAR" : "▼ VER MÁS"}</span>
+                            </div>
+                            <div style={{ fontSize: "1.4rem", fontWeight: 900, color: "#fff" }}>
+                              {cat.pts} <span style={{ fontSize: "0.75rem", color: "var(--graderia)", fontWeight: 600 }}>pts {cat.count !== null ? `(${cat.count} aciertos)` : ""}</span>
+                            </div>
+                          </button>
+                        ))}
+                      </div>
 
-                      {partidosCerradosPublicos.length > 0 && (
-                        <>
-                          <div style={{ marginTop: 24, marginBottom: 8, borderTop: "2px dashed var(--linea)", paddingTop: 16 }}>
-                            <h3 style={{ color: "#34d399", fontSize: "1.05rem", display: "flex", alignItems: "center", gap: 8, margin: 0 }}>
-                              🏁 Partidos Cerrados y Finalizados (Pronósticos Revelados)
-                            </h3>
+                      {/* VENTANA DESPLEGABLE CON DETALLES DE ACIERTOS POR CATEGORÍA */}
+                      {desgloseAbierto && (
+                        <div
+                          style={{
+                            marginTop: 16,
+                            padding: 20,
+                            background: "rgba(15, 23, 42, 0.95)",
+                            borderRadius: 14,
+                            border: "1px solid rgba(255,255,255,0.08)",
+                            boxShadow: "0 8px 24px rgba(0,0,0,0.5)",
+                            animation: "slideDownText 0.3s ease forwards"
+                          }}
+                        >
+                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
+                            <h4 style={{ margin: 0, color: "#fff", fontSize: "1rem", fontWeight: 800, display: "flex", alignItems: "center", gap: 8 }}>
+                              <CheckCircle2 size={18} style={{ color: "#34d399" }} />
+                              {desgloseAbierto === "exacto" && "Marcadores Exactos Acertados (5 Pts c/u)"}
+                              {desgloseAbierto === "ganador" && "Ganadores de Partido Acertados (3 Pts c/u)"}
+                              {desgloseAbierto === "goleador" && "Goleadores de Partido Acertados (2 Pts c/u)"}
+                              {desgloseAbierto === "torneo" && "Puntos por Predicciones del Torneo"}
+                            </h4>
+                            <button
+                              onClick={() => setDesgloseAbierto(null)}
+                              style={{ background: "none", border: "none", color: "var(--graderia)", cursor: "pointer", fontWeight: 800, fontSize: "0.8rem" }}
+                            >
+                              ✕ Cerrar
+                            </button>
                           </div>
-                          {partidosCerradosPublicos.map((partido) => renderTablaPronosticoPartido(partido))}
-                        </>
+
+                          {/* LISTADO DE PARTIDOS ACIERTOS */}
+                          {(() => {
+                            const filtrados = partidos.filter((partido) => {
+                              if (!partido.resultado_oficial) return false;
+                              const miPred = misPredicciones.find((p: any) => p.partido_id === partido.id);
+                              if (!miPred) return false;
+
+                              if (desgloseAbierto === "exacto") {
+                                return miPred.goles_local === partido.resultado_oficial.goles_local && miPred.goles_visitante === partido.resultado_oficial.goles_visitante;
+                              }
+                              if (desgloseAbierto === "ganador") {
+                                const miGanador = miPred.goles_local > miPred.goles_visitante ? "local" : miPred.goles_local < miPred.goles_visitante ? "visitante" : "empate";
+                                const ganOficial = partido.resultado_oficial.goles_local > partido.resultado_oficial.goles_visitante ? "local" : partido.resultado_oficial.goles_local < partido.resultado_oficial.goles_visitante ? "visitante" : "empate";
+                                return miGanador === ganOficial;
+                              }
+                              if (desgloseAbierto === "goleador") {
+                                const goleadoresOficialesIds = partido.resultado_oficial.goleadores?.map((g: any) => g.jugador_id) || [];
+                                return miPred.goleador_id && goleadoresOficialesIds.includes(miPred.goleador_id);
+                              }
+                              return false;
+                            });
+
+                            if (desgloseAbierto === "torneo") {
+                              return (
+                                <div style={{ fontSize: "0.88rem", color: "var(--graderia)" }}>
+                                  Los puntos de Campeón, Finalistas y Clasificados se otorgan una vez finalice la fase regular del torneo.
+                                </div>
+                              );
+                            }
+
+                            if (filtrados.length === 0) {
+                              return (
+                                <div style={{ fontSize: "0.88rem", color: "var(--graderia)", padding: "12px 0" }}>
+                                  Aún no registradores aciertos liquidados en esta categoría.
+                                </div>
+                              );
+                            }
+
+                            return (
+                              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 10 }}>
+                                {filtrados.map((partido) => {
+                                  const miPred = misPredicciones.find((p: any) => p.partido_id === partido.id);
+                                  return (
+                                    <div
+                                      key={partido.id}
+                                      style={{
+                                        background: "rgba(255,255,255,0.03)",
+                                        padding: 12,
+                                        borderRadius: 10,
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        gap: 4
+                                      }}
+                                    >
+                                      <div style={{ fontSize: "0.82rem", fontWeight: 800, color: "#fff" }}>
+                                        {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}
+                                      </div>
+                                      <div style={{ fontSize: "0.78rem", color: "#34d399", fontWeight: 700 }}>
+                                        Tu pronóstico: {miPred.goles_local} - {miPred.goles_visitante} | Resultado Oficial: {partido.resultado_oficial.goles_local} - {partido.resultado_oficial.goles_visitante}
+                                      </div>
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            );
+                          })()}
+                        </div>
                       )}
                     </div>
-                  );
-                })()}
-              </div>
+                  </div>
+                );
+              })()}
             </div>
           )}
 
@@ -4962,6 +5017,9 @@ function ExpressPageContent() {
 
         </div>
       )}
+
+      {/* MODAL DE TRIVIA */}
+      {mostrarTrivia && <TriviaModal onClose={() => setMostrarTrivia(false)} />}
     </div>
   );
 }

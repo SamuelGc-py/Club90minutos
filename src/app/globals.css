@@ -15,12 +15,13 @@
   color-scheme: dark;
 
   /* Superficies */
-  --noche: #0b1520;
-  --noche-2: #0e1a27;
-  --tribuna: #132030;
-  --tribuna-2: #182a3e;
-  --linea: #1e3145;
-  --linea-fuerte: #2a4258;
+  --noche: #0f172a;
+  --noche-2: #1e293b;
+  --tribuna: #1e293b;
+  --tribuna-2: #334155;
+  --linea: transparent;
+  --linea-fuerte: transparent;
+  --cancha-borde: transparent;
 
   /* Texto */
 
@@ -110,6 +111,24 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #38bdf8;
+}
+
+/* Scrollbar elegante y fino para el sidebar */
+.sidebar-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background: rgba(16, 185, 129, 0.2);
+  border-radius: 10px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(16, 185, 129, 0.5);
 }
 
 body {

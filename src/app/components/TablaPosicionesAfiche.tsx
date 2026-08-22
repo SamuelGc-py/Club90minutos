@@ -202,23 +202,28 @@ export default function TablaPosicionesAfiche({
           }}
         >
           {/* LOGO CLUB 90 MINUTOS A LA IZQUIERDA */}
-          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+          <div style={{ display: "flex", alignItems: "center" }}>
             <div
               style={{
-                width: 80,
-                height: 80,
+                width: 68,
+                height: 68,
                 borderRadius: "50%",
-                background: "#ffffff",
+                background: "#0b1e36",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 boxShadow: "0 4px 15px rgba(0, 0, 0, 0.4)",
                 border: "3px solid #f5b000",
                 flexShrink: 0,
-                overflow: "hidden"
+                overflow: "hidden",
+                marginTop: 2,
               }}
             >
-              <img src="/logo_principal_recortado.webp" alt="Club 90 Minutos" style={{ width: "85%", height: "85%", objectFit: "contain" }} />
+              <img
+                src="/marca/logo-club90-circular-transparente.webp"
+                alt="Club 90 Minutos"
+                style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%" }}
+              />
             </div>
           </div>
 
@@ -254,7 +259,7 @@ export default function TablaPosicionesAfiche({
               POLLA
             </div>
           </div>
-          
+
           {/* LIGA BETPLAY A LA DERECHA */}
           <div style={{ display: "flex", alignItems: "center" }}>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", background: "rgba(255,255,255,0.1)", padding: "10px 20px", borderRadius: "12px", border: "1px solid rgba(255,255,255,0.2)", boxShadow: "0 4px 10px rgba(0,0,0,0.3)" }}>
@@ -358,7 +363,7 @@ export default function TablaPosicionesAfiche({
                       border: "2px solid #60a5fa"
                     }}
                   >
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
                   </div>
                   Jugador
                 </th>
@@ -416,7 +421,7 @@ export default function TablaPosicionesAfiche({
                       border: "2px solid #60a5fa"
                     }}
                   >
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#cbd5e1" stroke="#cbd5e1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#cbd5e1" stroke="#cbd5e1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="7" /><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" /></svg>
                   </div>
                   Finalistas
                 </th>
@@ -445,9 +450,9 @@ export default function TablaPosicionesAfiche({
                       border: "2px solid #60a5fa"
                     }}
                   >
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#f5b000"/></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#f5b000" /></svg>
                   </div>
-                  Goleador<br/>del Torneo
+                  Goleador<br />del Torneo
                 </th>
 
                 {/* 8 CLASIFICADOS */}
@@ -474,7 +479,7 @@ export default function TablaPosicionesAfiche({
                       border: "2px solid #60a5fa"
                     }}
                   >
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>
                   </div>
                   8 Clasificados
                 </th>
@@ -505,7 +510,7 @@ export default function TablaPosicionesAfiche({
                   >
                     <div style={{ background: "#000", border: "1px solid #fff", borderRadius: 4, padding: "2px 4px", fontWeight: 900, fontSize: "0.75rem" }}>2-1</div>
                   </div>
-                  Resultados<br/>Correctos
+                  Resultados<br />Correctos
                 </th>
 
                 {/* GANADOR PARTIDO */}
@@ -532,9 +537,9 @@ export default function TablaPosicionesAfiche({
                       border: "2px solid #60a5fa"
                     }}
                   >
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
                   </div>
-                  Ganador<br/>Partido
+                  Ganador<br />Partido
                 </th>
 
                 {/* GOLEADORES */}
@@ -561,7 +566,7 @@ export default function TablaPosicionesAfiche({
                       border: "2px solid #60a5fa"
                     }}
                   >
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="12 4 15 9 20 10 16 14 17 20 12 17 7 20 8 14 4 10 9 9 12 4"/></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><polygon points="12 4 15 9 20 10 16 14 17 20 12 17 7 20 8 14 4 10 9 9 12 4" /></svg>
                   </div>
                   Goleadores
                 </th>
@@ -590,9 +595,9 @@ export default function TablaPosicionesAfiche({
                       color: "#000",
                     }}
                   >
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#000" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#000" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" /></svg>
                   </div>
-                  Total<br/>Puntos
+                  Total<br />Puntos
                 </th>
               </tr>
             </thead>
@@ -618,12 +623,12 @@ export default function TablaPosicionesAfiche({
                         backgroundColor: esPrimero
                           ? "rgba(245, 176, 0, 0.15)" // Oro
                           : esSegundo
-                          ? "rgba(203, 213, 225, 0.1)" // Plata
-                          : esTercero
-                          ? "rgba(194, 65, 12, 0.1)" // Bronce
-                          : esPar
-                          ? "transparent"
-                          : "rgba(255, 255, 255, 0.02)",
+                            ? "rgba(203, 213, 225, 0.1)" // Plata
+                            : esTercero
+                              ? "rgba(194, 65, 12, 0.1)" // Bronce
+                              : esPar
+                                ? "transparent"
+                                : "rgba(255, 255, 255, 0.02)",
                         borderBottom: "1px solid #1e293b",
                         fontSize: "0.88rem",
                         fontWeight: esPrimero || esSegundo || esTercero ? 700 : 500,

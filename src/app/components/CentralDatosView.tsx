@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { BrainCircuit, Search, Trophy, Calendar, Users, Loader2, Send } from "lucide-react";
+import { BrainCircuit, Search, Trophy, Calendar, Users, Loader2, Send, Sparkles, CheckCircle2 } from "lucide-react";
 import { toast } from "sonner";
 import ReactMarkdown from 'react-markdown';
 
@@ -12,7 +12,7 @@ export default function CentralDatosView() {
 
   const enviarConsulta = async (textoConsulta: string) => {
     if (!textoConsulta.trim()) return;
-    
+
     setLoading(true);
     setRespuesta(null);
     setPrompt(""); // Limpiar input si fue escrito manualmente
@@ -43,63 +43,90 @@ export default function CentralDatosView() {
     }
   };
 
+  const formatearEstadoPartido = (detail: string, state: string) => {
+    if (state === "post" || detail?.toLowerCase().includes("final") || detail?.toLowerCase().includes("ft")) {
+      return { texto: "🏁 FINALIZADO", color: "#10b981" };
+    }
+    if (state === "in" || detail?.toLowerCase().includes("half") || detail?.toLowerCase().includes("live")) {
+      return { texto: "🔴 EN VIVO", color: "#ef4444" };
+    }
+    // Traducir fecha genérica
+    return { texto: detail || "PROGRAMADO", color: "#38bdf8" };
+  };
+
   const renderContenido = () => {
     if (!respuesta) return null;
 
     if (respuesta.tipo === "GENERAL") {
       return (
-        <div className="prose prose-invert max-w-none bg-slate-800/50 p-6 rounded-xl border border-slate-700">
+        <div
+          style={{
+            background: "linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%)",
+            borderRadius: 16,
+            padding: "24px 28px",
+            boxShadow: "0 10px 30px rgba(0,0,0,0.4)",
+            color: "var(--tiza)",
+            fontSize: "0.98rem",
+            lineHeight: 1.7,
+          }}
+        >
           <ReactMarkdown>{respuesta.contenido.answer || ""}</ReactMarkdown>
         </div>
       );
     }
 
     if (respuesta.tipo === "STANDINGS") {
-      // Intentar renderizar la estructura típica de ESPN para Standings
       const entries = respuesta.contenido?.children?.[0]?.standings?.entries;
       if (entries && Array.isArray(entries)) {
         return (
-          <div className="overflow-x-auto bg-slate-800/50 rounded-xl border border-slate-700">
-            <table className="w-full text-sm text-left">
-              <thead className="text-xs uppercase bg-slate-800/80 text-slate-300">
-                <tr>
-                  <th className="px-4 py-3">Pos</th>
-                  <th className="px-4 py-3">Equipo</th>
-                  <th className="px-4 py-3 text-center">PTS</th>
-                  <th className="px-4 py-3 text-center">PJ</th>
-                  <th className="px-4 py-3 text-center">PG</th>
-                  <th className="px-4 py-3 text-center">PE</th>
-                  <th className="px-4 py-3 text-center">PP</th>
-                  <th className="px-4 py-3 text-center">GF</th>
-                  <th className="px-4 py-3 text-center">GC</th>
-                  <th className="px-4 py-3 text-center">DIF</th>
+          <div style={{ overflowX: "auto", borderRadius: 16, boxShadow: "0 10px 30px rgba(0,0,0,0.4)", background: "rgba(15, 23, 42, 0.9)" }}>
+            <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left", fontSize: "0.9rem", color: "#fff" }}>
+              <thead>
+                <tr style={{ background: "rgba(30, 41, 59, 0.9)", borderBottom: "1px solid rgba(255,255,255,0.08)", textTransform: "uppercase", fontSize: "0.75rem", letterSpacing: "0.06em", color: "var(--graderia)" }}>
+                  <th style={{ padding: "14px 16px" }}>Pos</th>
+                  <th style={{ padding: "14px 16px" }}>Equipo</th>
+                  <th style={{ padding: "14px 16px", textAlign: "center", color: "#34d399", fontWeight: 800 }}>PTS</th>
+                  <th style={{ padding: "14px 16px", textAlign: "center" }}>PJ</th>
+                  <th style={{ padding: "14px 16px", textAlign: "center" }}>PG</th>
+                  <th style={{ padding: "14px 16px", textAlign: "center" }}>PE</th>
+                  <th style={{ padding: "14px 16px", textAlign: "center" }}>PP</th>
+                  <th style={{ padding: "14px 16px", textAlign: "center" }}>GF</th>
+                  <th style={{ padding: "14px 16px", textAlign: "center" }}>GC</th>
+                  <th style={{ padding: "14px 16px", textAlign: "center" }}>DIF</th>
                 </tr>
               </thead>
               <tbody>
                 {entries.map((entry: any, index: number) => {
                   const team = entry.team;
                   const stats = entry.stats.reduce((acc: any, stat: any) => {
-                     acc[stat.name] = stat.value;
-                     return acc;
+                    acc[stat.name] = stat.value;
+                    return acc;
                   }, {});
-                  
+
                   return (
-                    <tr key={team.id} className="border-b border-slate-700/50 hover:bg-slate-700/30">
-                      <td className="px-4 py-3 font-bold">{index + 1}</td>
-                      <td className="px-4 py-3 flex items-center gap-2">
+                    <tr
+                      key={team.id}
+                      style={{
+                        borderBottom: "1px solid rgba(255, 255, 255, 0.04)",
+                        background: index % 2 === 0 ? "transparent" : "rgba(255, 255, 255, 0.02)",
+                        transition: "background 0.2s ease",
+                      }}
+                    >
+                      <td style={{ padding: "12px 16px", fontWeight: 800, color: index < 8 ? "#34d399" : "var(--graderia)" }}>#{index + 1}</td>
+                      <td style={{ padding: "12px 16px", display: "flex", alignItems: "center", gap: 10, fontWeight: 700 }}>
                         {team.logos?.[0]?.href && (
-                          <img src={team.logos[0].href} alt={team.displayName} className="w-6 h-6 object-contain" />
+                          <img src={team.logos[0].href} alt={team.displayName} style={{ width: 24, height: 24, objectFit: "contain" }} />
                         )}
-                        <span className="font-semibold">{team.displayName}</span>
+                        <span>{team.displayName}</span>
                       </td>
-                      <td className="px-4 py-3 text-center font-bold text-emerald-400">{stats.points}</td>
-                      <td className="px-4 py-3 text-center">{stats.gamesPlayed}</td>
-                      <td className="px-4 py-3 text-center">{stats.wins}</td>
-                      <td className="px-4 py-3 text-center">{stats.ties}</td>
-                      <td className="px-4 py-3 text-center">{stats.losses}</td>
-                      <td className="px-4 py-3 text-center">{stats.pointsFor}</td>
-                      <td className="px-4 py-3 text-center">{stats.pointsAgainst}</td>
-                      <td className="px-4 py-3 text-center">{stats.pointDifferential}</td>
+                      <td style={{ padding: "12px 16px", textAlign: "center", fontWeight: 900, color: "#34d399", fontSize: "1.05rem" }}>{stats.points}</td>
+                      <td style={{ padding: "12px 16px", textAlign: "center", color: "var(--graderia)" }}>{stats.gamesPlayed}</td>
+                      <td style={{ padding: "12px 16px", textAlign: "center", color: "#38bdf8" }}>{stats.wins}</td>
+                      <td style={{ padding: "12px 16px", textAlign: "center", color: "#fbbf24" }}>{stats.ties}</td>
+                      <td style={{ padding: "12px 16px", textAlign: "center", color: "#ef4444" }}>{stats.losses}</td>
+                      <td style={{ padding: "12px 16px", textAlign: "center", color: "var(--graderia)" }}>{stats.pointsFor}</td>
+                      <td style={{ padding: "12px 16px", textAlign: "center", color: "var(--graderia)" }}>{stats.pointsAgainst}</td>
+                      <td style={{ padding: "12px 16px", textAlign: "center", fontWeight: 700 }}>{stats.pointDifferential}</td>
                     </tr>
                   );
                 })}
@@ -109,50 +136,125 @@ export default function CentralDatosView() {
         );
       }
       return (
-        <pre className="bg-slate-900 p-4 rounded-xl overflow-x-auto text-xs text-slate-300">
+        <pre style={{ background: "rgba(15, 23, 42, 0.9)", padding: 16, borderRadius: 12, fontSize: "0.8rem", color: "var(--graderia)", overflowX: "auto" }}>
           {JSON.stringify(respuesta.contenido, null, 2)}
         </pre>
       );
     }
 
     if (respuesta.tipo === "SCOREBOARD") {
-      const events = respuesta.contenido?.events;
-      if (events && Array.isArray(events)) {
-        return (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {events.map((evento: any) => {
-              const comp = evento.competitions[0];
-              const local = comp.competitors.find((c: any) => c.homeAway === "home");
-              const away = comp.competitors.find((c: any) => c.homeAway === "away");
-              
-              return (
-                <div key={evento.id} className="bg-slate-800/50 p-4 rounded-xl border border-slate-700 flex flex-col gap-3">
-                  <div className="text-xs text-center text-slate-400 font-semibold uppercase">
-                    {evento.status.type.detail}
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <div className="flex flex-col items-center gap-2 w-1/3">
-                      {local?.team?.logo && <img src={local.team.logo} alt="local" className="w-10 h-10 object-contain" />}
-                      <span className="text-xs text-center font-bold">{local?.team?.shortDisplayName}</span>
-                    </div>
-                    <div className="text-2xl font-black text-emerald-400 w-1/3 text-center">
-                      {local?.score} - {away?.score}
-                    </div>
-                    <div className="flex flex-col items-center gap-2 w-1/3">
-                      {away?.team?.logo && <img src={away.team.logo} alt="away" className="w-10 h-10 object-contain" />}
-                      <span className="text-xs text-center font-bold">{away?.team?.shortDisplayName}</span>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        );
-      }
+      const dbPartidos = respuesta.contenido?.dbPartidos || [];
+      const espnEvents = respuesta.contenido?.espnEvents || [];
+
       return (
-        <pre className="bg-slate-900 p-4 rounded-xl overflow-x-auto text-xs text-slate-300">
-          {JSON.stringify(respuesta.contenido, null, 2)}
-        </pre>
+        <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+          {/* PARTIDOS DE LA BASE DE DATOS CLUB 90 MINUTOS (OFICIALES) */}
+          {dbPartidos.length > 0 && (
+            <div>
+              <div style={{ fontSize: "0.85rem", color: "#34d399", fontWeight: 800, textTransform: "uppercase", marginBottom: 10, letterSpacing: "0.05em" }}>
+                🏆 Resultados Oficiales de la Polla 90 Minutos
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 14 }}>
+                {dbPartidos.map((partido: any) => {
+                  const localRes = partido.resultado_oficial?.goles_local ?? 0;
+                  const visitanteRes = partido.resultado_oficial?.goles_visitante ?? 0;
+                  const goleadores = partido.resultado_oficial?.goleadores || [];
+
+                  return (
+                    <div
+                      key={partido.id}
+                      style={{
+                        background: "linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%)",
+                        padding: 18,
+                        borderRadius: 16,
+                        boxShadow: "0 8px 24px rgba(0,0,0,0.3)",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 10,
+                      }}
+                    >
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                        <span style={{ fontSize: "0.72rem", color: "#34d399", fontWeight: 800 }}>🏁 FINALIZADO (Jornada {partido.jornada})</span>
+                        <span style={{ fontSize: "0.7rem", color: "var(--graderia)" }}>
+                          {new Date(partido.fecha_hora_partido).toLocaleDateString('es-CO', { day: '2-digit', month: 'short' })}
+                        </span>
+                      </div>
+
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4, flex: 1 }}>
+                          {partido.equipo_local?.escudo_url && <img src={partido.equipo_local.escudo_url} alt="local" style={{ width: 34, height: 34, objectFit: "contain" }} />}
+                          <span style={{ fontSize: "0.82rem", textAlign: "center", fontWeight: 800, color: "#fff" }}>{partido.equipo_local?.nombre}</span>
+                        </div>
+                        <div style={{ fontSize: "1.8rem", fontWeight: 900, color: "#34d399", minWidth: 70, textAlign: "center" }}>
+                          {localRes} - {visitanteRes}
+                        </div>
+                        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4, flex: 1 }}>
+                          {partido.equipo_visitante?.escudo_url && <img src={partido.equipo_visitante.escudo_url} alt="away" style={{ width: 34, height: 34, objectFit: "contain" }} />}
+                          <span style={{ fontSize: "0.82rem", textAlign: "center", fontWeight: 800, color: "#fff" }}>{partido.equipo_visitante?.nombre}</span>
+                        </div>
+                      </div>
+
+                      {goleadores.length > 0 && (
+                        <div style={{ fontSize: "0.75rem", color: "#a7f3d0", background: "rgba(16, 185, 129, 0.1)", padding: "4px 10px", borderRadius: 8, textAlign: "center" }}>
+                          👟 Goleadores: {goleadores.map((g: any) => g.jugador?.nombre).filter(Boolean).join(", ")}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* PARTIDOS DE ESPN WEB EN VIVO / ÚLTIMOS */}
+          {espnEvents.length > 0 && (
+            <div>
+              <div style={{ fontSize: "0.85rem", color: "#38bdf8", fontWeight: 800, textTransform: "uppercase", marginBottom: 10, letterSpacing: "0.05em" }}>
+                🌐 Marcadores y Partidos de la Web (ESPN)
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 14 }}>
+                {espnEvents.map((evento: any) => {
+                  const comp = evento.competitions[0];
+                  const local = comp.competitors.find((c: any) => c.homeAway === "home");
+                  const away = comp.competitors.find((c: any) => c.homeAway === "away");
+                  const estInfo = formatearEstadoPartido(evento.status?.type?.detail, evento.status?.type?.state);
+
+                  return (
+                    <div
+                      key={evento.id}
+                      style={{
+                        background: "linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%)",
+                        padding: 18,
+                        borderRadius: 16,
+                        boxShadow: "0 8px 24px rgba(0,0,0,0.3)",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 10,
+                      }}
+                    >
+                      <div style={{ fontSize: "0.72rem", textAlign: "center", color: estInfo.color, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.06em" }}>
+                        {estInfo.texto}
+                      </div>
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4, flex: 1 }}>
+                          {local?.team?.logo && <img src={local.team.logo} alt="local" style={{ width: 34, height: 34, objectFit: "contain" }} />}
+                          <span style={{ fontSize: "0.82rem", textAlign: "center", fontWeight: 800, color: "#fff" }}>{local?.team?.shortDisplayName || local?.team?.displayName}</span>
+                        </div>
+                        <div style={{ fontSize: "1.8rem", fontWeight: 900, color: "#34d399", minWidth: 70, textAlign: "center" }}>
+                          {local?.score || "0"} - {away?.score || "0"}
+                        </div>
+                        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4, flex: 1 }}>
+                          {away?.team?.logo && <img src={away.team.logo} alt="away" style={{ width: 34, height: 34, objectFit: "contain" }} />}
+                          <span style={{ fontSize: "0.82rem", textAlign: "center", fontWeight: 800, color: "#fff" }}>{away?.team?.shortDisplayName || away?.team?.displayName}</span>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </div>
       );
     }
 
@@ -160,78 +262,115 @@ export default function CentralDatosView() {
   };
 
   return (
-    <div className="w-full max-w-5xl mx-auto p-4 md:p-6 pb-24 space-y-6">
-      <div className="flex items-center gap-3 mb-6">
-        <div className="p-3 bg-fuchsia-500/20 rounded-xl">
-          <BrainCircuit className="text-fuchsia-400" size={28} />
+    <div style={{ width: "100%", maxWidth: 1260, margin: "0 auto", padding: "12px 0 60px", display: "flex", flexDirection: "column", gap: 20 }}>
+      {/* HEADER DE RECOMENDACIONES IA */}
+      <div style={{ display: "flex", alignItems: "center", gap: 14, background: "linear-gradient(135deg, rgba(217, 70, 239, 0.12) 0%, rgba(147, 51, 234, 0.06) 100%)", padding: 20, borderRadius: 16 }}>
+        <div style={{ width: 50, height: 50, borderRadius: 14, background: "linear-gradient(135deg, #d946ef 0%, #a855f7 100%)", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", boxShadow: "0 8px 20px rgba(217, 70, 239, 0.4)" }}>
+          <BrainCircuit size={28} />
         </div>
         <div>
-          <h2 className="text-2xl font-black text-white m-0">Central de Datos</h2>
-          <p className="text-slate-400 text-sm m-0">Estadísticas, posibles 11 y análisis con IA</p>
+          <h2 style={{ fontSize: "1.4rem", fontWeight: 900, color: "#fff", margin: 0, display: "flex", alignItems: "center", gap: 8 }}>
+            Recomendaciones y Datos IA <Sparkles size={18} style={{ color: "#d946ef" }} />
+          </h2>
+          <p style={{ color: "var(--graderia)", fontSize: "0.88rem", margin: 0 }}>
+            Consulta tablas de posiciones, marcadores reales, estadísticas y análisis deportivo con Gemini AI
+          </p>
         </div>
       </div>
 
-      {/* Botones de Acción Rápida */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <button
-          onClick={() => enviarConsulta("Muéstrame la tabla de posiciones actual de la liga colombiana")}
-          className="flex flex-col items-center gap-2 p-4 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl transition-all"
-        >
-          <Trophy className="text-emerald-400" size={24} />
-          <span className="text-sm font-semibold text-center">Tabla de Posiciones</span>
-        </button>
-        <button
-          onClick={() => enviarConsulta("Cuáles son los resultados de los partidos de hoy en colombia")}
-          className="flex flex-col items-center gap-2 p-4 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl transition-all"
-        >
-          <Calendar className="text-blue-400" size={24} />
-          <span className="text-sm font-semibold text-center">Últimos Resultados</span>
-        </button>
-        <button
-          onClick={() => enviarConsulta("Dime las posibles alineaciones para los partidos más importantes de esta jornada en Colombia")}
-          className="flex flex-col items-center gap-2 p-4 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl transition-all"
-        >
-          <Users className="text-fuchsia-400" size={24} />
-          <span className="text-sm font-semibold text-center">Posibles Alineaciones</span>
-        </button>
-        <button
-          onClick={() => enviarConsulta("Quiénes son los actuales goleadores de la liga colombiana")}
-          className="flex flex-col items-center gap-2 p-4 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl transition-all"
-        >
-          <Search className="text-amber-400" size={24} />
-          <span className="text-sm font-semibold text-center">Goleadores</span>
-        </button>
+      {/* CHIPS SUGERENCIAS RÁPIDAS DE BÚSQUEDA */}
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 8, alignItems: "center" }}>
+        <span style={{ fontSize: "0.82rem", color: "var(--graderia)", fontWeight: 700 }}>💡 Consultas sugeridas:</span>
+        {[
+          { label: "📊 Tabla de Posiciones", query: "Muéstrame la tabla de posiciones actual de la liga colombiana" },
+          { label: "🏁 Marcadores y Resultados", query: "Cuáles son los marcadores y últimos resultados de los partidos" },
+          { label: "👥 Alineaciones Probables", query: "Dime las posibles alineaciones para los partidos principales" },
+          { label: "👟 Tabla de Goleadores", query: "Quiénes son los actuales goleadores de la liga colombiana" },
+        ].map((chip, idx) => (
+          <button
+            key={idx}
+            onClick={() => enviarConsulta(chip.query)}
+            style={{
+              background: "rgba(255, 255, 255, 0.04)",
+              border: "none",
+              borderRadius: 50,
+              padding: "7px 15px",
+              color: "#38bdf8",
+              fontSize: "0.8rem",
+              fontWeight: 700,
+              cursor: "pointer",
+              transition: "all 0.2s ease",
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.background = "rgba(56, 189, 248, 0.15)";
+              e.currentTarget.style.transform = "translateY(-1px)";
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.background = "rgba(255, 255, 255, 0.04)";
+              e.currentTarget.style.transform = "none";
+            }}
+          >
+            {chip.label}
+          </button>
+        ))}
       </div>
 
-      {/* Buscador libre */}
-      <div className="relative mt-6">
+      {/* BUSCADOR CON IA */}
+      <div style={{ position: "relative", width: "100%" }}>
         <input
           type="text"
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && enviarConsulta(prompt)}
-          placeholder="Pregúntale a la IA sobre un equipo, jugador o partido..."
-          className="w-full bg-slate-900 border border-slate-700 rounded-2xl py-4 pl-5 pr-14 text-white focus:outline-none focus:border-fuchsia-500 focus:ring-1 focus:ring-fuchsia-500 transition-all"
+          placeholder="Pregúntale a Gemini sobre alineaciones, posiciones, goleadores o análisis..."
+          style={{
+            width: "100%",
+            background: "rgba(15, 23, 42, 0.95)",
+            border: "none",
+            borderRadius: 16,
+            padding: "16px 56px 16px 20px",
+            color: "#fff",
+            fontSize: "0.95rem",
+            outline: "none",
+            boxShadow: "0 6px 20px rgba(0,0,0,0.3)",
+          }}
         />
         <button
           onClick={() => enviarConsulta(prompt)}
           disabled={loading || !prompt.trim()}
-          className="absolute right-2 top-2 p-2 bg-fuchsia-600 hover:bg-fuchsia-500 text-white rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+          style={{
+            position: "absolute",
+            right: 8,
+            top: "50%",
+            transform: "translateY(-50%)",
+            width: 42,
+            height: 42,
+            background: loading || !prompt.trim() ? "rgba(255,255,255,0.1)" : "linear-gradient(135deg, #d946ef 0%, #a855f7 100%)",
+            color: "#fff",
+            border: "none",
+            borderRadius: 12,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            cursor: loading || !prompt.trim() ? "not-allowed" : "pointer",
+            boxShadow: loading || !prompt.trim() ? "none" : "0 4px 14px rgba(217, 70, 239, 0.4)",
+            transition: "all 0.2s ease",
+          }}
         >
-          {loading ? <Loader2 size={20} className="animate-spin" /> : <Send size={20} />}
+          {loading ? <Loader2 size={20} className="spin" /> : <Send size={18} />}
         </button>
       </div>
 
-      {/* Área de Resultados */}
+      {/* ÁREA DE RESULTADOS */}
       {loading ? (
-        <div className="flex flex-col items-center justify-center py-12 gap-4">
-          <Loader2 className="animate-spin text-fuchsia-500" size={40} />
-          <p className="text-slate-400 animate-pulse">Analizando datos y contactando al oráculo...</p>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "48px 20px", gap: 14 }}>
+          <Loader2 className="spin" style={{ color: "#d946ef" }} size={40} />
+          <p style={{ color: "var(--graderia)", fontSize: "0.9rem", margin: 0 }}>Consultando a Gemini AI y analizando datos en tiempo real...</p>
         </div>
       ) : respuesta ? (
-        <div className="mt-8 space-y-4">
-          <h3 className="text-xl font-bold text-white flex items-center gap-2">
-            <BrainCircuit className="text-fuchsia-400" size={24} />
+        <div style={{ display: "flex", flexDirection: "column", gap: 14, marginTop: 10 }}>
+          <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "#fff", margin: 0, display: "flex", alignItems: "center", gap: 8 }}>
+            <BrainCircuit style={{ color: "#d946ef" }} size={22} />
             {respuesta.titulo}
           </h3>
           {renderContenido()}

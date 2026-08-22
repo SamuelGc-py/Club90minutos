@@ -14,13 +14,16 @@ export default function ConstruccionPage() {
         padding: "16px 24px", display: "flex", justifyContent: "space-between", alignItems: "center"
       }}>
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <img 
-            src="/logo_principal_recortado.webp" 
-            alt="Logo Club 90 Minutos" 
-            style={{ height: 40, width: "auto" }}
-          />
-          <span style={{ fontFamily: "'Orbitron', sans-serif", fontWeight: 800, fontSize: "1.2rem", letterSpacing: "0.5px" }}>
-            CLUB<span style={{ color: "#74CC10" }}>90</span>MINUTOS
+          <picture>
+            <source srcSet="/marca/logo-club90-escudo-transparente.webp" type="image/webp" />
+            <img 
+              src="/marca/logo-club90-escudo-transparente.png" 
+              alt="Logo Club 90 Minutos" 
+              style={{ height: 40, width: "auto" }}
+            />
+          </picture>
+          <span style={{ fontFamily: "var(--font-display, 'Orbitron', sans-serif)", fontWeight: 800, fontSize: "1.2rem", letterSpacing: "0.5px" }}>
+            CLUB<span style={{ color: "var(--color-verde-club)" }}>90</span>MINUTOS
           </span>
         </div>
       </header>

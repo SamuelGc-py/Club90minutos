@@ -131,19 +131,21 @@ export default function LandingPage() {
           {/* TOP FOR MOBILE: LOGO AND MAYBE BUTTONS */}
           <div className="landing-header-top">
             <div style={{ display: "flex", alignItems: "center" }}>
-              <img 
-                src="/logo_principal_recortado.webp" 
-                alt="Logo Club 90 Minutos" 
-                className="logo-img"
-                style={{ 
-                  height: 44, width: "auto", 
-                  filter: "drop-shadow(0px 2px 8px rgba(116, 204, 16, 0.4))", 
-                  borderRadius: "10px",
-                  marginRight: 12
-                }}
-              />
-              <span className="logo-text" style={{ fontFamily: "'Orbitron', sans-serif", fontWeight: 800, fontSize: "1.2rem", letterSpacing: "0.5px" }}>
-                CLUB<span style={{ color: "#74CC10" }}>90</span>MINUTOS
+              <picture>
+                <source srcSet="/marca/logo-club90-escudo-transparente.webp" type="image/webp" />
+                <img 
+                  src="/marca/logo-club90-escudo-transparente.png" 
+                  alt="Logo Club 90 Minutos" 
+                  className="logo-img"
+                  style={{ 
+                    height: 44, width: "auto", 
+                    filter: "drop-shadow(0px 2px 8px rgba(116, 204, 16, 0.4))", 
+                    marginRight: 12
+                  }}
+                />
+              </picture>
+              <span className="logo-text" style={{ fontFamily: "var(--font-display, 'Orbitron', sans-serif)", fontWeight: 800, fontSize: "1.2rem", letterSpacing: "0.5px" }}>
+                CLUB<span style={{ color: "var(--color-verde-club)" }}>90</span>MINUTOS
               </span>
             </div>
             
@@ -165,12 +167,12 @@ export default function LandingPage() {
                 style={{
                   background: "transparent",
                   border: "none",
-                  color: activeTab === item.key ? "#74CC10" : "#94a3b8",
+                  color: activeTab === item.key ? "var(--color-verde-club)" : "var(--color-gris-medio)",
                   fontWeight: activeTab === item.key ? 800 : 600,
                   fontSize: "0.95rem",
                   cursor: "pointer",
                   padding: "8px 4px",
-                  borderBottom: activeTab === item.key ? "2px solid #74CC10" : "2px solid transparent",
+                  borderBottom: activeTab === item.key ? "2px solid var(--color-verde-club)" : "2px solid transparent",
                   transition: "all 0.2s ease",
                   whiteSpace: "nowrap"
                 }}
@@ -193,7 +195,7 @@ export default function LandingPage() {
             </Link>
             <Link href="/dashboard" style={{ textDecoration: "none", flex: 1 }}>
               <button style={{ 
-                width: "100%", padding: "10px 20px", background: "#74CC10", color: "#04060A", 
+                width: "100%", padding: "10px 20px", background: "var(--color-verde-club)", color: "var(--color-negro-estadio)", 
                 border: "none", borderRadius: "8px", 
                 fontWeight: 800, fontSize: "0.9rem", cursor: "pointer", boxShadow: "0 4px 15px rgba(116, 204, 16, 0.3)",
                 transition: "transform 0.2s ease",
@@ -230,12 +232,8 @@ export default function LandingPage() {
                   }} />
 
                   <div style={{ zIndex: 1, maxWidth: 800 }}>
-                    <div style={{ 
-                      display: "inline-block", background: "rgba(116, 204, 16, 0.1)", color: "#74CC10",
-                      padding: "6px 16px", borderRadius: "30px", fontWeight: 700, fontSize: "0.85rem", marginBottom: 24,
-                      border: "1px solid rgba(116, 204, 16, 0.3)"
-                    }}>
-                      ⚽ La polla futbolera más competitiva
+                    <div style={{ display: "flex", justifyContent: "center", marginBottom: 20 }}>
+                      <img src="/betplay.webp" alt="BetPlay" style={{ height: 40, objectFit: "contain" }} />
                     </div>
                     
                     <h1 style={{ 
@@ -254,7 +252,7 @@ export default function LandingPage() {
                       <Link href="/dashboard" style={{ textDecoration: "none" }}>
                         <button style={{ 
                           display: "flex", alignItems: "center", gap: 8,
-                          padding: "16px 32px", background: "#74CC10", color: "#04060A", 
+                          padding: "16px 32px", background: "var(--color-verde-club)", color: "var(--color-negro-estadio)", 
                           border: "none", borderRadius: "12px", 
                           fontWeight: 900, fontSize: "1.1rem", cursor: "pointer", 
                           boxShadow: "0 8px 25px rgba(116, 204, 16, 0.4)",
@@ -410,9 +408,12 @@ export default function LandingPage() {
             <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 40 }}>
               <div style={{ flex: "1 1 300px", display: "flex", flexDirection: "column", gap: 20 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                  <img src="/logo_principal_recortado.webp" alt="Logo" style={{ height: 48 }} />
-                  <span style={{ fontFamily: "'Orbitron', sans-serif", fontWeight: 800, fontSize: "1.4rem", letterSpacing: "0.5px", color: "#FFFFFF" }}>
-                    CLUB<span style={{ color: "#74CC10" }}>90</span>MINUTOS
+                  <picture>
+                    <source srcSet="/marca/logo-club90-escudo-transparente.webp" type="image/webp" />
+                    <img src="/marca/logo-club90-escudo-transparente.png" alt="Logo" style={{ height: 48 }} />
+                  </picture>
+                  <span style={{ fontFamily: "var(--font-display, 'Orbitron', sans-serif)", fontWeight: 800, fontSize: "1.4rem", letterSpacing: "0.5px", color: "var(--color-blanco)" }}>
+                    CLUB<span style={{ color: "var(--color-verde-club)" }}>90</span>MINUTOS
                   </span>
                 </div>
                 <p style={{ color: "#8ba3b4", fontSize: "0.95rem", lineHeight: 1.6, maxWidth: 400 }}>
