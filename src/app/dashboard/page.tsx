@@ -3997,8 +3997,17 @@ function ExpressPageContent() {
                 (() => {
                   const estaSoloFinal = (partido: any) => {
                     const esFinalizado = esPartidoFinalizadoReal(partido, partidosEnVivo);
+                    if (esFinalizado) return true;
+                    
+                    // Para jornadas pasadas, si no tiene resultado oficial, NO lo mostramos como finalizado
+                    // (porque suele tratarse de partidos aplazados que aún conservan estado "programado" y fecha antigua)
+                    if (partido.jornada < fechaParticipante) {
+                      return false;
+                    }
+
+                    // Para la jornada actual, sí usamos la regla de 2 horas para que pasen a finalizados automáticamente
                     const hace2Horas = new Date().getTime() >= new Date(partido.fecha_hora_partido).getTime() + 2 * 60 * 60 * 1000;
-                    return esFinalizado || hace2Horas;
+                    return hace2Horas;
                   };
 
                   // Obtener todos los partidos finalizados (sin importar la jornada actual)
