@@ -2079,9 +2079,6 @@ function ExpressPageContent() {
   // Cerrar Sesión
   const handleCerrarSesion = () => {
     sessionStorage.removeItem("polla_sesion");
-    setUsuario(null);
-    setSesionToken(null);
-    setTabActiva("inicio");
     if (typeof window !== "undefined") {
       window.location.href = "/";
     }
