@@ -2083,7 +2083,7 @@ function ExpressPageContent() {
     setSesionToken(null);
     setTabActiva("inicio");
     if (typeof window !== "undefined") {
-      window.history.pushState(null, "", window.location.pathname);
+      window.location.href = "/";
     }
   };
 
