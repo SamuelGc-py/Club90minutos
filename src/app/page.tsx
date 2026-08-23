@@ -232,10 +232,7 @@ export default function LandingPage() {
                   }} />
 
                   <div style={{ zIndex: 1, maxWidth: 800 }}>
-                    <div style={{ display: "flex", justifyContent: "center", marginBottom: 20 }}>
-                      <img src="/betplay.webp" alt="BetPlay" style={{ height: 40, objectFit: "contain" }} />
-                    </div>
-                    
+
                     <h1 style={{ 
                       fontFamily: "'Orbitron', sans-serif", fontSize: "clamp(2rem, 6vw, 4.5rem)", 
                       fontWeight: 900, lineHeight: 1.1, marginBottom: 24, letterSpacing: "-1px"
