@@ -212,47 +212,50 @@ body.inicio-fullscreen main {
   gap: 8px;
 }
 
-/* ============ LANDING DE INICIO Y LOGIN: SIN SCROLL DE PÁGINA (PC y celular) ============
-   Ambas pantallas quedan fijas al alto del viewport en cualquier tamaño; únicamente
-   el menú de la landing puede desplazarse (o flotar, en celular) si no cabe. */
-html.app-fullscreen-lock,
-body.app-fullscreen-lock {
-  overflow: hidden;
-}
+/* ============ LANDING DE INICIO Y LOGIN: SIN SCROLL DE PÁGINA (solo PC) ============
+   En PC ambas pantallas quedan fijas al alto del viewport; únicamente el menú de
+   la landing puede desplazarse si no cabe. En celular se deja el scroll normal
+   del navegador (para no perder el gesto nativo de "jalar para recargar"). */
+@media (min-width: 768px) {
+  html.app-fullscreen-lock,
+  body.app-fullscreen-lock {
+    overflow: hidden;
+  }
 
-body.app-fullscreen-lock main {
-  height: 100vh;
-  overflow: hidden;
-}
+  body.app-fullscreen-lock main {
+    height: 100vh;
+    overflow: hidden;
+  }
 
-body.login-fullscreen.app-fullscreen-lock main,
-body.inicio-fullscreen.app-fullscreen-lock main {
-  padding: 0;
-}
+  body.login-fullscreen.app-fullscreen-lock main,
+  body.inicio-fullscreen.app-fullscreen-lock main {
+    padding: 0;
+  }
 
-body.login-fullscreen.app-fullscreen-lock .participant-root {
-  height: 100%;
-}
+  body.login-fullscreen.app-fullscreen-lock .participant-root {
+    height: 100%;
+  }
 
-body.inicio-fullscreen.app-fullscreen-lock .participant-root {
-  height: 100%;
-  padding-bottom: 0 !important;
-}
+  body.inicio-fullscreen.app-fullscreen-lock .participant-root {
+    height: 100%;
+    padding-bottom: 0 !important;
+  }
 
-body.inicio-fullscreen.app-fullscreen-lock .inicio-fullscreen-wrapper {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  overflow: hidden;
-}
+  body.inicio-fullscreen.app-fullscreen-lock .inicio-fullscreen-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+  }
 
-body.inicio-fullscreen.app-fullscreen-lock .inicio-fullscreen-wrapper > *:not(.inicio-layout-row) {
-  flex-shrink: 0;
-}
+  body.inicio-fullscreen.app-fullscreen-lock .inicio-fullscreen-wrapper > *:not(.inicio-layout-row) {
+    flex-shrink: 0;
+  }
 
-body.inicio-fullscreen.app-fullscreen-lock .inicio-layout-row {
-  flex: 1 1 auto;
-  min-height: 0;
+  body.inicio-fullscreen.app-fullscreen-lock .inicio-layout-row {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
 }
 
 @media (min-width: 881px) {
