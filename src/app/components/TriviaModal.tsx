@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, BrainCircuit, CheckCircle2, XCircle, RefreshCw } from 'lucide-react';
+import { X, CheckCircle2, XCircle, RefreshCw } from 'lucide-react';
 import { toast } from 'sonner';
 
 interface TriviaPregunta {
@@ -44,7 +44,7 @@ export default function TriviaModal({ onClose }: { onClose: () => void }) {
       setTimeLeft(10);
     } catch (error: any) {
       console.error(error);
-      toast.error(error.message || 'Error conectando con el Oráculo');
+      toast.error(error.message || 'No se pudo generar la pregunta, intenta de nuevo.');
     } finally {
       setCargando(false);
     }
@@ -56,9 +56,9 @@ export default function TriviaModal({ onClose }: { onClose: () => void }) {
     setYaRespondio(true);
     
     if (index === trivia?.respuesta_correcta_index) {
-        toast.success("¡Correcto! Eres un crack del FPC.");
+        toast.success("¡Eso es! Sabes de fútbol colombiano de verdad.");
     } else {
-        toast.error("¡Uf! Te fuiste lejos mi pez.");
+        toast.error("¡Eche, esa te quedó grande! Sigue así.");
     }
   };
 
@@ -67,25 +67,29 @@ export default function TriviaModal({ onClose }: { onClose: () => void }) {
       position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
       background: 'rgba(0,0,0,0.85)',
       backdropFilter: 'blur(8px)',
-      display: 'flex', justifyContent: 'center', alignItems: 'center',
-      zIndex: 9999, padding: 20
+      display: 'flex', justifyContent: 'center', alignItems: 'flex-start',
+      overflowY: 'auto',
+      zIndex: 9999, padding: '40px 20px'
     }}>
       <div style={{
         background: '#06130b',
         border: '1px solid #10b981',
         borderRadius: 20,
         width: '100%', maxWidth: 500,
+        maxHeight: '100%',
+        display: 'flex', flexDirection: 'column',
         overflow: 'hidden',
         boxShadow: '0 10px 40px rgba(16, 185, 129, 0.2)'
       }}>
         {/* Header */}
         <div style={{
+          flexShrink: 0,
           padding: '20px', background: 'linear-gradient(90deg, #064e3b 0%, #06130b 100%)',
           display: 'flex', justifyContent: 'space-between', alignItems: 'center',
           borderBottom: '1px solid rgba(16, 185, 129, 0.3)'
         }}>
           <h2 style={{ margin: 0, color: '#34d399', display: 'flex', alignItems: 'center', gap: 10, fontSize: '1.2rem', fontWeight: 800 }}>
-            <BrainCircuit size={24} color="#10b981" />
+            <img src="/marca/logo-club90-escudo-balon.webp" alt="" style={{ height: 36, width: 36, objectFit: 'cover', borderRadius: '50%' }} />
             Preguntas con club90min
           </h2>
           <button onClick={onClose} style={{ background: 'transparent', border: 'none', color: '#94a3b8', cursor: 'pointer' }}>
@@ -94,13 +98,13 @@ export default function TriviaModal({ onClose }: { onClose: () => void }) {
         </div>
 
         {/* Content */}
-        <div style={{ padding: '24px' }}>
+        <div style={{ padding: '24px', overflowY: 'auto' }}>
           {!trivia && !cargando && (
             <div style={{ textAlign: 'center', padding: '20px 0' }}>
               <p style={{ color: '#cbd5e1', marginBottom: 20, fontSize: '1rem', lineHeight: '1.5' }}>
-                ¿Crees que te las sabes todas del Fútbol Profesional Colombiano? Ponte a prueba con preguntas generadas por Gemini IA.
+                ¿Crees que te las sabes todas del Fútbol Profesional Colombiano? Ponte a prueba con nuestras preguntas.
               </p>
-              <button 
+              <button
                 onClick={generarTrivia}
                 style={{
                   background: '#10b981', color: '#000', border: 'none', padding: '12px 24px',
@@ -109,7 +113,7 @@ export default function TriviaModal({ onClose }: { onClose: () => void }) {
                   display: 'flex', alignItems: 'center', gap: 8, margin: '0 auto'
                 }}
               >
-                <BrainCircuit size={20} />
+                <img src="/marca/logo-club90-escudo-balon.webp" alt="" style={{ height: 28, width: 28, objectFit: 'cover', borderRadius: '50%' }} />
                 Generar Pregunta
               </button>
             </div>
@@ -118,7 +122,7 @@ export default function TriviaModal({ onClose }: { onClose: () => void }) {
           {cargando && (
             <div style={{ textAlign: 'center', padding: '40px 0' }}>
               <RefreshCw size={40} color="#10b981" style={{ animation: 'spin 1s linear infinite', margin: '0 auto' }} />
-              <p style={{ color: '#34d399', marginTop: 16, fontWeight: 600 }}>Gemini está pensando una pregunta perra...</p>
+              <p style={{ color: '#34d399', marginTop: 16, fontWeight: 600 }}>Preparando una pregunta bien durita...</p>
             </div>
           )}
 

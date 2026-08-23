@@ -1,19 +1,39 @@
 import { NextResponse } from 'next/server';
 import { GoogleGenAI } from '@google/genai';
 
+const CATEGORIAS = [
+  "campeones históricos y finales memorables de la Categoría Primera A / Liga BetPlay",
+  "goleadores y récords individuales del Fútbol Profesional Colombiano, más allá del máximo goleador histórico",
+  "la Selección Colombia en Eliminatorias y Copas del Mundo",
+  "clásicos y rivalidades entre equipos colombianos",
+  "jugadores colombianos destacados en ligas del exterior",
+  "estadios, hinchadas y datos curiosos del fútbol colombiano",
+  "técnicos y estrategas emblemáticos del FPC",
+  "actuaciones de equipos colombianos en Copa Libertadores y Sudamericana",
+];
+
 export async function GET() {
   try {
     if (!process.env.GEMINI_API_KEY) {
+      console.error("Trivia: falta configurar la API key del proveedor.");
       return NextResponse.json(
-        { error: "API Key de Gemini no configurada." },
+        { error: "El generador de preguntas no está disponible en este momento." },
         { status: 500 }
       );
     }
 
     const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-    
-    const prompt = `Actúa como el anfitrión de una Trivia sobre el Fútbol Profesional Colombiano (Liga BetPlay, historia, Selección Colombia, jugadores icónicos).
-Genera una pregunta aleatoria de opción múltiple que sea interesante (no demasiado fácil, pero tampoco imposible).
+
+    const categoria = CATEGORIAS[Math.floor(Math.random() * CATEGORIAS.length)];
+
+    const prompt = `Actúa como el anfitrión experto de una Trivia sobre el Fútbol Profesional Colombiano (FPC).
+Genera UNA pregunta de opción múltiple sobre este tema específico: ${categoria}.
+
+Reglas obligatorias:
+- La pregunta debe girar en torno a un hecho concreto y verificable (nombre, año, cifra, equipo, resultado). Nada vago ni genérico.
+- No repitas preguntas típicas de manual (por ejemplo "¿quién es el máximo goleador histórico?"); busca un ángulo menos trillado dentro del tema.
+- Dificultad media: retadora para un aficionado, pero no un dato imposible de conocer.
+- Las 4 opciones deben ser del mismo tipo (todas jugadores, todas años, todos equipos, etc.) y creíbles, sin que la correcta se note por descarte.
 
 Devuelve tu respuesta ÚNICAMENTE en formato JSON estricto con esta estructura:
 {
@@ -25,7 +45,7 @@ Devuelve tu respuesta ÚNICAMENTE en formato JSON estricto con esta estructura:
     "Opcion D"
   ],
   "respuesta_correcta_index": numero_del_0_al_3,
-  "dato_curioso": "Un dato corto y curioso sobre la respuesta correcta para mostrar cuando el usuario acierte o falle"
+  "dato_curioso": "Un dato corto, concreto y curioso sobre la respuesta correcta para mostrar cuando el usuario acierte o falle"
 }`;
 
     const response = await ai.models.generateContent({
@@ -33,15 +53,15 @@ Devuelve tu respuesta ÚNICAMENTE en formato JSON estricto con esta estructura:
         contents: prompt,
         config: {
             responseMimeType: "application/json",
-            temperature: 0.9, // Para mayor aleatoriedad en las preguntas
+            temperature: 1, // Para mayor variedad entre preguntas
         }
     });
 
     const result = JSON.parse(response.text || '{}');
-    
+
     return NextResponse.json(result);
   } catch (error: any) {
-    console.error("Error en Trivia IA:", error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    console.error("Error generando trivia:", error);
+    return NextResponse.json({ error: "No se pudo generar la pregunta, intenta de nuevo." }, { status: 500 });
   }
 }

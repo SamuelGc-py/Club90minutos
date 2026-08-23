@@ -212,6 +212,72 @@ body.inicio-fullscreen main {
   gap: 8px;
 }
 
+/* ============ LANDING DE INICIO Y LOGIN: SIN SCROLL DE PÁGINA (PC y celular) ============
+   Ambas pantallas quedan fijas al alto del viewport en cualquier tamaño; únicamente
+   el menú de la landing puede desplazarse (o flotar, en celular) si no cabe. */
+html.app-fullscreen-lock,
+body.app-fullscreen-lock {
+  overflow: hidden;
+}
+
+body.app-fullscreen-lock main {
+  height: 100vh;
+  overflow: hidden;
+}
+
+body.login-fullscreen.app-fullscreen-lock main,
+body.inicio-fullscreen.app-fullscreen-lock main {
+  padding: 0;
+}
+
+body.login-fullscreen.app-fullscreen-lock .participant-root {
+  height: 100%;
+}
+
+body.inicio-fullscreen.app-fullscreen-lock .participant-root {
+  height: 100%;
+  padding-bottom: 0 !important;
+}
+
+body.inicio-fullscreen.app-fullscreen-lock .inicio-fullscreen-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+body.inicio-fullscreen.app-fullscreen-lock .inicio-fullscreen-wrapper > *:not(.inicio-layout-row) {
+  flex-shrink: 0;
+}
+
+body.inicio-fullscreen.app-fullscreen-lock .inicio-layout-row {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+@media (min-width: 881px) {
+  body.inicio-fullscreen.app-fullscreen-lock .inicio-fullscreen-wrapper {
+    padding: 0 28px !important;
+  }
+}
+
+@media (max-width: 880px) {
+  /* En celular la fila queda en columna: el sidebar (colapsado) arriba con su
+     alto natural, y el hero abajo ocupando el resto sin desbordar. */
+  body.inicio-fullscreen.app-fullscreen-lock .inicio-sidebar {
+    flex-shrink: 0;
+  }
+
+  body.inicio-fullscreen.app-fullscreen-lock .inicio-content-hero {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  body.inicio-fullscreen.app-fullscreen-lock .inicio-hero-card {
+    padding: 20px !important;
+  }
+}
+
 @media (max-width: 880px) {
   .admin-layout-row,
   .inicio-layout-row {
@@ -224,6 +290,10 @@ body.inicio-fullscreen main {
     width: 100% !important;
     position: static !important;
     padding: 12px !important;
+  }
+
+  .inicio-sidebar {
+    z-index: 20;
   }
 
   .admin-sidebar-title {
@@ -279,6 +349,70 @@ body.inicio-fullscreen main {
   .inicio-sidebar-nav .inicio-card-label {
     font-size: 0.74rem !important;
     white-space: normal !important;
+  }
+}
+
+/* Menú de Inicio en celular: colapsado por defecto para dejarle espacio a la
+   trivia/pronósticos debajo; se despliega como ventana flotante sobre el contenido,
+   sin empujarlo, con el botón .inicio-sidebar-toggle. */
+.inicio-sidebar-toggle {
+  display: none;
+}
+
+.inicio-sidebar-menu-backdrop {
+  display: none;
+}
+
+@media (max-width: 880px) {
+  .inicio-sidebar-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.06);
+    border: none;
+    color: #fff;
+    font-weight: 800;
+    font-size: 0.85rem;
+    padding: 12px 14px;
+    border-radius: 12px;
+    cursor: pointer;
+  }
+
+  .inicio-sidebar {
+    overflow: visible !important;
+  }
+
+  .inicio-sidebar-nav-wrap {
+    position: relative;
+  }
+
+  .inicio-sidebar-nav {
+    display: none !important;
+  }
+
+  .inicio-sidebar-nav.is-open {
+    display: grid !important;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    z-index: 30;
+    background: linear-gradient(180deg, rgba(14, 26, 39, 0.98) 0%, rgba(16, 42, 33, 0.97) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    padding: 10px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+
+  .inicio-sidebar-menu-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 25;
+    background: transparent;
   }
 }
 
@@ -999,3 +1133,40 @@ select optgroup {
   --shadow-glow: 0 0 24px rgba(116, 204, 16, .35);
 }
 
+/* Contenido markdown de la Central de Datos (tablas de posiciones, resultados, etc.) */
+.markdown-oraculo p {
+  margin: 0 0 12px;
+}
+.markdown-oraculo p:last-child {
+  margin-bottom: 0;
+}
+.markdown-oraculo ul,
+.markdown-oraculo ol {
+  margin: 0 0 12px;
+  padding-left: 20px;
+}
+.markdown-oraculo strong {
+  color: #fff;
+}
+.markdown-oraculo table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8px 0 16px;
+  font-size: 0.88rem;
+}
+.markdown-oraculo th,
+.markdown-oraculo td {
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.markdown-oraculo th {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--graderia);
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+}
+.markdown-oraculo tr:last-child td {
+  border-bottom: none;
+}

@@ -1,14 +1,16 @@
 "use client";
 
-import React, { useState } from "react";
-import { BrainCircuit, Search, Trophy, Calendar, Users, Loader2, Send, Sparkles, CheckCircle2 } from "lucide-react";
+import React, { useState, useRef } from "react";
+import { Search, Trophy, Calendar, Users, Loader2, Send, Sparkles, CheckCircle2, X, Info } from "lucide-react";
 import { toast } from "sonner";
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 export default function CentralDatosView() {
   const [prompt, setPrompt] = useState("");
   const [loading, setLoading] = useState(false);
   const [respuesta, setRespuesta] = useState<{ tipo: string; titulo: string; contenido: any } | null>(null);
+  const mouseDownEnFondoRef = useRef(false);
 
   const enviarConsulta = async (textoConsulta: string) => {
     if (!textoConsulta.trim()) return;
@@ -43,23 +45,13 @@ export default function CentralDatosView() {
     }
   };
 
-  const formatearEstadoPartido = (detail: string, state: string) => {
-    if (state === "post" || detail?.toLowerCase().includes("final") || detail?.toLowerCase().includes("ft")) {
-      return { texto: "🏁 FINALIZADO", color: "#10b981" };
-    }
-    if (state === "in" || detail?.toLowerCase().includes("half") || detail?.toLowerCase().includes("live")) {
-      return { texto: "🔴 EN VIVO", color: "#ef4444" };
-    }
-    // Traducir fecha genérica
-    return { texto: detail || "PROGRAMADO", color: "#38bdf8" };
-  };
-
   const renderContenido = () => {
     if (!respuesta) return null;
 
     if (respuesta.tipo === "GENERAL") {
       return (
         <div
+          className="markdown-oraculo"
           style={{
             background: "linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%)",
             borderRadius: 16,
@@ -70,7 +62,7 @@ export default function CentralDatosView() {
             lineHeight: 1.7,
           }}
         >
-          <ReactMarkdown>{respuesta.contenido.answer || ""}</ReactMarkdown>
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>{respuesta.contenido.answer || ""}</ReactMarkdown>
         </div>
       );
     }
@@ -109,7 +101,6 @@ export default function CentralDatosView() {
                       style={{
                         borderBottom: "1px solid rgba(255, 255, 255, 0.04)",
                         background: index % 2 === 0 ? "transparent" : "rgba(255, 255, 255, 0.02)",
-                        transition: "background 0.2s ease",
                       }}
                     >
                       <td style={{ padding: "12px 16px", fontWeight: 800, color: index < 8 ? "#34d399" : "var(--graderia)" }}>#{index + 1}</td>
@@ -135,11 +126,7 @@ export default function CentralDatosView() {
           </div>
         );
       }
-      return (
-        <pre style={{ background: "rgba(15, 23, 42, 0.9)", padding: 16, borderRadius: 12, fontSize: "0.8rem", color: "var(--graderia)", overflowX: "auto" }}>
-          {JSON.stringify(respuesta.contenido, null, 2)}
-        </pre>
-      );
+      return null;
     }
 
     if (respuesta.tipo === "SCOREBOARD") {
@@ -210,14 +197,20 @@ export default function CentralDatosView() {
           {espnEvents.length > 0 && (
             <div>
               <div style={{ fontSize: "0.85rem", color: "#38bdf8", fontWeight: 800, textTransform: "uppercase", marginBottom: 10, letterSpacing: "0.05em" }}>
-                🌐 Marcadores y Partidos de la Web (ESPN)
+                🌐 Marcadores y Partidos de la Web
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 14 }}>
                 {espnEvents.map((evento: any) => {
                   const comp = evento.competitions[0];
                   const local = comp.competitors.find((c: any) => c.homeAway === "home");
                   const away = comp.competitors.find((c: any) => c.homeAway === "away");
-                  const estInfo = formatearEstadoPartido(evento.status?.type?.detail, evento.status?.type?.state);
+                  const state = evento.status?.type?.state;
+                  const detail = evento.status?.type?.detail;
+                  const estInfo = state === "post"
+                    ? { texto: "🏁 FINALIZADO", color: "#10b981" }
+                    : state === "in"
+                    ? { texto: "🔴 EN VIVO", color: "#ef4444" }
+                    : { texto: detail || "PROGRAMADO", color: "#38bdf8" };
 
                   return (
                     <div
@@ -258,24 +251,101 @@ export default function CentralDatosView() {
       );
     }
 
+    if (respuesta.tipo === "LINEUPS") {
+      const rosters = respuesta.contenido?.rosters || [];
+      if (rosters.length === 0) {
+        return (
+          <div style={{ padding: 20, textAlign: "center", color: "var(--graderia)" }}>
+            No hay alineación disponible todavía para este partido.
+          </div>
+        );
+      }
+
+      return (
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 16 }}>
+          {rosters.map((r: any, idx: number) => {
+            const nombreEquipo = r.team?.displayName || r.team?.name || `Equipo ${idx + 1}`;
+            const escudo = r.team?.logo || r.team?.logos?.[0]?.href;
+            const jugadores = (r.roster || []) as any[];
+            const titulares = jugadores.filter((j) => j.starter);
+            const suplentes = jugadores.filter((j) => !j.starter);
+
+            return (
+              <div
+                key={idx}
+                style={{
+                  background: "linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%)",
+                  borderRadius: 16,
+                  padding: 18,
+                  boxShadow: "0 8px 24px rgba(0,0,0,0.3)",
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
+                  {escudo && <img src={escudo} alt="" style={{ width: 28, height: 28, objectFit: "contain" }} />}
+                  <span style={{ fontWeight: 800, color: "#fff", fontSize: "0.95rem" }}>{nombreEquipo}</span>
+                  {r.formation?.name && (
+                    <span style={{ marginLeft: "auto", fontSize: "0.72rem", color: "#a78bfa", fontWeight: 700 }}>{r.formation.name}</span>
+                  )}
+                </div>
+
+                <div style={{ fontSize: "0.72rem", color: "#34d399", fontWeight: 800, textTransform: "uppercase", marginBottom: 6 }}>Titulares</div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: titulares.length > 0 ? 14 : 0 }}>
+                  {titulares.length > 0 ? titulares.map((j, i) => (
+                    <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: "0.82rem", color: "#fff" }}>
+                      <span style={{ width: 22, color: "var(--graderia)", fontWeight: 700 }}>{j.jersey || ""}</span>
+                      <span style={{ flex: 1 }}>{j.athlete?.displayName || j.athlete?.shortName || "—"}</span>
+                      {j.position?.abbreviation && <span style={{ color: "var(--graderia)", fontSize: "0.72rem" }}>{j.position.abbreviation}</span>}
+                    </div>
+                  )) : (
+                    <div style={{ fontSize: "0.8rem", color: "var(--graderia)" }}>Aún sin confirmar</div>
+                  )}
+                </div>
+
+                {suplentes.length > 0 && (
+                  <>
+                    <div style={{ fontSize: "0.72rem", color: "var(--graderia)", fontWeight: 800, textTransform: "uppercase", marginBottom: 6 }}>Suplentes</div>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                      {suplentes.map((j, i) => (
+                        <span key={i} style={{ fontSize: "0.75rem", color: "var(--graderia)", background: "rgba(255,255,255,0.04)", padding: "3px 8px", borderRadius: 20 }}>
+                          {j.athlete?.displayName || j.athlete?.shortName}
+                        </span>
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      );
+    }
+
     return null;
   };
 
   return (
     <div style={{ width: "100%", maxWidth: 1260, margin: "0 auto", padding: "12px 0 60px", display: "flex", flexDirection: "column", gap: 20 }}>
-      {/* HEADER DE RECOMENDACIONES IA */}
+      {/* HEADER DE RECOMENDACIONES */}
       <div style={{ display: "flex", alignItems: "center", gap: 14, background: "linear-gradient(135deg, rgba(217, 70, 239, 0.12) 0%, rgba(147, 51, 234, 0.06) 100%)", padding: 20, borderRadius: 16 }}>
         <div style={{ width: 50, height: 50, borderRadius: 14, background: "linear-gradient(135deg, #d946ef 0%, #a855f7 100%)", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", boxShadow: "0 8px 20px rgba(217, 70, 239, 0.4)" }}>
-          <BrainCircuit size={28} />
+          <img src="/marca/logo-club90-monograma-transparente.webp" alt="" style={{ height: 28, width: 28, objectFit: "contain" }} />
         </div>
         <div>
           <h2 style={{ fontSize: "1.4rem", fontWeight: 900, color: "#fff", margin: 0, display: "flex", alignItems: "center", gap: 8 }}>
-            Recomendaciones y Datos IA <Sparkles size={18} style={{ color: "#d946ef" }} />
+            Recomendaciones y Datos <Sparkles size={18} style={{ color: "#d946ef" }} />
           </h2>
           <p style={{ color: "var(--graderia)", fontSize: "0.88rem", margin: 0 }}>
-            Consulta tablas de posiciones, marcadores reales, estadísticas y análisis deportivo con Gemini AI
+            Consulta tablas de posiciones, marcadores reales, estadísticas y análisis deportivo
           </p>
         </div>
+      </div>
+
+      {/* BANNER: QUÉ SE PUEDE CONSULTAR AQUÍ */}
+      <div style={{ display: "flex", alignItems: "flex-start", gap: 12, background: "rgba(56, 189, 248, 0.08)", border: "1px solid rgba(56, 189, 248, 0.25)", borderRadius: 14, padding: "14px 18px" }}>
+        <Info size={18} style={{ color: "#38bdf8", flexShrink: 0, marginTop: 2 }} />
+        <p style={{ margin: 0, color: "#cbd5e1", fontSize: "0.85rem", lineHeight: 1.6 }}>
+          Aquí puedes consultar la <strong style={{ color: "#38bdf8" }}>tabla de posiciones</strong> de los equipos, goles a favor y en contra, partidos ganados/perdidos, los <strong style={{ color: "#38bdf8" }}>últimos 5 resultados</strong> y más — igual que en Flashscore o Google, pero de la Liga BetPlay.
+        </p>
       </div>
 
       {/* CHIPS SUGERENCIAS RÁPIDAS DE BÚSQUEDA */}
@@ -315,14 +385,14 @@ export default function CentralDatosView() {
         ))}
       </div>
 
-      {/* BUSCADOR CON IA */}
+      {/* BUSCADOR */}
       <div style={{ position: "relative", width: "100%" }}>
         <input
           type="text"
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && enviarConsulta(prompt)}
-          placeholder="Pregúntale a Gemini sobre alineaciones, posiciones, goleadores o análisis..."
+          placeholder="Pregunta sobre alineaciones, posiciones, goleadores o análisis..."
           style={{
             width: "100%",
             background: "rgba(15, 23, 42, 0.95)",
@@ -361,21 +431,59 @@ export default function CentralDatosView() {
         </button>
       </div>
 
-      {/* ÁREA DE RESULTADOS */}
-      {loading ? (
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "48px 20px", gap: 14 }}>
-          <Loader2 className="spin" style={{ color: "#d946ef" }} size={40} />
-          <p style={{ color: "var(--graderia)", fontSize: "0.9rem", margin: 0 }}>Consultando a Gemini AI y analizando datos en tiempo real...</p>
+      {/* VENTANA FLOTANTE CON EL RESULTADO DE LA CONSULTA */}
+      {(loading || respuesta) && (
+        <div
+          style={{
+            position: "fixed", top: 0, left: 0, right: 0, bottom: 0,
+            background: "rgba(0,0,0,0.85)",
+            backdropFilter: "blur(8px)",
+            display: "flex", justifyContent: "center", alignItems: "flex-start",
+            overflowY: "auto",
+            zIndex: 9999, padding: "40px 20px",
+          }}
+          onMouseDown={(e) => { mouseDownEnFondoRef.current = e.target === e.currentTarget; }}
+          onClick={(e) => { if (!loading && mouseDownEnFondoRef.current && e.target === e.currentTarget) setRespuesta(null); }}
+        >
+          <div
+            style={{
+              background: "#0b0f1a",
+              border: "1px solid rgba(217, 70, 239, 0.3)",
+              borderRadius: 20,
+              width: "100%", maxWidth: 760,
+              maxHeight: "100%",
+              display: "flex", flexDirection: "column",
+              overflow: "hidden",
+              boxShadow: "0 10px 40px rgba(217, 70, 239, 0.15)",
+            }}
+          >
+            <div style={{ flexShrink: 0, padding: "18px 22px", background: "linear-gradient(90deg, rgba(217, 70, 239, 0.12) 0%, transparent 100%)", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
+              <h3 style={{ fontSize: "1.05rem", fontWeight: 800, color: "#fff", margin: 0, display: "flex", alignItems: "center", gap: 8 }}>
+                <img src="/marca/logo-club90-monograma-transparente.webp" alt="" style={{ height: 22, width: 22, objectFit: "contain" }} />
+                {loading ? "Consultando..." : respuesta?.titulo}
+              </h3>
+              <button
+                onClick={() => !loading && setRespuesta(null)}
+                disabled={loading}
+                style={{ background: "transparent", border: "none", color: "var(--graderia)", cursor: loading ? "default" : "pointer", opacity: loading ? 0.4 : 1 }}
+              >
+                <X size={22} />
+              </button>
+            </div>
+
+            <div style={{ padding: 22, overflowY: "auto" }}>
+              {loading ? (
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "48px 20px", gap: 14 }}>
+                  <Loader2 className="spin" style={{ color: "#d946ef" }} size={40} />
+                  <p style={{ color: "var(--graderia)", fontSize: "0.9rem", margin: 0 }}>Consultando y analizando datos en tiempo real...</p>
+                </div>
+              ) : (
+                renderContenido()
+              )}
+            </div>
+          </div>
         </div>
-      ) : respuesta ? (
-        <div style={{ display: "flex", flexDirection: "column", gap: 14, marginTop: 10 }}>
-          <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "#fff", margin: 0, display: "flex", alignItems: "center", gap: 8 }}>
-            <BrainCircuit style={{ color: "#d946ef" }} size={22} />
-            {respuesta.titulo}
-          </h3>
-          {renderContenido()}
-        </div>
-      ) : null}
+      )}
     </div>
   );
 }

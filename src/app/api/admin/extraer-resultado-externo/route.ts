@@ -52,6 +52,21 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "No se encontró el partido en ESPN." }, { status: 404 });
     }
 
+    const espnStatus = matchEvent.status.type.name;
+
+    // Regla: solo se extrae el resultado como oficial cuando ESPN confirma que el
+    // partido ya terminó. Antes de eso el marcador es provisional y puede cambiar,
+    // así que no se debe usar para liquidar puntos.
+    if (espnStatus !== "STATUS_FULL_TIME") {
+      return NextResponse.json(
+        {
+          error: `El partido todavía no aparece finalizado en ESPN (estado: ${espnStatus}). Espera a que termine para extraer el resultado oficial.`,
+          espnStatus,
+        },
+        { status: 409 }
+      );
+    }
+
     const competition = matchEvent.competitions[0];
     const homeTeam = competition.competitors.find((c: any) => c.homeAway === "home");
     const awayTeam = competition.competitors.find((c: any) => c.homeAway === "away");

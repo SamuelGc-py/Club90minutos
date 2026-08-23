@@ -1,9 +1,18 @@
 import { NextResponse } from 'next/server';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { GoogleGenAI } from '@google/genai';
 import { prisma } from "@/lib/db";
 
-// Instanciar el cliente de Gemini
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
+const normalizeNombre = (str: string) =>
+  (str || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/f\.c\.|fc|d\.a\.f\.|c\.d\./gi, "").trim();
+
+// Respuesta de texto sin herramienta de búsqueda (el plan gratuito de Gemini no
+// tiene cuota estable para "Google Search grounding"), usando solo el
+// conocimiento entrenado del modelo.
+const responderConIA = (ai: GoogleGenAI, contents: string) =>
+  ai.models.generateContent({
+    model: 'gemini-3.5-flash',
+    contents,
+  });
 
 export async function POST(request: Request) {
   try {
@@ -14,69 +23,92 @@ export async function POST(request: Request) {
     }
 
     if (!process.env.GEMINI_API_KEY) {
-      return NextResponse.json({ error: 'Falta la API Key de Gemini en las variables de entorno' }, { status: 500 });
+      return NextResponse.json({ error: 'El servicio de datos no está disponible en este momento.' }, { status: 500 });
     }
 
-    const modelName = 'gemini-3.6-flash';
-    const model = genAI.getGenerativeModel({ model: modelName });
+    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
     // Instrucción para el sistema: analizar la intención del usuario.
     const systemInstruction = `
 Eres el "Asistente 90 Minutos", un experto en fútbol colombiano para la plataforma "Club 90 Minutos".
 Tu tarea es analizar la consulta del usuario y devolver UNICAMENTE un objeto JSON con la siguiente estructura:
 {
-  "intent": "STANDINGS" | "SCOREBOARD" | "PREDICTION" | "GENERAL",
-  "response": "Si el intent es GENERAL o PREDICTION, aquí va tu respuesta. Si no, deja este campo vacío."
+  "intent": "STANDINGS" | "SCOREBOARD" | "LINEUPS" | "PREDICTION" | "GENERAL",
+  "equipoLocal": "Si el intent es LINEUPS y el usuario menciona un partido específico, el nombre del primer equipo. Si no, vacío.",
+  "equipoVisitante": "Si el intent es LINEUPS y el usuario menciona un partido específico, el nombre del segundo equipo. Si no, vacío."
 }
 
 Reglas estrictas:
-1. Si el usuario pide predicciones de partidos, marcadores futuros o pregunta quién va a ganar un partido ("¿quién gana?", "¿cuál va a ser el marcador?", "dame la predicción del partido X vs Y"), el intent es "PREDICTION" y tu respuesta en "response" DEBE SER EXACTAMENTE:
-"Un verdadero futbolero no buscaría resultados ni marcadores con la IA. ¡Demuestra lo que sabes en la Polla Club 90 Minutos! ⚽🔥"
+1. Si el usuario pide predicciones de partidos, marcadores futuros o pregunta quién va a ganar un partido ("¿quién gana?", "¿cuál va a ser el marcador?", "dame la predicción del partido X vs Y"), el intent es "PREDICTION".
 
 2. Si el usuario pregunta por la tabla de posiciones, clasificación de la Liga BetPlay o quién va de primero, el intent es "STANDINGS".
 
 3. Si el usuario pregunta por resultados de partidos, marcadores o partidos de la liga, el intent es "SCOREBOARD".
 
-4. Si pregunta por posibles alineaciones, nóminas, historia, datos o curiosidades del fútbol, el intent es "GENERAL" y debes darle una respuesta completa y bien redactada en "response".
+4. Si el usuario pregunta por alineaciones, posible once inicial o convocados de un partido específico, el intent es "LINEUPS", y extraes los nombres de los dos equipos del partido en "equipoLocal" y "equipoVisitante" (si solo menciona un equipo o ninguno, deja ambos campos vacíos).
 
-5. NUNCA devuelvas otra cosa que no sea el JSON puro (sin marcas de markdown).
+5. Cualquier otra pregunta de fútbol (nóminas generales, historia, datos, curiosidades) es "GENERAL".
+
+6. NUNCA devuelvas otra cosa que no sea el JSON puro (sin marcas de markdown).
     `;
 
-    const result = await model.generateContent(`${systemInstruction}\n\nConsulta del usuario: ${prompt}`);
-    const textResult = result.response.text();
-    
-    // Limpiar posible formato markdown que devuelva el modelo
-    const cleanedJsonText = textResult.replace(/```json/g, '').replace(/```/g, '').trim();
-    
-    let aiResponse;
+    const clasificacion = await ai.models.generateContent({
+      model: 'gemini-3.5-flash',
+      contents: `${systemInstruction}\n\nConsulta del usuario: ${prompt}`,
+      config: {
+        responseMimeType: "application/json",
+      },
+    });
+    const textResult = clasificacion.text || '';
+
+    let aiResponse: any;
     try {
-      aiResponse = JSON.parse(cleanedJsonText);
+      aiResponse = JSON.parse(textResult);
     } catch (e) {
-      console.error("Error parseando respuesta de Gemini:", textResult);
-      aiResponse = { intent: "GENERAL", response: textResult };
+      console.error("Error parseando respuesta del asistente:", textResult);
+      aiResponse = { intent: "GENERAL" };
     }
 
     if (aiResponse.intent === "PREDICTION") {
       return NextResponse.json({
         type: "GENERAL",
         title: "Mensaje Futbolero ⚽",
-        data: { answer: aiResponse.response || "Un verdadero futbolero no buscaría resultados ni marcadores con la IA. ¡Demuestra lo que sabes en la Polla Club 90 Minutos! ⚽🔥" }
+        data: { answer: "¡Un verdadero futbolero arma su propia predicción! Demuestra lo que sabes en la Polla Club 90 Minutos ⚽🔥" }
       });
     }
 
-    // Procesar la acción basada en el intent
+    // Tabla de posiciones: datos en vivo de ESPN (gratis, sin límite de cuota).
     if (aiResponse.intent === "STANDINGS") {
-      const espnRes = await fetch("https://site.api.espn.com/apis/site/v2/sports/soccer/col.1/standings");
-      if (!espnRes.ok) throw new Error("Error fetching standings from ESPN");
-      const espnData = await espnRes.json();
-      
-      return NextResponse.json({ 
-        type: "STANDINGS",
-        title: "Tabla de Posiciones Oficial - Liga BetPlay",
-        data: espnData 
-      });
+      try {
+        const espnRes = await fetch("https://site.api.espn.com/apis/site/v2/sports/soccer/col.1/standings");
+        if (!espnRes.ok) throw new Error("Error consultando ESPN");
+        const espnData = await espnRes.json();
+        const entries = espnData?.children?.[0]?.standings?.entries;
+
+        if (!Array.isArray(entries) || entries.length === 0) {
+          return NextResponse.json({
+            type: "GENERAL",
+            title: "Tabla de Posiciones",
+            data: { answer: "ESPN todavía no tiene publicada la tabla de posiciones de esta fase del torneo. Intenta de nuevo más adelante en la temporada." }
+          });
+        }
+
+        return NextResponse.json({
+          type: "STANDINGS",
+          title: "Tabla de Posiciones Oficial — Liga BetPlay",
+          data: espnData
+        });
+      } catch (e) {
+        console.error("Error obteniendo tabla de posiciones de ESPN:", e);
+        return NextResponse.json({
+          type: "GENERAL",
+          title: "Tabla de Posiciones",
+          data: { answer: "No se pudo obtener la tabla de posiciones en este momento, intenta de nuevo en unos segundos." }
+        });
+      }
     }
 
+    // Resultados/marcadores: ESPN en vivo (gratis) + nuestros resultados oficiales propios.
     if (aiResponse.intent === "SCOREBOARD") {
       let espnEvents: any[] = [];
       try {
@@ -89,7 +121,6 @@ Reglas estrictas:
         console.error("Error consultando ESPN Scoreboard:", e);
       }
 
-      // También traer los últimos partidos finalizados con marcador de la base de datos de Club 90 Minutos
       let dbPartidos: any[] = [];
       try {
         dbPartidos = await prisma.partido.findMany({
@@ -115,25 +146,116 @@ Reglas estrictas:
       } catch (e) {
         console.error("Error consultando DB partidos:", e);
       }
-      
-      return NextResponse.json({ 
-        type: "SCOREBOARD", 
+
+      return NextResponse.json({
+        type: "SCOREBOARD",
         title: "Resultados y Marcadores",
         data: {
           espnEvents,
           dbPartidos,
-        } 
+        }
       });
+    }
+
+    // Alineaciones: primero se intenta con ESPN (si ya publicó la nómina/formación);
+    // si no está disponible, se completa con lo que sepa la IA (sin búsqueda web).
+    if (aiResponse.intent === "LINEUPS") {
+      const equipoLocal = (aiResponse.equipoLocal || "").trim();
+      const equipoVisitante = (aiResponse.equipoVisitante || "").trim();
+
+      if (!equipoLocal && !equipoVisitante) {
+        return NextResponse.json({
+          type: "GENERAL",
+          title: "Alineaciones",
+          data: { answer: "Dime el partido específico (por ejemplo: \"alineación de Millonarios vs Nacional\") y busco la nómina confirmada o probable." }
+        });
+      }
+
+      const equipoLocalNorm = normalizeNombre(equipoLocal);
+      const equipoVisitanteNorm = normalizeNombre(equipoVisitante);
+
+      let eventoEncontrado: any = null;
+      try {
+        const scoreboardRes = await fetch("https://site.api.espn.com/apis/site/v2/sports/soccer/col.1/scoreboard");
+        if (scoreboardRes.ok) {
+          const scoreboardData = await scoreboardRes.json();
+          const events = scoreboardData.events || [];
+          eventoEncontrado = events.find((event: any) => {
+            const competition = event.competitions?.[0];
+            const home = competition?.competitors?.find((c: any) => c.homeAway === "home");
+            const away = competition?.competitors?.find((c: any) => c.homeAway === "away");
+            if (!home || !away) return false;
+            const homeNorm = normalizeNombre(home.team.name);
+            const awayNorm = normalizeNombre(away.team.name);
+            const matchLocal = !equipoLocalNorm || homeNorm.includes(equipoLocalNorm) || equipoLocalNorm.includes(homeNorm);
+            const matchVisitante = !equipoVisitanteNorm || awayNorm.includes(equipoVisitanteNorm) || equipoVisitanteNorm.includes(awayNorm);
+            return matchLocal && matchVisitante;
+          });
+        }
+      } catch (e) {
+        console.error("Error consultando ESPN Scoreboard para alineaciones:", e);
+      }
+
+      if (eventoEncontrado) {
+        try {
+          const summaryRes = await fetch(`https://site.api.espn.com/apis/site/v2/sports/soccer/col.1/summary?event=${eventoEncontrado.id}`);
+          if (summaryRes.ok) {
+            const summaryData = await summaryRes.json();
+            const rosters = summaryData.rosters;
+            if (Array.isArray(rosters) && rosters.length > 0) {
+              return NextResponse.json({
+                type: "LINEUPS",
+                title: `Alineaciones — ${eventoEncontrado.name || eventoEncontrado.shortName || ""}`,
+                data: { rosters, evento: eventoEncontrado },
+              });
+            }
+          }
+        } catch (e) {
+          console.error("Error consultando ESPN Summary para alineaciones:", e);
+        }
+      }
+
+      // Respaldo: ESPN no tiene la nómina todavía (o no se encontró el partido).
+      let textoAlineacion = "Todavía no hay alineación publicada para este partido. Intenta de nuevo más cerca de la hora del partido.";
+      try {
+        const respuesta = await responderConIA(
+          ai,
+          `¿Cuál es la alineación/once inicial habitual o más probable para "${equipoLocal} vs ${equipoVisitante}" de la Liga BetPlay Dimayor de Colombia, según lo que sepas?
+Aclara que esto es una referencia, no la alineación confirmada oficial (que aún no está publicada), y que puede no reflejar cambios recientes.
+Responde en español, organizado por equipo.`
+        );
+        textoAlineacion = respuesta.text || textoAlineacion;
+      } catch (e) {
+        console.error("Error generando alineación de respaldo:", e);
+      }
+
+      return NextResponse.json({
+        type: "GENERAL",
+        title: `Alineaciones — ${equipoLocal} vs ${equipoVisitante}`,
+        data: { answer: textoAlineacion },
+      });
+    }
+
+    // GENERAL: cualquier otra pregunta de fútbol, respondida con el conocimiento del modelo.
+    let textoGeneral = "No se pudo generar una respuesta en este momento, intenta de nuevo.";
+    try {
+      const respuesta = await responderConIA(
+        ai,
+        `Eres un experto en fútbol colombiano para la plataforma "Club 90 Minutos". Responde en español, de forma completa y bien redactada.\n\nConsulta del usuario: ${prompt}`
+      );
+      textoGeneral = respuesta.text || textoGeneral;
+    } catch (e) {
+      console.error("Error generando respuesta general:", e);
     }
 
     return NextResponse.json({
       type: "GENERAL",
-      title: "Análisis Deportivo IA",
-      data: { answer: aiResponse.response }
+      title: "Análisis Deportivo",
+      data: { answer: textoGeneral }
     });
 
   } catch (error: any) {
-    console.error('Error en el Oráculo:', error);
-    return NextResponse.json({ error: error.message || 'Error procesando la solicitud' }, { status: 500 });
+    console.error('Error en la Central de Datos:', error);
+    return NextResponse.json({ error: 'No se pudo procesar la consulta, intenta de nuevo.' }, { status: 500 });
   }
 }

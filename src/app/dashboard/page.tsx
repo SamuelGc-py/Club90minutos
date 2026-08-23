@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect, useMemo, Component } from "react";
-import { CheckCircle2, ShieldAlert, Save, RefreshCw, Trophy, Calendar, LogOut, AlertTriangle, UserCheck, Lock, Clock, Eye, List, Download, Users, Menu, X, Flame, Camera, BarChart3, ClipboardCheck, Trash2, Hourglass, BrainCircuit, User, ArrowRight, ChevronRight } from "lucide-react";
+import React, { useState, useEffect, useMemo, useRef, Component } from "react";
+import { CheckCircle2, ShieldAlert, Save, RefreshCw, Trophy, Calendar, LogOut, AlertTriangle, UserCheck, Lock, Clock, Eye, List, Download, Users, Menu, X, Flame, Camera, BarChart3, ClipboardCheck, Trash2, Hourglass, User, ArrowRight, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { toPng } from 'html-to-image';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis, YAxis } from "recharts";
@@ -537,12 +537,15 @@ function ExpressPageContent() {
   const [cargandoMaestros, setCargandoMaestros] = useState(false);
 
   // Estado del Formulario (Pestañas)
-  const [tabActiva, setTabActiva] = useState<"inicio" | "partidos" | "aplazados" | "inicial" | "mis_pronosticos" | "admin" | "posiciones" | "en_vivo" | "finalizados" | "historial" | "oraculo">("inicio");
-  const [desgloseAbierto, setDesgloseAbierto] = useState<"exacto" | "ganador" | "goleador" | "torneo" | null>(null);
+  const [tabActiva, setTabActiva] = useState<"inicio" | "partidos" | "aplazados" | "inicial" | "mis_pronosticos" | "admin" | "posiciones" | "en_vivo" | "finalizados" | "historial" | "oraculo" | "pronosticos_todos">("inicio");
+  const [desgloseAbierto, setDesgloseAbierto] = useState<"exacto" | "ganador" | "goleador" | null>(null);
   const [mostrarTrivia, setMostrarTrivia] = useState(false);
+  const [menuInicioMovilAbierto, setMenuInicioMovilAbierto] = useState(false);
+  const [partidoPronosticosAbierto, setPartidoPronosticosAbierto] = useState<number | null>(null);
+  const mouseDownEnFondoRef = useRef(false);
+  const [filtroPronosticosTodos, setFiltroPronosticosTodos] = useState<"pendientes" | "finalizados">("pendientes");
   const [modalPrediccionAbierto, setModalPrediccionAbierto] = useState<"campeon" | "finalistas" | "clasificados" | "goleador" | null>(null);
   const [fechaFiltroAplazados, setFechaFiltroAplazados] = useState<string>("todas");
-  const [fechaFiltroFinalizados, setFechaFiltroFinalizados] = useState<string>("todas");
   const necesitaFullscreen = true;
 
   // Frases animadas para el Noticiero del banner superior
@@ -551,7 +554,8 @@ function ExpressPageContent() {
     "⚽ DEMUESTRA LO QUE SABES DE FÚTBOL Y GANA CON TUS PRONÓSTICOS",
     "🎯 MARCADOR EXACTO OTORGA 5 PTS, GANADOR 3 PTS Y GOLEADOR 2 PTS",
     "📊 CONSULTA LA TABLA DE POSICIONES EN VIVO Y TUS PUNTUACIONES",
-    "🤖 UTILIZA RECOMENDACIONES IA PARA ANALIZAR PARTIDOS CON GEMINI",
+    "📊 UTILIZA LAS RECOMENDACIONES PARA ANALIZAR TUS PARTIDOS",
+    "🎮 ¡PRUEBA LA TRIVIA 90 MINUTOS Y MIRA LOS PRONÓSTICOS DE TODOS!",
   ];
   const [fraseIndice, setFraseIndice] = useState(0);
 
@@ -568,6 +572,29 @@ function ExpressPageContent() {
     document.body.classList.toggle("inicio-fullscreen", esInicioParticipante);
     return () => {
       document.body.classList.remove("inicio-fullscreen");
+    };
+  }, [usuario, tabActiva]);
+
+  // Menú del sidebar en celular: colapsado por defecto cada vez que se vuelve a "inicio".
+  useEffect(() => {
+    if (tabActiva !== "inicio") {
+      setMenuInicioMovilAbierto(false);
+    }
+  }, [tabActiva]);
+
+  // Login y pantalla de Inicio: quedan estáticas (sin scroll de página); solo el
+  // menú del sidebar puede desplazarse internamente si su contenido no cabe.
+  useEffect(() => {
+    const esInicioParticipante = usuario?.rol_id !== 2 && tabActiva === "inicio";
+    const esLogin = !usuario;
+    const bloquearScroll = esInicioParticipante || esLogin;
+    document.documentElement.classList.toggle("app-fullscreen-lock", bloquearScroll);
+    document.body.classList.toggle("app-fullscreen-lock", bloquearScroll);
+    document.body.classList.toggle("login-fullscreen", esLogin);
+    return () => {
+      document.documentElement.classList.remove("app-fullscreen-lock");
+      document.body.classList.remove("app-fullscreen-lock");
+      document.body.classList.remove("login-fullscreen");
     };
   }, [usuario, tabActiva]);
 
@@ -1924,7 +1951,7 @@ function ExpressPageContent() {
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
                     {/* DROPDOWN LOCAL */}
                     <div>
-                      <div style={{ fontSize: "0.75rem", fontWeight: 700, color: deshabilitarLocal ? "var(--graderia)" : "#34d399", marginBottom: 4 }}>
+                      <div style={{ fontSize: "0.75rem", fontWeight: 700, color: deshabilitarLocal ? "var(--graderia)" : "#34d399", marginBottom: 4, lineHeight: 1.3, minHeight: "2.6em" }}>
                         🏠 Goleador {partido.equipo_local.nombre}:
                       </div>
                       <select
@@ -1953,7 +1980,7 @@ function ExpressPageContent() {
 
                     {/* DROPDOWN VISITANTE */}
                     <div>
-                      <div style={{ fontSize: "0.75rem", fontWeight: 700, color: deshabilitarVisitante ? "var(--graderia)" : "#38bdf8", marginBottom: 4 }}>
+                      <div style={{ fontSize: "0.75rem", fontWeight: 700, color: deshabilitarVisitante ? "var(--graderia)" : "#38bdf8", marginBottom: 4, lineHeight: 1.3, minHeight: "2.6em" }}>
                         ✈️ Goleador {partido.equipo_visitante.nombre}:
                       </div>
                       <select
@@ -2195,10 +2222,19 @@ function ExpressPageContent() {
 
   const totalPronosticados = Object.values(marcadores).filter((m) => m.local !== "" && m.visitante !== "").length;
 
-
+  // Evita el parpadeo de la pantalla de login: mientras no se haya intentado
+  // restaurar la sesión guardada, no se sabe todavía si hay que mostrar el
+  // login o el dashboard, así que se muestra una pantalla de carga neutra.
+  if (!isMounted) {
+    return (
+      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "var(--noche)" }}>
+        <RefreshCw className="spin" size={36} style={{ color: "#38bdf8" }} />
+      </div>
+    );
+  }
 
   return (
-    <div style={!usuario ? { minHeight: "100vh", display: "flex", width: "100%", background: "var(--noche)" } : { paddingBottom: 80 }}>
+    <div className="participant-root" style={!usuario ? { minHeight: "100vh", display: "flex", width: "100%", background: "var(--noche)" } : { paddingBottom: 80 }}>
       {/* INYECCIÓN DE ESTILO PARA EVITAR POP-IN */}
       {necesitaFullscreen && (
         <style dangerouslySetInnerHTML={{ __html: `
@@ -2955,11 +2991,8 @@ function ExpressPageContent() {
                                       },
                                     }));
 
-                                    let msg = `Marcador auto-completado: ${data.golesLocal}-${data.golesVisitante}`;
-                                    if (data.espnStatus !== "STATUS_FULL_TIME") {
-                                      msg += " (¡OJO! Partido NO finalizado en ESPN)";
-                                    }
-                                    
+                                    let msg = `Marcador oficial auto-completado (partido finalizado en ESPN): ${data.golesLocal}-${data.golesVisitante}`;
+
                                     if (data.logs && data.logs.length > 0) {
                                       toast.success(`${msg}. Goleadores: ${data.logs.join(' | ')}`, { id: toastId, duration: 6000 });
                                     } else {
@@ -3572,7 +3605,14 @@ function ExpressPageContent() {
         </div>
       ) : (
         /* ================= VISTA NORMAL DE PARTICIPANTE ================= */
-        <div style={{ maxWidth: 1260, margin: "0 auto", padding: "0 16px" }}>
+        <div
+          className="inicio-fullscreen-wrapper"
+          style={
+            tabActiva === "inicio"
+              ? { padding: "0 16px" }
+              : { maxWidth: 1260, margin: "0 auto", padding: "0 16px" }
+          }
+        >
           {/* HEADER PRINCIPAL RESPONSIVO */}
           <header
             style={{
@@ -3583,7 +3623,7 @@ function ExpressPageContent() {
               background: "rgba(14, 26, 39, 0.95)",
               backdropFilter: "blur(14px)",
               border: "1px solid var(--linea-fuerte)",
-              borderRadius: 16,
+              borderRadius: tabActiva === "inicio" ? 0 : 16,
               marginBottom: 20,
               boxShadow: "0 8px 24px rgba(0,0,0,0.5)",
             }}
@@ -3679,7 +3719,7 @@ function ExpressPageContent() {
 
           {/* TAB 0: PANTALLA DE INICIO Y BIENVENIDA (con sidebar de navegación) */}
           {tabActiva === "inicio" && (
-            <div className="inicio-layout-row" style={{ display: "flex", gap: 20, alignItems: "stretch", maxWidth: 1260, margin: "0 auto", minHeight: "calc(100vh - 120px)" }}>
+            <div className="inicio-layout-row" style={{ display: "flex", gap: 20, alignItems: "stretch", minHeight: "calc(100vh - 120px)" }}>
               {/* SIDEBAR DE MENÚ RÁPIDO (a la izquierda) */}
               <div
                 className="inicio-sidebar sidebar-scroll"
@@ -3691,13 +3731,37 @@ function ExpressPageContent() {
                   gap: 8,
                   background: "linear-gradient(180deg, rgba(14, 26, 39, 0.95) 0%, rgba(16, 42, 33, 0.92) 100%)",
                   border: "none",
-                  borderRadius: 16,
+                  borderRadius: 0,
                   padding: 18,
                   boxShadow: "0 12px 36px rgba(0,0,0,0.5)",
                   overflowY: "auto",
                 }}
               >
-                <div className="inicio-sidebar-nav" style={{ flex: 1 }}>
+                {menuInicioMovilAbierto && (
+                  <div
+                    className="inicio-sidebar-menu-backdrop"
+                    onClick={() => setMenuInicioMovilAbierto(false)}
+                  />
+                )}
+                <div className="inicio-sidebar-nav-wrap">
+                  <button
+                    type="button"
+                    className="inicio-sidebar-toggle"
+                    onClick={() => setMenuInicioMovilAbierto((v) => !v)}
+                  >
+                    <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                      <Menu size={16} />
+                      Menú de navegación
+                    </span>
+                    <ChevronRight
+                      size={16}
+                      style={{
+                        transform: menuInicioMovilAbierto ? "rotate(90deg)" : "none",
+                        transition: "transform 0.2s ease",
+                      }}
+                    />
+                  </button>
+                  <div className={`inicio-sidebar-nav${menuInicioMovilAbierto ? " is-open" : ""}`} style={{ flex: 1 }}>
                   {([
                     {
                       key: "partidos",
@@ -3751,6 +3815,17 @@ function ExpressPageContent() {
                       color: "#6366f1",
                       onClick: () => {
                         setTabActiva("mis_pronosticos");
+                        cargarConsolidados(usuario.id);
+                      },
+                    },
+                    {
+                      key: "pronosticos_todos",
+                      emoji: "👀",
+                      label: "Pronósticos de Todos",
+                      desc: "Se revelan al cerrar cada partido",
+                      color: "#a78bfa",
+                      onClick: () => {
+                        setTabActiva("pronosticos_todos");
                         cargarConsolidados(usuario.id);
                       },
                     },
@@ -3817,107 +3892,94 @@ function ExpressPageContent() {
                     </button>
                   ))}
                 </div>
+                </div>
               </div>
 
               {/* CONTENIDO PRINCIPAL: HERO DE BIENVENIDA + TRIVIA */}
               <div
+                className="inicio-content-hero"
                 style={{
                   flex: 1,
                   minWidth: 0,
                   display: "flex",
                   flexDirection: "column",
                   gap: 8,
+                  overflow: "hidden",
                 }}
               >
-                {/* HERO BANNER DE BIENVENIDA */}
+                {/* HERO UNIFICADO: BIENVENIDA + TRIVIA */}
                 <div
-                  className="card"
-                  style={{
-                    background: "linear-gradient(135deg, rgba(14, 26, 39, 0.95) 0%, rgba(19, 32, 48, 0.95) 50%, rgba(16, 42, 33, 0.95) 100%)",
-                    border: "none",
-                    borderRadius: 16,
-                    padding: "24px",
-                    textAlign: "center",
-                    boxShadow: "0 12px 36px rgba(0,0,0,0.5)",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <div style={{ fontSize: "0.85rem", textTransform: "uppercase", letterSpacing: "0.14em", color: "#34d399", fontWeight: 800, marginBottom: 8 }}>
-                    🔥 BIENVENIDO AL DESAFÍO, {usuario.nombre?.toUpperCase()} 🔥
-                  </div>
-                  <h1 style={{ fontSize: "clamp(1.5rem, 3.5vw, 2.2rem)", fontWeight: 900, color: "#ffffff", margin: 0 }}>
-                    ¿CREES QUE NADIE TE GANA? DEMUÉSTRALO
-                  </h1>
-                </div>
-
-                {/* BANNER DE TRIVIA GIGANTE PARA RELLENAR ESPACIO */}
-                <div
-                  onClick={() => setMostrarTrivia(true)}
+                  className="card inicio-hero-card"
                   style={{
                     flex: 1,
-                    background: "linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(153, 27, 27, 0.4) 100%)",
-                    border: "1px solid rgba(239, 68, 68, 0.4)",
-                    borderRadius: 16,
-                    padding: "40px 30px",
-                    cursor: "pointer",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: 24,
-                    transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
-                    boxShadow: "0 12px 40px rgba(220, 38, 38, 0.15)",
-                    position: "relative",
-                    overflow: "hidden"
-                  }}
-                  onMouseOver={(e) => {
-                    e.currentTarget.style.transform = "translateY(-4px) scale(1.01)";
-                    e.currentTarget.style.boxShadow = "0 20px 50px rgba(239, 68, 68, 0.25)";
-                  }}
-                  onMouseOut={(e) => {
-                    e.currentTarget.style.transform = "none";
-                    e.currentTarget.style.boxShadow = "0 12px 40px rgba(220, 38, 38, 0.15)";
+                    background: 'linear-gradient(135deg, #09090b 0%, #0f172a 40%, #10301f 100%)',
+                    padding: '40px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    textAlign: 'center',
+                    borderTop: '1px solid rgba(255, 255, 255, 0.05)',
+                    borderRadius: 0,
+                    boxShadow: '0 12px 36px rgba(0,0,0,0.5)',
                   }}
                 >
-                  {/* Círculo decorativo de fondo */}
-                  <div style={{ position: "absolute", top: -50, right: -50, width: 200, height: 200, background: "rgba(239, 68, 68, 0.1)", borderRadius: "50%", filter: "blur(30px)" }} />
-                  <div style={{ position: "absolute", bottom: -50, left: -50, width: 250, height: 250, background: "rgba(220, 38, 38, 0.15)", borderRadius: "50%", filter: "blur(40px)" }} />
+                  {/* Elementos decorativos (Orbes brillantes) */}
+                  <div style={{ position: 'absolute', top: '-20%', left: '-10%', width: '50%', height: '50%', background: 'radial-gradient(circle, rgba(29, 185, 84, 0.18) 0%, transparent 70%)', filter: 'blur(40px)', pointerEvents: 'none' }} />
+                  <div style={{ position: 'absolute', bottom: '-30%', right: '-10%', width: '60%', height: '60%', background: 'radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, transparent 70%)', filter: 'blur(50px)', pointerEvents: 'none' }} />
+                  
+                  {/* Badge de bienvenida */}
+                  <div style={{ padding: '6px 16px', background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255, 255, 255, 0.1)', color: '#e2e8f0', borderRadius: 30, fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.15em', marginBottom: 20, backdropFilter: 'blur(10px)', zIndex: 1, textTransform: 'uppercase', display: 'inline-block' }}>
+                    🔥 Bienvenido al Desafío, {usuario.nombre?.split(' ')[0]?.toUpperCase() || 'CRACK'}
+                  </div>
 
-                  <div style={{ padding: "12px 20px", background: "#ef4444", color: "#fff", borderRadius: 12, fontSize: "0.85rem", fontWeight: 900, letterSpacing: "0.08em", display: "inline-block", zIndex: 1 }}>
-                    🔥 NUEVA FUNCIONALIDAD
-                  </div>
-                  
-                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", zIndex: 1 }}>
-                    <h3 style={{ margin: 0, fontSize: "clamp(1.8rem, 4vw, 2.8rem)", fontWeight: 900, color: "#ffffff", display: "flex", alignItems: "center", gap: 14, textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>
-                      <BrainCircuit size={42} color="#fca5a5" style={{ filter: "drop-shadow(0 0 10px rgba(239, 68, 68, 0.8))" }} /> 
-                      TRIVIA 90 MINUTOS
-                    </h3>
-                    <p style={{ margin: "16px auto 0", color: "#fecaca", fontSize: "1.1rem", lineHeight: 1.6, maxWidth: 600 }}>
-                      ¿Crees que te las sabes todas? Pon a prueba tu conocimiento futbolístico con preguntas generadas en tiempo real por la Inteligencia Artificial de Gemini. 
-                    </p>
-                  </div>
-                  
-                  <div
+                  {/* Título Principal */}
+                  <h1 style={{ fontSize: 'clamp(2rem, 4.5vw, 3.8rem)', fontWeight: 900, color: '#ffffff', margin: '0 0 15px 0', lineHeight: 1.1, zIndex: 1, textShadow: '0 4px 20px rgba(0,0,0,0.5)', letterSpacing: '-0.02em' }}>
+                    ¿CREES QUE NADIE <br/><span style={{ background: 'linear-gradient(to right, #1db954, #34d399)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>TE GANA?</span>
+                  </h1>
+
+                  {/* Descripción */}
+                  <p style={{ margin: '0 auto 35px', color: '#a1a1aa', fontSize: 'clamp(0.95rem, 1.5vw, 1.15rem)', lineHeight: 1.6, maxWidth: 600, zIndex: 1 }}>
+                    Demuestra tu conocimiento futbolístico en la nueva <strong style={{ color: '#34d399' }}>Trivia 90 Minutos</strong>. ¡Ponte a prueba antes de que empiecen los partidos!
+                  </p>
+
+                  {/* Botón de Jugar (CTA) */}
+                  <button
+                    onClick={() => setMostrarTrivia(true)}
                     style={{
-                      marginTop: 10,
-                      background: "#ef4444",
-                      color: "#fff",
-                      padding: "16px 32px",
-                      borderRadius: 30,
-                      fontSize: "1.1rem",
+                      background: 'linear-gradient(135deg, #1db954 0%, #158a3e 100%)',
+                      color: '#fff',
+                      border: 'none',
+                      padding: '18px 45px',
+                      borderRadius: 50,
+                      fontSize: '1.15rem',
                       fontWeight: 800,
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 12,
-                      boxShadow: "0 8px 25px rgba(239, 68, 68, 0.5)",
-                      zIndex: 1
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 14,
+                      boxShadow: '0 10px 30px -10px rgba(29, 185, 84, 0.8)',
+                      transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                      zIndex: 1,
+                    }}
+                    onMouseOver={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-3px)';
+                      e.currentTarget.style.boxShadow = '0 15px 40px -10px rgba(29, 185, 84, 1)';
+                    }}
+                    onMouseOut={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 10px 30px -10px rgba(29, 185, 84, 0.8)';
                     }}
                   >
-                    JUGAR AHORA <ArrowRight size={22} />
-                  </div>
+                    <img
+                      src="/marca/logo-club90-escudo-balon.webp"
+                      alt=""
+                      style={{ height: 34, width: 34, objectFit: 'cover', borderRadius: '50%' }}
+                    />
+                    JUGAR TRIVIA AHORA
+                  </button>
                 </div>
               </div>
             </div>
@@ -4010,63 +4072,18 @@ function ExpressPageContent() {
                     return hace2Horas;
                   };
 
-                  // Obtener todos los partidos finalizados (sin importar la jornada actual)
-                  const todosLosFinalizados = partidos.filter(p => p.estado !== "aplazado" && estaSoloFinal(p));
-                  
-                  // Agrupar por jornada
-                  const finalizadosPorJornada = todosLosFinalizados.reduce((acc, partido) => {
-                    if (!acc[partido.jornada]) acc[partido.jornada] = [];
-                    acc[partido.jornada].push(partido);
-                    return acc;
-                  }, {} as Record<number, typeof todosLosFinalizados>);
-
-                  const jornadasDisponibles = Object.keys(finalizadosPorJornada).sort((a, b) => Number(a) - Number(b));
-
-                  // Si no hay filtro y hay jornadas, autoseleccionar la última jugada (la mayor)
-                  const jornadaInicialFiltro = fechaFiltroFinalizados === "todas" && jornadasDisponibles.length > 0 
-                    ? jornadasDisponibles[jornadasDisponibles.length - 1] 
-                    : fechaFiltroFinalizados;
-
-                  const partidosARenderizar = jornadaInicialFiltro === "todas" 
-                    ? todosLosFinalizados 
-                    : finalizadosPorJornada[Number(jornadaInicialFiltro)] || [];
-
-                  // Orden cronológico
-                  partidosARenderizar.sort((a, b) => new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime());
+                  // Solo la fecha activa: sin arrastrar finalizados de jornadas anteriores.
+                  const finalizadosFecha = partidos
+                    .filter(p => p.jornada === fechaParticipante && p.estado !== "aplazado" && estaSoloFinal(p))
+                    .sort((a, b) => new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime());
 
                   return (
                     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-                      {jornadasDisponibles.length > 0 ? (
-                        <>
-                          {/* Pestañas de Filtro por Fecha */}
-                          <div className="sidebar-scroll" style={{ display: "flex", gap: 8, overflowX: "auto", paddingBottom: 8, marginTop: -4 }}>
-                            {jornadasDisponibles.map(j => (
-                              <button
-                                key={`filtro-finalizado-${j}`}
-                                onClick={() => setFechaFiltroFinalizados(j)}
-                                style={{
-                                  padding: "8px 16px", borderRadius: 20, whiteSpace: "nowrap", border: "none", cursor: "pointer", fontWeight: 700, fontSize: "0.85rem",
-                                  background: jornadaInicialFiltro === j ? "var(--cancha)" : "var(--noche-2)",
-                                  color: jornadaInicialFiltro === j ? "#000" : "var(--tiza)"
-                                }}
-                              >
-                                Fecha {j}
-                              </button>
-                            ))}
-                          </div>
-
-                          {/* Lista de Partidos Filtrados */}
-                          {partidosARenderizar.length > 0 ? (
-                            partidosARenderizar.map((partido) => renderPartidoCard(partido))
-                          ) : (
-                            <div style={{ textAlign: "center", padding: "40px 20px", color: "var(--graderia)" }}>
-                              No hay partidos finalizados en la fecha seleccionada.
-                            </div>
-                          )}
-                        </>
+                      {finalizadosFecha.length > 0 ? (
+                        finalizadosFecha.map((partido) => renderPartidoCard(partido))
                       ) : (
                         <div style={{ textAlign: "center", padding: "40px 20px", color: "var(--graderia)", border: "1px dashed var(--linea-fuerte)", borderRadius: 12 }}>
-                          Todavía no hay partidos finalizados en el torneo.
+                          Todavía no hay partidos finalizados en la fecha activa.
                         </div>
                       )}
                     </div>
@@ -4538,6 +4555,7 @@ function ExpressPageContent() {
                 const misPredicciones = consolidados?.prediccionesPartidos?.filter((p: any) => p.usuario_id === usuario.id) || [];
 
                 return (
+                  <>
                   <div
                     className="card"
                     style={{
@@ -4572,7 +4590,7 @@ function ExpressPageContent() {
                       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16, marginBottom: 20 }}>
                         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                           <div style={{ width: 44, height: 44, borderRadius: 12, background: "linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff" }}>
-                            <Trophy size={24} />
+                            <img src="/marca/logo-club90-escudo-balon.webp" alt="" style={{ width: 30, height: 30, objectFit: "cover", borderRadius: "50%" }} />
                           </div>
                           <div>
                             <h2 style={{ margin: 0, color: "#ffffff", fontSize: "1.3rem", fontWeight: 900 }}>Tus Puntuaciones y Aciertos</h2>
@@ -4600,69 +4618,99 @@ function ExpressPageContent() {
                       {/* BOTONES INTERACTIVOS DE RESUMEN POR CATEGORÍA */}
                       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 12 }}>
                         {[
-                          { id: "exacto", title: "🎯 MARCADORES EXACTOS (5 PTS)", pts: miFila ? miFila.pts_resultado_exacto : 0, count: miFila ? Math.floor(miFila.pts_resultado_exacto / 5) : 0, color: "#34d399" },
-                          { id: "ganador", title: "⚽ GANADOR PARTIDO (3 PTS)", pts: miFila ? miFila.pts_ganador_partido : 0, count: miFila ? Math.floor(miFila.pts_ganador_partido / 3) : 0, color: "#38bdf8" },
-                          { id: "goleador", title: "👟 GOLEADOR PARTIDO (2 PTS)", pts: miFila ? miFila.pts_goleador_partido : 0, count: miFila ? Math.floor(miFila.pts_goleador_partido / 2) : 0, color: "#f59e0b" },
-                          { id: "torneo", title: "🏆 PUNTOS DE TORNEO", pts: miFila ? (miFila.pts_campeon + miFila.pts_finalistas + miFila.pts_clasificados + miFila.pts_goleador_torneo) : 0, count: null, color: "#f5b000" },
+                          { id: "exacto", emoji: "🎯", title: "MARCADORES EXACTOS (5 PTS)", pts: miFila ? miFila.pts_resultado_exacto : 0, count: miFila ? Math.floor(miFila.pts_resultado_exacto / 5) : 0, color: "#34d399" },
+                          { id: "ganador", emoji: "⚽", title: "GANADOR PARTIDO (3 PTS)", pts: miFila ? miFila.pts_ganador_partido : 0, count: miFila ? Math.floor(miFila.pts_ganador_partido / 3) : 0, color: "#38bdf8" },
+                          { id: "goleador", emoji: "👟", title: "GOLEADOR PARTIDO (2 PTS)", pts: miFila ? miFila.pts_goleador_partido : 0, count: miFila ? Math.floor(miFila.pts_goleador_partido / 2) : 0, color: "#f59e0b" },
                         ].map((cat) => (
                           <button
                             key={cat.id}
                             type="button"
-                            onClick={() => setDesgloseAbierto(desgloseAbierto === cat.id ? null : cat.id as any)}
+                            onClick={() => setDesgloseAbierto(cat.id as any)}
                             style={{
-                              background: desgloseAbierto === cat.id ? `linear-gradient(135deg, ${cat.color}25 0%, rgba(15,23,42,0.9) 100%)` : "rgba(255,255,255,0.04)",
-                              border: desgloseAbierto === cat.id ? `1px solid ${cat.color}60` : "none",
+                              background: "rgba(255,255,255,0.04)",
+                              border: "1px solid rgba(255,255,255,0.06)",
                               padding: 16,
                               borderRadius: 14,
                               textAlign: "left",
                               cursor: "pointer",
                               transition: "all 0.2s ease",
-                              boxShadow: desgloseAbierto === cat.id ? `0 6px 20px ${cat.color}30` : "none",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: 14,
                             }}
-                            onMouseOver={(e) => { if (desgloseAbierto !== cat.id) e.currentTarget.style.transform = "translateY(-2px)"; }}
-                            onMouseOut={(e) => { if (desgloseAbierto !== cat.id) e.currentTarget.style.transform = "none"; }}
+                            onMouseOver={(e) => {
+                              e.currentTarget.style.transform = "translateY(-3px)";
+                              e.currentTarget.style.background = `linear-gradient(135deg, ${cat.color}20 0%, rgba(15,23,42,0.9) 100%)`;
+                              e.currentTarget.style.border = `1px solid ${cat.color}60`;
+                              e.currentTarget.style.boxShadow = `0 8px 20px ${cat.color}25`;
+                            }}
+                            onMouseOut={(e) => {
+                              e.currentTarget.style.transform = "none";
+                              e.currentTarget.style.background = "rgba(255,255,255,0.04)";
+                              e.currentTarget.style.border = "1px solid rgba(255,255,255,0.06)";
+                              e.currentTarget.style.boxShadow = "none";
+                            }}
                           >
-                            <div style={{ fontSize: "0.75rem", color: cat.color, fontWeight: 800, textTransform: "uppercase", marginBottom: 6, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                              <span>{cat.title}</span>
-                              <span style={{ fontSize: "0.7rem", opacity: 0.8 }}>{desgloseAbierto === cat.id ? "▲ CERRAR" : "▼ VER MÁS"}</span>
+                            <div style={{ width: 42, height: 42, borderRadius: 12, background: `${cat.color}22`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.3rem", flexShrink: 0 }}>
+                              {cat.emoji}
                             </div>
-                            <div style={{ fontSize: "1.4rem", fontWeight: 900, color: "#fff" }}>
-                              {cat.pts} <span style={{ fontSize: "0.75rem", color: "var(--graderia)", fontWeight: 600 }}>pts {cat.count !== null ? `(${cat.count} aciertos)` : ""}</span>
+                            <div style={{ minWidth: 0, flex: 1 }}>
+                              <div style={{ fontSize: "0.72rem", color: cat.color, fontWeight: 800, textTransform: "uppercase", marginBottom: 4 }}>
+                                {cat.title}
+                              </div>
+                              <div style={{ fontSize: "1.3rem", fontWeight: 900, color: "#fff" }}>
+                                {cat.pts} <span style={{ fontSize: "0.72rem", color: "var(--graderia)", fontWeight: 600 }}>pts {cat.count !== null ? `(${cat.count} aciertos)` : ""}</span>
+                              </div>
                             </div>
+                            <ChevronRight size={18} style={{ color: "var(--graderia)", flexShrink: 0 }} />
                           </button>
                         ))}
                       </div>
+                    </div>
+                  </div>
 
-                      {/* VENTANA DESPLEGABLE CON DETALLES DE ACIERTOS POR CATEGORÍA */}
-                      {desgloseAbierto && (
-                        <div
-                          style={{
-                            marginTop: 16,
-                            padding: 20,
-                            background: "rgba(15, 23, 42, 0.95)",
-                            borderRadius: 14,
-                            border: "1px solid rgba(255,255,255,0.08)",
-                            boxShadow: "0 8px 24px rgba(0,0,0,0.5)",
-                            animation: "slideDownText 0.3s ease forwards"
-                          }}
-                        >
-                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
-                            <h4 style={{ margin: 0, color: "#fff", fontSize: "1rem", fontWeight: 800, display: "flex", alignItems: "center", gap: 8 }}>
-                              <CheckCircle2 size={18} style={{ color: "#34d399" }} />
-                              {desgloseAbierto === "exacto" && "Marcadores Exactos Acertados (5 Pts c/u)"}
-                              {desgloseAbierto === "ganador" && "Ganadores de Partido Acertados (3 Pts c/u)"}
-                              {desgloseAbierto === "goleador" && "Goleadores de Partido Acertados (2 Pts c/u)"}
-                              {desgloseAbierto === "torneo" && "Puntos por Predicciones del Torneo"}
-                            </h4>
-                            <button
-                              onClick={() => setDesgloseAbierto(null)}
-                              style={{ background: "none", border: "none", color: "var(--graderia)", cursor: "pointer", fontWeight: 800, fontSize: "0.8rem" }}
-                            >
-                              ✕ Cerrar
-                            </button>
-                          </div>
+                  {/* VENTANA FLOTANTE CON DETALLES DE ACIERTOS POR CATEGORÍA */}
+                  {desgloseAbierto && (
+                    <div
+                      style={{
+                        position: "fixed", top: 0, left: 0, right: 0, bottom: 0,
+                        background: "rgba(0,0,0,0.85)",
+                        backdropFilter: "blur(8px)",
+                        display: "flex", justifyContent: "center", alignItems: "flex-start",
+                        overflowY: "auto",
+                        zIndex: 9999, padding: "40px 20px",
+                      }}
+                      onMouseDown={(e) => { mouseDownEnFondoRef.current = e.target === e.currentTarget; }}
+                      onClick={(e) => { if (mouseDownEnFondoRef.current && e.target === e.currentTarget) setDesgloseAbierto(null); }}
+                    >
+                      <div
+                        style={{
+                          background: "#0b1520",
+                          border: "1px solid rgba(255,255,255,0.1)",
+                          borderRadius: 20,
+                          width: "100%", maxWidth: 560,
+                          maxHeight: "100%",
+                          display: "flex", flexDirection: "column",
+                          overflow: "hidden",
+                          boxShadow: "0 10px 40px rgba(0,0,0,0.5)",
+                        }}
+                      >
+                        <div style={{ flexShrink: 0, padding: "18px 22px", background: "linear-gradient(90deg, rgba(255,255,255,0.05) 0%, transparent 100%)", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
+                          <h4 style={{ margin: 0, color: "#fff", fontSize: "1.05rem", fontWeight: 800, display: "flex", alignItems: "center", gap: 8 }}>
+                            <CheckCircle2 size={18} style={{ color: "#34d399" }} />
+                            {desgloseAbierto === "exacto" && "Marcadores Exactos Acertados"}
+                            {desgloseAbierto === "ganador" && "Ganadores de Partido Acertados"}
+                            {desgloseAbierto === "goleador" && "Goleadores de Partido Acertados"}
+                          </h4>
+                          <button
+                            onClick={() => setDesgloseAbierto(null)}
+                            style={{ background: "transparent", border: "none", color: "var(--graderia)", cursor: "pointer" }}
+                          >
+                            <X size={22} />
+                          </button>
+                        </div>
 
-                          {/* LISTADO DE PARTIDOS ACIERTOS */}
+                        <div style={{ padding: 22, overflowY: "auto" }}>
                           {(() => {
                             const filtrados = partidos.filter((partido) => {
                               if (!partido.resultado_oficial) return false;
@@ -4670,58 +4718,98 @@ function ExpressPageContent() {
                               if (!miPred) return false;
 
                               if (desgloseAbierto === "exacto") {
-                                return miPred.goles_local === partido.resultado_oficial.goles_local && miPred.goles_visitante === partido.resultado_oficial.goles_visitante;
+                                return miPred.goles_local_predicho === partido.resultado_oficial.goles_local_real && miPred.goles_visitante_predicho === partido.resultado_oficial.goles_visitante_real;
                               }
                               if (desgloseAbierto === "ganador") {
-                                const miGanador = miPred.goles_local > miPred.goles_visitante ? "local" : miPred.goles_local < miPred.goles_visitante ? "visitante" : "empate";
-                                const ganOficial = partido.resultado_oficial.goles_local > partido.resultado_oficial.goles_visitante ? "local" : partido.resultado_oficial.goles_local < partido.resultado_oficial.goles_visitante ? "visitante" : "empate";
+                                const miGanador = miPred.goles_local_predicho > miPred.goles_visitante_predicho ? "local" : miPred.goles_local_predicho < miPred.goles_visitante_predicho ? "visitante" : "empate";
+                                const ganOficial = partido.resultado_oficial.goles_local_real > partido.resultado_oficial.goles_visitante_real ? "local" : partido.resultado_oficial.goles_local_real < partido.resultado_oficial.goles_visitante_real ? "visitante" : "empate";
                                 return miGanador === ganOficial;
                               }
                               if (desgloseAbierto === "goleador") {
                                 const goleadoresOficialesIds = partido.resultado_oficial.goleadores?.map((g: any) => g.jugador_id) || [];
-                                return miPred.goleador_id && goleadoresOficialesIds.includes(miPred.goleador_id);
+                                return miPred.jugador_goleador_predicho_id && goleadoresOficialesIds.includes(miPred.jugador_goleador_predicho_id);
                               }
                               return false;
                             });
 
-                            if (desgloseAbierto === "torneo") {
-                              return (
-                                <div style={{ fontSize: "0.88rem", color: "var(--graderia)" }}>
-                                  Los puntos de Campeón, Finalistas y Clasificados se otorgan una vez finalice la fase regular del torneo.
-                                </div>
-                              );
-                            }
-
                             if (filtrados.length === 0) {
                               return (
-                                <div style={{ fontSize: "0.88rem", color: "var(--graderia)", padding: "12px 0" }}>
-                                  Aún no registradores aciertos liquidados en esta categoría.
+                                <div style={{ fontSize: "0.9rem", color: "var(--graderia)", padding: "12px 0", textAlign: "center" }}>
+                                  Aún no tienes aciertos liquidados en esta categoría.
                                 </div>
                               );
                             }
 
+                            const puntosPorAcierto = desgloseAbierto === "exacto" ? 5 : desgloseAbierto === "ganador" ? 3 : 2;
+
+                            const frasesExacto = ["🎯 ¡Le diste directo al marcador!", "🔥 ¡Puro nivel de crack!", "🐐 ¡Ese resultado te lo sabías de memoria!"];
+                            const frasesGanador = ["✅ ¡Se lo veía venir y le atinaste!", "👀 ¡Buen ojo futbolero!", "💪 ¡Nadie te gana leyendo partidos!"];
+                            const frasesGoleador = ["🥅 ¡Le atinaste al goleador!", "⚡ ¡Buen ojo con los delanteros!", "🎯 ¡Sabías quién la iba a mandar a guardar!"];
+
                             return (
-                              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 10 }}>
-                                {filtrados.map((partido) => {
+                              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                                {filtrados.map((partido, idx) => {
+                                  const nombrePartido = `${partido.equipo_local.nombre} vs ${partido.equipo_visitante.nombre}`;
                                   const miPred = misPredicciones.find((p: any) => p.partido_id === partido.id);
+
+                                  if (desgloseAbierto === "goleador") {
+                                    const goleadoresOficiales = partido.resultado_oficial.goleadores || [];
+                                    const miGoleadorNombre = goleadoresOficiales.find((g: any) => g.jugador_id === miPred.jugador_goleador_predicho_id)?.jugador?.nombre;
+                                    const otrosGoleadores = goleadoresOficiales
+                                      .filter((g: any) => g.jugador_id !== miPred.jugador_goleador_predicho_id)
+                                      .map((g: any) => g.jugador?.nombre)
+                                      .filter(Boolean);
+                                    const frase = frasesGoleador[idx % frasesGoleador.length];
+
+                                    return (
+                                      <div
+                                        key={partido.id}
+                                        style={{ background: "rgba(255,255,255,0.03)", padding: 14, borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}
+                                      >
+                                        <div style={{ minWidth: 0, flex: 1 }}>
+                                          <div style={{ fontSize: "0.85rem", fontWeight: 800, color: "#fff" }}>{nombrePartido}</div>
+                                          <div style={{ fontSize: "0.78rem", color: "#94a3b8", fontWeight: 700, marginTop: 2 }}>
+                                            Tu goleador: <span style={{ color: "#f59e0b" }}>{miGoleadorNombre || "—"}</span>
+                                            {otrosGoleadores.length > 0 && <> · También anotó: {otrosGoleadores.join(", ")}</>}
+                                          </div>
+                                          <div style={{ fontSize: "0.78rem", color: "#34d399", fontWeight: 800, marginTop: 4 }}>
+                                            {frase}
+                                          </div>
+                                        </div>
+                                        <span style={{ flexShrink: 0, padding: "4px 10px", borderRadius: 20, background: "rgba(52, 211, 153, 0.15)", color: "#34d399", fontWeight: 800, fontSize: "0.8rem" }}>
+                                          +{puntosPorAcierto} Pts
+                                        </span>
+                                      </div>
+                                    );
+                                  }
+
+                                  const frase = desgloseAbierto === "exacto"
+                                    ? frasesExacto[idx % frasesExacto.length]
+                                    : frasesGanador[idx % frasesGanador.length];
+
+                                  const golesL = partido.resultado_oficial.goles_local_real;
+                                  const golesV = partido.resultado_oficial.goles_visitante_real;
+                                  const resultadoTexto = desgloseAbierto === "ganador"
+                                    ? (golesL > golesV ? `Ganó ${partido.equipo_local.nombre}` : golesV > golesL ? `Ganó ${partido.equipo_visitante.nombre}` : "Empate")
+                                    : `Pusiste ${miPred.goles_local_predicho} - ${miPred.goles_visitante_predicho} · Resultado ${golesL} - ${golesV}`;
+
                                   return (
                                     <div
                                       key={partido.id}
-                                      style={{
-                                        background: "rgba(255,255,255,0.03)",
-                                        padding: 12,
-                                        borderRadius: 10,
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        gap: 4
-                                      }}
+                                      style={{ background: "rgba(255,255,255,0.03)", padding: 14, borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}
                                     >
-                                      <div style={{ fontSize: "0.82rem", fontWeight: 800, color: "#fff" }}>
-                                        {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}
+                                      <div style={{ minWidth: 0, flex: 1 }}>
+                                        <div style={{ fontSize: "0.85rem", fontWeight: 800, color: "#fff" }}>{nombrePartido}</div>
+                                        <div style={{ fontSize: "0.78rem", color: "#94a3b8", fontWeight: 700, marginTop: 2 }}>
+                                          {desgloseAbierto === "ganador" ? `Resultado: ${resultadoTexto} (${golesL}-${golesV})` : resultadoTexto}
+                                        </div>
+                                        <div style={{ fontSize: "0.78rem", color: "#34d399", fontWeight: 800, marginTop: 4 }}>
+                                          {frase}
+                                        </div>
                                       </div>
-                                      <div style={{ fontSize: "0.78rem", color: "#34d399", fontWeight: 700 }}>
-                                        Tu pronóstico: {miPred.goles_local} - {miPred.goles_visitante} | Resultado Oficial: {partido.resultado_oficial.goles_local} - {partido.resultado_oficial.goles_visitante}
-                                      </div>
+                                      <span style={{ flexShrink: 0, padding: "4px 10px", borderRadius: 20, background: "rgba(52, 211, 153, 0.15)", color: "#34d399", fontWeight: 800, fontSize: "0.8rem" }}>
+                                        +{puntosPorAcierto} Pts
+                                      </span>
                                     </div>
                                   );
                                 })}
@@ -4729,9 +4817,10 @@ function ExpressPageContent() {
                             );
                           })()}
                         </div>
-                      )}
+                      </div>
                     </div>
-                  </div>
+                  )}
+                  </>
                 );
               })()}
             </div>
@@ -4803,6 +4892,187 @@ function ExpressPageContent() {
                   prediccionesPartidos={consolidados.prediccionesPartidos || []}
                   prediccionesIniciales={consolidados.prediccionesIniciales || []}
                 />
+              )}
+            </div>
+          )}
+
+          {/* TAB PRONÓSTICOS DE TODOS: se revela por partido una vez cierran los pronósticos */}
+          {tabActiva === "pronosticos_todos" && (
+            <div>
+              {cargandoConsolidados ? (
+                <div className="card" style={{ textAlign: "center", padding: 50 }}>
+                  <RefreshCw className="spin" size={36} style={{ color: "#38bdf8", marginBottom: 16 }} />
+                  <div style={{ fontSize: "1.1rem", fontWeight: 700 }}>Cargando pronósticos...</div>
+                </div>
+              ) : !consolidados ? (
+                <div className="card" style={{ textAlign: "center", padding: 40 }}>
+                  <p style={{ marginBottom: 16, color: "#94a3b8" }}>No se pudieron cargar los pronósticos.</p>
+                  <button className="btn btn-primary" onClick={() => cargarConsolidados(usuario.id)}>
+                    🔄 Recargar
+                  </button>
+                </div>
+              ) : (
+                (() => {
+                  // Estrictamente la fecha activa (jornada === fechaParticipante), sin
+                  // arrastrar partidos de otras jornadas.
+                  const partidosFecha = partidos
+                    .filter((p) => p.jornada === fechaParticipante)
+                    .sort((a, b) => new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime());
+
+                  // Misma regla de "finalizado" que usa el resto de la app (no el estado
+                  // crudo, que puede quedar atascado en "programado").
+                  const estaFinalizado = (partido: any) => {
+                    if (esPartidoFinalizadoReal(partido, partidosEnVivo)) return true;
+                    return new Date().getTime() >= new Date(partido.fecha_hora_partido).getTime() + 2 * 60 * 60 * 1000;
+                  };
+
+                  const partidosPendientes = partidosFecha.filter((p) => !estaFinalizado(p));
+                  const partidosFinalizados = partidosFecha.filter((p) => estaFinalizado(p));
+                  const listaMostrada = filtroPronosticosTodos === "pendientes" ? partidosPendientes : partidosFinalizados;
+
+                  return (
+                    <>
+                      <div style={{ display: "flex", gap: 10, marginBottom: 16 }}>
+                        <button
+                          type="button"
+                          onClick={() => setFiltroPronosticosTodos("pendientes")}
+                          style={{
+                            padding: "8px 16px",
+                            borderRadius: 10,
+                            fontSize: "0.85rem",
+                            fontWeight: 800,
+                            cursor: "pointer",
+                            border: filtroPronosticosTodos === "pendientes" ? "1px solid #a78bfa" : "1px solid var(--linea)",
+                            background: filtroPronosticosTodos === "pendientes" ? "rgba(167, 139, 250, 0.2)" : "transparent",
+                            color: filtroPronosticosTodos === "pendientes" ? "#a78bfa" : "var(--graderia)",
+                          }}
+                        >
+                          ⏳ Pendientes ({partidosPendientes.length})
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setFiltroPronosticosTodos("finalizados")}
+                          style={{
+                            padding: "8px 16px",
+                            borderRadius: 10,
+                            fontSize: "0.85rem",
+                            fontWeight: 800,
+                            cursor: "pointer",
+                            border: filtroPronosticosTodos === "finalizados" ? "1px solid #a78bfa" : "1px solid var(--linea)",
+                            background: filtroPronosticosTodos === "finalizados" ? "rgba(167, 139, 250, 0.2)" : "transparent",
+                            color: filtroPronosticosTodos === "finalizados" ? "#a78bfa" : "var(--graderia)",
+                          }}
+                        >
+                          🏁 Finalizados ({partidosFinalizados.length})
+                        </button>
+                      </div>
+
+                      {listaMostrada.length === 0 ? (
+                        <div className="card" style={{ textAlign: "center", padding: 40, color: "#94a3b8" }}>
+                          {filtroPronosticosTodos === "pendientes"
+                            ? "No hay partidos pendientes en la fecha activa."
+                            : "Todavía no hay partidos finalizados en la fecha activa."}
+                        </div>
+                      ) : (
+                        listaMostrada.map((partido) => {
+                    const horaCierre = new Date(new Date(partido.fecha_hora_partido).getTime() - 30 * 60 * 1000);
+                    const cerrado = new Date() >= horaCierre || partido.estado === "finalizado";
+                    const pronosticosPartido = (consolidados?.prediccionesPartidos || []).filter(
+                      (p: any) => p.partido_id === partido.id
+                    );
+                    const desplegado = partidoPronosticosAbierto === partido.id;
+
+                    return (
+                      <div
+                        key={partido.id}
+                        className="card"
+                        style={{ padding: "20px", marginBottom: 16 }}
+                      >
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
+                          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                            <img src={partido.equipo_local.escudo_url} alt={partido.equipo_local.nombre} style={{ width: 32, height: 32, objectFit: "contain" }} />
+                            <div>
+                              <div style={{ fontWeight: 900, color: "#fff" }}>
+                                {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}
+                              </div>
+                              <span style={{ fontSize: "0.78rem", color: "#94a3b8", fontWeight: 700 }}>
+                                🕒 {formatearFechaPartido(partido.fecha_hora_partido)} · {formatearHoraPartido(partido.fecha_hora_partido)}
+                              </span>
+                            </div>
+                            <img src={partido.equipo_visitante.escudo_url} alt={partido.equipo_visitante.nombre} style={{ width: 32, height: 32, objectFit: "contain" }} />
+                          </div>
+
+                          {!cerrado ? (
+                            <span style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "6px 12px", borderRadius: 20, background: "rgba(148, 163, 184, 0.15)", color: "#94a3b8", fontSize: "0.8rem", fontWeight: 800 }}>
+                              <Lock size={14} /> Se revela al cerrar
+                            </span>
+                          ) : (
+                            <button
+                              type="button"
+                              onClick={() => setPartidoPronosticosAbierto(desplegado ? null : partido.id)}
+                              style={{ padding: "8px 16px", borderRadius: 10, fontSize: "0.85rem", background: "rgba(167, 139, 250, 0.15)", color: "#a78bfa", border: "1px solid rgba(167, 139, 250, 0.4)", cursor: "pointer", fontWeight: 700, display: "flex", alignItems: "center", gap: 6 }}
+                            >
+                              <Users size={16} /> {desplegado ? "Ocultar" : `Ver Pronósticos (${pronosticosPartido.length})`}
+                            </button>
+                          )}
+                        </div>
+
+                        {cerrado && desplegado && (
+                          pronosticosPartido.length === 0 ? (
+                            <div style={{ marginTop: 16, padding: 20, background: "rgba(0,0,0,0.2)", borderRadius: 12, color: "#94a3b8", textAlign: "center" }}>
+                              Nadie envió pronóstico para este partido.
+                            </div>
+                          ) : (
+                            <div style={{ marginTop: 16, overflowX: "auto", background: "rgba(0,0,0,0.3)", borderRadius: 16, border: "1px solid rgba(255,255,255,0.05)" }}>
+                              <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.9rem", textAlign: "left" }}>
+                                <thead>
+                                  <tr style={{ background: "rgba(255,255,255,0.02)", color: "#cbd5e1" }}>
+                                    <th style={{ padding: "12px 16px", fontWeight: 800 }}>Participante</th>
+                                    <th style={{ padding: "12px 16px", textAlign: "center", fontWeight: 800 }}>Marcador</th>
+                                    <th style={{ padding: "12px 16px", textAlign: "center", fontWeight: 800 }}>Ganador</th>
+                                    <th style={{ padding: "12px 16px", fontWeight: 800 }}>Goleador</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {pronosticosPartido.map((p: any, idx: number) => {
+                                    const gL = Number(p.goles_local_predicho);
+                                    const gV = Number(p.goles_visitante_predicho);
+                                    let ganadorTexto = "Empate";
+                                    if (!isNaN(gL) && !isNaN(gV)) {
+                                      if (gL > gV) ganadorTexto = `Gana ${partido.equipo_local.nombre}`;
+                                      else if (gV > gL) ganadorTexto = `Gana ${partido.equipo_visitante.nombre}`;
+                                    }
+                                    return (
+                                      <tr key={idx} style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+                                        <td style={{ padding: "12px 16px", fontWeight: 700, color: "#ffffff" }}>
+                                          {p.usuario?.nombre_completo}
+                                        </td>
+                                        <td style={{ padding: "12px 16px", textAlign: "center", fontWeight: 900, color: "#34d399", fontSize: "1.1rem" }}>
+                                          {p.goles_local_predicho} - {p.goles_visitante_predicho}
+                                        </td>
+                                        <td style={{ padding: "12px 16px", textAlign: "center" }}>
+                                          <span style={{ padding: "4px 10px", borderRadius: 10, background: "rgba(56, 189, 248, 0.15)", color: "#38bdf8", fontWeight: 800, fontSize: "0.8rem" }}>
+                                            {ganadorTexto}
+                                          </span>
+                                        </td>
+                                        <td style={{ padding: "12px 16px", color: "#f5b000", fontWeight: 700 }}>
+                                          {obtenerNombreGoleador(p)}
+                                        </td>
+                                      </tr>
+                                    );
+                                  })}
+                                </tbody>
+                              </table>
+                            </div>
+                          )
+                        )}
+                      </div>
+                    );
+                        })
+                      )}
+                    </>
+                  );
+                })()
               )}
             </div>
           )}
