@@ -976,6 +976,10 @@ main {
   .login-right-panel {
     background: radial-gradient(circle at 50% 0%, rgba(29, 185, 84, 0.18) 0%, var(--noche) 55%);
   }
+
+  .login-registro-link {
+    margin-top: 10px !important;
+  }
 }
 
 @media (min-width: 768px) {

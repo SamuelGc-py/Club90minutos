@@ -2421,7 +2421,7 @@ function ExpressPageContent() {
                 </button>
               </div>
 
-              <div style={{ marginTop: 24, textAlign: "center" }}>
+              <div className="login-registro-link" style={{ marginTop: 24, textAlign: "center" }}>
                 <span style={{ color: "var(--graderia)", fontSize: "0.9rem" }}>
                   {modoRegistro ? "¿Ya tienes una cuenta?" : "¿No tienes una cuenta?"}
                 </span>{" "}
