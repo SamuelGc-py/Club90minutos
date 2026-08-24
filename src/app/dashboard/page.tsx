@@ -703,24 +703,24 @@ function ExpressPageContent() {
     if (partidos && partidos.length > 0) {
       const jornadas = Array.from(new Set(partidos.map((p) => p.jornada))).sort((a, b) => a - b);
       
-      // Buscar la jornada activa real basada en el promedio de fechas de sus partidos
-      // Esto ignora partidos individuales reprogramados de jornadas viejas
+      // Buscar la jornada activa basada en el último partido de cada jornada.
+      // La jornada se cierra 1 hora después de que finalice su ÚLTIMO partido.
+      // (Asumiendo que un partido dura aprox 2 horas, el cierre es fecha_partido + 3 horas).
       const ahora = new Date().getTime();
-      const ahoraGracia = ahora - (2 * 24 * 60 * 60 * 1000); // 2 días de gracia para no saltar de jornada prematuramente
 
-      const promediosJornada: Record<number, number> = {};
+      const cierresJornada: Record<number, number> = {};
       jornadas.forEach(j => {
-        // EXCLUIR partidos aplazados del promedio, ya que sus fechas futuras (a veces meses después) destruyen el cálculo de la jornada actual
+        // EXCLUIR partidos aplazados, ya que sus fechas futuras destruyen el cálculo de la jornada actual
         const partidosJornada = partidos.filter(p => p.jornada === j && p.estado !== "aplazado");
         if (partidosJornada.length > 0) {
-          const sum = partidosJornada.reduce((acc, p) => acc + new Date(p.fecha_hora_partido).getTime(), 0);
-          promediosJornada[j] = sum / partidosJornada.length;
+          const maxTime = Math.max(...partidosJornada.map(p => new Date(p.fecha_hora_partido).getTime()));
+          cierresJornada[j] = maxTime + (3 * 60 * 60 * 1000); // Kickoff + 3 horas
         }
       });
 
       let mejorJornada = 0;
       for (const j of jornadas) {
-        if (promediosJornada[j] && promediosJornada[j] >= ahoraGracia) {
+        if (cierresJornada[j] && ahora <= cierresJornada[j]) {
           mejorJornada = j;
           break;
         }

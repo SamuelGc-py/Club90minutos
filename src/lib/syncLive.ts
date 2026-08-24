@@ -81,29 +81,71 @@ export async function sincronizarMarcadoresEnVivo() {
     const admin = await prisma.usuario.findFirst({
       where: { rol: { nombre: "administrador" } },
     });
+    const adminId = admin ? admin.id : 1;
 
-    // ÚNICAMENTE actualiza el Marcador Oficial sin alterar ni liquidar puntos
-    await prisma.resultadoOficial.upsert({
-      where: { partido_id: partido.id },
-      update: {
-        goles_local_real: golesLocalReal,
-        goles_visitante_real: golesVisitanteReal,
-        equipo_ganador_id: equipoGanadorId,
-        timestamp_ingreso: new Date(),
-      },
-      create: {
-        partido_id: partido.id,
-        goles_local_real: golesLocalReal,
-        goles_visitante_real: golesVisitanteReal,
-        equipo_ganador_id: equipoGanadorId,
-        ingresado_por_usuario_id: admin ? admin.id : 1,
-      },
-    });
+    if (esFinalizado) {
+      // 1. Extraer goleadores desde el summary de ESPN
+      let goleadoresEncontradosIds: number[] = [];
+      try {
+        const summaryRes = await fetch(`https://site.api.espn.com/apis/site/v2/sports/soccer/col.1/summary?event=${event.id}`);
+        const summaryData = await summaryRes.json();
+        if (summaryData.keyEvents) {
+          const goalEvents = summaryData.keyEvents.filter((ke: any) => ke.type?.type === "goal" || ke.scoringPlay);
+          if (goalEvents.length > 0) {
+            const jugadoresPartido = await prisma.jugador.findMany({
+              where: { equipo_id: { in: [partido.equipo_local_id, partido.equipo_visitante_id] } }
+            });
+            for (const goal of goalEvents) {
+              let playerName = goal.shortText || goal.text;
+              if (!playerName) continue;
+              playerName = playerName.replace(/ Goal.*/i, "").replace(/\(.*\)/g, "").trim();
+              const parts = playerName.split(" ");
+              const lastName = parts[parts.length - 1];
+              const matchedJugador = jugadoresPartido.find(j => normalize(j.nombre).includes(normalize(lastName)));
+              if (matchedJugador && !goleadoresEncontradosIds.includes(matchedJugador.id)) {
+                goleadoresEncontradosIds.push(matchedJugador.id);
+              }
+            }
+          }
+        }
+      } catch (err) {
+        console.error(`Error extrayendo goleadores en segundo plano para partido ${partido.id}:`, err);
+      }
 
-    await prisma.partido.update({
-      where: { id: partido.id },
-      data: { estado: nuevoEstado },
-    });
+      // 2. Liquidar puntos automáticamente!
+      // (calcularPuntosPartido guarda el resultado oficial, los goleadores, cambia el estado a resultado_cargado y calcula los puntos)
+      const { calcularPuntosPartido } = await import("@/lib/calculadorPuntos");
+      await calcularPuntosPartido(
+        partido.id,
+        golesLocalReal,
+        golesVisitanteReal,
+        goleadoresEncontradosIds,
+        adminId
+      );
+    } else {
+      // ÚNICAMENTE actualiza el Marcador Oficial temporal sin alterar ni liquidar puntos
+      await prisma.resultadoOficial.upsert({
+        where: { partido_id: partido.id },
+        update: {
+          goles_local_real: golesLocalReal,
+          goles_visitante_real: golesVisitanteReal,
+          equipo_ganador_id: equipoGanadorId,
+          timestamp_ingreso: new Date(),
+        },
+        create: {
+          partido_id: partido.id,
+          goles_local_real: golesLocalReal,
+          goles_visitante_real: golesVisitanteReal,
+          equipo_ganador_id: equipoGanadorId,
+          ingresado_por_usuario_id: adminId,
+        },
+      });
+
+      await prisma.partido.update({
+        where: { id: partido.id },
+        data: { estado: nuevoEstado },
+      });
+    }
 
     actualizados++;
   }

@@ -120,11 +120,12 @@ export async function calcularPuntosPartido(
       });
     }
 
-    // 3. Acierto goleador: 2 Pts si predijo a cualquiera de los goleadores reales del partido
-    if (
-      pred.jugador_goleador_predicho_id &&
-      goleadoresIds.includes(pred.jugador_goleador_predicho_id)
-    ) {
+    // 3. Acierto goleador: 2 Pts si predijo a cualquiera de los goleadores reales del partido,
+    // O si pronosticó 0-0 (jugador_goleador_predicho_id es null) y el partido terminó 0-0 (sin goleadores oficiales)
+    const acertoGoleadorNormal = pred.jugador_goleador_predicho_id && goleadoresIds.includes(pred.jugador_goleador_predicho_id);
+    const acertoCeroCero = (golesLocalReal === 0 && golesVisitanteReal === 0) && (pLocal === 0 && pVisitante === 0) && (!pred.jugador_goleador_predicho_id || pred.jugador_goleador_predicho_id === -1);
+    
+    if (acertoGoleadorNormal || acertoCeroCero) {
       nuevosPuntajes.push({
         usuario_id: pred.usuario_id,
         partido_id: partidoId,
