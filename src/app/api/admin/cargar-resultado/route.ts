@@ -28,17 +28,55 @@ export async function POST(req: Request) {
       ? [Number(goleador_jugador_id)]
       : [];
 
-    const resultado = await calcularPuntosPartido(
-      Number(partido_id),
-      Number(goles_local),
-      Number(goles_visitante),
-      idsGoleadores,
-      Number(usuario_id)
-    );
+    let eqGanadorId = null;
+    if (Number(goles_local) > Number(goles_visitante)) {
+      const p = await prisma.partido.findUnique({ where: { id: Number(partido_id) } });
+      if (p) eqGanadorId = p.equipo_local_id;
+    } else if (Number(goles_visitante) > Number(goles_local)) {
+      const p = await prisma.partido.findUnique({ where: { id: Number(partido_id) } });
+      if (p) eqGanadorId = p.equipo_visitante_id;
+    }
+
+    const ro = await prisma.resultadoOficial.upsert({
+      where: { partido_id: Number(partido_id) },
+      update: {
+        goles_local_real: Number(goles_local),
+        goles_visitante_real: Number(goles_visitante),
+        equipo_ganador_id: eqGanadorId,
+        ingresado_por_usuario_id: Number(usuario_id),
+        timestamp_ingreso: new Date()
+      },
+      create: {
+        partido_id: Number(partido_id),
+        goles_local_real: Number(goles_local),
+        goles_visitante_real: Number(goles_visitante),
+        equipo_ganador_id: eqGanadorId,
+        ingresado_por_usuario_id: Number(usuario_id)
+      }
+    });
+
+    await prisma.resultadoGoleador.deleteMany({
+      where: { resultado_oficial_id: ro.id }
+    });
+
+    if (idsGoleadores.length > 0) {
+      await prisma.resultadoGoleador.createMany({
+        data: idsGoleadores.map(id => ({
+          resultado_oficial_id: ro.id,
+          jugador_id: id,
+          es_autogol: false
+        }))
+      });
+    }
+
+    await prisma.partido.update({
+      where: { id: Number(partido_id) },
+      data: { estado: 'resultado_cargado' }
+    });
 
     return NextResponse.json({
       exito: true,
-      mensaje: `Resultado oficial guardado y puntos calculados para ${resultado.totalPrediccionesLiquidadas} participantes.`,
+      mensaje: `Resultado oficial guardado en pantalla. (Los puntos NO se han calculado).`,
     });
   } catch (error: any) {
     console.error("Error al cargar resultado oficial:", error);
