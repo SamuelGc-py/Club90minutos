@@ -40,7 +40,7 @@ export async function POST(req: Request) {
     for (const partido of partidosLiquidados) {
       if (partido.resultado_oficial) {
         const ro = partido.resultado_oficial;
-        const goleadoresIds = ro.goleadores.map(g => g.jugador_id);
+        const goleadoresIds = ro.goleadores.map(g => g.jugador_id === null ? -1 : g.jugador_id);
         
         await calcularPuntosPartido(
           partido.id,
