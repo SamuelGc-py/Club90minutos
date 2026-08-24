@@ -40,9 +40,7 @@ export async function POST(req: Request) {
       orderBy: { fecha_hora_partido: "desc" },
     });
 
-    const prediccionesInicialesCerradas = ultimoPartidoFecha5
-      ? now > new Date(ultimoPartidoFecha5.fecha_hora_partido)
-      : false;
+    const prediccionesInicialesCerradas = false; // ABRIERTAS MANUALMENTE
 
     const seIntentoEnviarInicial = !!(campeon_equipo_id || finalista_1_equipo_id || finalista_2_equipo_id || goleador_torneo_jugador_id || (Array.isArray(clasificados_ids) && clasificados_ids.length > 0));
     let prediccionInicialRechazada = false;
