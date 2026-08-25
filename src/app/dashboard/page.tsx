@@ -696,7 +696,7 @@ function ExpressPageContent() {
   const [fechaParticipante, setFechaParticipante] = useState<number>(3); // Auto-determinado por progreso de la polla
   const [fechaAdmin, setFechaAdmin] = useState<number>(0); // 0 indica que no se ha seteado aún
   const [seccionAdmin, setSeccionAdmin] = useState<"partidos" | "torneo">("partidos");
-  const [seccionAdminPanel, setSeccionAdminPanel] = useState<"predicciones" | "liquidacion" | "posiciones" | "aplazados" | "editar_partidos">("predicciones");
+  const [seccionAdminPanel, setSeccionAdminPanel] = useState<"predicciones" | "predicciones_torneo" | "liquidacion" | "posiciones" | "aplazados" | "editar_partidos">("predicciones");
 
   // Calcular automáticamente la fecha activa para participantes (primera fecha no finalizada)
   useEffect(() => {
@@ -2630,6 +2630,7 @@ function ExpressPageContent() {
                 <div className="admin-sidebar-nav no-scrollbar">
                   {([
                     { key: "predicciones", label: "Fechas y Predicciones", icon: Eye, color: "#a78bfa" },
+                    { key: "predicciones_torneo", label: "Predicciones Torneo", icon: Trophy, color: "#f5b000" },
                     { key: "editar_partidos", label: "Editar Partidos", icon: Calendar, color: "#38bdf8" },
                     { key: "aplazados", label: "Partidos Aplazados", icon: Hourglass, color: "#f5b000" },
                     { key: "liquidacion", label: "Liquidación de Puntos", icon: ClipboardCheck, color: "#f59e0b" },
@@ -3380,6 +3381,48 @@ function ExpressPageContent() {
                   }
 
                   // ================= SECCIÓN: FECHAS Y PREDICCIONES (UNIFICADA) =================
+                  if (seccionAdminPanel === "predicciones_torneo") {
+                    return (
+                      <div>
+                        <h2 style={{ margin: "0 0 16px", color: "#fff", fontSize: "1.3rem", fontWeight: 900 }}>🏆 Predicciones del Torneo</h2>
+                        {(!consolidados || !consolidados.prediccionesIniciales || consolidados.prediccionesIniciales.length === 0) ? (
+                          <div className="card" style={{ textAlign: "center", padding: 40, color: "#94a3b8" }}>
+                            No hay predicciones del torneo registradas aún.
+                          </div>
+                        ) : (
+                          <div className="card" style={{ overflowX: "auto", padding: 0 }}>
+                            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.9rem", textAlign: "left" }}>
+                              <thead>
+                                <tr style={{ background: "rgba(255,255,255,0.05)", borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
+                                  <th style={{ padding: "12px 16px", color: "#94a3b8", fontWeight: 600 }}>Participante</th>
+                                  <th style={{ padding: "12px 16px", color: "#f5b000", fontWeight: 600 }}>Campeón</th>
+                                  <th style={{ padding: "12px 16px", color: "#94a3b8", fontWeight: 600 }}>Subcampeón</th>
+                                  <th style={{ padding: "12px 16px", color: "#f87171", fontWeight: 600 }}>Goleador Torneo</th>
+                                  <th style={{ padding: "12px 16px", color: "#34d399", fontWeight: 600 }}>Clasificados</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {consolidados.prediccionesIniciales.map((pi: any) => (
+                                  <tr key={pi.id} style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+                                    <td style={{ padding: "12px 16px", color: "#fff", fontWeight: 700 }}>{pi.usuario.nombre_completo}</td>
+                                    <td style={{ padding: "12px 16px", color: "#fcd34d", fontWeight: 600 }}>{pi.campeon?.nombre || "-"}</td>
+                                    <td style={{ padding: "12px 16px", color: "#cbd5e1" }}>{pi.finalista_2?.nombre || "-"}</td>
+                                    <td style={{ padding: "12px 16px", color: "#fca5a5" }}>{pi.goleador_torneo?.nombre || "-"}</td>
+                                    <td style={{ padding: "12px 16px", color: "#6ee7b7", fontSize: "0.8rem" }}>
+                                      {pi.clasificados && pi.clasificados.length > 0 
+                                        ? pi.clasificados.map((c: any) => c.equipo.nombre).join(", ")
+                                        : "-"}
+                                    </td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  }
+
                   if (seccionAdminPanel === "predicciones") {
                     return (
                       <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
