@@ -32,7 +32,7 @@ async function main() {
   } catch (error) {
     console.error('❌ Error al agregar jugadores:', error);
   } finally {
-    await prisma.();
+    await prisma.$disconnect();
   }
 }
 
