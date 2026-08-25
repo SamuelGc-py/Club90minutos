@@ -27,7 +27,7 @@ async function main() {
       skipDuplicates: true // Por si accidentalmente pones uno repetido que coincida en condiciones únicas
     });
 
-    console.log(\✅ ¡Éxito! Se han agregado \ jugadores nuevos a la base de datos de forma segura.\);
+    console.log("✅ ¡Éxito! Se han agregado " + resultado.count + " jugadores nuevos a la base de datos de forma segura.");
     console.log('Tus IDs anteriores y los goleadores registrados están a salvo.');
   } catch (error) {
     console.error('❌ Error al agregar jugadores:', error);
