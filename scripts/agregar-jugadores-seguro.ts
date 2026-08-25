@@ -11,8 +11,8 @@ async function main() {
   
   const nuevosJugadores = [
     // EJEMPLO:
-    // { nombre: 'Falcao García', equipo_id: 5, posicion: 'DEL' },
-    // { nombre: 'David Ospina', equipo_id: 8, posicion: 'POR' }
+    // { nombre: 'Falcao García', equipo_id: 5 },
+    // { nombre: 'David Ospina', equipo_id: 8 }
   ];
 
   if (nuevosJugadores.length === 0) {
