@@ -3392,12 +3392,37 @@ function ExpressPageContent() {
                         ) : (
                           <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
                             {consolidados.prediccionesIniciales.map((pi: any) => (
-                              <details key={pi.id} className="card" style={{ padding: "0", cursor: "pointer", transition: "all 0.3s ease" }}>
-                                <summary style={{ padding: "16px", fontWeight: 700, color: "#fff", listStyle: "none", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                  {pi.usuario.nombre_completo}
-                                  <span style={{ fontSize: "0.8rem", color: "#f5b000", fontWeight: 600 }}>Ver predicciones 🔽</span>
+                              <details key={pi.id} className="card" style={{ padding: "0", cursor: "pointer", transition: "all 0.3s ease", border: "1px solid rgba(255,255,255,0.05)", borderRadius: "12px", overflow: "hidden", background: "rgba(16, 25, 40, 0.4)" }}>
+                                <summary style={{ 
+                                  padding: "16px 20px", 
+                                  fontWeight: 800, 
+                                  color: "#f8fafc", 
+                                  listStyle: "none", 
+                                  display: "flex", 
+                                  justifyContent: "space-between", 
+                                  alignItems: "center",
+                                  background: "linear-gradient(90deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.8) 100%)",
+                                  borderBottom: "1px solid rgba(255,255,255,0.05)"
+                                }}>
+                                  <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                                    <User size={18} color="var(--cancha)" />
+                                    {pi.usuario.nombre_completo}
+                                  </div>
+                                  <span style={{ 
+                                    fontSize: "0.75rem", 
+                                    color: "#042f2e", 
+                                    fontWeight: 800, 
+                                    background: "linear-gradient(135deg, var(--cancha) 0%, #10b981 100%)",
+                                    padding: "6px 12px",
+                                    borderRadius: "20px",
+                                    textTransform: "uppercase",
+                                    letterSpacing: "0.5px",
+                                    boxShadow: "0 2px 8px -2px rgba(16, 185, 129, 0.5)"
+                                  }}>
+                                    Ver predicciones 🔽
+                                  </span>
                                 </summary>
-                                <div style={{ padding: "0 16px 16px", display: "flex", flexDirection: "column", gap: "10px", fontSize: "0.9rem" }}>
+                                <div style={{ padding: "16px 20px", display: "flex", flexDirection: "column", gap: "12px", fontSize: "0.95rem", background: "rgba(0,0,0,0.2)" }}>
                                   <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid rgba(255,255,255,0.05)", paddingBottom: "8px" }}>
                                     <span style={{ color: "#94a3b8" }}>Campeón:</span>
                                     <span style={{ color: "#fcd34d", fontWeight: 600 }}>{pi.campeon?.nombre || "-"}</span>
