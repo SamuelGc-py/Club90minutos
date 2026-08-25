@@ -3390,33 +3390,37 @@ function ExpressPageContent() {
                             No hay predicciones del torneo registradas aún.
                           </div>
                         ) : (
-                          <div className="card" style={{ overflowX: "auto", padding: 0 }}>
-                            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.9rem", textAlign: "left" }}>
-                              <thead>
-                                <tr style={{ background: "rgba(255,255,255,0.05)", borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
-                                  <th style={{ padding: "12px 16px", color: "#94a3b8", fontWeight: 600 }}>Participante</th>
-                                  <th style={{ padding: "12px 16px", color: "#f5b000", fontWeight: 600 }}>Campeón</th>
-                                  <th style={{ padding: "12px 16px", color: "#94a3b8", fontWeight: 600 }}>Subcampeón</th>
-                                  <th style={{ padding: "12px 16px", color: "#f87171", fontWeight: 600 }}>Goleador Torneo</th>
-                                  <th style={{ padding: "12px 16px", color: "#34d399", fontWeight: 600 }}>Clasificados</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                {consolidados.prediccionesIniciales.map((pi: any) => (
-                                  <tr key={pi.id} style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
-                                    <td style={{ padding: "12px 16px", color: "#fff", fontWeight: 700 }}>{pi.usuario.nombre_completo}</td>
-                                    <td style={{ padding: "12px 16px", color: "#fcd34d", fontWeight: 600 }}>{pi.campeon?.nombre || "-"}</td>
-                                    <td style={{ padding: "12px 16px", color: "#cbd5e1" }}>{pi.finalista_2?.nombre || "-"}</td>
-                                    <td style={{ padding: "12px 16px", color: "#fca5a5" }}>{pi.goleador_torneo?.nombre || "-"}</td>
-                                    <td style={{ padding: "12px 16px", color: "#6ee7b7", fontSize: "0.8rem" }}>
+                          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                            {consolidados.prediccionesIniciales.map((pi: any) => (
+                              <details key={pi.id} className="card" style={{ padding: "0", cursor: "pointer", transition: "all 0.3s ease" }}>
+                                <summary style={{ padding: "16px", fontWeight: 700, color: "#fff", listStyle: "none", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                  {pi.usuario.nombre_completo}
+                                  <span style={{ fontSize: "0.8rem", color: "#f5b000", fontWeight: 600 }}>Ver predicciones 🔽</span>
+                                </summary>
+                                <div style={{ padding: "0 16px 16px", display: "flex", flexDirection: "column", gap: "10px", fontSize: "0.9rem" }}>
+                                  <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid rgba(255,255,255,0.05)", paddingBottom: "8px" }}>
+                                    <span style={{ color: "#94a3b8" }}>Campeón:</span>
+                                    <span style={{ color: "#fcd34d", fontWeight: 600 }}>{pi.campeon?.nombre || "-"}</span>
+                                  </div>
+                                  <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid rgba(255,255,255,0.05)", paddingBottom: "8px" }}>
+                                    <span style={{ color: "#94a3b8" }}>Subcampeón:</span>
+                                    <span style={{ color: "#cbd5e1" }}>{pi.finalista_2?.nombre || "-"}</span>
+                                  </div>
+                                  <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid rgba(255,255,255,0.05)", paddingBottom: "8px" }}>
+                                    <span style={{ color: "#94a3b8" }}>Goleador Torneo:</span>
+                                    <span style={{ color: "#fca5a5" }}>{pi.goleador_torneo?.nombre || "-"}</span>
+                                  </div>
+                                  <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+                                    <span style={{ color: "#94a3b8" }}>Clasificados:</span>
+                                    <span style={{ color: "#6ee7b7", fontSize: "0.85rem", lineHeight: "1.4" }}>
                                       {pi.clasificados && pi.clasificados.length > 0 
                                         ? pi.clasificados.map((c: any) => c.equipo.nombre).join(", ")
                                         : "-"}
-                                    </td>
-                                  </tr>
-                                ))}
-                              </tbody>
-                            </table>
+                                    </span>
+                                  </div>
+                                </div>
+                              </details>
+                            ))}
                           </div>
                         )}
                       </div>
