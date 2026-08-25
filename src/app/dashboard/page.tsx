@@ -3404,7 +3404,11 @@ function ExpressPageContent() {
                                   </div>
                                   <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid rgba(255,255,255,0.05)", paddingBottom: "8px" }}>
                                     <span style={{ color: "#94a3b8" }}>Subcampeón:</span>
-                                    <span style={{ color: "#cbd5e1" }}>{pi.finalista_2?.nombre || "-"}</span>
+                                    <span style={{ color: "#cbd5e1" }}>
+                                      {pi.campeon?.nombre === pi.finalista_1?.nombre 
+                                        ? (pi.finalista_2?.nombre || "-") 
+                                        : (pi.finalista_1?.nombre || "-")}
+                                    </span>
                                   </div>
                                   <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid rgba(255,255,255,0.05)", paddingBottom: "8px" }}>
                                     <span style={{ color: "#94a3b8" }}>Goleador Torneo:</span>
