@@ -877,6 +877,7 @@ function ExpressPageContent() {
   const [programacionAdminInput, setProgramacionAdminInput] = useState<Record<number, { jornada: string; fecha_hora: string; estadio: string }>>({});
   const [guardandoProgramacionId, setGuardandoProgramacionId] = useState<number | null>(null);
   const [programacionGuardadaId, setProgramacionGuardadaId] = useState<number | null>(null);
+  const [reliquidandoTodo, setReliquidandoTodo] = useState(false);
   const [guardandoInicial, setGuardandoInicial] = useState(false);
 
   const handleGuardarPrediccionInicial = async () => {
@@ -1169,6 +1170,42 @@ function ExpressPageContent() {
       if (typeof window !== "undefined") {
         toast.error(err.message || "Error al quitar el resultado.");
       }
+    }
+  };
+
+  const handleReliquidarTodo = async () => {
+    if (!usuario || usuario.rol_id !== 2) return;
+    if (
+      typeof window !== "undefined" &&
+      !window.confirm(
+        "ATENCIÓN: Esto borrará TODOS los puntos ya calculados y los recalculará desde cero para TODOS los partidos con resultado oficial cargado. Puede tardar unos segundos. ¿Continuar?"
+      )
+    ) {
+      return;
+    }
+    try {
+      setReliquidandoTodo(true);
+      setMensajeEstado({ tipo: "info", texto: "Reliquidando todos los partidos, esto puede tardar unos segundos..." });
+      const res = await fetch("/api/admin/reliquidar-todo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ usuario_id: usuario.id }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Error al reliquidar todo");
+      setMensajeEstado({ tipo: "exito", texto: data.mensaje || "Puntos reliquidados desde cero." });
+      if (typeof window !== "undefined") {
+        toast.success(data.mensaje || "Puntos reliquidados desde cero.");
+      }
+      cargarConsolidados(usuario.id);
+    } catch (err: any) {
+      console.error(err);
+      setMensajeEstado({ tipo: "error", texto: err.message || "Error al reliquidar todo." });
+      if (typeof window !== "undefined") {
+        toast.error(err.message || "Error al reliquidar todo.");
+      }
+    } finally {
+      setReliquidandoTodo(false);
     }
   };
 
@@ -3650,8 +3687,35 @@ function ExpressPageContent() {
                   // ================= SECCIÓN: TABLA DE POSICIONES =================
                   return (
                     <div>
-                      <h2 style={{ margin: "0 0 4px", color: "#fff", fontSize: "1.3rem", fontWeight: 900 }}>📊 Tabla de Posiciones</h2>
-                      <p style={{ color: "#94a3b8", margin: "0 0 16px", fontSize: "0.82rem" }}>Puntos verificados de todos los participantes.</p>
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 12, marginBottom: 16 }}>
+                        <div>
+                          <h2 style={{ margin: "0 0 4px", color: "#fff", fontSize: "1.3rem", fontWeight: 900 }}>📊 Tabla de Posiciones</h2>
+                          <p style={{ color: "#94a3b8", margin: 0, fontSize: "0.82rem" }}>Puntos verificados de todos los participantes.</p>
+                        </div>
+                        <button
+                          onClick={handleReliquidarTodo}
+                          disabled={reliquidandoTodo}
+                          title="Borra todos los puntos y los recalcula desde cero para todos los partidos con resultado oficial. Úsalo si liquidaste un partido y la tabla no se movió."
+                          style={{
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: 8,
+                            padding: "10px 18px",
+                            borderRadius: "12px",
+                            fontSize: "0.85rem",
+                            background: reliquidandoTodo ? "rgba(255,255,255,0.05)" : "linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%)",
+                            color: reliquidandoTodo ? "#64748b" : "#fff",
+                            border: "none",
+                            fontWeight: 900,
+                            cursor: reliquidandoTodo ? "not-allowed" : "pointer",
+                            boxShadow: reliquidandoTodo ? "none" : "0 10px 25px -6px rgba(124, 58, 237, 0.5)",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          <RefreshCw className={reliquidandoTodo ? "spin" : ""} size={16} />
+                          {reliquidandoTodo ? "Reliquidando..." : "Reliquidar Todo"}
+                        </button>
+                      </div>
                       {cargandoConsolidados ? (
                         <div style={{ textAlign: "center", padding: 50, background: "rgba(15, 23, 42, 0.6)", borderRadius: 24 }}>
                           <RefreshCw className="spin" size={36} style={{ color: "#38bdf8", marginBottom: 16 }} />
