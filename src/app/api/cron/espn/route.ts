@@ -126,19 +126,19 @@ export async function GET(request: Request) {
         } else if (statusType === 'STATUS_IN_PROGRESS') {
           // Sólo actualizamos el ResultadoOficial pero NO calculamos puntos aún
           // Pasos 1, 2 y 3 manuales (sin sumar a PrediccionPartido)
-          await prisma.resultadoOficial.upsert({
+          const resOficial = await prisma.resultadoOficial.upsert({
             where: { partido_id: pBD.id },
             update: { goles_local_real: golesLocal, goles_visitante_real: golesVisitante },
             create: { partido_id: pBD.id, goles_local_real: golesLocal, goles_visitante_real: golesVisitante, ingresado_por_usuario_id: 1 }
           });
           
-          await prisma.resultadoGoleador.deleteMany({ where: { partido_id: pBD.id } });
+          await prisma.resultadoGoleador.deleteMany({ where: { resultado_oficial_id: resOficial.id } });
           for (const gId of goleadoresIds) {
             await prisma.resultadoGoleador.create({
-              data: { partido_id: pBD.id, jugador_id: gId }
+              data: { resultado_oficial_id: resOficial.id, jugador_id: gId }
             });
           }
-          await prisma.partido.update({ where: { id: pBD.id }, data: { estado: "en_curso" } });
+          await prisma.partido.update({ where: { id: pBD.id }, data: { estado: "resultado_cargado" } });
           
           resultados.push({ id: pBD.id, estado: "EN_CURSO", marcador: `${golesLocal}-${golesVisitante}` });
         } else if (statusType === 'STATUS_POSTPONED' || statusType === 'STATUS_CANCELED') {
