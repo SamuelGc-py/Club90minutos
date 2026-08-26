@@ -129,7 +129,7 @@ export async function GET(request: Request) {
           await prisma.resultadoOficial.upsert({
             where: { partido_id: pBD.id },
             update: { goles_local_real: golesLocal, goles_visitante_real: golesVisitante },
-            create: { partido_id: pBD.id, goles_local_real: golesLocal, goles_visitante_real: golesVisitante }
+            create: { partido_id: pBD.id, goles_local_real: golesLocal, goles_visitante_real: golesVisitante, ingresado_por_usuario_id: 1 }
           });
           
           await prisma.resultadoGoleador.deleteMany({ where: { partido_id: pBD.id } });
