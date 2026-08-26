@@ -7,7 +7,9 @@ async function main() {
   console.log('Iniciando reliquidación de puntos...');
   
   // 1. Borrar todos los puntajes
-  await prisma.puntaje.deleteMany();
+  await prisma.puntaje.deleteMany({
+    where: { partido_id: { not: null } }
+  });
   console.log('Todos los puntajes anteriores borrados.');
 
   // 2. Obtener todos los partidos liquidados

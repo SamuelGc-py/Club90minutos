@@ -22,7 +22,9 @@ export async function POST(req: Request) {
     }
 
     // 1. Borrar todos los puntajes
-    await prisma.puntaje.deleteMany();
+    await prisma.puntaje.deleteMany({
+      where: { partido_id: { not: null } }
+    });
 
     // 2. Obtener todos los partidos liquidados
     const partidosLiquidados = await prisma.partido.findMany({
