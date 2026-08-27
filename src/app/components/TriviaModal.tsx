@@ -122,7 +122,7 @@ export default function TriviaModal({ onClose }: { onClose: () => void }) {
           {cargando && (
             <div style={{ textAlign: 'center', padding: '40px 0' }}>
               <RefreshCw size={40} color="#10b981" style={{ animation: 'spin 1s linear infinite', margin: '0 auto' }} />
-              <p style={{ color: '#34d399', marginTop: 16, fontWeight: 600 }}>Preparando una pregunta bien durita...</p>
+              <p style={{ color: '#34d399', marginTop: 16, fontWeight: 600 }}>Preparando una pregunta bacana...</p>
             </div>
           )}
 

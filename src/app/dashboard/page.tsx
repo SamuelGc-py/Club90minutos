@@ -509,6 +509,8 @@ function ExpressPageContent() {
   const [passwordInput, setPasswordInput] = useState("");
   const [nombreInput, setNombreInput] = useState("");
   const [modoRegistro, setModoRegistro] = useState(false);
+  const [aceptoDatos, setAceptoDatos] = useState(false);
+  const [aceptoTerminos, setAceptoTerminos] = useState(false);
   const [cargandoValidacion, setCargandoValidacion] = useState(false);
   const [mensajeEstado, setMensajeEstado] = useState<{ tipo: "error" | "info" | "exito"; texto: string } | null>(null);
   const [usuario, setUsuario] = useState<UsuarioSesion | null>(null);
@@ -548,23 +550,6 @@ function ExpressPageContent() {
   const [fechaFiltroAplazados, setFechaFiltroAplazados] = useState<string>("todas");
   const necesitaFullscreen = true;
 
-  // Frases animadas para el Noticiero del banner superior
-  const frasesNoticiero = [
-    "📺 NOTICIERO 90 MINUTOS: ¡BIENVENIDO A LA POLLA LIGA BETPLAY 2026!",
-    "⚽ DEMUESTRA LO QUE SABES DE FÚTBOL Y GANA CON TUS PRONÓSTICOS",
-    "🎯 MARCADOR EXACTO OTORGA 5 PTS, GANADOR 3 PTS Y GOLEADOR 2 PTS",
-    "📊 CONSULTA LA TABLA DE POSICIONES EN VIVO Y TUS PUNTUACIONES",
-    "📊 UTILIZA LAS RECOMENDACIONES PARA ANALIZAR TUS PARTIDOS",
-    "🎮 ¡PRUEBA LA TRIVIA 90 MINUTOS Y MIRA LOS PRONÓSTICOS DE TODOS!",
-  ];
-  const [fraseIndice, setFraseIndice] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setFraseIndice((prev) => (prev + 1) % frasesNoticiero.length);
-    }, 4500);
-    return () => clearInterval(timer);
-  }, []);
 
   // Pantalla de Inicio del participante: también ocupa toda la pantalla (igual que el admin).
   useEffect(() => {
@@ -687,6 +672,27 @@ function ExpressPageContent() {
     prediccionesPartidos: any[];
     prediccionesIniciales: any[];
   } | null>(null);
+
+  const lider = consolidados?.tablaPosiciones?.[0]?.nombre || "EL LÍDER";
+  const tercero = consolidados?.tablaPosiciones?.[2]?.nombre || "EL TERCERO";
+
+  // Frases animadas para el Noticiero del banner superior
+  const frasesNoticiero = [
+    "📺 NOTICIERO 90 MINUTOS: ¡BIENVENIDO A LA POLLA LIGA BETPLAY 2026!",
+    `🔥 ¡ATENCIÓN! ${lider?.toUpperCase()} VUELVE A LA PUNTA DESPUÉS DE BAJAR AL QUE IBA DE PRIMERO`,
+    `👀 OJO CON ${tercero?.toUpperCase()} QUE ESTÁ EN EL TERCER PUESTO ESPERANDO SU OPORTUNIDAD PARA DAR EL ZARPAZO`,
+    "⚽ DEMUESTRA LO QUE SABES DE FÚTBOL Y GANA CON TUS PRONÓSTICOS",
+    "🎯 MARCADOR EXACTO OTORGA 5 PTS, GANADOR 3 PTS Y GOLEADOR 2 PTS",
+    "🎮 ¡PRUEBA LA TRIVIA 90 MINUTOS Y MIRA LOS PRONÓSTICOS DE TODOS!",
+  ];
+  const [fraseIndice, setFraseIndice] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setFraseIndice((prev) => (prev + 1) % 6); // Hardcoded a 6 para evitar dependencias en useEffect
+    }, 4500);
+    return () => clearInterval(timer);
+  }, []);
   const [cargandoConsolidados, setCargandoConsolidados] = useState(false);
   const [partidoAdminVer, setPartidoAdminVer] = useState<number | null>(null);
   const [guardandoPartidoId, setGuardandoPartidoId] = useState<number | null>(null);
@@ -1455,6 +1461,11 @@ function ExpressPageContent() {
       return;
     }
 
+    if (!aceptoDatos || !aceptoTerminos) {
+      setMensajeEstado({ tipo: "error", texto: "Debes aceptar el tratamiento de datos y los Términos y Condiciones para registrarte." });
+      return;
+    }
+
     setCargandoValidacion(true);
     setMensajeEstado(null);
 
@@ -1689,7 +1700,7 @@ function ExpressPageContent() {
             <span style={{ fontWeight: 800, color: "#ffffff", fontSize: "0.95rem", display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
               <span>{partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}</span>
               {(partido.jornada !== fechaParticipante || esAplazado) && (
-                <span style={{ background: "rgba(245, 158, 11, 0.25)", color: "#fef08a", border: "1px solid rgba(245, 158, 11, 0.5)", padding: "2px 8px", borderRadius: 12, fontSize: "0.72rem", fontWeight: 800 }}>
+                <span style={{ background: "rgba(245, 158, 11, 0.15)", color: "#fcd34d", border: "1px dashed rgba(245, 158, 11, 0.6)", padding: "2px 8px", borderRadius: 6, fontSize: "0.72rem", fontWeight: 800 }}>
                   ⚠️ Aplazado (Fecha {partido.jornada})
                 </span>
               )}
@@ -1707,7 +1718,7 @@ function ExpressPageContent() {
                 🔒 Pronósticos Cerrados
               </span>
             ) : (
-              <span style={{ background: "rgba(245, 158, 11, 0.15)", color: "#f59e0b", border: "1px solid rgba(245, 158, 11, 0.3)", padding: "2px 8px", borderRadius: 12, fontSize: "0.75rem", fontWeight: 700, whiteSpace: "nowrap" }}>
+              <span style={{ background: "linear-gradient(90deg, rgba(245,158,11,0.1) 0%, rgba(217,119,6,0.25) 100%)", color: "#fbbf24", border: "1px solid rgba(251, 191, 36, 0.4)", padding: "2px 10px", borderRadius: 12, fontSize: "0.75rem", fontWeight: 800, whiteSpace: "nowrap", boxShadow: "0 2px 10px -2px rgba(245, 158, 11, 0.3)" }}>
                 ⏳ Pendiente
               </span>
             )}
@@ -1722,7 +1733,7 @@ function ExpressPageContent() {
 
             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
               {esAplazado ? (
-                <span style={{ background: "#f59e0b", padding: "4px 10px", borderRadius: 6, color: "#fff", fontWeight: 800, fontSize: "0.75rem" }}>
+                <span style={{ background: "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)", padding: "4px 12px", borderRadius: 8, color: "#fff", fontWeight: 900, fontSize: "0.75rem", boxShadow: "0 0 12px rgba(245, 158, 11, 0.5), inset 0 1px 0 rgba(255,255,255,0.2)", letterSpacing: "0.5px" }}>
                   ⚠️ APLAZADO
                 </span>
               ) : liveMatch && liveMatch.esEnVivo && !esFinalizado ? (
@@ -1735,20 +1746,24 @@ function ExpressPageContent() {
                 type="button"
                 onClick={() => setPartidosDesplegados(prev => ({ ...prev, [partido.id]: !estaCardAbierta }))}
                 style={{
-                  background: estaCardAbierta ? "rgba(56, 189, 248, 0.25)" : "rgba(255, 255, 255, 0.08)",
-                  border: estaCardAbierta ? "1px solid #38bdf8" : "1px solid rgba(255,255,255,0.12)",
-                  color: estaCardAbierta ? "#38bdf8" : "#ffffff",
-                  padding: "6px 14px",
-                  borderRadius: 8,
-                  fontSize: "0.8rem",
-                  fontWeight: 800,
+                  background: estaCardAbierta ? "rgba(56, 189, 248, 0.15)" : (estaCerrado ? "rgba(255, 255, 255, 0.05)" : "linear-gradient(135deg, rgba(56, 189, 248, 0.2) 0%, rgba(14, 165, 233, 0.5) 100%)"),
+                  border: estaCardAbierta ? "1px solid rgba(56, 189, 248, 0.5)" : (estaCerrado ? "1px solid rgba(255,255,255,0.1)" : "1px solid rgba(56, 189, 248, 0.6)"),
+                  color: estaCardAbierta ? "#38bdf8" : (estaCerrado ? "#94a3b8" : "#ffffff"),
+                  boxShadow: estaCardAbierta ? "none" : (estaCerrado ? "none" : "0 4px 15px -3px rgba(14, 165, 233, 0.4)"),
+                  padding: "6px 16px",
+                  borderRadius: 10,
+                  fontSize: "0.82rem",
+                  fontWeight: 900,
                   cursor: "pointer",
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 6,
                   whiteSpace: "nowrap",
-                  transition: "all 0.15s ease",
+                  transition: "all 0.2s ease-in-out",
+                  textShadow: estaCardAbierta || estaCerrado ? "none" : "0 1px 2px rgba(0,0,0,0.3)"
                 }}
+                onMouseOver={(e) => { if (!estaCardAbierta && !estaCerrado) e.currentTarget.style.transform = "translateY(-1px)" }}
+                onMouseOut={(e) => { if (!estaCardAbierta && !estaCerrado) e.currentTarget.style.transform = "none" }}
               >
                 <span>{estaCardAbierta ? "▲ Ocultar" : (estaCerrado ? "▼ Ver" : "▼ Pronosticar")}</span>
               </button>
@@ -2423,6 +2438,29 @@ function ExpressPageContent() {
                   />
                 </div>
 
+                {modoRegistro && (
+                  <div style={{ display: "flex", flexDirection: "column", gap: 12, marginTop: 8, marginBottom: 8 }}>
+                    <label style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer", fontSize: "0.85rem", color: "#94a3b8" }}>
+                      <input 
+                        type="checkbox" 
+                        checked={aceptoDatos} 
+                        onChange={(e) => setAceptoDatos(e.target.checked)} 
+                        style={{ accentColor: "var(--cancha)", width: 16, height: 16, flexShrink: 0 }}
+                      />
+                      <span>Acepto el tratamiento de mis datos personales</span>
+                    </label>
+                    <label style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer", fontSize: "0.85rem", color: "#94a3b8" }}>
+                      <input 
+                        type="checkbox" 
+                        checked={aceptoTerminos} 
+                        onChange={(e) => setAceptoTerminos(e.target.checked)} 
+                        style={{ accentColor: "var(--cancha)", width: 16, height: 16, flexShrink: 0 }}
+                      />
+                      <span>Acepto los <a href="/terminos" target="_blank" style={{ color: "var(--cancha)", textDecoration: "underline" }}>Términos y Condiciones</a></span>
+                    </label>
+                  </div>
+                )}
+
                 <button
                   type="button"
                   onClick={modoRegistro ? handleRegistro : handleValidarCorreo}
@@ -2574,69 +2612,98 @@ function ExpressPageContent() {
                   onClick={() => handleDescargarExcelPronosticos()}
                   disabled={!consolidados}
                   style={{
-                    padding: "10px 16px",
+                    padding: "10px 20px",
                     background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
                     color: "#ffffff",
-                    border: "none",
+                    border: "1px solid rgba(16, 185, 129, 0.8)",
                     borderRadius: "12px",
                     fontWeight: 800,
-                    fontSize: "0.82rem",
+                    fontSize: "0.85rem",
                     cursor: "pointer",
                     display: "flex",
                     alignItems: "center",
-                    gap: 7,
-                    boxShadow: "0 10px 25px -5px rgba(16, 185, 129, 0.45)",
-                    transition: "transform 0.2s, boxShadow 0.2s"
+                    gap: 8,
+                    boxShadow: "0 10px 25px -5px rgba(16, 185, 129, 0.5), inset 0 1px 0 rgba(255,255,255,0.2)",
+                    transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)"
                   }}
-                  onMouseOver={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
-                  onMouseOut={(e) => (e.currentTarget.style.transform = "none")}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.transform = "translateY(-3px)";
+                    e.currentTarget.style.boxShadow = "0 15px 30px -5px rgba(16, 185, 129, 0.7), inset 0 1px 0 rgba(255,255,255,0.3)";
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.transform = "none";
+                    e.currentTarget.style.boxShadow = "0 10px 25px -5px rgba(16, 185, 129, 0.5), inset 0 1px 0 rgba(255,255,255,0.2)";
+                  }}
                 >
-                  <Download size={15} /> Exportar Global (Excel)
+                  <Download size={16} /> Exportar Global (Excel)
                 </button>
 
                 <button
                   onClick={() => cargarConsolidados(usuario.id)}
                   disabled={cargandoConsolidados}
                   style={{
-                    padding: "10px 16px",
-                    background: "rgba(255, 255, 255, 0.05)",
+                    padding: "10px 20px",
+                    background: "linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.1) 100%)",
                     color: "#ffffff",
-                    border: "1px solid rgba(255, 255, 255, 0.1)",
+                    border: "1px solid rgba(255, 255, 255, 0.2)",
                     borderRadius: "12px",
                     fontWeight: 800,
-                    fontSize: "0.82rem",
+                    fontSize: "0.85rem",
                     cursor: "pointer",
                     display: "flex",
                     alignItems: "center",
-                    gap: 7,
-                    transition: "all 0.2s"
+                    gap: 8,
+                    boxShadow: "0 8px 20px -5px rgba(0,0,0,0.3)",
+                    backdropFilter: "blur(8px)",
+                    transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)"
                   }}
-                  onMouseOver={(e) => (e.currentTarget.style.background = "rgba(255, 255, 255, 0.1)")}
-                  onMouseOut={(e) => (e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)")}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.transform = "translateY(-2px)";
+                    e.currentTarget.style.background = "linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.15) 100%)";
+                    e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.4)";
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.transform = "none";
+                    e.currentTarget.style.background = "linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.1) 100%)";
+                    e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.2)";
+                  }}
                 >
-                  <RefreshCw size={15} className={cargandoConsolidados ? "spin" : ""} /> Sincronizar
+                  <RefreshCw size={16} className={cargandoConsolidados ? "spin" : ""} /> Sincronizar
                 </button>
 
                 <button
                   onClick={handleCerrarSesion}
                   style={{
-                    padding: "10px 16px",
-                    background: "rgba(239, 68, 68, 0.2)",
-                    color: "#f87171",
-                    border: "1px solid rgba(239, 68, 68, 0.4)",
+                    padding: "10px 20px",
+                    background: "linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(185, 28, 28, 0.25) 100%)",
+                    color: "#fca5a5",
+                    border: "1px solid rgba(239, 68, 68, 0.5)",
                     borderRadius: "12px",
                     fontWeight: 800,
-                    fontSize: "0.82rem",
+                    fontSize: "0.85rem",
                     cursor: "pointer",
                     display: "flex",
                     alignItems: "center",
-                    gap: 7,
-                    transition: "all 0.2s"
+                    gap: 8,
+                    boxShadow: "0 8px 20px -5px rgba(239, 68, 68, 0.2)",
+                    transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)"
                   }}
-                  onMouseOver={(e) => (e.currentTarget.style.background = "rgba(239, 68, 68, 0.35)")}
-                  onMouseOut={(e) => (e.currentTarget.style.background = "rgba(239, 68, 68, 0.2)")}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.transform = "translateY(-2px)";
+                    e.currentTarget.style.background = "linear-gradient(135deg, rgba(239, 68, 68, 0.25) 0%, rgba(185, 28, 28, 0.4) 100%)";
+                    e.currentTarget.style.borderColor = "rgba(239, 68, 68, 0.8)";
+                    e.currentTarget.style.color = "#fef2f2";
+                    e.currentTarget.style.boxShadow = "0 10px 25px -5px rgba(239, 68, 68, 0.4)";
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.transform = "none";
+                    e.currentTarget.style.background = "linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(185, 28, 28, 0.25) 100%)";
+                    e.currentTarget.style.borderColor = "rgba(239, 68, 68, 0.5)";
+                    e.currentTarget.style.color = "#fca5a5";
+                    e.currentTarget.style.boxShadow = "0 8px 20px -5px rgba(239, 68, 68, 0.2)";
+                  }}
                 >
-                  <LogOut size={15} /> Cerrar Sesión
+                  <LogOut size={16} /> Cerrar Sesión
                 </button>
               </div>
             </div>

@@ -132,21 +132,18 @@ export default function LandingPage() {
           <div className="landing-header-top">
             <div style={{ display: "flex", alignItems: "center" }}>
               <picture>
-                <source srcSet="/marca/logo-club90-escudo-transparente.webp" type="image/webp" />
+                <source srcSet="/marca/logo-club90-principal-transparente.webp" type="image/webp" />
                 <img 
-                  src="/marca/logo-club90-escudo-transparente.png" 
+                  src="/marca/logo-club90-principal-transparente.png" 
                   alt="Logo Club 90 Minutos" 
                   className="logo-img"
                   style={{ 
-                    height: 44, width: "auto", 
+                    height: 52, width: "auto", 
                     filter: "drop-shadow(0px 2px 8px rgba(116, 204, 16, 0.4))", 
                     marginRight: 12
                   }}
                 />
               </picture>
-              <span className="logo-text" style={{ fontFamily: "var(--font-display, 'Orbitron', sans-serif)", fontWeight: 800, fontSize: "1.2rem", letterSpacing: "0.5px" }}>
-                CLUB<span style={{ color: "var(--color-verde-club)" }}>90</span>MINUTOS
-              </span>
             </div>
             
             {/* Buttons hidden on mobile from here, moved below? No, let's keep buttons below nav on mobile */}
@@ -268,39 +265,87 @@ export default function LandingPage() {
                 
                 <div style={{ 
                   display: "grid", 
-                  gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", 
-                  gap: 20, 
+                  gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", 
+                  gap: 16, 
                   maxWidth: 700, 
                   margin: "0 auto" 
                 }}>
                   <Link href="/dashboard" style={{ textDecoration: "none" }}>
-                    <div style={{ 
-                      padding: "24px", background: "rgba(116, 204, 16, 0.05)", border: "1px solid rgba(116, 204, 16, 0.2)",
-                      borderRadius: 24, cursor: "pointer", transition: "all 0.2s ease",
-                      display: "flex", alignItems: "center", gap: 20
-                    }}>
-                      <div style={{ width: 64, height: 64, background: "#FFFFFF", borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center", padding: 6 }}>
-                        <img src="/images/tournaments/betplay.webp" alt="Liga BetPlay" style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }} />
+                    <div 
+                      style={{ 
+                        padding: "16px", 
+                        background: "transparent", 
+                        border: "none",
+                        cursor: "pointer", transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                        display: "flex", flexDirection: "column", alignItems: "center", gap: 16, textAlign: "center"
+                      }}
+                      onMouseOver={(e) => {
+                        e.currentTarget.style.transform = "translateY(-5px)";
+                      }}
+                      onMouseOut={(e) => {
+                        e.currentTarget.style.transform = "none";
+                      }}
+                    >
+                      <div style={{ 
+                        width: 84, height: 84, 
+                        background: "radial-gradient(circle, rgba(255,255,255,1) 40%, rgba(240,240,240,1) 100%)", 
+                        borderRadius: "50%", 
+                        display: "flex", alignItems: "center", justifyContent: "center", padding: 12,
+                        boxShadow: "0 8px 25px rgba(0,0,0,0.4), inset 0 0 10px rgba(0,0,0,0.1)"
+                      }}>
+                        <img 
+                          src="/images/tournaments/betplay.webp" 
+                          alt="Liga BetPlay" 
+                          style={{ 
+                            maxWidth: "100%", maxHeight: "100%", objectFit: "contain",
+                            filter: "drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.3))" 
+                          }} 
+                        />
                       </div>
                       <div>
-                        <div style={{ fontWeight: 800, color: "#FFFFFF", fontSize: "1.2rem" }}>Liga BetPlay</div>
-                        <div style={{ fontSize: "0.9rem", color: "#74CC10", fontWeight: 700, marginTop: 6 }}>En Juego • Ingresar</div>
+                        <div style={{ fontWeight: 800, color: "#FFFFFF", fontSize: "1.1rem" }}>Liga BetPlay</div>
+                        <div style={{ fontSize: "0.85rem", color: "#74CC10", fontWeight: 700, marginTop: 4 }}>En Juego • Ingresar</div>
                       </div>
                     </div>
                   </Link>
 
                   <Link href="/construccion" style={{ textDecoration: "none" }}>
-                    <div style={{ 
-                      padding: "24px", background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)",
-                      borderRadius: 24, cursor: "pointer", transition: "all 0.2s ease", opacity: 0.7,
-                      display: "flex", alignItems: "center", gap: 20
-                    }}>
-                      <div style={{ width: 64, height: 64, background: "#FFFFFF", borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center", padding: 6 }}>
-                        <img src="/images/tournaments/champions.webp" alt="Champions League" style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }} />
+                    <div 
+                      style={{ 
+                        padding: "16px", 
+                        background: "transparent", 
+                        border: "none",
+                        cursor: "pointer", transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)", opacity: 0.7,
+                        display: "flex", flexDirection: "column", alignItems: "center", gap: 16, textAlign: "center"
+                      }}
+                      onMouseOver={(e) => { 
+                        e.currentTarget.style.transform = "translateY(-5px)"; 
+                        e.currentTarget.style.opacity = "1";
+                      }}
+                      onMouseOut={(e) => { 
+                        e.currentTarget.style.transform = "none"; 
+                        e.currentTarget.style.opacity = "0.7"; 
+                      }}
+                    >
+                      <div style={{ 
+                        width: 84, height: 84, 
+                        background: "radial-gradient(circle, rgba(255,255,255,1) 40%, rgba(240,240,240,1) 100%)", 
+                        borderRadius: "50%", 
+                        display: "flex", alignItems: "center", justifyContent: "center", padding: 12,
+                        boxShadow: "0 8px 25px rgba(0,0,0,0.4), inset 0 0 10px rgba(0,0,0,0.1)"
+                      }}>
+                        <img 
+                          src="/images/tournaments/champions.webp" 
+                          alt="Champions League" 
+                          style={{ 
+                            maxWidth: "100%", maxHeight: "100%", objectFit: "contain",
+                            filter: "drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.3))" 
+                          }} 
+                        />
                       </div>
                       <div>
-                        <div style={{ fontWeight: 800, color: "#FFFFFF", fontSize: "1.2rem" }}>Champions League</div>
-                        <div style={{ fontSize: "0.9rem", color: "#6B7280", fontWeight: 600, marginTop: 6 }}>Próximamente</div>
+                        <div style={{ fontWeight: 800, color: "#FFFFFF", fontSize: "1.1rem" }}>Champions League</div>
+                        <div style={{ fontSize: "0.85rem", color: "#8ba3b4", fontWeight: 700, marginTop: 4 }}>Próximamente</div>
                       </div>
                     </div>
                   </Link>
@@ -406,12 +451,9 @@ export default function LandingPage() {
               <div style={{ flex: "1 1 300px", display: "flex", flexDirection: "column", gap: 20 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                   <picture>
-                    <source srcSet="/marca/logo-club90-escudo-transparente.webp" type="image/webp" />
-                    <img src="/marca/logo-club90-escudo-transparente.png" alt="Logo" style={{ height: 48 }} />
+                    <source srcSet="/marca/logo-club90-principal-transparente.webp" type="image/webp" />
+                    <img src="/marca/logo-club90-principal-transparente.png" alt="Logo" style={{ height: 60 }} />
                   </picture>
-                  <span style={{ fontFamily: "var(--font-display, 'Orbitron', sans-serif)", fontWeight: 800, fontSize: "1.4rem", letterSpacing: "0.5px", color: "var(--color-blanco)" }}>
-                    CLUB<span style={{ color: "var(--color-verde-club)" }}>90</span>MINUTOS
-                  </span>
                 </div>
                 <p style={{ color: "#8ba3b4", fontSize: "0.95rem", lineHeight: 1.6, maxWidth: 400 }}>
                   La plataforma definitiva para los amantes del fútbol colombiano. Pronostica, compite y demuestra que eres el que más sabe de la Liga BetPlay.

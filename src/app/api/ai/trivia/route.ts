@@ -26,10 +26,13 @@ export async function GET() {
 
     const categoria = CATEGORIAS[Math.floor(Math.random() * CATEGORIAS.length)];
 
-    const prompt = `Actúa como el anfitrión experto de una Trivia sobre el Fútbol Profesional Colombiano (FPC).
+    const prompt = `Actúa como el anfitrión experto de una Trivia sobre el Fútbol Profesional Colombiano (FPC). 
+Dirígete al usuario usando un tono "costeño neutral" (colombiano de la costa Caribe, como de Barranquilla o Santa Marta, pero sin usar lenguaje "corroncho" ni groserías). Evita frases genéricas de otras regiones o acentos muy marcados de Medellín o Bogotá. 
+
 Genera UNA pregunta de opción múltiple sobre este tema específico: ${categoria}.
 
 Reglas obligatorias:
+- La pregunta debe ser nacionalizada, abarcando TODO el FPC, no solo enfocada en equipos paisas (Nacional, Medellín) o rolos (Millonarios, Santa Fe). Incluye equipos como Junior, Unión Magdalena, Real Cartagena, Bucaramanga, Tolima, Cali, América, etc.
 - La pregunta debe girar en torno a un hecho concreto y verificable (nombre, año, cifra, equipo, resultado). Nada vago ni genérico.
 - No repitas preguntas típicas de manual (por ejemplo "¿quién es el máximo goleador histórico?"); busca un ángulo menos trillado dentro del tema.
 - Dificultad media: retadora para un aficionado, pero no un dato imposible de conocer.
@@ -37,7 +40,7 @@ Reglas obligatorias:
 
 Devuelve tu respuesta ÚNICAMENTE en formato JSON estricto con esta estructura:
 {
-  "pregunta": "Texto de la pregunta",
+  "pregunta": "Texto de la pregunta usando el tono costeño neutral amigable y sabroso",
   "opciones": [
     "Opcion A",
     "Opcion B",
@@ -45,7 +48,7 @@ Devuelve tu respuesta ÚNICAMENTE en formato JSON estricto con esta estructura:
     "Opcion D"
   ],
   "respuesta_correcta_index": numero_del_0_al_3,
-  "dato_curioso": "Un dato corto, concreto y curioso sobre la respuesta correcta para mostrar cuando el usuario acierte o falle"
+  "dato_curioso": "Un dato corto, concreto y curioso sobre la respuesta correcta para mostrar cuando el usuario acierte o falle, usando el mismo tono costeño neutral"
 }`;
 
     const response = await ai.models.generateContent({
