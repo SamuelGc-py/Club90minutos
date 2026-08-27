@@ -120,8 +120,8 @@ export async function GET(request: Request) {
 
         // Si el partido está finalizado en ESPN, guardamos y sumamos puntos.
         if (isFinished) {
-          // El ID 1 se asume como admin de sistema automático.
-          await calcularPuntosPartido(pBD.id, golesLocal, golesVisitante, goleadoresIds, 1);
+          // Usar null para el usuario admin automático.
+          await calcularPuntosPartido(pBD.id, golesLocal, golesVisitante, goleadoresIds, null);
           resultados.push({ id: pBD.id, estado: "FINALIZADO", marcador: `${golesLocal}-${golesVisitante}` });
         } else if (statusType === 'STATUS_IN_PROGRESS') {
           // Sólo actualizamos el ResultadoOficial pero NO calculamos puntos aún
@@ -129,7 +129,7 @@ export async function GET(request: Request) {
           const resOficial = await prisma.resultadoOficial.upsert({
             where: { partido_id: pBD.id },
             update: { goles_local_real: golesLocal, goles_visitante_real: golesVisitante },
-            create: { partido_id: pBD.id, goles_local_real: golesLocal, goles_visitante_real: golesVisitante, ingresado_por_usuario_id: 1 }
+            create: { partido_id: pBD.id, goles_local_real: golesLocal, goles_visitante_real: golesVisitante, ingresado_por_usuario_id: null }
           });
           
           await prisma.resultadoGoleador.deleteMany({ where: { resultado_oficial_id: resOficial.id } });

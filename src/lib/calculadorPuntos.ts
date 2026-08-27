@@ -6,7 +6,7 @@ export async function calcularPuntosPartido(
   golesLocalReal: number,
   golesVisitanteReal: number,
   goleadorRealJugadorId: number[] | number | null,
-  usuarioIdAdmin: number
+  usuarioIdAdmin: number | null
 ) {
   // Normalizar a arreglo de IDs
   let goleadoresIds: number[] = [];
