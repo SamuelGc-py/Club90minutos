@@ -74,17 +74,9 @@ export async function POST(req: Request) {
       data: { estado: 'resultado_cargado' }
     });
 
-    const resultado = await calcularPuntosPartido(
-      Number(partido_id),
-      Number(goles_local),
-      Number(goles_visitante),
-      idsGoleadores,
-      Number(usuario_id)
-    );
-
     return NextResponse.json({
       exito: true,
-      mensaje: `Resultado oficial guardado y puntos calculados para ${resultado.totalPrediccionesLiquidadas} participantes.`,
+      mensaje: `Resultado oficial guardado en pantalla. (Los puntos NO se han calculado).`,
     });
   } catch (error: any) {
     console.error("Error al cargar resultado oficial:", error);
