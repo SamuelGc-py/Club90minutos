@@ -3180,6 +3180,28 @@ function ExpressPageContent() {
                                   })}
                                 </div>
                               )}
+                              
+                              {(resultadosAdminInput[partido.id]?.goleadores_ids?.length === 0 || !resultadosAdminInput[partido.id]?.goleadores_ids) && 
+                               resultadosAdminInput[partido.id]?.local === "0" && 
+                               resultadosAdminInput[partido.id]?.visitante === "0" && (
+                                <div style={{ display: "flex", alignItems: "center", marginTop: 4 }}>
+                                  <span style={{
+                                    background: "rgba(148, 163, 184, 0.15)",
+                                    color: "#94a3b8",
+                                    border: "1px solid rgba(148, 163, 184, 0.3)",
+                                    borderRadius: "20px",
+                                    padding: "4px 12px",
+                                    fontSize: "0.85rem",
+                                    display: "inline-flex",
+                                    alignItems: "center",
+                                    gap: 6,
+                                    fontWeight: 600,
+                                    fontStyle: "italic"
+                                  }}>
+                                    🚫 Sin Goleador (0 - 0)
+                                  </span>
+                                </div>
+                              )}
                             </div>
                           </div>
 
