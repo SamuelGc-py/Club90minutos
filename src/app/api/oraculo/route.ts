@@ -80,7 +80,7 @@ Reglas estrictas:
     // Tabla de posiciones: datos en vivo de ESPN (gratis, sin límite de cuota).
     if (aiResponse.intent === "STANDINGS") {
       try {
-        const espnRes = await fetch("https://site.api.espn.com/apis/site/v2/sports/soccer/col.1/standings");
+        const espnRes = await fetch("https://site.api.espn.com/apis/v2/sports/soccer/col.1/standings");
         if (!espnRes.ok) throw new Error("Error consultando ESPN");
         const espnData = await espnRes.json();
         const entries = espnData?.children?.[0]?.standings?.entries;

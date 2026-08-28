@@ -19,11 +19,16 @@ export async function POST(req: Request) {
     const dbLocalNorm = normalize(partido.equipo_local.nombre);
     const dbVisitanteNorm = normalize(partido.equipo_visitante.nombre);
 
-    // Agregar timeout de 10 segundos para no bloquear la conexión si ESPN no responde
+    // Configurar timeout y fechas (±3 días del partido) para no quedar atrapados en 20260801-20260831.
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 10000);
+    
+    const fp = new Date(partido.fecha_hora_partido);
+    const formatDateStr = (d: Date) => d.toISOString().split('T')[0].replace(/-/g, '');
+    const d1 = formatDateStr(new Date(fp.getTime() - 3 * 86400000));
+    const d2 = formatDateStr(new Date(fp.getTime() + 3 * 86400000));
 
-    const res = await fetch("https://site.api.espn.com/apis/site/v2/sports/soccer/col.1/scoreboard?dates=20260801-20260831", {
+    const res = await fetch(`https://site.api.espn.com/apis/site/v2/sports/soccer/col.1/scoreboard?dates=${d1}-${d2}`, {
       signal: controller.signal
     });
     clearTimeout(timeoutId);
