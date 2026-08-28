@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useMemo, useRef, Component } from "react";
-import { CheckCircle2, ShieldAlert, Save, RefreshCw, Trophy, Calendar, LogOut, AlertTriangle, UserCheck, Lock, Clock, Eye, List, Download, Users, Menu, X, Flame, Camera, BarChart3, ClipboardCheck, Trash2, Hourglass, User, ArrowRight, ChevronRight } from "lucide-react";
+import { CheckCircle2, ShieldAlert, Save, RefreshCw, Trophy, Calendar, LogOut, AlertTriangle, UserCheck, Lock, Clock, Eye, List, Download, Users, Menu, X, Flame, Camera, BarChart3, ClipboardCheck, Trash2, Hourglass, BrainCircuit, User, ArrowRight, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { toPng } from 'html-to-image';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis, YAxis } from "recharts";
@@ -462,6 +462,53 @@ function MarcadorEnVivoMini({ live }: { live: any }) {
   );
 }
 
+const NOTICIAS_ROTATIVAS = [
+  "¡Bienvenido al Club 90 Minutos! ⚽",
+  "✨ La tabla está que arde. ¡No te quedes atrás!",
+  "Si apostaste por un empate 0-0, te gusta el peligro. 🔥",
+];
+
+function NoticiasTicker() {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % NOTICIAS_ROTATIVAS.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div style={{ position: "relative", width: "100%", maxWidth: 600, height: 50, overflow: "hidden" }}>
+      {NOTICIAS_ROTATIVAS.map((noticia, i) => (
+        <div
+          key={i}
+          style={{
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            textAlign: "center",
+            fontSize: "0.95rem",
+            fontWeight: 900,
+            color: "#ffffff",
+            letterSpacing: "0.6px",
+            textTransform: "uppercase",
+            transition: "all 0.5s ease",
+            opacity: i === index ? 1 : 0,
+            transform: i === index ? "translateY(0)" : "translateY(20px)",
+            pointerEvents: i === index ? "auto" : "none",
+          }}
+        >
+          {noticia}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 class GlobalErrorBoundary extends Component<{ children: React.ReactNode }, { hasError: boolean }> {
   constructor(props: any) {
     super(props);
@@ -549,6 +596,8 @@ function ExpressPageContent() {
   const [modalPrediccionAbierto, setModalPrediccionAbierto] = useState<"campeon" | "finalistas" | "clasificados" | "goleador" | null>(null);
   const [fechaFiltroAplazados, setFechaFiltroAplazados] = useState<string>("todas");
   const necesitaFullscreen = true;
+  const [cronicaData, setCronicaData] = useState<{ titular: string; cuerpo_noticia: string } | null>(null);
+  const [cargandoCronica, setCargandoCronica] = useState(false);
 
 
   // Pantalla de Inicio del participante: también ocupa toda la pantalla (igual que el admin).
@@ -1210,6 +1259,32 @@ function ExpressPageContent() {
       }
     } finally {
       setReliquidandoTodo(false);
+    }
+  };
+
+  const handleGenerarCronica = async () => {
+    if (!consolidados || !consolidados.tablaPosiciones || consolidados.tablaPosiciones.length === 0) {
+      if (typeof window !== "undefined") {
+        toast.error("La tabla de posiciones está vacía. No se puede generar crónica.");
+      }
+      return;
+    }
+    setCargandoCronica(true);
+    try {
+      const res = await fetch("/api/ai/cronica", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tablaPosiciones: consolidados.tablaPosiciones }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Error al generar la crónica.");
+      setCronicaData(data);
+    } catch (err: any) {
+      if (typeof window !== "undefined") {
+        toast.error("La Inteligencia Artificial está saturada en este momento. Intenta de nuevo en unos segundos.");
+      }
+    } finally {
+      setCargandoCronica(false);
     }
   };
 
@@ -4044,6 +4119,17 @@ function ExpressPageContent() {
                       },
                     },
                     {
+                      key: "oraculo",
+                      emoji: "🔮",
+                      label: "Cazador de Puntos",
+                      desc: "Asistente de Inteligencia Artificial",
+                      color: "#eab308",
+                      onClick: () => {
+                        setTabActiva("oraculo");
+                        setMenuInicioMovilAbierto(false);
+                      },
+                    },
+                    {
                       key: "pronosticos_todos",
                       emoji: "👀",
                       label: "Pronósticos de Todos",
@@ -4836,6 +4922,57 @@ function ExpressPageContent() {
                               <span style={{ fontSize: "0.7rem", color: "var(--graderia)", textTransform: "uppercase", fontWeight: 700 }}>Puntos Totales</span>
                               <div style={{ fontSize: "1.2rem", fontWeight: 900, color: "#34d399" }}>{miFila.pts_total} PTS</div>
                             </div>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* EL POLLO PERIODISTA: Crónica Generada con IA */}
+                      <div style={{ width: "100%", marginTop: 0, marginBottom: 24, paddingBottom: 24, borderBottom: "1px dashed rgba(255,255,255,0.1)" }}>
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", marginBottom: 16, gap: 12 }}>
+                          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                            <h2 style={{ margin: 0, fontSize: "1.2rem", fontWeight: 900, color: "#fff", display: "flex", alignItems: "center", gap: 8 }}>
+                              📰 El Pollo Periodista
+                            </h2>
+                            <span style={{ fontSize: "0.75rem", color: "#fbbf24", background: "rgba(245, 158, 11, 0.15)", padding: "4px 10px", borderRadius: 12, border: "1px solid rgba(245, 158, 11, 0.3)", fontWeight: 800 }}>
+                              IA Gemini
+                            </span>
+                          </div>
+                          <button
+                            onClick={handleGenerarCronica}
+                            disabled={cargandoCronica}
+                            style={{
+                              padding: "8px 20px",
+                              background: cargandoCronica ? "rgba(255,255,255,0.1)" : "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+                              color: cargandoCronica ? "#94a3b8" : "#fff",
+                              border: "none",
+                              borderRadius: "20px",
+                              fontWeight: 800,
+                              fontSize: "0.85rem",
+                              cursor: cargandoCronica ? "not-allowed" : "pointer",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: 8,
+                              boxShadow: cargandoCronica ? "none" : "0 4px 12px rgba(16, 185, 129, 0.3)",
+                              transition: "all 0.2s ease"
+                            }}
+                          >
+                            {cargandoCronica ? (
+                              <><RefreshCw size={15} className="spin" /> Escribiendo noticia...</>
+                            ) : (
+                              <><CheckCircle2 size={15} /> {cronicaData ? "Actualizar Crónica" : "Pedir Resumen a Gemini"}</>
+                            )}
+                          </button>
+                        </div>
+                        {cronicaData ? (
+                          <div style={{ background: "rgba(0,0,0,0.4)", borderRadius: 12, padding: 16, border: "1px solid rgba(16, 185, 129, 0.2)" }}>
+                            <h3 style={{ margin: "0 0 8px 0", color: "#10b981", fontSize: "1.05rem" }}>{cronicaData.titular}</h3>
+                            <p style={{ margin: 0, color: "#cbd5e1", fontSize: "0.85rem", lineHeight: 1.5, whiteSpace: "pre-wrap" }}>
+                              {cronicaData.cuerpo_noticia}
+                            </p>
+                          </div>
+                        ) : (
+                          <div style={{ color: "var(--graderia)", fontSize: "0.85rem", textAlign: "center", padding: "10px 0" }}>
+                            Aún no hay crónica generada. Haz clic en el botón superior para que Gemini analice la jornada.
                           </div>
                         )}
                       </div>

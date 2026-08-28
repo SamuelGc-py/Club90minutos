@@ -144,6 +144,16 @@ export default function LandingPage() {
                   }}
                 />
               </picture>
+              <span className="logo-text" style={{
+                fontFamily: "'Orbitron', sans-serif",
+                fontSize: "1.05rem",
+                fontWeight: 900,
+                color: "#FFFFFF",
+                letterSpacing: "0.5px",
+                whiteSpace: "nowrap"
+              }}>
+                CLUB 90 <span style={{ color: "var(--color-verde-club)" }}>MINUTOS</span>
+              </span>
             </div>
             
             {/* Buttons hidden on mobile from here, moved below? No, let's keep buttons below nav on mobile */}
