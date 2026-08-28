@@ -998,7 +998,6 @@ function ExpressPageContent() {
       if (!res.ok) throw new Error(data.error || "Error al procesar marcador");
 
       setMensajeEstado({ tipo: "exito", texto: data.mensaje || "¡Marcador guardado en pantalla!" });
-      window.scrollTo({ top: 0, behavior: "smooth" });
       if (typeof window !== "undefined") {
         toast.success(data.mensaje || "¡Marcador guardado en pantalla!");
       }
@@ -1039,7 +1038,6 @@ function ExpressPageContent() {
       if (!res.ok) throw new Error(data.error || "Error al procesar resultado");
 
       setMensajeEstado({ tipo: "exito", texto: data.mensaje || "¡Resultado oficial publicado y puntos calculados!" });
-      window.scrollTo({ top: 0, behavior: "smooth" });
       if (typeof window !== "undefined") {
         toast.success(data.mensaje || "¡Resultado oficial publicado y puntos calculados!");
       }
