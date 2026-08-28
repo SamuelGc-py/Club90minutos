@@ -3051,7 +3051,7 @@ function ExpressPageContent() {
                             ⚙️ Gestión de Resultado Oficial
                           </div>
                           <div style={{ display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap", background: "rgba(0,0,0,0.2)", padding: 20, borderRadius: 16, border: "1px solid rgba(255,255,255,0.05)" }}>
-                            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                            <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
                               <input
                                 type="number"
                                 min="0"
@@ -3103,7 +3103,6 @@ function ExpressPageContent() {
                                   }
                                 }}
                                 style={{
-                                  marginLeft: 16,
                                   padding: "8px 16px",
                                   borderRadius: "8px",
                                   background: "rgba(59, 130, 246, 0.2)",
@@ -3111,7 +3110,8 @@ function ExpressPageContent() {
                                   border: "1px solid rgba(59, 130, 246, 0.5)",
                                   fontWeight: 700,
                                   cursor: "pointer",
-                                  transition: "all 0.2s"
+                                  transition: "all 0.2s",
+                                  whiteSpace: "nowrap"
                                 }}
                                 onMouseOver={(e) => { e.currentTarget.style.background = "rgba(59, 130, 246, 0.4)"; }}
                                 onMouseOut={(e) => { e.currentTarget.style.background = "rgba(59, 130, 246, 0.2)"; }}
@@ -3205,11 +3205,11 @@ function ExpressPageContent() {
                             </div>
                           </div>
 
-                          <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+                          <div style={{ display: "flex", gap: 12, flexWrap: "wrap", width: "100%" }}>
                             <button
                               onClick={() => handleCargarMarcadorPantalla(partido.id)}
                               style={{
-                                flex: 1,
+                                flex: "1 1 200px",
                                 minWidth: "200px",
                                 padding: "12px",
                                 borderRadius: "12px",
@@ -3236,7 +3236,7 @@ function ExpressPageContent() {
                               }}
                               disabled={partido.estado !== "resultado_cargado" && partido.estado !== "puntaje_calculado"}
                               style={{
-                                flex: 1,
+                                flex: "1 1 200px",
                                 minWidth: "200px",
                                 padding: "12px",
                                 borderRadius: "12px",
@@ -3262,6 +3262,7 @@ function ExpressPageContent() {
                                 alignItems: "center",
                                 justifyContent: "center",
                                 gap: 6,
+                                flex: "1 1 160px",
                                 minWidth: "160px",
                                 padding: "12px",
                                 borderRadius: "12px",
