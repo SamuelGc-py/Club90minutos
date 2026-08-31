@@ -722,24 +722,30 @@ function ExpressPageContent() {
     prediccionesIniciales: any[];
   } | null>(null);
 
-  const lider = consolidados?.tablaPosiciones?.[0]?.nombre || "EL LÍDER";
-  const tercero = consolidados?.tablaPosiciones?.[2]?.nombre || "EL TERCERO";
+  const liderObj = consolidados?.tablaPosiciones?.[0];
+  const segundoObj = consolidados?.tablaPosiciones?.[1];
+  const terceroObj = consolidados?.tablaPosiciones?.[2];
+
+  const lider = liderObj ? (liderObj.nombre || liderObj.nombre_completo?.split(" ")[0])?.toUpperCase() : "EL LÍDER";
+  const segundo = segundoObj ? (segundoObj.nombre || segundoObj.nombre_completo?.split(" ")[0])?.toUpperCase() : "EL SEGUNDO";
+  const tercero = terceroObj ? (terceroObj.nombre || terceroObj.nombre_completo?.split(" ")[0])?.toUpperCase() : "EL TERCERO";
 
   // Frases animadas para el Noticiero del banner superior
   const frasesNoticiero = [
-    "📺 NOTICIERO 90 MINUTOS: ¡BIENVENIDO A LA POLLA LIGA BETPLAY 2026!",
-    `🔥 ¡ATENCIÓN! ${lider?.toUpperCase()} VUELVE A LA PUNTA DESPUÉS DE BAJAR AL QUE IBA DE PRIMERO`,
-    `👀 OJO CON ${tercero?.toUpperCase()} QUE ESTÁ EN EL TERCER PUESTO ESPERANDO SU OPORTUNIDAD PARA DAR EL ZARPAZO`,
-    "⚽ DEMUESTRA LO QUE SABES DE FÚTBOL Y GANA CON TUS PRONÓSTICOS",
-    "🎯 MARCADOR EXACTO OTORGA 5 PTS, GANADOR 3 PTS Y GOLEADOR 2 PTS",
-    "🎮 ¡PRUEBA LA TRIVIA 90 MINUTOS Y MIRA LOS PRONÓSTICOS DE TODOS!",
+    "📺 NOTICIERO 90 MINUTOS: ¡BIENVENIDO A LA POLLA MÁS SABROSA DE COLOMBIA!",
+    `🥇 ¡ATENCIÓN! ${lider} ESTÁ BIEN ARRIBA DANDO BATE, LOS TIENE A TODOS MAMANDO... RUEDA. 🤣`,
+    `🥈 OJO CON ${segundo} QUE LE ESTÁ SOPLANDO LA NUCA A ${lider}. ¡CUIDADO SE ENAMORAN! 👀`,
+    `🥉 ${tercero} ESTÁ CALLADITO DE TERCERO ESPERANDO EL PAPAYAZO PA' METERLA... LA PREDICCIÓN. 🔥`,
+    `⚡ ${lider} ANDA MÁS MONTADO QUE DUEÑO DE PICÓ EN CARNAVAL. ¡QUE ALGUIEN BAJE A ESE MAN!`,
+    "🎯 ACUÉRDATE: MARCADOR EXACTO DA 5 PTS, GANADOR 3 PTS Y GOLEADOR 2 PTS.",
+    "🎮 ¡PASA POR LA TRIVIA Y MIRA SI DE VERDAD SABES DE FÚTBOL O PURO CUENTO!",
   ];
   const [fraseIndice, setFraseIndice] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setFraseIndice((prev) => (prev + 1) % 6); // Hardcoded a 6 para evitar dependencias en useEffect
-    }, 4500);
+      setFraseIndice((prev) => (prev + 1) % 7); // Hardcoded a 7 para evitar dependencias en useEffect
+    }, 5500);
     return () => clearInterval(timer);
   }, []);
   const [cargandoConsolidados, setCargandoConsolidados] = useState(false);
