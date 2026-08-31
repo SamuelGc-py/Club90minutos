@@ -6,7 +6,8 @@ interface TriviaPregunta {
   pregunta: string;
   opciones: string[];
   respuesta_correcta_index: number;
-  dato_curioso: string;
+  dato_curioso_acierto: string;
+  dato_curioso_fallo: string;
 }
 
 export default function TriviaModal({ onClose }: { onClose: () => void }) {
@@ -15,6 +16,7 @@ export default function TriviaModal({ onClose }: { onClose: () => void }) {
   const [opcionSeleccionada, setOpcionSeleccionada] = useState<number | null>(null);
   const [yaRespondio, setYaRespondio] = useState(false);
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
+  const [nivel, setNivel] = useState(1);
 
   useEffect(() => {
     if (trivia && !yaRespondio && timeLeft !== null && timeLeft > 0) {
@@ -34,7 +36,7 @@ export default function TriviaModal({ onClose }: { onClose: () => void }) {
     setTimeLeft(null);
     
     try {
-      const res = await fetch('/api/ai/trivia');
+      const res = await fetch(`/api/ai/trivia?nivel=${nivel}`);
       if (!res.ok) throw new Error('Error al cargar la trivia');
       
       const data = await res.json();
@@ -57,8 +59,10 @@ export default function TriviaModal({ onClose }: { onClose: () => void }) {
     
     if (index === trivia?.respuesta_correcta_index) {
         toast.success("¡Eso es! Sabes de fútbol colombiano de verdad.");
+        setNivel(prev => prev + 1);
     } else {
         toast.error("¡Eche, esa te quedó grande! Sigue así.");
+        setNivel(1);
     }
   };
 
@@ -134,10 +138,14 @@ export default function TriviaModal({ onClose }: { onClose: () => void }) {
 
               {timeLeft !== null && !yaRespondio && (
                 <div style={{ width: '100%', height: 6, background: 'rgba(255,255,255,0.1)', borderRadius: 3, marginBottom: 20, overflow: 'hidden' }}>
-                  <div style={{ height: '100%', background: '#10b981', width: `${(timeLeft / 10) * 100}%`, transition: 'width 1s linear' }} />
+                  <div style={{ height: '100%', background: '#10b981', width: `${(timeLeft / 15) * 100}%`, transition: 'width 1s linear' }} />
                 </div>
               )}
               
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+                <span style={{ color: '#94a3b8', fontSize: '0.9rem', fontWeight: 600 }}>Nivel {nivel}</span>
+              </div>
+
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                 {trivia.opciones.map((opcion, idx) => {
                   const esCorrecta = idx === trivia.respuesta_correcta_index;
@@ -193,7 +201,7 @@ export default function TriviaModal({ onClose }: { onClose: () => void }) {
                   padding: 16, borderRadius: 12 
                 }}>
                   <p style={{ margin: 0, color: '#7dd3fc', fontSize: '0.9rem', lineHeight: '1.5' }}>
-                    <strong>💡 Dato curioso:</strong> {trivia.dato_curioso}
+                    <strong>💡 Dato curioso:</strong> {opcionSeleccionada === trivia.respuesta_correcta_index ? trivia.dato_curioso_acierto : trivia.dato_curioso_fallo}
                   </p>
                 </div>
               )}

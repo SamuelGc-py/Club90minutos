@@ -12,8 +12,10 @@ const CATEGORIAS = [
   "actuaciones de equipos colombianos en Copa Libertadores y Sudamericana",
 ];
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
+    const { searchParams } = new URL(request.url);
+    const nivel = searchParams.get("nivel") || "1";
     if (!process.env.GEMINI_API_KEY) {
       console.error("Trivia: falta configurar la API key del proveedor.");
       return NextResponse.json(
@@ -26,22 +28,23 @@ export async function GET() {
 
     const categoria = CATEGORIAS[Math.floor(Math.random() * CATEGORIAS.length)];
 
-    const prompt = `Actúa como el anfitrión experto de una Trivia sobre el Fútbol Profesional Colombiano (FPC). 
-Dirígete al usuario usando un tono "costeño neutral" (colombiano de la costa Caribe, como de Barranquilla o Santa Marta, pero sin usar lenguaje "corroncho" ni groserías). Evita frases genéricas de otras regiones o acentos muy marcados de Medellín o Bogotá. 
+    const seed = Math.random().toString(36).substring(7);
 
+    const prompt = `Actúa como un experto en Trivias sobre el Fútbol Profesional Colombiano (FPC).
 Genera UNA pregunta de opción múltiple sobre este tema específico: ${categoria}.
+Semilla aleatoria (nunca repitas si es diferente): ${seed}.
 
 Reglas obligatorias:
+- Nivel actual del jugador: ${nivel} (a mayor nivel, busca un dato un poco más difícil o rebuscado).
 - La pregunta debe ser nacionalizada, abarcando TODO el FPC.
 - La pregunta debe girar en torno a un hecho concreto y verificable.
-- No repitas preguntas típicas de manual.
-- Dificultad media.
-- EXTREMADAMENTE BREVE: La pregunta debe ir directo al grano (máximo 15-20 palabras). No incluyas saludos ni frases de relleno, solo la pregunta de trivia con algo del acento.
+- NUNCA repitas preguntas típicas de manual.
+- EXTREMADAMENTE BREVE Y DIRECTA: La pregunta debe ir directo al grano (máximo 15-20 palabras). NO incluyas saludos, NO uses dialectos regionales (costeño, paisa, rolo), NO pongas frases de relleno. Solo haz la pregunta pura y dura.
 - Las 4 opciones deben ser cortas (nombres, años, equipos).
 
 Devuelve tu respuesta ÚNICAMENTE en formato JSON estricto con esta estructura:
 {
-  "pregunta": "Texto de la pregunta usando el tono costeño neutral amigable y sabroso",
+  "pregunta": "Texto de la pregunta, directo y al grano sin saludos",
   "opciones": [
     "Opcion A",
     "Opcion B",
@@ -49,7 +52,8 @@ Devuelve tu respuesta ÚNICAMENTE en formato JSON estricto con esta estructura:
     "Opcion D"
   ],
   "respuesta_correcta_index": numero_del_0_al_3,
-  "dato_curioso": "Un dato corto, concreto y curioso sobre la respuesta correcta para mostrar cuando el usuario acierte o falle, usando el mismo tono costeño neutral"
+  "dato_curioso_acierto": "Mensaje corto felicitando por acertar (ej. '¡Correcto!'), seguido de una pequeña curiosidad.",
+  "dato_curioso_fallo": "Mensaje corto indicando el error (ej. 'Fallaste, la respuesta era X.'), seguido de la misma curiosidad."
 }`;
 
     const response = await ai.models.generateContent({
