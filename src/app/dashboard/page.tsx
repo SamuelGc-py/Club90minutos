@@ -738,7 +738,7 @@ function ExpressPageContent() {
   ]);
 
   useEffect(() => {
-    if (lider !== "EL LÍDER" && segundo !== "EL SEGUNDO" && tercero !== "EL TERCERO") {
+    if (consolidados?.tablaPosiciones && consolidados.tablaPosiciones.length > 0) {
       const cacheKey = `frases_noticiero_${lider}_${segundo}_${tercero}`;
       const cached = sessionStorage.getItem(cacheKey);
       
@@ -756,7 +756,7 @@ function ExpressPageContent() {
            .catch(e => console.error("Error cargando frases del ticker:", e));
       }
     }
-  }, [lider, segundo, tercero]);
+  }, [consolidados?.tablaPosiciones, lider, segundo, tercero]);
 
   const [fraseIndice, setFraseIndice] = useState(0);
 

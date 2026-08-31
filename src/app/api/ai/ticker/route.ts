@@ -53,7 +53,9 @@ ESTRUCTURA DE RESPUESTA ÚNICAMENTE JSON:
         }
     });
 
-    const result = JSON.parse(response.text || '{}');
+    const rawText = response.text || '{}';
+    const jsonStr = rawText.replace(/```json\n?/g, '').replace(/```/g, '').trim();
+    const result = JSON.parse(jsonStr);
 
     // Siempre agregar una frase informativa
     if (result.frases && Array.isArray(result.frases)) {
