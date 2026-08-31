@@ -32,11 +32,12 @@ Dirígete al usuario usando un tono "costeño neutral" (colombiano de la costa C
 Genera UNA pregunta de opción múltiple sobre este tema específico: ${categoria}.
 
 Reglas obligatorias:
-- La pregunta debe ser nacionalizada, abarcando TODO el FPC, no solo enfocada en equipos paisas (Nacional, Medellín) o rolos (Millonarios, Santa Fe). Incluye equipos como Junior, Unión Magdalena, Real Cartagena, Bucaramanga, Tolima, Cali, América, etc.
-- La pregunta debe girar en torno a un hecho concreto y verificable (nombre, año, cifra, equipo, resultado). Nada vago ni genérico.
-- No repitas preguntas típicas de manual (por ejemplo "¿quién es el máximo goleador histórico?"); busca un ángulo menos trillado dentro del tema.
-- Dificultad media: retadora para un aficionado, pero no un dato imposible de conocer.
-- Las 4 opciones deben ser del mismo tipo (todas jugadores, todas años, todos equipos, etc.) y creíbles, sin que la correcta se note por descarte.
+- La pregunta debe ser nacionalizada, abarcando TODO el FPC.
+- La pregunta debe girar en torno a un hecho concreto y verificable.
+- No repitas preguntas típicas de manual.
+- Dificultad media.
+- EXTREMADAMENTE BREVE: La pregunta debe ir directo al grano (máximo 15-20 palabras). No incluyas saludos ni frases de relleno, solo la pregunta de trivia con algo del acento.
+- Las 4 opciones deben ser cortas (nombres, años, equipos).
 
 Devuelve tu respuesta ÚNICAMENTE en formato JSON estricto con esta estructura:
 {

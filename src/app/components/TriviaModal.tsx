@@ -41,7 +41,7 @@ export default function TriviaModal({ onClose }: { onClose: () => void }) {
       if (data.error) throw new Error(data.error);
       
       setTrivia(data);
-      setTimeLeft(10);
+      setTimeLeft(15);
     } catch (error: any) {
       console.error(error);
       toast.error(error.message || 'No se pudo generar la pregunta, intenta de nuevo.');
