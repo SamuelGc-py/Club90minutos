@@ -738,14 +738,17 @@ function ExpressPageContent() {
   ]);
 
   useEffect(() => {
-    if (consolidados?.tablaPosiciones && consolidados.tablaPosiciones.length > 0) {
+    // Si todavía está cargando los consolidados, no hacemos nada
+    if (!consolidados) return;
+
+    if (consolidados.tablaPosiciones && consolidados.tablaPosiciones.length > 0) {
       const cacheKey = `frases_noticiero_${lider}_${segundo}_${tercero}`;
       const cached = sessionStorage.getItem(cacheKey);
       
       if (cached) {
          setFrasesNoticiero(JSON.parse(cached));
       } else {
-         fetch(`/api/ai/ticker?p1=${encodeURIComponent(lider)}&p2=${encodeURIComponent(segundo)}&p3=${encodeURIComponent(tercero)}`)
+         fetch(`/api/ai/noticias?p1=${encodeURIComponent(lider)}&p2=${encodeURIComponent(segundo)}&p3=${encodeURIComponent(tercero)}`)
            .then(r => r.json())
            .then(data => {
               if (data.frases && data.frases.length > 0) {
@@ -753,10 +756,24 @@ function ExpressPageContent() {
                  sessionStorage.setItem(cacheKey, JSON.stringify(data.frases));
               }
            })
-           .catch(e => console.error("Error cargando frases del ticker:", e));
+           .catch(e => {
+              console.error("Error cargando frases del ticker:", e);
+              setFrasesNoticiero([
+                "📺 NOTICIERO 90 MINUTOS: ¡BIENVENIDO A LA POLLA MÁS SABROSA DE COLOMBIA!",
+                "🔥 LA TABLA ESTÁ QUE ARDE, REVISA TUS PRONÓSTICOS.",
+                "🎮 ¡PASA POR LA TRIVIA Y MIRA SI DE VERDAD SABES DE FÚTBOL O PURO CUENTO!"
+              ]);
+           });
       }
+    } else {
+      // Si la tabla de posiciones está vacía
+      setFrasesNoticiero([
+        "📺 NOTICIERO 90 MINUTOS: ¡BIENVENIDO A LA POLLA MÁS SABROSA DE COLOMBIA!",
+        "⚽ AÚN NO HAY PUNTOS EN LA TABLA. ¡ES TU MOMENTO DE PICAR ADELANTE!",
+        "🎮 ¡PASA POR LA TRIVIA Y MIRA SI DE VERDAD SABES DE FÚTBOL O PURO CUENTO!"
+      ]);
     }
-  }, [consolidados?.tablaPosiciones, lider, segundo, tercero]);
+  }, [consolidados, lider, segundo, tercero]);
 
   const [fraseIndice, setFraseIndice] = useState(0);
 
