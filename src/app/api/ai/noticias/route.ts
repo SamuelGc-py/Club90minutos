@@ -57,17 +57,28 @@ ESTRUCTURA DE RESPUESTA ÚNICAMENTE JSON:
     const jsonStr = rawText.replace(/```json\n?/g, '').replace(/```/g, '').trim();
     const result = JSON.parse(jsonStr);
 
-    // Siempre agregar una frase informativa
+    const chistesBase = [
+        "📺 NOTICIERO 90 MINUTOS: ¡BIENVENIDO A LA POLLA MÁS SABROSA DE COLOMBIA! ⚽",
+        `🥇 ¡ATENCIÓN! ${p1} ESTÁ BIEN ARRIBA DANDO BATE, LOS TIENE A TODOS MAMANDO... RUEDA. 🤣`,
+        `🥈 OJO CON ${p2} QUE LE ESTÁ SOPLANDO LA NUCA A ${p1}. ¡CUIDADO SE ENAMORAN! 👀`,
+        `🥉 ${p3} ESTÁ CALLADITO DE TERCERO ESPERANDO EL PAPAYAZO PA' METERLA... LA PREDICCIÓN. 🔥`
+    ];
+
     if (result.frases && Array.isArray(result.frases)) {
-        result.frases.unshift("📺 NOTICIERO 90 MINUTOS: ¡BIENVENIDO A LA POLLA MÁS SABROSA DE COLOMBIA! ⚽");
+        // Mezclamos los chistes base (fijos) con los nuevos generados por la IA
+        result.frases = [...chistesBase, ...result.frases];
+    } else {
+        result.frases = chistesBase;
     }
 
     return NextResponse.json(result);
   } catch (error: any) {
     console.error("Error generando frases:", error);
     return NextResponse.json({ frases: [
-        "📺 NOTICIERO 90 MINUTOS: ¡BIENVENIDO A LA POLLA MÁS SABROSA DE COLOMBIA!",
-        "🔥 LA TABLA ESTÁ QUE ARDE, REVISA TUS PRONÓSTICOS."
+        "📺 NOTICIERO 90 MINUTOS: ¡BIENVENIDO A LA POLLA MÁS SABROSA DE COLOMBIA! ⚽",
+        `🥇 ¡ATENCIÓN! ${p1} ESTÁ BIEN ARRIBA DANDO BATE, LOS TIENE A TODOS MAMANDO... RUEDA. 🤣`,
+        `🥈 OJO CON ${p2} QUE LE ESTÁ SOPLANDO LA NUCA A ${p1}. ¡CUIDADO SE ENAMORAN! 👀`,
+        `🥉 ${p3} ESTÁ CALLADITO DE TERCERO ESPERANDO EL PAPAYAZO PA' METERLA... LA PREDICCIÓN. 🔥`
     ] });
   }
 }
