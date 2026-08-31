@@ -731,23 +731,41 @@ function ExpressPageContent() {
   const tercero = terceroObj ? (terceroObj.nombre || terceroObj.nombre_completo?.split(" ")[0])?.toUpperCase() : "EL TERCERO";
 
   // Frases animadas para el Noticiero del banner superior
-  const frasesNoticiero = [
-    "📺 NOTICIERO 90 MINUTOS: ¡BIENVENIDO A LA POLLA MÁS SABROSA DE COLOMBIA!",
-    `🥇 ¡ATENCIÓN! ${lider} ESTÁ BIEN ARRIBA DANDO BATE, LOS TIENE A TODOS MAMANDO... RUEDA. 🤣`,
-    `🥈 OJO CON ${segundo} QUE LE ESTÁ SOPLANDO LA NUCA A ${lider}. ¡CUIDADO SE ENAMORAN! 👀`,
-    `🥉 ${tercero} ESTÁ CALLADITO DE TERCERO ESPERANDO EL PAPAYAZO PA' METERLA... LA PREDICCIÓN. 🔥`,
-    `⚡ ${lider} ANDA MÁS MONTADO QUE DUEÑO DE PICÓ EN CARNAVAL. ¡QUE ALGUIEN BAJE A ESE MAN!`,
+  const [frasesNoticiero, setFrasesNoticiero] = useState<string[]>([
+    "📺 NOTICIERO 90 MINUTOS: ¡Cargando los chismes de la jornada...",
     "🎯 ACUÉRDATE: MARCADOR EXACTO DA 5 PTS, GANADOR 3 PTS Y GOLEADOR 2 PTS.",
-    "🎮 ¡PASA POR LA TRIVIA Y MIRA SI DE VERDAD SABES DE FÚTBOL O PURO CUENTO!",
-  ];
+    "🎮 ¡PASA POR LA TRIVIA Y MIRA SI DE VERDAD SABES DE FÚTBOL O PURO CUENTO!"
+  ]);
+
+  useEffect(() => {
+    if (lider !== "EL LÍDER" && segundo !== "EL SEGUNDO" && tercero !== "EL TERCERO") {
+      const cacheKey = `frases_noticiero_${lider}_${segundo}_${tercero}`;
+      const cached = sessionStorage.getItem(cacheKey);
+      
+      if (cached) {
+         setFrasesNoticiero(JSON.parse(cached));
+      } else {
+         fetch(`/api/ai/ticker?p1=${encodeURIComponent(lider)}&p2=${encodeURIComponent(segundo)}&p3=${encodeURIComponent(tercero)}`)
+           .then(r => r.json())
+           .then(data => {
+              if (data.frases && data.frases.length > 0) {
+                 setFrasesNoticiero(data.frases);
+                 sessionStorage.setItem(cacheKey, JSON.stringify(data.frases));
+              }
+           })
+           .catch(e => console.error("Error cargando frases del ticker:", e));
+      }
+    }
+  }, [lider, segundo, tercero]);
+
   const [fraseIndice, setFraseIndice] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setFraseIndice((prev) => (prev + 1) % 7); // Hardcoded a 7 para evitar dependencias en useEffect
+      setFraseIndice((prev) => (prev + 1) % frasesNoticiero.length);
     }, 5500);
     return () => clearInterval(timer);
-  }, []);
+  }, [frasesNoticiero.length]);
   const [cargandoConsolidados, setCargandoConsolidados] = useState(false);
   const [partidoAdminVer, setPartidoAdminVer] = useState<number | null>(null);
   const [guardandoPartidoId, setGuardandoPartidoId] = useState<number | null>(null);
