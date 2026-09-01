@@ -726,9 +726,9 @@ function ExpressPageContent() {
   const segundoObj = consolidados?.tablaPosiciones?.[1];
   const terceroObj = consolidados?.tablaPosiciones?.[2];
 
-  const lider = liderObj ? (liderObj.nombre || liderObj.nombre_completo?.split(" ")[0])?.toUpperCase() : "EL LÍDER";
-  const segundo = segundoObj ? (segundoObj.nombre || segundoObj.nombre_completo?.split(" ")[0])?.toUpperCase() : "EL SEGUNDO";
-  const tercero = terceroObj ? (terceroObj.nombre || terceroObj.nombre_completo?.split(" ")[0])?.toUpperCase() : "EL TERCERO";
+  const lider = liderObj?.nombre_completo ? liderObj.nombre_completo.split(" ")[0].toUpperCase() : "EL LÍDER";
+  const segundo = segundoObj?.nombre_completo ? segundoObj.nombre_completo.split(" ")[0].toUpperCase() : "EL SEGUNDO";
+  const tercero = terceroObj?.nombre_completo ? terceroObj.nombre_completo.split(" ")[0].toUpperCase() : "EL TERCERO";
 
   // Frases animadas para el Noticiero del banner superior
   const [frasesNoticiero, setFrasesNoticiero] = useState<string[]>([
