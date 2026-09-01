@@ -767,11 +767,15 @@ function ExpressPageContent() {
   }, [frasesNoticiero]);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      if (frasesRef.current.length <= 1) return;
-      setFraseIndice((prev) => (prev + 1) % frasesRef.current.length);
-    }, 5500);
-    return () => clearInterval(timer);
+    let timeoutId: NodeJS.Timeout;
+    const tick = () => {
+      if (frasesRef.current.length > 1) {
+        setFraseIndice((prev) => (prev + 1) % frasesRef.current.length);
+      }
+      timeoutId = setTimeout(tick, 5500);
+    };
+    timeoutId = setTimeout(tick, 5500);
+    return () => clearTimeout(timeoutId);
   }, []);
   const [cargandoConsolidados, setCargandoConsolidados] = useState(false);
   const [partidoAdminVer, setPartidoAdminVer] = useState<number | null>(null);
