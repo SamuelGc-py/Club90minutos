@@ -761,13 +761,18 @@ function ExpressPageContent() {
 
   const [fraseIndice, setFraseIndice] = useState(0);
 
+  const frasesRef = useRef(frasesNoticiero);
   useEffect(() => {
-    if (frasesNoticiero.length <= 1) return;
+    frasesRef.current = frasesNoticiero;
+  }, [frasesNoticiero]);
+
+  useEffect(() => {
     const timer = setInterval(() => {
-      setFraseIndice((prev) => (prev + 1) % frasesNoticiero.length);
+      if (frasesRef.current.length <= 1) return;
+      setFraseIndice((prev) => (prev + 1) % frasesRef.current.length);
     }, 5500);
     return () => clearInterval(timer);
-  }, [frasesNoticiero.length]);
+  }, []);
   const [cargandoConsolidados, setCargandoConsolidados] = useState(false);
   const [partidoAdminVer, setPartidoAdminVer] = useState<number | null>(null);
   const [guardandoPartidoId, setGuardandoPartidoId] = useState<number | null>(null);
