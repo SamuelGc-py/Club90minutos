@@ -731,17 +731,23 @@ function ExpressPageContent() {
   const tercero = terceroObj?.nombre_completo ? terceroObj.nombre_completo.split(" ")[0].toUpperCase() : "EL TERCERO";
 
   // Frases animadas para el Noticiero del banner superior
-  const [frasesNoticiero, setFrasesNoticiero] = useState<string[]>([
-    "📺 NOTICIERO 90 MINUTOS: ¡Cargando los chismes de la jornada...",
-    "🎯 ACUÉRDATE: MARCADOR EXACTO DA 5 PTS, GANADOR 3 PTS Y GOLEADOR 2 PTS.",
-    "🎮 ¡PASA POR LA TRIVIA Y MIRA SI DE VERDAD SABES DE FÚTBOL O PURO CUENTO!"
-  ]);
+  const [frasesNoticiero, setFrasesNoticiero] = useState<string[]>([]);
 
   useEffect(() => {
     // Si todavía está cargando los consolidados, no hacemos nada
     if (!consolidados) return;
 
+    const chistesBase = [
+      "📺 NOTICIERO 90 MINUTOS: ¡BIENVENIDO AL JUEGO MÁS ADICTIVO DE TODO FUTBOLERO! ⚽",
+      `🥇 ¡ATENCIÓN! ${lider} ESTÁ BIEN ARRIBA DANDO BATE, LOS TIENE A TODOS MAMANDO... CABLE. 🤣`,
+      `🥈 OJO CON ${segundo} QUE LE ESTÁ SOPLANDO LA NUCA A ${lider}. ¡CUIDADO SE ENAMORAN! 👀`,
+      `🥉 ${tercero} ESTÁ CALLADITO DE TERCERO ESPERANDO EL PAPAYAZO PA' METERLA... LA PREDICCIÓN. 🔥`
+    ];
+
     if (consolidados.tablaPosiciones && consolidados.tablaPosiciones.length > 0) {
+      // Mostrar primero los chistes base con los nombres reales
+      setFrasesNoticiero(chistesBase);
+
       const cacheKey = `frases_noticiero_${lider}_${segundo}_${tercero}`;
       const cached = sessionStorage.getItem(cacheKey);
       
@@ -758,11 +764,6 @@ function ExpressPageContent() {
            })
            .catch(e => {
               console.error("Error cargando frases del ticker:", e);
-              setFrasesNoticiero([
-                "📺 NOTICIERO 90 MINUTOS: ¡BIENVENIDO A LA POLLA MÁS SABROSA DE COLOMBIA!",
-                "🔥 LA TABLA ESTÁ QUE ARDE, REVISA TUS PRONÓSTICOS.",
-                "🎮 ¡PASA POR LA TRIVIA Y MIRA SI DE VERDAD SABES DE FÚTBOL O PURO CUENTO!"
-              ]);
            });
       }
     } else {
