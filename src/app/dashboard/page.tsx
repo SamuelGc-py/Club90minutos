@@ -8,6 +8,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis
 import { toast } from "sonner";
 import TablaPosicionesAfiche from "../components/TablaPosicionesAfiche";
 import PronosticosPartidoAfiche from "../components/PronosticosPartidoAfiche";
+import PronosticosTorneoAfiche from "../components/PronosticosTorneoAfiche";
 import TriviaModal from "../components/TriviaModal";
 import CentralDatosView from "../components/CentralDatosView";
 
@@ -4877,6 +4878,13 @@ function ExpressPageContent() {
                   🔒 Plazo de Predicciones Cerrado
                 </button>
               </div>
+
+              {/* AFICHE DE PREDICCIONES DE TODOS LOS USUARIOS */}
+              {consolidados?.prediccionesIniciales && consolidados.prediccionesIniciales.length > 0 && (
+                <div style={{ marginTop: 24, borderTop: "1px solid rgba(255,255,255,0.1)", paddingTop: 24 }}>
+                  <PronosticosTorneoAfiche predicciones={consolidados.prediccionesIniciales} />
+                </div>
+              )}
             </div>
           )}
 
