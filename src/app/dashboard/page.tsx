@@ -4855,27 +4855,24 @@ function ExpressPageContent() {
                 </div>
               )}
 
-              {/* BOTÓN GUARDAR PREDICCIONES DEL TORNEO (PARTICIPANTE) */}
               <div style={{ marginTop: 8, marginBottom: 16, textAlign: "center" }}>
                 <button
                   type="button"
                   className="btn btn-primary"
-                  disabled={true}
+                  onClick={handleGuardarPrediccionInicial}
+                  disabled={guardandoInicial}
                   style={{
                     padding: "16px 36px",
                     fontSize: "1.15rem",
                     fontWeight: 900,
-                    background: "rgba(107, 114, 128, 0.5)",
-                    color: "#9ca3af",
-                    border: "2px solid #4b5563",
-                    borderRadius: 14,
-                    cursor: "not-allowed",
+                    boxShadow: "0 8px 25px -5px rgba(56, 189, 248, 0.4)",
                     display: "inline-flex",
                     alignItems: "center",
                     gap: 10,
                   }}
                 >
-                  🔒 Plazo de Predicciones Cerrado
+                  <Save size={20} />
+                  {guardandoInicial ? "Guardando..." : "Guardar Predicciones"}
                 </button>
               </div>
 
