@@ -7,6 +7,7 @@ import { toPng } from 'html-to-image';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis, YAxis } from "recharts";
 import { toast } from "sonner";
 import TablaPosicionesAfiche from "../components/TablaPosicionesAfiche";
+import PronosticosPartidoAfiche from "../components/PronosticosPartidoAfiche";
 import TriviaModal from "../components/TriviaModal";
 import CentralDatosView from "../components/CentralDatosView";
 
@@ -5408,47 +5409,11 @@ function ExpressPageContent() {
                               Nadie envió pronóstico para este partido.
                             </div>
                           ) : (
-                            <div style={{ marginTop: 16, overflowX: "auto", background: "rgba(0,0,0,0.3)", borderRadius: 16, border: "1px solid rgba(255,255,255,0.05)" }}>
-                              <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.9rem", textAlign: "left" }}>
-                                <thead>
-                                  <tr style={{ background: "rgba(255,255,255,0.02)", color: "#cbd5e1" }}>
-                                    <th style={{ padding: "12px 16px", fontWeight: 800 }}>Participante</th>
-                                    <th style={{ padding: "12px 16px", textAlign: "center", fontWeight: 800 }}>Marcador</th>
-                                    <th style={{ padding: "12px 16px", textAlign: "center", fontWeight: 800 }}>Ganador</th>
-                                    <th style={{ padding: "12px 16px", fontWeight: 800 }}>Goleador</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  {pronosticosPartido.map((p: any, idx: number) => {
-                                    const gL = Number(p.goles_local_predicho);
-                                    const gV = Number(p.goles_visitante_predicho);
-                                    let ganadorTexto = "Empate";
-                                    if (!isNaN(gL) && !isNaN(gV)) {
-                                      if (gL > gV) ganadorTexto = `Gana ${partido.equipo_local.nombre}`;
-                                      else if (gV > gL) ganadorTexto = `Gana ${partido.equipo_visitante.nombre}`;
-                                    }
-                                    return (
-                                      <tr key={idx} style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
-                                        <td style={{ padding: "12px 16px", fontWeight: 700, color: "#ffffff" }}>
-                                          {p.usuario?.nombre_completo}
-                                        </td>
-                                        <td style={{ padding: "12px 16px", textAlign: "center", fontWeight: 900, color: "#34d399", fontSize: "1.1rem" }}>
-                                          {p.goles_local_predicho} - {p.goles_visitante_predicho}
-                                        </td>
-                                        <td style={{ padding: "12px 16px", textAlign: "center" }}>
-                                          <span style={{ padding: "4px 10px", borderRadius: 10, background: "rgba(56, 189, 248, 0.15)", color: "#38bdf8", fontWeight: 800, fontSize: "0.8rem" }}>
-                                            {ganadorTexto}
-                                          </span>
-                                        </td>
-                                        <td style={{ padding: "12px 16px", color: "#f5b000", fontWeight: 700 }}>
-                                          {obtenerNombreGoleador(p)}
-                                        </td>
-                                      </tr>
-                                    );
-                                  })}
-                                </tbody>
-                              </table>
-                            </div>
+                            <PronosticosPartidoAfiche
+                              partido={partido}
+                              pronosticos={pronosticosPartido}
+                              obtenerNombreGoleador={obtenerNombreGoleador}
+                            />
                           )
                         )}
                       </div>
