@@ -749,25 +749,6 @@ function ExpressPageContent() {
     if (consolidados.tablaPosiciones && consolidados.tablaPosiciones.length > 0) {
       // Mostrar primero los chistes base con los nombres reales
       setFrasesNoticiero(chistesBase);
-
-      const cacheKey = `frases_noticiero_${lider}_${segundo}_${tercero}`;
-      const cached = sessionStorage.getItem(cacheKey);
-      
-      if (cached) {
-         setFrasesNoticiero(JSON.parse(cached));
-      } else {
-         fetch(`/api/ai/noticias?p1=${encodeURIComponent(lider)}&p2=${encodeURIComponent(segundo)}&p3=${encodeURIComponent(tercero)}`)
-           .then(r => r.json())
-           .then(data => {
-              if (data.frases && data.frases.length > 0) {
-                 setFrasesNoticiero(data.frases);
-                 sessionStorage.setItem(cacheKey, JSON.stringify(data.frases));
-              }
-           })
-           .catch(e => {
-              console.error("Error cargando frases del ticker:", e);
-           });
-      }
     } else {
       // Si la tabla de posiciones está vacía
       setFrasesNoticiero([
@@ -786,7 +767,7 @@ function ExpressPageContent() {
       setFraseIndice((prev) => (prev + 1) % frasesNoticiero.length);
     }, 5500);
     return () => clearInterval(timer);
-  }, [frasesNoticiero]);
+  }, [frasesNoticiero.length]);
   const [cargandoConsolidados, setCargandoConsolidados] = useState(false);
   const [partidoAdminVer, setPartidoAdminVer] = useState<number | null>(null);
   const [guardandoPartidoId, setGuardandoPartidoId] = useState<number | null>(null);
