@@ -781,15 +781,12 @@ function ExpressPageContent() {
   const [fraseIndice, setFraseIndice] = useState(0);
 
   useEffect(() => {
-    if (frasesNoticiero.length === 0) return;
+    if (frasesNoticiero.length <= 1) return;
     const timer = setInterval(() => {
-      setFraseIndice((prev) => {
-        const next = prev + 1;
-        return isNaN(next % frasesNoticiero.length) ? 0 : next % frasesNoticiero.length;
-      });
+      setFraseIndice((prev) => (prev + 1) % frasesNoticiero.length);
     }, 5500);
     return () => clearInterval(timer);
-  }, [frasesNoticiero.length]);
+  }, [frasesNoticiero]);
   const [cargandoConsolidados, setCargandoConsolidados] = useState(false);
   const [partidoAdminVer, setPartidoAdminVer] = useState<number | null>(null);
   const [guardandoPartidoId, setGuardandoPartidoId] = useState<number | null>(null);
