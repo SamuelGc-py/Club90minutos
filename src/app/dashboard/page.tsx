@@ -731,7 +731,9 @@ function ExpressPageContent() {
   const tercero = terceroObj?.nombre_completo ? terceroObj.nombre_completo.split(" ")[0].toUpperCase() : "EL TERCERO";
 
   // Frases animadas para el Noticiero del banner superior
-  const [frasesNoticiero, setFrasesNoticiero] = useState<string[]>([]);
+  const [frasesNoticiero, setFrasesNoticiero] = useState<string[]>([
+    "📺 NOTICIERO 90 MINUTOS: ¡BIENVENIDO AL JUEGO MÁS ADICTIVO DE TODO FUTBOLERO! ⚽"
+  ]);
 
   useEffect(() => {
     // Si todavía está cargando los consolidados, no hacemos nada
@@ -779,8 +781,12 @@ function ExpressPageContent() {
   const [fraseIndice, setFraseIndice] = useState(0);
 
   useEffect(() => {
+    if (frasesNoticiero.length === 0) return;
     const timer = setInterval(() => {
-      setFraseIndice((prev) => (prev + 1) % frasesNoticiero.length);
+      setFraseIndice((prev) => {
+        const next = prev + 1;
+        return isNaN(next % frasesNoticiero.length) ? 0 : next % frasesNoticiero.length;
+      });
     }, 5500);
     return () => clearInterval(timer);
   }, [frasesNoticiero.length]);
