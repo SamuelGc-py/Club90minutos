@@ -1427,9 +1427,7 @@ function ExpressPageContent() {
           sesionToken: tokenActual,
         }));
         aplicarPrediccionesGuardadas(data.prediccionesGuardadas);
-        if (usrNorm.rol_id === 2) {
-          cargarConsolidados(usrNorm.id);
-        }
+        cargarConsolidados(usrNorm.id);
       } else {
         // El token dejó de ser válido (ej. la clave se reseteó en otro dispositivo): cerrar sesión local.
         setUsuario(null);
@@ -1462,7 +1460,7 @@ function ExpressPageContent() {
           setUsuario(usr);
           const tokenGuardado = dataParsed?.sesionToken || null;
           setSesionToken(tokenGuardado);
-          if (usr.rol_id === 2 && usr.id) {
+          if (usr.id) {
             cargarConsolidados(usr.id);
           }
           if (dataParsed.prediccionesGuardadas) {
@@ -4860,32 +4858,22 @@ function ExpressPageContent() {
                 <button
                   type="button"
                   className="btn btn-primary"
-                  onClick={handleGuardarPrediccionInicial}
-                  disabled={guardandoInicial}
+                  disabled={true}
                   style={{
                     padding: "16px 36px",
                     fontSize: "1.15rem",
                     fontWeight: 900,
-                    background: "linear-gradient(135deg, #059669 0%, #10b981 100%)",
-                    color: "#ffffff",
-                    border: "2px solid #34d399",
+                    background: "rgba(107, 114, 128, 0.5)",
+                    color: "#9ca3af",
+                    border: "2px solid #4b5563",
                     borderRadius: 14,
-                    boxShadow: "0 6px 20px rgba(16, 185, 129, 0.4)",
-                    cursor: guardandoInicial ? "not-allowed" : "pointer",
+                    cursor: "not-allowed",
                     display: "inline-flex",
                     alignItems: "center",
                     gap: 10,
                   }}
                 >
-                  {guardandoInicial ? (
-                    <>
-                      <RefreshCw className="spin" size={22} /> Guardando Predicciones...
-                    </>
-                  ) : (
-                    <>
-                      <Save size={22} /> 💾 Guardar Predicciones del Torneo
-                    </>
-                  )}
+                  🔒 Plazo de Predicciones Cerrado
                 </button>
               </div>
             </div>
