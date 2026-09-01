@@ -5,7 +5,7 @@ import { toPng } from "html-to-image";
 interface Equipo {
   id: number;
   nombre: string;
-  escudo_url: string;
+  escudo_url?: string;
 }
 
 interface Partido {
@@ -30,8 +30,8 @@ interface Pronostico {
 }
 
 interface PronosticosPartidoAficheProps {
-  partido: Partido;
-  pronosticos: Pronostico[];
+  partido: any;
+  pronosticos: any[];
   obtenerNombreGoleador: (p: any) => string;
 }
 
