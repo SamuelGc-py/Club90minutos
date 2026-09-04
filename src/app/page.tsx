@@ -10,7 +10,7 @@ export default function LandingPage() {
 
 
   return (
-    <div style={{ minHeight: "100vh", color: "#FFFFFF", fontFamily: "'Inter', sans-serif" }}>
+    <div data-design="redesign" style={{ minHeight: "100vh", color: "#FFFFFF", fontFamily: "'Inter', sans-serif" }}>
       <style>{`
         body main {
           width: 100% !important;
@@ -41,19 +41,6 @@ export default function LandingPage() {
           max-width: 1200px;
           width: 100%;
           margin: 0 auto;
-        }
-        .landing-sidebar {
-          background: linear-gradient(180deg, rgba(15, 23, 42, 0.9) 0%, rgba(11, 21, 32, 0.95) 100%);
-          padding: 18px;
-          border: 1px solid rgba(255, 255, 255, 0.06);
-          border-radius: 24px;
-          width: 264px;
-          flex-shrink: 0;
-          display: flex;
-          flex-direction: column;
-          position: sticky;
-          top: 80px;
-          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.65), 0 8px 16px rgba(0,0,0,0.3);
         }
         .landing-content {
           flex: 1;
@@ -139,7 +126,6 @@ export default function LandingPage() {
                   className="logo-img"
                   style={{ 
                     height: 52, width: "auto", 
-                    filter: "drop-shadow(0px 2px 8px rgba(116, 204, 16, 0.4))", 
                     marginRight: 12
                   }}
                 />
@@ -201,11 +187,11 @@ export default function LandingPage() {
               </button>
             </Link>
             <Link href="/dashboard" style={{ textDecoration: "none", flex: 1 }}>
-              <button style={{ 
-                width: "100%", padding: "10px 20px", background: "var(--color-verde-club)", color: "var(--color-negro-estadio)", 
-                border: "none", borderRadius: "8px", 
-                fontWeight: 800, fontSize: "0.9rem", cursor: "pointer", boxShadow: "0 4px 15px rgba(116, 204, 16, 0.3)",
-                transition: "transform 0.2s ease",
+              <button style={{
+                width: "100%", padding: "10px 20px", background: "var(--color-verde-club)", color: "var(--color-negro-estadio)",
+                border: "none", borderRadius: "8px",
+                fontWeight: 800, fontSize: "0.9rem", cursor: "pointer",
+                transition: "opacity 0.15s ease",
                 whiteSpace: "nowrap"
               }}>
                 Únete al Club
@@ -226,19 +212,11 @@ export default function LandingPage() {
             {activeTab === "inicio" && (
               <>
                 {/* HERO SECTION */}
-                <section style={{ 
+                <section style={{
                   display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-                  padding: "40px 20px", textAlign: "center", position: "relative"
+                  padding: "40px 20px", textAlign: "center"
                 }}>
-                  {/* Background Glow */}
-                  <div style={{ 
-                    position: "absolute", top: "20%", left: "50%", transform: "translate(-50%, -50%)",
-                    width: "80vw", height: "80vw", maxWidth: "800px", maxHeight: "800px",
-                    background: "radial-gradient(circle, rgba(116,204,16,0.12) 0%, rgba(4,6,10,0) 70%)",
-                    zIndex: 0, pointerEvents: "none"
-                  }} />
-
-                  <div style={{ zIndex: 1, maxWidth: 800 }}>
+                  <div style={{ maxWidth: 800 }}>
 
                     <h1 style={{ 
                       fontFamily: "'Orbitron', sans-serif", fontSize: "clamp(2rem, 6vw, 4.5rem)", 
@@ -254,13 +232,12 @@ export default function LandingPage() {
                     
                     <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
                       <Link href="/dashboard" style={{ textDecoration: "none" }}>
-                        <button style={{ 
+                        <button style={{
                           display: "flex", alignItems: "center", gap: 8,
-                          padding: "16px 32px", background: "var(--color-verde-club)", color: "var(--color-negro-estadio)", 
-                          border: "none", borderRadius: "12px", 
-                          fontWeight: 900, fontSize: "1.1rem", cursor: "pointer", 
-                          boxShadow: "0 8px 25px rgba(116, 204, 16, 0.4)",
-                          transition: "transform 0.2s ease"
+                          padding: "14px 28px", background: "var(--color-verde-club)", color: "var(--color-negro-estadio)",
+                          border: "none", borderRadius: "8px",
+                          fontWeight: 800, fontSize: "1.05rem", cursor: "pointer",
+                          transition: "opacity 0.15s ease"
                         }}>
                           Comenzar a Predecir <ArrowRight size={20} />
                         </button>
@@ -301,14 +278,14 @@ export default function LandingPage() {
                         background: "radial-gradient(circle, rgba(255,255,255,1) 40%, rgba(240,240,240,1) 100%)", 
                         borderRadius: "50%", 
                         display: "flex", alignItems: "center", justifyContent: "center", padding: 12,
-                        boxShadow: "0 8px 25px rgba(0,0,0,0.4), inset 0 0 10px rgba(0,0,0,0.1)"
+                        boxShadow: "0 2px 8px rgba(0,0,0,0.25)"
                       }}>
                         <img 
                           src="/images/tournaments/betplay.webp" 
                           alt="Liga BetPlay" 
                           style={{ 
                             maxWidth: "100%", maxHeight: "100%", objectFit: "contain",
-                            filter: "drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.3))" 
+                            
                           }} 
                         />
                       </div>
@@ -342,14 +319,14 @@ export default function LandingPage() {
                         background: "radial-gradient(circle, rgba(255,255,255,1) 40%, rgba(240,240,240,1) 100%)", 
                         borderRadius: "50%", 
                         display: "flex", alignItems: "center", justifyContent: "center", padding: 12,
-                        boxShadow: "0 8px 25px rgba(0,0,0,0.4), inset 0 0 10px rgba(0,0,0,0.1)"
+                        boxShadow: "0 2px 8px rgba(0,0,0,0.25)"
                       }}>
                         <img 
                           src="/images/tournaments/champions.webp" 
                           alt="Champions League" 
                           style={{ 
                             maxWidth: "100%", maxHeight: "100%", objectFit: "contain",
-                            filter: "drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.3))" 
+                            
                           }} 
                         />
                       </div>
@@ -364,7 +341,7 @@ export default function LandingPage() {
             )}
 
             {activeTab === "como-funciona" && (
-              <div id="como-funciona" style={{ background: "rgba(15, 23, 42, 0.4)", backdropFilter: "blur(20px)", border: "1px solid rgba(255, 255, 255, 0.05)", borderRadius: 24, padding: "40px" }}>
+              <div id="como-funciona" style={{ background: "var(--color-gris-oscuro)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 12, padding: "40px" }}>
                 <h2 style={{ fontFamily: "'Orbitron', sans-serif", fontSize: "2rem", fontWeight: 800, marginBottom: 32, color: "#38bdf8", display: "flex", alignItems: "center", gap: 12 }}>
                   <Play size={28} color="#38bdf8" /> ¿Cómo Funciona?
                 </h2>
@@ -401,7 +378,7 @@ export default function LandingPage() {
             )}
 
             {activeTab === "puntuacion" && (
-              <div id="sistema-puntuacion" style={{ background: "rgba(15, 23, 42, 0.4)", backdropFilter: "blur(20px)", border: "1px solid rgba(255, 255, 255, 0.05)", borderRadius: 24, padding: "40px" }}>
+              <div id="sistema-puntuacion" style={{ background: "var(--color-gris-oscuro)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 12, padding: "40px" }}>
                 <h2 style={{ fontFamily: "'Orbitron', sans-serif", fontSize: "2rem", fontWeight: 800, marginBottom: 32, color: "#f5b000", display: "flex", alignItems: "center", gap: 12 }}>
                   <Zap size={28} color="#f5b000" /> Sistema de Puntuación
                 </h2>
@@ -439,7 +416,7 @@ export default function LandingPage() {
             )}
 
             {activeTab === "terminos" && (
-              <div id="terminos" style={{ background: "rgba(15, 23, 42, 0.4)", backdropFilter: "blur(20px)", border: "1px solid rgba(255, 255, 255, 0.05)", borderRadius: 24, padding: "40px 20px" }}>
+              <div id="terminos" style={{ background: "var(--color-gris-oscuro)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 12, padding: "40px 20px" }}>
                 <h2 style={{ fontFamily: "'Orbitron', sans-serif", fontSize: "2rem", fontWeight: 800, marginBottom: 32, color: "#34d399", display: "flex", alignItems: "center", gap: 12 }}>
                   <ShieldCheck color="#34d399" size={28} /> Términos y Condiciones
                 </h2>

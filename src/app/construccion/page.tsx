@@ -6,9 +6,9 @@ import { ArrowLeft, Hammer } from "lucide-react";
 
 export default function ConstruccionPage() {
   return (
-    <div style={{ 
-      minHeight: "100vh", background: "#04060A", color: "#FFFFFF", 
-      fontFamily: "'Inter', sans-serif", display: "flex", flexDirection: "column" 
+    <div data-design="redesign" style={{
+      minHeight: "100vh", background: "#04060A", color: "#FFFFFF",
+      fontFamily: "'Inter', sans-serif", display: "flex", flexDirection: "column"
     }}>
       <header style={{ 
         padding: "16px 24px", display: "flex", justifyContent: "space-between", alignItems: "center"

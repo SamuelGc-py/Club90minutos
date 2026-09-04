@@ -7,7 +7,7 @@ import { TerminosCompletos } from "../components/TerminosCompletos";
 
 export default function TerminosPage() {
   return (
-    <div style={{ minHeight: "100vh", background: "#04060A", color: "#FFFFFF", fontFamily: "'Inter', sans-serif" }}>
+    <div data-design="redesign" style={{ minHeight: "100vh", background: "#04060A", color: "#FFFFFF", fontFamily: "'Inter', sans-serif" }}>
       {/* HEADER */}
       <header style={{ 
         position: "sticky", top: 0, zIndex: 100, 
