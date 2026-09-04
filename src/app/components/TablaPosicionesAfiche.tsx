@@ -1,6 +1,8 @@
-import React, { useRef, useState } from "react";
-import { Printer, Trophy, Camera } from "lucide-react";
-import { toPng } from "html-to-image";
+import React from "react";
+import { Printer, Trophy, Award, Flame, Users, Target, CheckCircle2, Star } from "lucide-react";
+import { useAfichePng } from "./afiche/useAfichePng";
+import { AFICHE } from "./afiche/afichePaleta";
+import { BarraDescargaAfiche, LogoClub90, BadgeTorneo, PieAfiche } from "./afiche/AfichePartes";
 
 export interface FilaTablaPosiciones {
   posicion: number;
@@ -25,160 +27,108 @@ interface TablaPosicionesAficheProps {
   onDescargarExcelPronosticos?: () => void;
 }
 
-// La tabla fija ha sido movida a @/lib/tablaFija.ts para evitar errores de importación en componentes de servidor.
+const COLUMNAS: { key: keyof FilaTablaPosiciones; etiqueta: string; icono: React.ReactNode }[] = [
+  { key: "pts_campeon", etiqueta: "Campeón", icono: <Trophy size={14} /> },
+  { key: "pts_finalistas", etiqueta: "Finalistas", icono: <Award size={14} /> },
+  { key: "pts_goleador_torneo", etiqueta: "Goleador Torneo", icono: <Flame size={14} /> },
+  { key: "pts_clasificados", etiqueta: "8 Clasificados", icono: <Users size={14} /> },
+  { key: "pts_resultado_exacto", etiqueta: "Marcador Exacto", icono: <CheckCircle2 size={14} /> },
+  { key: "pts_ganador_partido", etiqueta: "Ganador Partido", icono: <Target size={14} /> },
+  { key: "pts_goleador_partido", etiqueta: "Goleadores", icono: <Star size={14} /> },
+];
+
+// Colores del podio (1º/2º/3º) usando la paleta de marca en vez de las
+// convenciones oro/plata/bronce genéricas, que no forman parte del manual.
+const ACENTO_PODIO: Record<number, string> = {
+  1: AFICHE.verdeClub,
+  2: AFICHE.grisClaro,
+  3: AFICHE.amarilloEnergia,
+};
 
 export default function TablaPosicionesAfiche({
   tabla,
-  prediccionesPartidos = [],
-  prediccionesIniciales = [],
   nombrePolla = "Club 90 Minutos Dimayor",
 }: TablaPosicionesAficheProps) {
-  const printRef = useRef<HTMLDivElement>(null);
-  const [generandoImagen, setGenerandoImagen] = useState(false);
-  const [usuariosDesplegados, setUsuariosDesplegados] = useState<Record<number, boolean>>({});
-
-  const handlePrint = () => {
-    window.print();
-  };
-
-  const handleDescargarImagen = async () => {
-    if (!printRef.current) return;
-    try {
-      setGenerandoImagen(true);
-      const dataUrl = await toPng(printRef.current, { cacheBust: true, quality: 0.95 });
-      const link = document.createElement("a");
-      const fecha = new Date().toISOString().split("T")[0];
-      link.download = `Tabla_de_Posiciones_Polla_BetPlay_${fecha}.png`;
-      link.href = dataUrl;
-      link.click();
-    } catch (err) {
-      console.error("Error al generar la imagen de la tabla:", err);
-      alert("No se pudo generar la imagen. Puedes usar la opción Imprimir / Exportar PDF.");
-    } finally {
-      setGenerandoImagen(false);
-    }
-  };
-
+  const fecha = new Date().toISOString().split("T")[0];
+  const { printRef, generandoImagen, descargarImagen } = useAfichePng(`Tabla_de_Posiciones_${fecha}.png`);
   const tablaFinal: FilaTablaPosiciones[] = tabla || [];
+
+  const handlePrint = () => window.print();
 
   return (
     <div style={{ margin: "20px 0" }}>
-      {/* BARRA DE ACCIONES DE IMPRESIÓN / DESCARGA */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: 16,
-          background: "#0f172a",
-          padding: "12px 20px",
-          borderRadius: "12px",
-          border: "1px solid #1e293b",
-          flexWrap: "wrap",
-          gap: 12,
-        }}
-      >
-        <div>
-          <h4 style={{ color: "#f8fafc", margin: 0, fontSize: "1rem" }}>
-            🏆 Afiche Oficial de Posiciones
-          </h4>
-          <span style={{ color: "#94a3b8", fontSize: "0.8rem" }}>
-            Diseño optimizado para afiche, vista, imagen PNG e impresión
-          </span>
+      <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16, flexWrap: "wrap" }}>
+        <div style={{ flex: 1, minWidth: 240 }}>
+          <BarraDescargaAfiche
+            titulo="Afiche de la tabla de posiciones"
+            subtitulo={nombrePolla}
+            generando={generandoImagen}
+            onDescargar={descargarImagen}
+          />
         </div>
-        <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-          <button
-            onClick={handleDescargarImagen}
-            disabled={generandoImagen}
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 8,
-              backgroundColor: "#10b981",
-              color: "#ffffff",
-              fontWeight: 700,
-              padding: "8px 16px",
-              borderRadius: "8px",
-              border: "none",
-              cursor: generandoImagen ? "not-allowed" : "pointer",
-              fontSize: "0.85rem",
-              boxShadow: "0 4px 12px rgba(16, 185, 129, 0.3)",
-            }}
-          >
-            <Camera size={16} /> {generandoImagen ? "Generando Imagen..." : "📸 Descargar Imagen (.png)"}
-          </button>
-
-          <button
-            onClick={handlePrint}
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 8,
-              backgroundColor: "#f5b000",
-              color: "#0f172a",
-              fontWeight: 700,
-              padding: "8px 16px",
-              borderRadius: "8px",
-              border: "none",
-              cursor: "pointer",
-              fontSize: "0.85rem",
-            }}
-          >
-            <Printer size={16} /> Imprimir / Exportar PDF
-          </button>
-        </div>
+        <button
+          onClick={handlePrint}
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 8,
+            backgroundColor: "transparent",
+            color: AFICHE.grisClaro,
+            fontWeight: 700,
+            fontFamily: AFICHE.fuenteBody,
+            padding: "8px 16px",
+            borderRadius: 999,
+            border: `1px solid ${AFICHE.grisMedio}66`,
+            cursor: "pointer",
+            fontSize: "0.85rem",
+            height: "fit-content",
+          }}
+        >
+          <Printer size={16} /> Imprimir / PDF
+        </button>
       </div>
 
-      {/* CONTENEDOR AFICHE LIGA BETPLAY */}
       <div
         ref={printRef}
         className="afiche-container"
         style={{
           width: "100%",
-          backgroundColor: "#06101e",
-          color: "#ffffff",
-          fontFamily: "'Inter', 'Segoe UI', Roboto, sans-serif",
-          borderRadius: "12px",
+          backgroundColor: AFICHE.negroEstadio,
+          color: AFICHE.blanco,
+          fontFamily: AFICHE.fuenteBody,
+          borderRadius: 8,
           overflow: "hidden",
-          boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
-          border: "2px solid #0f2942",
+          border: `1px solid ${AFICHE.grisOscuro}`,
         }}
       >
-        {/* PODIO: TOP 3 DESTACADO ARRIBA DE LA TABLA */}
+        {/* PODIO: TOP 3 */}
         {tablaFinal.length > 0 && (
-          <div
-            style={{
-              display: "flex",
-              gap: 12,
-              padding: "20px 24px 4px",
-              background: "linear-gradient(135deg, #0b1e36 0%, #153b66 100%)",
-              flexWrap: "wrap",
-            }}
-          >
+          <div style={{ display: "flex", gap: 12, padding: "20px 24px 4px", flexWrap: "wrap" }}>
             {tablaFinal.slice(0, 3).map((row) => {
-              const medalla = row.posicion === 1 ? "🥇" : row.posicion === 2 ? "🥈" : "🥉";
-              const acento = row.posicion === 1 ? "#f5b000" : row.posicion === 2 ? "#cbd5e1" : "#c2410c";
+              const acento = ACENTO_PODIO[row.posicion] ?? AFICHE.grisMedio;
               return (
                 <div
                   key={row.usuario_id}
                   style={{
                     flex: "1 1 160px",
                     minWidth: 160,
-                    background: "rgba(255,255,255,0.06)",
-                    border: `1px solid ${acento}66`,
-                    borderRadius: 12,
-                    padding: "14px 16px",
+                    background: AFICHE.grisOscuro,
+                    borderLeft: `3px solid ${acento}`,
+                    borderRadius: 6,
+                    padding: "12px 16px",
                     display: "flex",
                     alignItems: "center",
                     gap: 12,
                   }}
                 >
-                  <span style={{ fontSize: "1.8rem" }}>{medalla}</span>
+                  <div style={{ fontFamily: AFICHE.fuenteMono, fontSize: "1.3rem", fontWeight: 700, color: acento, minWidth: 20 }}>
+                    {row.posicion}
+                  </div>
                   <div style={{ minWidth: 0 }}>
-                    <div style={{ color: "#ffffff", fontWeight: 800, fontSize: "0.9rem", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                    <div style={{ color: AFICHE.blanco, fontWeight: 700, fontSize: "0.9rem", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", fontFamily: AFICHE.fuenteBody }}>
                       {row.nombre_completo}
                     </div>
-                    <div style={{ color: acento, fontWeight: 900, fontSize: "1.2rem" }}>
+                    <div style={{ color: acento, fontWeight: 800, fontSize: "1.15rem", fontFamily: AFICHE.fuenteMono }}>
                       {row.pts_total} pts
                     </div>
                   </div>
@@ -188,416 +138,86 @@ export default function TablaPosicionesAfiche({
           </div>
         )}
 
-        {/* CABECERA CON CURVAS Y TROFEO BETPLAY */}
+        {/* ENCABEZADO */}
         <div
           style={{
-            position: "relative",
-            background: "linear-gradient(135deg, #0b1e36 0%, #153b66 60%, #0d2747 100%)",
-            padding: "24px 32px 18px",
-            color: "#ffffff",
+            padding: "24px 32px",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            borderBottom: "4px solid #f5b000",
+            borderBottom: `2px solid ${AFICHE.grisOscuro}`,
+            gap: 20,
           }}
         >
-          {/* LOGO CLUB 90 MINUTOS A LA IZQUIERDA */}
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <div
-              style={{
-                width: 68,
-                height: 68,
-                borderRadius: "50%",
-                background: "#0b1e36",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                boxShadow: "0 4px 15px rgba(0, 0, 0, 0.4)",
-                border: "3px solid #f5b000",
-                flexShrink: 0,
-                overflow: "hidden",
-                marginTop: 2,
-              }}
-            >
-              <img
-                src="/marca/logo-club90-circular-transparente.webp"
-                alt="Club 90 Minutos"
-                style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%" }}
-              />
-            </div>
-          </div>
-
-          {/* TÍTULO PRINCIPAL ESTILO BANNER */}
+          <LogoClub90 tamano={64} />
           <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
             <h1
               style={{
                 margin: 0,
-                fontSize: "2.2rem",
-                fontWeight: 900,
-                color: "#ffffff",
-                textTransform: "uppercase",
-                lineHeight: 1,
-                textShadow: "0 2px 10px rgba(0,0,0,0.5)",
-                letterSpacing: "1px"
+                fontSize: "1.6rem",
+                fontWeight: 800,
+                color: AFICHE.blanco,
+                fontFamily: AFICHE.fuenteDisplay,
+                lineHeight: 1.1,
+                textAlign: "center",
               }}
             >
-              TABLA DE POSICIONES
+              Tabla de posiciones
             </h1>
             <div
               style={{
-                color: "#f5b000",
-                fontWeight: 900,
-                fontSize: "4rem",
+                color: AFICHE.verdeClub,
+                fontWeight: 700,
+                fontSize: "1rem",
+                fontFamily: AFICHE.fuenteMono,
+                letterSpacing: "0.12em",
                 textTransform: "uppercase",
-                letterSpacing: "2px",
-                fontFamily: "'Brush Script MT', 'Caveat', cursive",
-                textShadow: "3px 3px 6px rgba(0,0,0,0.8)",
-                marginTop: "-5px",
-                lineHeight: 1
+                marginTop: 4,
               }}
             >
-              POLLA
+              Polla
             </div>
           </div>
-
-          {/* LIGA BETPLAY A LA DERECHA */}
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", background: "rgba(255,255,255,0.1)", padding: "10px 20px", borderRadius: "12px", border: "1px solid rgba(255,255,255,0.2)", boxShadow: "0 4px 10px rgba(0,0,0,0.3)" }}>
-              <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "#cbd5e1", textTransform: "uppercase", letterSpacing: "1px", marginBottom: 2 }}>
-                Torneo Oficial
-              </div>
-              <div style={{ fontSize: "1.4rem", fontWeight: 900, color: "#f5b000", fontStyle: "italic", lineHeight: 1 }}>
-                Liga BetPlay
-              </div>
-              <div style={{ display: "flex", gap: 6, marginTop: 6 }}>
-                <span style={{ background: "#1e3a8a", color: "#fff", padding: "3px 10px", fontSize: "0.8rem", fontWeight: 800, borderRadius: 6, letterSpacing: "0.5px" }}>DIMAYOR</span>
-                <span style={{ background: "#16a34a", color: "#fff", padding: "3px 10px", fontSize: "0.8rem", fontWeight: 800, borderRadius: 6 }}>2026-II</span>
-              </div>
-            </div>
-          </div>
+          <BadgeTorneo />
         </div>
 
-        {/* ESTRUCTURA DE TABLA CON BANNER DE CATEGORÍAS */}
+        {/* TABLA */}
         <div style={{ overflowX: "auto" }}>
-          <table
-            style={{
-              width: "100%",
-              borderCollapse: "collapse",
-              textAlign: "center",
-              fontSize: "0.85rem",
-            }}
-          >
+          <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "center", fontSize: "0.85rem", fontFamily: AFICHE.fuenteBody }}>
             <thead>
-              {/* FILA SUPERIOR: SUPER BANNER PUNTOS GANADOS POR CATEGORÍA */}
-              <tr style={{ backgroundColor: "#0b1e36", color: "#ffffff" }}>
+              <tr>
+                <th colSpan={2} style={{ backgroundColor: AFICHE.grisOscuro, borderBottom: `1px solid ${AFICHE.grisMedio}33` }}></th>
                 <th
-                  colSpan={2}
-                  style={{
-                    padding: "10px",
-                    borderRight: "2px solid #1e3a8a",
-                    borderBottom: "1px solid #1e3a8a",
-                  }}
-                ></th>
-                <th
-                  colSpan={7}
+                  colSpan={COLUMNAS.length}
                   style={{
                     padding: "8px 12px",
-                    fontSize: "0.85rem",
-                    fontWeight: 900,
-                    letterSpacing: "1.5px",
+                    fontSize: "0.72rem",
+                    fontWeight: 700,
+                    letterSpacing: "0.08em",
                     textTransform: "uppercase",
-                    backgroundColor: "#102a45",
-                    color: "#60a5fa",
-                    borderBottom: "2px solid #38bdf8",
+                    backgroundColor: AFICHE.grisOscuro,
+                    color: AFICHE.azulElectrico,
+                    borderBottom: `1px solid ${AFICHE.grisMedio}33`,
                   }}
                 >
-                  Puntos Ganados Por Categoría
+                  Puntos por categoría
                 </th>
-                <th
-                  style={{
-                    backgroundColor: "#0b1e36",
-                    borderLeft: "2px solid #1e3a8a",
-                    borderBottom: "1px solid #1e3a8a",
-                  }}
-                ></th>
+                <th style={{ backgroundColor: AFICHE.grisOscuro, borderBottom: `1px solid ${AFICHE.grisMedio}33` }}></th>
               </tr>
 
-              {/* FILA DE CABECERA DE COLUMNAS CON ICONOS Y COLORES AFICHE */}
-              <tr style={{ fontWeight: 800, fontSize: "0.78rem" }}>
-                {/* POSICIÓN */}
-                <th
-                  style={{
-                    width: "48px",
-                    padding: "10px 6px",
-                    backgroundColor: "#1c2b39",
-                    color: "#f5b000",
-                    borderRight: "1px solid #334155",
-                    fontSize: "1rem"
-                  }}
-                >
-                  Pos.
-                </th>
-
-                {/* JUGADOR */}
-                <th
-                  style={{
-                    minWidth: "160px",
-                    padding: "10px 14px",
-                    backgroundColor: "#1c2b39",
-                    color: "#ffffff",
-                    textAlign: "center",
-                    borderRight: "1px solid #334155",
-                  }}
-                >
-                  <div
-                    style={{
-                      background: "#2563eb",
-                      borderRadius: "50%",
-                      width: "36px",
-                      height: "36px",
-                      margin: "0 auto 6px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: "#fff",
-                      border: "2px solid #60a5fa"
-                    }}
-                  >
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
-                  </div>
-                  Jugador
-                </th>
-
-                {/* CAMPEÓN */}
-                <th
-                  style={{
-                    width: "90px",
-                    padding: "8px 4px",
-                    backgroundColor: "#1c2b39",
-                    color: "#ffffff",
-                    borderRight: "1px solid #334155",
-                  }}
-                >
-                  <div
-                    style={{
-                      background: "#2563eb",
-                      borderRadius: "50%",
-                      width: "36px",
-                      height: "36px",
-                      margin: "0 auto 6px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: "#f5b000",
-                      border: "2px solid #60a5fa"
-                    }}
-                  >
-                    <Trophy size={20} fill="#f5b000" />
-                  </div>
-                  Campeón
-                </th>
-
-                {/* FINALISTAS */}
-                <th
-                  style={{
-                    width: "90px",
-                    padding: "8px 4px",
-                    backgroundColor: "#1c2b39",
-                    color: "#ffffff",
-                    borderRight: "1px solid #334155",
-                  }}
-                >
-                  <div
-                    style={{
-                      background: "#2563eb",
-                      borderRadius: "50%",
-                      width: "36px",
-                      height: "36px",
-                      margin: "0 auto 6px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: "#cbd5e1",
-                      border: "2px solid #60a5fa"
-                    }}
-                  >
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#cbd5e1" stroke="#cbd5e1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="7" /><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" /></svg>
-                  </div>
-                  Finalistas
-                </th>
-
-                {/* GOLEADOR DEL TORNEO */}
-                <th
-                  style={{
-                    width: "100px",
-                    padding: "8px 4px",
-                    backgroundColor: "#1c2b39",
-                    color: "#ffffff",
-                    borderRight: "1px solid #334155",
-                  }}
-                >
-                  <div
-                    style={{
-                      background: "#2563eb",
-                      borderRadius: "50%",
-                      width: "36px",
-                      height: "36px",
-                      margin: "0 auto 6px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: "#f5b000",
-                      border: "2px solid #60a5fa"
-                    }}
-                  >
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#f5b000" /></svg>
-                  </div>
-                  Goleador<br />del Torneo
-                </th>
-
-                {/* 8 CLASIFICADOS */}
-                <th
-                  style={{
-                    width: "110px",
-                    padding: "8px 4px",
-                    backgroundColor: "#1c2b39",
-                    color: "#ffffff",
-                    borderRight: "1px solid #334155",
-                  }}
-                >
-                  <div
-                    style={{
-                      background: "#2563eb",
-                      borderRadius: "50%",
-                      width: "36px",
-                      height: "36px",
-                      margin: "0 auto 6px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: "#22c55e",
-                      border: "2px solid #60a5fa"
-                    }}
-                  >
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>
-                  </div>
-                  8 Clasificados
-                </th>
-
-                {/* RESULTADOS CORRECTOS */}
-                <th
-                  style={{
-                    width: "100px",
-                    padding: "8px 4px",
-                    backgroundColor: "#1c2b39",
-                    color: "#ffffff",
-                    borderRight: "1px solid #334155",
-                  }}
-                >
-                  <div
-                    style={{
-                      background: "#2563eb",
-                      borderRadius: "50%",
-                      width: "36px",
-                      height: "36px",
-                      margin: "0 auto 6px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: "#ffffff",
-                      border: "2px solid #60a5fa"
-                    }}
-                  >
-                    <div style={{ background: "#000", border: "1px solid #fff", borderRadius: 4, padding: "2px 4px", fontWeight: 900, fontSize: "0.75rem" }}>2-1</div>
-                  </div>
-                  Resultados<br />Correctos
-                </th>
-
-                {/* GANADOR PARTIDO */}
-                <th
-                  style={{
-                    width: "100px",
-                    padding: "8px 4px",
-                    backgroundColor: "#1c2b39",
-                    color: "#ffffff",
-                    borderRight: "1px solid #334155",
-                  }}
-                >
-                  <div
-                    style={{
-                      background: "#2563eb",
-                      borderRadius: "50%",
-                      width: "36px",
-                      height: "36px",
-                      margin: "0 auto 6px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: "#22c55e",
-                      border: "2px solid #60a5fa"
-                    }}
-                  >
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
-                  </div>
-                  Ganador<br />Partido
-                </th>
-
-                {/* GOLEADORES */}
-                <th
-                  style={{
-                    width: "100px",
-                    padding: "8px 4px",
-                    backgroundColor: "#1c2b39",
-                    color: "#ffffff",
-                    borderRight: "2px solid #334155",
-                  }}
-                >
-                  <div
-                    style={{
-                      background: "#2563eb",
-                      borderRadius: "50%",
-                      width: "36px",
-                      height: "36px",
-                      margin: "0 auto 6px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: "#fff",
-                      border: "2px solid #60a5fa"
-                    }}
-                  >
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><polygon points="12 4 15 9 20 10 16 14 17 20 12 17 7 20 8 14 4 10 9 9 12 4" /></svg>
-                  </div>
-                  Goleadores
-                </th>
-
-                {/* TOTAL PUNTOS */}
-                <th
-                  style={{
-                    width: "110px",
-                    padding: "10px 6px",
-                    backgroundColor: "#14532d",
-                    color: "#f5b000",
-                    fontWeight: 900,
-                    fontSize: "0.95rem",
-                  }}
-                >
-                  <div
-                    style={{
-                      background: "#f5b000",
-                      borderRadius: "50%",
-                      width: "36px",
-                      height: "36px",
-                      margin: "0 auto 6px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: "#000",
-                    }}
-                  >
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#000" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" /></svg>
-                  </div>
-                  Total<br />Puntos
+              <tr style={{ fontWeight: 700, fontSize: "0.72rem", textTransform: "uppercase", letterSpacing: "0.02em" }}>
+                <th style={{ width: 44, padding: "10px 6px", backgroundColor: "#12161c", color: AFICHE.grisClaro }}>Pos.</th>
+                <th style={{ minWidth: 150, padding: "10px 14px", backgroundColor: "#12161c", color: AFICHE.grisClaro, textAlign: "left" }}>Jugador</th>
+                {COLUMNAS.map((col) => (
+                  <th key={col.key} style={{ padding: "10px 6px", backgroundColor: "#12161c", color: AFICHE.grisMedio }}>
+                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2, color: AFICHE.grisClaro }}>
+                      {col.icono}
+                      <span>{col.etiqueta}</span>
+                    </div>
+                  </th>
+                ))}
+                <th style={{ width: 90, padding: "10px 6px", backgroundColor: AFICHE.grisOscuro, color: AFICHE.verdeClub, borderLeft: `2px solid ${AFICHE.verdeClub}66` }}>
+                  Total
                 </th>
               </tr>
             </thead>
@@ -605,108 +225,41 @@ export default function TablaPosicionesAfiche({
             <tbody>
               {tablaFinal.length === 0 ? (
                 <tr>
-                  <td colSpan={10} style={{ padding: 30, color: "#64748b" }}>
+                  <td colSpan={10} style={{ padding: 30, color: AFICHE.grisMedio }}>
                     No hay registros de puntajes aún.
                   </td>
                 </tr>
               ) : (
                 tablaFinal.map((row, idx) => {
                   const esPar = idx % 2 === 0;
-                  const esPrimero = row.posicion === 1;
-                  const esSegundo = row.posicion === 2;
-                  const esTercero = row.posicion === 3;
+                  const acentoPodio = ACENTO_PODIO[row.posicion];
 
                   return (
                     <tr
                       key={row.usuario_id}
                       style={{
-                        backgroundColor: esPrimero
-                          ? "rgba(245, 176, 0, 0.15)" // Oro
-                          : esSegundo
-                            ? "rgba(203, 213, 225, 0.1)" // Plata
-                            : esTercero
-                              ? "rgba(194, 65, 12, 0.1)" // Bronce
-                              : esPar
-                                ? "transparent"
-                                : "rgba(255, 255, 255, 0.02)",
-                        borderBottom: "1px solid #1e293b",
-                        fontSize: "0.88rem",
-                        fontWeight: esPrimero || esSegundo || esTercero ? 700 : 500,
+                        backgroundColor: acentoPodio ? `${acentoPodio}14` : esPar ? "transparent" : "rgba(255,255,255,0.02)",
+                        borderBottom: `1px solid ${AFICHE.grisOscuro}`,
+                        fontWeight: acentoPodio ? 700 : 500,
                       }}
                     >
-                      {/* POSICIÓN */}
-                      <td
-                        style={{
-                          padding: "10px 4px",
-                          fontWeight: 900,
-                          color: "#f5b000",
-                          backgroundColor: "#1c2b39",
-                          borderRight: "1px solid #334155",
-                          borderBottom: "1px solid #334155"
-                        }}
-                      >
+                      <td style={{ padding: "10px 6px", fontWeight: 700, fontFamily: AFICHE.fuenteMono, color: acentoPodio ?? AFICHE.grisMedio }}>
                         {row.posicion}
                       </td>
-
-                      {/* NOMBRE COMPLETO */}
-                      <td
-                        style={{
-                          padding: "10px 14px",
-                          textAlign: "left",
-                          color: "#ffffff",
-                          borderRight: "1px solid #334155",
-                          borderBottom: "1px solid #334155",
-                        }}
-                      >
-                        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                          <span>{row.nombre_completo}</span>
-                        </div>
-                      </td>
-
-                      {/* PTS CAMPEÓN */}
-                      <td style={{ padding: "10px 4px", borderRight: "1px solid #334155", borderBottom: "1px solid #334155", color: "#ffffff" }}>
-                        {row.pts_campeon}
-                      </td>
-
-                      {/* PTS FINALISTAS */}
-                      <td style={{ padding: "10px 4px", borderRight: "1px solid #334155", borderBottom: "1px solid #334155", color: "#ffffff" }}>
-                        {row.pts_finalistas}
-                      </td>
-
-                      {/* PTS GOLEADOR TORNEO */}
-                      <td style={{ padding: "10px 4px", borderRight: "1px solid #334155", borderBottom: "1px solid #334155", color: "#ffffff" }}>
-                        {row.pts_goleador_torneo}
-                      </td>
-
-                      {/* PTS CLASIFICADOS */}
-                      <td style={{ padding: "10px 4px", borderRight: "1px solid #334155", borderBottom: "1px solid #334155", color: "#ffffff" }}>
-                        {row.pts_clasificados}
-                      </td>
-
-                      {/* PTS RESULTADO EXACTO */}
-                      <td style={{ padding: "10px 4px", borderRight: "1px solid #334155", borderBottom: "1px solid #334155", color: "#ffffff" }}>
-                        {row.pts_resultado_exacto}
-                      </td>
-
-                      {/* PTS GANADOR PARTIDO */}
-                      <td style={{ padding: "10px 4px", borderRight: "1px solid #334155", borderBottom: "1px solid #334155", color: "#ffffff" }}>
-                        {row.pts_ganador_partido}
-                      </td>
-
-                      {/* PTS GOLEADOR PARTIDO */}
-                      <td style={{ padding: "10px 4px", borderRight: "1px solid #334155", borderBottom: "1px solid #334155", color: "#ffffff" }}>
-                        {row.pts_goleador_partido}
-                      </td>
-
-                      {/* TOTAL PUNTOS */}
+                      <td style={{ padding: "10px 14px", textAlign: "left", color: AFICHE.blanco }}>{row.nombre_completo}</td>
+                      {COLUMNAS.map((col) => (
+                        <td key={col.key} style={{ padding: "10px 6px", color: AFICHE.grisClaro, fontFamily: AFICHE.fuenteMono }}>
+                          {row[col.key] as number}
+                        </td>
+                      ))}
                       <td
                         style={{
                           padding: "10px 6px",
-                          fontWeight: 900,
-                          fontSize: "1.05rem",
-                          color: "#ffffff",
-                          backgroundColor: "transparent",
-                          borderBottom: "1px solid #334155"
+                          fontWeight: 800,
+                          fontSize: "1rem",
+                          color: AFICHE.verdeClub,
+                          fontFamily: AFICHE.fuenteMono,
+                          borderLeft: `2px solid ${AFICHE.verdeClub}66`,
                         }}
                       >
                         {row.pts_total}
@@ -719,60 +272,7 @@ export default function TablaPosicionesAfiche({
           </table>
         </div>
 
-        {/* PIE DE PÁGINA DEL AFICHE ESTILO LIGA BETPLAY */}
-        <div
-          style={{
-            position: "relative",
-            backgroundColor: "#06101e",
-            color: "#ffffff",
-            padding: "14px 24px",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            borderTop: "3px solid #f5b000",
-            flexWrap: "wrap",
-            gap: 12,
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <span style={{ fontSize: "1.3rem" }}>⚽</span>
-            <span
-              style={{
-                fontSize: "0.95rem",
-                fontWeight: 900,
-                color: "#ffffff",
-                fontStyle: "italic",
-                letterSpacing: "0.5px",
-              }}
-            >
-              ¡PON A PRUEBA TU CONOCIMIENTO{" "}
-              <span style={{ color: "#f5b000" }}>
-                Y COMPITE POR LA GRAN PREMIACIÓN!
-              </span>
-            </span>
-            <span style={{ fontSize: "1.2rem" }}>🏆</span>
-          </div>
-
-          <div
-            style={{
-              fontSize: "0.8rem",
-              color: "#94a3b8",
-              fontWeight: 700,
-              textTransform: "uppercase",
-              letterSpacing: "1px",
-            }}
-          >
-            Club 90 Minutos • Liga BetPlay Dimayor 2026-II
-          </div>
-        </div>
-
-        {/* TIRA DE BORDES MULTICOLOR BOTTOM */}
-        <div style={{ display: "flex", height: "6px", width: "100%" }}>
-          <div style={{ flex: 1, backgroundColor: "#15803d" }}></div>
-          <div style={{ flex: 1, backgroundColor: "#0b1e36" }}></div>
-          <div style={{ flex: 1, backgroundColor: "#f5b000" }}></div>
-          <div style={{ flex: 1, backgroundColor: "#b91c1c" }}></div>
-        </div>
+        <PieAfiche mensaje="¡Pon a prueba tu conocimiento y compite por la gran premiación!" />
       </div>
     </div>
   );
