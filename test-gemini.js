@@ -1,1 +1,0 @@
-require('dotenv').config({path: '.env'}); const { GoogleGenAI } = require('@google/genai'); const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY }); ai.models.list().then(res => console.log('Models:', res.map(m => m.name))).catch(e => console.error('ERROR:', e.message));

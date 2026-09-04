@@ -1,1 +1,0 @@
-const { PrismaClient } = require('@prisma/client'); const prisma = new PrismaClient(); async function main() { const preds = await prisma.prediccionPartido.findMany({ where: { usuario_id: 5 } }); console.log(Total predicciones: ); } main().finally(() => prisma.$disconnect());

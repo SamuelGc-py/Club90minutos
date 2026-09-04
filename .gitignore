@@ -1,13 +1,40 @@
-node_modules
-.next
-out
-build
-dist
+# Dependencias
+node_modules/
+
+# Next.js build
+.next/
+out/
+build/
+dist/
+
+# Variables de entorno (el .env.example sí se versiona)
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+
+# TypeScript cache
+tsconfig.tsbuildinfo
+
+# Logs
 *.log
+
+# OS
 .DS_Store
+Thumbs.db
+
+# Temporales de desarrollo
+temp-*.js
+test-*.js
+test_*.js
+*.patch
+diff.txt
+temp_*/
+
+# Agentes IA (configuración local, no versionable)
+.agents/
+.claude/
+
+# Hostinger config (sensible)
 configuracion_hostinger.txt
