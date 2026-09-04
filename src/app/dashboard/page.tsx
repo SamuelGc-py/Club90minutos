@@ -5009,9 +5009,9 @@ function ExpressPageContent() {
                       {/* BOTONES INTERACTIVOS DE RESUMEN POR CATEGORÍA */}
                       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 12 }}>
                         {[
-                          { id: "exacto", emoji: "🎯", title: "MARCADORES EXACTOS (5 PTS)", pts: miFila ? miFila.pts_resultado_exacto : 0, count: miFila ? Math.floor(miFila.pts_resultado_exacto / 5) : 0, color: "#34d399" },
+                          { id: "exacto", emoji: "🎯", title: "RESULTADOS CORRECTOS (5 PTS)", pts: miFila ? miFila.pts_resultado_exacto : 0, count: miFila ? Math.floor(miFila.pts_resultado_exacto / 5) : 0, color: "#34d399" },
                           { id: "ganador", emoji: "⚽", title: "GANADOR PARTIDO (3 PTS)", pts: miFila ? miFila.pts_ganador_partido : 0, count: miFila ? Math.floor(miFila.pts_ganador_partido / 3) : 0, color: "#38bdf8" },
-                          { id: "goleador", emoji: "👟", title: "GOLEADOR PARTIDO (2 PTS)", pts: miFila ? miFila.pts_goleador_partido : 0, count: miFila ? Math.floor(miFila.pts_goleador_partido / 2) : 0, color: "#f59e0b" },
+                          { id: "goleador", emoji: "👟", title: "GOLEADORES (2 PTS)", pts: miFila ? miFila.pts_goleador_partido : 0, count: miFila ? Math.floor(miFila.pts_goleador_partido / 2) : 0, color: "#f59e0b" },
                         ].map((cat) => (
                           <button
                             key={cat.id}
@@ -5089,9 +5089,9 @@ function ExpressPageContent() {
                         <div style={{ flexShrink: 0, padding: "18px 22px", background: "linear-gradient(90deg, rgba(255,255,255,0.05) 0%, transparent 100%)", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
                           <h4 style={{ margin: 0, color: "#fff", fontSize: "1.05rem", fontWeight: 800, display: "flex", alignItems: "center", gap: 8 }}>
                             <CheckCircle2 size={18} style={{ color: "#34d399" }} />
-                            {desgloseAbierto === "exacto" && "Marcadores Exactos Acertados"}
+                            {desgloseAbierto === "exacto" && "Resultados Correctos Acertados"}
                             {desgloseAbierto === "ganador" && "Ganadores de Partido Acertados"}
-                            {desgloseAbierto === "goleador" && "Goleadores de Partido Acertados"}
+                            {desgloseAbierto === "goleador" && "Goleadores Acertados"}
                           </h4>
                           <button
                             onClick={() => setDesgloseAbierto(null)}
