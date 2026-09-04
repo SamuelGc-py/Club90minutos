@@ -53,7 +53,7 @@ export default function CentralDatosView() {
         <div
           className="markdown-oraculo"
           style={{
-            background: "#1A1F26",
+            background: "linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%)",
             borderRadius: 16,
             padding: "24px 28px",
             boxShadow: "0 10px 30px rgba(0,0,0,0.4)",
@@ -71,7 +71,7 @@ export default function CentralDatosView() {
       const entries = respuesta.contenido?.children?.[0]?.standings?.entries;
       if (entries && Array.isArray(entries)) {
         return (
-          <div style={{ overflowX: "auto", borderRadius: 16, background: "rgba(15, 23, 42, 0.9)" }}>
+          <div style={{ overflowX: "auto", borderRadius: 16, boxShadow: "0 10px 30px rgba(0,0,0,0.4)", background: "rgba(15, 23, 42, 0.9)" }}>
             <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left", fontSize: "0.9rem", color: "#fff" }}>
               <thead>
                 <tr style={{ background: "rgba(30, 41, 59, 0.9)", borderBottom: "1px solid rgba(255,255,255,0.08)", textTransform: "uppercase", fontSize: "0.75rem", letterSpacing: "0.06em", color: "var(--graderia)" }}>
@@ -151,10 +151,11 @@ export default function CentralDatosView() {
                     <div
                       key={partido.id}
                       style={{
-                        background: "#1A1F26",
+                        background: "linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%)",
                         padding: 18,
                         borderRadius: 16,
-                                                display: "flex",
+                        boxShadow: "0 8px 24px rgba(0,0,0,0.3)",
+                        display: "flex",
                         flexDirection: "column",
                         gap: 10,
                       }}
@@ -215,10 +216,11 @@ export default function CentralDatosView() {
                     <div
                       key={evento.id}
                       style={{
-                        background: "#1A1F26",
+                        background: "linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%)",
                         padding: 18,
                         borderRadius: 16,
-                                                display: "flex",
+                        boxShadow: "0 8px 24px rgba(0,0,0,0.3)",
+                        display: "flex",
                         flexDirection: "column",
                         gap: 10,
                       }}
@@ -272,10 +274,11 @@ export default function CentralDatosView() {
               <div
                 key={idx}
                 style={{
-                  background: "#1A1F26",
+                  background: "linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%)",
                   borderRadius: 16,
                   padding: 18,
-                                  }}
+                  boxShadow: "0 8px 24px rgba(0,0,0,0.3)",
+                }}
               >
                 <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
                   {escudo && <img src={escudo} alt="" style={{ width: 28, height: 28, objectFit: "contain" }} />}
@@ -323,13 +326,13 @@ export default function CentralDatosView() {
   return (
     <div style={{ width: "100%", maxWidth: 1260, margin: "0 auto", padding: "12px 0 60px", display: "flex", flexDirection: "column", gap: 20 }}>
       {/* HEADER DE RECOMENDACIONES */}
-      <div style={{ display: "flex", alignItems: "center", gap: 14, background: "#1A1F26", padding: 20, borderRadius: 12, borderLeft: "3px solid #74CC10" }}>
-        <div style={{ width: 50, height: 50, borderRadius: 10, background: "#74CC10", display: "flex", alignItems: "center", justifyContent: "center", color: "#04060A" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 14, background: "linear-gradient(135deg, rgba(217, 70, 239, 0.12) 0%, rgba(147, 51, 234, 0.06) 100%)", padding: 20, borderRadius: 16 }}>
+        <div style={{ width: 50, height: 50, borderRadius: 14, background: "linear-gradient(135deg, #d946ef 0%, #a855f7 100%)", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", boxShadow: "0 8px 20px rgba(217, 70, 239, 0.4)" }}>
           <img src="/marca/logo-club90-monograma-transparente.webp" alt="" style={{ height: 28, width: 28, objectFit: "contain" }} />
         </div>
         <div>
           <h2 style={{ fontSize: "1.4rem", fontWeight: 900, color: "#fff", margin: 0, display: "flex", alignItems: "center", gap: 8 }}>
-            Recomendaciones y Datos <Sparkles size={18} style={{ color: "#74CC10" }} />
+            Recomendaciones y Datos <Sparkles size={18} style={{ color: "#d946ef" }} />
           </h2>
           <p style={{ color: "var(--graderia)", fontSize: "0.88rem", margin: 0 }}>
             Consulta tablas de posiciones, marcadores reales, estadísticas y análisis deportivo
@@ -412,15 +415,16 @@ export default function CentralDatosView() {
             transform: "translateY(-50%)",
             width: 42,
             height: 42,
-            background: loading || !prompt.trim() ? "rgba(255,255,255,0.1)" : "#74CC10",
-            color: loading || !prompt.trim() ? "#fff" : "#04060A",
+            background: loading || !prompt.trim() ? "rgba(255,255,255,0.1)" : "linear-gradient(135deg, #d946ef 0%, #a855f7 100%)",
+            color: "#fff",
             border: "none",
             borderRadius: 12,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             cursor: loading || !prompt.trim() ? "not-allowed" : "pointer",
-            transition: "background-color 0.15s ease",
+            boxShadow: loading || !prompt.trim() ? "none" : "0 4px 14px rgba(217, 70, 239, 0.4)",
+            transition: "all 0.2s ease",
           }}
         >
           {loading ? <Loader2 size={20} className="spin" /> : <Send size={18} />}
@@ -432,7 +436,8 @@ export default function CentralDatosView() {
         <div
           style={{
             position: "fixed", top: 0, left: 0, right: 0, bottom: 0,
-            background: "rgba(4,6,10,0.9)",
+            background: "rgba(0,0,0,0.85)",
+            backdropFilter: "blur(8px)",
             display: "flex", justifyContent: "center", alignItems: "flex-start",
             overflowY: "auto",
             zIndex: 9999, padding: "40px 20px",
@@ -443,16 +448,16 @@ export default function CentralDatosView() {
           <div
             style={{
               background: "#0b0f1a",
-              border: "1px solid rgba(116, 204, 16, 0.3)",
+              border: "1px solid rgba(217, 70, 239, 0.3)",
               borderRadius: 20,
               width: "100%", maxWidth: 760,
               maxHeight: "100%",
               display: "flex", flexDirection: "column",
               overflow: "hidden",
-              
+              boxShadow: "0 10px 40px rgba(217, 70, 239, 0.15)",
             }}
           >
-            <div style={{ flexShrink: 0, padding: "18px 22px", background: "#12161c", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
+            <div style={{ flexShrink: 0, padding: "18px 22px", background: "linear-gradient(90deg, rgba(217, 70, 239, 0.12) 0%, transparent 100%)", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
               <h3 style={{ fontSize: "1.05rem", fontWeight: 800, color: "#fff", margin: 0, display: "flex", alignItems: "center", gap: 8 }}>
                 <img src="/marca/logo-club90-monograma-transparente.webp" alt="" style={{ height: 22, width: 22, objectFit: "contain" }} />
                 {loading ? "Consultando..." : respuesta?.titulo}
@@ -469,7 +474,7 @@ export default function CentralDatosView() {
             <div style={{ padding: 22, overflowY: "auto" }}>
               {loading ? (
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "48px 20px", gap: 14 }}>
-                  <Loader2 className="spin" style={{ color: "#74CC10" }} size={40} />
+                  <Loader2 className="spin" style={{ color: "#d946ef" }} size={40} />
                   <p style={{ color: "var(--graderia)", fontSize: "0.9rem", margin: 0 }}>Consultando y analizando datos en tiempo real...</p>
                 </div>
               ) : (

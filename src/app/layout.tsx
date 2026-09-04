@@ -27,7 +27,6 @@ export const viewport: Viewport = {
 };
 
 import { Toaster } from "sonner";
-import DesignToggle from "./components/DesignToggle";
 
 export default function RootLayout({
   children,
@@ -79,13 +78,10 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" />
-        {/* Fuentes de marca (Manual de Marca Club90Minutos v1.0) — Orbitron para display/H1-H3, Inter para cuerpo. */}
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" />
       </head>
       <body>
         <main>{children}</main>
         <Toaster richColors position="top-center" expand={true} />
-        <DesignToggle />
       </body>
     </html>
   );

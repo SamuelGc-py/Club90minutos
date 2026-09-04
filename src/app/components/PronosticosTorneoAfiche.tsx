@@ -1,139 +1,265 @@
-import React from "react";
-import { useAfichePng } from "./afiche/useAfichePng";
-import { AFICHE } from "./afiche/afichePaleta";
-import { BarraDescargaAfiche, LogoClub90, BadgeTorneo, PieAfiche } from "./afiche/AfichePartes";
+import React, { useRef, useState } from "react";
+import { Camera } from "lucide-react";
+import { toPng } from "html-to-image";
 
 interface PronosticosTorneoAficheProps {
   predicciones: any[];
 }
 
-export default function PronosticosTorneoAfiche({ predicciones }: PronosticosTorneoAficheProps) {
-  const { printRef, generandoImagen, descargarImagen } = useAfichePng("Predicciones_Torneo_Club90Minutos.png");
+export default function PronosticosTorneoAfiche({
+  predicciones,
+}: PronosticosTorneoAficheProps) {
+  const printRef = useRef<HTMLDivElement>(null);
+  const [generandoImagen, setGenerandoImagen] = useState(false);
+
+  const handleDescargarImagen = async () => {
+    if (!printRef.current) return;
+    try {
+      setGenerandoImagen(true);
+      const dataUrl = await toPng(printRef.current, { cacheBust: true, quality: 0.95 });
+      const link = document.createElement("a");
+      link.download = `Predicciones_Torneo_Club90Minutos.png`;
+      link.href = dataUrl;
+      link.click();
+    } catch (err) {
+      console.error("Error al generar la imagen del afiche:", err);
+      alert("No se pudo generar la imagen. Intenta desde un computador si estás en móvil.");
+    } finally {
+      setGenerandoImagen(false);
+    }
+  };
 
   return (
     <div style={{ margin: "20px 0" }}>
-      <BarraDescargaAfiche
-        titulo="Afiche de predicciones del torneo"
-        subtitulo="Resumen general para descargar"
-        generando={generandoImagen}
-        onDescargar={descargarImagen}
-      />
-
-      <div style={{ overflowX: "auto" }}>
-        <div
-          ref={printRef}
-          className="afiche-container"
-          style={{
-            minWidth: "850px",
-            backgroundColor: AFICHE.negroEstadio,
-            color: AFICHE.blanco,
-            fontFamily: AFICHE.fuenteBody,
-            borderRadius: 8,
-            overflow: "hidden",
-            border: `1px solid ${AFICHE.grisOscuro}`,
-          }}
-        >
-          {/* ENCABEZADO */}
-          <div
+      {/* BARRA DE ACCIONES DE DESCARGA */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: 16,
+          background: "#0f172a",
+          padding: "12px 20px",
+          borderRadius: "12px",
+          border: "1px solid #1e293b",
+          flexWrap: "wrap",
+          gap: 12,
+        }}
+      >
+        <div>
+          <h4 style={{ color: "#f8fafc", margin: 0, fontSize: "1rem" }}>
+            🏆 Afiche Oficial de Predicciones del Torneo
+          </h4>
+          <span style={{ color: "#94a3b8", fontSize: "0.8rem" }}>
+            Resumen general de apuestas para descargar
+          </span>
+        </div>
+        <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+          <button
+            onClick={handleDescargarImagen}
+            disabled={generandoImagen}
             style={{
-              background: AFICHE.negroEstadio,
-              padding: "24px 32px",
-              display: "flex",
+              display: "inline-flex",
               alignItems: "center",
-              justifyContent: "space-between",
-              borderBottom: `2px solid ${AFICHE.grisOscuro}`,
-              gap: 20,
+              gap: 8,
+              backgroundColor: "#10b981",
+              color: "#ffffff",
+              fontWeight: 700,
+              padding: "8px 16px",
+              borderRadius: "8px",
+              border: "none",
+              cursor: generandoImagen ? "not-allowed" : "pointer",
+              fontSize: "0.85rem",
+              boxShadow: "0 4px 12px rgba(16, 185, 129, 0.3)",
             }}
           >
-            <LogoClub90 tamano={64} />
+            <Camera size={16} /> {generandoImagen ? "Generando Imagen..." : "📸 Descargar Imagen (.png)"}
+          </button>
+        </div>
+      </div>
 
-            <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "0 20px" }}>
-              <div
-                style={{
-                  color: AFICHE.verdeClub,
-                  fontWeight: 800,
-                  fontSize: "1.1rem",
-                  fontFamily: AFICHE.fuenteMono,
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase",
-                }}
-              >
-                Predicciones de oro
-              </div>
-              <h2
-                style={{
-                  margin: "6px 0 0 0",
-                  fontSize: "1.3rem",
-                  fontWeight: 800,
-                  color: AFICHE.blanco,
-                  fontFamily: AFICHE.fuenteDisplay,
-                  lineHeight: 1.2,
-                  textAlign: "center",
-                }}
-              >
-                Resumen final del campeonato
-              </h2>
+      {/* CONTENEDOR AFICHE LIGA BETPLAY */}
+      <div style={{ overflowX: "auto" }}>
+      <div
+        ref={printRef}
+        className="afiche-container"
+        style={{
+          minWidth: "850px",
+          backgroundColor: "#06101e",
+          color: "#ffffff",
+          fontFamily: "'Inter', 'Segoe UI', Roboto, sans-serif",
+          borderRadius: "12px",
+          overflow: "hidden",
+          boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
+          border: "2px solid #0f2942",
+        }}
+      >
+        {/* CABECERA CON CURVAS Y TROFEO BETPLAY */}
+        <div
+          style={{
+            position: "relative",
+            background: "linear-gradient(135deg, #0b1e36 0%, #153b66 60%, #0d2747 100%)",
+            padding: "24px 32px 24px",
+            color: "#ffffff",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            borderBottom: "4px solid #f5b000",
+          }}
+        >
+          {/* LOGO CLUB 90 MINUTOS A LA IZQUIERDA */}
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <div
+              style={{
+                width: 68,
+                height: 68,
+                borderRadius: "50%",
+                background: "#0b1e36",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                boxShadow: "0 4px 15px rgba(0, 0, 0, 0.4)",
+                border: "3px solid #f5b000",
+                flexShrink: 0,
+                overflow: "hidden",
+              }}
+            >
+              <img
+                src="/marca/logo-club90-circular-transparente.webp"
+                alt="Club 90 Minutos"
+                style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%" }}
+                crossOrigin="anonymous"
+              />
             </div>
-
-            <BadgeTorneo />
           </div>
 
-          {/* TABLA DE PREDICCIONES */}
-          <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left", fontFamily: AFICHE.fuenteBody }}>
+          {/* TÍTULO PRINCIPAL */}
+          <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "0 20px" }}>
+            <div
+              style={{
+                color: "#f5b000",
+                fontWeight: 900,
+                fontSize: "2.8rem",
+                textTransform: "uppercase",
+                letterSpacing: "2px",
+                fontFamily: "'Brush Script MT', 'Caveat', cursive",
+                textShadow: "3px 3px 6px rgba(0,0,0,0.8)",
+                lineHeight: 1,
+                textAlign: "center"
+              }}
+            >
+              Predicciones de Oro
+            </div>
+            
+            <h2
+              style={{
+                margin: "12px 0 0 0",
+                fontSize: "1.2rem",
+                fontWeight: 900,
+                color: "#ffffff",
+                textTransform: "uppercase",
+                lineHeight: 1,
+                textShadow: "0 2px 10px rgba(0,0,0,0.5)",
+                letterSpacing: "1px",
+                textAlign: "center"
+              }}
+            >
+              Resumen Final del Campeonato
+            </h2>
+          </div>
+
+          {/* LIGA BETPLAY A LA DERECHA */}
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", background: "rgba(255,255,255,0.1)", padding: "10px 20px", borderRadius: "12px", border: "1px solid rgba(255,255,255,0.2)", boxShadow: "0 4px 10px rgba(0,0,0,0.3)" }}>
+              <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "#cbd5e1", textTransform: "uppercase", letterSpacing: "1px", marginBottom: 2 }}>
+                Torneo Oficial
+              </div>
+              <div style={{ fontSize: "1.4rem", fontWeight: 900, color: "#f5b000", fontStyle: "italic", lineHeight: 1 }}>
+                Liga BetPlay
+              </div>
+              <div style={{ display: "flex", gap: 6, marginTop: 6 }}>
+                <span style={{ background: "#1e3a8a", color: "#fff", padding: "3px 10px", fontSize: "0.8rem", fontWeight: 800, borderRadius: 6, letterSpacing: "0.5px" }}>DIMAYOR</span>
+                <span style={{ background: "#16a34a", color: "#fff", padding: "3px 10px", fontSize: "0.8rem", fontWeight: 800, borderRadius: 6 }}>2026-II</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ESTRUCTURA DE TABLA CON PREDICCIONES */}
+        <div>
+          <table
+            style={{
+              width: "100%",
+              borderCollapse: "collapse",
+              textAlign: "left",
+              fontSize: "0.85rem",
+            }}
+          >
             <thead>
-              <tr>
+              {/* FILA SUPERIOR: SUPER BANNER */}
+              <tr style={{ backgroundColor: "#0b1e36", color: "#ffffff" }}>
                 <th
                   colSpan={4}
                   style={{
-                    padding: "10px 16px",
-                    fontSize: "0.75rem",
-                    fontWeight: 700,
-                    letterSpacing: "0.08em",
+                    padding: "8px 12px",
+                    fontSize: "0.9rem",
+                    fontWeight: 900,
+                    letterSpacing: "1.5px",
                     textTransform: "uppercase",
-                    backgroundColor: AFICHE.grisOscuro,
-                    color: AFICHE.azulElectrico,
-                    textAlign: "center",
+                    backgroundColor: "#102a45",
+                    color: "#60a5fa",
+                    borderBottom: "2px solid #38bdf8",
+                    textAlign: "center"
                   }}
                 >
-                  Pronósticos registrados
+                  Pronósticos Registrados de los Participantes
                 </th>
               </tr>
-              <tr style={{ fontWeight: 700, fontSize: "0.78rem", textTransform: "uppercase", letterSpacing: "0.04em", backgroundColor: "#12161c", color: AFICHE.grisClaro }}>
-                <th style={{ padding: "12px 16px", textAlign: "left" }}>Participante</th>
-                <th style={{ padding: "12px 16px", textAlign: "center" }}>Campeón</th>
-                <th style={{ padding: "12px 16px", textAlign: "center" }}>Subcampeón</th>
-                <th style={{ padding: "12px 16px", textAlign: "center" }}>Goleador del torneo</th>
+
+              {/* FILA DE CABECERA DE COLUMNAS */}
+              <tr style={{ fontWeight: 800, fontSize: "0.85rem", textAlign: "center", backgroundColor: "#1c2b39", color: "#f5b000" }}>
+                <th style={{ padding: "12px 16px", borderRight: "1px solid #334155", textAlign: "left" }}>Participante</th>
+                <th style={{ padding: "12px 16px", borderRight: "1px solid #334155" }}>Campeón</th>
+                <th style={{ padding: "12px 16px", borderRight: "1px solid #334155" }}>Subcampeón</th>
+                <th style={{ padding: "12px 16px" }}>Goleador del Torneo</th>
               </tr>
             </thead>
+
             <tbody>
               {(!predicciones || predicciones.length === 0) ? (
                 <tr>
-                  <td colSpan={4} style={{ padding: 30, color: AFICHE.grisMedio, textAlign: "center", fontSize: "0.95rem" }}>
+                  <td colSpan={4} style={{ padding: 30, color: "#64748b", textAlign: "center", fontSize: "1rem" }}>
                     Nadie envió pronóstico para el torneo.
                   </td>
                 </tr>
               ) : (
                 predicciones.map((p: any, idx: number) => {
                   const esPar = idx % 2 === 0;
-                  const subcampeon = p.campeon?.nombre === p.finalista_1?.nombre ? p.finalista_2?.nombre : p.finalista_1?.nombre;
-
+                  const subcampeon = p.campeon?.nombre === p.finalista_1?.nombre 
+                    ? p.finalista_2?.nombre 
+                    : p.finalista_1?.nombre;
+                  
                   return (
                     <tr
                       key={idx}
                       style={{
                         backgroundColor: esPar ? "transparent" : "rgba(255, 255, 255, 0.03)",
-                        borderBottom: `1px solid ${AFICHE.grisOscuro}`,
-                        fontSize: "0.9rem",
-                        fontWeight: 500,
+                        borderBottom: "1px solid #1e293b",
+                        fontSize: "0.92rem",
+                        fontWeight: 600,
                       }}
                     >
-                      <td style={{ padding: "12px 16px", color: AFICHE.blanco }}>{p.usuario?.nombre_completo || "-"}</td>
-                      <td style={{ padding: "12px 16px", textAlign: "center", fontWeight: 800, color: AFICHE.amarilloEnergia, fontSize: "0.95rem" }}>
-                        {p.campeon?.nombre || "-"}
+                      <td style={{ padding: "12px 16px", color: "#ffffff", borderRight: "1px solid #334155", display: "flex", alignItems: "center", gap: 10 }}>
+                        {p.usuario?.nombre_completo || "-"}
                       </td>
-                      <td style={{ padding: "12px 16px", textAlign: "center", color: AFICHE.grisClaro }}>{subcampeon || "-"}</td>
-                      <td style={{ padding: "12px 16px", color: AFICHE.verdeClub, fontWeight: 700, textAlign: "center" }}>
-                        {p.goleador_torneo?.nombre || "-"}
+                      <td style={{ padding: "12px 16px", textAlign: "center", fontWeight: 900, color: "#fcd34d", fontSize: "1rem", borderRight: "1px solid #334155" }}>
+                        🏆 {p.campeon?.nombre || "-"}
+                      </td>
+                      <td style={{ padding: "12px 16px", textAlign: "center", borderRight: "1px solid #334155", color: "#cbd5e1" }}>
+                        🥈 {subcampeon || "-"}
+                      </td>
+                      <td style={{ padding: "12px 16px", color: "#34d399", fontWeight: 800, textAlign: "center" }}>
+                        ⚽ {p.goleador_torneo?.nombre || "-"}
                       </td>
                     </tr>
                   );
@@ -141,9 +267,62 @@ export default function PronosticosTorneoAfiche({ predicciones }: PronosticosTor
               )}
             </tbody>
           </table>
-
-          <PieAfiche mensaje="¿Quién se llevará la gloria?" />
         </div>
+
+        {/* PIE DE PÁGINA DEL AFICHE ESTILO LIGA BETPLAY */}
+        <div
+          style={{
+            position: "relative",
+            backgroundColor: "#06101e",
+            color: "#ffffff",
+            padding: "14px 24px",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            borderTop: "3px solid #f5b000",
+            flexWrap: "wrap",
+            gap: 12,
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <span style={{ fontSize: "1.3rem" }}>⚽</span>
+            <span
+              style={{
+                fontSize: "0.95rem",
+                fontWeight: 900,
+                color: "#ffffff",
+                fontStyle: "italic",
+                letterSpacing: "0.5px",
+              }}
+            >
+              ¡ESTO ES FÚTBOL CON ESTEROIDES!{" "}
+              <span style={{ color: "#f5b000" }}>
+                ¿QUIÉN SE LLEVARÁ LA GLORIA?
+              </span>
+            </span>
+          </div>
+
+          <div
+            style={{
+              fontSize: "0.8rem",
+              color: "#94a3b8",
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: "1px",
+            }}
+          >
+            Club 90 Minutos • Liga BetPlay Dimayor 2026-II
+          </div>
+        </div>
+
+        {/* TIRA DE BORDES MULTICOLOR BOTTOM */}
+        <div style={{ display: "flex", height: "6px", width: "100%" }}>
+          <div style={{ flex: 1, backgroundColor: "#15803d" }}></div>
+          <div style={{ flex: 1, backgroundColor: "#0b1e36" }}></div>
+          <div style={{ flex: 1, backgroundColor: "#f5b000" }}></div>
+          <div style={{ flex: 1, backgroundColor: "#b91c1c" }}></div>
+        </div>
+      </div>
       </div>
     </div>
   );
