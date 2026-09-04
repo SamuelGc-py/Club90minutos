@@ -1,0 +1,23 @@
+{
+  "_fuente": "Tabla maestra verificada manualmente por Samuel (imagen 'TABLA DE POSICIONES POLLA' diseño dorado BetPlay), confirmada como fuente de verdad para la distribución por categoría el 2026-08-25.",
+  "_uso": "Este archivo es la ÚNICA fuente de los números objetivo. NO se deben hardcodear estos valores dentro de la lógica de scripts/corregir-categorias-desde-maestro.ts — ese script solo LEE este JSON.",
+  "_actualizar_asi": "Cuando tengas una nueva tabla maestra verificada, reemplaza los números de abajo (o agrega una nueva versión con fecha) y vuelve a correr corregir-categorias-desde-maestro.ts.",
+  "participantes": [
+    { "nombre_completo": "Juan Hernandez",   "exacto": 70, "ganador": 87, "goleador": 32, "total": 189 },
+    { "nombre_completo": "Rene Osorio",      "exacto": 50, "ganador": 84, "goleador": 38, "total": 172 },
+    { "nombre_completo": "Nelson Berdugo",   "exacto": 40, "ganador": 93, "goleador": 34, "total": 167 },
+    { "nombre_completo": "Pedro Cantero",    "exacto": 50, "ganador": 78, "goleador": 38, "total": 166 },
+    { "nombre_completo": "Ricardo Soto",     "exacto": 50, "ganador": 81, "goleador": 34, "total": 165 },
+    { "nombre_completo": "Lucas Saavedra",   "exacto": 40, "ganador": 84, "goleador": 26, "total": 150 },
+    { "nombre_completo": "Luis Betancourt",  "exacto": 30, "ganador": 69, "goleador": 32, "total": 131 },
+    { "nombre_completo": "Erick Andrade",    "exacto": 35, "ganador": 63, "goleador": 22, "total": 120 },
+    { "nombre_completo": "Romario Gomez",    "exacto": 25, "ganador": 63, "goleador": 30, "total": 118 },
+    { "nombre_completo": "Ricardo Vanegas",  "exacto": 25, "ganador": 60, "goleador": 24, "total": 109 },
+    { "nombre_completo": "Andres del Toro",  "exacto": 30, "ganador": 51, "goleador": 20, "total": 101 },
+    { "nombre_completo": "Hernando Davila",  "exacto": 20, "ganador": 54, "goleador": 12, "total": 86 },
+    { "nombre_completo": "Samuel Gutierrez", "exacto": 10, "ganador": 60, "goleador": 14, "total": 84 },
+    { "nombre_completo": "Harold Berdugo",   "exacto": 20, "ganador": 45, "goleador": 16, "total": 81 },
+    { "nombre_completo": "Ignacio Barrios",  "exacto": 10, "ganador": 42, "goleador": 22, "total": 74 },
+    { "nombre_completo": "Manuel Cabarcas",  "exacto": 15, "ganador": 33, "goleador": 4,  "total": 52 }
+  ]
+}
