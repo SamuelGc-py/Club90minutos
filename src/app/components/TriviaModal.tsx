@@ -69,30 +69,28 @@ export default function TriviaModal({ onClose }: { onClose: () => void }) {
   return (
     <div style={{
       position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
-      background: 'rgba(0,0,0,0.85)',
-      backdropFilter: 'blur(8px)',
+      background: 'rgba(4,6,10,0.9)',
       display: 'flex', justifyContent: 'center', alignItems: 'flex-start',
       overflowY: 'auto',
       zIndex: 9999, padding: '40px 20px'
     }}>
       <div style={{
-        background: '#06130b',
-        border: '1px solid #10b981',
+        background: '#1A1F26',
+        border: '1px solid rgba(116, 204, 16, 0.3)',
         borderRadius: 20,
         width: '100%', maxWidth: 500,
         maxHeight: '100%',
         display: 'flex', flexDirection: 'column',
         overflow: 'hidden',
-        boxShadow: '0 10px 40px rgba(16, 185, 129, 0.2)'
       }}>
         {/* Header */}
         <div style={{
           flexShrink: 0,
-          padding: '20px', background: 'linear-gradient(90deg, #064e3b 0%, #06130b 100%)',
+          padding: '20px', background: '#12161c',
           display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-          borderBottom: '1px solid rgba(16, 185, 129, 0.3)'
+          borderBottom: '1px solid rgba(116, 204, 16, 0.2)'
         }}>
-          <h2 style={{ margin: 0, color: '#34d399', display: 'flex', alignItems: 'center', gap: 10, fontSize: '1.2rem', fontWeight: 800 }}>
+          <h2 style={{ margin: 0, color: '#74CC10', display: 'flex', alignItems: 'center', gap: 10, fontSize: '1.2rem', fontWeight: 800 }}>
             <img src="/marca/logo-club90-escudo-balon.webp" alt="" style={{ height: 36, width: 36, objectFit: 'cover', borderRadius: '50%' }} />
             Preguntas con club90min
           </h2>
@@ -111,9 +109,8 @@ export default function TriviaModal({ onClose }: { onClose: () => void }) {
               <button
                 onClick={generarTrivia}
                 style={{
-                  background: '#10b981', color: '#000', border: 'none', padding: '12px 24px',
-                  borderRadius: 30, fontWeight: 800, fontSize: '1rem', cursor: 'pointer',
-                  boxShadow: '0 4px 15px rgba(16, 185, 129, 0.4)',
+                  background: '#74CC10', color: '#04060A', border: 'none', padding: '12px 24px',
+                  borderRadius: 999, fontWeight: 800, fontSize: '1rem', cursor: 'pointer',
                   display: 'flex', alignItems: 'center', gap: 8, margin: '0 auto'
                 }}
               >
@@ -125,8 +122,8 @@ export default function TriviaModal({ onClose }: { onClose: () => void }) {
 
           {cargando && (
             <div style={{ textAlign: 'center', padding: '40px 0' }}>
-              <RefreshCw size={40} color="#10b981" style={{ animation: 'spin 1s linear infinite', margin: '0 auto' }} />
-              <p style={{ color: '#34d399', marginTop: 16, fontWeight: 600 }}>Preparando una pregunta bacana...</p>
+              <RefreshCw size={40} color="#74CC10" style={{ animation: 'spin 1s linear infinite', margin: '0 auto' }} />
+              <p style={{ color: '#74CC10', marginTop: 16, fontWeight: 600 }}>Preparando una pregunta bacana...</p>
             </div>
           )}
 
@@ -138,7 +135,7 @@ export default function TriviaModal({ onClose }: { onClose: () => void }) {
 
               {timeLeft !== null && !yaRespondio && (
                 <div style={{ width: '100%', height: 6, background: 'rgba(255,255,255,0.1)', borderRadius: 3, marginBottom: 20, overflow: 'hidden' }}>
-                  <div style={{ height: '100%', background: '#10b981', width: `${(timeLeft / 15) * 100}%`, transition: 'width 1s linear' }} />
+                  <div style={{ height: '100%', background: '#74CC10', width: `${(timeLeft / 15) * 100}%`, transition: 'width 1s linear' }} />
                 </div>
               )}
               
@@ -156,8 +153,8 @@ export default function TriviaModal({ onClose }: { onClose: () => void }) {
                   
                   if (yaRespondio) {
                     if (esCorrecta) {
-                        bg = 'rgba(16, 185, 129, 0.2)';
-                        border = '1px solid #10b981';
+                        bg = 'rgba(116, 204, 16, 0.2)';
+                        border = '1px solid #74CC10';
                     } else if (fueSeleccionada) {
                         bg = 'rgba(239, 68, 68, 0.2)';
                         border = '1px solid #ef4444';
@@ -188,7 +185,7 @@ export default function TriviaModal({ onClose }: { onClose: () => void }) {
                       }}
                     >
                       {opcion}
-                      {yaRespondio && esCorrecta && <CheckCircle2 size={20} color="#10b981" />}
+                      {yaRespondio && esCorrecta && <CheckCircle2 size={20} color="#74CC10" />}
                       {yaRespondio && fueSeleccionada && !esCorrecta && <XCircle size={20} color="#ef4444" />}
                     </button>
                   );
@@ -210,9 +207,9 @@ export default function TriviaModal({ onClose }: { onClose: () => void }) {
                 <button 
                   onClick={generarTrivia}
                   style={{
-                    width: '100%', background: 'transparent', color: '#10b981', border: '1px solid #10b981', 
+                    width: '100%', background: 'transparent', color: '#74CC10', border: '1px solid rgba(116, 204, 16, 0.3)', 
                     padding: '12px 24px', marginTop: 24,
-                    borderRadius: 30, fontWeight: 800, fontSize: '1rem', cursor: 'pointer',
+                    borderRadius: 999, fontWeight: 800, fontSize: '1rem', cursor: 'pointer',
                     display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8
                   }}
                 >
