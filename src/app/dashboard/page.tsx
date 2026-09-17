@@ -1272,8 +1272,6 @@ function ExpressPageContent() {
   const handleToggleAplazado = async (partido: any) => {
     if (!usuario || usuario.rol_id !== 2) return;
     const nuevoEstado = partido.estado === "aplazado" ? "programado" : "aplazado";
-    const inputJornada = programacionAdminInput[partido.id]?.jornada;
-    const nuevaJornada = inputJornada ? Number(inputJornada) : (fechaAdmin > 0 ? fechaAdmin : fechaParticipante);
 
     try {
       setGuardandoProgramacionId(partido.id);
@@ -1282,16 +1280,6 @@ function ExpressPageContent() {
         partido_id: partido.id,
         estado: nuevoEstado,
       };
-
-      if (nuevoEstado === "programado") {
-        payload.jornada = nuevaJornada;
-        if (programacionAdminInput[partido.id]?.fecha_hora) {
-          payload.fecha_hora_partido = `${programacionAdminInput[partido.id].fecha_hora}:00-05:00`;
-        }
-        if (programacionAdminInput[partido.id]?.estadio !== undefined) {
-          payload.estadio = programacionAdminInput[partido.id].estadio;
-        }
-      }
 
       const res = await fetch("/api/admin/reprogramar-partido", {
         method: "POST",
@@ -1304,7 +1292,7 @@ function ExpressPageContent() {
       const fechaOrigen = partido.jornada_original || partido.jornada;
       const texto = nuevoEstado === "aplazado"
         ? "Partido marcado como aplazado."
-        : `Partido reactivado en Fecha ${nuevaJornada} (conserva insignia ⚠️ Aplazado - Pertenece a Fecha ${fechaOrigen}).`;
+        : `Partido reactivado (aparecerá automáticamente en la fecha activa para participantes y en la Fecha ${fechaOrigen} para administración).`;
 
       setMensajeEstado({ tipo: "exito", texto });
       if (nuevoEstado !== "aplazado" && typeof window !== "undefined") {
@@ -1901,7 +1889,7 @@ function ExpressPageContent() {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8, flexWrap: "wrap", marginBottom: 6 }}>
             <span style={{ fontWeight: 800, color: "#ffffff", fontSize: "0.95rem", display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
               <span>{partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}</span>
-              {((partido.jornada_original && partido.jornada_original !== partido.jornada) || esAplazado) && (
+              {(partido.estado === "aplazado" || (partido.jornada_original || partido.jornada) < fechaParticipante) && (
                 <span style={{ background: "rgba(245, 158, 11, 0.15)", color: "#fcd34d", border: "1px dashed rgba(245, 158, 11, 0.6)", padding: "2px 8px", borderRadius: 6, fontSize: "0.72rem", fontWeight: 800 }}>
                   ⚠️ Aplazado (Pertenece a Fecha {partido.jornada_original || partido.jornada})
                 </span>
@@ -3006,20 +2994,21 @@ function ExpressPageContent() {
                   const listaFechas = fechasDisponibles.length > 0 ? fechasDisponibles : [1, 2, 3];
 
                   const estaSoloFinal = (partido: any) => {
-                    const esAplazado = partido.estado === "aplazado";
+                    if (partido.estado === "aplazado") return false;
                     const esFinalizado = esPartidoFinalizadoReal(partido, partidosEnVivo);
                     const hace2Horas = new Date().getTime() >= new Date(partido.fecha_hora_partido).getTime() + 2 * 60 * 60 * 1000;
-                    return esFinalizado || esAplazado || hace2Horas;
+                    return esFinalizado || hace2Horas;
                   };
 
-                  // Filtro de partidos para el Admin (Limpio y estricto por Jornada)
+                  // Filtro de partidos para el Admin (mostrados en su fecha original de fixture)
                   const partidosAdminFiltrados = fechaAdmin === 0
                     ? []
                     : partidos.filter((p) => {
-                        if (p.estado === "aplazado" && seccionAdminPanel !== "aplazados") return false;
-                        if (p.jornada === fechaAdmin) return true;
-                        if (p.jornada < fechaAdmin && p.estado === "programado") return true;
-                        return false;
+                        if (seccionAdminPanel === "aplazados") {
+                          return p.estado === "aplazado";
+                        }
+                        const jornadaOrigen = p.jornada_original || p.jornada;
+                        return jornadaOrigen === fechaAdmin;
                       });
                   const partidosActivosAdmin = partidosAdminFiltrados
                     .filter((p) => !estaSoloFinal(p))
@@ -3097,9 +3086,9 @@ function ExpressPageContent() {
                             <div>
                               <h3 style={{ margin: 0, color: "#ffffff", fontSize: "1.02rem", display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
                                 <span>{partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}</span>
-                                {((partido.jornada_original && partido.jornada_original !== partido.jornada) || esAplazado) && (
-                                  <span style={{ background: "rgba(245, 158, 11, 0.25)", color: "#fef08a", border: "1px solid rgba(245, 158, 11, 0.5)", padding: "2px 8px", borderRadius: 12, fontSize: "0.72rem", fontWeight: 800 }}>
-                                    ⚠️ Aplazado (Pertenece a Fecha {partido.jornada_original || partido.jornada})
+                                {(partido.estado === "aplazado" || (partido.jornada_original || partido.jornada) < fechaParticipante) && (
+                                  <span style={{ background: partido.estado === "aplazado" ? "rgba(245, 158, 11, 0.25)" : "rgba(59, 130, 246, 0.25)", color: partido.estado === "aplazado" ? "#fef08a" : "#93c5fd", border: "1px solid rgba(245, 158, 11, 0.5)", padding: "2px 8px", borderRadius: 12, fontSize: "0.72rem", fontWeight: 800 }}>
+                                    {partido.estado === "aplazado" ? "⚠️ Aplazado" : `⚡ Reactivado (Aparece en Fecha ${fechaParticipante})`}
                                   </span>
                                 )}
                               </h3>
@@ -4696,8 +4685,14 @@ function ExpressPageContent() {
                     return esFinalizado || hace2Horas;
                   };
 
-                  // Filtro estricto para participantes: mostrar únicamente los partidos programados/activos asignados a la jornada activa actual
-                  const partidosFiltradosParticipante = partidos.filter((p) => p.jornada === fechaParticipante && p.estado !== "aplazado");
+                  // Filtro estricto para participantes: partidos de la fecha activa + partidos aplazados de fechas anteriores reactivados
+                  const partidosFiltradosParticipante = partidos.filter((p) => {
+                    if (p.estado === "aplazado") return false;
+                    const jornadaOrigen = p.jornada_original || p.jornada;
+                    if (p.jornada === fechaParticipante || jornadaOrigen === fechaParticipante) return true;
+                    if (jornadaOrigen < fechaParticipante && p.estado === "programado") return true;
+                    return false;
+                  });
 
                   const partidosActivos = partidosFiltradosParticipante
                     .filter((p) => !estaSoloFinal(p))
