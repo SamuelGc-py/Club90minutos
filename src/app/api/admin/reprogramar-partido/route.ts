@@ -42,6 +42,10 @@ export async function POST(req: Request) {
       data.estado = estado as EstadoPartido;
       if (estado === "aplazado" && !partidoExistente.jornada_original) {
         data.jornada_original = partidoExistente.jornada;
+      } else if (estado === "programado" && partidoExistente.estado === "aplazado") {
+        if (!partidoExistente.jornada_original) {
+          data.jornada_original = partidoExistente.jornada;
+        }
       }
     }
     if (estadio !== undefined && estadio !== null) data.estadio = String(estadio).trim() || null;
