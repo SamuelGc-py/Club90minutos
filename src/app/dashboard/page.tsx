@@ -4696,8 +4696,8 @@ function ExpressPageContent() {
                     return esFinalizado || hace2Horas;
                   };
 
-                  // Filtro estricto para participantes: mostrar únicamente los partidos asignados a la jornada activa actual
-                  const partidosFiltradosParticipante = partidos.filter((p) => p.jornada === fechaParticipante);
+                  // Filtro estricto para participantes: mostrar únicamente los partidos programados/activos asignados a la jornada activa actual
+                  const partidosFiltradosParticipante = partidos.filter((p) => p.jornada === fechaParticipante && p.estado !== "aplazado");
 
                   const partidosActivos = partidosFiltradosParticipante
                     .filter((p) => !estaSoloFinal(p))
