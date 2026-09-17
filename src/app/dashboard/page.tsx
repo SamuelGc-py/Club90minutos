@@ -795,6 +795,8 @@ function ExpressPageContent() {
   const [nombreNuevoJugador, setNombreNuevoJugador] = useState("");
   const [guardandoJugador, setGuardandoJugador] = useState(false);
   const [filtroEquipoJugadores, setFiltroEquipoJugadores] = useState<number | "">("");
+  const [mostrarModalPlantilla, setMostrarModalPlantilla] = useState(false);
+  const [equipoModalId, setEquipoModalId] = useState<number | "todas">("todas");
 
   const handleCrearJugador = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -802,6 +804,17 @@ function ExpressPageContent() {
       toast.error("Por favor selecciona un equipo e ingresa el nombre del jugador.");
       return;
     }
+
+    const equipoObj = equipos.find((eq) => eq.id === Number(equipoJugadorSeleccionado));
+    const nombreConfirmar = nombreNuevoJugador.trim();
+    const equipoNombre = equipoObj ? equipoObj.nombre : "el equipo seleccionado";
+
+    const confirmado = window.confirm(
+      `⚠️ VERIFICACIÓN DE ORTOGRAFÍA:\n\n¿Estás seguro de añadir el jugador "${nombreConfirmar}" a la plantilla de "${equipoNombre}"?\n\nPor favor revisa que el nombre esté bien escrito antes de guardar.`
+    );
+
+    if (!confirmado) return;
+
     setGuardandoJugador(true);
     const toastId = toast.loading("Añadiendo jugador a la plantilla...");
     try {
@@ -810,7 +823,7 @@ function ExpressPageContent() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           usuario_id: usuario?.id,
-          nombre: nombreNuevoJugador.trim(),
+          nombre: nombreConfirmar,
           equipo_id: Number(equipoJugadorSeleccionado),
         }),
       });
@@ -824,6 +837,30 @@ function ExpressPageContent() {
       toast.error(err.message || "Error al añadir jugador.", { id: toastId });
     } finally {
       setGuardandoJugador(false);
+    }
+  };
+
+  const handleEliminarJugador = async (jugadorId: number, nombreJugador: string) => {
+    const conf = window.confirm(`⚠️ ¿Estás seguro de ELIMINAR a "${nombreJugador}" de la plantilla?`);
+    if (!conf) return;
+
+    const toastId = toast.loading("Eliminando jugador...");
+    try {
+      const res = await fetch("/api/admin/eliminar-jugador", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          usuario_id: usuario?.id,
+          jugador_id: jugadorId,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Error al eliminar jugador");
+
+      toast.success(data.mensaje, { id: toastId });
+      await cargarMaestros();
+    } catch (err: any) {
+      toast.error(err.message || "Error al eliminar jugador.", { id: toastId });
     }
   };
 
@@ -3923,10 +3960,6 @@ function ExpressPageContent() {
 
                   // ================= SECCIÓN: GESTIÓN DE JUGADORES =================
                   if (seccionAdminPanel === "jugadores") {
-                    const jugadoresFiltrados = filtroEquipoJugadores
-                      ? jugadores.filter((j) => j.equipo_id === Number(filtroEquipoJugadores))
-                      : jugadores;
-
                     return (
                       <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
                         <div>
@@ -4006,43 +4039,72 @@ function ExpressPageContent() {
                               </div>
                             </div>
 
-                            <button
-                              type="submit"
-                              disabled={guardandoJugador || !equipoJugadorSeleccionado || !nombreNuevoJugador.trim()}
-                              style={{
-                                alignSelf: "flex-start",
-                                display: "inline-flex",
-                                alignItems: "center",
-                                gap: 8,
-                                padding: "12px 24px",
-                                borderRadius: "12px",
-                                fontSize: "0.9rem",
-                                background: guardandoJugador
-                                  ? "rgba(255,255,255,0.1)"
-                                  : "linear-gradient(135deg, #ec4899 0%, #be185d 100%)",
-                                color: "#fff",
-                                border: "none",
-                                fontWeight: 900,
-                                cursor: guardandoJugador || !equipoJugadorSeleccionado || !nombreNuevoJugador.trim() ? "not-allowed" : "pointer",
-                                boxShadow: guardandoJugador ? "none" : "0 10px 25px -6px rgba(236, 72, 153, 0.5)",
-                                opacity: guardandoJugador || !equipoJugadorSeleccionado || !nombreNuevoJugador.trim() ? 0.6 : 1,
-                                transition: "all 0.2s",
-                              }}
-                            >
-                              {guardandoJugador ? (
-                                <>
-                                  <RefreshCw className="spin" size={16} /> Guardando...
-                                </>
-                              ) : (
-                                <>
-                                  ➕ Añadir Jugador a la Plantilla
-                                </>
+                            <div style={{ display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center" }}>
+                              <button
+                                type="submit"
+                                disabled={guardandoJugador || !equipoJugadorSeleccionado || !nombreNuevoJugador.trim()}
+                                style={{
+                                  display: "inline-flex",
+                                  alignItems: "center",
+                                  gap: 8,
+                                  padding: "12px 24px",
+                                  borderRadius: "12px",
+                                  fontSize: "0.9rem",
+                                  background: guardandoJugador
+                                    ? "rgba(255,255,255,0.1)"
+                                    : "linear-gradient(135deg, #ec4899 0%, #be185d 100%)",
+                                  color: "#fff",
+                                  border: "none",
+                                  fontWeight: 900,
+                                  cursor: guardandoJugador || !equipoJugadorSeleccionado || !nombreNuevoJugador.trim() ? "not-allowed" : "pointer",
+                                  boxShadow: guardandoJugador ? "none" : "0 10px 25px -6px rgba(236, 72, 153, 0.5)",
+                                  opacity: guardandoJugador || !equipoJugadorSeleccionado || !nombreNuevoJugador.trim() ? 0.6 : 1,
+                                  transition: "all 0.2s",
+                                }}
+                              >
+                                {guardandoJugador ? (
+                                  <>
+                                    <RefreshCw className="spin" size={16} /> Guardando...
+                                  </>
+                                ) : (
+                                  <>
+                                    ➕ Añadir Jugador a la Plantilla
+                                  </>
+                                )}
+                              </button>
+
+                              {equipoJugadorSeleccionado !== "" && (
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    setEquipoModalId(Number(equipoJugadorSeleccionado));
+                                    setMostrarModalPlantilla(true);
+                                  }}
+                                  style={{
+                                    display: "inline-flex",
+                                    alignItems: "center",
+                                    gap: 8,
+                                    padding: "12px 20px",
+                                    borderRadius: "12px",
+                                    fontSize: "0.88rem",
+                                    background: "rgba(59, 130, 246, 0.2)",
+                                    color: "#60a5fa",
+                                    border: "1px solid rgba(59, 130, 246, 0.4)",
+                                    fontWeight: 800,
+                                    cursor: "pointer",
+                                    transition: "all 0.2s",
+                                  }}
+                                  onMouseOver={(e) => (e.currentTarget.style.background = "rgba(59, 130, 246, 0.35)")}
+                                  onMouseOut={(e) => (e.currentTarget.style.background = "rgba(59, 130, 246, 0.2)")}
+                                >
+                                  <Eye size={16} /> Ver Plantilla de {equipos.find((e) => e.id === Number(equipoJugadorSeleccionado))?.nombre || "este Equipo"}
+                                </button>
                               )}
-                            </button>
+                            </div>
                           </form>
                         </div>
 
-                        {/* VISTA DE PLANTILLAS POR EQUIPO */}
+                        {/* TARJETA ACCESO RÁPIDO A PLANTILLAS (VENTANA EMERGENTE) */}
                         <div
                           style={{
                             background: "rgba(15, 23, 42, 0.6)",
@@ -4053,83 +4115,101 @@ function ExpressPageContent() {
                             boxShadow: "0 20px 40px -10px rgba(0,0,0,0.45)",
                           }}
                         >
-                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16, marginBottom: 20 }}>
+                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16, marginBottom: 16 }}>
                             <div>
                               <h3 style={{ margin: 0, color: "#fff", fontSize: "1.05rem", fontWeight: 800 }}>
-                                📋 Plantillas Registradas ({jugadores.length} jugadores)
+                                📋 Plantillas de Equipos Registradas ({jugadores.length} jugadores)
                               </h3>
                               <p style={{ margin: "4px 0 0", color: "#94a3b8", fontSize: "0.8rem" }}>
-                                Filtra por equipo para revisar quiénes ya están registrados.
+                                Haz clic en cualquier equipo o en el botón para abrir la plantilla completa en una ventana emergente.
                               </p>
                             </div>
 
-                            <select
-                              value={filtroEquipoJugadores}
-                              onChange={(e) => setFiltroEquipoJugadores(e.target.value ? Number(e.target.value) : "")}
-                              style={{
-                                padding: "10px 14px",
-                                borderRadius: "12px",
-                                border: "1px solid rgba(255,255,255,0.1)",
-                                background: "rgba(15,23,42,0.85)",
-                                color: "#fff",
-                                fontSize: "0.85rem",
-                                fontWeight: 700,
-                                cursor: "pointer",
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setEquipoModalId("todas");
+                                setMostrarModalPlantilla(true);
                               }}
+                              style={{
+                                padding: "10px 18px",
+                                borderRadius: "12px",
+                                background: "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)",
+                                color: "#fff",
+                                border: "none",
+                                fontWeight: 800,
+                                fontSize: "0.85rem",
+                                cursor: "pointer",
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: 8,
+                                boxShadow: "0 8px 20px -4px rgba(59, 130, 246, 0.5)",
+                                transition: "all 0.2s",
+                              }}
+                              onMouseOver={(e) => (e.currentTarget.style.transform = "translateY(-1px)")}
+                              onMouseOut={(e) => (e.currentTarget.style.transform = "none")}
                             >
-                              <option value="">🏆 Todos los Equipos ({jugadores.length})</option>
-                              {equipos.map((eq) => {
-                                const cant = jugadores.filter((j) => j.equipo_id === eq.id).length;
-                                return (
-                                  <option key={eq.id} value={eq.id}>
-                                    {eq.nombre} ({cant} jugadores)
-                                  </option>
-                                );
-                              })}
-                            </select>
+                              <Eye size={16} /> Abrir Ventana Emergente
+                            </button>
                           </div>
 
-                          {jugadoresFiltrados.length === 0 ? (
-                            <div style={{ padding: 30, textAlign: "center", color: "#94a3b8", background: "rgba(0,0,0,0.2)", borderRadius: 16 }}>
-                              No hay jugadores registrados para este filtro.
-                            </div>
-                          ) : (
-                            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 12 }}>
-                              {jugadoresFiltrados.map((j) => {
-                                const eq = j.equipo || equipos.find((e) => e.id === j.equipo_id);
-                                return (
-                                  <div
-                                    key={j.id}
-                                    style={{
-                                      display: "flex",
-                                      alignItems: "center",
-                                      gap: 12,
-                                      padding: "12px 14px",
-                                      borderRadius: "14px",
-                                      background: "rgba(30, 41, 59, 0.4)",
-                                      border: "1px solid rgba(255,255,255,0.06)",
-                                    }}
-                                  >
-                                    {eq?.escudo_url ? (
-                                      <img src={eq.escudo_url} alt={eq.nombre} style={{ width: 28, height: 28, objectFit: "contain", flexShrink: 0 }} />
-                                    ) : (
-                                      <div style={{ width: 28, height: 28, borderRadius: "50%", background: "rgba(255,255,255,0.1)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.75rem", color: "#fff", fontWeight: 900 }}>
-                                        ⚽
-                                      </div>
-                                    )}
-                                    <div style={{ minWidth: 0 }}>
-                                      <div style={{ fontSize: "0.88rem", color: "#fff", fontWeight: 800, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                                        {j.nombre}
-                                      </div>
-                                      <div style={{ fontSize: "0.72rem", color: "#94a3b8", fontWeight: 600 }}>
-                                        {eq?.nombre || `Equipo ID: ${j.equipo_id}`}
-                                      </div>
-                                    </div>
-                                  </div>
-                                );
-                              })}
-                            </div>
-                          )}
+                          {/* Chips de Equipos */}
+                          <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 12 }}>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setEquipoModalId("todas");
+                                setMostrarModalPlantilla(true);
+                              }}
+                              style={{
+                                padding: "8px 14px",
+                                borderRadius: "12px",
+                                background: "rgba(236, 72, 153, 0.2)",
+                                color: "#f472b6",
+                                border: "1px solid rgba(236, 72, 153, 0.4)",
+                                fontWeight: 800,
+                                fontSize: "0.8rem",
+                                cursor: "pointer",
+                                display: "flex",
+                                alignItems: "center",
+                                gap: 6,
+                              }}
+                            >
+                              🏆 Todos los Equipos ({jugadores.length})
+                            </button>
+                            {equipos.map((eq) => {
+                              const cant = jugadores.filter((j) => j.equipo_id === eq.id).length;
+                              return (
+                                <button
+                                  key={eq.id}
+                                  type="button"
+                                  onClick={() => {
+                                    setEquipoModalId(eq.id);
+                                    setMostrarModalPlantilla(true);
+                                  }}
+                                  style={{
+                                    padding: "8px 14px",
+                                    borderRadius: "12px",
+                                    background: "rgba(255,255,255,0.05)",
+                                    color: "#fff",
+                                    border: "1px solid rgba(255,255,255,0.1)",
+                                    fontWeight: 700,
+                                    fontSize: "0.8rem",
+                                    cursor: "pointer",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: 8,
+                                    transition: "all 0.2s",
+                                  }}
+                                  onMouseOver={(e) => (e.currentTarget.style.background = "rgba(236, 72, 153, 0.15)")}
+                                  onMouseOut={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.05)")}
+                                >
+                                  {eq.escudo_url && <img src={eq.escudo_url} alt={eq.nombre} style={{ width: 20, height: 20, objectFit: "contain" }} />}
+                                  <span>{eq.nombre} ({cant})</span>
+                                </button>
+                              );
+                            })}
+                          </div>
                         </div>
                       </div>
                     );
@@ -5889,6 +5969,273 @@ function ExpressPageContent() {
 
       {/* MODAL DE TRIVIA */}
       {mostrarTrivia && <TriviaModal onClose={() => setMostrarTrivia(false)} />}
+
+      {/* MODAL EMERGENTE: PLANTILLAS DE JUGADORES */}
+      {mostrarModalPlantilla && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "rgba(10, 15, 26, 0.85)",
+            backdropFilter: "blur(12px)",
+            WebkitBackdropFilter: "blur(12px)",
+            zIndex: 99999,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "20px",
+          }}
+          onClick={() => setMostrarModalPlantilla(false)}
+        >
+          <div
+            style={{
+              background: "linear-gradient(145deg, rgba(15, 23, 42, 0.96) 0%, rgba(30, 41, 59, 0.98) 100%)",
+              border: "1px solid rgba(236, 72, 153, 0.4)",
+              borderRadius: "24px",
+              boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.85), 0 0 40px rgba(236, 72, 153, 0.2)",
+              maxWidth: "760px",
+              width: "100%",
+              maxHeight: "85vh",
+              display: "flex",
+              flexDirection: "column",
+              overflow: "hidden",
+              position: "relative",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header del Modal */}
+            <div
+              style={{
+                padding: "20px 24px",
+                borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                background: "rgba(0, 0, 0, 0.3)",
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                {equipoModalId !== "todas" && (equipos.find(e => e.id === Number(equipoModalId))?.escudo_url) ? (
+                  <img
+                    src={equipos.find(e => e.id === Number(equipoModalId))?.escudo_url}
+                    alt="Escudo"
+                    style={{ width: 36, height: 36, objectFit: "contain" }}
+                  />
+                ) : (
+                  <div
+                    style={{
+                      width: 36,
+                      height: 36,
+                      borderRadius: "12px",
+                      background: "linear-gradient(135deg, #ec4899 0%, #be185d 100%)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "#fff",
+                      fontWeight: 900,
+                    }}
+                  >
+                    ⚽
+                  </div>
+                )}
+                <div>
+                  <h3 style={{ margin: 0, color: "#fff", fontSize: "1.15rem", fontWeight: 900 }}>
+                    {equipoModalId === "todas"
+                      ? "📋 Plantillas Registradas (Todos los Equipos)"
+                      : `📋 Plantilla: ${equipos.find(e => e.id === Number(equipoModalId))?.nombre || "Equipo"}`}
+                  </h3>
+                  <span style={{ fontSize: "0.8rem", color: "#ec4899", fontWeight: 700 }}>
+                    {equipoModalId === "todas"
+                      ? `${jugadores.length} jugadores en total`
+                      : `${jugadores.filter(j => j.equipo_id === Number(equipoModalId)).length} jugadores registrados`}
+                  </span>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setMostrarModalPlantilla(false)}
+                style={{
+                  background: "rgba(255, 255, 255, 0.1)",
+                  border: "none",
+                  color: "#fff",
+                  width: 34,
+                  height: 34,
+                  borderRadius: "50%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer",
+                  fontWeight: 900,
+                  fontSize: "1rem",
+                  transition: "all 0.2s",
+                }}
+                onMouseOver={(e) => (e.currentTarget.style.background = "rgba(239, 68, 68, 0.4)")}
+                onMouseOut={(e) => (e.currentTarget.style.background = "rgba(255, 255, 255, 0.1)")}
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Selector de equipo dentro del Modal */}
+            <div
+              style={{
+                padding: "12px 24px",
+                background: "rgba(0, 0, 0, 0.2)",
+                borderBottom: "1px solid rgba(255, 255, 255, 0.05)",
+                display: "flex",
+                alignItems: "center",
+                gap: 12,
+                flexWrap: "wrap",
+              }}
+            >
+              <span style={{ fontSize: "0.82rem", color: "#94a3b8", fontWeight: 700 }}>
+                Cambiar Equipo:
+              </span>
+              <select
+                value={equipoModalId}
+                onChange={(e) => setEquipoModalId(e.target.value === "todas" ? "todas" : Number(e.target.value))}
+                style={{
+                  padding: "8px 14px",
+                  borderRadius: "10px",
+                  border: "1px solid rgba(255,255,255,0.15)",
+                  background: "rgba(15,23,42,0.9)",
+                  color: "#fff",
+                  fontSize: "0.85rem",
+                  fontWeight: 700,
+                  cursor: "pointer",
+                  flex: 1,
+                  minWidth: 200,
+                }}
+              >
+                <option value="todas">🏆 Todos los Equipos ({jugadores.length} jugadores)</option>
+                {equipos.map((eq) => {
+                  const cant = jugadores.filter((j) => j.equipo_id === eq.id).length;
+                  return (
+                    <option key={eq.id} value={eq.id}>
+                      {eq.nombre} ({cant} jugadores)
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+
+            {/* Cuerpo / Lista de Jugadores */}
+            <div style={{ padding: "24px", overflowY: "auto", flex: 1 }}>
+              {(() => {
+                const listaAMostrar = equipoModalId === "todas"
+                  ? jugadores
+                  : jugadores.filter((j) => j.equipo_id === Number(equipoModalId));
+
+                if (listaAMostrar.length === 0) {
+                  return (
+                    <div style={{ padding: 40, textAlign: "center", color: "#94a3b8", background: "rgba(0,0,0,0.2)", borderRadius: 16 }}>
+                      No hay jugadores registrados en esta plantilla.
+                    </div>
+                  );
+                }
+
+                return (
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(210px, 1fr))", gap: 12 }}>
+                    {listaAMostrar.map((j) => {
+                      const eq = j.equipo || equipos.find((e) => e.id === j.equipo_id);
+                      return (
+                        <div
+                          key={j.id}
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            gap: 10,
+                            padding: "12px 14px",
+                            borderRadius: "14px",
+                            background: "rgba(30, 41, 59, 0.6)",
+                            border: "1px solid rgba(255,255,255,0.08)",
+                            boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
+                          }}
+                        >
+                          <div style={{ display: "flex", alignItems: "center", gap: 10, minWidth: 0 }}>
+                            {eq?.escudo_url ? (
+                              <img src={eq.escudo_url} alt={eq.nombre} style={{ width: 32, height: 32, objectFit: "contain", flexShrink: 0 }} />
+                            ) : (
+                              <div style={{ width: 32, height: 32, borderRadius: "50%", background: "rgba(255,255,255,0.1)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.8rem", color: "#fff", fontWeight: 900 }}>
+                                ⚽
+                              </div>
+                            )}
+                            <div style={{ minWidth: 0 }}>
+                              <div style={{ fontSize: "0.9rem", color: "#fff", fontWeight: 800, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                                {j.nombre}
+                              </div>
+                              <div style={{ fontSize: "0.74rem", color: "#94a3b8", fontWeight: 600 }}>
+                                {eq?.nombre || `Equipo ID: ${j.equipo_id}`}
+                              </div>
+                            </div>
+                          </div>
+
+                          <button
+                            type="button"
+                            onClick={() => handleEliminarJugador(j.id, j.nombre)}
+                            title={`Eliminar ${j.nombre}`}
+                            style={{
+                              background: "rgba(239, 68, 68, 0.15)",
+                              border: "1px solid rgba(239, 68, 68, 0.3)",
+                              color: "#ef4444",
+                              width: 28,
+                              height: 28,
+                              borderRadius: "8px",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              cursor: "pointer",
+                              flexShrink: 0,
+                              transition: "all 0.2s",
+                            }}
+                            onMouseOver={(e) => (e.currentTarget.style.background = "rgba(239, 68, 68, 0.35)")}
+                            onMouseOut={(e) => (e.currentTarget.style.background = "rgba(239, 68, 68, 0.15)")}
+                          >
+                            <Trash2 size={14} />
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
+              })()}
+            </div>
+
+            {/* Footer del Modal */}
+            <div
+              style={{
+                padding: "16px 24px",
+                borderTop: "1px solid rgba(255, 255, 255, 0.1)",
+                background: "rgba(0, 0, 0, 0.3)",
+                display: "flex",
+                justifyContent: "flex-end",
+              }}
+            >
+              <button
+                type="button"
+                onClick={() => setMostrarModalPlantilla(false)}
+                style={{
+                  padding: "10px 22px",
+                  borderRadius: "12px",
+                  background: "rgba(255, 255, 255, 0.1)",
+                  color: "#fff",
+                  border: "1px solid rgba(255, 255, 255, 0.2)",
+                  fontWeight: 800,
+                  fontSize: "0.85rem",
+                  cursor: "pointer",
+                }}
+              >
+                Cerrar Ventana
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
