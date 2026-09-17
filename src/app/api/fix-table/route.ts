@@ -6,6 +6,11 @@ export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
+    await prisma.partido.updateMany({
+      where: { jornada_original: { not: null } },
+      data: { jornada_original: null }
+    });
+
     await prisma.puntaje.deleteMany();
     const resultadosOficiales = await prisma.resultadoOficial.findMany({
       include: { goleadores: true },
