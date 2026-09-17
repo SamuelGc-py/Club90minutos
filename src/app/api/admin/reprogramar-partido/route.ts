@@ -40,8 +40,11 @@ export async function POST(req: Request) {
     if (fecha_hora_partido) data.fecha_hora_partido = new Date(fecha_hora_partido);
     if (estado) {
       data.estado = estado as EstadoPartido;
-      if (estado === "aplazado" && !partidoExistente.jornada_original) {
-        data.jornada_original = partidoExistente.jornada;
+      if (estado === "aplazado") {
+        if (partidoExistente.jornada_original) {
+          data.jornada = partidoExistente.jornada_original;
+          data.jornada_original = null;
+        }
       } else if (estado === "programado" && partidoExistente.estado === "aplazado") {
         if (!partidoExistente.jornada_original) {
           data.jornada_original = partidoExistente.jornada;
