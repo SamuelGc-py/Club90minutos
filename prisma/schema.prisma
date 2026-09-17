@@ -122,6 +122,7 @@ model Partido {
   id                       Int           @id @default(autoincrement())
   fase                     Fase
   jornada                  Int
+  jornada_original         Int?
   grupo                    Grupo?
   equipo_local_id          Int
   equipo_visitante_id      Int

@@ -30,6 +30,7 @@ interface Partido {
   id: number;
   fase: string;
   jornada: number;
+  jornada_original?: number | null;
   equipo_local: Equipo;
   equipo_visitante: Equipo;
   fecha_hora_partido: string;
@@ -876,8 +877,8 @@ function ExpressPageContent() {
 
       const cierresJornada: Record<number, number> = {};
       jornadas.forEach(j => {
-        // EXCLUIR partidos aplazados, ya que sus fechas futuras destruyen el cálculo de la jornada actual
-        const partidosJornada = partidos.filter(p => p.jornada === j && p.estado !== "aplazado");
+        // EXCLUIR partidos aplazados y partidos que fueron reprogramados a otra fecha diferente de su jornada original
+        const partidosJornada = partidos.filter(p => p.jornada === j && p.estado !== "aplazado" && (!p.jornada_original || p.jornada_original === j));
         if (partidosJornada.length > 0) {
           const maxTime = Math.max(...partidosJornada.map(p => new Date(p.fecha_hora_partido).getTime()));
           cierresJornada[j] = maxTime + (3 * 60 * 60 * 1000); // Kickoff + 3 horas
@@ -1882,9 +1883,9 @@ function ExpressPageContent() {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8, flexWrap: "wrap", marginBottom: 6 }}>
             <span style={{ fontWeight: 800, color: "#ffffff", fontSize: "0.95rem", display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
               <span>{partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}</span>
-              {(partido.jornada !== fechaParticipante || esAplazado) && (
+              {(partido.jornada_original || partido.jornada !== fechaParticipante || esAplazado) && (
                 <span style={{ background: "rgba(245, 158, 11, 0.15)", color: "#fcd34d", border: "1px dashed rgba(245, 158, 11, 0.6)", padding: "2px 8px", borderRadius: 6, fontSize: "0.72rem", fontWeight: 800 }}>
-                  ⚠️ Aplazado (Fecha {partido.jornada})
+                  ⚠️ Aplazado (Pertenece a Fecha {partido.jornada_original || partido.jornada})
                 </span>
               )}
             </span>
@@ -3078,9 +3079,9 @@ function ExpressPageContent() {
                             <div>
                               <h3 style={{ margin: 0, color: "#ffffff", fontSize: "1.02rem", display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
                                 <span>{partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}</span>
-                                {(partido.jornada !== fechaAdmin || partido.estado === "aplazado") && (
+                                {(partido.jornada_original || partido.jornada !== fechaAdmin || partido.estado === "aplazado") && (
                                   <span style={{ background: "rgba(245, 158, 11, 0.25)", color: "#fef08a", border: "1px solid rgba(245, 158, 11, 0.5)", padding: "2px 8px", borderRadius: 12, fontSize: "0.72rem", fontWeight: 800 }}>
-                                    ⚠️ Aplazado (Fecha {partido.jornada})
+                                    ⚠️ Aplazado (Pertenece a Fecha {partido.jornada_original || partido.jornada})
                                   </span>
                                 )}
                               </h3>
@@ -3227,8 +3228,13 @@ function ExpressPageContent() {
                             <span style={{ fontSize: "1rem", fontWeight: 900, color: "#fff" }}>VS</span>
                             <img src={partido.equipo_visitante.escudo_url} alt={partido.equipo_visitante.nombre} style={{ width: 36, height: 36, objectFit: "contain" }} />
                           </div>
-                          <h3 style={{ margin: 0, color: "#ffffff", fontSize: "1.02rem" }}>
-                            {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}
+                          <h3 style={{ margin: 0, color: "#ffffff", fontSize: "1.02rem", display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+                            <span>{partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}</span>
+                            {(partido.jornada_original || esAplazado) && (
+                              <span style={{ background: "rgba(245, 158, 11, 0.25)", color: "#fef08a", border: "1px solid rgba(245, 158, 11, 0.5)", padding: "2px 8px", borderRadius: 12, fontSize: "0.72rem", fontWeight: 800 }}>
+                                ⚠️ Aplazado (Pertenece a Fecha {partido.jornada_original || partido.jornada})
+                              </span>
+                            )}
                           </h3>
                         </div>
 

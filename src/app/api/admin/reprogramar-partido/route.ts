@@ -21,10 +21,29 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "No tienes permisos de administrador" }, { status: 403 });
     }
 
-    const data: { jornada?: number; fecha_hora_partido?: Date; estado?: EstadoPartido; estadio?: string | null } = {};
-    if (jornada !== undefined && jornada !== null && jornada !== "") data.jornada = Number(jornada);
+    const partidoExistente = await prisma.partido.findUnique({
+      where: { id: Number(partido_id) },
+    });
+
+    if (!partidoExistente) {
+      return NextResponse.json({ error: "Partido no encontrado" }, { status: 404 });
+    }
+
+    const data: { jornada?: number; jornada_original?: number | null; fecha_hora_partido?: Date; estado?: EstadoPartido; estadio?: string | null } = {};
+    if (jornada !== undefined && jornada !== null && jornada !== "") {
+      const nuevaJornada = Number(jornada);
+      if (nuevaJornada !== partidoExistente.jornada) {
+        data.jornada_original = partidoExistente.jornada_original ?? partidoExistente.jornada;
+        data.jornada = nuevaJornada;
+      }
+    }
     if (fecha_hora_partido) data.fecha_hora_partido = new Date(fecha_hora_partido);
-    if (estado) data.estado = estado as EstadoPartido;
+    if (estado) {
+      data.estado = estado as EstadoPartido;
+      if (estado === "aplazado" && !partidoExistente.jornada_original) {
+        data.jornada_original = partidoExistente.jornada;
+      }
+    }
     if (estadio !== undefined && estadio !== null) data.estadio = String(estadio).trim() || null;
 
     if (Object.keys(data).length === 0) {
