@@ -1,0 +1,211 @@
+[
+  {
+    "id": 3,
+    "nombre_completo": "Administrador Polla",
+    "correo": "adminpollabetplay@gmail.com",
+    "telefono": null,
+    "password": "$2b$10$RQHzhZi2J9jR5H/NJd0OP.7Qbu16HKnOFxXS6sLPJ46N4qM30R4dC",
+    "sesion_token": "eedebe10-af44-4a3e-a189-dd811ebb3f44",
+    "rol_id": 2,
+    "fecha_registro": "2026-07-23T22:20:31.772Z",
+    "activo": true
+  },
+  {
+    "id": 34,
+    "nombre_completo": "Lucas Saavedra",
+    "correo": "moisessaavedra496@gmail.com",
+    "telefono": null,
+    "password": "$2b$10$MSnt0saUw/zztj5AicfcM.x1Hf5UBQPZWL7V8F6xrFcjdPaZHjuTe",
+    "sesion_token": "89376bf4-851a-4aff-b4eb-ab8051894bca",
+    "rol_id": 1,
+    "fecha_registro": "2026-07-25T01:11:04.493Z",
+    "activo": true
+  },
+  {
+    "id": 9,
+    "nombre_completo": "Ricardo Soto",
+    "correo": "ricardosotogom@gmail.com",
+    "telefono": "3150638393",
+    "password": "$2b$10$Be13bAZqaUM8LB1ruaZ3DeYv9K/p4NGJ5xvdRXUzn0RaZyl.A0D06",
+    "sesion_token": "cb33dfff-a077-48e5-bcd0-f85a243b36f7",
+    "rol_id": 1,
+    "fecha_registro": "2026-07-24T19:53:21.835Z",
+    "activo": true
+  },
+  {
+    "id": 5,
+    "nombre_completo": "Nelson Berdugo",
+    "correo": "nelson.berdugo05@gmail.com",
+    "telefono": "3004682020",
+    "password": "$2b$10$DIsIyoM6sgurAinVE7MTa.Pm.1Jv1.N9HkDQ09p.D4YPNieOctj22",
+    "sesion_token": "e137f559-1918-42d4-8536-98d14982b86c",
+    "rol_id": 1,
+    "fecha_registro": "2026-07-24T19:53:21.467Z",
+    "activo": true
+  },
+  {
+    "id": 4,
+    "nombre_completo": "Ricardo Vanegas",
+    "correo": "ricardo101228@gmail.com",
+    "telefono": "3008650808",
+    "password": "$2b$10$kRBADLg7/yRjaSyN23jDUO/v28eLFyjAROEJAgnNfkirF7WsOhsm6",
+    "sesion_token": "cf45bea5-e204-4ea3-89ec-3bdf3c711793",
+    "rol_id": 1,
+    "fecha_registro": "2026-07-24T19:53:21.275Z",
+    "activo": true
+  },
+  {
+    "id": 7,
+    "nombre_completo": "Harold Berdugo",
+    "correo": "hberdugodelosreyes0@gmail.com",
+    "telefono": "3024494407",
+    "password": "$2b$10$xXjVmlKeue3QJme1yS4gveWSb0jxPUrdakO9/Q4dA90Xql4uo3fgu",
+    "sesion_token": "f3b69289-a50a-45dd-8fbc-2559b022c05d",
+    "rol_id": 1,
+    "fecha_registro": "2026-07-24T19:53:21.651Z",
+    "activo": true
+  },
+  {
+    "id": 6,
+    "nombre_completo": "Ignacio Barrios",
+    "correo": "iangelbarrios16@gmail.com",
+    "telefono": "3006517922",
+    "password": "$2b$10$193EQvU289ciuyK/p70jaOdajPmMgJQQdRNk7krT6begtl32OVo4q",
+    "sesion_token": "7514f372-41ab-4e6e-a7f9-ff5996edf2b4",
+    "rol_id": 1,
+    "fecha_registro": "2026-07-24T19:53:21.551Z",
+    "activo": true
+  },
+  {
+    "id": 33,
+    "nombre_completo": "Manuel Cabarcas",
+    "correo": "stherton@gmail.com",
+    "telefono": null,
+    "password": "$2b$10$dCD6qUYe0Cg1Fiv5L/5XjONWCYB6PIF2x9AxOybA4fRd0D2BBT0A.",
+    "sesion_token": "00b52eb0-e724-40f5-8a39-bbac75016e19",
+    "rol_id": 1,
+    "fecha_registro": "2026-07-24T22:21:33.937Z",
+    "activo": true
+  },
+  {
+    "id": 17,
+    "nombre_completo": "Andres del Toro",
+    "correo": "pipedeltoro@hotmail.com",
+    "telefono": null,
+    "password": "$2b$10$ABIetQQ.FNb.hiJeq7Yl1uWHOgUonq3VM.Zh1n2z8siqSU2dFYaY6",
+    "sesion_token": "2aef5a60-b187-4ec0-9205-b70cb1e120a3",
+    "rol_id": 1,
+    "fecha_registro": "2026-07-24T21:04:59.629Z",
+    "activo": true
+  },
+  {
+    "id": 16,
+    "nombre_completo": "Juan Hernandez",
+    "correo": "juanhermon24@gmail.com",
+    "telefono": null,
+    "password": "$2b$10$kkOhsodr5dO0U51jpBd3JOFtteGIQ3N15MpppjiQT8ZBvbK11zdBG",
+    "sesion_token": "902c3a31-c60d-4dae-9824-26c640f1854e",
+    "rol_id": 1,
+    "fecha_registro": "2026-07-24T21:04:59.552Z",
+    "activo": true
+  },
+  {
+    "id": 18,
+    "nombre_completo": "Rene Osorio",
+    "correo": "rene26203@gmail.com",
+    "telefono": null,
+    "password": "$2b$10$oO3T689t6FzAbvXp8YlpDOkXq9aSDYLc./iJAhWH.Xp.wwJEd/p9m",
+    "sesion_token": "5194d612-41bf-4d4a-b407-461d260aa303",
+    "rol_id": 1,
+    "fecha_registro": "2026-07-24T21:04:59.731Z",
+    "activo": true
+  },
+  {
+    "id": 2,
+    "nombre_completo": "Samuel Gutierrez",
+    "correo": "samucobaggg@gmail.com",
+    "telefono": null,
+    "password": "$2b$10$/kO4BLtU7eyr79mvfWXGveQ/8JhNhR.SluNLHphNyPid6ZUbHfpYK",
+    "sesion_token": "a030e17d-52c1-4648-a7b1-e953bd9875b0",
+    "rol_id": 1,
+    "fecha_registro": "2026-07-23T22:20:31.620Z",
+    "activo": true
+  },
+  {
+    "id": 32,
+    "nombre_completo": "Luis Betancourt",
+    "correo": "luismibetara15@hotmail.com",
+    "telefono": null,
+    "password": "$2b$10$c14L6w0Y3lplYDPww4vc4uRcycoiLLqy.fJdUh.RmQ.y0IAmY8tyy",
+    "sesion_token": "a8817790-37ad-4c60-9819-3f71f9581253",
+    "rol_id": 1,
+    "fecha_registro": "2026-07-24T21:53:15.480Z",
+    "activo": true
+  },
+  {
+    "id": 31,
+    "nombre_completo": "Romario Gomez",
+    "correo": "gomezromario24@gmail.com",
+    "telefono": null,
+    "password": "$2b$10$ORJQiuwOyfOaHI9OmBgT/uNZllILBE3M3ok113NjY9mfeVJAPYNSK",
+    "sesion_token": "f33035ae-c841-4df0-be58-7a24f2287a5d",
+    "rol_id": 1,
+    "fecha_registro": "2026-07-24T21:53:15.409Z",
+    "activo": true
+  },
+  {
+    "id": 30,
+    "nombre_completo": "Hernando Davila",
+    "correo": "nandorafa@hotmail.com",
+    "telefono": null,
+    "password": "$2b$10$91YkN7ksmX7LO0baJr1ZWu4MK4MtTudpbje3wBSVAo.ba2KEmx0C2",
+    "sesion_token": "27476ec9-24a1-4f0f-ba19-df904742c653",
+    "rol_id": 1,
+    "fecha_registro": "2026-07-24T21:53:15.264Z",
+    "activo": true
+  },
+  {
+    "id": 36,
+    "nombre_completo": "PRUEBA ",
+    "correo": "PRUEBA@GMAIL.COM",
+    "telefono": null,
+    "password": "$2b$10$fI2W1ygdSd1JBWjbFzW5SuNhJ2wKqFYysfPDkbQgp3CBj.hOR2H6.",
+    "sesion_token": null,
+    "rol_id": 1,
+    "fecha_registro": "2026-08-15T21:05:32.380Z",
+    "activo": false
+  },
+  {
+    "id": 19,
+    "nombre_completo": "Erick Andrade",
+    "correo": "andradeferrer@hotmail.com",
+    "telefono": null,
+    "password": "$2b$10$v329rJ8OuWCVCqkIHSaCQuBRfHaAol0lznJu3RTgFMGUOWOMdc6Fq",
+    "sesion_token": "f734640b-8a63-4860-bdf2-1618645d4cfa",
+    "rol_id": 1,
+    "fecha_registro": "2026-07-24T21:04:59.833Z",
+    "activo": true
+  },
+  {
+    "id": 35,
+    "nombre_completo": "🧪 Participante de Prueba (Admin)",
+    "correo": "prueba.admin@pollabetplay.com",
+    "telefono": null,
+    "password": "123",
+    "sesion_token": null,
+    "rol_id": 1,
+    "fecha_registro": "2026-07-25T20:05:45.979Z",
+    "activo": false
+  },
+  {
+    "id": 8,
+    "nombre_completo": "Pedro Cantero",
+    "correo": "pedrocanterojr@gmail.com",
+    "telefono": "3012072571",
+    "password": "$2b$10$FP5OHvFEQBHlNT7y1LgMuu8hljS6Q1z/L9f4YFIt9S3f3PVRuSqT2",
+    "sesion_token": "75b6e0b2-7b64-409d-afdf-8d12cc83bd50",
+    "rol_id": 1,
+    "fecha_registro": "2026-07-24T19:53:21.745Z",
+    "activo": true
+  }
+]

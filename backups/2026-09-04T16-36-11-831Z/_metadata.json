@@ -1,0 +1,12 @@
+{
+  "fecha_backup": "2026-09-04T16:36:14.419Z",
+  "motivo": "Backup previo a corrección de distribución de categorías (Fase 5, corregir-categorias-desde-maestro.ts)",
+  "registros_por_tabla": {
+    "usuario": 19,
+    "puntaje": 608,
+    "resultado_oficial": 63,
+    "prediccion_partido": 891,
+    "prediccion_inicial": 15,
+    "partido": 162
+  }
+}

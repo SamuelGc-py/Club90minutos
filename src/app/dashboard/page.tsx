@@ -788,7 +788,44 @@ function ExpressPageContent() {
   const [fechaParticipante, setFechaParticipante] = useState<number>(3); // Auto-determinado por progreso de la polla
   const [fechaAdmin, setFechaAdmin] = useState<number>(0); // 0 indica que no se ha seteado aún
   const [seccionAdmin, setSeccionAdmin] = useState<"partidos" | "torneo">("partidos");
-  const [seccionAdminPanel, setSeccionAdminPanel] = useState<"predicciones" | "predicciones_torneo" | "liquidacion" | "posiciones" | "aplazados" | "editar_partidos">("predicciones");
+  const [seccionAdminPanel, setSeccionAdminPanel] = useState<"predicciones" | "predicciones_torneo" | "liquidacion" | "posiciones" | "aplazados" | "editar_partidos" | "jugadores">("predicciones");
+
+  // Estado para creación de jugadores en Admin
+  const [equipoJugadorSeleccionado, setEquipoJugadorSeleccionado] = useState<number | "">("");
+  const [nombreNuevoJugador, setNombreNuevoJugador] = useState("");
+  const [guardandoJugador, setGuardandoJugador] = useState(false);
+  const [filtroEquipoJugadores, setFiltroEquipoJugadores] = useState<number | "">("");
+
+  const handleCrearJugador = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!equipoJugadorSeleccionado || !nombreNuevoJugador.trim()) {
+      toast.error("Por favor selecciona un equipo e ingresa el nombre del jugador.");
+      return;
+    }
+    setGuardandoJugador(true);
+    const toastId = toast.loading("Añadiendo jugador a la plantilla...");
+    try {
+      const res = await fetch("/api/admin/crear-jugador", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          usuario_id: usuario?.id,
+          nombre: nombreNuevoJugador.trim(),
+          equipo_id: Number(equipoJugadorSeleccionado),
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Error al crear jugador");
+
+      toast.success(data.mensaje, { id: toastId });
+      setNombreNuevoJugador("");
+      await cargarMaestros();
+    } catch (err: any) {
+      toast.error(err.message || "Error al añadir jugador.", { id: toastId });
+    } finally {
+      setGuardandoJugador(false);
+    }
+  };
 
   // Calcular automáticamente la fecha activa para participantes (primera fecha no finalizada)
   useEffect(() => {
@@ -2847,6 +2884,7 @@ function ExpressPageContent() {
                     { key: "editar_partidos", label: "Editar Partidos", icon: Calendar, color: "#38bdf8" },
                     { key: "aplazados", label: "Partidos Aplazados", icon: Hourglass, color: "#f5b000" },
                     { key: "liquidacion", label: "Liquidación de Puntos", icon: ClipboardCheck, color: "#f59e0b" },
+                    { key: "jugadores", label: "Gestión de Jugadores", icon: Users, color: "#ec4899" },
                     { key: "posiciones", label: "Tabla de Posiciones", icon: BarChart3, color: "#34d399" },
                   ] as const).map((item) => {
                     const activo = seccionAdminPanel === item.key;
@@ -3879,6 +3917,220 @@ function ExpressPageContent() {
                             )}
                           </>
                         )}
+                      </div>
+                    );
+                  }
+
+                  // ================= SECCIÓN: GESTIÓN DE JUGADORES =================
+                  if (seccionAdminPanel === "jugadores") {
+                    const jugadoresFiltrados = filtroEquipoJugadores
+                      ? jugadores.filter((j) => j.equipo_id === Number(filtroEquipoJugadores))
+                      : jugadores;
+
+                    return (
+                      <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+                        <div>
+                          <h2 style={{ margin: "0 0 4px", color: "#fff", fontSize: "1.3rem", fontWeight: 900 }}>
+                            ⚽ Gestión de Jugadores y Plantillas
+                          </h2>
+                          <p style={{ color: "#94a3b8", margin: 0, fontSize: "0.82rem" }}>
+                            Añade nuevos jugadores a los equipos del torneo para que aparezcan en los menús de goleadores en pronósticos y resultados oficiales.
+                          </p>
+                        </div>
+
+                        {/* FORMULARIO PARA AÑADIR JUGADOR */}
+                        <div
+                          style={{
+                            background: "rgba(15, 23, 42, 0.6)",
+                            backdropFilter: "blur(12px)",
+                            border: "1px solid rgba(236, 72, 153, 0.25)",
+                            borderRadius: "20px",
+                            padding: "24px",
+                            boxShadow: "0 20px 40px -10px rgba(0,0,0,0.45)",
+                          }}
+                        >
+                          <h3 style={{ margin: "0 0 16px", color: "#ec4899", fontSize: "1.05rem", fontWeight: 800, display: "flex", alignItems: "center", gap: 8 }}>
+                            ➕ Añadir Nuevo Jugador a un Equipo
+                          </h3>
+
+                          <form onSubmit={handleCrearJugador} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 16 }}>
+                              <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                                <label style={{ fontSize: "0.8rem", color: "#94a3b8", fontWeight: 700 }}>
+                                  1. Selecciona el Equipo:
+                                </label>
+                                <select
+                                  value={equipoJugadorSeleccionado}
+                                  onChange={(e) => setEquipoJugadorSeleccionado(e.target.value ? Number(e.target.value) : "")}
+                                  required
+                                  style={{
+                                    padding: "12px 14px",
+                                    borderRadius: "12px",
+                                    border: "1px solid rgba(255,255,255,0.1)",
+                                    background: "rgba(15,23,42,0.85)",
+                                    color: "#fff",
+                                    fontSize: "0.9rem",
+                                    fontWeight: 600,
+                                    cursor: "pointer",
+                                  }}
+                                >
+                                  <option value="">-- Elige un Equipo --</option>
+                                  {equipos.map((eq) => (
+                                    <option key={eq.id} value={eq.id}>
+                                      {eq.nombre}
+                                    </option>
+                                  ))}
+                                </select>
+                              </div>
+
+                              <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                                <label style={{ fontSize: "0.8rem", color: "#94a3b8", fontWeight: 700 }}>
+                                  2. Nombre del Jugador:
+                                </label>
+                                <input
+                                  type="text"
+                                  placeholder="Ej: Radamel Falcao, Luis Díaz..."
+                                  value={nombreNuevoJugador}
+                                  onChange={(e) => setNombreNuevoJugador(e.target.value)}
+                                  required
+                                  style={{
+                                    padding: "12px 14px",
+                                    borderRadius: "12px",
+                                    border: "1px solid rgba(255,255,255,0.1)",
+                                    background: "rgba(15,23,42,0.85)",
+                                    color: "#fff",
+                                    fontSize: "0.9rem",
+                                    fontWeight: 600,
+                                  }}
+                                />
+                              </div>
+                            </div>
+
+                            <button
+                              type="submit"
+                              disabled={guardandoJugador || !equipoJugadorSeleccionado || !nombreNuevoJugador.trim()}
+                              style={{
+                                alignSelf: "flex-start",
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: 8,
+                                padding: "12px 24px",
+                                borderRadius: "12px",
+                                fontSize: "0.9rem",
+                                background: guardandoJugador
+                                  ? "rgba(255,255,255,0.1)"
+                                  : "linear-gradient(135deg, #ec4899 0%, #be185d 100%)",
+                                color: "#fff",
+                                border: "none",
+                                fontWeight: 900,
+                                cursor: guardandoJugador || !equipoJugadorSeleccionado || !nombreNuevoJugador.trim() ? "not-allowed" : "pointer",
+                                boxShadow: guardandoJugador ? "none" : "0 10px 25px -6px rgba(236, 72, 153, 0.5)",
+                                opacity: guardandoJugador || !equipoJugadorSeleccionado || !nombreNuevoJugador.trim() ? 0.6 : 1,
+                                transition: "all 0.2s",
+                              }}
+                            >
+                              {guardandoJugador ? (
+                                <>
+                                  <RefreshCw className="spin" size={16} /> Guardando...
+                                </>
+                              ) : (
+                                <>
+                                  ➕ Añadir Jugador a la Plantilla
+                                </>
+                              )}
+                            </button>
+                          </form>
+                        </div>
+
+                        {/* VISTA DE PLANTILLAS POR EQUIPO */}
+                        <div
+                          style={{
+                            background: "rgba(15, 23, 42, 0.6)",
+                            backdropFilter: "blur(12px)",
+                            border: "1px solid rgba(255, 255, 255, 0.08)",
+                            borderRadius: "20px",
+                            padding: "24px",
+                            boxShadow: "0 20px 40px -10px rgba(0,0,0,0.45)",
+                          }}
+                        >
+                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16, marginBottom: 20 }}>
+                            <div>
+                              <h3 style={{ margin: 0, color: "#fff", fontSize: "1.05rem", fontWeight: 800 }}>
+                                📋 Plantillas Registradas ({jugadores.length} jugadores)
+                              </h3>
+                              <p style={{ margin: "4px 0 0", color: "#94a3b8", fontSize: "0.8rem" }}>
+                                Filtra por equipo para revisar quiénes ya están registrados.
+                              </p>
+                            </div>
+
+                            <select
+                              value={filtroEquipoJugadores}
+                              onChange={(e) => setFiltroEquipoJugadores(e.target.value ? Number(e.target.value) : "")}
+                              style={{
+                                padding: "10px 14px",
+                                borderRadius: "12px",
+                                border: "1px solid rgba(255,255,255,0.1)",
+                                background: "rgba(15,23,42,0.85)",
+                                color: "#fff",
+                                fontSize: "0.85rem",
+                                fontWeight: 700,
+                                cursor: "pointer",
+                              }}
+                            >
+                              <option value="">🏆 Todos los Equipos ({jugadores.length})</option>
+                              {equipos.map((eq) => {
+                                const cant = jugadores.filter((j) => j.equipo_id === eq.id).length;
+                                return (
+                                  <option key={eq.id} value={eq.id}>
+                                    {eq.nombre} ({cant} jugadores)
+                                  </option>
+                                );
+                              })}
+                            </select>
+                          </div>
+
+                          {jugadoresFiltrados.length === 0 ? (
+                            <div style={{ padding: 30, textAlign: "center", color: "#94a3b8", background: "rgba(0,0,0,0.2)", borderRadius: 16 }}>
+                              No hay jugadores registrados para este filtro.
+                            </div>
+                          ) : (
+                            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 12 }}>
+                              {jugadoresFiltrados.map((j) => {
+                                const eq = j.equipo || equipos.find((e) => e.id === j.equipo_id);
+                                return (
+                                  <div
+                                    key={j.id}
+                                    style={{
+                                      display: "flex",
+                                      alignItems: "center",
+                                      gap: 12,
+                                      padding: "12px 14px",
+                                      borderRadius: "14px",
+                                      background: "rgba(30, 41, 59, 0.4)",
+                                      border: "1px solid rgba(255,255,255,0.06)",
+                                    }}
+                                  >
+                                    {eq?.escudo_url ? (
+                                      <img src={eq.escudo_url} alt={eq.nombre} style={{ width: 28, height: 28, objectFit: "contain", flexShrink: 0 }} />
+                                    ) : (
+                                      <div style={{ width: 28, height: 28, borderRadius: "50%", background: "rgba(255,255,255,0.1)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.75rem", color: "#fff", fontWeight: 900 }}>
+                                        ⚽
+                                      </div>
+                                    )}
+                                    <div style={{ minWidth: 0 }}>
+                                      <div style={{ fontSize: "0.88rem", color: "#fff", fontWeight: 800, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                                        {j.nombre}
+                                      </div>
+                                      <div style={{ fontSize: "0.72rem", color: "#94a3b8", fontWeight: 600 }}>
+                                        {eq?.nombre || `Equipo ID: ${j.equipo_id}`}
+                                      </div>
+                                    </div>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          )}
+                        </div>
                       </div>
                     );
                   }
