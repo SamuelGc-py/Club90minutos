@@ -877,11 +877,15 @@ function ExpressPageContent() {
 
       const cierresJornada: Record<number, number> = {};
       jornadas.forEach(j => {
-        // Usar unicamente partidos REGULARES de cada jornada para determinar la fecha activa principal del torneo (sin dejar que un partido pospuesto retroceda la fecha)
-        const partidosJornadaRegular = partidos.filter(p => p.jornada === j && p.estado !== "aplazado" && (!p.jornada_original || p.jornada_original === j));
-        if (partidosJornadaRegular.length > 0) {
-          const maxTime = Math.max(...partidosJornadaRegular.map(p => new Date(p.fecha_hora_partido).getTime()));
-          cierresJornada[j] = maxTime + (3 * 60 * 60 * 1000); // Kickoff + 3 horas
+        // Usar únicamente partidos REGULARES de cada jornada (sin partidos pospuestos desfasados) para el cierre de fecha regular
+        const partidosJornada = partidos.filter(p => p.jornada === j && p.estado !== "aplazado" && (!p.jornada_original || p.jornada_original === j));
+        if (partidosJornada.length > 0) {
+          const inicioBloque = Math.min(...partidosJornada.map(p => new Date(p.fecha_hora_partido).getTime()));
+          const partidosRegulares = partidosJornada.filter(p => new Date(p.fecha_hora_partido).getTime() <= inicioBloque + (7 * 24 * 60 * 60 * 1000));
+          if (partidosRegulares.length > 0) {
+            const maxTime = Math.max(...partidosRegulares.map(p => new Date(p.fecha_hora_partido).getTime()));
+            cierresJornada[j] = maxTime + (3 * 60 * 60 * 1000); // Kickoff + 3 horas
+          }
         }
       });
 
@@ -893,16 +897,24 @@ function ExpressPageContent() {
         }
       }
 
-      // Si no hay pendientes en el futuro, usamos la última jornada disponible
-      const jornadaIncompleta = mejorJornada > 0 ? mejorJornada : (jornadas[jornadas.length - 1] || 1);
-
-      if (jornadaIncompleta) {
-        setFechaParticipante(jornadaIncompleta);
-        setFechaAdmin((prev) => (prev === 0 ? jornadaIncompleta : prev));
-      } else {
-        setFechaParticipante(jornadas[jornadas.length - 1] || 1);
-        setFechaAdmin((prev) => (prev === 0 ? (jornadas[jornadas.length - 1] || 1) : prev));
+      // Si las fechas regulares ya pasaron según su horario original de fixture, buscar la primera jornada regular sin liquidar
+      let jornadaActiva = mejorJornada;
+      if (jornadaActiva === 0) {
+        for (const j of jornadas) {
+          const partidosJ = partidos.filter(p => p.jornada === j && p.estado !== "aplazado");
+          if (partidosJ.length > 0) {
+            const liquidados = partidosJ.filter(p => p.resultado_oficial !== null || p.estado === "resultado_cargado" || p.estado === "puntaje_calculado");
+            if (liquidados.length < partidosJ.length) {
+              jornadaActiva = j;
+              break;
+            }
+          }
+        }
       }
+
+      const fechaFinal = jornadaActiva > 0 ? jornadaActiva : (jornadas[jornadas.length - 1] || 1);
+      setFechaParticipante(fechaFinal);
+      setFechaAdmin((prev) => (prev === 0 ? fechaFinal : prev));
     }
   }, [partidos, partidosEnVivo]);
 
