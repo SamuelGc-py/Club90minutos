@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { generarBackupAutomatico } from "@/lib/backupAuto";
 
 export const dynamic = "force-dynamic";
 
@@ -20,6 +21,9 @@ export async function POST(req: Request) {
     if (!admin || admin.rol.nombre !== "administrador") {
       return NextResponse.json({ error: "No tienes permisos de administrador" }, { status: 403 });
     }
+
+    // Generar respaldo automático previo al cambio de marcador
+    await generarBackupAutomatico(Number(partido_id), "Respaldo automático previo a cargar marcador en pantalla");
 
     const idsGoleadores: number[] = Array.isArray(goleadores_ids)
       ? goleadores_ids.map((id: any) => Number(id)).filter(Boolean)

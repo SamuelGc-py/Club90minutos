@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { calcularPuntosPartido } from "@/lib/calculadorPuntos";
+import { generarBackupAutomatico } from "@/lib/backupAuto";
 
 export const dynamic = "force-dynamic";
 
@@ -21,6 +22,9 @@ export async function POST(req: Request) {
     if (!admin || admin.rol.nombre !== "administrador") {
       return NextResponse.json({ error: "No tienes permisos de administrador" }, { status: 403 });
     }
+
+    // Generar respaldo automático previo a la liquidación del partido
+    await generarBackupAutomatico(Number(partido_id), "Respaldo automático previo a liquidar puntos de partido");
 
     const idsGoleadores: number[] = Array.isArray(goleadores_ids)
       ? goleadores_ids.map((id: any) => Number(id)).filter(Boolean)
