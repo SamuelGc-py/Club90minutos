@@ -877,10 +877,10 @@ function ExpressPageContent() {
 
       const cierresJornada: Record<number, number> = {};
       jornadas.forEach(j => {
-        // EXCLUIR partidos aplazados. Los partidos reprogramados a esta fecha (jornada === j) se cuentan en la jornada j.
-        const partidosJornada = partidos.filter(p => p.jornada === j && p.estado !== "aplazado");
-        if (partidosJornada.length > 0) {
-          const maxTime = Math.max(...partidosJornada.map(p => new Date(p.fecha_hora_partido).getTime()));
+        // Usar unicamente partidos REGULARES de cada jornada para determinar la fecha activa principal del torneo (sin dejar que un partido pospuesto retroceda la fecha)
+        const partidosJornadaRegular = partidos.filter(p => p.jornada === j && p.estado !== "aplazado" && (!p.jornada_original || p.jornada_original === j));
+        if (partidosJornadaRegular.length > 0) {
+          const maxTime = Math.max(...partidosJornadaRegular.map(p => new Date(p.fecha_hora_partido).getTime()));
           cierresJornada[j] = maxTime + (3 * 60 * 60 * 1000); // Kickoff + 3 horas
         }
       });
