@@ -598,7 +598,7 @@ function ExpressPageContent() {
   const [menuInicioMovilAbierto, setMenuInicioMovilAbierto] = useState(false);
   const [partidoPronosticosAbierto, setPartidoPronosticosAbierto] = useState<number | null>(null);
   const mouseDownEnFondoRef = useRef(false);
-  const [filtroPronosticosTodos, setFiltroPronosticosTodos] = useState<"pendientes" | "finalizados">("pendientes");
+  const [filtroPronosticosTodos, setFiltroPronosticosTodos] = useState<"todos" | "pendientes" | "finalizados">("todos");
   const [fechaPronosticosTodos, setFechaPronosticosTodos] = useState<number | null>(null);
   const [modalPrediccionAbierto, setModalPrediccionAbierto] = useState<"campeon" | "finalistas" | "clasificados" | "goleador" | null>(null);
   const [fechaFiltroAplazados, setFechaFiltroAplazados] = useState<string>("todas");
@@ -1041,7 +1041,7 @@ function ExpressPageContent() {
   };
 
   const cargarConsolidados = async (uId?: number) => {
-    const idParaUsar = uId || usuario?.id;
+    const idParaUsar = uId || usuario?.id || (typeof window !== "undefined" && JSON.parse(sessionStorage.getItem("polla_sesion") || "{}")?.usuario?.id);
     if (!idParaUsar) return;
     setCargandoConsolidados(true);
     try {
@@ -1054,6 +1054,18 @@ function ExpressPageContent() {
       setCargandoConsolidados(false);
     }
   };
+
+  // Auto-cálculo y carga automática de consolidados al cambiar a pestañas que los requieren
+  useEffect(() => {
+    if (["posiciones", "pronosticos_todos", "mis_pronosticos", "admin"].includes(tabActiva)) {
+      if (!consolidados && !cargandoConsolidados) {
+        const idUsar = usuario?.id || (typeof window !== "undefined" && JSON.parse(sessionStorage.getItem("polla_sesion") || "{}")?.usuario?.id);
+        if (idUsar) {
+          cargarConsolidados(idUsar);
+        }
+      }
+    }
+  }, [tabActiva, usuario?.id, consolidados, cargandoConsolidados]);
 
   // Marcadores oficiales por partido para Administrador
   const [resultadosAdminInput, setResultadosAdminInput] = useState<Record<number, { local: string; visitante: string; goleadores_ids: number[] }>>({});
@@ -5694,7 +5706,11 @@ function ExpressPageContent() {
 
                   const partidosPendientes = partidosFecha.filter((p) => !estaFinalizado(p));
                   const partidosFinalizados = partidosFecha.filter((p) => estaFinalizado(p));
-                  const listaMostrada = filtroPronosticosTodos === "pendientes" ? partidosPendientes : partidosFinalizados;
+                  const listaMostrada = filtroPronosticosTodos === "todos"
+                    ? partidosFecha
+                    : filtroPronosticosTodos === "pendientes"
+                      ? partidosPendientes
+                      : partidosFinalizados;
 
                   const esAdminOEsSamuel = esSamuel || usuario?.rol_id === 2;
 
@@ -5746,7 +5762,23 @@ function ExpressPageContent() {
                         </div>
                       </div>
 
-                      <div style={{ display: "flex", gap: 10, marginBottom: 16 }}>
+                      <div style={{ display: "flex", gap: 10, marginBottom: 16, flexWrap: "wrap" }}>
+                        <button
+                          type="button"
+                          onClick={() => setFiltroPronosticosTodos("todos")}
+                          style={{
+                            padding: "8px 16px",
+                            borderRadius: 10,
+                            fontSize: "0.85rem",
+                            fontWeight: 800,
+                            cursor: "pointer",
+                            border: filtroPronosticosTodos === "todos" ? "1px solid #a78bfa" : "1px solid var(--linea)",
+                            background: filtroPronosticosTodos === "todos" ? "rgba(167, 139, 250, 0.2)" : "transparent",
+                            color: filtroPronosticosTodos === "todos" ? "#a78bfa" : "var(--graderia)",
+                          }}
+                        >
+                          🏆 Todos ({partidosFecha.length})
+                        </button>
                         <button
                           type="button"
                           onClick={() => setFiltroPronosticosTodos("pendientes")}
