@@ -599,6 +599,7 @@ function ExpressPageContent() {
   const [partidoPronosticosAbierto, setPartidoPronosticosAbierto] = useState<number | null>(null);
   const mouseDownEnFondoRef = useRef(false);
   const [filtroPronosticosTodos, setFiltroPronosticosTodos] = useState<"pendientes" | "finalizados">("pendientes");
+  const [fechaPronosticosTodos, setFechaPronosticosTodos] = useState<number | null>(null);
   const [modalPrediccionAbierto, setModalPrediccionAbierto] = useState<"campeon" | "finalistas" | "clasificados" | "goleador" | null>(null);
   const [fechaFiltroAplazados, setFechaFiltroAplazados] = useState<string>("todas");
   const necesitaFullscreen = true;
@@ -5673,14 +5674,19 @@ function ExpressPageContent() {
                 </div>
               ) : (
                 (() => {
-                  // Estrictamente la fecha activa (jornada === fechaParticipante), sin
-                  // arrastrar partidos de otras jornadas.
+                  const fechaActivaVisual = fechaPronosticosTodos ?? fechaParticipante;
+                  const fechasDisponibles = Array.from(new Set(partidos.map((p: any) => p.jornada))).sort((a: number, b: number) => a - b);
+                  const listaFechas = fechasDisponibles.length > 0 ? fechasDisponibles : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+
                   const partidosFecha = partidos
-                    .filter((p) => p.jornada === fechaParticipante)
+                    .filter((p) => {
+                      const jornadaOrigen = p.jornada_original || p.jornada;
+                      if (p.jornada === fechaActivaVisual || jornadaOrigen === fechaActivaVisual) return true;
+                      if (fechaActivaVisual === fechaParticipante && jornadaOrigen < fechaParticipante && p.estado === "programado") return true;
+                      return false;
+                    })
                     .sort((a, b) => new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime());
 
-                  // Misma regla de "finalizado" que usa el resto de la app (no el estado
-                  // crudo, que puede quedar atascado en "programado").
                   const estaFinalizado = (partido: any) => {
                     if (esPartidoFinalizadoReal(partido, partidosEnVivo)) return true;
                     return new Date().getTime() >= new Date(partido.fecha_hora_partido).getTime() + 2 * 60 * 60 * 1000;
@@ -5690,8 +5696,56 @@ function ExpressPageContent() {
                   const partidosFinalizados = partidosFecha.filter((p) => estaFinalizado(p));
                   const listaMostrada = filtroPronosticosTodos === "pendientes" ? partidosPendientes : partidosFinalizados;
 
+                  const esAdminOEsSamuel = esSamuel || usuario?.rol_id === 2;
+
                   return (
                     <>
+                      {/* BARRA DE TÍTULO Y SELECTOR DE FECHA */}
+                      <div className="card" style={{ marginBottom: 16, padding: "16px 20px" }}>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12, marginBottom: 12 }}>
+                          <div>
+                            <h2 style={{ margin: 0, color: "#fff", fontSize: "1.2rem", fontWeight: 900 }}>
+                              👀 Pronósticos de la Comunidad (Fecha {fechaActivaVisual})
+                            </h2>
+                            <p style={{ margin: "4px 0 0", color: "#94a3b8", fontSize: "0.82rem" }}>
+                              Los pronósticos de cada partido se revelan automáticamente 30 minutos antes del inicio.
+                            </p>
+                          </div>
+                          <button
+                            type="button"
+                            className="btn btn-secondary"
+                            onClick={() => cargarConsolidados(usuario.id)}
+                            style={{ fontSize: "0.8rem", padding: "6px 12px", display: "inline-flex", alignItems: "center", gap: 6 }}
+                          >
+                            <RefreshCw size={14} className={cargandoConsolidados ? "spin" : ""} /> Recargar
+                          </button>
+                        </div>
+
+                        {/* SELECTOR DE FECHAS HORIZONTAL */}
+                        <div style={{ display: "flex", gap: 8, overflowX: "auto", paddingTop: 4, paddingBottom: 4 }}>
+                          {listaFechas.map((f) => (
+                            <button
+                              key={f}
+                              type="button"
+                              onClick={() => setFechaPronosticosTodos(f)}
+                              style={{
+                                padding: "6px 14px",
+                                borderRadius: 10,
+                                fontSize: "0.8rem",
+                                fontWeight: 800,
+                                cursor: "pointer",
+                                whiteSpace: "nowrap",
+                                border: fechaActivaVisual === f ? "1px solid #a78bfa" : "1px solid var(--linea)",
+                                background: fechaActivaVisual === f ? "linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%)" : "transparent",
+                                color: fechaActivaVisual === f ? "#ffffff" : "var(--graderia)",
+                              }}
+                            >
+                              Fecha {f} {f === fechaParticipante ? "(Activa)" : ""}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
                       <div style={{ display: "flex", gap: 10, marginBottom: 16 }}>
                         <button
                           type="button"
@@ -5730,68 +5784,74 @@ function ExpressPageContent() {
                       {listaMostrada.length === 0 ? (
                         <div className="card" style={{ textAlign: "center", padding: 40, color: "#94a3b8" }}>
                           {filtroPronosticosTodos === "pendientes"
-                            ? "No hay partidos pendientes en la fecha activa."
-                            : "Todavía no hay partidos finalizados en la fecha activa."}
+                            ? `No hay partidos pendientes en la Fecha ${fechaActivaVisual}.`
+                            : `Todavía no hay partidos finalizados en la Fecha ${fechaActivaVisual}.`}
                         </div>
                       ) : (
                         listaMostrada.map((partido) => {
-                    const horaCierre = new Date(new Date(partido.fecha_hora_partido).getTime() - 30 * 60 * 1000);
-                    const cerrado = new Date() >= horaCierre || partido.estado === "finalizado";
-                    const pronosticosPartido = (consolidados?.prediccionesPartidos || []).filter(
-                      (p: any) => p.partido_id === partido.id
-                    );
-                    const desplegado = partidoPronosticosAbierto === partido.id;
+                          const horaCierre = new Date(new Date(partido.fecha_hora_partido).getTime() - 30 * 60 * 1000);
+                          const cerrado = new Date() >= horaCierre || partido.estado === "finalizado";
+                          const puedeVerPronosticos = cerrado || esAdminOEsSamuel;
+                          const pronosticosPartido = (consolidados?.prediccionesPartidos || []).filter(
+                            (p: any) => p.partido_id === partido.id
+                          );
+                          const desplegado = partidoPronosticosAbierto === partido.id;
 
-                    return (
-                      <div
-                        key={partido.id}
-                        className="card"
-                        style={{ padding: "20px", marginBottom: 16 }}
-                      >
-                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
-                          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                            <img src={partido.equipo_local.escudo_url} alt={partido.equipo_local.nombre} style={{ width: 32, height: 32, objectFit: "contain" }} />
-                            <div>
-                              <div style={{ fontWeight: 900, color: "#fff" }}>
-                                {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}
-                              </div>
-                              <span style={{ fontSize: "0.78rem", color: "#94a3b8", fontWeight: 700 }}>
-                                🕒 {formatearFechaPartido(partido.fecha_hora_partido)} · {formatearHoraPartido(partido.fecha_hora_partido)}
-                              </span>
-                            </div>
-                            <img src={partido.equipo_visitante.escudo_url} alt={partido.equipo_visitante.nombre} style={{ width: 32, height: 32, objectFit: "contain" }} />
-                          </div>
-
-                          {!cerrado ? (
-                            <span style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "6px 12px", borderRadius: 20, background: "rgba(148, 163, 184, 0.15)", color: "#94a3b8", fontSize: "0.8rem", fontWeight: 800 }}>
-                              <Lock size={14} /> Se revela al cerrar
-                            </span>
-                          ) : (
-                            <button
-                              type="button"
-                              onClick={() => setPartidoPronosticosAbierto(desplegado ? null : partido.id)}
-                              style={{ padding: "8px 16px", borderRadius: 10, fontSize: "0.85rem", background: "rgba(167, 139, 250, 0.15)", color: "#a78bfa", border: "1px solid rgba(167, 139, 250, 0.4)", cursor: "pointer", fontWeight: 700, display: "flex", alignItems: "center", gap: 6 }}
+                          return (
+                            <div
+                              key={partido.id}
+                              className="card"
+                              style={{ padding: "20px", marginBottom: 16 }}
                             >
-                              <Users size={16} /> {desplegado ? "Ocultar" : `Ver Pronósticos (${pronosticosPartido.length})`}
-                            </button>
-                          )}
-                        </div>
+                              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
+                                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                                  <img src={partido.equipo_local.escudo_url} alt={partido.equipo_local.nombre} style={{ width: 32, height: 32, objectFit: "contain" }} />
+                                  <div>
+                                    <div style={{ fontWeight: 900, color: "#fff" }}>
+                                      {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}
+                                    </div>
+                                    <span style={{ fontSize: "0.78rem", color: "#94a3b8", fontWeight: 700 }}>
+                                      🕒 {formatearFechaPartido(partido.fecha_hora_partido)} · {formatearHoraPartido(partido.fecha_hora_partido)}
+                                    </span>
+                                  </div>
+                                  <img src={partido.equipo_visitante.escudo_url} alt={partido.equipo_visitante.nombre} style={{ width: 32, height: 32, objectFit: "contain" }} />
+                                </div>
 
-                        {cerrado && desplegado && (
-                          pronosticosPartido.length === 0 ? (
-                            <div style={{ marginTop: 16, padding: 20, background: "rgba(0,0,0,0.2)", borderRadius: 12, color: "#94a3b8", textAlign: "center" }}>
-                              Nadie envió pronóstico para este partido.
+                                {!puedeVerPronosticos ? (
+                                  <span style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "6px 12px", borderRadius: 20, background: "rgba(148, 163, 184, 0.15)", color: "#94a3b8", fontSize: "0.8rem", fontWeight: 800 }}>
+                                    <Lock size={14} /> Se revela al cerrar
+                                  </span>
+                                ) : (
+                                  <button
+                                    type="button"
+                                    onClick={() => setPartidoPronosticosAbierto(desplegado ? null : partido.id)}
+                                    style={{ padding: "8px 16px", borderRadius: 10, fontSize: "0.85rem", background: "rgba(167, 139, 250, 0.15)", color: "#a78bfa", border: "1px solid rgba(167, 139, 250, 0.4)", cursor: "pointer", fontWeight: 700, display: "flex", alignItems: "center", gap: 6 }}
+                                  >
+                                    <Users size={16} /> {desplegado ? "Ocultar" : `Ver Pronósticos (${pronosticosPartido.length})`}
+                                    {!cerrado && esAdminOEsSamuel && (
+                                      <span style={{ fontSize: "0.7rem", background: "rgba(245, 158, 11, 0.3)", color: "#fef08a", padding: "2px 6px", borderRadius: 6, marginLeft: 4 }}>
+                                        Admin
+                                      </span>
+                                    )}
+                                  </button>
+                                )}
+                              </div>
+
+                              {puedeVerPronosticos && desplegado && (
+                                pronosticosPartido.length === 0 ? (
+                                  <div style={{ marginTop: 16, padding: 20, background: "rgba(0,0,0,0.2)", borderRadius: 12, color: "#94a3b8", textAlign: "center" }}>
+                                    Nadie envió pronóstico para este partido.
+                                  </div>
+                                ) : (
+                                  <PronosticosPartidoAfiche
+                                    partido={partido}
+                                    pronosticos={pronosticosPartido}
+                                    obtenerNombreGoleador={obtenerNombreGoleador}
+                                  />
+                                )
+                              )}
                             </div>
-                          ) : (
-                            <PronosticosPartidoAfiche
-                              partido={partido}
-                              pronosticos={pronosticosPartido}
-                              obtenerNombreGoleador={obtenerNombreGoleador}
-                            />
-                          )
-                        )}
-                      </div>
-                    );
+                          );
                         })
                       )}
                     </>
