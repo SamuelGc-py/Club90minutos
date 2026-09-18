@@ -11,22 +11,21 @@ export async function GET() {
       data: { jornada_original: null }
     });
 
-    await prisma.puntaje.deleteMany();
+    // Solo se borran los puntajes ligados a partidos. Los ajustes de homologación
+    // (partido_id = null) se conservan: no provienen de un partido recalculable.
+    await prisma.puntaje.deleteMany({ where: { partido_id: { not: null } } });
     const resultadosOficiales = await prisma.resultadoOficial.findMany({
       include: { goleadores: true },
     });
     for (const ro of resultadosOficiales) {
       if (ro.goles_local_real !== null && ro.goles_visitante_real !== null) {
-        const goleadoresIds =
-          ro.goles_local_real + ro.goles_visitante_real === 0
-            ? [-1]
-            : ro.goleadores.map((g) => g.jugador_id);
         try {
+          // `undefined` = recalcular con los goleadores ya guardados, sin reescribirlos.
           await calcularPuntosPartido(
             ro.partido_id,
             ro.goles_local_real,
             ro.goles_visitante_real,
-            goleadoresIds,
+            undefined,
             2
           );
         } catch (err: any) {

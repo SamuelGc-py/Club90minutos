@@ -32,63 +32,35 @@ export async function POST(req: Request) {
       ? [Number(goleador_jugador_id)]
       : [];
 
-    let eqGanadorId = null;
-    if (Number(goles_local) > Number(goles_visitante)) {
-      const p = await prisma.partido.findUnique({ where: { id: Number(partido_id) } });
-      if (p) eqGanadorId = p.equipo_local_id;
-    } else if (Number(goles_visitante) > Number(goles_local)) {
-      const p = await prisma.partido.findUnique({ where: { id: Number(partido_id) } });
-      if (p) eqGanadorId = p.equipo_visitante_id;
-    }
+    // El equipo ganador lo determina el propio motor a partir del marcador.
 
-    const ro = await prisma.resultadoOficial.upsert({
-      where: { partido_id: Number(partido_id) },
-      update: {
-        goles_local_real: Number(goles_local),
-        goles_visitante_real: Number(goles_visitante),
-        equipo_ganador_id: eqGanadorId,
-        ingresado_por_usuario_id: Number(usuario_id),
-        timestamp_ingreso: new Date()
-      },
-      create: {
-        partido_id: Number(partido_id),
-        goles_local_real: Number(goles_local),
-        goles_visitante_real: Number(goles_visitante),
-        equipo_ganador_id: eqGanadorId,
-        ingresado_por_usuario_id: Number(usuario_id)
-      }
-    });
-
-    await prisma.resultadoGoleador.deleteMany({
-      where: { resultado_oficial_id: ro.id }
-    });
-
-    if (idsGoleadores.length > 0) {
-      await prisma.resultadoGoleador.createMany({
-        data: idsGoleadores.map(id => ({
-          resultado_oficial_id: ro.id,
-          jugador_id: id,
-          es_autogol: false
-        }))
-      });
-    }
-
-    await prisma.partido.update({
-      where: { id: Number(partido_id) },
-      data: { estado: 'resultado_cargado' }
-    });
+    // El resultado oficial, los goleadores, el estado del partido y los puntajes los
+    // escribe calcularPuntosPartido en UNA sola transacción. Antes esta ruta borraba y
+    // recreaba los goleadores por su cuenta, fuera de la transacción: si el proceso moría
+    // en medio, el partido quedaba sin goleadores. Además ese borrado previo anulaba la
+    // protección del motor contra listas vacías.
+    //
+    // Si el admin no envía ninguna lista de goleadores, se pasa `undefined` para
+    // PRESERVAR los que ya estén guardados en vez de borrarlos silenciosamente.
+    const seEnvioListaGoleadores =
+      Array.isArray(goleadores_ids) || goleador_jugador_id !== undefined;
+    const goleadoresParaLiquidar = seEnvioListaGoleadores ? idsGoleadores : undefined;
 
     const resultado = await calcularPuntosPartido(
       Number(partido_id),
       Number(goles_local),
       Number(goles_visitante),
-      idsGoleadores,
-      Number(usuario_id)
+      goleadoresParaLiquidar,
+      Number(usuario_id),
+      // El admin sí puede dejar un partido sin goleadores a propósito (ej. corregir a 0-0),
+      // siempre que haya enviado explícitamente una lista vacía.
+      { forzarVaciarGoleadores: seEnvioListaGoleadores }
     );
 
     return NextResponse.json({
       exito: true,
       mensaje: `Resultado oficial guardado y puntos calculados para ${resultado.totalPrediccionesLiquidadas} participantes.`,
+      advertencias: resultado.advertencias,
     });
   } catch (error: any) {
     console.error("Error al cargar resultado oficial:", error);

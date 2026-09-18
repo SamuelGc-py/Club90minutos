@@ -1,0 +1,314 @@
+{
+  "_fuente": "API oficial de ESPN (site.api.espn.com .../soccer/col.1/scoreboard?dates=YYYYMMDD), consultada el 2026-09-18.",
+  "_motivo": "Los goleadores oficiales de estos 10 partidos fueron destruidos por el cron de ESPN, que leia el campo inexistente detail.participants[0].athlete.displayName en vez de detail.athletesInvolved[0].displayName. Al quedar la lista vacia, calcularPuntosPartido borraba los ResultadoGoleador del partido. En la BD quedaron registros 'fantasma' con jugador_id = null.",
+  "_validacion": "Para cada partido, el numero de goles en ESPN coincide exactamente con el marcador oficial guardado en la BD.",
+  "_uso": "Leido por scripts/hotfixes/ajustar_puntos_backup.ts. No hardcodear estos IDs en la logica del script.",
+  "partidos": [
+    {
+      "partido_id": 21,
+      "jornada": 1,
+      "encuentro": "Llaneros F.C. vs Deportivo Pereira",
+      "fecha": "2026-07-24",
+      "marcador_oficial": "1-0",
+      "goles_esperados": 1,
+      "goleadores": [
+        {
+          "nombre_espn": "Néider Ospina",
+          "jugador_id": 1231,
+          "nombre_bd": "Néider Ospina",
+          "equipo_bd": "Llaneros F.C."
+        }
+      ],
+      "jugador_ids": [
+        1231
+      ]
+    },
+    {
+      "partido_id": 22,
+      "jornada": 1,
+      "encuentro": "Deportivo Cali vs Jaguares F.C.",
+      "fecha": "2026-07-25",
+      "marcador_oficial": "2-0",
+      "goles_esperados": 2,
+      "goleadores": [
+        {
+          "nombre_espn": "Steven Rodríguez",
+          "jugador_id": 1004,
+          "nombre_bd": "Steven Rodríguez",
+          "equipo_bd": "Deportivo Cali"
+        },
+        {
+          "nombre_espn": "Johan Andrés Martínez",
+          "jugador_id": 1000,
+          "nombre_bd": "Johan Martinez",
+          "equipo_bd": "Deportivo Cali",
+          "nota": "ESPN lo nombra 'Johan Andrés Martínez'; en la BD es 'Johan Martinez' (Deportivo Cali)."
+        }
+      ],
+      "jugador_ids": [
+        1000,
+        1004
+      ]
+    },
+    {
+      "partido_id": 24,
+      "jornada": 1,
+      "encuentro": "Independiente Medellín vs Deportivo Pasto",
+      "fecha": "2026-07-25",
+      "marcador_oficial": "3-2",
+      "goles_esperados": 5,
+      "goleadores": [
+        {
+          "nombre_espn": "Jhan Mena",
+          "jugador_id": 1397,
+          "nombre_bd": "Jhan Mena",
+          "equipo_bd": "Independiente Medellín"
+        },
+        {
+          "nombre_espn": "Santiago Córdoba",
+          "jugador_id": 1029,
+          "nombre_bd": "Santiago Cordoba",
+          "equipo_bd": "Deportivo Pasto"
+        },
+        {
+          "nombre_espn": "Hayen Palacios",
+          "jugador_id": 1398,
+          "nombre_bd": "Hayen Palacios",
+          "equipo_bd": "Independiente Medellín"
+        },
+        {
+          "nombre_espn": "Joider Micolta",
+          "jugador_id": 1028,
+          "nombre_bd": "Joider Micolta",
+          "equipo_bd": "Deportivo Pasto"
+        },
+        {
+          "nombre_espn": "John Montaño",
+          "jugador_id": 1102,
+          "nombre_bd": "John Montaño",
+          "equipo_bd": "Independiente Medellín"
+        }
+      ],
+      "jugador_ids": [
+        1028,
+        1029,
+        1102,
+        1397,
+        1398
+      ]
+    },
+    {
+      "partido_id": 25,
+      "jornada": 1,
+      "encuentro": "Millonarios F.C. vs Atlético Bucaramanga",
+      "fecha": "2026-07-25",
+      "marcador_oficial": "0-1",
+      "goles_esperados": 1,
+      "goleadores": [
+        {
+          "nombre_espn": "Enmerson Batalla",
+          "jugador_id": 883,
+          "nombre_bd": "Emerson Batalla",
+          "equipo_bd": "Atlético Bucaramanga",
+          "nota": "ESPN lo nombra 'Enmerson Batalla' (errata); en la BD es 'Emerson Batalla' (Atlético Bucaramanga)."
+        }
+      ],
+      "jugador_ids": [
+        883
+      ]
+    },
+    {
+      "partido_id": 26,
+      "jornada": 1,
+      "encuentro": "Deportes Tolima vs Junior F.C.",
+      "fecha": "2026-07-26",
+      "marcador_oficial": "2-1",
+      "goles_esperados": 3,
+      "goleadores": [
+        {
+          "nombre_espn": "Jorge Cabezas",
+          "jugador_id": 973,
+          "nombre_bd": "Jorge Hurtado",
+          "equipo_bd": "Deportes Tolima",
+          "nota": "ESPN lo nombra 'Jorge Cabezas'; en la BD es 'Jorge Hurtado' (Deportes Tolima). Es el mismo jugador: Jorge Cabezas Hurtado."
+        },
+        {
+          "nombre_espn": "Kelvin Florez",
+          "jugador_id": 977,
+          "nombre_bd": "Kelvin Florez",
+          "equipo_bd": "Deportes Tolima"
+        },
+        {
+          "nombre_espn": "Guillermo Paiva",
+          "jugador_id": 1199,
+          "nombre_bd": "Guillermo Paiva",
+          "equipo_bd": "Junior F.C."
+        }
+      ],
+      "jugador_ids": [
+        973,
+        977,
+        1199
+      ]
+    },
+    {
+      "partido_id": 27,
+      "jornada": 1,
+      "encuentro": "Internacional de Bogotá vs América de Cali",
+      "fecha": "2026-07-26",
+      "marcador_oficial": "0-2",
+      "goles_esperados": 2,
+      "goleadores": [
+        {
+          "nombre_espn": "Jhon Palacios",
+          "jugador_id": 859,
+          "nombre_bd": "Jhon Palacios",
+          "equipo_bd": "América de Cali"
+        },
+        {
+          "nombre_espn": "Yeison Guzmán",
+          "jugador_id": 850,
+          "nombre_bd": "Yeison Guzmán",
+          "equipo_bd": "América de Cali"
+        }
+      ],
+      "jugador_ids": [
+        850,
+        859
+      ]
+    },
+    {
+      "partido_id": 28,
+      "jornada": 1,
+      "encuentro": "Águilas Doradas vs Independiente Santa Fe",
+      "fecha": "2026-07-26",
+      "marcador_oficial": "2-1",
+      "goles_esperados": 3,
+      "goleadores": [
+        {
+          "nombre_espn": "Andrés Ricaurte",
+          "jugador_id": 1296,
+          "nombre_bd": "Andrés Ricaurte",
+          "equipo_bd": "Águilas Doradas"
+        },
+        {
+          "nombre_espn": "Nahuel Bustos",
+          "jugador_id": 1126,
+          "nombre_bd": "Nahuel Bustos",
+          "equipo_bd": "Independiente Santa Fe"
+        },
+        {
+          "nombre_espn": "Frank Lozano",
+          "jugador_id": 1298,
+          "nombre_bd": "Frank Lozano",
+          "equipo_bd": "Águilas Doradas"
+        }
+      ],
+      "jugador_ids": [
+        1126,
+        1296,
+        1298
+      ]
+    },
+    {
+      "partido_id": 29,
+      "jornada": 1,
+      "encuentro": "Alianza Valledupar F.C. vs Fortaleza",
+      "fecha": "2026-07-26",
+      "marcador_oficial": "1-1",
+      "goles_esperados": 2,
+      "goleadores": [
+        {
+          "nombre_espn": "Jhon Solís",
+          "jugador_id": 1070,
+          "nombre_bd": "Jhon Solis",
+          "equipo_bd": "Fortaleza"
+        },
+        {
+          "nombre_espn": "Cristian Vergara",
+          "jugador_id": 1336,
+          "nombre_bd": "Cristian Vergara",
+          "equipo_bd": "Alianza Valledupar F.C."
+        }
+      ],
+      "jugador_ids": [
+        1070,
+        1336
+      ]
+    },
+    {
+      "partido_id": 30,
+      "jornada": 1,
+      "encuentro": "Once Caldas DAF vs Cúcuta Deportivo",
+      "fecha": "2026-07-27",
+      "marcador_oficial": "5-1",
+      "goles_esperados": 6,
+      "goleadores": [
+        {
+          "nombre_espn": "Jefry Zapata",
+          "jugador_id": 1281,
+          "nombre_bd": "Jefry Zapata",
+          "equipo_bd": "Once Caldas DAF"
+        },
+        {
+          "nombre_espn": "Andrés Roa",
+          "jugador_id": 1275,
+          "nombre_bd": "Andres Roa",
+          "equipo_bd": "Once Caldas DAF"
+        },
+        {
+          "nombre_espn": "Michael Barrios",
+          "jugador_id": 1280,
+          "nombre_bd": "Michael Barrios",
+          "equipo_bd": "Once Caldas DAF"
+        },
+        {
+          "nombre_espn": "Lucas Ríos",
+          "jugador_id": 942,
+          "nombre_bd": "Lucas Ríos",
+          "equipo_bd": "Cúcuta Deportivo"
+        },
+        {
+          "nombre_espn": "Mateo Zuleta",
+          "jugador_id": 1283,
+          "nombre_bd": "Mateo Zuleta",
+          "equipo_bd": "Once Caldas DAF"
+        },
+        {
+          "nombre_espn": "Dayro Moreno",
+          "jugador_id": 1282,
+          "nombre_bd": "Dayro Moreno",
+          "equipo_bd": "Once Caldas DAF"
+        }
+      ],
+      "jugador_ids": [
+        942,
+        1275,
+        1280,
+        1281,
+        1282,
+        1283
+      ]
+    },
+    {
+      "partido_id": 79,
+      "jornada": 6,
+      "encuentro": "Deportivo Pasto vs Llaneros F.C.",
+      "fecha": "2026-08-23",
+      "marcador_oficial": "0-1",
+      "goles_esperados": 1,
+      "goleadores": [
+        {
+          "nombre_espn": "Frank Castañeda",
+          "jugador_id": 1406,
+          "nombre_bd": "Frank Castañeda",
+          "equipo_bd": "Llaneros F.C."
+        }
+      ],
+      "jugador_ids": [
+        1406
+      ]
+    }
+  ],
+  "_validacion_cruzada": "Verificado contra una copia de la base anterior a la perdida (snapshot del 2026-08-07): los goleadores que ahi sobrevivian coinciden POR NOMBRE con los de ESPN en los 9 partidos comparables, incluidos los 3 que requirieron mapeo manual (Johan Martinez, Emerson Batalla, Jorge Hurtado/Cabezas). Los jugador_id del snapshot son distintos (273 vs 1231, etc.) porque la tabla jugador fue recreada, que es exactamente lo que dejo huerfanas las referencias. ESPN ademas resulto MAS completo: el partido 24 tenia 3 de 5 goleadores guardados y el 29 tenia 1 de 2."
+}

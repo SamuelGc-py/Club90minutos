@@ -31,13 +31,12 @@ async function main() {
   for (const partido of partidosLiquidados) {
     if (partido.resultado_oficial) {
       const ro = partido.resultado_oficial;
-      const goleadoresIds = ro.goleadores.map(g => g.jugador_id === null ? -1 : g.jugador_id);
-      
+      // `undefined` = recalcular con los goleadores ya guardados, sin reescribirlos.
       await calcularPuntosPartido(
         partido.id,
         ro.goles_local_real,
         ro.goles_visitante_real,
-        goleadoresIds,
+        undefined,
         ro.ingresado_por_usuario_id || 1 // Admin ID 1
       );
       count++;

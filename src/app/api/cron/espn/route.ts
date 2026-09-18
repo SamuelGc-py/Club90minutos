@@ -94,8 +94,17 @@ export async function GET(request: Request) {
           });
 
           for (const detail of matchInfo.details) {
-            if (detail.scoringPlay && detail.type.text === 'Goal') {
-              const playerNameEspn = detail.participants?.[0]?.athlete?.displayName;
+            // Un autogol no lo puede pronosticar nadie: se ignora para efectos de puntos.
+            if (detail.scoringPlay && detail.type?.text === 'Goal' && !detail.ownGoal) {
+              // El campo real de la API de ESPN es `athletesInvolved`. Antes se leía
+              // `participants[0].athlete.displayName`, que NO existe en esa respuesta: el
+              // nombre salía siempre undefined, la lista de goleadores quedaba vacía y al
+              // liquidar se borraban los goleadores del partido. Esa era la causa raíz de
+              // la pérdida recurrente de puntos (ver docs/incidente-puntos-goleadores-2026-09-18.md).
+              const playerNameEspn =
+                detail.athletesInvolved?.[0]?.displayName ||
+                detail.athletesInvolved?.[0]?.fullName ||
+                detail.participants?.[0]?.athlete?.displayName;
               if (playerNameEspn) {
                 // "C. Bacca" -> bacca. "carlos arturo bacca" -> carlosarturobacca
                 // Si 'bacca' está contenido en 'carlosarturobacca', lo damos por válido.
@@ -118,10 +127,17 @@ export async function GET(request: Request) {
           }
         }
 
+        // Si no se pudo extraer ningún goleador pero el partido SÍ tuvo goles, se envía
+        // `undefined` para que el motor PRESERVE los goleadores ya guardados en vez de
+        // borrarlos. Nunca se deben destruir datos oficiales por un fallo de extracción.
+        const hayGoles = golesLocal + golesVisitante > 0;
+        const goleadoresParaLiquidar =
+          goleadoresIds.length === 0 && hayGoles ? undefined : goleadoresIds;
+
         // Si el partido está finalizado en ESPN, guardamos y sumamos puntos.
         if (isFinished) {
           // Usar null para el usuario admin automático.
-          await calcularPuntosPartido(pBD.id, golesLocal, golesVisitante, goleadoresIds, null);
+          await calcularPuntosPartido(pBD.id, golesLocal, golesVisitante, goleadoresParaLiquidar, null);
           resultados.push({ id: pBD.id, estado: "FINALIZADO", marcador: `${golesLocal}-${golesVisitante}` });
         } else if (statusType === 'STATUS_IN_PROGRESS') {
           // Sólo actualizamos el ResultadoOficial pero NO calculamos puntos aún
@@ -132,11 +148,15 @@ export async function GET(request: Request) {
             create: { partido_id: pBD.id, goles_local_real: golesLocal, goles_visitante_real: golesVisitante, ingresado_por_usuario_id: null }
           });
           
-          await prisma.resultadoGoleador.deleteMany({ where: { resultado_oficial_id: resOficial.id } });
-          for (const gId of goleadoresIds) {
-            await prisma.resultadoGoleador.create({
-              data: { resultado_oficial_id: resOficial.id, jugador_id: gId }
-            });
+          // Igual que arriba: solo se reemplazan los goleadores si de verdad se extrajo
+          // alguno. Con lista vacía se deja intacto lo que ya estaba guardado.
+          if (goleadoresIds.length > 0) {
+            await prisma.resultadoGoleador.deleteMany({ where: { resultado_oficial_id: resOficial.id } });
+            for (const gId of goleadoresIds) {
+              await prisma.resultadoGoleador.create({
+                data: { resultado_oficial_id: resOficial.id, jugador_id: gId }
+              });
+            }
           }
           await prisma.partido.update({ where: { id: pBD.id }, data: { estado: "resultado_cargado" } });
           

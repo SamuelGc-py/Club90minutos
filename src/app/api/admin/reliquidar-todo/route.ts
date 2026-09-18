@@ -38,25 +38,30 @@ export async function POST(req: Request) {
       }
     });
 
-    // 3. Reliquidar
+    // 3. Reliquidar.
+    // Se pasa `undefined` como lista de goleadores a propósito: reliquidar significa
+    // "recalcular los puntos con los datos oficiales YA guardados", nunca reescribirlos.
+    // Antes se leían los goleadores y se reenviaban al motor, un viaje de ida y vuelta
+    // innecesario en el que cualquier fallo de mapeo los borraba.
+    const advertencias: string[] = [];
     for (const partido of partidosLiquidados) {
       if (partido.resultado_oficial) {
         const ro = partido.resultado_oficial;
-        const goleadoresIds = ro.goleadores.map(g => g.jugador_id === null ? -1 : g.jugador_id);
-        
-        await calcularPuntosPartido(
+        const res = await calcularPuntosPartido(
           partido.id,
           ro.goles_local_real,
           ro.goles_visitante_real,
-          goleadoresIds,
+          undefined,
           ro.ingresado_por_usuario_id || admin.id
         );
+        advertencias.push(...res.advertencias);
       }
     }
 
     return NextResponse.json({
       exito: true,
-      mensaje: `Puntos reliquidados desde cero para ${partidosLiquidados.length} partidos.`
+      mensaje: `Puntos reliquidados desde cero para ${partidosLiquidados.length} partidos.`,
+      advertencias,
     });
 
   } catch (error: any) {

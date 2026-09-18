@@ -115,11 +115,15 @@ export async function sincronizarMarcadoresEnVivo() {
       // 2. Liquidar puntos automáticamente!
       // (calcularPuntosPartido guarda el resultado oficial, los goleadores, cambia el estado a resultado_cargado y calcula los puntos)
       const { calcularPuntosPartido } = await import("@/lib/calculadorPuntos");
+      // Si la extracción de goleadores no encontró ninguno pero el partido sí tuvo goles,
+      // se envía `undefined` para PRESERVAR los goleadores ya guardados. Un fallo de
+      // scraping jamás debe borrar datos oficiales ni los puntos derivados de ellos.
+      const hubieronGoles = golesLocalReal + golesVisitanteReal > 0;
       await calcularPuntosPartido(
         partido.id,
         golesLocalReal,
         golesVisitanteReal,
-        goleadoresEncontradosIds,
+        goleadoresEncontradosIds.length === 0 && hubieronGoles ? undefined : goleadoresEncontradosIds,
         adminId
       );
     } else {

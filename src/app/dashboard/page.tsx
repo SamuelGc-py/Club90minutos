@@ -11,6 +11,7 @@ import PronosticosPartidoAfiche from "../components/PronosticosPartidoAfiche";
 import PronosticosTorneoAfiche from "../components/PronosticosTorneoAfiche";
 import TriviaModal from "../components/TriviaModal";
 import CentralDatosView from "../components/CentralDatosView";
+import HistorialPuntosModal from "../components/HistorialPuntosModal";
 
 interface Jugador {
   id: number;
@@ -592,6 +593,8 @@ function ExpressPageContent() {
   const [tabActiva, setTabActiva] = useState<"inicio" | "partidos" | "aplazados" | "inicial" | "mis_pronosticos" | "admin" | "posiciones" | "en_vivo" | "finalizados" | "historial" | "oraculo" | "pronosticos_todos">("inicio");
   const [desgloseAbierto, setDesgloseAbierto] = useState<"exacto" | "ganador" | "goleador" | null>(null);
   const [mostrarTrivia, setMostrarTrivia] = useState(false);
+  // Historial de puntos partido por partido (transparencia para el participante)
+  const [mostrarHistorialPuntos, setMostrarHistorialPuntos] = useState(false);
   const [menuInicioMovilAbierto, setMenuInicioMovilAbierto] = useState(false);
   const [partidoPronosticosAbierto, setPartidoPronosticosAbierto] = useState<number | null>(null);
   const mouseDownEnFondoRef = useRef(false);
@@ -5606,6 +5609,30 @@ function ExpressPageContent() {
                 </div>
               </div>
 
+              {/* ACCESO AL HISTORIAL DETALLADO DE PUNTOS (transparencia) */}
+              <div style={{ display: "flex", justifyContent: "center", marginBottom: 14 }}>
+                <button
+                  onClick={() => setMostrarHistorialPuntos(true)}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 8,
+                    background: "linear-gradient(135deg, #1db954 0%, #158a3e 100%)",
+                    color: "#fff",
+                    border: "none",
+                    padding: "12px 24px",
+                    borderRadius: 50,
+                    fontSize: "0.9rem",
+                    fontWeight: 800,
+                    cursor: "pointer",
+                    boxShadow: "0 10px 25px -8px rgba(29, 185, 84, 0.6)",
+                  }}
+                >
+                  <BarChart3 size={17} />
+                  Ver de dónde salieron mis puntos
+                </button>
+              </div>
+
               {/* AFICHE OFICIAL TABLA DE POSICIONES */}
               {cargandoConsolidados ? (
                 <div className="card" style={{ textAlign: "center", padding: 50 }}>
@@ -5996,6 +6023,13 @@ function ExpressPageContent() {
 
       {/* MODAL DE TRIVIA */}
       {mostrarTrivia && <TriviaModal onClose={() => setMostrarTrivia(false)} />}
+      {mostrarHistorialPuntos && usuario && (
+        <HistorialPuntosModal
+          usuarioId={usuario.id}
+          nombreUsuario={usuario.nombre}
+          onClose={() => setMostrarHistorialPuntos(false)}
+        />
+      )}
 
       {/* MODAL EMERGENTE: PLANTILLAS DE JUGADORES */}
       {mostrarModalPlantilla && (
