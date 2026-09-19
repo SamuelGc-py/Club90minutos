@@ -1,25 +1,122 @@
 {
-  "_fuente": "Tabla maestra verificada manualmente (imagen 'TABLA DE POSICIONES POLLA - Liga BetPlay DIMAYOR 2026-II', diseño azul/dorado con banda BetPlay). Entregada como fuente de verdad el 2026-09-18; reemplaza a la versión del 2026-08-25.",
+  "_fuente": "Tabla maestra verificada manualmente (imagen 'TABLA DE POSICIONES POLLA - Liga BetPlay DIMAYOR 2026-II'). Entregada como fuente de verdad el 2026-09-19; reemplaza a la version del 2026-09-18.",
   "_uso": "Este archivo es la ÚNICA fuente de los números objetivo. NO se deben hardcodear estos valores dentro de la lógica de scripts/corregir-categorias-desde-maestro.ts ni de scripts/hotfixes/ajustar_puntos_backup.ts — esos scripts solo LEEN este JSON.",
   "_actualizar_asi": "Cuando tengas una nueva tabla maestra verificada, reemplaza los números de abajo y vuelve a correr el script de homologación en dry-run antes de aplicar.",
   "_nota_version_2026_09_18": "Comparada contra la base ese día: las columnas 'exacto' y 'ganador' coincidían EXACTAMENTE para los 16 participantes; el 100% de la diferencia estaba en 'goleador' (66 puntos = 33 aciertos). Causa raíz: los goleadores oficiales de 10 partidos fueron borrados por el cron de ESPN, que leía un campo inexistente de la API (ver docs/incidente-puntos-goleadores-2026-09-18.md).",
   "_version_anterior_2026_08_25": "Queda en el historial de git de este archivo (tabla dorada BetPlay, totales entre 52 y 189 puntos).",
   "participantes": [
-    { "nombre_completo": "Juan Hernandez",   "exacto": 80, "ganador": 111, "goleador": 38, "total": 229 },
-    { "nombre_completo": "Nelson Berdugo",   "exacto": 55, "ganador": 114, "goleador": 42, "total": 211 },
-    { "nombre_completo": "Rene Osorio",      "exacto": 60, "ganador": 99,  "goleador": 46, "total": 205 },
-    { "nombre_completo": "Ricardo Soto",     "exacto": 65, "ganador": 102, "goleador": 38, "total": 205 },
-    { "nombre_completo": "Pedro Cantero",    "exacto": 50, "ganador": 93,  "goleador": 50, "total": 193 },
-    { "nombre_completo": "Lucas Saavedra",   "exacto": 45, "ganador": 105, "goleador": 42, "total": 192 },
-    { "nombre_completo": "Luis Betancourt",  "exacto": 40, "ganador": 87,  "goleador": 42, "total": 169 },
-    { "nombre_completo": "Erick Andrade",    "exacto": 45, "ganador": 87,  "goleador": 30, "total": 162 },
-    { "nombre_completo": "Ricardo Vanegas",  "exacto": 30, "ganador": 87,  "goleador": 30, "total": 147 },
-    { "nombre_completo": "Romario Gomez",    "exacto": 25, "ganador": 84,  "goleador": 36, "total": 145 },
-    { "nombre_completo": "Andres del Toro",  "exacto": 30, "ganador": 69,  "goleador": 28, "total": 127 },
-    { "nombre_completo": "Ignacio Barrios",  "exacto": 20, "ganador": 69,  "goleador": 36, "total": 125 },
-    { "nombre_completo": "Harold Berdugo",   "exacto": 30, "ganador": 60,  "goleador": 20, "total": 110 },
-    { "nombre_completo": "Samuel Gutierrez", "exacto": 15, "ganador": 72,  "goleador": 20, "total": 107 },
-    { "nombre_completo": "Manuel Cabarcas",  "exacto": 20, "ganador": 54,  "goleador": 12, "total": 86 },
-    { "nombre_completo": "Hernando Davila",  "exacto": 20, "ganador": 54,  "goleador": 12, "total": 86 }
-  ]
+    {
+      "nombre_completo": "Juan Hernandez",
+      "exacto": 80,
+      "ganador": 111,
+      "goleador": 38,
+      "total": 229
+    },
+    {
+      "nombre_completo": "Ricardo Soto",
+      "exacto": 70,
+      "ganador": 105,
+      "goleador": 38,
+      "total": 213
+    },
+    {
+      "nombre_completo": "Nelson Berdugo",
+      "exacto": 55,
+      "ganador": 114,
+      "goleador": 42,
+      "total": 211
+    },
+    {
+      "nombre_completo": "Rene Osorio",
+      "exacto": 60,
+      "ganador": 99,
+      "goleador": 46,
+      "total": 205
+    },
+    {
+      "nombre_completo": "Pedro Cantero",
+      "exacto": 50,
+      "ganador": 93,
+      "goleador": 50,
+      "total": 193
+    },
+    {
+      "nombre_completo": "Lucas Saavedra",
+      "exacto": 45,
+      "ganador": 105,
+      "goleador": 42,
+      "total": 192
+    },
+    {
+      "nombre_completo": "Luis Betancourt",
+      "exacto": 40,
+      "ganador": 87,
+      "goleador": 42,
+      "total": 169
+    },
+    {
+      "nombre_completo": "Erick Andrade",
+      "exacto": 45,
+      "ganador": 87,
+      "goleador": 30,
+      "total": 162
+    },
+    {
+      "nombre_completo": "Ricardo Vanegas",
+      "exacto": 30,
+      "ganador": 87,
+      "goleador": 32,
+      "total": 149
+    },
+    {
+      "nombre_completo": "Romario Gomez",
+      "exacto": 25,
+      "ganador": 87,
+      "goleador": 36,
+      "total": 148
+    },
+    {
+      "nombre_completo": "Andres del Toro",
+      "exacto": 30,
+      "ganador": 69,
+      "goleador": 28,
+      "total": 127
+    },
+    {
+      "nombre_completo": "Ignacio Barrios",
+      "exacto": 20,
+      "ganador": 69,
+      "goleador": 36,
+      "total": 125
+    },
+    {
+      "nombre_completo": "Harold Berdugo",
+      "exacto": 30,
+      "ganador": 60,
+      "goleador": 22,
+      "total": 112
+    },
+    {
+      "nombre_completo": "Samuel Gutierrez",
+      "exacto": 15,
+      "ganador": 72,
+      "goleador": 20,
+      "total": 107
+    },
+    {
+      "nombre_completo": "Manuel Cabarcas",
+      "exacto": 20,
+      "ganador": 54,
+      "goleador": 12,
+      "total": 86
+    },
+    {
+      "nombre_completo": "Hernando Davila",
+      "exacto": 20,
+      "ganador": 54,
+      "goleador": 12,
+      "total": 86
+    }
+  ],
+  "_nota_version_2026_09_19": "Respecto a la version del 18-sep cambian 4 participantes: Ricardo Soto (205->213), Romario Gomez (145->148), Ricardo Vanegas (147->149) y Harold Berdugo (110->112). Las 16 filas cuadran: exacto + ganador + goleador = total."
 }

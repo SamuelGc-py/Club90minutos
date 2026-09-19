@@ -265,16 +265,41 @@ async function main() {
     console.log(`${u.nombre_completo.padEnd(20)} ${sReal.padStart(16)} ${sTgt.padStart(16)}  ${sDelta}`);
 
     if (APLICAR) {
-      // Se reemplazan los ajustes previos de este participante (idempotencia).
+      // Se reemplazan los ajustes previos de este participante (idempotencia):
+      // filas sin partido, y las marcadas como ajuste de goleador (ver abajo).
       await prisma.puntaje.deleteMany({ where: { usuario_id: u.id, partido_id: null } });
+      await prisma.puntaje.deleteMany({
+        where: { usuario_id: u.id, categoria: CategoriaPuntaje.goleador, puntos_obtenidos: { notIn: [2] } },
+      });
+
       for (const clave of ["exacto", "ganador", "goleador"] as const) {
         const delta = deltas[clave];
         if (delta === 0) continue;
+
+        // IMPORTANTE: `consolidados` atribuye un puntaje de categoria "goleador" SIN
+        // partido a la columna "Goleador del Torneo", no a "Goleadores". Por eso el
+        // ajuste de goleador se ancla a un partido real ya liquidado del participante;
+        // asi suma en la columna correcta. Se reconoce como ajuste porque su valor no
+        // es 2 (un acierto real de goleador siempre vale exactamente 2 puntos).
+        let partidoAncla: number | null = null;
+        if (clave === "goleador") {
+          const propia = await prisma.puntaje.findFirst({
+            where: { usuario_id: u.id, partido_id: { not: null } },
+            orderBy: { partido_id: "asc" },
+            select: { partido_id: true },
+          });
+          if (!propia?.partido_id) {
+            console.log(`    ${u.nombre_completo}: sin partido donde anclar el ajuste de goleador — se omite`);
+            continue;
+          }
+          partidoAncla = propia.partido_id;
+        }
+
         await prisma.puntaje.create({
           data: {
             usuario_id: u.id,
             categoria: CATEGORIA_POR_CLAVE[clave],
-            partido_id: null,
+            partido_id: partidoAncla,
             puntos_obtenidos: delta,
           },
         });
