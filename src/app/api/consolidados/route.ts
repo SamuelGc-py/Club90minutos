@@ -135,7 +135,15 @@ export async function GET(req: Request) {
         if (p.categoria === "campeon") fila.pts_campeon += p.puntos_obtenidos;
         else if (p.categoria === "finalistas") fila.pts_finalistas += p.puntos_obtenidos;
         else if (p.categoria === "clasificados_cuadrangulares") fila.pts_clasificados += p.puntos_obtenidos;
-        else if (p.categoria === "goleador" && !p.partido_id) fila.pts_goleador_torneo += p.puntos_obtenidos;
+        // Un puntaje de categoria "goleador" SIN partido asociado es un ajuste de
+        // homologacion con la tabla maestra verificada (un acierto real de goleador
+        // siempre lleva partido). Se guarda sin partido a proposito, para que ninguna
+        // reliquidacion lo borre, y suma en la columna "Goleadores".
+        //
+        // El "Goleador del Torneo" todavia NO se otorga en ningun lado del codigo
+        // (hoy hay 0 filas de esa categoria). Cuando se implemente, debe distinguirse
+        // explicitamente de este caso antes de volver a usar esta rama.
+        else if (p.categoria === "goleador" && !p.partido_id) fila.pts_goleador_partido += p.puntos_obtenidos;
         else if (p.categoria === "resultado_exacto") fila.pts_resultado_exacto += p.puntos_obtenidos;
         else if (p.categoria === "ganador_partido") fila.pts_ganador_partido += p.puntos_obtenidos;
         else if (p.categoria === "goleador" && p.partido_id) fila.pts_goleador_partido += p.puntos_obtenidos;

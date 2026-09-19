@@ -26,7 +26,7 @@ valor real, porque un valor real de esas categorías **siempre** tiene un `parti
   a mano.
 - **Si de verdad necesitas un ajuste manual puntual** (una corrección disputada, por ejemplo): usa
   `scripts/corregir-categorias-desde-maestro.ts`, que reparte el ajuste entre las tres categorías
-  según `scripts/maestro-categorias.json` en vez de dumpearlo todo en una sola, y nunca usa
+  según `src/data/maestro-categorias.json` en vez de dumpearlo todo en una sola, y nunca usa
   `categoria: 'goleador'` con `partido_id: null` (eso se contaría como "goleador del torneo", una
   categoría totalmente distinta — ver `src/app/api/consolidados/route.ts`).
 

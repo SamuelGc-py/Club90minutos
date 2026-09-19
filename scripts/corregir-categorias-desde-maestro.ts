@@ -14,7 +14,7 @@
 //        partido_id NULL ahí es la firma inequívoca de un parche viejo).
 //     2. Calcula los puntos REALES de partido para cada participante usando solo filas con
 //        partido_id NO nulo (los partidos de verdad, calculados por calcularPuntosPartido).
-//     3. Lee los números objetivo de scripts/maestro-categorias.json (NO están hardcodeados aquí).
+//     3. Lee los números objetivo de src/data/maestro-categorias.json (NO están hardcodeados aquí).
 //     4. Verifica que el total no cambie (si el ajuste necesario no cuadra con lo que se está
 //        reemplazando, SE DETIENE para ese participante en vez de forzarlo).
 //     5. Borra solo las filas viejas sospechosas y crea hasta 3 filas de ajuste nuevas, una por
@@ -54,7 +54,7 @@ async function main() {
   const aplicar = process.argv.includes("--aplicar");
   console.log(aplicar ? "MODO: APLICANDO CAMBIOS\n" : "MODO: DRY-RUN (no se escribe nada; agrega --aplicar para ejecutar de verdad)\n");
 
-  const maestroPath = path.join(__dirname, "maestro-categorias.json");
+  const maestroPath = path.join(__dirname, "..", "src", "data", "maestro-categorias.json");
   const maestroData = JSON.parse(fs.readFileSync(maestroPath, "utf-8"));
   const maestro: MaestroEntry[] = maestroData.participantes;
   const maestroPorNombre = new Map(maestro.map((m) => [normalizeName(m.nombre_completo), m]));

@@ -77,7 +77,7 @@ también las filas de ajuste manual. Por eso las homologaciones anteriores se pe
 ### 3. Recuperación de los datos destruidos
 
 Los goleadores de los 10 partidos se recuperaron desde la **API oficial de ESPN**
-(`?dates=YYYYMMDD`) y quedaron en `scripts/hotfixes/goleadores-recuperados-espn.json`
+(`?dates=YYYYMMDD`) y quedaron en `src/data/goleadores-recuperados-espn.json`
 con su trazabilidad. 26 goles recuperados = exactamente los 26 goles que faltaban.
 
 **Validación cruzada**: se comparó contra una copia de la base anterior a la pérdida
@@ -127,7 +127,7 @@ npx tsx scripts/hotfixes/ajustar_puntos_backup.ts --aplicar --solo-restauracion
 ```
 
 El script respalda a `backups/<timestamp>/` antes de escribir, es idempotente, y la
-Fase C **exige coincidencia exacta** con `scripts/maestro-categorias.json` (sale con
+Fase C **exige coincidencia exacta** con `src/data/maestro-categorias.json` (sale con
 código 1 si algo no cuadra).
 
 ## Estado y pendientes

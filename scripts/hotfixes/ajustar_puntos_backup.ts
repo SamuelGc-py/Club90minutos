@@ -19,12 +19,12 @@
 //
 //   FASE A — RESTAURACIÓN REAL (preferida):
 //     Repone los goleadores oficiales de esos partidos desde la evidencia de la API de
-//     ESPN (scripts/hotfixes/goleadores-recuperados-espn.json) y reliquida cada partido.
+//     ESPN (src/data/goleadores-recuperados-espn.json) y reliquida cada partido.
 //     Esto recupera los puntos por el camino correcto: con datos oficiales verificables,
 //     no con parches. Es idempotente.
 //
 //   FASE B — HOMOLOGACIÓN DEL RESIDUO:
-//     Compara el resultado contra scripts/maestro-categorias.json (la tabla maestra) y,
+//     Compara el resultado contra src/data/maestro-categorias.json (la tabla maestra) y,
 //     si aún queda diferencia, crea UNA fila de ajuste por participante y categoría con
 //     partido_id = null, que es la marca de un ajuste (un puntaje real SIEMPRE tiene
 //     partido asociado).
@@ -147,11 +147,11 @@ async function main() {
   console.log(APLICAR ? "MODO: APLICANDO CAMBIOS" : "MODO: DRY-RUN (no se escribe nada; agrega --aplicar)");
   console.log("=".repeat(78) + "\n");
 
-  const maestroPath = path.join(__dirname, "..", "maestro-categorias.json");
+  const maestroPath = path.join(__dirname, "..", "..", "src", "data", "maestro-categorias.json");
   const maestro: MaestroEntry[] = JSON.parse(fs.readFileSync(maestroPath, "utf-8")).participantes;
   const maestroPorNombre = new Map(maestro.map((m) => [normalizeName(m.nombre_completo), m]));
 
-  const evidenciaPath = path.join(__dirname, "goleadores-recuperados-espn.json");
+  const evidenciaPath = path.join(__dirname, "..", "..", "src", "data", "goleadores-recuperados-espn.json");
   const recuperados: PartidoRecuperado[] = JSON.parse(fs.readFileSync(evidenciaPath, "utf-8")).partidos;
 
   if (APLICAR) await respaldar("Previo a homologación de puntos con tabla maestra verificada");
@@ -265,41 +265,17 @@ async function main() {
     console.log(`${u.nombre_completo.padEnd(20)} ${sReal.padStart(16)} ${sTgt.padStart(16)}  ${sDelta}`);
 
     if (APLICAR) {
-      // Se reemplazan los ajustes previos de este participante (idempotencia):
-      // filas sin partido, y las marcadas como ajuste de goleador (ver abajo).
+      // Se reemplazan los ajustes previos (idempotencia). Un ajuste es SIEMPRE una fila
+      // sin partido asociado: un puntaje real siempre viene de un partido concreto.
       await prisma.puntaje.deleteMany({ where: { usuario_id: u.id, partido_id: null } });
-      await prisma.puntaje.deleteMany({
-        where: { usuario_id: u.id, categoria: CategoriaPuntaje.goleador, puntos_obtenidos: { notIn: [2] } },
-      });
-
       for (const clave of ["exacto", "ganador", "goleador"] as const) {
         const delta = deltas[clave];
         if (delta === 0) continue;
-
-        // IMPORTANTE: `consolidados` atribuye un puntaje de categoria "goleador" SIN
-        // partido a la columna "Goleador del Torneo", no a "Goleadores". Por eso el
-        // ajuste de goleador se ancla a un partido real ya liquidado del participante;
-        // asi suma en la columna correcta. Se reconoce como ajuste porque su valor no
-        // es 2 (un acierto real de goleador siempre vale exactamente 2 puntos).
-        let partidoAncla: number | null = null;
-        if (clave === "goleador") {
-          const propia = await prisma.puntaje.findFirst({
-            where: { usuario_id: u.id, partido_id: { not: null } },
-            orderBy: { partido_id: "asc" },
-            select: { partido_id: true },
-          });
-          if (!propia?.partido_id) {
-            console.log(`    ${u.nombre_completo}: sin partido donde anclar el ajuste de goleador — se omite`);
-            continue;
-          }
-          partidoAncla = propia.partido_id;
-        }
-
         await prisma.puntaje.create({
           data: {
             usuario_id: u.id,
             categoria: CATEGORIA_POR_CLAVE[clave],
-            partido_id: partidoAncla,
+            partido_id: null,
             puntos_obtenidos: delta,
           },
         });
