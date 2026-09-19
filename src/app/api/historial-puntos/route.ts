@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
  *
  * Objetivo: transparencia total. Cada participante puede ver exactamente de dónde salió
  * cada punto suyo: qué pronosticó, qué pasó de verdad y cuántos puntos le dio cada
- * concepto. Los ajustes de homologación (es_ajuste) se muestran aparte y con su motivo,
+ * concepto. Los ajustes de homologación (puntajes sin partido asociado) se muestran aparte,
  * nunca disfrazados de acierto en un partido.
  *
  * GET /api/historial-puntos?usuario_id=5
@@ -107,12 +107,15 @@ export async function GET(req: Request) {
       });
 
     // Ajustes de homologación: se listan aparte, con su motivo.
+    // Un puntaje sin partido asociado no proviene del cálculo de un partido: es un
+    // ajuste de homologación con la tabla maestra verificada. Se lista aparte para que
+    // el participante lo vea como tal y no como un acierto en algún partido.
     const ajustes = puntajes
-      .filter((p) => p.es_ajuste)
+      .filter((p) => p.partido_id === null)
       .map((p) => ({
         categoria: p.categoria,
         puntos: p.puntos_obtenidos,
-        motivo: p.motivo ?? "Ajuste de homologación",
+        motivo: "Ajuste de homologacion con la tabla maestra verificada",
         fecha: p.timestamp_calculo,
       }));
 

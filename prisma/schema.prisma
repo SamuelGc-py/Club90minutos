@@ -248,15 +248,6 @@ model Puntaje {
   puntos_obtenidos  Int
   timestamp_calculo DateTime         @default(now())
 
-  // --- Homologacion con la tabla maestra verificada ---
-  // es_ajuste = true marca una fila que NO proviene del calculo de un partido, sino de
-  // cuadrar el total con el respaldo manual verificado. Se guarda con partido_id = null
-  // para que ninguna reliquidacion la borre (esas solo borran filas con partido_id no
-  // nulo, que fue justamente como se perdieron los ajustes anteriores), y se muestra
-  // como tal en el historial del participante: nunca se disfraza de acierto real.
-  es_ajuste         Boolean          @default(false)
-  motivo            String?
-
   usuario Usuario  @relation(fields: [usuario_id], references: [id])
   partido Partido? @relation(fields: [partido_id], references: [id])
 

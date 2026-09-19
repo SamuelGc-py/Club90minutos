@@ -26,7 +26,8 @@
 //   FASE B — HOMOLOGACIÓN DEL RESIDUO:
 //     Compara el resultado contra scripts/maestro-categorias.json (la tabla maestra) y,
 //     si aún queda diferencia, crea UNA fila de ajuste por participante y categoría con
-//     es_ajuste = true, motivo explícito y partido_id = null.
+//     partido_id = null, que es la marca de un ajuste (un puntaje real SIEMPRE tiene
+//     partido asociado).
 //     partido_id = null es deliberado: las reliquidaciones solo borran filas con
 //     partido_id NO nulo, así que estos ajustes ya no se pierden (así se perdieron los
 //     anteriores). El historial del participante los muestra como ajuste, nunca
@@ -265,7 +266,7 @@ async function main() {
 
     if (APLICAR) {
       // Se reemplazan los ajustes previos de este participante (idempotencia).
-      await prisma.puntaje.deleteMany({ where: { usuario_id: u.id, es_ajuste: true } });
+      await prisma.puntaje.deleteMany({ where: { usuario_id: u.id, partido_id: null } });
       for (const clave of ["exacto", "ganador", "goleador"] as const) {
         const delta = deltas[clave];
         if (delta === 0) continue;
@@ -275,8 +276,6 @@ async function main() {
             categoria: CATEGORIA_POR_CLAVE[clave],
             partido_id: null,
             puntos_obtenidos: delta,
-            es_ajuste: true,
-            motivo: MOTIVO_AJUSTE,
           },
         });
         filasAjuste++;

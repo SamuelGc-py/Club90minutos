@@ -135,10 +135,6 @@ export async function GET(req: Request) {
         if (p.categoria === "campeon") fila.pts_campeon += p.puntos_obtenidos;
         else if (p.categoria === "finalistas") fila.pts_finalistas += p.puntos_obtenidos;
         else if (p.categoria === "clasificados_cuadrangulares") fila.pts_clasificados += p.puntos_obtenidos;
-        // Un ajuste de homologacion se guarda sin partido_id (para que ninguna
-        // reliquidacion lo borre), pero corresponde a goleadores DE PARTIDO, no al
-        // goleador del torneo. Por eso se mira es_ajuste antes que partido_id.
-        else if (p.categoria === "goleador" && !p.partido_id && p.es_ajuste) fila.pts_goleador_partido += p.puntos_obtenidos;
         else if (p.categoria === "goleador" && !p.partido_id) fila.pts_goleador_torneo += p.puntos_obtenidos;
         else if (p.categoria === "resultado_exacto") fila.pts_resultado_exacto += p.puntos_obtenidos;
         else if (p.categoria === "ganador_partido") fila.pts_ganador_partido += p.puntos_obtenidos;
