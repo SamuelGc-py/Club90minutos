@@ -1,0 +1,15 @@
+{
+ "fecha_backup": "2026-09-19",
+ "motivo": "Punto de retorno ANTES de la homologacion de puntos con la tabla maestra verificada del 2026-09-19.",
+ "origen": "APIs publicas de club90minutos.com (/api/consolidados y /api/datos-maestros). Lectura, no toca la base.",
+ "como_restaurar": "npx tsx scripts/hotfixes/restaurar_puntos_backup.ts --dir backups/<esta carpeta> --aplicar",
+ "advertencia": "puntaje.json es el estado EXACTO de la tabla puntaje en ese momento; restaurarlo revierte cualquier homologacion.",
+ "registros_por_tabla": {
+  "puntaje": 808,
+  "resultado_oficial": 86,
+  "resultado_goleador": 181,
+  "prediccion_partido": 1214,
+  "usuario": 16,
+  "partido": 162
+ }
+}

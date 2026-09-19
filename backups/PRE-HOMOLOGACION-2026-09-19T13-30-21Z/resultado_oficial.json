@@ -1,0 +1,776 @@
+[
+ {
+  "id": 4,
+  "partido_id": 21,
+  "goles_local_real": 1,
+  "goles_visitante_real": 0,
+  "equipo_ganador_id": 1,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:10.132Z"
+ },
+ {
+  "id": 2,
+  "partido_id": 22,
+  "goles_local_real": 2,
+  "goles_visitante_real": 0,
+  "equipo_ganador_id": 3,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:11.112Z"
+ },
+ {
+  "id": 13,
+  "partido_id": 24,
+  "goles_local_real": 3,
+  "goles_visitante_real": 2,
+  "equipo_ganador_id": 7,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:06.673Z"
+ },
+ {
+  "id": 8,
+  "partido_id": 25,
+  "goles_local_real": 0,
+  "goles_visitante_real": 1,
+  "equipo_ganador_id": 10,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:15.046Z"
+ },
+ {
+  "id": 15,
+  "partido_id": 26,
+  "goles_local_real": 2,
+  "goles_visitante_real": 1,
+  "equipo_ganador_id": 11,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:14.877Z"
+ },
+ {
+  "id": 20,
+  "partido_id": 27,
+  "goles_local_real": 0,
+  "goles_visitante_real": 2,
+  "equipo_ganador_id": 14,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:13.581Z"
+ },
+ {
+  "id": 23,
+  "partido_id": 28,
+  "goles_local_real": 2,
+  "goles_visitante_real": 1,
+  "equipo_ganador_id": 15,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:12.086Z"
+ },
+ {
+  "id": 24,
+  "partido_id": 29,
+  "goles_local_real": 1,
+  "goles_visitante_real": 1,
+  "equipo_ganador_id": null,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:12.353Z"
+ },
+ {
+  "id": 25,
+  "partido_id": 30,
+  "goles_local_real": 5,
+  "goles_visitante_real": 1,
+  "equipo_ganador_id": 19,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:13.328Z"
+ },
+ {
+  "id": 37,
+  "partido_id": 31,
+  "goles_local_real": 1,
+  "goles_visitante_real": 1,
+  "equipo_ganador_id": null,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:09.042Z"
+ },
+ {
+  "id": 71,
+  "partido_id": 41,
+  "goles_local_real": 0,
+  "goles_visitante_real": 0,
+  "equipo_ganador_id": null,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:57.274Z"
+ },
+ {
+  "id": 41,
+  "partido_id": 32,
+  "goles_local_real": 0,
+  "goles_visitante_real": 0,
+  "equipo_ganador_id": null,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:48.424Z"
+ },
+ {
+  "id": 54,
+  "partido_id": 33,
+  "goles_local_real": 1,
+  "goles_visitante_real": 2,
+  "equipo_ganador_id": 15,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:14.197Z"
+ },
+ {
+  "id": 113,
+  "partido_id": 34,
+  "goles_local_real": 1,
+  "goles_visitante_real": 2,
+  "equipo_ganador_id": 11,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:12.605Z"
+ },
+ {
+  "id": 56,
+  "partido_id": 35,
+  "goles_local_real": 1,
+  "goles_visitante_real": 0,
+  "equipo_ganador_id": 7,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:49.752Z"
+ },
+ {
+  "id": 57,
+  "partido_id": 36,
+  "goles_local_real": 0,
+  "goles_visitante_real": 1,
+  "equipo_ganador_id": 9,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:49.484Z"
+ },
+ {
+  "id": 59,
+  "partido_id": 37,
+  "goles_local_real": 0,
+  "goles_visitante_real": 3,
+  "equipo_ganador_id": 6,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:51.239Z"
+ },
+ {
+  "id": 61,
+  "partido_id": 38,
+  "goles_local_real": 7,
+  "goles_visitante_real": 0,
+  "equipo_ganador_id": 14,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:47.700Z"
+ },
+ {
+  "id": 62,
+  "partido_id": 39,
+  "goles_local_real": 2,
+  "goles_visitante_real": 2,
+  "equipo_ganador_id": null,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:48.795Z"
+ },
+ {
+  "id": 228,
+  "partido_id": 40,
+  "goles_local_real": 1,
+  "goles_visitante_real": 1,
+  "equipo_ganador_id": null,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:49.140Z"
+ },
+ {
+  "id": 111,
+  "partido_id": 43,
+  "goles_local_real": 1,
+  "goles_visitante_real": 1,
+  "equipo_ganador_id": null,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:00.497Z"
+ },
+ {
+  "id": 82,
+  "partido_id": 44,
+  "goles_local_real": 3,
+  "goles_visitante_real": 1,
+  "equipo_ganador_id": 1,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:51.907Z"
+ },
+ {
+  "id": 66,
+  "partido_id": 45,
+  "goles_local_real": 2,
+  "goles_visitante_real": 3,
+  "equipo_ganador_id": 7,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:15.224Z"
+ },
+ {
+  "id": 69,
+  "partido_id": 46,
+  "goles_local_real": 2,
+  "goles_visitante_real": 0,
+  "equipo_ganador_id": 9,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:47.349Z"
+ },
+ {
+  "id": 70,
+  "partido_id": 47,
+  "goles_local_real": 1,
+  "goles_visitante_real": 0,
+  "equipo_ganador_id": 13,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:54.039Z"
+ },
+ {
+  "id": 72,
+  "partido_id": 49,
+  "goles_local_real": 0,
+  "goles_visitante_real": 1,
+  "equipo_ganador_id": 14,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:08.039Z"
+ },
+ {
+  "id": 615,
+  "partido_id": 50,
+  "goles_local_real": 1,
+  "goles_visitante_real": 2,
+  "equipo_ganador_id": 17,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:07.316Z"
+ },
+ {
+  "id": 107,
+  "partido_id": 56,
+  "goles_local_real": 2,
+  "goles_visitante_real": 0,
+  "equipo_ganador_id": 16,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:14.480Z"
+ },
+ {
+  "id": 86,
+  "partido_id": 53,
+  "goles_local_real": 2,
+  "goles_visitante_real": 0,
+  "equipo_ganador_id": 18,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:13.831Z"
+ },
+ {
+  "id": 90,
+  "partido_id": 54,
+  "goles_local_real": 2,
+  "goles_visitante_real": 1,
+  "equipo_ganador_id": 11,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:01.227Z"
+ },
+ {
+  "id": 94,
+  "partido_id": 59,
+  "goles_local_real": 0,
+  "goles_visitante_real": 2,
+  "equipo_ganador_id": 3,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:11.363Z"
+ },
+ {
+  "id": 96,
+  "partido_id": 60,
+  "goles_local_real": 2,
+  "goles_visitante_real": 3,
+  "equipo_ganador_id": 10,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:53.034Z"
+ },
+ {
+  "id": 97,
+  "partido_id": 58,
+  "goles_local_real": 1,
+  "goles_visitante_real": 1,
+  "equipo_ganador_id": null,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:00.863Z"
+ },
+ {
+  "id": 98,
+  "partido_id": 55,
+  "goles_local_real": 1,
+  "goles_visitante_real": 0,
+  "equipo_ganador_id": 14,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:12.966Z"
+ },
+ {
+  "id": 226,
+  "partido_id": 57,
+  "goles_local_real": 1,
+  "goles_visitante_real": 1,
+  "equipo_ganador_id": null,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:11.725Z"
+ },
+ {
+  "id": 577,
+  "partido_id": 63,
+  "goles_local_real": 1,
+  "goles_visitante_real": 2,
+  "equipo_ganador_id": 11,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:05.190Z"
+ },
+ {
+  "id": 580,
+  "partido_id": 71,
+  "goles_local_real": 1,
+  "goles_visitante_real": 1,
+  "equipo_ganador_id": null,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:06.925Z"
+ },
+ {
+  "id": 230,
+  "partido_id": 73,
+  "goles_local_real": 1,
+  "goles_visitante_real": 0,
+  "equipo_ganador_id": 4,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:48.063Z"
+ },
+ {
+  "id": 232,
+  "partido_id": 82,
+  "goles_local_real": 0,
+  "goles_visitante_real": 0,
+  "equipo_ganador_id": null,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:58.960Z"
+ },
+ {
+  "id": 234,
+  "partido_id": 74,
+  "goles_local_real": 1,
+  "goles_visitante_real": 1,
+  "equipo_ganador_id": null,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:47.004Z"
+ },
+ {
+  "id": 236,
+  "partido_id": 75,
+  "goles_local_real": 0,
+  "goles_visitante_real": 0,
+  "equipo_ganador_id": null,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:46.657Z"
+ },
+ {
+  "id": 238,
+  "partido_id": 76,
+  "goles_local_real": 0,
+  "goles_visitante_real": 0,
+  "equipo_ganador_id": null,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:59.554Z"
+ },
+ {
+  "id": 240,
+  "partido_id": 81,
+  "goles_local_real": 0,
+  "goles_visitante_real": 1,
+  "equipo_ganador_id": 20,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:59.959Z"
+ },
+ {
+  "id": 242,
+  "partido_id": 78,
+  "goles_local_real": 1,
+  "goles_visitante_real": 2,
+  "equipo_ganador_id": 6,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:50.835Z"
+ },
+ {
+  "id": 244,
+  "partido_id": 79,
+  "goles_local_real": 0,
+  "goles_visitante_real": 1,
+  "equipo_ganador_id": 1,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:51.617Z"
+ },
+ {
+  "id": 246,
+  "partido_id": 80,
+  "goles_local_real": 2,
+  "goles_visitante_real": 2,
+  "equipo_ganador_id": null,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:00.229Z"
+ },
+ {
+  "id": 248,
+  "partido_id": 77,
+  "goles_local_real": 1,
+  "goles_visitante_real": 1,
+  "equipo_ganador_id": null,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:52.288Z"
+ },
+ {
+  "id": 505,
+  "partido_id": 92,
+  "goles_local_real": 1,
+  "goles_visitante_real": 0,
+  "equipo_ganador_id": 20,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:02.272Z"
+ },
+ {
+  "id": 509,
+  "partido_id": 85,
+  "goles_local_real": 0,
+  "goles_visitante_real": 0,
+  "equipo_ganador_id": null,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:04.824Z"
+ },
+ {
+  "id": 400,
+  "partido_id": 87,
+  "goles_local_real": 4,
+  "goles_visitante_real": 2,
+  "equipo_ganador_id": 14,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:50.458Z"
+ },
+ {
+  "id": 510,
+  "partido_id": 88,
+  "goles_local_real": 2,
+  "goles_visitante_real": 1,
+  "equipo_ganador_id": 6,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:02.636Z"
+ },
+ {
+  "id": 511,
+  "partido_id": 89,
+  "goles_local_real": 0,
+  "goles_visitante_real": 2,
+  "equipo_ganador_id": 9,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:03.373Z"
+ },
+ {
+  "id": 514,
+  "partido_id": 86,
+  "goles_local_real": 1,
+  "goles_visitante_real": 1,
+  "equipo_ganador_id": null,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:04.465Z"
+ },
+ {
+  "id": 555,
+  "partido_id": 91,
+  "goles_local_real": 0,
+  "goles_visitante_real": 3,
+  "equipo_ganador_id": 7,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:56.881Z"
+ },
+ {
+  "id": 618,
+  "partido_id": 90,
+  "goles_local_real": 1,
+  "goles_visitante_real": 0,
+  "equipo_ganador_id": 19,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:09.405Z"
+ },
+ {
+  "id": 518,
+  "partido_id": 93,
+  "goles_local_real": 2,
+  "goles_visitante_real": 2,
+  "equipo_ganador_id": null,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:05.581Z"
+ },
+ {
+  "id": 521,
+  "partido_id": 94,
+  "goles_local_real": 1,
+  "goles_visitante_real": 1,
+  "equipo_ganador_id": null,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:05.947Z"
+ },
+ {
+  "id": 524,
+  "partido_id": 95,
+  "goles_local_real": 1,
+  "goles_visitante_real": 5,
+  "equipo_ganador_id": 6,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:06.309Z"
+ },
+ {
+  "id": 527,
+  "partido_id": 96,
+  "goles_local_real": 2,
+  "goles_visitante_real": 2,
+  "equipo_ganador_id": null,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:10.746Z"
+ },
+ {
+  "id": 530,
+  "partido_id": 97,
+  "goles_local_real": 2,
+  "goles_visitante_real": 1,
+  "equipo_ganador_id": 7,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:50.100Z"
+ },
+ {
+  "id": 533,
+  "partido_id": 98,
+  "goles_local_real": 0,
+  "goles_visitante_real": 0,
+  "equipo_ganador_id": null,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:52.664Z"
+ },
+ {
+  "id": 536,
+  "partido_id": 100,
+  "goles_local_real": 1,
+  "goles_visitante_real": 1,
+  "equipo_ganador_id": null,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:53.673Z"
+ },
+ {
+  "id": 539,
+  "partido_id": 42,
+  "goles_local_real": 1,
+  "goles_visitante_real": 2,
+  "equipo_ganador_id": 2,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:54.398Z"
+ },
+ {
+  "id": 543,
+  "partido_id": 99,
+  "goles_local_real": 2,
+  "goles_visitante_real": 1,
+  "equipo_ganador_id": 11,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:55.048Z"
+ },
+ {
+  "id": 546,
+  "partido_id": 101,
+  "goles_local_real": 1,
+  "goles_visitante_real": 2,
+  "equipo_ganador_id": 19,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:55.419Z"
+ },
+ {
+  "id": 552,
+  "partido_id": 104,
+  "goles_local_real": 3,
+  "goles_visitante_real": 0,
+  "equipo_ganador_id": 14,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:56.515Z"
+ },
+ {
+  "id": 558,
+  "partido_id": 103,
+  "goles_local_real": 2,
+  "goles_visitante_real": 0,
+  "equipo_ganador_id": 5,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:57.555Z"
+ },
+ {
+  "id": 561,
+  "partido_id": 107,
+  "goles_local_real": 2,
+  "goles_visitante_real": 2,
+  "equipo_ganador_id": null,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:58.187Z"
+ },
+ {
+  "id": 564,
+  "partido_id": 109,
+  "goles_local_real": 2,
+  "goles_visitante_real": 2,
+  "equipo_ganador_id": null,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:58.539Z"
+ },
+ {
+  "id": 567,
+  "partido_id": 105,
+  "goles_local_real": 3,
+  "goles_visitante_real": 3,
+  "equipo_ganador_id": null,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:01.595Z"
+ },
+ {
+  "id": 570,
+  "partido_id": 106,
+  "goles_local_real": 2,
+  "goles_visitante_real": 2,
+  "equipo_ganador_id": null,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:03.010Z"
+ },
+ {
+  "id": 573,
+  "partido_id": 108,
+  "goles_local_real": 1,
+  "goles_visitante_real": 1,
+  "equipo_ganador_id": null,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:03.738Z"
+ },
+ {
+  "id": 876,
+  "partido_id": 102,
+  "goles_local_real": 2,
+  "goles_visitante_real": 2,
+  "equipo_ganador_id": null,
+  "ingresado_por_usuario_id": 3,
+  "timestamp_ingreso": "2026-09-18T01:57:24.664Z"
+ },
+ {
+  "id": 585,
+  "partido_id": 112,
+  "goles_local_real": 2,
+  "goles_visitante_real": 2,
+  "equipo_ganador_id": null,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:07.677Z"
+ },
+ {
+  "id": 588,
+  "partido_id": 118,
+  "goles_local_real": 1,
+  "goles_visitante_real": 0,
+  "equipo_ganador_id": 16,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:08.401Z"
+ },
+ {
+  "id": 591,
+  "partido_id": 115,
+  "goles_local_real": 3,
+  "goles_visitante_real": 2,
+  "equipo_ganador_id": 13,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:10.384Z"
+ },
+ {
+  "id": 594,
+  "partido_id": 116,
+  "goles_local_real": 2,
+  "goles_visitante_real": 1,
+  "equipo_ganador_id": 5,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:53.396Z"
+ },
+ {
+  "id": 597,
+  "partido_id": 113,
+  "goles_local_real": 1,
+  "goles_visitante_real": 0,
+  "equipo_ganador_id": 17,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:54.759Z"
+ },
+ {
+  "id": 600,
+  "partido_id": 114,
+  "goles_local_real": 1,
+  "goles_visitante_real": 3,
+  "equipo_ganador_id": 10,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:56.149Z"
+ },
+ {
+  "id": 603,
+  "partido_id": 119,
+  "goles_local_real": 2,
+  "goles_visitante_real": 0,
+  "equipo_ganador_id": 6,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:57.835Z"
+ },
+ {
+  "id": 606,
+  "partido_id": 120,
+  "goles_local_real": 1,
+  "goles_visitante_real": 2,
+  "equipo_ganador_id": 3,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:01.907Z"
+ },
+ {
+  "id": 609,
+  "partido_id": 121,
+  "goles_local_real": 1,
+  "goles_visitante_real": 2,
+  "equipo_ganador_id": 9,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:04.103Z"
+ },
+ {
+  "id": 612,
+  "partido_id": 117,
+  "goles_local_real": 0,
+  "goles_visitante_real": 1,
+  "equipo_ganador_id": 8,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:08.763Z"
+ },
+ {
+  "id": 879,
+  "partido_id": 122,
+  "goles_local_real": 2,
+  "goles_visitante_real": 2,
+  "equipo_ganador_id": null,
+  "ingresado_por_usuario_id": 3,
+  "timestamp_ingreso": "2026-09-19T13:22:56.406Z"
+ },
+ {
+  "id": 621,
+  "partido_id": 151,
+  "goles_local_real": 2,
+  "goles_visitante_real": 3,
+  "equipo_ganador_id": 6,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:47:09.769Z"
+ },
+ {
+  "id": 549,
+  "partido_id": 172,
+  "goles_local_real": 3,
+  "goles_visitante_real": 2,
+  "equipo_ganador_id": 16,
+  "ingresado_por_usuario_id": 2,
+  "timestamp_ingreso": "2026-09-17T21:46:55.783Z"
+ }
+]

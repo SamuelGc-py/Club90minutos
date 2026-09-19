@@ -1,0 +1,1965 @@
+[
+ {
+  "id": 1469,
+  "resultado_oficial_id": 37,
+  "jugador_id": 874,
+  "es_autogol": false,
+  "jugador": {
+   "id": 874,
+   "nombre": "Fabian Sambueza",
+   "equipo_id": 10
+  }
+ },
+ {
+  "id": 1470,
+  "resultado_oficial_id": 37,
+  "jugador_id": 1215,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1215,
+   "nombre": "Francisco Meza",
+   "equipo_id": 1
+  }
+ },
+ {
+  "id": 1307,
+  "resultado_oficial_id": 71,
+  "jugador_id": null,
+  "es_autogol": false,
+  "jugador": null
+ },
+ {
+  "id": 1119,
+  "resultado_oficial_id": 41,
+  "jugador_id": null,
+  "es_autogol": false,
+  "jugador": null
+ },
+ {
+  "id": 1493,
+  "resultado_oficial_id": 54,
+  "jugador_id": 1023,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1023,
+   "nombre": "Jorge Obregón",
+   "equipo_id": 8
+  }
+ },
+ {
+  "id": 1494,
+  "resultado_oficial_id": 54,
+  "jugador_id": 1293,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1293,
+   "nombre": "Javier Mena",
+   "equipo_id": 15
+  }
+ },
+ {
+  "id": 1495,
+  "resultado_oficial_id": 54,
+  "jugador_id": 1303,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1303,
+   "nombre": "Antony Vásquez",
+   "equipo_id": 15
+  }
+ },
+ {
+  "id": 1488,
+  "resultado_oficial_id": 113,
+  "jugador_id": 829,
+  "es_autogol": false,
+  "jugador": {
+   "id": 829,
+   "nombre": "Felipe Pardo",
+   "equipo_id": 17
+  }
+ },
+ {
+  "id": 1489,
+  "resultado_oficial_id": 113,
+  "jugador_id": 975,
+  "es_autogol": false,
+  "jugador": {
+   "id": 975,
+   "nombre": "Luis Sandoval",
+   "equipo_id": 11
+  }
+ },
+ {
+  "id": 1490,
+  "resultado_oficial_id": 113,
+  "jugador_id": 973,
+  "es_autogol": false,
+  "jugador": {
+   "id": 973,
+   "nombre": "Jorge Hurtado",
+   "equipo_id": 11
+  }
+ },
+ {
+  "id": 1148,
+  "resultado_oficial_id": 56,
+  "jugador_id": 1095,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1095,
+   "nombre": "Diego Moreno",
+   "equipo_id": 7
+  }
+ },
+ {
+  "id": 1140,
+  "resultado_oficial_id": 57,
+  "jugador_id": 1259,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1259,
+   "nombre": "Rodrigo Contreras",
+   "equipo_id": 9
+  }
+ },
+ {
+  "id": 1183,
+  "resultado_oficial_id": 59,
+  "jugador_id": 902,
+  "es_autogol": false,
+  "jugador": {
+   "id": 902,
+   "nombre": "Marlos Moreno",
+   "equipo_id": 6
+  }
+ },
+ {
+  "id": 1184,
+  "resultado_oficial_id": 59,
+  "jugador_id": 903,
+  "es_autogol": false,
+  "jugador": {
+   "id": 903,
+   "nombre": "Alfredo Morelos",
+   "equipo_id": 6
+  }
+ },
+ {
+  "id": 1185,
+  "resultado_oficial_id": 59,
+  "jugador_id": 907,
+  "es_autogol": false,
+  "jugador": {
+   "id": 907,
+   "nombre": "Andres Sarmiento",
+   "equipo_id": 6
+  }
+ },
+ {
+  "id": 1107,
+  "resultado_oficial_id": 61,
+  "jugador_id": 850,
+  "es_autogol": false,
+  "jugador": {
+   "id": 850,
+   "nombre": "Yeison Guzmán",
+   "equipo_id": 14
+  }
+ },
+ {
+  "id": 1108,
+  "resultado_oficial_id": 61,
+  "jugador_id": 839,
+  "es_autogol": false,
+  "jugador": {
+   "id": 839,
+   "nombre": "Daniel Rosero",
+   "equipo_id": 14
+  }
+ },
+ {
+  "id": 1109,
+  "resultado_oficial_id": 61,
+  "jugador_id": 853,
+  "es_autogol": false,
+  "jugador": {
+   "id": 853,
+   "nombre": "Luis Quiñónes",
+   "equipo_id": 14
+  }
+ },
+ {
+  "id": 1127,
+  "resultado_oficial_id": 62,
+  "jugador_id": 1127,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1127,
+   "nombre": "Jáder Obrian",
+   "equipo_id": 16
+  }
+ },
+ {
+  "id": 1128,
+  "resultado_oficial_id": 62,
+  "jugador_id": 1281,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1281,
+   "nombre": "Jefry Zapata",
+   "equipo_id": 19
+  }
+ },
+ {
+  "id": 1129,
+  "resultado_oficial_id": 62,
+  "jugador_id": 1273,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1273,
+   "nombre": "Andrés Colorado",
+   "equipo_id": 19
+  }
+ },
+ {
+  "id": 1133,
+  "resultado_oficial_id": 228,
+  "jugador_id": 1323,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1323,
+   "nombre": "Cristian Dajome",
+   "equipo_id": 13
+  }
+ },
+ {
+  "id": 1366,
+  "resultado_oficial_id": 111,
+  "jugador_id": 951,
+  "es_autogol": false,
+  "jugador": {
+   "id": 951,
+   "nombre": "Jaime Peralta",
+   "equipo_id": 20
+  }
+ },
+ {
+  "id": 1367,
+  "resultado_oficial_id": 111,
+  "jugador_id": 883,
+  "es_autogol": false,
+  "jugador": {
+   "id": 883,
+   "nombre": "Emerson Batalla",
+   "equipo_id": 10
+  }
+ },
+ {
+  "id": 1195,
+  "resultado_oficial_id": 82,
+  "jugador_id": 1061,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1061,
+   "nombre": "Joan Cajares",
+   "equipo_id": 18
+  }
+ },
+ {
+  "id": 1196,
+  "resultado_oficial_id": 82,
+  "jugador_id": 1233,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1233,
+   "nombre": "Jhon Vásquez",
+   "equipo_id": 1
+  }
+ },
+ {
+  "id": 1197,
+  "resultado_oficial_id": 82,
+  "jugador_id": 1231,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1231,
+   "nombre": "Néider Ospina",
+   "equipo_id": 1
+  }
+ },
+ {
+  "id": 1497,
+  "resultado_oficial_id": 66,
+  "jugador_id": 1092,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1092,
+   "nombre": "Daniel Cataño",
+   "equipo_id": 7
+  }
+ },
+ {
+  "id": 1498,
+  "resultado_oficial_id": 66,
+  "jugador_id": 1102,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1102,
+   "nombre": "John Montaño",
+   "equipo_id": 7
+  }
+ },
+ {
+  "id": 1499,
+  "resultado_oficial_id": 66,
+  "jugador_id": 1098,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1098,
+   "nombre": "Juan Cordoba",
+   "equipo_id": 7
+  }
+ },
+ {
+  "id": 1500,
+  "resultado_oficial_id": 66,
+  "jugador_id": 971,
+  "es_autogol": false,
+  "jugador": {
+   "id": 971,
+   "nombre": "Sebastián Guzmán",
+   "equipo_id": 11
+  }
+ },
+ {
+  "id": 1501,
+  "resultado_oficial_id": 66,
+  "jugador_id": 964,
+  "es_autogol": false,
+  "jugador": {
+   "id": 964,
+   "nombre": "Junior Hernández",
+   "equipo_id": 11
+  }
+ },
+ {
+  "id": 1100,
+  "resultado_oficial_id": 69,
+  "jugador_id": 1243,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1243,
+   "nombre": "Andrés Llinás",
+   "equipo_id": 9
+  }
+ },
+ {
+  "id": 1101,
+  "resultado_oficial_id": 69,
+  "jugador_id": 1257,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1257,
+   "nombre": "Leonardo Castro",
+   "equipo_id": 9
+  }
+ },
+ {
+  "id": 1228,
+  "resultado_oficial_id": 70,
+  "jugador_id": 1330,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1330,
+   "nombre": "Facundo Boné",
+   "equipo_id": 13
+  }
+ },
+ {
+  "id": 1466,
+  "resultado_oficial_id": 72,
+  "jugador_id": 839,
+  "es_autogol": false,
+  "jugador": {
+   "id": 839,
+   "nombre": "Daniel Rosero",
+   "equipo_id": 14
+  }
+ },
+ {
+  "id": 1460,
+  "resultado_oficial_id": 615,
+  "jugador_id": 829,
+  "es_autogol": false,
+  "jugador": {
+   "id": 829,
+   "nombre": "Felipe Pardo",
+   "equipo_id": 17
+  }
+ },
+ {
+  "id": 1461,
+  "resultado_oficial_id": 615,
+  "jugador_id": 1338,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1338,
+   "nombre": "Deinner Quiñones",
+   "equipo_id": 17
+  }
+ },
+ {
+  "id": 1462,
+  "resultado_oficial_id": 615,
+  "jugador_id": 1352,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1352,
+   "nombre": "Jhonier Alomía",
+   "equipo_id": 5
+  }
+ },
+ {
+  "id": 1496,
+  "resultado_oficial_id": 107,
+  "jugador_id": 1124,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1124,
+   "nombre": "Hugo Rodallega",
+   "equipo_id": 16
+  }
+ },
+ {
+  "id": 1492,
+  "resultado_oficial_id": 86,
+  "jugador_id": 1077,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1077,
+   "nombre": "Richardson Rivas",
+   "equipo_id": 18
+  }
+ },
+ {
+  "id": 1378,
+  "resultado_oficial_id": 90,
+  "jugador_id": 974,
+  "es_autogol": false,
+  "jugador": {
+   "id": 974,
+   "nombre": "Ever Valencia",
+   "equipo_id": 11
+  }
+ },
+ {
+  "id": 1379,
+  "resultado_oficial_id": 90,
+  "jugador_id": 978,
+  "es_autogol": false,
+  "jugador": {
+   "id": 978,
+   "nombre": "Adrian Parra",
+   "equipo_id": 11
+  }
+ },
+ {
+  "id": 1380,
+  "resultado_oficial_id": 90,
+  "jugador_id": 1329,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1329,
+   "nombre": "Fabricio Sanguinetti",
+   "equipo_id": 13
+  }
+ },
+ {
+  "id": 1485,
+  "resultado_oficial_id": 94,
+  "jugador_id": 1004,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1004,
+   "nombre": "Steven Rodríguez",
+   "equipo_id": 3
+  }
+ },
+ {
+  "id": 1210,
+  "resultado_oficial_id": 96,
+  "jugador_id": 876,
+  "es_autogol": false,
+  "jugador": {
+   "id": 876,
+   "nombre": "Felix Charrupí",
+   "equipo_id": 10
+  }
+ },
+ {
+  "id": 1211,
+  "resultado_oficial_id": 96,
+  "jugador_id": 884,
+  "es_autogol": false,
+  "jugador": {
+   "id": 884,
+   "nombre": "Luciano Pons",
+   "equipo_id": 10
+  }
+ },
+ {
+  "id": 1212,
+  "resultado_oficial_id": 96,
+  "jugador_id": 831,
+  "es_autogol": false,
+  "jugador": {
+   "id": 831,
+   "nombre": "Misael Martínez",
+   "equipo_id": 17
+  }
+ },
+ {
+  "id": 1213,
+  "resultado_oficial_id": 96,
+  "jugador_id": 883,
+  "es_autogol": false,
+  "jugador": {
+   "id": 883,
+   "nombre": "Emerson Batalla",
+   "equipo_id": 10
+  }
+ },
+ {
+  "id": 1371,
+  "resultado_oficial_id": 97,
+  "jugador_id": 1275,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1275,
+   "nombre": "Andres Roa",
+   "equipo_id": 19
+  }
+ },
+ {
+  "id": 1372,
+  "resultado_oficial_id": 97,
+  "jugador_id": 1179,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1179,
+   "nombre": "Darwin López",
+   "equipo_id": 4
+  }
+ },
+ {
+  "id": 1491,
+  "resultado_oficial_id": 98,
+  "jugador_id": 850,
+  "es_autogol": false,
+  "jugador": {
+   "id": 850,
+   "nombre": "Yeison Guzmán",
+   "equipo_id": 14
+  }
+ },
+ {
+  "id": 1486,
+  "resultado_oficial_id": 226,
+  "jugador_id": 1229,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1229,
+   "nombre": "Joel Contreras",
+   "equipo_id": 1
+  }
+ },
+ {
+  "id": 1487,
+  "resultado_oficial_id": 226,
+  "jugador_id": 1302,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1302,
+   "nombre": "Ricardo Márquez",
+   "equipo_id": 15
+  }
+ },
+ {
+  "id": 1440,
+  "resultado_oficial_id": 577,
+  "jugador_id": 1231,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1231,
+   "nombre": "Néider Ospina",
+   "equipo_id": 1
+  }
+ },
+ {
+  "id": 1441,
+  "resultado_oficial_id": 577,
+  "jugador_id": 971,
+  "es_autogol": false,
+  "jugador": {
+   "id": 971,
+   "nombre": "Sebastián Guzmán",
+   "equipo_id": 11
+  }
+ },
+ {
+  "id": 1442,
+  "resultado_oficial_id": 577,
+  "jugador_id": 1382,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1382,
+   "nombre": "Sergio Aguayo",
+   "equipo_id": 11
+  }
+ },
+ {
+  "id": 1457,
+  "resultado_oficial_id": 580,
+  "jugador_id": 1000,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1000,
+   "nombre": "Johan Martinez",
+   "equipo_id": 3
+  }
+ },
+ {
+  "id": 1458,
+  "resultado_oficial_id": 580,
+  "jugador_id": 1254,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1254,
+   "nombre": "Francisco Chaverra",
+   "equipo_id": 9
+  }
+ },
+ {
+  "id": 1113,
+  "resultado_oficial_id": 230,
+  "jugador_id": 1171,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1171,
+   "nombre": "Rafael Bustamante",
+   "equipo_id": 4
+  }
+ },
+ {
+  "id": 1338,
+  "resultado_oficial_id": 232,
+  "jugador_id": null,
+  "es_autogol": false,
+  "jugador": null
+ },
+ {
+  "id": 1094,
+  "resultado_oficial_id": 234,
+  "jugador_id": 1257,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1257,
+   "nombre": "Leonardo Castro",
+   "equipo_id": 9
+  }
+ },
+ {
+  "id": 1088,
+  "resultado_oficial_id": 236,
+  "jugador_id": null,
+  "es_autogol": false,
+  "jugador": null
+ },
+ {
+  "id": 1344,
+  "resultado_oficial_id": 238,
+  "jugador_id": null,
+  "es_autogol": false,
+  "jugador": null
+ },
+ {
+  "id": 1353,
+  "resultado_oficial_id": 240,
+  "jugador_id": 951,
+  "es_autogol": false,
+  "jugador": {
+   "id": 951,
+   "nombre": "Jaime Peralta",
+   "equipo_id": 20
+  }
+ },
+ {
+  "id": 1172,
+  "resultado_oficial_id": 242,
+  "jugador_id": 903,
+  "es_autogol": false,
+  "jugador": {
+   "id": 903,
+   "nombre": "Alfredo Morelos",
+   "equipo_id": 6
+  }
+ },
+ {
+  "id": 1173,
+  "resultado_oficial_id": 242,
+  "jugador_id": 896,
+  "es_autogol": false,
+  "jugador": {
+   "id": 896,
+   "nombre": "Edwin Cardona",
+   "equipo_id": 6
+  }
+ },
+ {
+  "id": 1356,
+  "resultado_oficial_id": 246,
+  "jugador_id": 988,
+  "es_autogol": false,
+  "jugador": {
+   "id": 988,
+   "nombre": "José Caldera",
+   "equipo_id": 3
+  }
+ },
+ {
+  "id": 1357,
+  "resultado_oficial_id": 246,
+  "jugador_id": 993,
+  "es_autogol": false,
+  "jugador": {
+   "id": 993,
+   "nombre": "Nicolás Benedetti",
+   "equipo_id": 3
+  }
+ },
+ {
+  "id": 1358,
+  "resultado_oficial_id": 246,
+  "jugador_id": 1324,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1324,
+   "nombre": "Diego Duarte",
+   "equipo_id": 13
+  }
+ },
+ {
+  "id": 1359,
+  "resultado_oficial_id": 246,
+  "jugador_id": 1330,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1330,
+   "nombre": "Facundo Boné",
+   "equipo_id": 13
+  }
+ },
+ {
+  "id": 1201,
+  "resultado_oficial_id": 248,
+  "jugador_id": 1282,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1282,
+   "nombre": "Dayro Moreno",
+   "equipo_id": 19
+  }
+ },
+ {
+  "id": 1202,
+  "resultado_oficial_id": 248,
+  "jugador_id": 1199,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1199,
+   "nombre": "Guillermo Paiva",
+   "equipo_id": 12
+  }
+ },
+ {
+  "id": 1399,
+  "resultado_oficial_id": 505,
+  "jugador_id": 951,
+  "es_autogol": false,
+  "jugador": {
+   "id": 951,
+   "nombre": "Jaime Peralta",
+   "equipo_id": 20
+  }
+ },
+ {
+  "id": 1437,
+  "resultado_oficial_id": 509,
+  "jugador_id": null,
+  "es_autogol": false,
+  "jugador": null
+ },
+ {
+  "id": 1160,
+  "resultado_oficial_id": 400,
+  "jugador_id": 1200,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1200,
+   "nombre": "Luis Muriel",
+   "equipo_id": 12
+  }
+ },
+ {
+  "id": 1161,
+  "resultado_oficial_id": 400,
+  "jugador_id": 841,
+  "es_autogol": false,
+  "jugador": {
+   "id": 841,
+   "nombre": "Marcos Mina",
+   "equipo_id": 14
+  }
+ },
+ {
+  "id": 1162,
+  "resultado_oficial_id": 400,
+  "jugador_id": 861,
+  "es_autogol": false,
+  "jugador": {
+   "id": 861,
+   "nombre": "Tomas Ángel",
+   "equipo_id": 14
+  }
+ },
+ {
+  "id": 1163,
+  "resultado_oficial_id": 400,
+  "jugador_id": 855,
+  "es_autogol": false,
+  "jugador": {
+   "id": 855,
+   "nombre": "Jhon Murillo",
+   "equipo_id": 14
+  }
+ },
+ {
+  "id": 1164,
+  "resultado_oficial_id": 400,
+  "jugador_id": 847,
+  "es_autogol": false,
+  "jugador": {
+   "id": 847,
+   "nombre": "Yani Quintero",
+   "equipo_id": 14
+  }
+ },
+ {
+  "id": 1407,
+  "resultado_oficial_id": 510,
+  "jugador_id": 907,
+  "es_autogol": false,
+  "jugador": {
+   "id": 907,
+   "nombre": "Andres Sarmiento",
+   "equipo_id": 6
+  }
+ },
+ {
+  "id": 1408,
+  "resultado_oficial_id": 510,
+  "jugador_id": 902,
+  "es_autogol": false,
+  "jugador": {
+   "id": 902,
+   "nombre": "Marlos Moreno",
+   "equipo_id": 6
+  }
+ },
+ {
+  "id": 1409,
+  "resultado_oficial_id": 510,
+  "jugador_id": 993,
+  "es_autogol": false,
+  "jugador": {
+   "id": 993,
+   "nombre": "Nicolás Benedetti",
+   "equipo_id": 3
+  }
+ },
+ {
+  "id": 1419,
+  "resultado_oficial_id": 511,
+  "jugador_id": 1254,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1254,
+   "nombre": "Francisco Chaverra",
+   "equipo_id": 9
+  }
+ },
+ {
+  "id": 1420,
+  "resultado_oficial_id": 511,
+  "jugador_id": 1253,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1253,
+   "nombre": "Andrey Estupiñán",
+   "equipo_id": 9
+  }
+ },
+ {
+  "id": 1434,
+  "resultado_oficial_id": 514,
+  "jugador_id": 1025,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1025,
+   "nombre": "Jonathan Perlaza",
+   "equipo_id": 8
+  }
+ },
+ {
+  "id": 1435,
+  "resultado_oficial_id": 514,
+  "jugador_id": 1314,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1314,
+   "nombre": "Mateo Rodas",
+   "equipo_id": 13
+  }
+ },
+ {
+  "id": 1301,
+  "resultado_oficial_id": 555,
+  "jugador_id": 1100,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1100,
+   "nombre": "Yony González",
+   "equipo_id": 7
+  }
+ },
+ {
+  "id": 1302,
+  "resultado_oficial_id": 555,
+  "jugador_id": 1102,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1102,
+   "nombre": "John Montaño",
+   "equipo_id": 7
+  }
+ },
+ {
+  "id": 1471,
+  "resultado_oficial_id": 618,
+  "jugador_id": 1282,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1282,
+   "nombre": "Dayro Moreno",
+   "equipo_id": 19
+  }
+ },
+ {
+  "id": 1443,
+  "resultado_oficial_id": 518,
+  "jugador_id": 1154,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1154,
+   "nombre": "Jerson Malagón",
+   "equipo_id": 4
+  }
+ },
+ {
+  "id": 1444,
+  "resultado_oficial_id": 518,
+  "jugador_id": 1175,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1175,
+   "nombre": "Andres Renteria",
+   "equipo_id": 4
+  }
+ },
+ {
+  "id": 1445,
+  "resultado_oficial_id": 518,
+  "jugador_id": 850,
+  "es_autogol": false,
+  "jugador": {
+   "id": 850,
+   "nombre": "Yeison Guzmán",
+   "equipo_id": 14
+  }
+ },
+ {
+  "id": 1446,
+  "resultado_oficial_id": 518,
+  "jugador_id": 848,
+  "es_autogol": false,
+  "jugador": {
+   "id": 848,
+   "nombre": "Josen Escobar",
+   "equipo_id": 14
+  }
+ },
+ {
+  "id": 1447,
+  "resultado_oficial_id": 521,
+  "jugador_id": 1200,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1200,
+   "nombre": "Luis Muriel",
+   "equipo_id": 12
+  }
+ },
+ {
+  "id": 1448,
+  "resultado_oficial_id": 521,
+  "jugador_id": 1123,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1123,
+   "nombre": "Franco Fagúndez",
+   "equipo_id": 16
+  }
+ },
+ {
+  "id": 1452,
+  "resultado_oficial_id": 524,
+  "jugador_id": 907,
+  "es_autogol": false,
+  "jugador": {
+   "id": 907,
+   "nombre": "Andres Sarmiento",
+   "equipo_id": 6
+  }
+ },
+ {
+  "id": 1453,
+  "resultado_oficial_id": 524,
+  "jugador_id": 903,
+  "es_autogol": false,
+  "jugador": {
+   "id": 903,
+   "nombre": "Alfredo Morelos",
+   "equipo_id": 6
+  }
+ },
+ {
+  "id": 1454,
+  "resultado_oficial_id": 524,
+  "jugador_id": 902,
+  "es_autogol": false,
+  "jugador": {
+   "id": 902,
+   "nombre": "Marlos Moreno",
+   "equipo_id": 6
+  }
+ },
+ {
+  "id": 1455,
+  "resultado_oficial_id": 524,
+  "jugador_id": 829,
+  "es_autogol": false,
+  "jugador": {
+   "id": 829,
+   "nombre": "Felipe Pardo",
+   "equipo_id": 17
+  }
+ },
+ {
+  "id": 1481,
+  "resultado_oficial_id": 527,
+  "jugador_id": 931,
+  "es_autogol": false,
+  "jugador": {
+   "id": 931,
+   "nombre": "Jacobo Pimentel",
+   "equipo_id": 5
+  }
+ },
+ {
+  "id": 1482,
+  "resultado_oficial_id": 527,
+  "jugador_id": 920,
+  "es_autogol": false,
+  "jugador": {
+   "id": 920,
+   "nombre": "Sebastián Salazar",
+   "equipo_id": 5
+  }
+ },
+ {
+  "id": 1483,
+  "resultado_oficial_id": 527,
+  "jugador_id": 1302,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1302,
+   "nombre": "Ricardo Márquez",
+   "equipo_id": 15
+  }
+ },
+ {
+  "id": 1484,
+  "resultado_oficial_id": 527,
+  "jugador_id": 1285,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1285,
+   "nombre": "Andrés Mosquera",
+   "equipo_id": 15
+  }
+ },
+ {
+  "id": 1152,
+  "resultado_oficial_id": 530,
+  "jugador_id": 1096,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1096,
+   "nombre": "Jeison Medina",
+   "equipo_id": 7
+  }
+ },
+ {
+  "id": 1153,
+  "resultado_oficial_id": 530,
+  "jugador_id": 1102,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1102,
+   "nombre": "John Montaño",
+   "equipo_id": 7
+  }
+ },
+ {
+  "id": 1154,
+  "resultado_oficial_id": 530,
+  "jugador_id": 1215,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1215,
+   "nombre": "Francisco Meza",
+   "equipo_id": 1
+  }
+ },
+ {
+  "id": 1207,
+  "resultado_oficial_id": 533,
+  "jugador_id": null,
+  "es_autogol": false,
+  "jugador": null
+ },
+ {
+  "id": 1225,
+  "resultado_oficial_id": 536,
+  "jugador_id": 868,
+  "es_autogol": false,
+  "jugador": {
+   "id": 868,
+   "nombre": "Jose García",
+   "equipo_id": 10
+  }
+ },
+ {
+  "id": 1226,
+  "resultado_oficial_id": 536,
+  "jugador_id": 985,
+  "es_autogol": false,
+  "jugador": {
+   "id": 985,
+   "nombre": "Leyser Chaverra",
+   "equipo_id": 3
+  }
+ },
+ {
+  "id": 1235,
+  "resultado_oficial_id": 539,
+  "jugador_id": 1052,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1052,
+   "nombre": "Jhon Largacha",
+   "equipo_id": 2
+  }
+ },
+ {
+  "id": 1236,
+  "resultado_oficial_id": 539,
+  "jugador_id": 1010,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1010,
+   "nombre": "Santiago Jiménez",
+   "equipo_id": 8
+  }
+ },
+ {
+  "id": 1237,
+  "resultado_oficial_id": 539,
+  "jugador_id": 1038,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1038,
+   "nombre": "Jordy Monroy",
+   "equipo_id": 2
+  }
+ },
+ {
+  "id": 1251,
+  "resultado_oficial_id": 543,
+  "jugador_id": 969,
+  "es_autogol": false,
+  "jugador": {
+   "id": 969,
+   "nombre": "Luis Sánchez",
+   "equipo_id": 11
+  }
+ },
+ {
+  "id": 1252,
+  "resultado_oficial_id": 543,
+  "jugador_id": 977,
+  "es_autogol": false,
+  "jugador": {
+   "id": 977,
+   "nombre": "Kelvin Florez",
+   "equipo_id": 11
+  }
+ },
+ {
+  "id": 1253,
+  "resultado_oficial_id": 543,
+  "jugador_id": 1376,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1376,
+   "nombre": "Gustavo Torres",
+   "equipo_id": 20
+  }
+ },
+ {
+  "id": 1260,
+  "resultado_oficial_id": 546,
+  "jugador_id": 1063,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1063,
+   "nombre": "Sebastian Navarro",
+   "equipo_id": 18
+  }
+ },
+ {
+  "id": 1261,
+  "resultado_oficial_id": 546,
+  "jugador_id": 1281,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1281,
+   "nombre": "Jefry Zapata",
+   "equipo_id": 19
+  }
+ },
+ {
+  "id": 1262,
+  "resultado_oficial_id": 546,
+  "jugador_id": 1282,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1282,
+   "nombre": "Dayro Moreno",
+   "equipo_id": 19
+  }
+ },
+ {
+  "id": 1292,
+  "resultado_oficial_id": 552,
+  "jugador_id": 861,
+  "es_autogol": false,
+  "jugador": {
+   "id": 861,
+   "nombre": "Tomas Ángel",
+   "equipo_id": 14
+  }
+ },
+ {
+  "id": 1293,
+  "resultado_oficial_id": 552,
+  "jugador_id": 850,
+  "es_autogol": false,
+  "jugador": {
+   "id": 850,
+   "nombre": "Yeison Guzmán",
+   "equipo_id": 14
+  }
+ },
+ {
+  "id": 1294,
+  "resultado_oficial_id": 552,
+  "jugador_id": 844,
+  "es_autogol": false,
+  "jugador": {
+   "id": 844,
+   "nombre": "Cristian Tovar",
+   "equipo_id": 14
+  }
+ },
+ {
+  "id": 1311,
+  "resultado_oficial_id": 558,
+  "jugador_id": 929,
+  "es_autogol": false,
+  "jugador": {
+   "id": 929,
+   "nombre": "Felipe Cifuentes",
+   "equipo_id": 5
+  }
+ },
+ {
+  "id": 1312,
+  "resultado_oficial_id": 558,
+  "jugador_id": 930,
+  "es_autogol": false,
+  "jugador": {
+   "id": 930,
+   "nombre": "Santiago Mera",
+   "equipo_id": 5
+  }
+ },
+ {
+  "id": 1323,
+  "resultado_oficial_id": 561,
+  "jugador_id": 1367,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1367,
+   "nombre": "Carlos Rentería",
+   "equipo_id": 20
+  }
+ },
+ {
+  "id": 1324,
+  "resultado_oficial_id": 561,
+  "jugador_id": 1366,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1366,
+   "nombre": "Brayan Montaño",
+   "equipo_id": 20
+  }
+ },
+ {
+  "id": 1325,
+  "resultado_oficial_id": 561,
+  "jugador_id": 1026,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1026,
+   "nombre": "Patrick Preciado",
+   "equipo_id": 8
+  }
+ },
+ {
+  "id": 1331,
+  "resultado_oficial_id": 564,
+  "jugador_id": 1123,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1123,
+   "nombre": "Franco Fagúndez",
+   "equipo_id": 16
+  }
+ },
+ {
+  "id": 1332,
+  "resultado_oficial_id": 564,
+  "jugador_id": 1126,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1126,
+   "nombre": "Nahuel Bustos",
+   "equipo_id": 16
+  }
+ },
+ {
+  "id": 1385,
+  "resultado_oficial_id": 567,
+  "jugador_id": 1194,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1194,
+   "nombre": "Jesus Rivas",
+   "equipo_id": 12
+  }
+ },
+ {
+  "id": 1386,
+  "resultado_oficial_id": 567,
+  "jugador_id": 1204,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1204,
+   "nombre": "Teofilo Gutierrez",
+   "equipo_id": 12
+  }
+ },
+ {
+  "id": 1387,
+  "resultado_oficial_id": 567,
+  "jugador_id": 1188,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1188,
+   "nombre": "Yeison Súarez",
+   "equipo_id": 12
+  }
+ },
+ {
+  "id": 1388,
+  "resultado_oficial_id": 567,
+  "jugador_id": 1171,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1171,
+   "nombre": "Rafael Bustamante",
+   "equipo_id": 4
+  }
+ },
+ {
+  "id": 1389,
+  "resultado_oficial_id": 567,
+  "jugador_id": 1179,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1179,
+   "nombre": "Darwin López",
+   "equipo_id": 4
+  }
+ },
+ {
+  "id": 1410,
+  "resultado_oficial_id": 570,
+  "jugador_id": 1330,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1330,
+   "nombre": "Facundo Boné",
+   "equipo_id": 13
+  }
+ },
+ {
+  "id": 1411,
+  "resultado_oficial_id": 570,
+  "jugador_id": 1303,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1303,
+   "nombre": "Antony Vásquez",
+   "equipo_id": 15
+  }
+ },
+ {
+  "id": 1412,
+  "resultado_oficial_id": 570,
+  "jugador_id": 1302,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1302,
+   "nombre": "Ricardo Márquez",
+   "equipo_id": 15
+  }
+ },
+ {
+  "id": 1413,
+  "resultado_oficial_id": 570,
+  "jugador_id": 1314,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1314,
+   "nombre": "Mateo Rodas",
+   "equipo_id": 13
+  }
+ },
+ {
+  "id": 1425,
+  "resultado_oficial_id": 573,
+  "jugador_id": 1038,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1038,
+   "nombre": "Jordy Monroy",
+   "equipo_id": 2
+  }
+ },
+ {
+  "id": 1426,
+  "resultado_oficial_id": 573,
+  "jugador_id": 1257,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1257,
+   "nombre": "Leonardo Castro",
+   "equipo_id": 9
+  }
+ },
+ {
+  "id": 1510,
+  "resultado_oficial_id": 876,
+  "jugador_id": 884,
+  "es_autogol": false,
+  "jugador": {
+   "id": 884,
+   "nombre": "Luciano Pons",
+   "equipo_id": 10
+  }
+ },
+ {
+  "id": 1511,
+  "resultado_oficial_id": 876,
+  "jugador_id": 876,
+  "es_autogol": false,
+  "jugador": {
+   "id": 876,
+   "nombre": "Felix Charrupí",
+   "equipo_id": 10
+  }
+ },
+ {
+  "id": 1512,
+  "resultado_oficial_id": 876,
+  "jugador_id": 1096,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1096,
+   "nombre": "Jeison Medina",
+   "equipo_id": 7
+  }
+ },
+ {
+  "id": 1513,
+  "resultado_oficial_id": 876,
+  "jugador_id": 1334,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1334,
+   "nombre": "Juan Fernando Quintero",
+   "equipo_id": 7
+  }
+ },
+ {
+  "id": 1463,
+  "resultado_oficial_id": 585,
+  "jugador_id": 1071,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1071,
+   "nombre": "Jhonier Blanco",
+   "equipo_id": 18
+  }
+ },
+ {
+  "id": 1464,
+  "resultado_oficial_id": 585,
+  "jugador_id": 1179,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1179,
+   "nombre": "Darwin López",
+   "equipo_id": 4
+  }
+ },
+ {
+  "id": 1465,
+  "resultado_oficial_id": 585,
+  "jugador_id": 1175,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1175,
+   "nombre": "Andres Renteria",
+   "equipo_id": 4
+  }
+ },
+ {
+  "id": 1467,
+  "resultado_oficial_id": 588,
+  "jugador_id": 1126,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1126,
+   "nombre": "Nahuel Bustos",
+   "equipo_id": 16
+  }
+ },
+ {
+  "id": 1477,
+  "resultado_oficial_id": 591,
+  "jugador_id": 1324,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1324,
+   "nombre": "Diego Duarte",
+   "equipo_id": 13
+  }
+ },
+ {
+  "id": 1478,
+  "resultado_oficial_id": 591,
+  "jugador_id": 1329,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1329,
+   "nombre": "Fabricio Sanguinetti",
+   "equipo_id": 13
+  }
+ },
+ {
+  "id": 1479,
+  "resultado_oficial_id": 591,
+  "jugador_id": 1326,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1326,
+   "nombre": "Yojan Garcés",
+   "equipo_id": 13
+  }
+ },
+ {
+  "id": 1480,
+  "resultado_oficial_id": 591,
+  "jugador_id": 1231,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1231,
+   "nombre": "Néider Ospina",
+   "equipo_id": 1
+  }
+ },
+ {
+  "id": 1220,
+  "resultado_oficial_id": 594,
+  "jugador_id": 1096,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1096,
+   "nombre": "Jeison Medina",
+   "equipo_id": 7
+  }
+ },
+ {
+  "id": 1221,
+  "resultado_oficial_id": 594,
+  "jugador_id": 930,
+  "es_autogol": false,
+  "jugador": {
+   "id": 930,
+   "nombre": "Santiago Mera",
+   "equipo_id": 5
+  }
+ },
+ {
+  "id": 1243,
+  "resultado_oficial_id": 597,
+  "jugador_id": 818,
+  "es_autogol": false,
+  "jugador": {
+   "id": 818,
+   "nombre": "Ever Meza",
+   "equipo_id": 17
+  }
+ },
+ {
+  "id": 1280,
+  "resultado_oficial_id": 600,
+  "jugador_id": 1055,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1055,
+   "nombre": "Yuber Quiñones",
+   "equipo_id": 2
+  }
+ },
+ {
+  "id": 1281,
+  "resultado_oficial_id": 600,
+  "jugador_id": 882,
+  "es_autogol": false,
+  "jugador": {
+   "id": 882,
+   "nombre": "Jhon Fredy Salazar",
+   "equipo_id": 10
+  }
+ },
+ {
+  "id": 1282,
+  "resultado_oficial_id": 600,
+  "jugador_id": 883,
+  "es_autogol": false,
+  "jugador": {
+   "id": 883,
+   "nombre": "Emerson Batalla",
+   "equipo_id": 10
+  }
+ },
+ {
+  "id": 1283,
+  "resultado_oficial_id": 600,
+  "jugador_id": 884,
+  "es_autogol": false,
+  "jugador": {
+   "id": 884,
+   "nombre": "Luciano Pons",
+   "equipo_id": 10
+  }
+ },
+ {
+  "id": 1317,
+  "resultado_oficial_id": 603,
+  "jugador_id": 896,
+  "es_autogol": false,
+  "jugador": {
+   "id": 896,
+   "nombre": "Edwin Cardona",
+   "equipo_id": 6
+  }
+ },
+ {
+  "id": 1318,
+  "resultado_oficial_id": 603,
+  "jugador_id": 1346,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1346,
+   "nombre": "Ian Poveda",
+   "equipo_id": 6
+  }
+ },
+ {
+  "id": 1394,
+  "resultado_oficial_id": 606,
+  "jugador_id": 1281,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1281,
+   "nombre": "Jefry Zapata",
+   "equipo_id": 19
+  }
+ },
+ {
+  "id": 1395,
+  "resultado_oficial_id": 606,
+  "jugador_id": 1001,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1001,
+   "nombre": "Juan Dinenno",
+   "equipo_id": 3
+  }
+ },
+ {
+  "id": 1396,
+  "resultado_oficial_id": 606,
+  "jugador_id": 993,
+  "es_autogol": false,
+  "jugador": {
+   "id": 993,
+   "nombre": "Nicolás Benedetti",
+   "equipo_id": 3
+  }
+ },
+ {
+  "id": 1431,
+  "resultado_oficial_id": 609,
+  "jugador_id": 1376,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1376,
+   "nombre": "Gustavo Torres",
+   "equipo_id": 20
+  }
+ },
+ {
+  "id": 1432,
+  "resultado_oficial_id": 609,
+  "jugador_id": 1259,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1259,
+   "nombre": "Rodrigo Contreras",
+   "equipo_id": 9
+  }
+ },
+ {
+  "id": 1433,
+  "resultado_oficial_id": 609,
+  "jugador_id": 1248,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1248,
+   "nombre": "Rodrigo Ureña",
+   "equipo_id": 9
+  }
+ },
+ {
+  "id": 1468,
+  "resultado_oficial_id": 612,
+  "jugador_id": 1017,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1017,
+   "nombre": "Diego Chávez",
+   "equipo_id": 8
+  }
+ },
+ {
+  "id": 1525,
+  "resultado_oficial_id": 879,
+  "jugador_id": 1052,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1052,
+   "nombre": "Jhon Largacha",
+   "equipo_id": 2
+  }
+ },
+ {
+  "id": 1526,
+  "resultado_oficial_id": 879,
+  "jugador_id": 1035,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1035,
+   "nombre": "Danilo Ortiz",
+   "equipo_id": 2
+  }
+ },
+ {
+  "id": 1527,
+  "resultado_oficial_id": 879,
+  "jugador_id": 1306,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1306,
+   "nombre": "Fabian Charales",
+   "equipo_id": 15
+  }
+ },
+ {
+  "id": 1472,
+  "resultado_oficial_id": 621,
+  "jugador_id": 1324,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1324,
+   "nombre": "Diego Duarte",
+   "equipo_id": 13
+  }
+ },
+ {
+  "id": 1473,
+  "resultado_oficial_id": 621,
+  "jugador_id": 1326,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1326,
+   "nombre": "Yojan Garcés",
+   "equipo_id": 13
+  }
+ },
+ {
+  "id": 1474,
+  "resultado_oficial_id": 621,
+  "jugador_id": 1346,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1346,
+   "nombre": "Ian Poveda",
+   "equipo_id": 6
+  }
+ },
+ {
+  "id": 1475,
+  "resultado_oficial_id": 621,
+  "jugador_id": 1344,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1344,
+   "nombre": "Elías Cabrera",
+   "equipo_id": 6
+  }
+ },
+ {
+  "id": 1476,
+  "resultado_oficial_id": 621,
+  "jugador_id": 900,
+  "es_autogol": false,
+  "jugador": {
+   "id": 900,
+   "nombre": "Juan Zapata",
+   "equipo_id": 6
+  }
+ },
+ {
+  "id": 1269,
+  "resultado_oficial_id": 549,
+  "jugador_id": 1123,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1123,
+   "nombre": "Franco Fagúndez",
+   "equipo_id": 16
+  }
+ },
+ {
+  "id": 1270,
+  "resultado_oficial_id": 549,
+  "jugador_id": 1123,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1123,
+   "nombre": "Franco Fagúndez",
+   "equipo_id": 16
+  }
+ },
+ {
+  "id": 1271,
+  "resultado_oficial_id": 549,
+  "jugador_id": 1402,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1402,
+   "nombre": "Emerson Rodríguez",
+   "equipo_id": 16
+  }
+ },
+ {
+  "id": 1272,
+  "resultado_oficial_id": 549,
+  "jugador_id": 1253,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1253,
+   "nombre": "Andrey Estupiñán",
+   "equipo_id": 9
+  }
+ },
+ {
+  "id": 1273,
+  "resultado_oficial_id": 549,
+  "jugador_id": 1255,
+  "es_autogol": false,
+  "jugador": {
+   "id": 1255,
+   "nombre": "Daniel Ruiz",
+   "equipo_id": 9
+  }
+ }
+]
