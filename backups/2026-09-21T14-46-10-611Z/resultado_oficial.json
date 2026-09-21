@@ -1,0 +1,2398 @@
+[
+  {
+    "id": 41,
+    "partido_id": 32,
+    "goles_local_real": 0,
+    "goles_visitante_real": 0,
+    "equipo_ganador_id": null,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:48.424Z",
+    "goleadores": [
+      {
+        "id": 1119,
+        "resultado_oficial_id": 41,
+        "jugador_id": null,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 876,
+    "partido_id": 102,
+    "goles_local_real": 2,
+    "goles_visitante_real": 2,
+    "equipo_ganador_id": null,
+    "ingresado_por_usuario_id": 3,
+    "timestamp_ingreso": "2026-09-18T01:57:24.664Z",
+    "goleadores": [
+      {
+        "id": 1510,
+        "resultado_oficial_id": 876,
+        "jugador_id": 884,
+        "es_autogol": false
+      },
+      {
+        "id": 1511,
+        "resultado_oficial_id": 876,
+        "jugador_id": 876,
+        "es_autogol": false
+      },
+      {
+        "id": 1512,
+        "resultado_oficial_id": 876,
+        "jugador_id": 1096,
+        "es_autogol": false
+      },
+      {
+        "id": 1513,
+        "resultado_oficial_id": 876,
+        "jugador_id": 1334,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 609,
+    "partido_id": 121,
+    "goles_local_real": 1,
+    "goles_visitante_real": 2,
+    "equipo_ganador_id": 9,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:04.103Z",
+    "goleadores": [
+      {
+        "id": 1431,
+        "resultado_oficial_id": 609,
+        "jugador_id": 1376,
+        "es_autogol": false
+      },
+      {
+        "id": 1432,
+        "resultado_oficial_id": 609,
+        "jugador_id": 1259,
+        "es_autogol": false
+      },
+      {
+        "id": 1433,
+        "resultado_oficial_id": 609,
+        "jugador_id": 1248,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 240,
+    "partido_id": 81,
+    "goles_local_real": 0,
+    "goles_visitante_real": 1,
+    "equipo_ganador_id": 20,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:59.959Z",
+    "goleadores": [
+      {
+        "id": 1353,
+        "resultado_oficial_id": 240,
+        "jugador_id": 951,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 248,
+    "partido_id": 77,
+    "goles_local_real": 1,
+    "goles_visitante_real": 1,
+    "equipo_ganador_id": null,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:52.288Z",
+    "goleadores": [
+      {
+        "id": 1201,
+        "resultado_oficial_id": 248,
+        "jugador_id": 1282,
+        "es_autogol": false
+      },
+      {
+        "id": 1202,
+        "resultado_oficial_id": 248,
+        "jugador_id": 1199,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "partido_id": 22,
+    "goles_local_real": 2,
+    "goles_visitante_real": 0,
+    "equipo_ganador_id": 3,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:11.112Z",
+    "goleadores": [
+      {
+        "id": 1581,
+        "resultado_oficial_id": 2,
+        "jugador_id": 1000,
+        "es_autogol": false
+      },
+      {
+        "id": 1582,
+        "resultado_oficial_id": 2,
+        "jugador_id": 1004,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 62,
+    "partido_id": 39,
+    "goles_local_real": 2,
+    "goles_visitante_real": 2,
+    "equipo_ganador_id": null,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:48.795Z",
+    "goleadores": [
+      {
+        "id": 1127,
+        "resultado_oficial_id": 62,
+        "jugador_id": 1127,
+        "es_autogol": false
+      },
+      {
+        "id": 1128,
+        "resultado_oficial_id": 62,
+        "jugador_id": 1281,
+        "es_autogol": false
+      },
+      {
+        "id": 1129,
+        "resultado_oficial_id": 62,
+        "jugador_id": 1273,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 533,
+    "partido_id": 98,
+    "goles_local_real": 0,
+    "goles_visitante_real": 0,
+    "equipo_ganador_id": null,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:52.664Z",
+    "goleadores": [
+      {
+        "id": 1207,
+        "resultado_oficial_id": 533,
+        "jugador_id": null,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 246,
+    "partido_id": 80,
+    "goles_local_real": 2,
+    "goles_visitante_real": 2,
+    "equipo_ganador_id": null,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:00.229Z",
+    "goleadores": [
+      {
+        "id": 1356,
+        "resultado_oficial_id": 246,
+        "jugador_id": 988,
+        "es_autogol": false
+      },
+      {
+        "id": 1357,
+        "resultado_oficial_id": 246,
+        "jugador_id": 993,
+        "es_autogol": false
+      },
+      {
+        "id": 1358,
+        "resultado_oficial_id": 246,
+        "jugador_id": 1324,
+        "es_autogol": false
+      },
+      {
+        "id": 1359,
+        "resultado_oficial_id": 246,
+        "jugador_id": 1330,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 879,
+    "partido_id": 122,
+    "goles_local_real": 2,
+    "goles_visitante_real": 2,
+    "equipo_ganador_id": null,
+    "ingresado_por_usuario_id": 3,
+    "timestamp_ingreso": "2026-09-19T13:22:56.406Z",
+    "goleadores": [
+      {
+        "id": 1525,
+        "resultado_oficial_id": 879,
+        "jugador_id": 1052,
+        "es_autogol": false
+      },
+      {
+        "id": 1526,
+        "resultado_oficial_id": 879,
+        "jugador_id": 1035,
+        "es_autogol": false
+      },
+      {
+        "id": 1527,
+        "resultado_oficial_id": 879,
+        "jugador_id": 1306,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 600,
+    "partido_id": 114,
+    "goles_local_real": 1,
+    "goles_visitante_real": 3,
+    "equipo_ganador_id": 10,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:56.149Z",
+    "goleadores": [
+      {
+        "id": 1280,
+        "resultado_oficial_id": 600,
+        "jugador_id": 1055,
+        "es_autogol": false
+      },
+      {
+        "id": 1281,
+        "resultado_oficial_id": 600,
+        "jugador_id": 882,
+        "es_autogol": false
+      },
+      {
+        "id": 1282,
+        "resultado_oficial_id": 600,
+        "jugador_id": 883,
+        "es_autogol": false
+      },
+      {
+        "id": 1283,
+        "resultado_oficial_id": 600,
+        "jugador_id": 884,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 96,
+    "partido_id": 60,
+    "goles_local_real": 2,
+    "goles_visitante_real": 3,
+    "equipo_ganador_id": 10,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:53.034Z",
+    "goleadores": [
+      {
+        "id": 1210,
+        "resultado_oficial_id": 96,
+        "jugador_id": 876,
+        "es_autogol": false
+      },
+      {
+        "id": 1211,
+        "resultado_oficial_id": 96,
+        "jugador_id": 884,
+        "es_autogol": false
+      },
+      {
+        "id": 1212,
+        "resultado_oficial_id": 96,
+        "jugador_id": 831,
+        "es_autogol": false
+      },
+      {
+        "id": 1213,
+        "resultado_oficial_id": 96,
+        "jugador_id": 883,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 883,
+    "partido_id": 127,
+    "goles_local_real": 3,
+    "goles_visitante_real": 0,
+    "equipo_ganador_id": 9,
+    "ingresado_por_usuario_id": 3,
+    "timestamp_ingreso": "2026-09-19T22:59:10.740Z",
+    "goleadores": [
+      {
+        "id": 1608,
+        "resultado_oficial_id": 883,
+        "jugador_id": 1253,
+        "es_autogol": false
+      },
+      {
+        "id": 1609,
+        "resultado_oficial_id": 883,
+        "jugador_id": 1254,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 885,
+    "partido_id": 125,
+    "goles_local_real": 1,
+    "goles_visitante_real": 4,
+    "equipo_ganador_id": 16,
+    "ingresado_por_usuario_id": 3,
+    "timestamp_ingreso": "2026-09-19T23:00:19.330Z",
+    "goleadores": [
+      {
+        "id": 1614,
+        "resultado_oficial_id": 885,
+        "jugador_id": 1124,
+        "es_autogol": false
+      },
+      {
+        "id": 1615,
+        "resultado_oficial_id": 885,
+        "jugador_id": 1126,
+        "es_autogol": false
+      },
+      {
+        "id": 1616,
+        "resultado_oficial_id": 885,
+        "jugador_id": 1118,
+        "es_autogol": false
+      },
+      {
+        "id": 1617,
+        "resultado_oficial_id": 885,
+        "jugador_id": 1336,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 887,
+    "partido_id": 126,
+    "goles_local_real": 3,
+    "goles_visitante_real": 0,
+    "equipo_ganador_id": 3,
+    "ingresado_por_usuario_id": 3,
+    "timestamp_ingreso": "2026-09-20T15:12:54.049Z",
+    "goleadores": [
+      {
+        "id": 1620,
+        "resultado_oficial_id": 887,
+        "jugador_id": 906,
+        "es_autogol": false
+      },
+      {
+        "id": 1621,
+        "resultado_oficial_id": 887,
+        "jugador_id": 1004,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 236,
+    "partido_id": 75,
+    "goles_local_real": 0,
+    "goles_visitante_real": 0,
+    "equipo_ganador_id": null,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:46.657Z",
+    "goleadores": [
+      {
+        "id": 1088,
+        "resultado_oficial_id": 236,
+        "jugador_id": null,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 234,
+    "partido_id": 74,
+    "goles_local_real": 1,
+    "goles_visitante_real": 1,
+    "equipo_ganador_id": null,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:47.004Z",
+    "goleadores": [
+      {
+        "id": 1094,
+        "resultado_oficial_id": 234,
+        "jugador_id": 1257,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 69,
+    "partido_id": 46,
+    "goles_local_real": 2,
+    "goles_visitante_real": 0,
+    "equipo_ganador_id": 9,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:47.349Z",
+    "goleadores": [
+      {
+        "id": 1100,
+        "resultado_oficial_id": 69,
+        "jugador_id": 1243,
+        "es_autogol": false
+      },
+      {
+        "id": 1101,
+        "resultado_oficial_id": 69,
+        "jugador_id": 1257,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 228,
+    "partido_id": 40,
+    "goles_local_real": 1,
+    "goles_visitante_real": 1,
+    "equipo_ganador_id": null,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:49.140Z",
+    "goleadores": [
+      {
+        "id": 1133,
+        "resultado_oficial_id": 228,
+        "jugador_id": 1323,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 552,
+    "partido_id": 104,
+    "goles_local_real": 3,
+    "goles_visitante_real": 0,
+    "equipo_ganador_id": 14,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:56.515Z",
+    "goleadores": [
+      {
+        "id": 1292,
+        "resultado_oficial_id": 552,
+        "jugador_id": 861,
+        "es_autogol": false
+      },
+      {
+        "id": 1293,
+        "resultado_oficial_id": 552,
+        "jugador_id": 850,
+        "es_autogol": false
+      },
+      {
+        "id": 1294,
+        "resultado_oficial_id": 552,
+        "jugador_id": 844,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 57,
+    "partido_id": 36,
+    "goles_local_real": 0,
+    "goles_visitante_real": 1,
+    "equipo_ganador_id": 9,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:49.484Z",
+    "goleadores": [
+      {
+        "id": 1140,
+        "resultado_oficial_id": 57,
+        "jugador_id": 1259,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 514,
+    "partido_id": 86,
+    "goles_local_real": 1,
+    "goles_visitante_real": 1,
+    "equipo_ganador_id": null,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:04.465Z",
+    "goleadores": [
+      {
+        "id": 1434,
+        "resultado_oficial_id": 514,
+        "jugador_id": 1025,
+        "es_autogol": false
+      },
+      {
+        "id": 1435,
+        "resultado_oficial_id": 514,
+        "jugador_id": 1314,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 56,
+    "partido_id": 35,
+    "goles_local_real": 1,
+    "goles_visitante_real": 0,
+    "equipo_ganador_id": 7,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:49.752Z",
+    "goleadores": [
+      {
+        "id": 1148,
+        "resultado_oficial_id": 56,
+        "jugador_id": 1095,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 530,
+    "partido_id": 97,
+    "goles_local_real": 2,
+    "goles_visitante_real": 1,
+    "equipo_ganador_id": 7,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:50.100Z",
+    "goleadores": [
+      {
+        "id": 1152,
+        "resultado_oficial_id": 530,
+        "jugador_id": 1096,
+        "es_autogol": false
+      },
+      {
+        "id": 1153,
+        "resultado_oficial_id": 530,
+        "jugador_id": 1102,
+        "es_autogol": false
+      },
+      {
+        "id": 1154,
+        "resultado_oficial_id": 530,
+        "jugador_id": 1215,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 889,
+    "partido_id": 124,
+    "goles_local_real": 1,
+    "goles_visitante_real": 0,
+    "equipo_ganador_id": 8,
+    "ingresado_por_usuario_id": 3,
+    "timestamp_ingreso": "2026-09-20T15:20:00.994Z",
+    "goleadores": [
+      {
+        "id": 1623,
+        "resultado_oficial_id": 889,
+        "jugador_id": 1017,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 891,
+    "partido_id": 128,
+    "goles_local_real": 1,
+    "goles_visitante_real": 4,
+    "equipo_ganador_id": 12,
+    "ingresado_por_usuario_id": 3,
+    "timestamp_ingreso": "2026-09-20T23:02:11.822Z",
+    "goleadores": [
+      {
+        "id": 1629,
+        "resultado_oficial_id": 891,
+        "jugador_id": 1059,
+        "es_autogol": false
+      },
+      {
+        "id": 1630,
+        "resultado_oficial_id": 891,
+        "jugador_id": 1190,
+        "es_autogol": false
+      },
+      {
+        "id": 1631,
+        "resultado_oficial_id": 891,
+        "jugador_id": 1203,
+        "es_autogol": false
+      },
+      {
+        "id": 1632,
+        "resultado_oficial_id": 891,
+        "jugador_id": 1204,
+        "es_autogol": false
+      },
+      {
+        "id": 1633,
+        "resultado_oficial_id": 891,
+        "jugador_id": 1197,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 400,
+    "partido_id": 87,
+    "goles_local_real": 4,
+    "goles_visitante_real": 2,
+    "equipo_ganador_id": 14,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:50.458Z",
+    "goleadores": [
+      {
+        "id": 1160,
+        "resultado_oficial_id": 400,
+        "jugador_id": 1200,
+        "es_autogol": false
+      },
+      {
+        "id": 1161,
+        "resultado_oficial_id": 400,
+        "jugador_id": 841,
+        "es_autogol": false
+      },
+      {
+        "id": 1162,
+        "resultado_oficial_id": 400,
+        "jugador_id": 861,
+        "es_autogol": false
+      },
+      {
+        "id": 1163,
+        "resultado_oficial_id": 400,
+        "jugador_id": 855,
+        "es_autogol": false
+      },
+      {
+        "id": 1164,
+        "resultado_oficial_id": 400,
+        "jugador_id": 847,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 893,
+    "partido_id": 129,
+    "goles_local_real": 2,
+    "goles_visitante_real": 0,
+    "equipo_ganador_id": 10,
+    "ingresado_por_usuario_id": 3,
+    "timestamp_ingreso": "2026-09-20T23:23:38.302Z",
+    "goleadores": [
+      {
+        "id": 1636,
+        "resultado_oficial_id": 893,
+        "jugador_id": 883,
+        "es_autogol": false
+      },
+      {
+        "id": 1637,
+        "resultado_oficial_id": 893,
+        "jugador_id": 884,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 895,
+    "partido_id": 130,
+    "goles_local_real": 1,
+    "goles_visitante_real": 1,
+    "equipo_ganador_id": null,
+    "ingresado_por_usuario_id": 3,
+    "timestamp_ingreso": "2026-09-21T01:10:21.328Z",
+    "goleadores": [
+      {
+        "id": 1640,
+        "resultado_oficial_id": 895,
+        "jugador_id": 1382,
+        "es_autogol": false
+      },
+      {
+        "id": 1641,
+        "resultado_oficial_id": 895,
+        "jugador_id": 850,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 555,
+    "partido_id": 91,
+    "goles_local_real": 0,
+    "goles_visitante_real": 3,
+    "equipo_ganador_id": 7,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:56.881Z",
+    "goleadores": [
+      {
+        "id": 1301,
+        "resultado_oficial_id": 555,
+        "jugador_id": 1100,
+        "es_autogol": false
+      },
+      {
+        "id": 1302,
+        "resultado_oficial_id": 555,
+        "jugador_id": 1102,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 594,
+    "partido_id": 116,
+    "goles_local_real": 2,
+    "goles_visitante_real": 1,
+    "equipo_ganador_id": 5,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:53.396Z",
+    "goleadores": [
+      {
+        "id": 1220,
+        "resultado_oficial_id": 594,
+        "jugador_id": 1096,
+        "es_autogol": false
+      },
+      {
+        "id": 1221,
+        "resultado_oficial_id": 594,
+        "jugador_id": 930,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 94,
+    "partido_id": 59,
+    "goles_local_real": 0,
+    "goles_visitante_real": 2,
+    "equipo_ganador_id": 3,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:11.363Z",
+    "goleadores": [
+      {
+        "id": 1485,
+        "resultado_oficial_id": 94,
+        "jugador_id": 1004,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 897,
+    "partido_id": 131,
+    "goles_local_real": 2,
+    "goles_visitante_real": 0,
+    "equipo_ganador_id": 1,
+    "ingresado_por_usuario_id": 3,
+    "timestamp_ingreso": "2026-09-21T03:10:02.656Z",
+    "goleadores": [
+      {
+        "id": 1644,
+        "resultado_oficial_id": 897,
+        "jugador_id": 1227,
+        "es_autogol": false
+      },
+      {
+        "id": 1645,
+        "resultado_oficial_id": 897,
+        "jugador_id": 1406,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 61,
+    "partido_id": 38,
+    "goles_local_real": 7,
+    "goles_visitante_real": 0,
+    "equipo_ganador_id": 14,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:47.700Z",
+    "goleadores": [
+      {
+        "id": 1107,
+        "resultado_oficial_id": 61,
+        "jugador_id": 850,
+        "es_autogol": false
+      },
+      {
+        "id": 1108,
+        "resultado_oficial_id": 61,
+        "jugador_id": 839,
+        "es_autogol": false
+      },
+      {
+        "id": 1109,
+        "resultado_oficial_id": 61,
+        "jugador_id": 853,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 536,
+    "partido_id": 100,
+    "goles_local_real": 1,
+    "goles_visitante_real": 1,
+    "equipo_ganador_id": null,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:53.673Z",
+    "goleadores": [
+      {
+        "id": 1225,
+        "resultado_oficial_id": 536,
+        "jugador_id": 868,
+        "es_autogol": false
+      },
+      {
+        "id": 1226,
+        "resultado_oficial_id": 536,
+        "jugador_id": 985,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 509,
+    "partido_id": 85,
+    "goles_local_real": 0,
+    "goles_visitante_real": 0,
+    "equipo_ganador_id": null,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:04.824Z",
+    "goleadores": [
+      {
+        "id": 1437,
+        "resultado_oficial_id": 509,
+        "jugador_id": null,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 70,
+    "partido_id": 47,
+    "goles_local_real": 1,
+    "goles_visitante_real": 0,
+    "equipo_ganador_id": 13,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:54.039Z",
+    "goleadores": [
+      {
+        "id": 1228,
+        "resultado_oficial_id": 70,
+        "jugador_id": 1330,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 111,
+    "partido_id": 43,
+    "goles_local_real": 1,
+    "goles_visitante_real": 1,
+    "equipo_ganador_id": null,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:00.497Z",
+    "goleadores": [
+      {
+        "id": 1366,
+        "resultado_oficial_id": 111,
+        "jugador_id": 951,
+        "es_autogol": false
+      },
+      {
+        "id": 1367,
+        "resultado_oficial_id": 111,
+        "jugador_id": 883,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 577,
+    "partido_id": 63,
+    "goles_local_real": 1,
+    "goles_visitante_real": 2,
+    "equipo_ganador_id": 11,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:05.190Z",
+    "goleadores": [
+      {
+        "id": 1440,
+        "resultado_oficial_id": 577,
+        "jugador_id": 1231,
+        "es_autogol": false
+      },
+      {
+        "id": 1441,
+        "resultado_oficial_id": 577,
+        "jugador_id": 971,
+        "es_autogol": false
+      },
+      {
+        "id": 1442,
+        "resultado_oficial_id": 577,
+        "jugador_id": 1382,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 539,
+    "partido_id": 42,
+    "goles_local_real": 1,
+    "goles_visitante_real": 2,
+    "equipo_ganador_id": 2,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:54.398Z",
+    "goleadores": [
+      {
+        "id": 1235,
+        "resultado_oficial_id": 539,
+        "jugador_id": 1052,
+        "es_autogol": false
+      },
+      {
+        "id": 1236,
+        "resultado_oficial_id": 539,
+        "jugador_id": 1010,
+        "es_autogol": false
+      },
+      {
+        "id": 1237,
+        "resultado_oficial_id": 539,
+        "jugador_id": 1038,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 71,
+    "partido_id": 41,
+    "goles_local_real": 0,
+    "goles_visitante_real": 0,
+    "equipo_ganador_id": null,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:57.274Z",
+    "goleadores": [
+      {
+        "id": 1307,
+        "resultado_oficial_id": 71,
+        "jugador_id": null,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 558,
+    "partido_id": 103,
+    "goles_local_real": 2,
+    "goles_visitante_real": 0,
+    "equipo_ganador_id": 5,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:57.555Z",
+    "goleadores": [
+      {
+        "id": 1311,
+        "resultado_oficial_id": 558,
+        "jugador_id": 929,
+        "es_autogol": false
+      },
+      {
+        "id": 1312,
+        "resultado_oficial_id": 558,
+        "jugador_id": 930,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 518,
+    "partido_id": 93,
+    "goles_local_real": 2,
+    "goles_visitante_real": 2,
+    "equipo_ganador_id": null,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:05.581Z",
+    "goleadores": [
+      {
+        "id": 1443,
+        "resultado_oficial_id": 518,
+        "jugador_id": 1154,
+        "es_autogol": false
+      },
+      {
+        "id": 1444,
+        "resultado_oficial_id": 518,
+        "jugador_id": 1175,
+        "es_autogol": false
+      },
+      {
+        "id": 1445,
+        "resultado_oficial_id": 518,
+        "jugador_id": 850,
+        "es_autogol": false
+      },
+      {
+        "id": 1446,
+        "resultado_oficial_id": 518,
+        "jugador_id": 848,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 603,
+    "partido_id": 119,
+    "goles_local_real": 2,
+    "goles_visitante_real": 0,
+    "equipo_ganador_id": 6,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:57.835Z",
+    "goleadores": [
+      {
+        "id": 1317,
+        "resultado_oficial_id": 603,
+        "jugador_id": 896,
+        "es_autogol": false
+      },
+      {
+        "id": 1318,
+        "resultado_oficial_id": 603,
+        "jugador_id": 1346,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 226,
+    "partido_id": 57,
+    "goles_local_real": 1,
+    "goles_visitante_real": 1,
+    "equipo_ganador_id": null,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:11.725Z",
+    "goleadores": [
+      {
+        "id": 1486,
+        "resultado_oficial_id": 226,
+        "jugador_id": 1229,
+        "es_autogol": false
+      },
+      {
+        "id": 1487,
+        "resultado_oficial_id": 226,
+        "jugador_id": 1302,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 561,
+    "partido_id": 107,
+    "goles_local_real": 2,
+    "goles_visitante_real": 2,
+    "equipo_ganador_id": null,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:58.187Z",
+    "goleadores": [
+      {
+        "id": 1323,
+        "resultado_oficial_id": 561,
+        "jugador_id": 1367,
+        "es_autogol": false
+      },
+      {
+        "id": 1324,
+        "resultado_oficial_id": 561,
+        "jugador_id": 1366,
+        "es_autogol": false
+      },
+      {
+        "id": 1325,
+        "resultado_oficial_id": 561,
+        "jugador_id": 1026,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "partido_id": 28,
+    "goles_local_real": 2,
+    "goles_visitante_real": 1,
+    "equipo_ganador_id": 15,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:12.086Z",
+    "goleadores": [
+      {
+        "id": 1594,
+        "resultado_oficial_id": 23,
+        "jugador_id": 1126,
+        "es_autogol": false
+      },
+      {
+        "id": 1595,
+        "resultado_oficial_id": 23,
+        "jugador_id": 1296,
+        "es_autogol": false
+      },
+      {
+        "id": 1596,
+        "resultado_oficial_id": 23,
+        "jugador_id": 1298,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 97,
+    "partido_id": 58,
+    "goles_local_real": 1,
+    "goles_visitante_real": 1,
+    "equipo_ganador_id": null,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:00.863Z",
+    "goleadores": [
+      {
+        "id": 1371,
+        "resultado_oficial_id": 97,
+        "jugador_id": 1275,
+        "es_autogol": false
+      },
+      {
+        "id": 1372,
+        "resultado_oficial_id": 97,
+        "jugador_id": 1179,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 564,
+    "partido_id": 109,
+    "goles_local_real": 2,
+    "goles_visitante_real": 2,
+    "equipo_ganador_id": null,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:58.539Z",
+    "goleadores": [
+      {
+        "id": 1331,
+        "resultado_oficial_id": 564,
+        "jugador_id": 1123,
+        "es_autogol": false
+      },
+      {
+        "id": 1332,
+        "resultado_oficial_id": 564,
+        "jugador_id": 1126,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "partido_id": 29,
+    "goles_local_real": 1,
+    "goles_visitante_real": 1,
+    "equipo_ganador_id": null,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:12.353Z",
+    "goleadores": [
+      {
+        "id": 1597,
+        "resultado_oficial_id": 24,
+        "jugador_id": 1070,
+        "es_autogol": false
+      },
+      {
+        "id": 1598,
+        "resultado_oficial_id": 24,
+        "jugador_id": 1336,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 90,
+    "partido_id": 54,
+    "goles_local_real": 2,
+    "goles_visitante_real": 1,
+    "equipo_ganador_id": 11,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:01.227Z",
+    "goleadores": [
+      {
+        "id": 1378,
+        "resultado_oficial_id": 90,
+        "jugador_id": 974,
+        "es_autogol": false
+      },
+      {
+        "id": 1379,
+        "resultado_oficial_id": 90,
+        "jugador_id": 978,
+        "es_autogol": false
+      },
+      {
+        "id": 1380,
+        "resultado_oficial_id": 90,
+        "jugador_id": 1329,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 113,
+    "partido_id": 34,
+    "goles_local_real": 1,
+    "goles_visitante_real": 2,
+    "equipo_ganador_id": 11,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:12.605Z",
+    "goleadores": [
+      {
+        "id": 1488,
+        "resultado_oficial_id": 113,
+        "jugador_id": 829,
+        "es_autogol": false
+      },
+      {
+        "id": 1489,
+        "resultado_oficial_id": 113,
+        "jugador_id": 975,
+        "es_autogol": false
+      },
+      {
+        "id": 1490,
+        "resultado_oficial_id": 113,
+        "jugador_id": 973,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 567,
+    "partido_id": 105,
+    "goles_local_real": 3,
+    "goles_visitante_real": 3,
+    "equipo_ganador_id": null,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:01.595Z",
+    "goleadores": [
+      {
+        "id": 1385,
+        "resultado_oficial_id": 567,
+        "jugador_id": 1194,
+        "es_autogol": false
+      },
+      {
+        "id": 1386,
+        "resultado_oficial_id": 567,
+        "jugador_id": 1204,
+        "es_autogol": false
+      },
+      {
+        "id": 1387,
+        "resultado_oficial_id": 567,
+        "jugador_id": 1188,
+        "es_autogol": false
+      },
+      {
+        "id": 1388,
+        "resultado_oficial_id": 567,
+        "jugador_id": 1171,
+        "es_autogol": false
+      },
+      {
+        "id": 1389,
+        "resultado_oficial_id": 567,
+        "jugador_id": 1179,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 98,
+    "partido_id": 55,
+    "goles_local_real": 1,
+    "goles_visitante_real": 0,
+    "equipo_ganador_id": 14,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:12.966Z",
+    "goleadores": [
+      {
+        "id": 1491,
+        "resultado_oficial_id": 98,
+        "jugador_id": 850,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "partido_id": 30,
+    "goles_local_real": 5,
+    "goles_visitante_real": 1,
+    "equipo_ganador_id": 19,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:13.328Z",
+    "goleadores": [
+      {
+        "id": 1599,
+        "resultado_oficial_id": 25,
+        "jugador_id": 942,
+        "es_autogol": false
+      },
+      {
+        "id": 1600,
+        "resultado_oficial_id": 25,
+        "jugador_id": 1275,
+        "es_autogol": false
+      },
+      {
+        "id": 1601,
+        "resultado_oficial_id": 25,
+        "jugador_id": 1280,
+        "es_autogol": false
+      },
+      {
+        "id": 1602,
+        "resultado_oficial_id": 25,
+        "jugador_id": 1281,
+        "es_autogol": false
+      },
+      {
+        "id": 1603,
+        "resultado_oficial_id": 25,
+        "jugador_id": 1282,
+        "es_autogol": false
+      },
+      {
+        "id": 1604,
+        "resultado_oficial_id": 25,
+        "jugador_id": 1283,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 230,
+    "partido_id": 73,
+    "goles_local_real": 1,
+    "goles_visitante_real": 0,
+    "equipo_ganador_id": 4,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:48.063Z",
+    "goleadores": [
+      {
+        "id": 1113,
+        "resultado_oficial_id": 230,
+        "jugador_id": 1171,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 521,
+    "partido_id": 94,
+    "goles_local_real": 1,
+    "goles_visitante_real": 1,
+    "equipo_ganador_id": null,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:05.947Z",
+    "goleadores": [
+      {
+        "id": 1447,
+        "resultado_oficial_id": 521,
+        "jugador_id": 1200,
+        "es_autogol": false
+      },
+      {
+        "id": 1448,
+        "resultado_oficial_id": 521,
+        "jugador_id": 1123,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "partido_id": 27,
+    "goles_local_real": 0,
+    "goles_visitante_real": 2,
+    "equipo_ganador_id": 14,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:13.581Z",
+    "goleadores": [
+      {
+        "id": 1592,
+        "resultado_oficial_id": 20,
+        "jugador_id": 850,
+        "es_autogol": false
+      },
+      {
+        "id": 1593,
+        "resultado_oficial_id": 20,
+        "jugador_id": 859,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 524,
+    "partido_id": 95,
+    "goles_local_real": 1,
+    "goles_visitante_real": 5,
+    "equipo_ganador_id": 6,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:06.309Z",
+    "goleadores": [
+      {
+        "id": 1452,
+        "resultado_oficial_id": 524,
+        "jugador_id": 907,
+        "es_autogol": false
+      },
+      {
+        "id": 1453,
+        "resultado_oficial_id": 524,
+        "jugador_id": 903,
+        "es_autogol": false
+      },
+      {
+        "id": 1454,
+        "resultado_oficial_id": 524,
+        "jugador_id": 902,
+        "es_autogol": false
+      },
+      {
+        "id": 1455,
+        "resultado_oficial_id": 524,
+        "jugador_id": 829,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 86,
+    "partido_id": 53,
+    "goles_local_real": 2,
+    "goles_visitante_real": 0,
+    "equipo_ganador_id": 18,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:13.831Z",
+    "goleadores": [
+      {
+        "id": 1492,
+        "resultado_oficial_id": 86,
+        "jugador_id": 1077,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "partido_id": 24,
+    "goles_local_real": 3,
+    "goles_visitante_real": 2,
+    "equipo_ganador_id": 7,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:06.673Z",
+    "goleadores": [
+      {
+        "id": 1583,
+        "resultado_oficial_id": 13,
+        "jugador_id": 1028,
+        "es_autogol": false
+      },
+      {
+        "id": 1584,
+        "resultado_oficial_id": 13,
+        "jugador_id": 1029,
+        "es_autogol": false
+      },
+      {
+        "id": 1585,
+        "resultado_oficial_id": 13,
+        "jugador_id": 1102,
+        "es_autogol": false
+      },
+      {
+        "id": 1586,
+        "resultado_oficial_id": 13,
+        "jugador_id": 1397,
+        "es_autogol": false
+      },
+      {
+        "id": 1587,
+        "resultado_oficial_id": 13,
+        "jugador_id": 1398,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 54,
+    "partido_id": 33,
+    "goles_local_real": 1,
+    "goles_visitante_real": 2,
+    "equipo_ganador_id": 15,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:14.197Z",
+    "goleadores": [
+      {
+        "id": 1493,
+        "resultado_oficial_id": 54,
+        "jugador_id": 1023,
+        "es_autogol": false
+      },
+      {
+        "id": 1494,
+        "resultado_oficial_id": 54,
+        "jugador_id": 1293,
+        "es_autogol": false
+      },
+      {
+        "id": 1495,
+        "resultado_oficial_id": 54,
+        "jugador_id": 1303,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 107,
+    "partido_id": 56,
+    "goles_local_real": 2,
+    "goles_visitante_real": 0,
+    "equipo_ganador_id": 16,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:14.480Z",
+    "goleadores": [
+      {
+        "id": 1496,
+        "resultado_oficial_id": 107,
+        "jugador_id": 1124,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "partido_id": 26,
+    "goles_local_real": 2,
+    "goles_visitante_real": 1,
+    "equipo_ganador_id": 11,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:14.877Z",
+    "goleadores": [
+      {
+        "id": 1589,
+        "resultado_oficial_id": 15,
+        "jugador_id": 973,
+        "es_autogol": false
+      },
+      {
+        "id": 1590,
+        "resultado_oficial_id": 15,
+        "jugador_id": 977,
+        "es_autogol": false
+      },
+      {
+        "id": 1591,
+        "resultado_oficial_id": 15,
+        "jugador_id": 1199,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "partido_id": 25,
+    "goles_local_real": 0,
+    "goles_visitante_real": 1,
+    "equipo_ganador_id": 10,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:15.046Z",
+    "goleadores": [
+      {
+        "id": 1588,
+        "resultado_oficial_id": 8,
+        "jugador_id": 883,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 66,
+    "partido_id": 45,
+    "goles_local_real": 2,
+    "goles_visitante_real": 3,
+    "equipo_ganador_id": 7,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:15.224Z",
+    "goleadores": [
+      {
+        "id": 1497,
+        "resultado_oficial_id": 66,
+        "jugador_id": 1092,
+        "es_autogol": false
+      },
+      {
+        "id": 1498,
+        "resultado_oficial_id": 66,
+        "jugador_id": 1102,
+        "es_autogol": false
+      },
+      {
+        "id": 1499,
+        "resultado_oficial_id": 66,
+        "jugador_id": 1098,
+        "es_autogol": false
+      },
+      {
+        "id": 1500,
+        "resultado_oficial_id": 66,
+        "jugador_id": 971,
+        "es_autogol": false
+      },
+      {
+        "id": 1501,
+        "resultado_oficial_id": 66,
+        "jugador_id": 964,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 242,
+    "partido_id": 78,
+    "goles_local_real": 1,
+    "goles_visitante_real": 2,
+    "equipo_ganador_id": 6,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:50.835Z",
+    "goleadores": [
+      {
+        "id": 1172,
+        "resultado_oficial_id": 242,
+        "jugador_id": 903,
+        "es_autogol": false
+      },
+      {
+        "id": 1173,
+        "resultado_oficial_id": 242,
+        "jugador_id": 896,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 606,
+    "partido_id": 120,
+    "goles_local_real": 1,
+    "goles_visitante_real": 2,
+    "equipo_ganador_id": 3,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:01.907Z",
+    "goleadores": [
+      {
+        "id": 1394,
+        "resultado_oficial_id": 606,
+        "jugador_id": 1281,
+        "es_autogol": false
+      },
+      {
+        "id": 1395,
+        "resultado_oficial_id": 606,
+        "jugador_id": 1001,
+        "es_autogol": false
+      },
+      {
+        "id": 1396,
+        "resultado_oficial_id": 606,
+        "jugador_id": 993,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 59,
+    "partido_id": 37,
+    "goles_local_real": 0,
+    "goles_visitante_real": 3,
+    "equipo_ganador_id": 6,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:51.239Z",
+    "goleadores": [
+      {
+        "id": 1183,
+        "resultado_oficial_id": 59,
+        "jugador_id": 902,
+        "es_autogol": false
+      },
+      {
+        "id": 1184,
+        "resultado_oficial_id": 59,
+        "jugador_id": 903,
+        "es_autogol": false
+      },
+      {
+        "id": 1185,
+        "resultado_oficial_id": 59,
+        "jugador_id": 907,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 244,
+    "partido_id": 79,
+    "goles_local_real": 0,
+    "goles_visitante_real": 1,
+    "equipo_ganador_id": 1,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:51.617Z",
+    "goleadores": [
+      {
+        "id": 1605,
+        "resultado_oficial_id": 244,
+        "jugador_id": 1406,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 505,
+    "partido_id": 92,
+    "goles_local_real": 1,
+    "goles_visitante_real": 0,
+    "equipo_ganador_id": 20,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:02.272Z",
+    "goleadores": [
+      {
+        "id": 1399,
+        "resultado_oficial_id": 505,
+        "jugador_id": 951,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 82,
+    "partido_id": 44,
+    "goles_local_real": 3,
+    "goles_visitante_real": 1,
+    "equipo_ganador_id": 1,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:51.907Z",
+    "goleadores": [
+      {
+        "id": 1195,
+        "resultado_oficial_id": 82,
+        "jugador_id": 1061,
+        "es_autogol": false
+      },
+      {
+        "id": 1196,
+        "resultado_oficial_id": 82,
+        "jugador_id": 1233,
+        "es_autogol": false
+      },
+      {
+        "id": 1197,
+        "resultado_oficial_id": 82,
+        "jugador_id": 1231,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 597,
+    "partido_id": 113,
+    "goles_local_real": 1,
+    "goles_visitante_real": 0,
+    "equipo_ganador_id": 17,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:54.759Z",
+    "goleadores": [
+      {
+        "id": 1243,
+        "resultado_oficial_id": 597,
+        "jugador_id": 818,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 580,
+    "partido_id": 71,
+    "goles_local_real": 1,
+    "goles_visitante_real": 1,
+    "equipo_ganador_id": null,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:06.925Z",
+    "goleadores": [
+      {
+        "id": 1457,
+        "resultado_oficial_id": 580,
+        "jugador_id": 1000,
+        "es_autogol": false
+      },
+      {
+        "id": 1458,
+        "resultado_oficial_id": 580,
+        "jugador_id": 1254,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 543,
+    "partido_id": 99,
+    "goles_local_real": 2,
+    "goles_visitante_real": 1,
+    "equipo_ganador_id": 11,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:55.048Z",
+    "goleadores": [
+      {
+        "id": 1251,
+        "resultado_oficial_id": 543,
+        "jugador_id": 969,
+        "es_autogol": false
+      },
+      {
+        "id": 1252,
+        "resultado_oficial_id": 543,
+        "jugador_id": 977,
+        "es_autogol": false
+      },
+      {
+        "id": 1253,
+        "resultado_oficial_id": 543,
+        "jugador_id": 1376,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 546,
+    "partido_id": 101,
+    "goles_local_real": 1,
+    "goles_visitante_real": 2,
+    "equipo_ganador_id": 19,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:55.419Z",
+    "goleadores": [
+      {
+        "id": 1260,
+        "resultado_oficial_id": 546,
+        "jugador_id": 1063,
+        "es_autogol": false
+      },
+      {
+        "id": 1261,
+        "resultado_oficial_id": 546,
+        "jugador_id": 1281,
+        "es_autogol": false
+      },
+      {
+        "id": 1262,
+        "resultado_oficial_id": 546,
+        "jugador_id": 1282,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 549,
+    "partido_id": 172,
+    "goles_local_real": 3,
+    "goles_visitante_real": 2,
+    "equipo_ganador_id": 16,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:55.783Z",
+    "goleadores": [
+      {
+        "id": 1269,
+        "resultado_oficial_id": 549,
+        "jugador_id": 1123,
+        "es_autogol": false
+      },
+      {
+        "id": 1270,
+        "resultado_oficial_id": 549,
+        "jugador_id": 1123,
+        "es_autogol": false
+      },
+      {
+        "id": 1271,
+        "resultado_oficial_id": 549,
+        "jugador_id": 1402,
+        "es_autogol": false
+      },
+      {
+        "id": 1272,
+        "resultado_oficial_id": 549,
+        "jugador_id": 1253,
+        "es_autogol": false
+      },
+      {
+        "id": 1273,
+        "resultado_oficial_id": 549,
+        "jugador_id": 1255,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 232,
+    "partido_id": 82,
+    "goles_local_real": 0,
+    "goles_visitante_real": 0,
+    "equipo_ganador_id": null,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:58.960Z",
+    "goleadores": [
+      {
+        "id": 1338,
+        "resultado_oficial_id": 232,
+        "jugador_id": null,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 238,
+    "partido_id": 76,
+    "goles_local_real": 0,
+    "goles_visitante_real": 0,
+    "equipo_ganador_id": null,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:46:59.554Z",
+    "goleadores": [
+      {
+        "id": 1344,
+        "resultado_oficial_id": 238,
+        "jugador_id": null,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 510,
+    "partido_id": 88,
+    "goles_local_real": 2,
+    "goles_visitante_real": 1,
+    "equipo_ganador_id": 6,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:02.636Z",
+    "goleadores": [
+      {
+        "id": 1407,
+        "resultado_oficial_id": 510,
+        "jugador_id": 907,
+        "es_autogol": false
+      },
+      {
+        "id": 1408,
+        "resultado_oficial_id": 510,
+        "jugador_id": 902,
+        "es_autogol": false
+      },
+      {
+        "id": 1409,
+        "resultado_oficial_id": 510,
+        "jugador_id": 993,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 570,
+    "partido_id": 106,
+    "goles_local_real": 2,
+    "goles_visitante_real": 2,
+    "equipo_ganador_id": null,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:03.010Z",
+    "goleadores": [
+      {
+        "id": 1410,
+        "resultado_oficial_id": 570,
+        "jugador_id": 1330,
+        "es_autogol": false
+      },
+      {
+        "id": 1411,
+        "resultado_oficial_id": 570,
+        "jugador_id": 1303,
+        "es_autogol": false
+      },
+      {
+        "id": 1412,
+        "resultado_oficial_id": 570,
+        "jugador_id": 1302,
+        "es_autogol": false
+      },
+      {
+        "id": 1413,
+        "resultado_oficial_id": 570,
+        "jugador_id": 1314,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 511,
+    "partido_id": 89,
+    "goles_local_real": 0,
+    "goles_visitante_real": 2,
+    "equipo_ganador_id": 9,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:03.373Z",
+    "goleadores": [
+      {
+        "id": 1419,
+        "resultado_oficial_id": 511,
+        "jugador_id": 1254,
+        "es_autogol": false
+      },
+      {
+        "id": 1420,
+        "resultado_oficial_id": 511,
+        "jugador_id": 1253,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 573,
+    "partido_id": 108,
+    "goles_local_real": 1,
+    "goles_visitante_real": 1,
+    "equipo_ganador_id": null,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:03.738Z",
+    "goleadores": [
+      {
+        "id": 1425,
+        "resultado_oficial_id": 573,
+        "jugador_id": 1038,
+        "es_autogol": false
+      },
+      {
+        "id": 1426,
+        "resultado_oficial_id": 573,
+        "jugador_id": 1257,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 615,
+    "partido_id": 50,
+    "goles_local_real": 1,
+    "goles_visitante_real": 2,
+    "equipo_ganador_id": 17,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:07.316Z",
+    "goleadores": [
+      {
+        "id": 1460,
+        "resultado_oficial_id": 615,
+        "jugador_id": 829,
+        "es_autogol": false
+      },
+      {
+        "id": 1461,
+        "resultado_oficial_id": 615,
+        "jugador_id": 1338,
+        "es_autogol": false
+      },
+      {
+        "id": 1462,
+        "resultado_oficial_id": 615,
+        "jugador_id": 1352,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 585,
+    "partido_id": 112,
+    "goles_local_real": 2,
+    "goles_visitante_real": 2,
+    "equipo_ganador_id": null,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:07.677Z",
+    "goleadores": [
+      {
+        "id": 1463,
+        "resultado_oficial_id": 585,
+        "jugador_id": 1071,
+        "es_autogol": false
+      },
+      {
+        "id": 1464,
+        "resultado_oficial_id": 585,
+        "jugador_id": 1179,
+        "es_autogol": false
+      },
+      {
+        "id": 1465,
+        "resultado_oficial_id": 585,
+        "jugador_id": 1175,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 72,
+    "partido_id": 49,
+    "goles_local_real": 0,
+    "goles_visitante_real": 1,
+    "equipo_ganador_id": 14,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:08.039Z",
+    "goleadores": [
+      {
+        "id": 1466,
+        "resultado_oficial_id": 72,
+        "jugador_id": 839,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 588,
+    "partido_id": 118,
+    "goles_local_real": 1,
+    "goles_visitante_real": 0,
+    "equipo_ganador_id": 16,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:08.401Z",
+    "goleadores": [
+      {
+        "id": 1467,
+        "resultado_oficial_id": 588,
+        "jugador_id": 1126,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 612,
+    "partido_id": 117,
+    "goles_local_real": 0,
+    "goles_visitante_real": 1,
+    "equipo_ganador_id": 8,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:08.763Z",
+    "goleadores": [
+      {
+        "id": 1468,
+        "resultado_oficial_id": 612,
+        "jugador_id": 1017,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 37,
+    "partido_id": 31,
+    "goles_local_real": 1,
+    "goles_visitante_real": 1,
+    "equipo_ganador_id": null,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:09.042Z",
+    "goleadores": [
+      {
+        "id": 1469,
+        "resultado_oficial_id": 37,
+        "jugador_id": 874,
+        "es_autogol": false
+      },
+      {
+        "id": 1470,
+        "resultado_oficial_id": 37,
+        "jugador_id": 1215,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 618,
+    "partido_id": 90,
+    "goles_local_real": 1,
+    "goles_visitante_real": 0,
+    "equipo_ganador_id": 19,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:09.405Z",
+    "goleadores": [
+      {
+        "id": 1471,
+        "resultado_oficial_id": 618,
+        "jugador_id": 1282,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 621,
+    "partido_id": 151,
+    "goles_local_real": 2,
+    "goles_visitante_real": 3,
+    "equipo_ganador_id": 6,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:09.769Z",
+    "goleadores": [
+      {
+        "id": 1472,
+        "resultado_oficial_id": 621,
+        "jugador_id": 1324,
+        "es_autogol": false
+      },
+      {
+        "id": 1473,
+        "resultado_oficial_id": 621,
+        "jugador_id": 1326,
+        "es_autogol": false
+      },
+      {
+        "id": 1474,
+        "resultado_oficial_id": 621,
+        "jugador_id": 1346,
+        "es_autogol": false
+      },
+      {
+        "id": 1475,
+        "resultado_oficial_id": 621,
+        "jugador_id": 1344,
+        "es_autogol": false
+      },
+      {
+        "id": 1476,
+        "resultado_oficial_id": 621,
+        "jugador_id": 900,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "partido_id": 21,
+    "goles_local_real": 1,
+    "goles_visitante_real": 0,
+    "equipo_ganador_id": 1,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:10.132Z",
+    "goleadores": [
+      {
+        "id": 1580,
+        "resultado_oficial_id": 4,
+        "jugador_id": 1231,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 591,
+    "partido_id": 115,
+    "goles_local_real": 3,
+    "goles_visitante_real": 2,
+    "equipo_ganador_id": 13,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:10.384Z",
+    "goleadores": [
+      {
+        "id": 1477,
+        "resultado_oficial_id": 591,
+        "jugador_id": 1324,
+        "es_autogol": false
+      },
+      {
+        "id": 1478,
+        "resultado_oficial_id": 591,
+        "jugador_id": 1329,
+        "es_autogol": false
+      },
+      {
+        "id": 1479,
+        "resultado_oficial_id": 591,
+        "jugador_id": 1326,
+        "es_autogol": false
+      },
+      {
+        "id": 1480,
+        "resultado_oficial_id": 591,
+        "jugador_id": 1231,
+        "es_autogol": false
+      }
+    ]
+  },
+  {
+    "id": 527,
+    "partido_id": 96,
+    "goles_local_real": 2,
+    "goles_visitante_real": 2,
+    "equipo_ganador_id": null,
+    "ingresado_por_usuario_id": 2,
+    "timestamp_ingreso": "2026-09-17T21:47:10.746Z",
+    "goleadores": [
+      {
+        "id": 1481,
+        "resultado_oficial_id": 527,
+        "jugador_id": 931,
+        "es_autogol": false
+      },
+      {
+        "id": 1482,
+        "resultado_oficial_id": 527,
+        "jugador_id": 920,
+        "es_autogol": false
+      },
+      {
+        "id": 1483,
+        "resultado_oficial_id": 527,
+        "jugador_id": 1302,
+        "es_autogol": false
+      },
+      {
+        "id": 1484,
+        "resultado_oficial_id": 527,
+        "jugador_id": 1285,
+        "es_autogol": false
+      }
+    ]
+  }
+]

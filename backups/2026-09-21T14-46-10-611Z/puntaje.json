@@ -1,0 +1,7594 @@
+[
+  {
+    "id": 6682,
+    "usuario_id": 2,
+    "categoria": "goleador",
+    "partido_id": 102,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-18T01:57:24.947Z"
+  },
+  {
+    "id": 6683,
+    "usuario_id": 7,
+    "categoria": "goleador",
+    "partido_id": 102,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-18T01:57:24.947Z"
+  },
+  {
+    "id": 6684,
+    "usuario_id": 32,
+    "categoria": "goleador",
+    "partido_id": 102,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-18T01:57:24.947Z"
+  },
+  {
+    "id": 6685,
+    "usuario_id": 4,
+    "categoria": "ganador_partido",
+    "partido_id": 102,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-18T01:57:24.947Z"
+  },
+  {
+    "id": 6686,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 102,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-18T01:57:24.947Z"
+  },
+  {
+    "id": 6687,
+    "usuario_id": 6,
+    "categoria": "ganador_partido",
+    "partido_id": 102,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-18T01:57:24.947Z"
+  },
+  {
+    "id": 6688,
+    "usuario_id": 6,
+    "categoria": "goleador",
+    "partido_id": 102,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-18T01:57:24.947Z"
+  },
+  {
+    "id": 6689,
+    "usuario_id": 33,
+    "categoria": "goleador",
+    "partido_id": 102,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-18T01:57:24.947Z"
+  },
+  {
+    "id": 6690,
+    "usuario_id": 34,
+    "categoria": "goleador",
+    "partido_id": 102,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-18T01:57:24.947Z"
+  },
+  {
+    "id": 6691,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 102,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-18T01:57:24.947Z"
+  },
+  {
+    "id": 6692,
+    "usuario_id": 8,
+    "categoria": "goleador",
+    "partido_id": 102,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-18T01:57:24.947Z"
+  },
+  {
+    "id": 6693,
+    "usuario_id": 17,
+    "categoria": "goleador",
+    "partido_id": 102,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-18T01:57:24.947Z"
+  },
+  {
+    "id": 7022,
+    "usuario_id": 31,
+    "categoria": "ganador_partido",
+    "partido_id": 127,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T22:59:11.126Z"
+  },
+  {
+    "id": 7023,
+    "usuario_id": 4,
+    "categoria": "goleador",
+    "partido_id": 127,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T22:59:11.126Z"
+  },
+  {
+    "id": 7024,
+    "usuario_id": 19,
+    "categoria": "ganador_partido",
+    "partido_id": 127,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T22:59:11.126Z"
+  },
+  {
+    "id": 7025,
+    "usuario_id": 6,
+    "categoria": "ganador_partido",
+    "partido_id": 127,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T22:59:11.126Z"
+  },
+  {
+    "id": 7026,
+    "usuario_id": 33,
+    "categoria": "ganador_partido",
+    "partido_id": 127,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T22:59:11.126Z"
+  },
+  {
+    "id": 7027,
+    "usuario_id": 18,
+    "categoria": "ganador_partido",
+    "partido_id": 127,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T22:59:11.126Z"
+  },
+  {
+    "id": 7028,
+    "usuario_id": 32,
+    "categoria": "ganador_partido",
+    "partido_id": 127,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T22:59:11.126Z"
+  },
+  {
+    "id": 7029,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 127,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T22:59:11.126Z"
+  },
+  {
+    "id": 6702,
+    "usuario_id": 31,
+    "categoria": "ganador_partido",
+    "partido_id": 122,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:22:56.781Z"
+  },
+  {
+    "id": 6703,
+    "usuario_id": 7,
+    "categoria": "goleador",
+    "partido_id": 122,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T13:22:56.781Z"
+  },
+  {
+    "id": 6704,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 122,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:22:56.781Z"
+  },
+  {
+    "id": 6705,
+    "usuario_id": 9,
+    "categoria": "resultado_exacto",
+    "partido_id": 122,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-19T13:22:56.781Z"
+  },
+  {
+    "id": 6706,
+    "usuario_id": 4,
+    "categoria": "goleador",
+    "partido_id": 122,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T13:22:56.781Z"
+  },
+  {
+    "id": 7030,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 127,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T22:59:11.126Z"
+  },
+  {
+    "id": 7031,
+    "usuario_id": 8,
+    "categoria": "ganador_partido",
+    "partido_id": 127,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T22:59:11.126Z"
+  },
+  {
+    "id": 7032,
+    "usuario_id": 17,
+    "categoria": "ganador_partido",
+    "partido_id": 127,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T22:59:11.126Z"
+  },
+  {
+    "id": 7033,
+    "usuario_id": 17,
+    "categoria": "goleador",
+    "partido_id": 127,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T22:59:11.126Z"
+  },
+  {
+    "id": 7034,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 127,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T22:59:11.126Z"
+  },
+  {
+    "id": 7048,
+    "usuario_id": 31,
+    "categoria": "ganador_partido",
+    "partido_id": 126,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T15:12:54.517Z"
+  },
+  {
+    "id": 7049,
+    "usuario_id": 19,
+    "categoria": "ganador_partido",
+    "partido_id": 126,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T15:12:54.517Z"
+  },
+  {
+    "id": 7050,
+    "usuario_id": 19,
+    "categoria": "goleador",
+    "partido_id": 126,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-20T15:12:54.517Z"
+  },
+  {
+    "id": 7051,
+    "usuario_id": 6,
+    "categoria": "ganador_partido",
+    "partido_id": 126,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T15:12:54.517Z"
+  },
+  {
+    "id": 7052,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 126,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T15:12:54.517Z"
+  },
+  {
+    "id": 7053,
+    "usuario_id": 5,
+    "categoria": "goleador",
+    "partido_id": 126,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-20T15:12:54.517Z"
+  },
+  {
+    "id": 7054,
+    "usuario_id": 32,
+    "categoria": "ganador_partido",
+    "partido_id": 126,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T15:12:54.517Z"
+  },
+  {
+    "id": 7055,
+    "usuario_id": 32,
+    "categoria": "goleador",
+    "partido_id": 126,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-20T15:12:54.517Z"
+  },
+  {
+    "id": 7056,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 126,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T15:12:54.517Z"
+  },
+  {
+    "id": 7057,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 126,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T15:12:54.517Z"
+  },
+  {
+    "id": 7058,
+    "usuario_id": 34,
+    "categoria": "goleador",
+    "partido_id": 126,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-20T15:12:54.517Z"
+  },
+  {
+    "id": 7059,
+    "usuario_id": 8,
+    "categoria": "ganador_partido",
+    "partido_id": 126,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T15:12:54.517Z"
+  },
+  {
+    "id": 7060,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 126,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T15:12:54.517Z"
+  },
+  {
+    "id": 7061,
+    "usuario_id": 2,
+    "categoria": "ganador_partido",
+    "partido_id": 126,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T15:12:54.517Z"
+  },
+  {
+    "id": 7062,
+    "usuario_id": 2,
+    "categoria": "goleador",
+    "partido_id": 126,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-20T15:12:54.517Z"
+  },
+  {
+    "id": 7063,
+    "usuario_id": 4,
+    "categoria": "ganador_partido",
+    "partido_id": 126,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T15:12:54.517Z"
+  },
+  {
+    "id": 7064,
+    "usuario_id": 33,
+    "categoria": "ganador_partido",
+    "partido_id": 126,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T15:12:54.517Z"
+  },
+  {
+    "id": 7065,
+    "usuario_id": 33,
+    "categoria": "goleador",
+    "partido_id": 126,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-20T15:12:54.517Z"
+  },
+  {
+    "id": 7066,
+    "usuario_id": 17,
+    "categoria": "ganador_partido",
+    "partido_id": 126,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T15:12:54.517Z"
+  },
+  {
+    "id": 7067,
+    "usuario_id": 31,
+    "categoria": "ganador_partido",
+    "partido_id": 124,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T15:20:01.387Z"
+  },
+  {
+    "id": 7068,
+    "usuario_id": 31,
+    "categoria": "resultado_exacto",
+    "partido_id": 124,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-20T15:20:01.387Z"
+  },
+  {
+    "id": 7069,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 124,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T15:20:01.387Z"
+  },
+  {
+    "id": 7070,
+    "usuario_id": 34,
+    "categoria": "resultado_exacto",
+    "partido_id": 124,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-20T15:20:01.387Z"
+  },
+  {
+    "id": 7071,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 124,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T15:20:01.387Z"
+  },
+  {
+    "id": 7072,
+    "usuario_id": 9,
+    "categoria": "resultado_exacto",
+    "partido_id": 124,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-20T15:20:01.387Z"
+  },
+  {
+    "id": 7035,
+    "usuario_id": 4,
+    "categoria": "goleador",
+    "partido_id": 125,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T23:00:19.604Z"
+  },
+  {
+    "id": 7036,
+    "usuario_id": 6,
+    "categoria": "ganador_partido",
+    "partido_id": 125,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T23:00:19.604Z"
+  },
+  {
+    "id": 7037,
+    "usuario_id": 6,
+    "categoria": "goleador",
+    "partido_id": 125,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T23:00:19.604Z"
+  },
+  {
+    "id": 7038,
+    "usuario_id": 18,
+    "categoria": "goleador",
+    "partido_id": 125,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T23:00:19.604Z"
+  },
+  {
+    "id": 7039,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 125,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T23:00:19.604Z"
+  },
+  {
+    "id": 7040,
+    "usuario_id": 32,
+    "categoria": "ganador_partido",
+    "partido_id": 125,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T23:00:19.604Z"
+  },
+  {
+    "id": 7041,
+    "usuario_id": 32,
+    "categoria": "goleador",
+    "partido_id": 125,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T23:00:19.604Z"
+  },
+  {
+    "id": 7042,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 125,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T23:00:19.604Z"
+  },
+  {
+    "id": 7043,
+    "usuario_id": 2,
+    "categoria": "ganador_partido",
+    "partido_id": 125,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T23:00:19.604Z"
+  },
+  {
+    "id": 7044,
+    "usuario_id": 2,
+    "categoria": "goleador",
+    "partido_id": 125,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T23:00:19.604Z"
+  },
+  {
+    "id": 7045,
+    "usuario_id": 33,
+    "categoria": "ganador_partido",
+    "partido_id": 125,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T23:00:19.604Z"
+  },
+  {
+    "id": 7046,
+    "usuario_id": 33,
+    "categoria": "goleador",
+    "partido_id": 125,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T23:00:19.604Z"
+  },
+  {
+    "id": 7047,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 125,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T23:00:19.604Z"
+  },
+  {
+    "id": 7073,
+    "usuario_id": 31,
+    "categoria": "ganador_partido",
+    "partido_id": 128,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T23:02:12.238Z"
+  },
+  {
+    "id": 7074,
+    "usuario_id": 19,
+    "categoria": "ganador_partido",
+    "partido_id": 128,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T23:02:12.238Z"
+  },
+  {
+    "id": 7075,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 128,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T23:02:12.238Z"
+  },
+  {
+    "id": 7076,
+    "usuario_id": 4,
+    "categoria": "ganador_partido",
+    "partido_id": 128,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T23:02:12.238Z"
+  },
+  {
+    "id": 7077,
+    "usuario_id": 33,
+    "categoria": "ganador_partido",
+    "partido_id": 128,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T23:02:12.238Z"
+  },
+  {
+    "id": 7078,
+    "usuario_id": 18,
+    "categoria": "ganador_partido",
+    "partido_id": 128,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T23:02:12.238Z"
+  },
+  {
+    "id": 7079,
+    "usuario_id": 18,
+    "categoria": "goleador",
+    "partido_id": 128,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-20T23:02:12.238Z"
+  },
+  {
+    "id": 7080,
+    "usuario_id": 7,
+    "categoria": "ganador_partido",
+    "partido_id": 128,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T23:02:12.238Z"
+  },
+  {
+    "id": 7081,
+    "usuario_id": 16,
+    "categoria": "goleador",
+    "partido_id": 128,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-20T23:02:12.238Z"
+  },
+  {
+    "id": 7082,
+    "usuario_id": 2,
+    "categoria": "ganador_partido",
+    "partido_id": 128,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T23:02:12.238Z"
+  },
+  {
+    "id": 7083,
+    "usuario_id": 8,
+    "categoria": "ganador_partido",
+    "partido_id": 128,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T23:02:12.238Z"
+  },
+  {
+    "id": 7084,
+    "usuario_id": 8,
+    "categoria": "goleador",
+    "partido_id": 128,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-20T23:02:12.238Z"
+  },
+  {
+    "id": 7085,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 128,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T23:02:12.238Z"
+  },
+  {
+    "id": 7086,
+    "usuario_id": 5,
+    "categoria": "goleador",
+    "partido_id": 128,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-20T23:02:12.238Z"
+  },
+  {
+    "id": 7087,
+    "usuario_id": 17,
+    "categoria": "ganador_partido",
+    "partido_id": 128,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T23:02:12.238Z"
+  },
+  {
+    "id": 7088,
+    "usuario_id": 17,
+    "categoria": "goleador",
+    "partido_id": 128,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-20T23:02:12.238Z"
+  },
+  {
+    "id": 7089,
+    "usuario_id": 32,
+    "categoria": "ganador_partido",
+    "partido_id": 128,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T23:02:12.238Z"
+  },
+  {
+    "id": 7090,
+    "usuario_id": 32,
+    "categoria": "goleador",
+    "partido_id": 128,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-20T23:02:12.238Z"
+  },
+  {
+    "id": 7091,
+    "usuario_id": 6,
+    "categoria": "ganador_partido",
+    "partido_id": 128,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T23:02:12.238Z"
+  },
+  {
+    "id": 7092,
+    "usuario_id": 6,
+    "categoria": "goleador",
+    "partido_id": 128,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-20T23:02:12.238Z"
+  },
+  {
+    "id": 7093,
+    "usuario_id": 31,
+    "categoria": "ganador_partido",
+    "partido_id": 129,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T23:23:38.703Z"
+  },
+  {
+    "id": 7094,
+    "usuario_id": 31,
+    "categoria": "goleador",
+    "partido_id": 129,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-20T23:23:38.703Z"
+  },
+  {
+    "id": 7095,
+    "usuario_id": 19,
+    "categoria": "ganador_partido",
+    "partido_id": 129,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T23:23:38.703Z"
+  },
+  {
+    "id": 7096,
+    "usuario_id": 19,
+    "categoria": "goleador",
+    "partido_id": 129,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-20T23:23:38.703Z"
+  },
+  {
+    "id": 7097,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 129,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T23:23:38.703Z"
+  },
+  {
+    "id": 7098,
+    "usuario_id": 16,
+    "categoria": "goleador",
+    "partido_id": 129,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-20T23:23:38.703Z"
+  },
+  {
+    "id": 7099,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 129,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T23:23:38.703Z"
+  },
+  {
+    "id": 7100,
+    "usuario_id": 18,
+    "categoria": "ganador_partido",
+    "partido_id": 129,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T23:23:38.703Z"
+  },
+  {
+    "id": 7101,
+    "usuario_id": 18,
+    "categoria": "goleador",
+    "partido_id": 129,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-20T23:23:38.703Z"
+  },
+  {
+    "id": 7102,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 129,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T23:23:38.703Z"
+  },
+  {
+    "id": 7103,
+    "usuario_id": 5,
+    "categoria": "resultado_exacto",
+    "partido_id": 129,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-20T23:23:38.703Z"
+  },
+  {
+    "id": 7104,
+    "usuario_id": 5,
+    "categoria": "goleador",
+    "partido_id": 129,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-20T23:23:38.703Z"
+  },
+  {
+    "id": 7105,
+    "usuario_id": 7,
+    "categoria": "ganador_partido",
+    "partido_id": 129,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T23:23:38.703Z"
+  },
+  {
+    "id": 7106,
+    "usuario_id": 8,
+    "categoria": "ganador_partido",
+    "partido_id": 129,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T23:23:38.703Z"
+  },
+  {
+    "id": 7107,
+    "usuario_id": 8,
+    "categoria": "resultado_exacto",
+    "partido_id": 129,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-20T23:23:38.703Z"
+  },
+  {
+    "id": 7108,
+    "usuario_id": 8,
+    "categoria": "goleador",
+    "partido_id": 129,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-20T23:23:38.703Z"
+  },
+  {
+    "id": 7109,
+    "usuario_id": 6,
+    "categoria": "ganador_partido",
+    "partido_id": 129,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T23:23:38.703Z"
+  },
+  {
+    "id": 7110,
+    "usuario_id": 6,
+    "categoria": "goleador",
+    "partido_id": 129,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-20T23:23:38.703Z"
+  },
+  {
+    "id": 7111,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 129,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T23:23:38.703Z"
+  },
+  {
+    "id": 7112,
+    "usuario_id": 34,
+    "categoria": "resultado_exacto",
+    "partido_id": 129,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-20T23:23:38.703Z"
+  },
+  {
+    "id": 7113,
+    "usuario_id": 34,
+    "categoria": "goleador",
+    "partido_id": 129,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-20T23:23:38.703Z"
+  },
+  {
+    "id": 7114,
+    "usuario_id": 17,
+    "categoria": "ganador_partido",
+    "partido_id": 129,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T23:23:38.703Z"
+  },
+  {
+    "id": 7115,
+    "usuario_id": 17,
+    "categoria": "goleador",
+    "partido_id": 129,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-20T23:23:38.703Z"
+  },
+  {
+    "id": 7116,
+    "usuario_id": 32,
+    "categoria": "ganador_partido",
+    "partido_id": 129,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-20T23:23:38.703Z"
+  },
+  {
+    "id": 7117,
+    "usuario_id": 32,
+    "categoria": "goleador",
+    "partido_id": 129,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-20T23:23:38.703Z"
+  },
+  {
+    "id": 7118,
+    "usuario_id": 31,
+    "categoria": "ganador_partido",
+    "partido_id": 130,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-21T01:10:21.731Z"
+  },
+  {
+    "id": 7119,
+    "usuario_id": 31,
+    "categoria": "resultado_exacto",
+    "partido_id": 130,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-21T01:10:21.731Z"
+  },
+  {
+    "id": 7120,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 130,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-21T01:10:21.731Z"
+  },
+  {
+    "id": 7121,
+    "usuario_id": 16,
+    "categoria": "resultado_exacto",
+    "partido_id": 130,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-21T01:10:21.731Z"
+  },
+  {
+    "id": 7122,
+    "usuario_id": 16,
+    "categoria": "goleador",
+    "partido_id": 130,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-21T01:10:21.731Z"
+  },
+  {
+    "id": 7123,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 130,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-21T01:10:21.731Z"
+  },
+  {
+    "id": 7124,
+    "usuario_id": 9,
+    "categoria": "resultado_exacto",
+    "partido_id": 130,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-21T01:10:21.731Z"
+  },
+  {
+    "id": 7125,
+    "usuario_id": 4,
+    "categoria": "goleador",
+    "partido_id": 130,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-21T01:10:21.731Z"
+  },
+  {
+    "id": 7126,
+    "usuario_id": 5,
+    "categoria": "goleador",
+    "partido_id": 130,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-21T01:10:21.731Z"
+  },
+  {
+    "id": 7127,
+    "usuario_id": 2,
+    "categoria": "ganador_partido",
+    "partido_id": 130,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-21T01:10:21.731Z"
+  },
+  {
+    "id": 7128,
+    "usuario_id": 2,
+    "categoria": "goleador",
+    "partido_id": 130,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-21T01:10:21.731Z"
+  },
+  {
+    "id": 6917,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 21,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:13.129Z"
+  },
+  {
+    "id": 6918,
+    "usuario_id": 16,
+    "categoria": "resultado_exacto",
+    "partido_id": 21,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-19T13:42:13.129Z"
+  },
+  {
+    "id": 6919,
+    "usuario_id": 19,
+    "categoria": "ganador_partido",
+    "partido_id": 21,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:13.129Z"
+  },
+  {
+    "id": 6920,
+    "usuario_id": 31,
+    "categoria": "ganador_partido",
+    "partido_id": 21,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:13.129Z"
+  },
+  {
+    "id": 6921,
+    "usuario_id": 18,
+    "categoria": "ganador_partido",
+    "partido_id": 21,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:13.129Z"
+  },
+  {
+    "id": 6922,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 22,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:13.353Z"
+  },
+  {
+    "id": 6923,
+    "usuario_id": 4,
+    "categoria": "ganador_partido",
+    "partido_id": 22,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:13.353Z"
+  },
+  {
+    "id": 6924,
+    "usuario_id": 4,
+    "categoria": "resultado_exacto",
+    "partido_id": 22,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-19T13:42:13.353Z"
+  },
+  {
+    "id": 6925,
+    "usuario_id": 7,
+    "categoria": "ganador_partido",
+    "partido_id": 22,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:13.353Z"
+  },
+  {
+    "id": 6926,
+    "usuario_id": 7,
+    "categoria": "resultado_exacto",
+    "partido_id": 22,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-19T13:42:13.353Z"
+  },
+  {
+    "id": 6927,
+    "usuario_id": 33,
+    "categoria": "ganador_partido",
+    "partido_id": 22,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:13.353Z"
+  },
+  {
+    "id": 6928,
+    "usuario_id": 17,
+    "categoria": "ganador_partido",
+    "partido_id": 22,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:13.353Z"
+  },
+  {
+    "id": 6929,
+    "usuario_id": 17,
+    "categoria": "resultado_exacto",
+    "partido_id": 22,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-19T13:42:13.353Z"
+  },
+  {
+    "id": 6930,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 22,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:13.353Z"
+  },
+  {
+    "id": 6931,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 22,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:13.353Z"
+  },
+  {
+    "id": 6932,
+    "usuario_id": 5,
+    "categoria": "resultado_exacto",
+    "partido_id": 22,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-19T13:42:13.353Z"
+  },
+  {
+    "id": 6933,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 22,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:13.353Z"
+  },
+  {
+    "id": 6934,
+    "usuario_id": 34,
+    "categoria": "resultado_exacto",
+    "partido_id": 22,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-19T13:42:13.353Z"
+  },
+  {
+    "id": 6935,
+    "usuario_id": 19,
+    "categoria": "ganador_partido",
+    "partido_id": 22,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:13.353Z"
+  },
+  {
+    "id": 6936,
+    "usuario_id": 19,
+    "categoria": "goleador",
+    "partido_id": 22,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T13:42:13.353Z"
+  },
+  {
+    "id": 6937,
+    "usuario_id": 6,
+    "categoria": "ganador_partido",
+    "partido_id": 22,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:13.353Z"
+  },
+  {
+    "id": 6938,
+    "usuario_id": 6,
+    "categoria": "goleador",
+    "partido_id": 22,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T13:42:13.353Z"
+  },
+  {
+    "id": 6939,
+    "usuario_id": 31,
+    "categoria": "ganador_partido",
+    "partido_id": 22,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:13.353Z"
+  },
+  {
+    "id": 6940,
+    "usuario_id": 31,
+    "categoria": "goleador",
+    "partido_id": 22,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T13:42:13.353Z"
+  },
+  {
+    "id": 6941,
+    "usuario_id": 30,
+    "categoria": "ganador_partido",
+    "partido_id": 22,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:13.353Z"
+  },
+  {
+    "id": 6942,
+    "usuario_id": 30,
+    "categoria": "resultado_exacto",
+    "partido_id": 22,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-19T13:42:13.353Z"
+  },
+  {
+    "id": 6943,
+    "usuario_id": 30,
+    "categoria": "goleador",
+    "partido_id": 22,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T13:42:13.353Z"
+  },
+  {
+    "id": 6944,
+    "usuario_id": 18,
+    "categoria": "ganador_partido",
+    "partido_id": 22,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:13.353Z"
+  },
+  {
+    "id": 6945,
+    "usuario_id": 18,
+    "categoria": "resultado_exacto",
+    "partido_id": 22,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-19T13:42:13.353Z"
+  },
+  {
+    "id": 6946,
+    "usuario_id": 18,
+    "categoria": "goleador",
+    "partido_id": 22,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T13:42:13.353Z"
+  },
+  {
+    "id": 6947,
+    "usuario_id": 8,
+    "categoria": "ganador_partido",
+    "partido_id": 22,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:13.353Z"
+  },
+  {
+    "id": 6948,
+    "usuario_id": 8,
+    "categoria": "resultado_exacto",
+    "partido_id": 22,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-19T13:42:13.353Z"
+  },
+  {
+    "id": 6949,
+    "usuario_id": 8,
+    "categoria": "goleador",
+    "partido_id": 22,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T13:42:13.353Z"
+  },
+  {
+    "id": 6950,
+    "usuario_id": 32,
+    "categoria": "goleador",
+    "partido_id": 22,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T13:42:13.353Z"
+  },
+  {
+    "id": 6951,
+    "usuario_id": 4,
+    "categoria": "ganador_partido",
+    "partido_id": 24,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:13.580Z"
+  },
+  {
+    "id": 6952,
+    "usuario_id": 2,
+    "categoria": "ganador_partido",
+    "partido_id": 24,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:13.580Z"
+  },
+  {
+    "id": 6953,
+    "usuario_id": 30,
+    "categoria": "ganador_partido",
+    "partido_id": 24,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:13.580Z"
+  },
+  {
+    "id": 6954,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 24,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:13.580Z"
+  },
+  {
+    "id": 6955,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 24,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:13.580Z"
+  },
+  {
+    "id": 6956,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 24,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:13.580Z"
+  },
+  {
+    "id": 6957,
+    "usuario_id": 6,
+    "categoria": "ganador_partido",
+    "partido_id": 24,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:13.580Z"
+  },
+  {
+    "id": 6958,
+    "usuario_id": 33,
+    "categoria": "ganador_partido",
+    "partido_id": 24,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:13.580Z"
+  },
+  {
+    "id": 6959,
+    "usuario_id": 8,
+    "categoria": "ganador_partido",
+    "partido_id": 24,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:13.580Z"
+  },
+  {
+    "id": 6960,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 24,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:13.580Z"
+  },
+  {
+    "id": 6961,
+    "usuario_id": 31,
+    "categoria": "ganador_partido",
+    "partido_id": 24,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:13.580Z"
+  },
+  {
+    "id": 6962,
+    "usuario_id": 31,
+    "categoria": "goleador",
+    "partido_id": 24,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T13:42:13.580Z"
+  },
+  {
+    "id": 6963,
+    "usuario_id": 18,
+    "categoria": "goleador",
+    "partido_id": 26,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T13:42:14.000Z"
+  },
+  {
+    "id": 6964,
+    "usuario_id": 16,
+    "categoria": "goleador",
+    "partido_id": 26,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T13:42:14.000Z"
+  },
+  {
+    "id": 6965,
+    "usuario_id": 8,
+    "categoria": "goleador",
+    "partido_id": 26,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T13:42:14.000Z"
+  },
+  {
+    "id": 6966,
+    "usuario_id": 31,
+    "categoria": "goleador",
+    "partido_id": 26,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T13:42:14.000Z"
+  },
+  {
+    "id": 6967,
+    "usuario_id": 2,
+    "categoria": "goleador",
+    "partido_id": 26,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T13:42:14.000Z"
+  },
+  {
+    "id": 6968,
+    "usuario_id": 2,
+    "categoria": "ganador_partido",
+    "partido_id": 27,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:14.243Z"
+  },
+  {
+    "id": 6969,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 27,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:14.243Z"
+  },
+  {
+    "id": 6970,
+    "usuario_id": 16,
+    "categoria": "goleador",
+    "partido_id": 27,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T13:42:14.243Z"
+  },
+  {
+    "id": 6971,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 27,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:14.243Z"
+  },
+  {
+    "id": 6972,
+    "usuario_id": 34,
+    "categoria": "goleador",
+    "partido_id": 27,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T13:42:14.243Z"
+  },
+  {
+    "id": 6973,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 27,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:14.243Z"
+  },
+  {
+    "id": 6974,
+    "usuario_id": 7,
+    "categoria": "goleador",
+    "partido_id": 28,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T13:42:14.488Z"
+  },
+  {
+    "id": 6975,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 28,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:14.488Z"
+  },
+  {
+    "id": 6976,
+    "usuario_id": 17,
+    "categoria": "ganador_partido",
+    "partido_id": 28,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:14.488Z"
+  },
+  {
+    "id": 6977,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 28,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:14.488Z"
+  },
+  {
+    "id": 6978,
+    "usuario_id": 5,
+    "categoria": "resultado_exacto",
+    "partido_id": 28,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-19T13:42:14.488Z"
+  },
+  {
+    "id": 6979,
+    "usuario_id": 4,
+    "categoria": "ganador_partido",
+    "partido_id": 28,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:14.488Z"
+  },
+  {
+    "id": 6980,
+    "usuario_id": 4,
+    "categoria": "resultado_exacto",
+    "partido_id": 28,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-19T13:42:14.488Z"
+  },
+  {
+    "id": 6981,
+    "usuario_id": 18,
+    "categoria": "ganador_partido",
+    "partido_id": 29,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:15.079Z"
+  },
+  {
+    "id": 6982,
+    "usuario_id": 18,
+    "categoria": "resultado_exacto",
+    "partido_id": 29,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-19T13:42:15.079Z"
+  },
+  {
+    "id": 6983,
+    "usuario_id": 30,
+    "categoria": "ganador_partido",
+    "partido_id": 29,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:15.079Z"
+  },
+  {
+    "id": 6984,
+    "usuario_id": 30,
+    "categoria": "resultado_exacto",
+    "partido_id": 29,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-19T13:42:15.079Z"
+  },
+  {
+    "id": 6985,
+    "usuario_id": 30,
+    "categoria": "goleador",
+    "partido_id": 29,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T13:42:15.079Z"
+  },
+  {
+    "id": 6986,
+    "usuario_id": 8,
+    "categoria": "ganador_partido",
+    "partido_id": 29,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:15.079Z"
+  },
+  {
+    "id": 6987,
+    "usuario_id": 8,
+    "categoria": "resultado_exacto",
+    "partido_id": 29,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-19T13:42:15.079Z"
+  },
+  {
+    "id": 6988,
+    "usuario_id": 33,
+    "categoria": "ganador_partido",
+    "partido_id": 30,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:15.525Z"
+  },
+  {
+    "id": 6989,
+    "usuario_id": 33,
+    "categoria": "goleador",
+    "partido_id": 30,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T13:42:15.525Z"
+  },
+  {
+    "id": 6990,
+    "usuario_id": 31,
+    "categoria": "ganador_partido",
+    "partido_id": 30,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:15.525Z"
+  },
+  {
+    "id": 6991,
+    "usuario_id": 31,
+    "categoria": "goleador",
+    "partido_id": 30,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T13:42:15.525Z"
+  },
+  {
+    "id": 6992,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 30,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:15.525Z"
+  },
+  {
+    "id": 6993,
+    "usuario_id": 34,
+    "categoria": "goleador",
+    "partido_id": 30,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T13:42:15.525Z"
+  },
+  {
+    "id": 6994,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 30,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:15.525Z"
+  },
+  {
+    "id": 6995,
+    "usuario_id": 5,
+    "categoria": "goleador",
+    "partido_id": 30,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T13:42:15.525Z"
+  },
+  {
+    "id": 6996,
+    "usuario_id": 8,
+    "categoria": "ganador_partido",
+    "partido_id": 30,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:15.525Z"
+  },
+  {
+    "id": 6997,
+    "usuario_id": 8,
+    "categoria": "goleador",
+    "partido_id": 30,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T13:42:15.525Z"
+  },
+  {
+    "id": 6998,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 30,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:15.525Z"
+  },
+  {
+    "id": 6999,
+    "usuario_id": 16,
+    "categoria": "goleador",
+    "partido_id": 30,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T13:42:15.525Z"
+  },
+  {
+    "id": 7000,
+    "usuario_id": 19,
+    "categoria": "ganador_partido",
+    "partido_id": 30,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:15.525Z"
+  },
+  {
+    "id": 7001,
+    "usuario_id": 19,
+    "categoria": "goleador",
+    "partido_id": 30,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T13:42:15.525Z"
+  },
+  {
+    "id": 7002,
+    "usuario_id": 18,
+    "categoria": "ganador_partido",
+    "partido_id": 30,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:15.525Z"
+  },
+  {
+    "id": 7003,
+    "usuario_id": 18,
+    "categoria": "goleador",
+    "partido_id": 30,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T13:42:15.525Z"
+  },
+  {
+    "id": 7004,
+    "usuario_id": 7,
+    "categoria": "ganador_partido",
+    "partido_id": 30,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:15.525Z"
+  },
+  {
+    "id": 7005,
+    "usuario_id": 7,
+    "categoria": "goleador",
+    "partido_id": 30,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T13:42:15.525Z"
+  },
+  {
+    "id": 7006,
+    "usuario_id": 30,
+    "categoria": "ganador_partido",
+    "partido_id": 30,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:15.525Z"
+  },
+  {
+    "id": 7007,
+    "usuario_id": 30,
+    "categoria": "goleador",
+    "partido_id": 30,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T13:42:15.525Z"
+  },
+  {
+    "id": 7008,
+    "usuario_id": 4,
+    "categoria": "ganador_partido",
+    "partido_id": 30,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:15.525Z"
+  },
+  {
+    "id": 7009,
+    "usuario_id": 9,
+    "categoria": "goleador",
+    "partido_id": 30,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T13:42:15.525Z"
+  },
+  {
+    "id": 7010,
+    "usuario_id": 6,
+    "categoria": "ganador_partido",
+    "partido_id": 30,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:15.525Z"
+  },
+  {
+    "id": 7011,
+    "usuario_id": 8,
+    "categoria": "ganador_partido",
+    "partido_id": 79,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:15.751Z"
+  },
+  {
+    "id": 7012,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 79,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:15.751Z"
+  },
+  {
+    "id": 7013,
+    "usuario_id": 16,
+    "categoria": "resultado_exacto",
+    "partido_id": 79,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-19T13:42:15.751Z"
+  },
+  {
+    "id": 7014,
+    "usuario_id": 33,
+    "categoria": "ganador_partido",
+    "partido_id": 79,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-19T13:42:15.751Z"
+  },
+  {
+    "id": 7015,
+    "usuario_id": 33,
+    "categoria": "resultado_exacto",
+    "partido_id": 79,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-19T13:42:15.751Z"
+  },
+  {
+    "id": 7016,
+    "usuario_id": 7,
+    "categoria": "goleador",
+    "partido_id": null,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T13:42:15.913Z"
+  },
+  {
+    "id": 7017,
+    "usuario_id": 5,
+    "categoria": "goleador",
+    "partido_id": null,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T13:42:15.941Z"
+  },
+  {
+    "id": 7018,
+    "usuario_id": 9,
+    "categoria": "goleador",
+    "partido_id": null,
+    "puntos_obtenidos": 4,
+    "timestamp_calculo": "2026-09-19T13:42:15.969Z"
+  },
+  {
+    "id": 7019,
+    "usuario_id": 4,
+    "categoria": "goleador",
+    "partido_id": null,
+    "puntos_obtenidos": -2,
+    "timestamp_calculo": "2026-09-19T13:42:15.998Z"
+  },
+  {
+    "id": 7020,
+    "usuario_id": 19,
+    "categoria": "goleador",
+    "partido_id": null,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T13:42:16.026Z"
+  },
+  {
+    "id": 7021,
+    "usuario_id": 6,
+    "categoria": "goleador",
+    "partido_id": null,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-19T13:42:16.055Z"
+  },
+  {
+    "id": 4948,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 75,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:46.873Z"
+  },
+  {
+    "id": 4949,
+    "usuario_id": 9,
+    "categoria": "resultado_exacto",
+    "partido_id": 75,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:46.873Z"
+  },
+  {
+    "id": 4950,
+    "usuario_id": 9,
+    "categoria": "goleador",
+    "partido_id": 75,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:46.873Z"
+  },
+  {
+    "id": 4961,
+    "usuario_id": 19,
+    "categoria": "goleador",
+    "partido_id": 74,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:47.219Z"
+  },
+  {
+    "id": 4962,
+    "usuario_id": 18,
+    "categoria": "ganador_partido",
+    "partido_id": 74,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:47.219Z"
+  },
+  {
+    "id": 4963,
+    "usuario_id": 18,
+    "categoria": "resultado_exacto",
+    "partido_id": 74,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:47.219Z"
+  },
+  {
+    "id": 4964,
+    "usuario_id": 18,
+    "categoria": "goleador",
+    "partido_id": 74,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:47.219Z"
+  },
+  {
+    "id": 4965,
+    "usuario_id": 31,
+    "categoria": "ganador_partido",
+    "partido_id": 74,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:47.219Z"
+  },
+  {
+    "id": 4966,
+    "usuario_id": 31,
+    "categoria": "resultado_exacto",
+    "partido_id": 74,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:47.219Z"
+  },
+  {
+    "id": 4967,
+    "usuario_id": 7,
+    "categoria": "goleador",
+    "partido_id": 74,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:47.219Z"
+  },
+  {
+    "id": 4968,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 74,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:47.219Z"
+  },
+  {
+    "id": 4969,
+    "usuario_id": 9,
+    "categoria": "resultado_exacto",
+    "partido_id": 74,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:47.219Z"
+  },
+  {
+    "id": 4995,
+    "usuario_id": 32,
+    "categoria": "ganador_partido",
+    "partido_id": 46,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:47.566Z"
+  },
+  {
+    "id": 4996,
+    "usuario_id": 32,
+    "categoria": "goleador",
+    "partido_id": 46,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:47.566Z"
+  },
+  {
+    "id": 4997,
+    "usuario_id": 18,
+    "categoria": "ganador_partido",
+    "partido_id": 46,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:47.566Z"
+  },
+  {
+    "id": 4998,
+    "usuario_id": 18,
+    "categoria": "goleador",
+    "partido_id": 46,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:47.566Z"
+  },
+  {
+    "id": 4999,
+    "usuario_id": 2,
+    "categoria": "ganador_partido",
+    "partido_id": 46,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:47.566Z"
+  },
+  {
+    "id": 5000,
+    "usuario_id": 2,
+    "categoria": "goleador",
+    "partido_id": 46,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:47.566Z"
+  },
+  {
+    "id": 5001,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 46,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:47.566Z"
+  },
+  {
+    "id": 5002,
+    "usuario_id": 16,
+    "categoria": "resultado_exacto",
+    "partido_id": 46,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:47.566Z"
+  },
+  {
+    "id": 5003,
+    "usuario_id": 31,
+    "categoria": "ganador_partido",
+    "partido_id": 46,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:47.566Z"
+  },
+  {
+    "id": 5004,
+    "usuario_id": 31,
+    "categoria": "resultado_exacto",
+    "partido_id": 46,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:47.566Z"
+  },
+  {
+    "id": 5005,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 46,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:47.566Z"
+  },
+  {
+    "id": 5006,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 46,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:47.566Z"
+  },
+  {
+    "id": 5007,
+    "usuario_id": 8,
+    "categoria": "ganador_partido",
+    "partido_id": 46,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:47.566Z"
+  },
+  {
+    "id": 5008,
+    "usuario_id": 8,
+    "categoria": "resultado_exacto",
+    "partido_id": 46,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:47.566Z"
+  },
+  {
+    "id": 5009,
+    "usuario_id": 8,
+    "categoria": "goleador",
+    "partido_id": 46,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:47.566Z"
+  },
+  {
+    "id": 5030,
+    "usuario_id": 33,
+    "categoria": "ganador_partido",
+    "partido_id": 38,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:47.926Z"
+  },
+  {
+    "id": 5031,
+    "usuario_id": 18,
+    "categoria": "ganador_partido",
+    "partido_id": 38,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:47.926Z"
+  },
+  {
+    "id": 5032,
+    "usuario_id": 18,
+    "categoria": "goleador",
+    "partido_id": 38,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:47.926Z"
+  },
+  {
+    "id": 5033,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 38,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:47.926Z"
+  },
+  {
+    "id": 5034,
+    "usuario_id": 16,
+    "categoria": "goleador",
+    "partido_id": 38,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:47.926Z"
+  },
+  {
+    "id": 5035,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 38,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:47.926Z"
+  },
+  {
+    "id": 5036,
+    "usuario_id": 9,
+    "categoria": "goleador",
+    "partido_id": 38,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:47.926Z"
+  },
+  {
+    "id": 5037,
+    "usuario_id": 19,
+    "categoria": "ganador_partido",
+    "partido_id": 38,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:47.926Z"
+  },
+  {
+    "id": 5038,
+    "usuario_id": 30,
+    "categoria": "ganador_partido",
+    "partido_id": 38,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:47.926Z"
+  },
+  {
+    "id": 5039,
+    "usuario_id": 8,
+    "categoria": "ganador_partido",
+    "partido_id": 38,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:47.926Z"
+  },
+  {
+    "id": 5040,
+    "usuario_id": 32,
+    "categoria": "ganador_partido",
+    "partido_id": 38,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:47.926Z"
+  },
+  {
+    "id": 5041,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 38,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:47.926Z"
+  },
+  {
+    "id": 5042,
+    "usuario_id": 5,
+    "categoria": "goleador",
+    "partido_id": 38,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:47.926Z"
+  },
+  {
+    "id": 5043,
+    "usuario_id": 6,
+    "categoria": "ganador_partido",
+    "partido_id": 38,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:47.926Z"
+  },
+  {
+    "id": 5044,
+    "usuario_id": 6,
+    "categoria": "goleador",
+    "partido_id": 38,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:47.926Z"
+  },
+  {
+    "id": 5045,
+    "usuario_id": 2,
+    "categoria": "ganador_partido",
+    "partido_id": 38,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:47.926Z"
+  },
+  {
+    "id": 5046,
+    "usuario_id": 2,
+    "categoria": "goleador",
+    "partido_id": 38,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:47.926Z"
+  },
+  {
+    "id": 5047,
+    "usuario_id": 31,
+    "categoria": "ganador_partido",
+    "partido_id": 38,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:47.926Z"
+  },
+  {
+    "id": 5048,
+    "usuario_id": 31,
+    "categoria": "goleador",
+    "partido_id": 38,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:47.926Z"
+  },
+  {
+    "id": 5049,
+    "usuario_id": 4,
+    "categoria": "ganador_partido",
+    "partido_id": 38,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:47.926Z"
+  },
+  {
+    "id": 5050,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 38,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:47.926Z"
+  },
+  {
+    "id": 5053,
+    "usuario_id": 8,
+    "categoria": "ganador_partido",
+    "partido_id": 73,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:48.287Z"
+  },
+  {
+    "id": 5054,
+    "usuario_id": 30,
+    "categoria": "ganador_partido",
+    "partido_id": 73,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:48.287Z"
+  },
+  {
+    "id": 5055,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 73,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:48.287Z"
+  },
+  {
+    "id": 5056,
+    "usuario_id": 4,
+    "categoria": "ganador_partido",
+    "partido_id": 73,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:48.287Z"
+  },
+  {
+    "id": 5057,
+    "usuario_id": 4,
+    "categoria": "resultado_exacto",
+    "partido_id": 73,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:48.287Z"
+  },
+  {
+    "id": 5058,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 73,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:48.287Z"
+  },
+  {
+    "id": 5059,
+    "usuario_id": 18,
+    "categoria": "ganador_partido",
+    "partido_id": 73,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:48.287Z"
+  },
+  {
+    "id": 5060,
+    "usuario_id": 18,
+    "categoria": "resultado_exacto",
+    "partido_id": 73,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:48.287Z"
+  },
+  {
+    "id": 5061,
+    "usuario_id": 17,
+    "categoria": "ganador_partido",
+    "partido_id": 73,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:48.287Z"
+  },
+  {
+    "id": 5062,
+    "usuario_id": 17,
+    "categoria": "resultado_exacto",
+    "partido_id": 73,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:48.287Z"
+  },
+  {
+    "id": 5063,
+    "usuario_id": 19,
+    "categoria": "ganador_partido",
+    "partido_id": 73,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:48.287Z"
+  },
+  {
+    "id": 5064,
+    "usuario_id": 19,
+    "categoria": "resultado_exacto",
+    "partido_id": 73,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:48.287Z"
+  },
+  {
+    "id": 5065,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 73,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:48.287Z"
+  },
+  {
+    "id": 5066,
+    "usuario_id": 2,
+    "categoria": "ganador_partido",
+    "partido_id": 73,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:48.287Z"
+  },
+  {
+    "id": 5067,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 73,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:48.287Z"
+  },
+  {
+    "id": 5068,
+    "usuario_id": 9,
+    "categoria": "resultado_exacto",
+    "partido_id": 73,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:48.287Z"
+  },
+  {
+    "id": 5069,
+    "usuario_id": 32,
+    "categoria": "ganador_partido",
+    "partido_id": 73,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:48.287Z"
+  },
+  {
+    "id": 5070,
+    "usuario_id": 32,
+    "categoria": "resultado_exacto",
+    "partido_id": 73,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:48.287Z"
+  },
+  {
+    "id": 5153,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 35,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:49.968Z"
+  },
+  {
+    "id": 5154,
+    "usuario_id": 32,
+    "categoria": "ganador_partido",
+    "partido_id": 35,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:49.968Z"
+  },
+  {
+    "id": 5155,
+    "usuario_id": 17,
+    "categoria": "ganador_partido",
+    "partido_id": 35,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:49.968Z"
+  },
+  {
+    "id": 5156,
+    "usuario_id": 31,
+    "categoria": "ganador_partido",
+    "partido_id": 35,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:49.968Z"
+  },
+  {
+    "id": 5190,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 97,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:50.318Z"
+  },
+  {
+    "id": 5191,
+    "usuario_id": 9,
+    "categoria": "resultado_exacto",
+    "partido_id": 97,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:50.318Z"
+  },
+  {
+    "id": 5192,
+    "usuario_id": 9,
+    "categoria": "goleador",
+    "partido_id": 97,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:50.318Z"
+  },
+  {
+    "id": 5193,
+    "usuario_id": 32,
+    "categoria": "ganador_partido",
+    "partido_id": 97,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:50.318Z"
+  },
+  {
+    "id": 5197,
+    "usuario_id": 32,
+    "categoria": "goleador",
+    "partido_id": 97,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:50.318Z"
+  },
+  {
+    "id": 5198,
+    "usuario_id": 31,
+    "categoria": "ganador_partido",
+    "partido_id": 97,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:50.318Z"
+  },
+  {
+    "id": 5199,
+    "usuario_id": 31,
+    "categoria": "goleador",
+    "partido_id": 97,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:50.318Z"
+  },
+  {
+    "id": 5200,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 97,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:50.318Z"
+  },
+  {
+    "id": 5201,
+    "usuario_id": 5,
+    "categoria": "goleador",
+    "partido_id": 97,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:50.318Z"
+  },
+  {
+    "id": 5202,
+    "usuario_id": 8,
+    "categoria": "ganador_partido",
+    "partido_id": 97,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:50.318Z"
+  },
+  {
+    "id": 5203,
+    "usuario_id": 19,
+    "categoria": "ganador_partido",
+    "partido_id": 97,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:50.318Z"
+  },
+  {
+    "id": 5204,
+    "usuario_id": 19,
+    "categoria": "resultado_exacto",
+    "partido_id": 97,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:50.318Z"
+  },
+  {
+    "id": 5205,
+    "usuario_id": 4,
+    "categoria": "ganador_partido",
+    "partido_id": 97,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:50.318Z"
+  },
+  {
+    "id": 5206,
+    "usuario_id": 4,
+    "categoria": "goleador",
+    "partido_id": 97,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:50.318Z"
+  },
+  {
+    "id": 5207,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 97,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:50.318Z"
+  },
+  {
+    "id": 5208,
+    "usuario_id": 34,
+    "categoria": "goleador",
+    "partido_id": 97,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:50.318Z"
+  },
+  {
+    "id": 5209,
+    "usuario_id": 7,
+    "categoria": "ganador_partido",
+    "partido_id": 97,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:50.318Z"
+  },
+  {
+    "id": 5210,
+    "usuario_id": 2,
+    "categoria": "ganador_partido",
+    "partido_id": 97,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:50.318Z"
+  },
+  {
+    "id": 5211,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 97,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:50.318Z"
+  },
+  {
+    "id": 5212,
+    "usuario_id": 16,
+    "categoria": "resultado_exacto",
+    "partido_id": 97,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:50.318Z"
+  },
+  {
+    "id": 5213,
+    "usuario_id": 16,
+    "categoria": "goleador",
+    "partido_id": 97,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:50.318Z"
+  },
+  {
+    "id": 5214,
+    "usuario_id": 17,
+    "categoria": "ganador_partido",
+    "partido_id": 97,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:50.318Z"
+  },
+  {
+    "id": 5010,
+    "usuario_id": 4,
+    "categoria": "goleador",
+    "partido_id": 46,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:47.566Z"
+  },
+  {
+    "id": 5011,
+    "usuario_id": 7,
+    "categoria": "ganador_partido",
+    "partido_id": 46,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:47.566Z"
+  },
+  {
+    "id": 5012,
+    "usuario_id": 7,
+    "categoria": "resultado_exacto",
+    "partido_id": 46,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:47.566Z"
+  },
+  {
+    "id": 5013,
+    "usuario_id": 30,
+    "categoria": "ganador_partido",
+    "partido_id": 46,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:47.566Z"
+  },
+  {
+    "id": 5014,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 46,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:47.566Z"
+  },
+  {
+    "id": 5015,
+    "usuario_id": 17,
+    "categoria": "ganador_partido",
+    "partido_id": 46,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:47.566Z"
+  },
+  {
+    "id": 5088,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 32,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:48.659Z"
+  },
+  {
+    "id": 5108,
+    "usuario_id": 30,
+    "categoria": "ganador_partido",
+    "partido_id": 39,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:49.009Z"
+  },
+  {
+    "id": 5109,
+    "usuario_id": 18,
+    "categoria": "ganador_partido",
+    "partido_id": 39,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:49.009Z"
+  },
+  {
+    "id": 5110,
+    "usuario_id": 19,
+    "categoria": "ganador_partido",
+    "partido_id": 39,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:49.009Z"
+  },
+  {
+    "id": 5111,
+    "usuario_id": 19,
+    "categoria": "goleador",
+    "partido_id": 39,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:49.009Z"
+  },
+  {
+    "id": 5112,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 39,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:49.009Z"
+  },
+  {
+    "id": 5113,
+    "usuario_id": 33,
+    "categoria": "ganador_partido",
+    "partido_id": 39,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:49.009Z"
+  },
+  {
+    "id": 5114,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 39,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:49.009Z"
+  },
+  {
+    "id": 5115,
+    "usuario_id": 5,
+    "categoria": "resultado_exacto",
+    "partido_id": 39,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:49.009Z"
+  },
+  {
+    "id": 5118,
+    "usuario_id": 19,
+    "categoria": "ganador_partido",
+    "partido_id": 40,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:49.352Z"
+  },
+  {
+    "id": 5119,
+    "usuario_id": 19,
+    "categoria": "resultado_exacto",
+    "partido_id": 40,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:49.352Z"
+  },
+  {
+    "id": 5120,
+    "usuario_id": 31,
+    "categoria": "ganador_partido",
+    "partido_id": 40,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:49.352Z"
+  },
+  {
+    "id": 5121,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 40,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:49.352Z"
+  },
+  {
+    "id": 5122,
+    "usuario_id": 16,
+    "categoria": "resultado_exacto",
+    "partido_id": 40,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:49.352Z"
+  },
+  {
+    "id": 5123,
+    "usuario_id": 8,
+    "categoria": "ganador_partido",
+    "partido_id": 40,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:49.352Z"
+  },
+  {
+    "id": 5124,
+    "usuario_id": 8,
+    "categoria": "resultado_exacto",
+    "partido_id": 40,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:49.352Z"
+  },
+  {
+    "id": 5125,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 40,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:49.352Z"
+  },
+  {
+    "id": 5126,
+    "usuario_id": 34,
+    "categoria": "resultado_exacto",
+    "partido_id": 40,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:49.352Z"
+  },
+  {
+    "id": 5127,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 40,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:49.352Z"
+  },
+  {
+    "id": 5128,
+    "usuario_id": 9,
+    "categoria": "resultado_exacto",
+    "partido_id": 40,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:49.352Z"
+  },
+  {
+    "id": 5501,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 100,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:53.901Z"
+  },
+  {
+    "id": 5502,
+    "usuario_id": 9,
+    "categoria": "resultado_exacto",
+    "partido_id": 100,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:53.901Z"
+  },
+  {
+    "id": 5503,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 100,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:53.901Z"
+  },
+  {
+    "id": 5504,
+    "usuario_id": 16,
+    "categoria": "resultado_exacto",
+    "partido_id": 100,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:53.901Z"
+  },
+  {
+    "id": 5505,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 47,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:54.262Z"
+  },
+  {
+    "id": 5506,
+    "usuario_id": 5,
+    "categoria": "goleador",
+    "partido_id": 47,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:54.262Z"
+  },
+  {
+    "id": 5507,
+    "usuario_id": 8,
+    "categoria": "ganador_partido",
+    "partido_id": 47,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:54.262Z"
+  },
+  {
+    "id": 5508,
+    "usuario_id": 8,
+    "categoria": "goleador",
+    "partido_id": 47,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:54.262Z"
+  },
+  {
+    "id": 5509,
+    "usuario_id": 18,
+    "categoria": "ganador_partido",
+    "partido_id": 47,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:54.262Z"
+  },
+  {
+    "id": 5510,
+    "usuario_id": 6,
+    "categoria": "ganador_partido",
+    "partido_id": 47,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:54.262Z"
+  },
+  {
+    "id": 5511,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 47,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:54.262Z"
+  },
+  {
+    "id": 5512,
+    "usuario_id": 17,
+    "categoria": "ganador_partido",
+    "partido_id": 47,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:54.262Z"
+  },
+  {
+    "id": 5513,
+    "usuario_id": 17,
+    "categoria": "resultado_exacto",
+    "partido_id": 47,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:54.262Z"
+  },
+  {
+    "id": 5514,
+    "usuario_id": 2,
+    "categoria": "ganador_partido",
+    "partido_id": 47,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:54.262Z"
+  },
+  {
+    "id": 5515,
+    "usuario_id": 30,
+    "categoria": "ganador_partido",
+    "partido_id": 47,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:54.262Z"
+  },
+  {
+    "id": 5516,
+    "usuario_id": 32,
+    "categoria": "ganador_partido",
+    "partido_id": 47,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:54.262Z"
+  },
+  {
+    "id": 5517,
+    "usuario_id": 32,
+    "categoria": "goleador",
+    "partido_id": 47,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:54.262Z"
+  },
+  {
+    "id": 5735,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 104,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:56.743Z"
+  },
+  {
+    "id": 5736,
+    "usuario_id": 5,
+    "categoria": "goleador",
+    "partido_id": 104,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:56.743Z"
+  },
+  {
+    "id": 5737,
+    "usuario_id": 4,
+    "categoria": "ganador_partido",
+    "partido_id": 104,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:56.743Z"
+  },
+  {
+    "id": 5738,
+    "usuario_id": 4,
+    "categoria": "goleador",
+    "partido_id": 104,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:56.743Z"
+  },
+  {
+    "id": 5739,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 104,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:56.743Z"
+  },
+  {
+    "id": 5740,
+    "usuario_id": 9,
+    "categoria": "goleador",
+    "partido_id": 104,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:56.743Z"
+  },
+  {
+    "id": 5741,
+    "usuario_id": 33,
+    "categoria": "ganador_partido",
+    "partido_id": 104,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:56.743Z"
+  },
+  {
+    "id": 5742,
+    "usuario_id": 33,
+    "categoria": "resultado_exacto",
+    "partido_id": 104,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:56.743Z"
+  },
+  {
+    "id": 5743,
+    "usuario_id": 33,
+    "categoria": "goleador",
+    "partido_id": 104,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:56.743Z"
+  },
+  {
+    "id": 5744,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 104,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:56.743Z"
+  },
+  {
+    "id": 5745,
+    "usuario_id": 16,
+    "categoria": "resultado_exacto",
+    "partido_id": 104,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:56.743Z"
+  },
+  {
+    "id": 5746,
+    "usuario_id": 16,
+    "categoria": "goleador",
+    "partido_id": 104,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:56.743Z"
+  },
+  {
+    "id": 5747,
+    "usuario_id": 18,
+    "categoria": "ganador_partido",
+    "partido_id": 104,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:56.743Z"
+  },
+  {
+    "id": 5748,
+    "usuario_id": 18,
+    "categoria": "goleador",
+    "partido_id": 104,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:56.743Z"
+  },
+  {
+    "id": 5749,
+    "usuario_id": 2,
+    "categoria": "ganador_partido",
+    "partido_id": 104,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:56.743Z"
+  },
+  {
+    "id": 5750,
+    "usuario_id": 2,
+    "categoria": "goleador",
+    "partido_id": 104,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:56.743Z"
+  },
+  {
+    "id": 5751,
+    "usuario_id": 32,
+    "categoria": "ganador_partido",
+    "partido_id": 104,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:56.743Z"
+  },
+  {
+    "id": 5752,
+    "usuario_id": 32,
+    "categoria": "goleador",
+    "partido_id": 104,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:56.743Z"
+  },
+  {
+    "id": 5753,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 104,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:56.743Z"
+  },
+  {
+    "id": 5754,
+    "usuario_id": 34,
+    "categoria": "resultado_exacto",
+    "partido_id": 104,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:56.743Z"
+  },
+  {
+    "id": 5755,
+    "usuario_id": 34,
+    "categoria": "goleador",
+    "partido_id": 104,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:56.743Z"
+  },
+  {
+    "id": 5881,
+    "usuario_id": 31,
+    "categoria": "ganador_partido",
+    "partido_id": 107,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:58.403Z"
+  },
+  {
+    "id": 5882,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 107,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:58.403Z"
+  },
+  {
+    "id": 5883,
+    "usuario_id": 4,
+    "categoria": "ganador_partido",
+    "partido_id": 107,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:58.403Z"
+  },
+  {
+    "id": 5884,
+    "usuario_id": 2,
+    "categoria": "ganador_partido",
+    "partido_id": 107,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:58.403Z"
+  },
+  {
+    "id": 5885,
+    "usuario_id": 6,
+    "categoria": "goleador",
+    "partido_id": 107,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:58.403Z"
+  },
+  {
+    "id": 6009,
+    "usuario_id": 4,
+    "categoria": "goleador",
+    "partido_id": 43,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:00.724Z"
+  },
+  {
+    "id": 6010,
+    "usuario_id": 34,
+    "categoria": "goleador",
+    "partido_id": 43,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:00.724Z"
+  },
+  {
+    "id": 6011,
+    "usuario_id": 7,
+    "categoria": "goleador",
+    "partido_id": 43,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:00.724Z"
+  },
+  {
+    "id": 5286,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 78,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:51.067Z"
+  },
+  {
+    "id": 5287,
+    "usuario_id": 5,
+    "categoria": "resultado_exacto",
+    "partido_id": 78,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:51.067Z"
+  },
+  {
+    "id": 5288,
+    "usuario_id": 2,
+    "categoria": "ganador_partido",
+    "partido_id": 78,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:51.067Z"
+  },
+  {
+    "id": 5289,
+    "usuario_id": 2,
+    "categoria": "goleador",
+    "partido_id": 78,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:51.067Z"
+  },
+  {
+    "id": 5290,
+    "usuario_id": 30,
+    "categoria": "ganador_partido",
+    "partido_id": 78,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:51.067Z"
+  },
+  {
+    "id": 5291,
+    "usuario_id": 30,
+    "categoria": "goleador",
+    "partido_id": 78,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:51.067Z"
+  },
+  {
+    "id": 5292,
+    "usuario_id": 31,
+    "categoria": "ganador_partido",
+    "partido_id": 78,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:51.067Z"
+  },
+  {
+    "id": 5293,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 78,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:51.067Z"
+  },
+  {
+    "id": 5294,
+    "usuario_id": 34,
+    "categoria": "goleador",
+    "partido_id": 78,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:51.067Z"
+  },
+  {
+    "id": 5295,
+    "usuario_id": 17,
+    "categoria": "ganador_partido",
+    "partido_id": 78,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:51.067Z"
+  },
+  {
+    "id": 5296,
+    "usuario_id": 17,
+    "categoria": "resultado_exacto",
+    "partido_id": 78,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:51.067Z"
+  },
+  {
+    "id": 5297,
+    "usuario_id": 17,
+    "categoria": "goleador",
+    "partido_id": 78,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:51.067Z"
+  },
+  {
+    "id": 5298,
+    "usuario_id": 19,
+    "categoria": "ganador_partido",
+    "partido_id": 78,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:51.067Z"
+  },
+  {
+    "id": 5299,
+    "usuario_id": 19,
+    "categoria": "resultado_exacto",
+    "partido_id": 78,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:51.067Z"
+  },
+  {
+    "id": 5300,
+    "usuario_id": 8,
+    "categoria": "ganador_partido",
+    "partido_id": 78,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:51.067Z"
+  },
+  {
+    "id": 5301,
+    "usuario_id": 8,
+    "categoria": "resultado_exacto",
+    "partido_id": 78,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:51.067Z"
+  },
+  {
+    "id": 5302,
+    "usuario_id": 8,
+    "categoria": "goleador",
+    "partido_id": 78,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:51.067Z"
+  },
+  {
+    "id": 5303,
+    "usuario_id": 4,
+    "categoria": "ganador_partido",
+    "partido_id": 78,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:51.067Z"
+  },
+  {
+    "id": 5304,
+    "usuario_id": 6,
+    "categoria": "ganador_partido",
+    "partido_id": 78,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:51.067Z"
+  },
+  {
+    "id": 5305,
+    "usuario_id": 6,
+    "categoria": "goleador",
+    "partido_id": 78,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:51.067Z"
+  },
+  {
+    "id": 5306,
+    "usuario_id": 18,
+    "categoria": "ganador_partido",
+    "partido_id": 78,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:51.067Z"
+  },
+  {
+    "id": 5307,
+    "usuario_id": 18,
+    "categoria": "resultado_exacto",
+    "partido_id": 78,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:51.067Z"
+  },
+  {
+    "id": 5308,
+    "usuario_id": 18,
+    "categoria": "goleador",
+    "partido_id": 78,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:51.067Z"
+  },
+  {
+    "id": 5309,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 78,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:51.067Z"
+  },
+  {
+    "id": 5310,
+    "usuario_id": 16,
+    "categoria": "goleador",
+    "partido_id": 78,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:51.067Z"
+  },
+  {
+    "id": 5311,
+    "usuario_id": 33,
+    "categoria": "ganador_partido",
+    "partido_id": 78,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:51.067Z"
+  },
+  {
+    "id": 5312,
+    "usuario_id": 32,
+    "categoria": "ganador_partido",
+    "partido_id": 78,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:51.067Z"
+  },
+  {
+    "id": 5313,
+    "usuario_id": 32,
+    "categoria": "resultado_exacto",
+    "partido_id": 78,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:51.067Z"
+  },
+  {
+    "id": 5314,
+    "usuario_id": 32,
+    "categoria": "goleador",
+    "partido_id": 78,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:51.067Z"
+  },
+  {
+    "id": 5315,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 78,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:51.067Z"
+  },
+  {
+    "id": 5316,
+    "usuario_id": 9,
+    "categoria": "goleador",
+    "partido_id": 78,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:51.067Z"
+  },
+  {
+    "id": 5417,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 44,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:52.141Z"
+  },
+  {
+    "id": 5418,
+    "usuario_id": 16,
+    "categoria": "goleador",
+    "partido_id": 44,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:52.141Z"
+  },
+  {
+    "id": 5419,
+    "usuario_id": 4,
+    "categoria": "ganador_partido",
+    "partido_id": 44,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:52.141Z"
+  },
+  {
+    "id": 5420,
+    "usuario_id": 4,
+    "categoria": "goleador",
+    "partido_id": 44,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:52.141Z"
+  },
+  {
+    "id": 5421,
+    "usuario_id": 8,
+    "categoria": "ganador_partido",
+    "partido_id": 44,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:52.141Z"
+  },
+  {
+    "id": 5422,
+    "usuario_id": 8,
+    "categoria": "goleador",
+    "partido_id": 44,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:52.141Z"
+  },
+  {
+    "id": 5423,
+    "usuario_id": 17,
+    "categoria": "goleador",
+    "partido_id": 44,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:52.141Z"
+  },
+  {
+    "id": 5424,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 44,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:52.141Z"
+  },
+  {
+    "id": 5425,
+    "usuario_id": 34,
+    "categoria": "goleador",
+    "partido_id": 44,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:52.141Z"
+  },
+  {
+    "id": 5426,
+    "usuario_id": 32,
+    "categoria": "ganador_partido",
+    "partido_id": 44,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:52.141Z"
+  },
+  {
+    "id": 5457,
+    "usuario_id": 18,
+    "categoria": "ganador_partido",
+    "partido_id": 98,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:52.897Z"
+  },
+  {
+    "id": 5458,
+    "usuario_id": 19,
+    "categoria": "ganador_partido",
+    "partido_id": 98,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:52.897Z"
+  },
+  {
+    "id": 5470,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 60,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:53.259Z"
+  },
+  {
+    "id": 5471,
+    "usuario_id": 5,
+    "categoria": "goleador",
+    "partido_id": 60,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:53.259Z"
+  },
+  {
+    "id": 5472,
+    "usuario_id": 4,
+    "categoria": "ganador_partido",
+    "partido_id": 60,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:53.259Z"
+  },
+  {
+    "id": 5473,
+    "usuario_id": 4,
+    "categoria": "goleador",
+    "partido_id": 60,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:53.259Z"
+  },
+  {
+    "id": 5474,
+    "usuario_id": 7,
+    "categoria": "ganador_partido",
+    "partido_id": 60,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:53.259Z"
+  },
+  {
+    "id": 5475,
+    "usuario_id": 7,
+    "categoria": "goleador",
+    "partido_id": 60,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:53.259Z"
+  },
+  {
+    "id": 5476,
+    "usuario_id": 6,
+    "categoria": "ganador_partido",
+    "partido_id": 60,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:53.259Z"
+  },
+  {
+    "id": 5477,
+    "usuario_id": 6,
+    "categoria": "goleador",
+    "partido_id": 60,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:53.259Z"
+  },
+  {
+    "id": 5478,
+    "usuario_id": 8,
+    "categoria": "ganador_partido",
+    "partido_id": 60,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:53.259Z"
+  },
+  {
+    "id": 5479,
+    "usuario_id": 8,
+    "categoria": "goleador",
+    "partido_id": 60,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:53.259Z"
+  },
+  {
+    "id": 5480,
+    "usuario_id": 9,
+    "categoria": "goleador",
+    "partido_id": 60,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:53.259Z"
+  },
+  {
+    "id": 5481,
+    "usuario_id": 18,
+    "categoria": "ganador_partido",
+    "partido_id": 60,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:53.259Z"
+  },
+  {
+    "id": 5482,
+    "usuario_id": 18,
+    "categoria": "goleador",
+    "partido_id": 60,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:53.259Z"
+  },
+  {
+    "id": 5483,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 60,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:53.259Z"
+  },
+  {
+    "id": 5484,
+    "usuario_id": 34,
+    "categoria": "goleador",
+    "partido_id": 60,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:53.259Z"
+  },
+  {
+    "id": 5485,
+    "usuario_id": 19,
+    "categoria": "goleador",
+    "partido_id": 60,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:53.259Z"
+  },
+  {
+    "id": 5520,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 42,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:54.623Z"
+  },
+  {
+    "id": 5521,
+    "usuario_id": 9,
+    "categoria": "goleador",
+    "partido_id": 42,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:54.623Z"
+  },
+  {
+    "id": 5252,
+    "usuario_id": 18,
+    "categoria": "ganador_partido",
+    "partido_id": 87,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:50.691Z"
+  },
+  {
+    "id": 5253,
+    "usuario_id": 18,
+    "categoria": "goleador",
+    "partido_id": 87,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:50.691Z"
+  },
+  {
+    "id": 5254,
+    "usuario_id": 32,
+    "categoria": "goleador",
+    "partido_id": 87,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:50.691Z"
+  },
+  {
+    "id": 5255,
+    "usuario_id": 6,
+    "categoria": "goleador",
+    "partido_id": 87,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:50.691Z"
+  },
+  {
+    "id": 5256,
+    "usuario_id": 17,
+    "categoria": "goleador",
+    "partido_id": 87,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:50.691Z"
+  },
+  {
+    "id": 5257,
+    "usuario_id": 5,
+    "categoria": "goleador",
+    "partido_id": 87,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:50.691Z"
+  },
+  {
+    "id": 5258,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 87,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:50.691Z"
+  },
+  {
+    "id": 5259,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 87,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:50.691Z"
+  },
+  {
+    "id": 5260,
+    "usuario_id": 8,
+    "categoria": "ganador_partido",
+    "partido_id": 87,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:50.691Z"
+  },
+  {
+    "id": 5261,
+    "usuario_id": 31,
+    "categoria": "goleador",
+    "partido_id": 87,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:50.691Z"
+  },
+  {
+    "id": 5355,
+    "usuario_id": 33,
+    "categoria": "ganador_partido",
+    "partido_id": 37,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:51.472Z"
+  },
+  {
+    "id": 5356,
+    "usuario_id": 19,
+    "categoria": "ganador_partido",
+    "partido_id": 37,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:51.472Z"
+  },
+  {
+    "id": 5357,
+    "usuario_id": 30,
+    "categoria": "ganador_partido",
+    "partido_id": 37,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:51.472Z"
+  },
+  {
+    "id": 5358,
+    "usuario_id": 30,
+    "categoria": "resultado_exacto",
+    "partido_id": 37,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:51.472Z"
+  },
+  {
+    "id": 5359,
+    "usuario_id": 30,
+    "categoria": "goleador",
+    "partido_id": 37,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:51.472Z"
+  },
+  {
+    "id": 5360,
+    "usuario_id": 32,
+    "categoria": "ganador_partido",
+    "partido_id": 37,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:51.472Z"
+  },
+  {
+    "id": 5361,
+    "usuario_id": 32,
+    "categoria": "goleador",
+    "partido_id": 37,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:51.472Z"
+  },
+  {
+    "id": 5362,
+    "usuario_id": 18,
+    "categoria": "ganador_partido",
+    "partido_id": 37,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:51.472Z"
+  },
+  {
+    "id": 5363,
+    "usuario_id": 18,
+    "categoria": "goleador",
+    "partido_id": 37,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:51.472Z"
+  },
+  {
+    "id": 5364,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 37,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:51.472Z"
+  },
+  {
+    "id": 5365,
+    "usuario_id": 16,
+    "categoria": "goleador",
+    "partido_id": 37,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:51.472Z"
+  },
+  {
+    "id": 5366,
+    "usuario_id": 8,
+    "categoria": "ganador_partido",
+    "partido_id": 37,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:51.472Z"
+  },
+  {
+    "id": 5367,
+    "usuario_id": 8,
+    "categoria": "goleador",
+    "partido_id": 37,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:51.472Z"
+  },
+  {
+    "id": 5368,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 37,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:51.472Z"
+  },
+  {
+    "id": 5369,
+    "usuario_id": 9,
+    "categoria": "goleador",
+    "partido_id": 37,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:51.472Z"
+  },
+  {
+    "id": 5370,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 37,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:51.472Z"
+  },
+  {
+    "id": 5371,
+    "usuario_id": 5,
+    "categoria": "goleador",
+    "partido_id": 37,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:51.472Z"
+  },
+  {
+    "id": 5372,
+    "usuario_id": 31,
+    "categoria": "ganador_partido",
+    "partido_id": 37,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:51.472Z"
+  },
+  {
+    "id": 5373,
+    "usuario_id": 31,
+    "categoria": "goleador",
+    "partido_id": 37,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:51.472Z"
+  },
+  {
+    "id": 5374,
+    "usuario_id": 4,
+    "categoria": "goleador",
+    "partido_id": 37,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:51.472Z"
+  },
+  {
+    "id": 5375,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 37,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:51.472Z"
+  },
+  {
+    "id": 5376,
+    "usuario_id": 34,
+    "categoria": "goleador",
+    "partido_id": 37,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:51.472Z"
+  },
+  {
+    "id": 5377,
+    "usuario_id": 17,
+    "categoria": "ganador_partido",
+    "partido_id": 37,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:51.472Z"
+  },
+  {
+    "id": 5378,
+    "usuario_id": 17,
+    "categoria": "goleador",
+    "partido_id": 37,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:51.472Z"
+  },
+  {
+    "id": 5379,
+    "usuario_id": 2,
+    "categoria": "ganador_partido",
+    "partido_id": 37,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:51.472Z"
+  },
+  {
+    "id": 5450,
+    "usuario_id": 2,
+    "categoria": "ganador_partido",
+    "partido_id": 77,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:52.521Z"
+  },
+  {
+    "id": 5451,
+    "usuario_id": 2,
+    "categoria": "resultado_exacto",
+    "partido_id": 77,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:52.521Z"
+  },
+  {
+    "id": 5547,
+    "usuario_id": 31,
+    "categoria": "ganador_partido",
+    "partido_id": 99,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:55.275Z"
+  },
+  {
+    "id": 5548,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 99,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:55.275Z"
+  },
+  {
+    "id": 5549,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 99,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:55.275Z"
+  },
+  {
+    "id": 5550,
+    "usuario_id": 9,
+    "categoria": "resultado_exacto",
+    "partido_id": 99,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:55.275Z"
+  },
+  {
+    "id": 5551,
+    "usuario_id": 18,
+    "categoria": "ganador_partido",
+    "partido_id": 99,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:55.275Z"
+  },
+  {
+    "id": 5552,
+    "usuario_id": 32,
+    "categoria": "ganador_partido",
+    "partido_id": 99,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:55.275Z"
+  },
+  {
+    "id": 5553,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 99,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:55.275Z"
+  },
+  {
+    "id": 5554,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 99,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:55.275Z"
+  },
+  {
+    "id": 5555,
+    "usuario_id": 16,
+    "categoria": "resultado_exacto",
+    "partido_id": 99,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:55.275Z"
+  },
+  {
+    "id": 5556,
+    "usuario_id": 19,
+    "categoria": "ganador_partido",
+    "partido_id": 99,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:55.275Z"
+  },
+  {
+    "id": 5557,
+    "usuario_id": 19,
+    "categoria": "resultado_exacto",
+    "partido_id": 99,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:55.275Z"
+  },
+  {
+    "id": 5558,
+    "usuario_id": 4,
+    "categoria": "ganador_partido",
+    "partido_id": 99,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:55.275Z"
+  },
+  {
+    "id": 5559,
+    "usuario_id": 2,
+    "categoria": "ganador_partido",
+    "partido_id": 99,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:55.275Z"
+  },
+  {
+    "id": 5560,
+    "usuario_id": 7,
+    "categoria": "ganador_partido",
+    "partido_id": 99,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:55.275Z"
+  },
+  {
+    "id": 5561,
+    "usuario_id": 17,
+    "categoria": "ganador_partido",
+    "partido_id": 99,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:55.275Z"
+  },
+  {
+    "id": 5628,
+    "usuario_id": 18,
+    "categoria": "ganador_partido",
+    "partido_id": 172,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:56.008Z"
+  },
+  {
+    "id": 5629,
+    "usuario_id": 6,
+    "categoria": "ganador_partido",
+    "partido_id": 172,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:56.008Z"
+  },
+  {
+    "id": 5630,
+    "usuario_id": 2,
+    "categoria": "ganador_partido",
+    "partido_id": 172,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:56.008Z"
+  },
+  {
+    "id": 5631,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 172,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:56.008Z"
+  },
+  {
+    "id": 5632,
+    "usuario_id": 5,
+    "categoria": "goleador",
+    "partido_id": 172,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:56.008Z"
+  },
+  {
+    "id": 5633,
+    "usuario_id": 17,
+    "categoria": "ganador_partido",
+    "partido_id": 172,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:56.008Z"
+  },
+  {
+    "id": 5634,
+    "usuario_id": 17,
+    "categoria": "goleador",
+    "partido_id": 172,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:56.008Z"
+  },
+  {
+    "id": 5635,
+    "usuario_id": 32,
+    "categoria": "ganador_partido",
+    "partido_id": 172,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:56.008Z"
+  },
+  {
+    "id": 5667,
+    "usuario_id": 33,
+    "categoria": "ganador_partido",
+    "partido_id": 114,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:56.375Z"
+  },
+  {
+    "id": 5668,
+    "usuario_id": 33,
+    "categoria": "goleador",
+    "partido_id": 114,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:56.375Z"
+  },
+  {
+    "id": 5669,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 114,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:56.375Z"
+  },
+  {
+    "id": 5670,
+    "usuario_id": 16,
+    "categoria": "goleador",
+    "partido_id": 114,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:56.375Z"
+  },
+  {
+    "id": 5671,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 114,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:56.375Z"
+  },
+  {
+    "id": 5672,
+    "usuario_id": 9,
+    "categoria": "resultado_exacto",
+    "partido_id": 114,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:56.375Z"
+  },
+  {
+    "id": 5673,
+    "usuario_id": 18,
+    "categoria": "ganador_partido",
+    "partido_id": 114,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:56.375Z"
+  },
+  {
+    "id": 5674,
+    "usuario_id": 18,
+    "categoria": "goleador",
+    "partido_id": 114,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:56.375Z"
+  },
+  {
+    "id": 5675,
+    "usuario_id": 4,
+    "categoria": "ganador_partido",
+    "partido_id": 114,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:56.375Z"
+  },
+  {
+    "id": 5676,
+    "usuario_id": 4,
+    "categoria": "goleador",
+    "partido_id": 114,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:56.375Z"
+  },
+  {
+    "id": 5677,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 114,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:56.375Z"
+  },
+  {
+    "id": 5678,
+    "usuario_id": 34,
+    "categoria": "goleador",
+    "partido_id": 114,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:56.375Z"
+  },
+  {
+    "id": 5679,
+    "usuario_id": 19,
+    "categoria": "ganador_partido",
+    "partido_id": 114,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:56.375Z"
+  },
+  {
+    "id": 5680,
+    "usuario_id": 19,
+    "categoria": "goleador",
+    "partido_id": 114,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:56.375Z"
+  },
+  {
+    "id": 5681,
+    "usuario_id": 8,
+    "categoria": "ganador_partido",
+    "partido_id": 114,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:56.375Z"
+  },
+  {
+    "id": 5682,
+    "usuario_id": 8,
+    "categoria": "goleador",
+    "partido_id": 114,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:56.375Z"
+  },
+  {
+    "id": 5774,
+    "usuario_id": 18,
+    "categoria": "ganador_partido",
+    "partido_id": 91,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:57.107Z"
+  },
+  {
+    "id": 5775,
+    "usuario_id": 18,
+    "categoria": "goleador",
+    "partido_id": 91,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:57.107Z"
+  },
+  {
+    "id": 5776,
+    "usuario_id": 19,
+    "categoria": "ganador_partido",
+    "partido_id": 91,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:57.107Z"
+  },
+  {
+    "id": 5777,
+    "usuario_id": 19,
+    "categoria": "goleador",
+    "partido_id": 91,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:57.107Z"
+  },
+  {
+    "id": 5778,
+    "usuario_id": 6,
+    "categoria": "ganador_partido",
+    "partido_id": 91,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:57.107Z"
+  },
+  {
+    "id": 5593,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 101,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:55.645Z"
+  },
+  {
+    "id": 5594,
+    "usuario_id": 9,
+    "categoria": "resultado_exacto",
+    "partido_id": 101,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:55.645Z"
+  },
+  {
+    "id": 5595,
+    "usuario_id": 17,
+    "categoria": "goleador",
+    "partido_id": 101,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:55.645Z"
+  },
+  {
+    "id": 5596,
+    "usuario_id": 2,
+    "categoria": "ganador_partido",
+    "partido_id": 101,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:55.645Z"
+  },
+  {
+    "id": 5597,
+    "usuario_id": 2,
+    "categoria": "goleador",
+    "partido_id": 101,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:55.645Z"
+  },
+  {
+    "id": 5598,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 101,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:55.645Z"
+  },
+  {
+    "id": 5599,
+    "usuario_id": 34,
+    "categoria": "resultado_exacto",
+    "partido_id": 101,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:55.645Z"
+  },
+  {
+    "id": 5600,
+    "usuario_id": 8,
+    "categoria": "goleador",
+    "partido_id": 101,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:55.645Z"
+  },
+  {
+    "id": 5601,
+    "usuario_id": 19,
+    "categoria": "ganador_partido",
+    "partido_id": 101,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:55.645Z"
+  },
+  {
+    "id": 5602,
+    "usuario_id": 19,
+    "categoria": "goleador",
+    "partido_id": 101,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:55.645Z"
+  },
+  {
+    "id": 5603,
+    "usuario_id": 18,
+    "categoria": "goleador",
+    "partido_id": 101,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:55.645Z"
+  },
+  {
+    "id": 5604,
+    "usuario_id": 6,
+    "categoria": "goleador",
+    "partido_id": 101,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:55.645Z"
+  },
+  {
+    "id": 5605,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 101,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:55.645Z"
+  },
+  {
+    "id": 5606,
+    "usuario_id": 5,
+    "categoria": "resultado_exacto",
+    "partido_id": 101,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:55.645Z"
+  },
+  {
+    "id": 5607,
+    "usuario_id": 5,
+    "categoria": "goleador",
+    "partido_id": 101,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:55.645Z"
+  },
+  {
+    "id": 5901,
+    "usuario_id": 16,
+    "categoria": "goleador",
+    "partido_id": 109,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:58.797Z"
+  },
+  {
+    "id": 5902,
+    "usuario_id": 18,
+    "categoria": "goleador",
+    "partido_id": 109,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:58.797Z"
+  },
+  {
+    "id": 5903,
+    "usuario_id": 5,
+    "categoria": "goleador",
+    "partido_id": 109,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:58.797Z"
+  },
+  {
+    "id": 5904,
+    "usuario_id": 17,
+    "categoria": "goleador",
+    "partido_id": 109,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:58.797Z"
+  },
+  {
+    "id": 5905,
+    "usuario_id": 6,
+    "categoria": "goleador",
+    "partido_id": 109,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:58.797Z"
+  },
+  {
+    "id": 5953,
+    "usuario_id": 31,
+    "categoria": "ganador_partido",
+    "partido_id": 76,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:59.812Z"
+  },
+  {
+    "id": 5954,
+    "usuario_id": 7,
+    "categoria": "ganador_partido",
+    "partido_id": 76,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:59.812Z"
+  },
+  {
+    "id": 5955,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 76,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:59.812Z"
+  },
+  {
+    "id": 5956,
+    "usuario_id": 17,
+    "categoria": "ganador_partido",
+    "partido_id": 76,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:59.812Z"
+  },
+  {
+    "id": 5957,
+    "usuario_id": 30,
+    "categoria": "ganador_partido",
+    "partido_id": 76,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:59.812Z"
+  },
+  {
+    "id": 5958,
+    "usuario_id": 32,
+    "categoria": "ganador_partido",
+    "partido_id": 76,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:59.812Z"
+  },
+  {
+    "id": 6130,
+    "usuario_id": 18,
+    "categoria": "ganador_partido",
+    "partido_id": 92,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:02.499Z"
+  },
+  {
+    "id": 6131,
+    "usuario_id": 18,
+    "categoria": "resultado_exacto",
+    "partido_id": 92,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:02.499Z"
+  },
+  {
+    "id": 6132,
+    "usuario_id": 8,
+    "categoria": "ganador_partido",
+    "partido_id": 92,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:02.499Z"
+  },
+  {
+    "id": 6133,
+    "usuario_id": 8,
+    "categoria": "resultado_exacto",
+    "partido_id": 92,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:02.499Z"
+  },
+  {
+    "id": 6134,
+    "usuario_id": 8,
+    "categoria": "goleador",
+    "partido_id": 92,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:02.499Z"
+  },
+  {
+    "id": 6135,
+    "usuario_id": 32,
+    "categoria": "ganador_partido",
+    "partido_id": 92,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:02.499Z"
+  },
+  {
+    "id": 6136,
+    "usuario_id": 32,
+    "categoria": "resultado_exacto",
+    "partido_id": 92,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:02.499Z"
+  },
+  {
+    "id": 6137,
+    "usuario_id": 17,
+    "categoria": "ganador_partido",
+    "partido_id": 92,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:02.499Z"
+  },
+  {
+    "id": 6138,
+    "usuario_id": 17,
+    "categoria": "resultado_exacto",
+    "partido_id": 92,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:02.499Z"
+  },
+  {
+    "id": 6139,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 92,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:02.499Z"
+  },
+  {
+    "id": 6140,
+    "usuario_id": 9,
+    "categoria": "goleador",
+    "partido_id": 92,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:02.499Z"
+  },
+  {
+    "id": 6141,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 92,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:02.499Z"
+  },
+  {
+    "id": 6142,
+    "usuario_id": 5,
+    "categoria": "goleador",
+    "partido_id": 92,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:02.499Z"
+  },
+  {
+    "id": 6143,
+    "usuario_id": 4,
+    "categoria": "ganador_partido",
+    "partido_id": 92,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:02.499Z"
+  },
+  {
+    "id": 6144,
+    "usuario_id": 4,
+    "categoria": "goleador",
+    "partido_id": 92,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:02.499Z"
+  },
+  {
+    "id": 6145,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 92,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:02.499Z"
+  },
+  {
+    "id": 5779,
+    "usuario_id": 4,
+    "categoria": "ganador_partido",
+    "partido_id": 91,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:57.107Z"
+  },
+  {
+    "id": 5780,
+    "usuario_id": 4,
+    "categoria": "goleador",
+    "partido_id": 91,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:57.107Z"
+  },
+  {
+    "id": 5781,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 91,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:57.107Z"
+  },
+  {
+    "id": 5782,
+    "usuario_id": 33,
+    "categoria": "ganador_partido",
+    "partido_id": 91,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:57.107Z"
+  },
+  {
+    "id": 5783,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 91,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:57.107Z"
+  },
+  {
+    "id": 5784,
+    "usuario_id": 32,
+    "categoria": "ganador_partido",
+    "partido_id": 91,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:57.107Z"
+  },
+  {
+    "id": 5785,
+    "usuario_id": 32,
+    "categoria": "goleador",
+    "partido_id": 91,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:57.107Z"
+  },
+  {
+    "id": 5786,
+    "usuario_id": 31,
+    "categoria": "ganador_partido",
+    "partido_id": 91,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:57.107Z"
+  },
+  {
+    "id": 5787,
+    "usuario_id": 31,
+    "categoria": "goleador",
+    "partido_id": 91,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:57.107Z"
+  },
+  {
+    "id": 5788,
+    "usuario_id": 8,
+    "categoria": "ganador_partido",
+    "partido_id": 91,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:57.107Z"
+  },
+  {
+    "id": 5789,
+    "usuario_id": 8,
+    "categoria": "goleador",
+    "partido_id": 91,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:57.107Z"
+  },
+  {
+    "id": 5790,
+    "usuario_id": 17,
+    "categoria": "ganador_partido",
+    "partido_id": 91,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:57.107Z"
+  },
+  {
+    "id": 5791,
+    "usuario_id": 17,
+    "categoria": "goleador",
+    "partido_id": 91,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:57.107Z"
+  },
+  {
+    "id": 5792,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 91,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:57.107Z"
+  },
+  {
+    "id": 5793,
+    "usuario_id": 7,
+    "categoria": "ganador_partido",
+    "partido_id": 91,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:57.107Z"
+  },
+  {
+    "id": 5794,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 91,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:57.107Z"
+  },
+  {
+    "id": 5795,
+    "usuario_id": 5,
+    "categoria": "goleador",
+    "partido_id": 91,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:57.107Z"
+  },
+  {
+    "id": 5841,
+    "usuario_id": 33,
+    "categoria": "ganador_partido",
+    "partido_id": 119,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:58.055Z"
+  },
+  {
+    "id": 5842,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 119,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:58.055Z"
+  },
+  {
+    "id": 5843,
+    "usuario_id": 16,
+    "categoria": "resultado_exacto",
+    "partido_id": 119,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:58.055Z"
+  },
+  {
+    "id": 5844,
+    "usuario_id": 31,
+    "categoria": "ganador_partido",
+    "partido_id": 119,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:58.055Z"
+  },
+  {
+    "id": 5845,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 119,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:58.055Z"
+  },
+  {
+    "id": 5846,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 119,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:58.055Z"
+  },
+  {
+    "id": 5847,
+    "usuario_id": 7,
+    "categoria": "ganador_partido",
+    "partido_id": 119,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:58.055Z"
+  },
+  {
+    "id": 5848,
+    "usuario_id": 7,
+    "categoria": "resultado_exacto",
+    "partido_id": 119,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:58.055Z"
+  },
+  {
+    "id": 5849,
+    "usuario_id": 18,
+    "categoria": "ganador_partido",
+    "partido_id": 119,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:58.055Z"
+  },
+  {
+    "id": 5850,
+    "usuario_id": 4,
+    "categoria": "ganador_partido",
+    "partido_id": 119,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:58.055Z"
+  },
+  {
+    "id": 5851,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 119,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:58.055Z"
+  },
+  {
+    "id": 5852,
+    "usuario_id": 19,
+    "categoria": "ganador_partido",
+    "partido_id": 119,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:58.055Z"
+  },
+  {
+    "id": 5853,
+    "usuario_id": 8,
+    "categoria": "ganador_partido",
+    "partido_id": 119,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:58.055Z"
+  },
+  {
+    "id": 5854,
+    "usuario_id": 32,
+    "categoria": "ganador_partido",
+    "partido_id": 119,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:58.055Z"
+  },
+  {
+    "id": 5855,
+    "usuario_id": 32,
+    "categoria": "resultado_exacto",
+    "partido_id": 119,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:58.055Z"
+  },
+  {
+    "id": 5856,
+    "usuario_id": 6,
+    "categoria": "ganador_partido",
+    "partido_id": 119,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:58.055Z"
+  },
+  {
+    "id": 5857,
+    "usuario_id": 17,
+    "categoria": "ganador_partido",
+    "partido_id": 119,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:58.055Z"
+  },
+  {
+    "id": 5921,
+    "usuario_id": 30,
+    "categoria": "ganador_partido",
+    "partido_id": 82,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:59.409Z"
+  },
+  {
+    "id": 5922,
+    "usuario_id": 18,
+    "categoria": "ganador_partido",
+    "partido_id": 82,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:59.409Z"
+  },
+  {
+    "id": 5923,
+    "usuario_id": 18,
+    "categoria": "resultado_exacto",
+    "partido_id": 82,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:46:59.409Z"
+  },
+  {
+    "id": 5924,
+    "usuario_id": 18,
+    "categoria": "goleador",
+    "partido_id": 82,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:46:59.409Z"
+  },
+  {
+    "id": 5925,
+    "usuario_id": 32,
+    "categoria": "ganador_partido",
+    "partido_id": 82,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:59.409Z"
+  },
+  {
+    "id": 5926,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 82,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:46:59.409Z"
+  },
+  {
+    "id": 6037,
+    "usuario_id": 4,
+    "categoria": "ganador_partido",
+    "partido_id": 58,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:01.089Z"
+  },
+  {
+    "id": 6038,
+    "usuario_id": 4,
+    "categoria": "resultado_exacto",
+    "partido_id": 58,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:01.089Z"
+  },
+  {
+    "id": 6059,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 54,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:01.454Z"
+  },
+  {
+    "id": 6060,
+    "usuario_id": 9,
+    "categoria": "resultado_exacto",
+    "partido_id": 54,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:01.454Z"
+  },
+  {
+    "id": 6061,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 54,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:01.454Z"
+  },
+  {
+    "id": 6062,
+    "usuario_id": 16,
+    "categoria": "resultado_exacto",
+    "partido_id": 54,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:01.454Z"
+  },
+  {
+    "id": 6063,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 54,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:01.454Z"
+  },
+  {
+    "id": 6064,
+    "usuario_id": 8,
+    "categoria": "ganador_partido",
+    "partido_id": 54,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:01.454Z"
+  },
+  {
+    "id": 6065,
+    "usuario_id": 8,
+    "categoria": "resultado_exacto",
+    "partido_id": 54,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:01.454Z"
+  },
+  {
+    "id": 6066,
+    "usuario_id": 7,
+    "categoria": "ganador_partido",
+    "partido_id": 54,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:01.454Z"
+  },
+  {
+    "id": 6067,
+    "usuario_id": 31,
+    "categoria": "ganador_partido",
+    "partido_id": 54,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:01.454Z"
+  },
+  {
+    "id": 6068,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 54,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:01.454Z"
+  },
+  {
+    "id": 6069,
+    "usuario_id": 6,
+    "categoria": "ganador_partido",
+    "partido_id": 54,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:01.454Z"
+  },
+  {
+    "id": 6070,
+    "usuario_id": 6,
+    "categoria": "resultado_exacto",
+    "partido_id": 54,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:01.454Z"
+  },
+  {
+    "id": 6071,
+    "usuario_id": 19,
+    "categoria": "ganador_partido",
+    "partido_id": 54,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:01.454Z"
+  },
+  {
+    "id": 6072,
+    "usuario_id": 2,
+    "categoria": "ganador_partido",
+    "partido_id": 54,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:01.454Z"
+  },
+  {
+    "id": 6073,
+    "usuario_id": 17,
+    "categoria": "ganador_partido",
+    "partido_id": 54,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:01.454Z"
+  },
+  {
+    "id": 6074,
+    "usuario_id": 32,
+    "categoria": "ganador_partido",
+    "partido_id": 54,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:01.454Z"
+  },
+  {
+    "id": 6075,
+    "usuario_id": 4,
+    "categoria": "ganador_partido",
+    "partido_id": 54,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:01.454Z"
+  },
+  {
+    "id": 6076,
+    "usuario_id": 4,
+    "categoria": "resultado_exacto",
+    "partido_id": 54,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:01.454Z"
+  },
+  {
+    "id": 6077,
+    "usuario_id": 30,
+    "categoria": "ganador_partido",
+    "partido_id": 54,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:01.454Z"
+  },
+  {
+    "id": 6078,
+    "usuario_id": 18,
+    "categoria": "ganador_partido",
+    "partido_id": 54,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:01.454Z"
+  },
+  {
+    "id": 6101,
+    "usuario_id": 33,
+    "categoria": "ganador_partido",
+    "partido_id": 120,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:02.131Z"
+  },
+  {
+    "id": 6102,
+    "usuario_id": 33,
+    "categoria": "resultado_exacto",
+    "partido_id": 120,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:02.131Z"
+  },
+  {
+    "id": 6103,
+    "usuario_id": 16,
+    "categoria": "goleador",
+    "partido_id": 120,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:02.131Z"
+  },
+  {
+    "id": 6104,
+    "usuario_id": 5,
+    "categoria": "goleador",
+    "partido_id": 120,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:02.131Z"
+  },
+  {
+    "id": 6105,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 120,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:02.131Z"
+  },
+  {
+    "id": 6106,
+    "usuario_id": 9,
+    "categoria": "resultado_exacto",
+    "partido_id": 120,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:02.131Z"
+  },
+  {
+    "id": 6107,
+    "usuario_id": 4,
+    "categoria": "goleador",
+    "partido_id": 120,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:02.131Z"
+  },
+  {
+    "id": 6108,
+    "usuario_id": 34,
+    "categoria": "goleador",
+    "partido_id": 120,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:02.131Z"
+  },
+  {
+    "id": 6109,
+    "usuario_id": 6,
+    "categoria": "ganador_partido",
+    "partido_id": 120,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:02.131Z"
+  },
+  {
+    "id": 6110,
+    "usuario_id": 6,
+    "categoria": "resultado_exacto",
+    "partido_id": 120,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:02.131Z"
+  },
+  {
+    "id": 6111,
+    "usuario_id": 17,
+    "categoria": "goleador",
+    "partido_id": 120,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:02.131Z"
+  },
+  {
+    "id": 6194,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 106,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:03.236Z"
+  },
+  {
+    "id": 6195,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 106,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:03.236Z"
+  },
+  {
+    "id": 6196,
+    "usuario_id": 8,
+    "categoria": "goleador",
+    "partido_id": 106,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:03.236Z"
+  },
+  {
+    "id": 6197,
+    "usuario_id": 18,
+    "categoria": "goleador",
+    "partido_id": 106,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:03.236Z"
+  },
+  {
+    "id": 6198,
+    "usuario_id": 19,
+    "categoria": "ganador_partido",
+    "partido_id": 106,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:03.236Z"
+  },
+  {
+    "id": 6199,
+    "usuario_id": 34,
+    "categoria": "goleador",
+    "partido_id": 106,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:03.236Z"
+  },
+  {
+    "id": 6200,
+    "usuario_id": 2,
+    "categoria": "ganador_partido",
+    "partido_id": 106,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:03.236Z"
+  },
+  {
+    "id": 6201,
+    "usuario_id": 2,
+    "categoria": "resultado_exacto",
+    "partido_id": 106,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:03.236Z"
+  },
+  {
+    "id": 6202,
+    "usuario_id": 2,
+    "categoria": "goleador",
+    "partido_id": 106,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:03.236Z"
+  },
+  {
+    "id": 6203,
+    "usuario_id": 4,
+    "categoria": "ganador_partido",
+    "partido_id": 106,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:03.236Z"
+  },
+  {
+    "id": 6204,
+    "usuario_id": 4,
+    "categoria": "goleador",
+    "partido_id": 106,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:03.236Z"
+  },
+  {
+    "id": 6205,
+    "usuario_id": 17,
+    "categoria": "goleador",
+    "partido_id": 106,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:03.236Z"
+  },
+  {
+    "id": 6224,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 89,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:03.600Z"
+  },
+  {
+    "id": 6225,
+    "usuario_id": 34,
+    "categoria": "resultado_exacto",
+    "partido_id": 89,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:03.600Z"
+  },
+  {
+    "id": 6226,
+    "usuario_id": 7,
+    "categoria": "ganador_partido",
+    "partido_id": 89,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:03.600Z"
+  },
+  {
+    "id": 6227,
+    "usuario_id": 6,
+    "categoria": "ganador_partido",
+    "partido_id": 89,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:03.600Z"
+  },
+  {
+    "id": 6228,
+    "usuario_id": 2,
+    "categoria": "ganador_partido",
+    "partido_id": 89,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:03.600Z"
+  },
+  {
+    "id": 6229,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 89,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:03.600Z"
+  },
+  {
+    "id": 6349,
+    "usuario_id": 9,
+    "categoria": "goleador",
+    "partido_id": 93,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:05.809Z"
+  },
+  {
+    "id": 6350,
+    "usuario_id": 32,
+    "categoria": "ganador_partido",
+    "partido_id": 93,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:05.809Z"
+  },
+  {
+    "id": 6351,
+    "usuario_id": 17,
+    "categoria": "goleador",
+    "partido_id": 93,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:05.809Z"
+  },
+  {
+    "id": 6352,
+    "usuario_id": 18,
+    "categoria": "goleador",
+    "partido_id": 93,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:05.809Z"
+  },
+  {
+    "id": 6353,
+    "usuario_id": 4,
+    "categoria": "goleador",
+    "partido_id": 93,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:05.809Z"
+  },
+  {
+    "id": 6354,
+    "usuario_id": 16,
+    "categoria": "goleador",
+    "partido_id": 93,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:05.809Z"
+  },
+  {
+    "id": 6355,
+    "usuario_id": 8,
+    "categoria": "goleador",
+    "partido_id": 93,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:05.809Z"
+  },
+  {
+    "id": 6356,
+    "usuario_id": 6,
+    "categoria": "goleador",
+    "partido_id": 93,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:05.809Z"
+  },
+  {
+    "id": 6363,
+    "usuario_id": 32,
+    "categoria": "goleador",
+    "partido_id": 94,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:06.172Z"
+  },
+  {
+    "id": 6364,
+    "usuario_id": 31,
+    "categoria": "goleador",
+    "partido_id": 94,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:06.172Z"
+  },
+  {
+    "id": 6365,
+    "usuario_id": 18,
+    "categoria": "goleador",
+    "partido_id": 94,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:06.172Z"
+  },
+  {
+    "id": 6366,
+    "usuario_id": 5,
+    "categoria": "goleador",
+    "partido_id": 94,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:06.172Z"
+  },
+  {
+    "id": 6367,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 94,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:06.172Z"
+  },
+  {
+    "id": 6368,
+    "usuario_id": 34,
+    "categoria": "resultado_exacto",
+    "partido_id": 94,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:06.172Z"
+  },
+  {
+    "id": 6369,
+    "usuario_id": 34,
+    "categoria": "goleador",
+    "partido_id": 94,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:06.172Z"
+  },
+  {
+    "id": 6370,
+    "usuario_id": 19,
+    "categoria": "goleador",
+    "partido_id": 94,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:06.172Z"
+  },
+  {
+    "id": 6371,
+    "usuario_id": 16,
+    "categoria": "goleador",
+    "partido_id": 94,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:06.172Z"
+  },
+  {
+    "id": 6372,
+    "usuario_id": 8,
+    "categoria": "goleador",
+    "partido_id": 94,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:06.172Z"
+  },
+  {
+    "id": 6373,
+    "usuario_id": 6,
+    "categoria": "goleador",
+    "partido_id": 94,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:06.172Z"
+  },
+  {
+    "id": 6374,
+    "usuario_id": 9,
+    "categoria": "goleador",
+    "partido_id": 94,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:06.172Z"
+  },
+  {
+    "id": 6395,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 95,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:06.534Z"
+  },
+  {
+    "id": 6396,
+    "usuario_id": 9,
+    "categoria": "goleador",
+    "partido_id": 95,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:06.534Z"
+  },
+  {
+    "id": 6397,
+    "usuario_id": 32,
+    "categoria": "ganador_partido",
+    "partido_id": 95,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:06.534Z"
+  },
+  {
+    "id": 6398,
+    "usuario_id": 32,
+    "categoria": "goleador",
+    "partido_id": 95,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:06.534Z"
+  },
+  {
+    "id": 6399,
+    "usuario_id": 31,
+    "categoria": "ganador_partido",
+    "partido_id": 95,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:06.534Z"
+  },
+  {
+    "id": 6400,
+    "usuario_id": 31,
+    "categoria": "goleador",
+    "partido_id": 95,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:06.534Z"
+  },
+  {
+    "id": 6401,
+    "usuario_id": 18,
+    "categoria": "ganador_partido",
+    "partido_id": 95,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:06.534Z"
+  },
+  {
+    "id": 6402,
+    "usuario_id": 18,
+    "categoria": "goleador",
+    "partido_id": 95,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:06.534Z"
+  },
+  {
+    "id": 6403,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 95,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:06.534Z"
+  },
+  {
+    "id": 6404,
+    "usuario_id": 5,
+    "categoria": "goleador",
+    "partido_id": 95,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:06.534Z"
+  },
+  {
+    "id": 6405,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 95,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:06.534Z"
+  },
+  {
+    "id": 6406,
+    "usuario_id": 34,
+    "categoria": "goleador",
+    "partido_id": 95,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:06.534Z"
+  },
+  {
+    "id": 6407,
+    "usuario_id": 4,
+    "categoria": "ganador_partido",
+    "partido_id": 95,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:06.534Z"
+  },
+  {
+    "id": 6408,
+    "usuario_id": 4,
+    "categoria": "goleador",
+    "partido_id": 95,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:06.534Z"
+  },
+  {
+    "id": 6409,
+    "usuario_id": 19,
+    "categoria": "ganador_partido",
+    "partido_id": 95,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:06.534Z"
+  },
+  {
+    "id": 6410,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 95,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:06.534Z"
+  },
+  {
+    "id": 6411,
+    "usuario_id": 16,
+    "categoria": "goleador",
+    "partido_id": 95,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:06.534Z"
+  },
+  {
+    "id": 6412,
+    "usuario_id": 8,
+    "categoria": "ganador_partido",
+    "partido_id": 95,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:06.534Z"
+  },
+  {
+    "id": 6413,
+    "usuario_id": 8,
+    "categoria": "goleador",
+    "partido_id": 95,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:06.534Z"
+  },
+  {
+    "id": 6414,
+    "usuario_id": 6,
+    "categoria": "ganador_partido",
+    "partido_id": 95,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:06.534Z"
+  },
+  {
+    "id": 6415,
+    "usuario_id": 6,
+    "categoria": "goleador",
+    "partido_id": 95,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:06.534Z"
+  },
+  {
+    "id": 6416,
+    "usuario_id": 17,
+    "categoria": "ganador_partido",
+    "partido_id": 95,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:06.534Z"
+  },
+  {
+    "id": 6417,
+    "usuario_id": 17,
+    "categoria": "goleador",
+    "partido_id": 95,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:06.534Z"
+  },
+  {
+    "id": 6448,
+    "usuario_id": 18,
+    "categoria": "ganador_partido",
+    "partido_id": 71,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:07.179Z"
+  },
+  {
+    "id": 6449,
+    "usuario_id": 18,
+    "categoria": "resultado_exacto",
+    "partido_id": 71,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:07.179Z"
+  },
+  {
+    "id": 6450,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 71,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:07.179Z"
+  },
+  {
+    "id": 6451,
+    "usuario_id": 5,
+    "categoria": "resultado_exacto",
+    "partido_id": 71,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:07.179Z"
+  },
+  {
+    "id": 6452,
+    "usuario_id": 4,
+    "categoria": "ganador_partido",
+    "partido_id": 71,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:07.179Z"
+  },
+  {
+    "id": 6453,
+    "usuario_id": 19,
+    "categoria": "ganador_partido",
+    "partido_id": 71,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:07.179Z"
+  },
+  {
+    "id": 6146,
+    "usuario_id": 16,
+    "categoria": "resultado_exacto",
+    "partido_id": 92,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:02.499Z"
+  },
+  {
+    "id": 6147,
+    "usuario_id": 19,
+    "categoria": "ganador_partido",
+    "partido_id": 92,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:02.499Z"
+  },
+  {
+    "id": 6148,
+    "usuario_id": 19,
+    "categoria": "resultado_exacto",
+    "partido_id": 92,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:02.499Z"
+  },
+  {
+    "id": 6149,
+    "usuario_id": 7,
+    "categoria": "ganador_partido",
+    "partido_id": 92,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:02.499Z"
+  },
+  {
+    "id": 6163,
+    "usuario_id": 17,
+    "categoria": "ganador_partido",
+    "partido_id": 88,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:02.870Z"
+  },
+  {
+    "id": 6164,
+    "usuario_id": 17,
+    "categoria": "resultado_exacto",
+    "partido_id": 88,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:02.870Z"
+  },
+  {
+    "id": 6165,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 88,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:02.870Z"
+  },
+  {
+    "id": 6166,
+    "usuario_id": 5,
+    "categoria": "resultado_exacto",
+    "partido_id": 88,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:02.870Z"
+  },
+  {
+    "id": 6167,
+    "usuario_id": 32,
+    "categoria": "ganador_partido",
+    "partido_id": 88,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:02.870Z"
+  },
+  {
+    "id": 6168,
+    "usuario_id": 32,
+    "categoria": "resultado_exacto",
+    "partido_id": 88,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:02.870Z"
+  },
+  {
+    "id": 6169,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 88,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:02.870Z"
+  },
+  {
+    "id": 6170,
+    "usuario_id": 16,
+    "categoria": "resultado_exacto",
+    "partido_id": 88,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:02.870Z"
+  },
+  {
+    "id": 6171,
+    "usuario_id": 31,
+    "categoria": "ganador_partido",
+    "partido_id": 88,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:02.870Z"
+  },
+  {
+    "id": 6172,
+    "usuario_id": 31,
+    "categoria": "resultado_exacto",
+    "partido_id": 88,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:02.870Z"
+  },
+  {
+    "id": 6173,
+    "usuario_id": 31,
+    "categoria": "goleador",
+    "partido_id": 88,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:02.870Z"
+  },
+  {
+    "id": 6174,
+    "usuario_id": 19,
+    "categoria": "ganador_partido",
+    "partido_id": 88,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:02.870Z"
+  },
+  {
+    "id": 6175,
+    "usuario_id": 19,
+    "categoria": "resultado_exacto",
+    "partido_id": 88,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:02.870Z"
+  },
+  {
+    "id": 6176,
+    "usuario_id": 2,
+    "categoria": "ganador_partido",
+    "partido_id": 88,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:02.870Z"
+  },
+  {
+    "id": 6177,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 88,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:02.870Z"
+  },
+  {
+    "id": 6178,
+    "usuario_id": 9,
+    "categoria": "resultado_exacto",
+    "partido_id": 88,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:02.870Z"
+  },
+  {
+    "id": 6179,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 88,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:02.870Z"
+  },
+  {
+    "id": 6180,
+    "usuario_id": 34,
+    "categoria": "goleador",
+    "partido_id": 88,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:02.870Z"
+  },
+  {
+    "id": 6181,
+    "usuario_id": 8,
+    "categoria": "ganador_partido",
+    "partido_id": 88,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:02.870Z"
+  },
+  {
+    "id": 6182,
+    "usuario_id": 8,
+    "categoria": "resultado_exacto",
+    "partido_id": 88,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:02.870Z"
+  },
+  {
+    "id": 6242,
+    "usuario_id": 33,
+    "categoria": "goleador",
+    "partido_id": 108,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:03.964Z"
+  },
+  {
+    "id": 6243,
+    "usuario_id": 9,
+    "categoria": "goleador",
+    "partido_id": 108,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:03.964Z"
+  },
+  {
+    "id": 6244,
+    "usuario_id": 8,
+    "categoria": "goleador",
+    "partido_id": 108,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:03.964Z"
+  },
+  {
+    "id": 6245,
+    "usuario_id": 18,
+    "categoria": "goleador",
+    "partido_id": 108,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:03.964Z"
+  },
+  {
+    "id": 6246,
+    "usuario_id": 19,
+    "categoria": "goleador",
+    "partido_id": 108,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:03.964Z"
+  },
+  {
+    "id": 6247,
+    "usuario_id": 34,
+    "categoria": "goleador",
+    "partido_id": 108,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:03.964Z"
+  },
+  {
+    "id": 6248,
+    "usuario_id": 2,
+    "categoria": "goleador",
+    "partido_id": 108,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:03.964Z"
+  },
+  {
+    "id": 6249,
+    "usuario_id": 6,
+    "categoria": "goleador",
+    "partido_id": 108,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:03.964Z"
+  },
+  {
+    "id": 6250,
+    "usuario_id": 31,
+    "categoria": "ganador_partido",
+    "partido_id": 108,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:03.964Z"
+  },
+  {
+    "id": 6251,
+    "usuario_id": 31,
+    "categoria": "goleador",
+    "partido_id": 108,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:03.964Z"
+  },
+  {
+    "id": 6252,
+    "usuario_id": 32,
+    "categoria": "goleador",
+    "partido_id": 108,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:03.964Z"
+  },
+  {
+    "id": 6256,
+    "usuario_id": 33,
+    "categoria": "ganador_partido",
+    "partido_id": 121,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:04.327Z"
+  },
+  {
+    "id": 6257,
+    "usuario_id": 33,
+    "categoria": "goleador",
+    "partido_id": 121,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:04.327Z"
+  },
+  {
+    "id": 6258,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 121,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:04.327Z"
+  },
+  {
+    "id": 6259,
+    "usuario_id": 31,
+    "categoria": "ganador_partido",
+    "partido_id": 121,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:04.327Z"
+  },
+  {
+    "id": 6260,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 121,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:04.327Z"
+  },
+  {
+    "id": 6261,
+    "usuario_id": 5,
+    "categoria": "resultado_exacto",
+    "partido_id": 121,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:04.327Z"
+  },
+  {
+    "id": 6262,
+    "usuario_id": 7,
+    "categoria": "ganador_partido",
+    "partido_id": 121,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:04.327Z"
+  },
+  {
+    "id": 6263,
+    "usuario_id": 7,
+    "categoria": "resultado_exacto",
+    "partido_id": 121,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:04.327Z"
+  },
+  {
+    "id": 6264,
+    "usuario_id": 34,
+    "categoria": "goleador",
+    "partido_id": 121,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:04.327Z"
+  },
+  {
+    "id": 6265,
+    "usuario_id": 19,
+    "categoria": "goleador",
+    "partido_id": 121,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:04.327Z"
+  },
+  {
+    "id": 6266,
+    "usuario_id": 8,
+    "categoria": "goleador",
+    "partido_id": 121,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:04.327Z"
+  },
+  {
+    "id": 6267,
+    "usuario_id": 32,
+    "categoria": "ganador_partido",
+    "partido_id": 121,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:04.327Z"
+  },
+  {
+    "id": 6268,
+    "usuario_id": 32,
+    "categoria": "resultado_exacto",
+    "partido_id": 121,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:04.327Z"
+  },
+  {
+    "id": 6269,
+    "usuario_id": 32,
+    "categoria": "goleador",
+    "partido_id": 121,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:04.327Z"
+  },
+  {
+    "id": 6270,
+    "usuario_id": 6,
+    "categoria": "ganador_partido",
+    "partido_id": 121,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:04.327Z"
+  },
+  {
+    "id": 6271,
+    "usuario_id": 6,
+    "categoria": "resultado_exacto",
+    "partido_id": 121,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:04.327Z"
+  },
+  {
+    "id": 6294,
+    "usuario_id": 32,
+    "categoria": "ganador_partido",
+    "partido_id": 86,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:04.688Z"
+  },
+  {
+    "id": 6313,
+    "usuario_id": 32,
+    "categoria": "ganador_partido",
+    "partido_id": 85,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:05.052Z"
+  },
+  {
+    "id": 6314,
+    "usuario_id": 32,
+    "categoria": "resultado_exacto",
+    "partido_id": 85,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:05.052Z"
+  },
+  {
+    "id": 6315,
+    "usuario_id": 32,
+    "categoria": "goleador",
+    "partido_id": 85,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:05.052Z"
+  },
+  {
+    "id": 6316,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 85,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:05.052Z"
+  },
+  {
+    "id": 6317,
+    "usuario_id": 16,
+    "categoria": "resultado_exacto",
+    "partido_id": 85,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:05.052Z"
+  },
+  {
+    "id": 6318,
+    "usuario_id": 16,
+    "categoria": "goleador",
+    "partido_id": 85,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:05.052Z"
+  },
+  {
+    "id": 6319,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 85,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:05.052Z"
+  },
+  {
+    "id": 6329,
+    "usuario_id": 9,
+    "categoria": "goleador",
+    "partido_id": 63,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:05.416Z"
+  },
+  {
+    "id": 6330,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 63,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:05.416Z"
+  },
+  {
+    "id": 6331,
+    "usuario_id": 34,
+    "categoria": "resultado_exacto",
+    "partido_id": 63,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:05.416Z"
+  },
+  {
+    "id": 6332,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 63,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:05.416Z"
+  },
+  {
+    "id": 6333,
+    "usuario_id": 16,
+    "categoria": "resultado_exacto",
+    "partido_id": 63,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:05.416Z"
+  },
+  {
+    "id": 6334,
+    "usuario_id": 33,
+    "categoria": "ganador_partido",
+    "partido_id": 63,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:05.416Z"
+  },
+  {
+    "id": 6335,
+    "usuario_id": 19,
+    "categoria": "ganador_partido",
+    "partido_id": 63,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:05.416Z"
+  },
+  {
+    "id": 6336,
+    "usuario_id": 19,
+    "categoria": "resultado_exacto",
+    "partido_id": 63,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:05.416Z"
+  },
+  {
+    "id": 6337,
+    "usuario_id": 2,
+    "categoria": "ganador_partido",
+    "partido_id": 63,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:05.416Z"
+  },
+  {
+    "id": 6338,
+    "usuario_id": 4,
+    "categoria": "ganador_partido",
+    "partido_id": 63,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:05.416Z"
+  },
+  {
+    "id": 6339,
+    "usuario_id": 4,
+    "categoria": "resultado_exacto",
+    "partido_id": 63,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:05.416Z"
+  },
+  {
+    "id": 6340,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 63,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:05.416Z"
+  },
+  {
+    "id": 6341,
+    "usuario_id": 5,
+    "categoria": "resultado_exacto",
+    "partido_id": 63,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:05.416Z"
+  },
+  {
+    "id": 6342,
+    "usuario_id": 7,
+    "categoria": "ganador_partido",
+    "partido_id": 63,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:05.416Z"
+  },
+  {
+    "id": 6469,
+    "usuario_id": 31,
+    "categoria": "ganador_partido",
+    "partido_id": 50,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:07.540Z"
+  },
+  {
+    "id": 6470,
+    "usuario_id": 31,
+    "categoria": "goleador",
+    "partido_id": 50,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:07.540Z"
+  },
+  {
+    "id": 6471,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 112,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:07.901Z"
+  },
+  {
+    "id": 6472,
+    "usuario_id": 5,
+    "categoria": "goleador",
+    "partido_id": 112,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:07.901Z"
+  },
+  {
+    "id": 6473,
+    "usuario_id": 34,
+    "categoria": "goleador",
+    "partido_id": 112,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:07.901Z"
+  },
+  {
+    "id": 6474,
+    "usuario_id": 19,
+    "categoria": "ganador_partido",
+    "partido_id": 112,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:07.901Z"
+  },
+  {
+    "id": 6475,
+    "usuario_id": 7,
+    "categoria": "goleador",
+    "partido_id": 112,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:07.901Z"
+  },
+  {
+    "id": 6476,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 112,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:07.901Z"
+  },
+  {
+    "id": 6477,
+    "usuario_id": 32,
+    "categoria": "goleador",
+    "partido_id": 112,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:07.901Z"
+  },
+  {
+    "id": 6478,
+    "usuario_id": 8,
+    "categoria": "ganador_partido",
+    "partido_id": 112,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:07.901Z"
+  },
+  {
+    "id": 6479,
+    "usuario_id": 8,
+    "categoria": "goleador",
+    "partido_id": 112,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:07.901Z"
+  },
+  {
+    "id": 6480,
+    "usuario_id": 6,
+    "categoria": "ganador_partido",
+    "partido_id": 112,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:07.901Z"
+  },
+  {
+    "id": 6481,
+    "usuario_id": 6,
+    "categoria": "goleador",
+    "partido_id": 112,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:07.901Z"
+  },
+  {
+    "id": 6482,
+    "usuario_id": 31,
+    "categoria": "goleador",
+    "partido_id": 112,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:07.901Z"
+  },
+  {
+    "id": 6483,
+    "usuario_id": 17,
+    "categoria": "ganador_partido",
+    "partido_id": 112,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:07.901Z"
+  },
+  {
+    "id": 6484,
+    "usuario_id": 18,
+    "categoria": "ganador_partido",
+    "partido_id": 49,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:08.263Z"
+  },
+  {
+    "id": 6485,
+    "usuario_id": 2,
+    "categoria": "ganador_partido",
+    "partido_id": 49,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:08.263Z"
+  },
+  {
+    "id": 6486,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 49,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:08.263Z"
+  },
+  {
+    "id": 6487,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 118,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:08.626Z"
+  },
+  {
+    "id": 6488,
+    "usuario_id": 9,
+    "categoria": "resultado_exacto",
+    "partido_id": 118,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:08.626Z"
+  },
+  {
+    "id": 6489,
+    "usuario_id": 8,
+    "categoria": "ganador_partido",
+    "partido_id": 118,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:08.626Z"
+  },
+  {
+    "id": 6490,
+    "usuario_id": 6,
+    "categoria": "ganador_partido",
+    "partido_id": 118,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:08.626Z"
+  },
+  {
+    "id": 6491,
+    "usuario_id": 31,
+    "categoria": "ganador_partido",
+    "partido_id": 118,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:08.626Z"
+  },
+  {
+    "id": 6492,
+    "usuario_id": 32,
+    "categoria": "ganador_partido",
+    "partido_id": 118,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:08.626Z"
+  },
+  {
+    "id": 6493,
+    "usuario_id": 17,
+    "categoria": "ganador_partido",
+    "partido_id": 118,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:08.626Z"
+  },
+  {
+    "id": 6494,
+    "usuario_id": 8,
+    "categoria": "goleador",
+    "partido_id": 31,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:09.268Z"
+  },
+  {
+    "id": 6495,
+    "usuario_id": 31,
+    "categoria": "goleador",
+    "partido_id": 31,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:09.268Z"
+  },
+  {
+    "id": 6496,
+    "usuario_id": 9,
+    "categoria": "goleador",
+    "partido_id": 31,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:09.268Z"
+  },
+  {
+    "id": 6497,
+    "usuario_id": 18,
+    "categoria": "ganador_partido",
+    "partido_id": 90,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:09.631Z"
+  },
+  {
+    "id": 6498,
+    "usuario_id": 18,
+    "categoria": "resultado_exacto",
+    "partido_id": 90,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:09.631Z"
+  },
+  {
+    "id": 6499,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 90,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:09.631Z"
+  },
+  {
+    "id": 6500,
+    "usuario_id": 19,
+    "categoria": "goleador",
+    "partido_id": 90,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:09.631Z"
+  },
+  {
+    "id": 6501,
+    "usuario_id": 6,
+    "categoria": "ganador_partido",
+    "partido_id": 90,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:09.631Z"
+  },
+  {
+    "id": 6502,
+    "usuario_id": 6,
+    "categoria": "goleador",
+    "partido_id": 90,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:09.631Z"
+  },
+  {
+    "id": 6503,
+    "usuario_id": 17,
+    "categoria": "ganador_partido",
+    "partido_id": 90,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:09.631Z"
+  },
+  {
+    "id": 6504,
+    "usuario_id": 32,
+    "categoria": "ganador_partido",
+    "partido_id": 90,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:09.631Z"
+  },
+  {
+    "id": 6505,
+    "usuario_id": 32,
+    "categoria": "goleador",
+    "partido_id": 90,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:09.631Z"
+  },
+  {
+    "id": 6506,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 90,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:09.631Z"
+  },
+  {
+    "id": 6507,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 90,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:09.631Z"
+  },
+  {
+    "id": 6508,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 151,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:09.994Z"
+  },
+  {
+    "id": 6509,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 151,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:09.994Z"
+  },
+  {
+    "id": 6510,
+    "usuario_id": 17,
+    "categoria": "ganador_partido",
+    "partido_id": 151,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:09.994Z"
+  },
+  {
+    "id": 6511,
+    "usuario_id": 18,
+    "categoria": "ganador_partido",
+    "partido_id": 151,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:09.994Z"
+  },
+  {
+    "id": 6512,
+    "usuario_id": 32,
+    "categoria": "ganador_partido",
+    "partido_id": 151,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:09.994Z"
+  },
+  {
+    "id": 6513,
+    "usuario_id": 4,
+    "categoria": "ganador_partido",
+    "partido_id": 151,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:09.994Z"
+  },
+  {
+    "id": 6514,
+    "usuario_id": 8,
+    "categoria": "ganador_partido",
+    "partido_id": 151,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:09.994Z"
+  },
+  {
+    "id": 6515,
+    "usuario_id": 31,
+    "categoria": "ganador_partido",
+    "partido_id": 151,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:09.994Z"
+  },
+  {
+    "id": 6516,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 151,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:09.994Z"
+  },
+  {
+    "id": 6517,
+    "usuario_id": 19,
+    "categoria": "ganador_partido",
+    "partido_id": 151,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:09.994Z"
+  },
+  {
+    "id": 6518,
+    "usuario_id": 6,
+    "categoria": "ganador_partido",
+    "partido_id": 151,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:09.994Z"
+  },
+  {
+    "id": 6519,
+    "usuario_id": 33,
+    "categoria": "ganador_partido",
+    "partido_id": 151,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:09.994Z"
+  },
+  {
+    "id": 6520,
+    "usuario_id": 7,
+    "categoria": "ganador_partido",
+    "partido_id": 151,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:09.994Z"
+  },
+  {
+    "id": 6526,
+    "usuario_id": 19,
+    "categoria": "ganador_partido",
+    "partido_id": 115,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:10.609Z"
+  },
+  {
+    "id": 6527,
+    "usuario_id": 4,
+    "categoria": "ganador_partido",
+    "partido_id": 115,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:10.609Z"
+  },
+  {
+    "id": 6528,
+    "usuario_id": 33,
+    "categoria": "ganador_partido",
+    "partido_id": 115,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:10.609Z"
+  },
+  {
+    "id": 6529,
+    "usuario_id": 5,
+    "categoria": "goleador",
+    "partido_id": 115,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:10.609Z"
+  },
+  {
+    "id": 6530,
+    "usuario_id": 2,
+    "categoria": "ganador_partido",
+    "partido_id": 115,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:10.609Z"
+  },
+  {
+    "id": 6531,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 115,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:10.609Z"
+  },
+  {
+    "id": 6532,
+    "usuario_id": 34,
+    "categoria": "goleador",
+    "partido_id": 115,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:10.609Z"
+  },
+  {
+    "id": 6533,
+    "usuario_id": 32,
+    "categoria": "ganador_partido",
+    "partido_id": 115,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:10.609Z"
+  },
+  {
+    "id": 6534,
+    "usuario_id": 6,
+    "categoria": "ganador_partido",
+    "partido_id": 115,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:10.609Z"
+  },
+  {
+    "id": 6535,
+    "usuario_id": 6,
+    "categoria": "goleador",
+    "partido_id": 115,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:10.609Z"
+  },
+  {
+    "id": 6536,
+    "usuario_id": 17,
+    "categoria": "ganador_partido",
+    "partido_id": 115,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:10.609Z"
+  },
+  {
+    "id": 6537,
+    "usuario_id": 7,
+    "categoria": "ganador_partido",
+    "partido_id": 115,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:10.609Z"
+  },
+  {
+    "id": 6538,
+    "usuario_id": 9,
+    "categoria": "goleador",
+    "partido_id": 96,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:10.971Z"
+  },
+  {
+    "id": 6539,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 96,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:10.971Z"
+  },
+  {
+    "id": 6540,
+    "usuario_id": 4,
+    "categoria": "goleador",
+    "partido_id": 96,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:10.971Z"
+  },
+  {
+    "id": 6454,
+    "usuario_id": 19,
+    "categoria": "resultado_exacto",
+    "partido_id": 71,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:07.179Z"
+  },
+  {
+    "id": 6563,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 59,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:11.587Z"
+  },
+  {
+    "id": 6564,
+    "usuario_id": 5,
+    "categoria": "resultado_exacto",
+    "partido_id": 59,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:11.587Z"
+  },
+  {
+    "id": 6565,
+    "usuario_id": 5,
+    "categoria": "goleador",
+    "partido_id": 59,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:11.587Z"
+  },
+  {
+    "id": 6566,
+    "usuario_id": 8,
+    "categoria": "ganador_partido",
+    "partido_id": 59,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:11.587Z"
+  },
+  {
+    "id": 6567,
+    "usuario_id": 8,
+    "categoria": "goleador",
+    "partido_id": 59,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:11.587Z"
+  },
+  {
+    "id": 6568,
+    "usuario_id": 7,
+    "categoria": "ganador_partido",
+    "partido_id": 59,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:11.587Z"
+  },
+  {
+    "id": 6569,
+    "usuario_id": 31,
+    "categoria": "goleador",
+    "partido_id": 59,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:11.587Z"
+  },
+  {
+    "id": 6570,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 59,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:11.587Z"
+  },
+  {
+    "id": 6571,
+    "usuario_id": 6,
+    "categoria": "goleador",
+    "partido_id": 59,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:11.587Z"
+  },
+  {
+    "id": 6572,
+    "usuario_id": 19,
+    "categoria": "goleador",
+    "partido_id": 59,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:11.587Z"
+  },
+  {
+    "id": 6573,
+    "usuario_id": 2,
+    "categoria": "ganador_partido",
+    "partido_id": 59,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:11.587Z"
+  },
+  {
+    "id": 6574,
+    "usuario_id": 2,
+    "categoria": "resultado_exacto",
+    "partido_id": 59,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:11.587Z"
+  },
+  {
+    "id": 6575,
+    "usuario_id": 18,
+    "categoria": "ganador_partido",
+    "partido_id": 59,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:11.587Z"
+  },
+  {
+    "id": 6576,
+    "usuario_id": 18,
+    "categoria": "resultado_exacto",
+    "partido_id": 59,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:11.587Z"
+  },
+  {
+    "id": 6577,
+    "usuario_id": 18,
+    "categoria": "goleador",
+    "partido_id": 59,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:11.587Z"
+  },
+  {
+    "id": 6578,
+    "usuario_id": 32,
+    "categoria": "goleador",
+    "partido_id": 59,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:11.587Z"
+  },
+  {
+    "id": 6579,
+    "usuario_id": 4,
+    "categoria": "ganador_partido",
+    "partido_id": 59,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:11.587Z"
+  },
+  {
+    "id": 6580,
+    "usuario_id": 4,
+    "categoria": "goleador",
+    "partido_id": 59,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:11.587Z"
+  },
+  {
+    "id": 6581,
+    "usuario_id": 33,
+    "categoria": "ganador_partido",
+    "partido_id": 57,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:11.948Z"
+  },
+  {
+    "id": 6582,
+    "usuario_id": 33,
+    "categoria": "resultado_exacto",
+    "partido_id": 57,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:11.948Z"
+  },
+  {
+    "id": 6583,
+    "usuario_id": 18,
+    "categoria": "ganador_partido",
+    "partido_id": 57,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:11.948Z"
+  },
+  {
+    "id": 6584,
+    "usuario_id": 18,
+    "categoria": "resultado_exacto",
+    "partido_id": 57,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:11.948Z"
+  },
+  {
+    "id": 6585,
+    "usuario_id": 31,
+    "categoria": "ganador_partido",
+    "partido_id": 57,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:11.948Z"
+  },
+  {
+    "id": 6586,
+    "usuario_id": 31,
+    "categoria": "resultado_exacto",
+    "partido_id": 57,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:11.948Z"
+  },
+  {
+    "id": 6587,
+    "usuario_id": 17,
+    "categoria": "goleador",
+    "partido_id": 57,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:11.948Z"
+  },
+  {
+    "id": 6588,
+    "usuario_id": 8,
+    "categoria": "ganador_partido",
+    "partido_id": 57,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:11.948Z"
+  },
+  {
+    "id": 6589,
+    "usuario_id": 32,
+    "categoria": "goleador",
+    "partido_id": 57,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:11.948Z"
+  },
+  {
+    "id": 6602,
+    "usuario_id": 30,
+    "categoria": "ganador_partido",
+    "partido_id": 34,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:12.829Z"
+  },
+  {
+    "id": 6603,
+    "usuario_id": 30,
+    "categoria": "resultado_exacto",
+    "partido_id": 34,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:12.829Z"
+  },
+  {
+    "id": 6604,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 34,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:12.829Z"
+  },
+  {
+    "id": 6605,
+    "usuario_id": 19,
+    "categoria": "ganador_partido",
+    "partido_id": 34,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:12.829Z"
+  },
+  {
+    "id": 6606,
+    "usuario_id": 32,
+    "categoria": "goleador",
+    "partido_id": 34,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:12.829Z"
+  },
+  {
+    "id": 6607,
+    "usuario_id": 8,
+    "categoria": "ganador_partido",
+    "partido_id": 34,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:12.829Z"
+  },
+  {
+    "id": 6608,
+    "usuario_id": 8,
+    "categoria": "resultado_exacto",
+    "partido_id": 34,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:12.829Z"
+  },
+  {
+    "id": 6609,
+    "usuario_id": 8,
+    "categoria": "goleador",
+    "partido_id": 34,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:12.829Z"
+  },
+  {
+    "id": 6610,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 34,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:12.829Z"
+  },
+  {
+    "id": 6611,
+    "usuario_id": 16,
+    "categoria": "resultado_exacto",
+    "partido_id": 34,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:12.829Z"
+  },
+  {
+    "id": 6612,
+    "usuario_id": 16,
+    "categoria": "goleador",
+    "partido_id": 34,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:12.829Z"
+  },
+  {
+    "id": 6613,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 34,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:12.829Z"
+  },
+  {
+    "id": 6614,
+    "usuario_id": 34,
+    "categoria": "resultado_exacto",
+    "partido_id": 34,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:12.829Z"
+  },
+  {
+    "id": 6615,
+    "usuario_id": 7,
+    "categoria": "ganador_partido",
+    "partido_id": 34,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:12.829Z"
+  },
+  {
+    "id": 6616,
+    "usuario_id": 7,
+    "categoria": "resultado_exacto",
+    "partido_id": 34,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:12.829Z"
+  },
+  {
+    "id": 6617,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 34,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:12.829Z"
+  },
+  {
+    "id": 6618,
+    "usuario_id": 5,
+    "categoria": "resultado_exacto",
+    "partido_id": 34,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:12.829Z"
+  },
+  {
+    "id": 6619,
+    "usuario_id": 5,
+    "categoria": "goleador",
+    "partido_id": 34,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:12.829Z"
+  },
+  {
+    "id": 6620,
+    "usuario_id": 2,
+    "categoria": "ganador_partido",
+    "partido_id": 34,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:12.829Z"
+  },
+  {
+    "id": 6621,
+    "usuario_id": 2,
+    "categoria": "goleador",
+    "partido_id": 34,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:12.829Z"
+  },
+  {
+    "id": 6622,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 55,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:13.191Z"
+  },
+  {
+    "id": 6623,
+    "usuario_id": 16,
+    "categoria": "goleador",
+    "partido_id": 55,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:13.191Z"
+  },
+  {
+    "id": 6624,
+    "usuario_id": 30,
+    "categoria": "ganador_partido",
+    "partido_id": 55,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:13.191Z"
+  },
+  {
+    "id": 6641,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 53,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:14.057Z"
+  },
+  {
+    "id": 6642,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 53,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:14.057Z"
+  },
+  {
+    "id": 6643,
+    "usuario_id": 8,
+    "categoria": "ganador_partido",
+    "partido_id": 53,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:14.057Z"
+  },
+  {
+    "id": 6644,
+    "usuario_id": 8,
+    "categoria": "resultado_exacto",
+    "partido_id": 53,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:14.057Z"
+  },
+  {
+    "id": 6645,
+    "usuario_id": 7,
+    "categoria": "ganador_partido",
+    "partido_id": 53,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:14.057Z"
+  },
+  {
+    "id": 6646,
+    "usuario_id": 7,
+    "categoria": "resultado_exacto",
+    "partido_id": 53,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:14.057Z"
+  },
+  {
+    "id": 6647,
+    "usuario_id": 7,
+    "categoria": "goleador",
+    "partido_id": 53,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:14.057Z"
+  },
+  {
+    "id": 6648,
+    "usuario_id": 31,
+    "categoria": "ganador_partido",
+    "partido_id": 53,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:14.057Z"
+  },
+  {
+    "id": 6649,
+    "usuario_id": 6,
+    "categoria": "ganador_partido",
+    "partido_id": 53,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:14.057Z"
+  },
+  {
+    "id": 6650,
+    "usuario_id": 6,
+    "categoria": "resultado_exacto",
+    "partido_id": 53,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:14.057Z"
+  },
+  {
+    "id": 6651,
+    "usuario_id": 19,
+    "categoria": "ganador_partido",
+    "partido_id": 53,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:14.057Z"
+  },
+  {
+    "id": 6652,
+    "usuario_id": 30,
+    "categoria": "ganador_partido",
+    "partido_id": 53,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:14.057Z"
+  },
+  {
+    "id": 6653,
+    "usuario_id": 18,
+    "categoria": "ganador_partido",
+    "partido_id": 53,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:14.057Z"
+  },
+  {
+    "id": 6654,
+    "usuario_id": 18,
+    "categoria": "resultado_exacto",
+    "partido_id": 53,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:14.057Z"
+  },
+  {
+    "id": 6655,
+    "usuario_id": 5,
+    "categoria": "ganador_partido",
+    "partido_id": 56,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:14.712Z"
+  },
+  {
+    "id": 6656,
+    "usuario_id": 9,
+    "categoria": "ganador_partido",
+    "partido_id": 56,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:14.712Z"
+  },
+  {
+    "id": 6657,
+    "usuario_id": 32,
+    "categoria": "ganador_partido",
+    "partido_id": 56,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:14.712Z"
+  },
+  {
+    "id": 6658,
+    "usuario_id": 32,
+    "categoria": "resultado_exacto",
+    "partido_id": 56,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:14.712Z"
+  },
+  {
+    "id": 6659,
+    "usuario_id": 32,
+    "categoria": "goleador",
+    "partido_id": 56,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:14.712Z"
+  },
+  {
+    "id": 6660,
+    "usuario_id": 8,
+    "categoria": "ganador_partido",
+    "partido_id": 56,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:14.712Z"
+  },
+  {
+    "id": 6661,
+    "usuario_id": 8,
+    "categoria": "goleador",
+    "partido_id": 56,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:14.712Z"
+  },
+  {
+    "id": 6662,
+    "usuario_id": 7,
+    "categoria": "ganador_partido",
+    "partido_id": 56,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:14.712Z"
+  },
+  {
+    "id": 6663,
+    "usuario_id": 7,
+    "categoria": "goleador",
+    "partido_id": 56,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:14.712Z"
+  },
+  {
+    "id": 6664,
+    "usuario_id": 31,
+    "categoria": "ganador_partido",
+    "partido_id": 56,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:14.712Z"
+  },
+  {
+    "id": 6665,
+    "usuario_id": 31,
+    "categoria": "resultado_exacto",
+    "partido_id": 56,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:14.712Z"
+  },
+  {
+    "id": 6666,
+    "usuario_id": 31,
+    "categoria": "goleador",
+    "partido_id": 56,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:14.712Z"
+  },
+  {
+    "id": 6667,
+    "usuario_id": 16,
+    "categoria": "ganador_partido",
+    "partido_id": 56,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:14.712Z"
+  },
+  {
+    "id": 6668,
+    "usuario_id": 16,
+    "categoria": "resultado_exacto",
+    "partido_id": 56,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:14.712Z"
+  },
+  {
+    "id": 6669,
+    "usuario_id": 16,
+    "categoria": "goleador",
+    "partido_id": 56,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:14.712Z"
+  },
+  {
+    "id": 6670,
+    "usuario_id": 6,
+    "categoria": "ganador_partido",
+    "partido_id": 56,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:14.712Z"
+  },
+  {
+    "id": 6671,
+    "usuario_id": 19,
+    "categoria": "ganador_partido",
+    "partido_id": 56,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:14.712Z"
+  },
+  {
+    "id": 6672,
+    "usuario_id": 19,
+    "categoria": "goleador",
+    "partido_id": 56,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:14.712Z"
+  },
+  {
+    "id": 6673,
+    "usuario_id": 34,
+    "categoria": "ganador_partido",
+    "partido_id": 56,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:14.712Z"
+  },
+  {
+    "id": 6674,
+    "usuario_id": 34,
+    "categoria": "resultado_exacto",
+    "partido_id": 56,
+    "puntos_obtenidos": 5,
+    "timestamp_calculo": "2026-09-17T21:47:14.712Z"
+  },
+  {
+    "id": 6675,
+    "usuario_id": 34,
+    "categoria": "goleador",
+    "partido_id": 56,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:14.712Z"
+  },
+  {
+    "id": 6676,
+    "usuario_id": 4,
+    "categoria": "ganador_partido",
+    "partido_id": 56,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:14.712Z"
+  },
+  {
+    "id": 6677,
+    "usuario_id": 30,
+    "categoria": "ganador_partido",
+    "partido_id": 56,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:14.712Z"
+  },
+  {
+    "id": 6678,
+    "usuario_id": 30,
+    "categoria": "goleador",
+    "partido_id": 56,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:14.712Z"
+  },
+  {
+    "id": 6679,
+    "usuario_id": 18,
+    "categoria": "ganador_partido",
+    "partido_id": 56,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:14.712Z"
+  },
+  {
+    "id": 6680,
+    "usuario_id": 18,
+    "categoria": "goleador",
+    "partido_id": 56,
+    "puntos_obtenidos": 2,
+    "timestamp_calculo": "2026-09-17T21:47:14.712Z"
+  },
+  {
+    "id": 6681,
+    "usuario_id": 4,
+    "categoria": "ganador_partido",
+    "partido_id": 45,
+    "puntos_obtenidos": 3,
+    "timestamp_calculo": "2026-09-17T21:47:15.449Z"
+  }
+]

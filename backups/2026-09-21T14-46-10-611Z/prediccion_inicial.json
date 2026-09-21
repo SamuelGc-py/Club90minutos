@@ -1,0 +1,782 @@
+[
+  {
+    "id": 12,
+    "usuario_id": 33,
+    "campeon_equipo_id": 12,
+    "finalista_1_equipo_id": 12,
+    "finalista_2_equipo_id": 6,
+    "goleador_torneo_jugador_id": null,
+    "timestamp_envio": "2026-07-25T11:54:42.192Z",
+    "estado": "enviada",
+    "clasificados": [
+      {
+        "id": 97,
+        "prediccion_inicial_id": 12,
+        "equipo_id": 16
+      },
+      {
+        "id": 98,
+        "prediccion_inicial_id": 12,
+        "equipo_id": 7
+      },
+      {
+        "id": 99,
+        "prediccion_inicial_id": 12,
+        "equipo_id": 6
+      },
+      {
+        "id": 100,
+        "prediccion_inicial_id": 12,
+        "equipo_id": 11
+      },
+      {
+        "id": 101,
+        "prediccion_inicial_id": 12,
+        "equipo_id": 12
+      },
+      {
+        "id": 102,
+        "prediccion_inicial_id": 12,
+        "equipo_id": 9
+      },
+      {
+        "id": 103,
+        "prediccion_inicial_id": 12,
+        "equipo_id": 14
+      },
+      {
+        "id": 104,
+        "prediccion_inicial_id": 12,
+        "equipo_id": 3
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "usuario_id": 34,
+    "campeon_equipo_id": 6,
+    "finalista_1_equipo_id": 7,
+    "finalista_2_equipo_id": 6,
+    "goleador_torneo_jugador_id": 903,
+    "timestamp_envio": "2026-08-08T21:44:30.910Z",
+    "estado": "enviada",
+    "clasificados": [
+      {
+        "id": 113,
+        "prediccion_inicial_id": 15,
+        "equipo_id": 14
+      },
+      {
+        "id": 114,
+        "prediccion_inicial_id": 15,
+        "equipo_id": 6
+      },
+      {
+        "id": 115,
+        "prediccion_inicial_id": 15,
+        "equipo_id": 3
+      },
+      {
+        "id": 116,
+        "prediccion_inicial_id": 15,
+        "equipo_id": 7
+      },
+      {
+        "id": 117,
+        "prediccion_inicial_id": 15,
+        "equipo_id": 12
+      },
+      {
+        "id": 118,
+        "prediccion_inicial_id": 15,
+        "equipo_id": 16
+      },
+      {
+        "id": 119,
+        "prediccion_inicial_id": 15,
+        "equipo_id": 9
+      },
+      {
+        "id": 120,
+        "prediccion_inicial_id": 15,
+        "equipo_id": 11
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "usuario_id": 17,
+    "campeon_equipo_id": 12,
+    "finalista_1_equipo_id": 12,
+    "finalista_2_equipo_id": 14,
+    "goleador_torneo_jugador_id": 850,
+    "timestamp_envio": "2026-08-25T03:26:44.625Z",
+    "estado": "enviada",
+    "clasificados": [
+      {
+        "id": 161,
+        "prediccion_inicial_id": 21,
+        "equipo_id": 14
+      },
+      {
+        "id": 162,
+        "prediccion_inicial_id": 21,
+        "equipo_id": 6
+      },
+      {
+        "id": 163,
+        "prediccion_inicial_id": 21,
+        "equipo_id": 7
+      },
+      {
+        "id": 164,
+        "prediccion_inicial_id": 21,
+        "equipo_id": 3
+      },
+      {
+        "id": 165,
+        "prediccion_inicial_id": 21,
+        "equipo_id": 12
+      },
+      {
+        "id": 166,
+        "prediccion_inicial_id": 21,
+        "equipo_id": 19
+      },
+      {
+        "id": 167,
+        "prediccion_inicial_id": 21,
+        "equipo_id": 11
+      },
+      {
+        "id": 168,
+        "prediccion_inicial_id": 21,
+        "equipo_id": 1
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "usuario_id": 16,
+    "campeon_equipo_id": 6,
+    "finalista_1_equipo_id": 14,
+    "finalista_2_equipo_id": 6,
+    "goleador_torneo_jugador_id": 903,
+    "timestamp_envio": "2026-08-31T18:29:16.612Z",
+    "estado": "enviada",
+    "clasificados": [
+      {
+        "id": 193,
+        "prediccion_inicial_id": 24,
+        "equipo_id": 14
+      },
+      {
+        "id": 194,
+        "prediccion_inicial_id": 24,
+        "equipo_id": 6
+      },
+      {
+        "id": 195,
+        "prediccion_inicial_id": 24,
+        "equipo_id": 7
+      },
+      {
+        "id": 196,
+        "prediccion_inicial_id": 24,
+        "equipo_id": 9
+      },
+      {
+        "id": 197,
+        "prediccion_inicial_id": 24,
+        "equipo_id": 11
+      },
+      {
+        "id": 198,
+        "prediccion_inicial_id": 24,
+        "equipo_id": 16
+      },
+      {
+        "id": 199,
+        "prediccion_inicial_id": 24,
+        "equipo_id": 10
+      },
+      {
+        "id": 200,
+        "prediccion_inicial_id": 24,
+        "equipo_id": 15
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "usuario_id": 8,
+    "campeon_equipo_id": 14,
+    "finalista_1_equipo_id": 14,
+    "finalista_2_equipo_id": 6,
+    "goleador_torneo_jugador_id": 1200,
+    "timestamp_envio": "2026-08-31T18:35:07.694Z",
+    "estado": "enviada",
+    "clasificados": [
+      {
+        "id": 201,
+        "prediccion_inicial_id": 26,
+        "equipo_id": 10
+      },
+      {
+        "id": 202,
+        "prediccion_inicial_id": 26,
+        "equipo_id": 11
+      },
+      {
+        "id": 203,
+        "prediccion_inicial_id": 26,
+        "equipo_id": 16
+      },
+      {
+        "id": 204,
+        "prediccion_inicial_id": 26,
+        "equipo_id": 14
+      },
+      {
+        "id": 205,
+        "prediccion_inicial_id": 26,
+        "equipo_id": 6
+      },
+      {
+        "id": 206,
+        "prediccion_inicial_id": 26,
+        "equipo_id": 7
+      },
+      {
+        "id": 207,
+        "prediccion_inicial_id": 26,
+        "equipo_id": 12
+      },
+      {
+        "id": 208,
+        "prediccion_inicial_id": 26,
+        "equipo_id": 9
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "usuario_id": 19,
+    "campeon_equipo_id": 14,
+    "finalista_1_equipo_id": 14,
+    "finalista_2_equipo_id": 6,
+    "goleador_torneo_jugador_id": 1200,
+    "timestamp_envio": "2026-08-31T18:43:46.531Z",
+    "estado": "enviada",
+    "clasificados": [
+      {
+        "id": 217,
+        "prediccion_inicial_id": 28,
+        "equipo_id": 14
+      },
+      {
+        "id": 218,
+        "prediccion_inicial_id": 28,
+        "equipo_id": 10
+      },
+      {
+        "id": 219,
+        "prediccion_inicial_id": 28,
+        "equipo_id": 6
+      },
+      {
+        "id": 220,
+        "prediccion_inicial_id": 28,
+        "equipo_id": 16
+      },
+      {
+        "id": 221,
+        "prediccion_inicial_id": 28,
+        "equipo_id": 7
+      },
+      {
+        "id": 222,
+        "prediccion_inicial_id": 28,
+        "equipo_id": 12
+      },
+      {
+        "id": 223,
+        "prediccion_inicial_id": 28,
+        "equipo_id": 11
+      },
+      {
+        "id": 224,
+        "prediccion_inicial_id": 28,
+        "equipo_id": 9
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "usuario_id": 31,
+    "campeon_equipo_id": 12,
+    "finalista_1_equipo_id": 12,
+    "finalista_2_equipo_id": 3,
+    "goleador_torneo_jugador_id": 1200,
+    "timestamp_envio": "2026-08-31T20:06:44.885Z",
+    "estado": "enviada",
+    "clasificados": [
+      {
+        "id": 233,
+        "prediccion_inicial_id": 29,
+        "equipo_id": 14
+      },
+      {
+        "id": 234,
+        "prediccion_inicial_id": 29,
+        "equipo_id": 3
+      },
+      {
+        "id": 235,
+        "prediccion_inicial_id": 29,
+        "equipo_id": 6
+      },
+      {
+        "id": 236,
+        "prediccion_inicial_id": 29,
+        "equipo_id": 16
+      },
+      {
+        "id": 237,
+        "prediccion_inicial_id": 29,
+        "equipo_id": 12
+      },
+      {
+        "id": 238,
+        "prediccion_inicial_id": 29,
+        "equipo_id": 7
+      },
+      {
+        "id": 239,
+        "prediccion_inicial_id": 29,
+        "equipo_id": 9
+      },
+      {
+        "id": 240,
+        "prediccion_inicial_id": 29,
+        "equipo_id": 11
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "usuario_id": 32,
+    "campeon_equipo_id": 12,
+    "finalista_1_equipo_id": 6,
+    "finalista_2_equipo_id": 12,
+    "goleador_torneo_jugador_id": 1200,
+    "timestamp_envio": "2026-08-31T20:12:37.006Z",
+    "estado": "enviada",
+    "clasificados": [
+      {
+        "id": 241,
+        "prediccion_inicial_id": 14,
+        "equipo_id": 14
+      },
+      {
+        "id": 242,
+        "prediccion_inicial_id": 14,
+        "equipo_id": 6
+      },
+      {
+        "id": 243,
+        "prediccion_inicial_id": 14,
+        "equipo_id": 12
+      },
+      {
+        "id": 244,
+        "prediccion_inicial_id": 14,
+        "equipo_id": 9
+      },
+      {
+        "id": 245,
+        "prediccion_inicial_id": 14,
+        "equipo_id": 7
+      },
+      {
+        "id": 246,
+        "prediccion_inicial_id": 14,
+        "equipo_id": 11
+      },
+      {
+        "id": 247,
+        "prediccion_inicial_id": 14,
+        "equipo_id": 3
+      },
+      {
+        "id": 248,
+        "prediccion_inicial_id": 14,
+        "equipo_id": 10
+      }
+    ]
+  },
+  {
+    "id": 36,
+    "usuario_id": 6,
+    "campeon_equipo_id": 12,
+    "finalista_1_equipo_id": 12,
+    "finalista_2_equipo_id": 14,
+    "goleador_torneo_jugador_id": 1200,
+    "timestamp_envio": "2026-09-02T00:09:03.866Z",
+    "estado": "enviada",
+    "clasificados": [
+      {
+        "id": 281,
+        "prediccion_inicial_id": 36,
+        "equipo_id": 12
+      },
+      {
+        "id": 282,
+        "prediccion_inicial_id": 36,
+        "equipo_id": 7
+      },
+      {
+        "id": 283,
+        "prediccion_inicial_id": 36,
+        "equipo_id": 14
+      },
+      {
+        "id": 284,
+        "prediccion_inicial_id": 36,
+        "equipo_id": 6
+      },
+      {
+        "id": 285,
+        "prediccion_inicial_id": 36,
+        "equipo_id": 3
+      },
+      {
+        "id": 286,
+        "prediccion_inicial_id": 36,
+        "equipo_id": 16
+      },
+      {
+        "id": 287,
+        "prediccion_inicial_id": 36,
+        "equipo_id": 9
+      },
+      {
+        "id": 288,
+        "prediccion_inicial_id": 36,
+        "equipo_id": 19
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "usuario_id": 2,
+    "campeon_equipo_id": 12,
+    "finalista_1_equipo_id": 12,
+    "finalista_2_equipo_id": 7,
+    "goleador_torneo_jugador_id": 1200,
+    "timestamp_envio": "2026-09-02T00:09:42.654Z",
+    "estado": "enviada",
+    "clasificados": [
+      {
+        "id": 297,
+        "prediccion_inicial_id": 27,
+        "equipo_id": 6
+      },
+      {
+        "id": 298,
+        "prediccion_inicial_id": 27,
+        "equipo_id": 3
+      },
+      {
+        "id": 299,
+        "prediccion_inicial_id": 27,
+        "equipo_id": 13
+      },
+      {
+        "id": 300,
+        "prediccion_inicial_id": 27,
+        "equipo_id": 12
+      },
+      {
+        "id": 301,
+        "prediccion_inicial_id": 27,
+        "equipo_id": 16
+      },
+      {
+        "id": 302,
+        "prediccion_inicial_id": 27,
+        "equipo_id": 14
+      },
+      {
+        "id": 303,
+        "prediccion_inicial_id": 27,
+        "equipo_id": 7
+      },
+      {
+        "id": 304,
+        "prediccion_inicial_id": 27,
+        "equipo_id": 9
+      }
+    ]
+  },
+  {
+    "id": 40,
+    "usuario_id": 7,
+    "campeon_equipo_id": 12,
+    "finalista_1_equipo_id": 12,
+    "finalista_2_equipo_id": 11,
+    "goleador_torneo_jugador_id": 903,
+    "timestamp_envio": "2026-09-02T01:25:58.429Z",
+    "estado": "enviada",
+    "clasificados": [
+      {
+        "id": 313,
+        "prediccion_inicial_id": 40,
+        "equipo_id": 14
+      },
+      {
+        "id": 314,
+        "prediccion_inicial_id": 40,
+        "equipo_id": 6
+      },
+      {
+        "id": 315,
+        "prediccion_inicial_id": 40,
+        "equipo_id": 11
+      },
+      {
+        "id": 316,
+        "prediccion_inicial_id": 40,
+        "equipo_id": 3
+      },
+      {
+        "id": 317,
+        "prediccion_inicial_id": 40,
+        "equipo_id": 7
+      },
+      {
+        "id": 318,
+        "prediccion_inicial_id": 40,
+        "equipo_id": 12
+      },
+      {
+        "id": 319,
+        "prediccion_inicial_id": 40,
+        "equipo_id": 16
+      },
+      {
+        "id": 320,
+        "prediccion_inicial_id": 40,
+        "equipo_id": 9
+      }
+    ]
+  },
+  {
+    "id": 41,
+    "usuario_id": 4,
+    "campeon_equipo_id": 14,
+    "finalista_1_equipo_id": 6,
+    "finalista_2_equipo_id": 16,
+    "goleador_torneo_jugador_id": 973,
+    "timestamp_envio": "2026-09-02T01:46:45.019Z",
+    "estado": "enviada",
+    "clasificados": [
+      {
+        "id": 321,
+        "prediccion_inicial_id": 41,
+        "equipo_id": 14
+      },
+      {
+        "id": 322,
+        "prediccion_inicial_id": 41,
+        "equipo_id": 6
+      },
+      {
+        "id": 323,
+        "prediccion_inicial_id": 41,
+        "equipo_id": 10
+      },
+      {
+        "id": 324,
+        "prediccion_inicial_id": 41,
+        "equipo_id": 11
+      },
+      {
+        "id": 325,
+        "prediccion_inicial_id": 41,
+        "equipo_id": 16
+      },
+      {
+        "id": 326,
+        "prediccion_inicial_id": 41,
+        "equipo_id": 9
+      },
+      {
+        "id": 327,
+        "prediccion_inicial_id": 41,
+        "equipo_id": 19
+      },
+      {
+        "id": 328,
+        "prediccion_inicial_id": 41,
+        "equipo_id": 3
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "usuario_id": 9,
+    "campeon_equipo_id": 14,
+    "finalista_1_equipo_id": 14,
+    "finalista_2_equipo_id": 12,
+    "goleador_torneo_jugador_id": 903,
+    "timestamp_envio": "2026-09-02T23:22:42.097Z",
+    "estado": "enviada",
+    "clasificados": [
+      {
+        "id": 329,
+        "prediccion_inicial_id": 20,
+        "equipo_id": 14
+      },
+      {
+        "id": 330,
+        "prediccion_inicial_id": 20,
+        "equipo_id": 6
+      },
+      {
+        "id": 331,
+        "prediccion_inicial_id": 20,
+        "equipo_id": 10
+      },
+      {
+        "id": 332,
+        "prediccion_inicial_id": 20,
+        "equipo_id": 3
+      },
+      {
+        "id": 333,
+        "prediccion_inicial_id": 20,
+        "equipo_id": 7
+      },
+      {
+        "id": 334,
+        "prediccion_inicial_id": 20,
+        "equipo_id": 12
+      },
+      {
+        "id": 335,
+        "prediccion_inicial_id": 20,
+        "equipo_id": 9
+      },
+      {
+        "id": 336,
+        "prediccion_inicial_id": 20,
+        "equipo_id": 16
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "usuario_id": 5,
+    "campeon_equipo_id": 12,
+    "finalista_1_equipo_id": 14,
+    "finalista_2_equipo_id": 12,
+    "goleador_torneo_jugador_id": 1200,
+    "timestamp_envio": "2026-09-07T12:04:04.165Z",
+    "estado": "enviada",
+    "clasificados": [
+      {
+        "id": 345,
+        "prediccion_inicial_id": 16,
+        "equipo_id": 14
+      },
+      {
+        "id": 346,
+        "prediccion_inicial_id": 16,
+        "equipo_id": 6
+      },
+      {
+        "id": 347,
+        "prediccion_inicial_id": 16,
+        "equipo_id": 12
+      },
+      {
+        "id": 348,
+        "prediccion_inicial_id": 16,
+        "equipo_id": 7
+      },
+      {
+        "id": 349,
+        "prediccion_inicial_id": 16,
+        "equipo_id": 10
+      },
+      {
+        "id": 350,
+        "prediccion_inicial_id": 16,
+        "equipo_id": 11
+      },
+      {
+        "id": 351,
+        "prediccion_inicial_id": 16,
+        "equipo_id": 16
+      },
+      {
+        "id": 352,
+        "prediccion_inicial_id": 16,
+        "equipo_id": 15
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "usuario_id": 18,
+    "campeon_equipo_id": 14,
+    "finalista_1_equipo_id": 14,
+    "finalista_2_equipo_id": 6,
+    "goleador_torneo_jugador_id": 850,
+    "timestamp_envio": "2026-09-08T13:05:32.416Z",
+    "estado": "enviada",
+    "clasificados": [
+      {
+        "id": 369,
+        "prediccion_inicial_id": 9,
+        "equipo_id": 12
+      },
+      {
+        "id": 370,
+        "prediccion_inicial_id": 9,
+        "equipo_id": 14
+      },
+      {
+        "id": 371,
+        "prediccion_inicial_id": 9,
+        "equipo_id": 6
+      },
+      {
+        "id": 372,
+        "prediccion_inicial_id": 9,
+        "equipo_id": 7
+      },
+      {
+        "id": 373,
+        "prediccion_inicial_id": 9,
+        "equipo_id": 11
+      },
+      {
+        "id": 374,
+        "prediccion_inicial_id": 9,
+        "equipo_id": 10
+      },
+      {
+        "id": 375,
+        "prediccion_inicial_id": 9,
+        "equipo_id": 1
+      },
+      {
+        "id": 376,
+        "prediccion_inicial_id": 9,
+        "equipo_id": 16
+      }
+    ]
+  }
+]
