@@ -2727,43 +2727,6 @@ function ExpressPageContent() {
                 </button>
               </div>
 
-              {mensajeEstado && (
-                <div
-                  style={{
-                    marginTop: 24,
-                    padding: "16px",
-                    borderRadius: 12,
-                    fontSize: "0.9rem",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 12,
-                    textAlign: "left",
-                    background:
-                      mensajeEstado.tipo === "exito"
-                        ? "var(--cancha-suave)"
-                        : mensajeEstado.tipo === "error"
-                          ? "var(--rojo-suave)"
-                          : "var(--azul-suave)",
-                    color:
-                      mensajeEstado.tipo === "exito"
-                        ? "var(--cancha)"
-                        : mensajeEstado.tipo === "error"
-                          ? "var(--rojo)"
-                          : "var(--azul)",
-                    border: `1px solid ${mensajeEstado.tipo === "exito"
-                      ? "var(--cancha-borde)"
-                      : mensajeEstado.tipo === "error"
-                        ? "rgba(255, 92, 92, 0.4)"
-                        : "rgba(77, 163, 255, 0.4)"
-                      }`,
-                  }}
-                >
-                  {mensajeEstado.tipo === "exito" && <CheckCircle2 size={20} style={{ flexShrink: 0 }} />}
-                  {mensajeEstado.tipo === "error" && <ShieldAlert size={20} style={{ flexShrink: 0 }} />}
-                  {mensajeEstado.tipo === "info" && <ShieldAlert size={20} style={{ flexShrink: 0 }} />}
-                  <div>{mensajeEstado.texto}</div>
-                </div>
-              )}
             </div>
           </div>
         </div>
@@ -6389,6 +6352,65 @@ function ExpressPageContent() {
           </div>
         </div>
       )}
+      {mensajeEstado && (
+        <div
+          className="fixed-toast"
+          style={{
+            position: "fixed",
+            bottom: "40px",
+            right: "40px",
+            zIndex: 999999,
+            padding: "16px 24px",
+            borderRadius: "16px",
+            fontSize: "0.95rem",
+            display: "flex",
+            alignItems: "center",
+            gap: 14,
+            background:
+              mensajeEstado.tipo === "exito"
+                ? "rgba(6, 78, 59, 0.95)"
+                : mensajeEstado.tipo === "error"
+                  ? "rgba(127, 29, 29, 0.95)"
+                  : "rgba(30, 58, 138, 0.95)",
+            backdropFilter: "blur(12px)",
+            color: "#ffffff",
+            border: `1px solid ${
+              mensajeEstado.tipo === "exito"
+                ? "rgba(16, 185, 129, 0.5)"
+                : mensajeEstado.tipo === "error"
+                  ? "rgba(239, 68, 68, 0.5)"
+                  : "rgba(59, 130, 246, 0.5)"
+            }`,
+            boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0,0,0,0.4)",
+            animation: "slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+          }}
+        >
+          {mensajeEstado.tipo === "exito" && <CheckCircle2 size={26} style={{ color: "#10b981", flexShrink: 0 }} />}
+          {mensajeEstado.tipo === "error" && <ShieldAlert size={26} style={{ color: "#ef4444", flexShrink: 0 }} />}
+          {mensajeEstado.tipo === "info" && <ShieldAlert size={26} style={{ color: "#3b82f6", flexShrink: 0 }} />}
+          <div style={{ fontWeight: 600, letterSpacing: "0.2px" }}>{mensajeEstado.texto}</div>
+        </div>
+      )}
+      <style>{`
+        @keyframes slideInRight {
+          from { transform: translateX(100%); opacity: 0; }
+          to { transform: translateX(0); opacity: 1; }
+        }
+        @media (max-width: 768px) {
+          /* En móviles lo ponemos arriba para que se vea mejor */
+          .fixed-toast {
+            top: 20px !important;
+            bottom: auto !important;
+            right: 20px !important;
+            left: 20px !important;
+            animation: slideInDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+          }
+        }
+        @keyframes slideInDown {
+          from { transform: translateY(-100%); opacity: 0; }
+          to { transform: translateY(0); opacity: 1; }
+        }
+      `}</style>
     </div>
   );
 }
