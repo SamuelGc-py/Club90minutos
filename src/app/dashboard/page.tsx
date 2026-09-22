@@ -5814,9 +5814,9 @@ function ExpressPageContent() {
                           const pronosticosPartido = (consolidados?.prediccionesPartidos || [])
                             .filter((p: any) => p.partido_id === partido.id)
                             .sort((a: any, b: any) => {
-                              const nombreA = a.usuario?.nombre_completo || "";
-                              const nombreB = b.usuario?.nombre_completo || "";
-                              return nombreA.localeCompare(nombreB);
+                              const timeA = a.timestamp_envio ? new Date(a.timestamp_envio).getTime() : 0;
+                              const timeB = b.timestamp_envio ? new Date(b.timestamp_envio).getTime() : 0;
+                              return timeA - timeB;
                             });
                           const desplegado = partidoPronosticosAbierto === partido.id;
 
