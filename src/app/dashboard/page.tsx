@@ -1933,8 +1933,17 @@ function ExpressPageContent() {
                   ⚠️ Aplazado
                 </span>
               ) : (partido.jornada_original || partido.jornada) < fechaParticipante ? (
-                <span style={{ background: "rgba(148, 163, 184, 0.15)", color: "#cbd5e1", border: "1px solid rgba(148, 163, 184, 0.3)", padding: "2px 8px", borderRadius: 6, fontSize: "0.72rem", fontWeight: 700 }}>
-                  Reprogramado (Fecha {partido.jornada_original || partido.jornada})
+                <span style={{ 
+                  background: "linear-gradient(90deg, rgba(6, 182, 212, 0.15) 0%, rgba(56, 189, 248, 0.15) 100%)", 
+                  color: "#67e8f9", 
+                  border: "1px solid rgba(6, 182, 212, 0.4)", 
+                  padding: "2px 10px", 
+                  borderRadius: 12, 
+                  fontSize: "0.75rem", 
+                  fontWeight: 800,
+                  boxShadow: "0 0 10px -2px rgba(6, 182, 212, 0.3)"
+                }}>
+                  ⚡ Reprogramado (Fecha {partido.jornada_original || partido.jornada})
                 </span>
               ) : null}
             </span>
