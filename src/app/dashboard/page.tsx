@@ -880,6 +880,7 @@ function ExpressPageContent() {
       const ahora = new Date().getTime();
 
       const cierresJornada: Record<number, number> = {};
+      const aperturasJornada: Record<number, number> = {};
       jornadas.forEach(j => {
         // Usar únicamente partidos REGULARES de cada jornada (sin partidos pospuestos desfasados) para el cierre de fecha regular
         const partidosJornada = partidos.filter(p => p.jornada === j && p.estado !== "aplazado" && (!p.jornada_original || p.jornada_original === j));
@@ -887,17 +888,27 @@ function ExpressPageContent() {
           const inicioBloque = Math.min(...partidosJornada.map(p => new Date(p.fecha_hora_partido).getTime()));
           const partidosRegulares = partidosJornada.filter(p => new Date(p.fecha_hora_partido).getTime() <= inicioBloque + (7 * 24 * 60 * 60 * 1000));
           if (partidosRegulares.length > 0) {
+            aperturasJornada[j] = Math.min(...partidosRegulares.map(p => new Date(p.fecha_hora_partido).getTime())) - (24 * 60 * 60 * 1000); // 24 horas antes del primer partido
             const maxTime = Math.max(...partidosRegulares.map(p => new Date(p.fecha_hora_partido).getTime()));
             cierresJornada[j] = maxTime + (3 * 60 * 60 * 1000); // Kickoff + 3 horas
           }
         }
       });
 
+      // Encontrar todas las jornadas que están actualmente activas (entre su apertura y su cierre)
+      const jornadasActivas = jornadas.filter(j => aperturasJornada[j] && cierresJornada[j] && ahora >= aperturasJornada[j] && ahora <= cierresJornada[j]);
+      
       let mejorJornada = 0;
-      for (const j of jornadas) {
-        if (cierresJornada[j] && ahora <= cierresJornada[j]) {
-          mejorJornada = j;
-          break;
+      if (jornadasActivas.length > 0) {
+        // Si hay varias activas (ej. fecha 11 se alargó y la 12 ya empezó), tomamos la mayor
+        mejorJornada = Math.max(...jornadasActivas);
+      } else {
+        // Si ninguna está activa actualmente, buscamos la próxima en empezar
+        for (const j of jornadas) {
+          if (cierresJornada[j] && ahora <= cierresJornada[j]) {
+            mejorJornada = j;
+            break;
+          }
         }
       }
 
