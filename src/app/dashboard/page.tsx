@@ -1943,7 +1943,7 @@ function ExpressPageContent() {
                   fontWeight: 800,
                   boxShadow: "0 0 10px -2px rgba(6, 182, 212, 0.3)"
                 }}>
-                  ⚡ Reprogramado (Fecha {partido.jornada_original || partido.jornada})
+                  ⚡ Pertenece a la Fecha {partido.jornada_original || partido.jornada}
                 </span>
               ) : null}
             </span>
