@@ -3077,9 +3077,14 @@ function ExpressPageContent() {
                             <div>
                               <h3 style={{ margin: 0, color: "#ffffff", fontSize: "1.02rem", display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
                                 <span>{partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}</span>
-                                {partido.estado === "aplazado" && (
-                                  <span style={{ background: "rgba(245, 158, 11, 0.25)", color: "#fef08a", border: "1px solid rgba(245, 158, 11, 0.5)", padding: "2px 8px", borderRadius: 12, fontSize: "0.72rem", fontWeight: 800 }}>
-                                    ⚠️ Aplazado
+                                {(partido.estado === "aplazado" || (partido.jornada_original || partido.jornada) < fechaParticipante) && (
+                                  <span style={{ 
+                                    background: partido.estado === "aplazado" ? "rgba(245, 158, 11, 0.25)" : "rgba(59, 130, 246, 0.25)", 
+                                    color: partido.estado === "aplazado" ? "#fef08a" : "#93c5fd", 
+                                    border: partido.estado === "aplazado" ? "1px solid rgba(245, 158, 11, 0.5)" : "1px solid rgba(59, 130, 246, 0.5)", 
+                                    padding: "2px 8px", borderRadius: 12, fontSize: "0.72rem", fontWeight: 800 
+                                  }}>
+                                    {partido.estado === "aplazado" ? "⚠️ Aplazado" : `⚡ Pertenece a la Fecha ${partido.jornada_original || partido.jornada}`}
                                   </span>
                                 )}
                               </h3>
