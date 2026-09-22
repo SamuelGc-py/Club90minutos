@@ -1928,11 +1928,15 @@ function ExpressPageContent() {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8, flexWrap: "wrap", marginBottom: 6 }}>
             <span style={{ fontWeight: 800, color: "#ffffff", fontSize: "0.95rem", display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
               <span>{partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}</span>
-              {partido.estado === "aplazado" && (
+              {partido.estado === "aplazado" ? (
                 <span style={{ background: "rgba(245, 158, 11, 0.15)", color: "#fcd34d", border: "1px dashed rgba(245, 158, 11, 0.6)", padding: "2px 8px", borderRadius: 6, fontSize: "0.72rem", fontWeight: 800 }}>
                   ⚠️ Aplazado
                 </span>
-              )}
+              ) : (partido.jornada_original || partido.jornada) < fechaParticipante ? (
+                <span style={{ background: "rgba(148, 163, 184, 0.15)", color: "#cbd5e1", border: "1px solid rgba(148, 163, 184, 0.3)", padding: "2px 8px", borderRadius: 6, fontSize: "0.72rem", fontWeight: 700 }}>
+                  Reprogramado (Fecha {partido.jornada_original || partido.jornada})
+                </span>
+              ) : null}
             </span>
             {m.local !== "" && m.visitante !== "" ? (
               <span style={{ background: "rgba(16, 185, 129, 0.2)", color: "#10b981", border: "1px solid rgba(16, 185, 129, 0.4)", padding: "2px 8px", borderRadius: 12, fontSize: "0.75rem", fontWeight: 800, whiteSpace: "nowrap" }}>
