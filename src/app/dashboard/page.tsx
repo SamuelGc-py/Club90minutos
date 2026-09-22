@@ -5811,9 +5811,13 @@ function ExpressPageContent() {
                           const horaCierre = new Date(new Date(partido.fecha_hora_partido).getTime() - 30 * 60 * 1000);
                           const cerrado = new Date() >= horaCierre || partido.estado === "finalizado";
                           const puedeVerPronosticos = cerrado || esAdminOEsSamuel;
-                          const pronosticosPartido = (consolidados?.prediccionesPartidos || []).filter(
-                            (p: any) => p.partido_id === partido.id
-                          );
+                          const pronosticosPartido = (consolidados?.prediccionesPartidos || [])
+                            .filter((p: any) => p.partido_id === partido.id)
+                            .sort((a: any, b: any) => {
+                              const nombreA = a.usuario?.nombre_completo || "";
+                              const nombreB = b.usuario?.nombre_completo || "";
+                              return nombreA.localeCompare(nombreB);
+                            });
                           const desplegado = partidoPronosticosAbierto === partido.id;
 
                           return (
