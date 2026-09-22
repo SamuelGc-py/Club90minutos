@@ -64,20 +64,14 @@ export default function PronosticosPartidoAfiche({
 
   function formatearFechaPartido(iso: string) {
     if (!iso) return "";
-    const [y, m, d] = iso.split("T")[0].split("-");
-    const dObj = new Date(Number(y), Number(m) - 1, Number(d));
-    return dObj.toLocaleDateString("es-CO", { weekday: "short", day: "numeric", month: "short" });
+    const dObj = new Date(iso);
+    return dObj.toLocaleDateString("es-CO", { weekday: "short", day: "numeric", month: "short", timeZone: "America/Bogota" });
   }
 
   function formatearHoraPartido(iso: string) {
     if (!iso) return "";
-    const t = iso.split("T")[1];
-    if (!t) return "";
-    const [h, min] = t.split(":");
-    const dObj = new Date();
-    dObj.setHours(Number(h));
-    dObj.setMinutes(Number(min));
-    return dObj.toLocaleTimeString("es-CO", { hour: "2-digit", minute: "2-digit" });
+    const dObj = new Date(iso);
+    return dObj.toLocaleTimeString("es-CO", { hour: "2-digit", minute: "2-digit", timeZone: "America/Bogota" });
   }
 
   return (
