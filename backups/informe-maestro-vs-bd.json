@@ -1,0 +1,353 @@
+{
+  "timestamp": "2026-09-24T22:14:53.265Z",
+  "totalMaestro": 531,
+  "totalBD": 554,
+  "coinciden": 513,
+  "noEnMaestro": 41,
+  "sinReferencias_borrarSeguro": [
+    {
+      "id": 1224,
+      "nombre": "Brian Benítez",
+      "equipo": "Llaneros F.C."
+    },
+    {
+      "id": 1208,
+      "nombre": "Kevin Armesto",
+      "equipo": "Llaneros F.C."
+    },
+    {
+      "id": 1212,
+      "nombre": "Oscar Vega",
+      "equipo": "Llaneros F.C."
+    },
+    {
+      "id": 1049,
+      "nombre": "Diego Mendoza",
+      "equipo": "Deportivo Pereira"
+    },
+    {
+      "id": 999,
+      "nombre": "Matias Orozco",
+      "equipo": "Deportivo Cali"
+    },
+    {
+      "id": 1157,
+      "nombre": "Didier Bueno",
+      "equipo": "Jaguares F.C."
+    },
+    {
+      "id": 1162,
+      "nombre": "Mauricio Castaño",
+      "equipo": "Jaguares F.C."
+    },
+    {
+      "id": 1091,
+      "nombre": "Alexis Serna",
+      "equipo": "Independiente Medellín"
+    },
+    {
+      "id": 1086,
+      "nombre": "Málcom Palacios",
+      "equipo": "Independiente Medellín"
+    },
+    {
+      "id": 1008,
+      "nombre": "Joyce Ossa",
+      "equipo": "Deportivo Pasto"
+    },
+    {
+      "id": 1236,
+      "nombre": "Jhonier Guerrero",
+      "equipo": "Millonarios F.C."
+    },
+    {
+      "id": 1184,
+      "nombre": "Fabián Correa",
+      "equipo": "Junior F.C."
+    },
+    {
+      "id": 1189,
+      "nombre": "Jhon Navia",
+      "equipo": "Junior F.C."
+    },
+    {
+      "id": 1318,
+      "nombre": "Deivid Castro",
+      "equipo": "Internacional de Bogotá"
+    },
+    {
+      "id": 852,
+      "nombre": "Carlos Sierra",
+      "equipo": "América de Cali"
+    },
+    {
+      "id": 1301,
+      "nombre": "Royner Benítez",
+      "equipo": "Águilas Doradas"
+    },
+    {
+      "id": 1119,
+      "nombre": "Daniel Torres",
+      "equipo": "Independiente Santa Fe"
+    },
+    {
+      "id": 1400,
+      "nombre": "H. Palacios",
+      "equipo": "Independiente Santa Fe"
+    },
+    {
+      "id": 1067,
+      "nombre": "Cristian Orozco",
+      "equipo": "Fortaleza"
+    },
+    {
+      "id": 1396,
+      "nombre": "Jhon Martínez",
+      "equipo": "Fortaleza"
+    },
+    {
+      "id": 1068,
+      "nombre": "Sebastian Ramirez",
+      "equipo": "Fortaleza"
+    },
+    {
+      "id": 941,
+      "nombre": "Santiago Guzmán",
+      "equipo": "Cúcuta Deportivo"
+    },
+    {
+      "id": 945,
+      "nombre": "Stiven Monsalve",
+      "equipo": "Cúcuta Deportivo"
+    },
+    {
+      "id": 946,
+      "nombre": "Valentín Robaldo",
+      "equipo": "Cúcuta Deportivo"
+    },
+    {
+      "id": 1385,
+      "nombre": "Carlos Bacca (DUPLICADO)",
+      "equipo": "Plantilla Descartados"
+    },
+    {
+      "id": 1384,
+      "nombre": "Eduard Bello (DUPLICADO)",
+      "equipo": "Plantilla Descartados"
+    }
+  ],
+  "conReferencias_noBorrar": [
+    {
+      "id": 1005,
+      "nombre": "Jean Galindo",
+      "equipo": "Deportivo Cali",
+      "predPartido": 1,
+      "predInicial": 0,
+      "goles": 0
+    },
+    {
+      "id": 1177,
+      "nombre": "Kahiser Lenis",
+      "equipo": "Jaguares F.C.",
+      "predPartido": 1,
+      "predInicial": 0,
+      "goles": 0
+    },
+    {
+      "id": 900,
+      "nombre": "Juan Zapata",
+      "equipo": "Atlético Nacional",
+      "predPartido": 0,
+      "predInicial": 0,
+      "goles": 1
+    },
+    {
+      "id": 1256,
+      "nombre": "Radamel Falcao",
+      "equipo": "Millonarios F.C.",
+      "predPartido": 3,
+      "predInicial": 0,
+      "goles": 0
+    },
+    {
+      "id": 1381,
+      "nombre": "B. Rovira",
+      "equipo": "Deportes Tolima",
+      "predPartido": 3,
+      "predInicial": 0,
+      "goles": 0
+    },
+    {
+      "id": 972,
+      "nombre": "Brayan Rovira",
+      "equipo": "Deportes Tolima",
+      "predPartido": 1,
+      "predInicial": 0,
+      "goles": 0
+    },
+    {
+      "id": 1332,
+      "nombre": "Bayron Caicedo",
+      "equipo": "Internacional de Bogotá",
+      "predPartido": 4,
+      "predInicial": 0,
+      "goles": 0
+    },
+    {
+      "id": 839,
+      "nombre": "Daniel Rosero",
+      "equipo": "América de Cali",
+      "predPartido": 0,
+      "predInicial": 0,
+      "goles": 2
+    },
+    {
+      "id": 1297,
+      "nombre": "Jaen Pineda",
+      "equipo": "Águilas Doradas",
+      "predPartido": 5,
+      "predInicial": 0,
+      "goles": 0
+    },
+    {
+      "id": 1074,
+      "nombre": "Andres Amaya",
+      "equipo": "Fortaleza",
+      "predPartido": 2,
+      "predInicial": 0,
+      "goles": 0
+    },
+    {
+      "id": 952,
+      "nombre": "Johan Montes",
+      "equipo": "Cúcuta Deportivo",
+      "predPartido": 2,
+      "predInicial": 0,
+      "goles": 0
+    },
+    {
+      "id": 943,
+      "nombre": "Jonathan Agudelo",
+      "equipo": "Cúcuta Deportivo",
+      "predPartido": 1,
+      "predInicial": 0,
+      "goles": 0
+    },
+    {
+      "id": 949,
+      "nombre": "Juan Camilo Moreno",
+      "equipo": "Cúcuta Deportivo",
+      "predPartido": 1,
+      "predInicial": 0,
+      "goles": 0
+    },
+    {
+      "id": 1377,
+      "nombre": "Nelson Quiñones",
+      "equipo": "Cúcuta Deportivo",
+      "predPartido": 1,
+      "predInicial": 0,
+      "goles": 0
+    },
+    {
+      "id": 954,
+      "nombre": "William Parra",
+      "equipo": "Cúcuta Deportivo",
+      "predPartido": 2,
+      "predInicial": 0,
+      "goles": 0
+    }
+  ],
+  "faltanEnBD": [
+    {
+      "nombre": "Dany Rosero",
+      "equipo": "América de Cali",
+      "equipoId": 14
+    },
+    {
+      "nombre": "Juan Manuel Zapata",
+      "equipo": "Atlético Nacional",
+      "equipoId": 6
+    },
+    {
+      "nombre": "Bryan Rovira",
+      "equipo": "Deportes Tolima",
+      "equipoId": 11
+    },
+    {
+      "nombre": "Miguel Correa",
+      "equipo": "Deportivo Cali",
+      "equipoId": 3
+    },
+    {
+      "nombre": "Derik Osede",
+      "equipo": "Deportivo Pasto",
+      "equipoId": 8
+    },
+    {
+      "nombre": "Edwin Cabezas",
+      "equipo": "Fortaleza",
+      "equipoId": 18
+    },
+    {
+      "nombre": "Mariano Vázquez",
+      "equipo": "Fortaleza",
+      "equipoId": 18
+    },
+    {
+      "nombre": "Kevin Balanta Carabalí",
+      "equipo": "Fortaleza",
+      "equipoId": 18
+    },
+    {
+      "nombre": "Jackson Martínez",
+      "equipo": "Independiente Medellín",
+      "equipoId": 7
+    },
+    {
+      "nombre": "Jhoyler Andrades",
+      "equipo": "Independiente Santa Fe",
+      "equipoId": 16
+    },
+    {
+      "nombre": "Andrés Mosquera Marmolejo",
+      "equipo": "Independiente Santa Fe",
+      "equipoId": 16
+    },
+    {
+      "nombre": "Andres Amaya",
+      "equipo": "Independiente Santa Fe",
+      "equipoId": 16
+    },
+    {
+      "nombre": "Emanuel Arboleda",
+      "equipo": "Internacional de Bogotá",
+      "equipoId": 13
+    },
+    {
+      "nombre": "Jefferson Asprilla",
+      "equipo": "Internacional de Bogotá",
+      "equipoId": 13
+    },
+    {
+      "nombre": "Brandon Churi",
+      "equipo": "Llaneros F.C.",
+      "equipoId": 1
+    },
+    {
+      "nombre": "Carlos Cortes",
+      "equipo": "Llaneros F.C.",
+      "equipoId": 1
+    },
+    {
+      "nombre": "Hector Arango",
+      "equipo": "Águilas Doradas",
+      "equipoId": 15
+    },
+    {
+      "nombre": "Luis Vásquez Díaz",
+      "equipo": "Águilas Doradas",
+      "equipoId": 15
+    }
+  ]
+}

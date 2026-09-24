@@ -1,0 +1,5552 @@
+[
+  {
+    "id": 978,
+    "nombre": "Adrian Parra",
+    "equipo_id": 11,
+    "equipo": {
+      "id": 11,
+      "nombre": "Deportes Tolima",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportes%20Tolima.webp"
+    }
+  },
+  {
+    "id": 860,
+    "nombre": "Adrian Ramos",
+    "equipo_id": 14,
+    "equipo": {
+      "id": 14,
+      "nombre": "América de Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Am%C3%A9rica%20de%20Cali.webp"
+    }
+  },
+  {
+    "id": 925,
+    "nombre": "Adrian Valencia",
+    "equipo_id": 5,
+    "equipo": {
+      "id": 5,
+      "nombre": "Boyacá Chicó F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Boyaca%20Chic%C3%B3.webp"
+    }
+  },
+  {
+    "id": 1317,
+    "nombre": "Agustín Irazoque",
+    "equipo_id": 13,
+    "equipo": {
+      "id": 13,
+      "nombre": "Internacional de Bogotá",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Internacional%20de%20Bogot%C3%A1.webp"
+    }
+  },
+  {
+    "id": 1088,
+    "nombre": "Agustín Martegani",
+    "equipo_id": 7,
+    "equipo": {
+      "id": 7,
+      "nombre": "Independiente Medellín",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Medell%C3%ADn.webp"
+    }
+  },
+  {
+    "id": 1290,
+    "nombre": "Alberto Higgins",
+    "equipo_id": 15,
+    "equipo": {
+      "id": 15,
+      "nombre": "Águilas Doradas",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/%C3%81guilas%20Doradas.webp"
+    }
+  },
+  {
+    "id": 870,
+    "nombre": "Aldair Gutiérrez",
+    "equipo_id": 10,
+    "equipo": {
+      "id": 10,
+      "nombre": "Atlético Bucaramanga",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Bucaramanga.webp"
+    }
+  },
+  {
+    "id": 875,
+    "nombre": "Aldair Zarate",
+    "equipo_id": 10,
+    "equipo": {
+      "id": 10,
+      "nombre": "Atlético Bucaramanga",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Bucaramanga.webp"
+    }
+  },
+  {
+    "id": 1420,
+    "nombre": "Alejandro Maya",
+    "equipo_id": 5,
+    "equipo": {
+      "id": 5,
+      "nombre": "Boyacá Chicó F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Boyaca%20Chic%C3%B3.webp"
+    }
+  },
+  {
+    "id": 1216,
+    "nombre": "Alejandro Moralez",
+    "equipo_id": 1,
+    "equipo": {
+      "id": 1,
+      "nombre": "Llaneros F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Llaneros.webp"
+    }
+  },
+  {
+    "id": 983,
+    "nombre": "Alejandro Rodríguez",
+    "equipo_id": 3,
+    "equipo": {
+      "id": 3,
+      "nombre": "Deportivo Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Cali.webp"
+    }
+  },
+  {
+    "id": 982,
+    "nombre": "Alejandro Rojo",
+    "equipo_id": 3,
+    "equipo": {
+      "id": 3,
+      "nombre": "Deportivo Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Cali.webp"
+    }
+  },
+  {
+    "id": 1244,
+    "nombre": "Alex Moreno",
+    "equipo_id": 9,
+    "equipo": {
+      "id": 9,
+      "nombre": "Millonarios F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Millonarios.webp"
+    }
+  },
+  {
+    "id": 935,
+    "nombre": "Alexander Borja",
+    "equipo_id": 20,
+    "equipo": {
+      "id": 20,
+      "nombre": "Cúcuta Deportivo",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/C%C3%BAcuta%20Deportivo.webp"
+    }
+  },
+  {
+    "id": 1383,
+    "nombre": "Alexis Manyoma",
+    "equipo_id": 3,
+    "equipo": {
+      "id": 3,
+      "nombre": "Deportivo Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Cali.webp"
+    }
+  },
+  {
+    "id": 1091,
+    "nombre": "Alexis Serna",
+    "equipo_id": 7,
+    "equipo": {
+      "id": 7,
+      "nombre": "Independiente Medellín",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Medell%C3%ADn.webp"
+    }
+  },
+  {
+    "id": 1118,
+    "nombre": "Alexis Zapata",
+    "equipo_id": 16,
+    "equipo": {
+      "id": 16,
+      "nombre": "Independiente Santa Fe",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Santa%20Fe.webp"
+    }
+  },
+  {
+    "id": 1082,
+    "nombre": "Alfonso Simarra",
+    "equipo_id": 7,
+    "equipo": {
+      "id": 7,
+      "nombre": "Independiente Medellín",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Medell%C3%ADn.webp"
+    }
+  },
+  {
+    "id": 903,
+    "nombre": "Alfredo Morelos",
+    "equipo_id": 6,
+    "equipo": {
+      "id": 6,
+      "nombre": "Atlético Nacional",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Nacional.webp"
+    }
+  },
+  {
+    "id": 959,
+    "nombre": "Anderson Angulo",
+    "equipo_id": 11,
+    "equipo": {
+      "id": 11,
+      "nombre": "Deportes Tolima",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportes%20Tolima.webp"
+    }
+  },
+  {
+    "id": 1051,
+    "nombre": "Anderson Plata",
+    "equipo_id": 2,
+    "equipo": {
+      "id": 2,
+      "nombre": "Deportivo Pereira",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pereira.webp"
+    }
+  },
+  {
+    "id": 1074,
+    "nombre": "Andres Amaya",
+    "equipo_id": 18,
+    "equipo": {
+      "id": 18,
+      "nombre": "Fortaleza",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Fortaleza.webp"
+    }
+  },
+  {
+    "id": 1054,
+    "nombre": "Andres Calderon",
+    "equipo_id": 2,
+    "equipo": {
+      "id": 2,
+      "nombre": "Deportivo Pereira",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pereira.webp"
+    }
+  },
+  {
+    "id": 1413,
+    "nombre": "Andres Carreño",
+    "equipo_id": 15,
+    "equipo": {
+      "id": 15,
+      "nombre": "Águilas Doradas",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/%C3%81guilas%20Doradas.webp"
+    }
+  },
+  {
+    "id": 1264,
+    "nombre": "Andres Correa",
+    "equipo_id": 19,
+    "equipo": {
+      "id": 19,
+      "nombre": "Once Caldas DAF",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Once%20Caldas.webp"
+    }
+  },
+  {
+    "id": 890,
+    "nombre": "Andres Felipe Román",
+    "equipo_id": 6,
+    "equipo": {
+      "id": 6,
+      "nombre": "Atlético Nacional",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Nacional.webp"
+    }
+  },
+  {
+    "id": 1022,
+    "nombre": "Andres Ibarguen",
+    "equipo_id": 8,
+    "equipo": {
+      "id": 8,
+      "nombre": "Deportivo Pasto",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pasto.webp"
+    }
+  },
+  {
+    "id": 1175,
+    "nombre": "Andres Renteria",
+    "equipo_id": 4,
+    "equipo": {
+      "id": 4,
+      "nombre": "Jaguares F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Jaguares%20de%20Cordoba.webp"
+    }
+  },
+  {
+    "id": 1275,
+    "nombre": "Andres Roa",
+    "equipo_id": 19,
+    "equipo": {
+      "id": 19,
+      "nombre": "Once Caldas DAF",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Once%20Caldas.webp"
+    }
+  },
+  {
+    "id": 907,
+    "nombre": "Andres Sarmiento",
+    "equipo_id": 6,
+    "equipo": {
+      "id": 6,
+      "nombre": "Atlético Nacional",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Nacional.webp"
+    }
+  },
+  {
+    "id": 1253,
+    "nombre": "Andrey Estupiñán",
+    "equipo_id": 9,
+    "equipo": {
+      "id": 9,
+      "nombre": "Millonarios F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Millonarios.webp"
+    }
+  },
+  {
+    "id": 919,
+    "nombre": "Andrés Aedo",
+    "equipo_id": 5,
+    "equipo": {
+      "id": 5,
+      "nombre": "Boyacá Chicó F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Boyaca%20Chic%C3%B3.webp"
+    }
+  },
+  {
+    "id": 1158,
+    "nombre": "Andrés Alfonso",
+    "equipo_id": 4,
+    "equipo": {
+      "id": 4,
+      "nombre": "Jaguares F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Jaguares%20de%20Cordoba.webp"
+    }
+  },
+  {
+    "id": 1273,
+    "nombre": "Andrés Colorado",
+    "equipo_id": 19,
+    "equipo": {
+      "id": 19,
+      "nombre": "Once Caldas DAF",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Once%20Caldas.webp"
+    }
+  },
+  {
+    "id": 1394,
+    "nombre": "Andrés Copete",
+    "equipo_id": 18,
+    "equipo": {
+      "id": 18,
+      "nombre": "Fortaleza",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Fortaleza.webp"
+    }
+  },
+  {
+    "id": 1243,
+    "nombre": "Andrés Llinás",
+    "equipo_id": 9,
+    "equipo": {
+      "id": 9,
+      "nombre": "Millonarios F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Millonarios.webp"
+    }
+  },
+  {
+    "id": 1285,
+    "nombre": "Andrés Mosquera",
+    "equipo_id": 15,
+    "equipo": {
+      "id": 15,
+      "nombre": "Águilas Doradas",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/%C3%81guilas%20Doradas.webp"
+    }
+  },
+  {
+    "id": 1343,
+    "nombre": "Andrés Reyes",
+    "equipo_id": 6,
+    "equipo": {
+      "id": 6,
+      "nombre": "Atlético Nacional",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Nacional.webp"
+    }
+  },
+  {
+    "id": 1296,
+    "nombre": "Andrés Ricaurte",
+    "equipo_id": 15,
+    "equipo": {
+      "id": 15,
+      "nombre": "Águilas Doradas",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/%C3%81guilas%20Doradas.webp"
+    }
+  },
+  {
+    "id": 1289,
+    "nombre": "Andrés Álvarez",
+    "equipo_id": 15,
+    "equipo": {
+      "id": 15,
+      "nombre": "Águilas Doradas",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/%C3%81guilas%20Doradas.webp"
+    }
+  },
+  {
+    "id": 1078,
+    "nombre": "Andy Batioja",
+    "equipo_id": 18,
+    "equipo": {
+      "id": 18,
+      "nombre": "Fortaleza",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Fortaleza.webp"
+    }
+  },
+  {
+    "id": 1303,
+    "nombre": "Antony Vásquez",
+    "equipo_id": 15,
+    "equipo": {
+      "id": 15,
+      "nombre": "Águilas Doradas",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/%C3%81guilas%20Doradas.webp"
+    }
+  },
+  {
+    "id": 914,
+    "nombre": "Arlen Banguero",
+    "equipo_id": 5,
+    "equipo": {
+      "id": 5,
+      "nombre": "Boyacá Chicó F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Boyaca%20Chic%C3%B3.webp"
+    }
+  },
+  {
+    "id": 1362,
+    "nombre": "Armando Ballesteros",
+    "equipo_id": 20,
+    "equipo": {
+      "id": 20,
+      "nombre": "Cúcuta Deportivo",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/C%C3%BAcuta%20Deportivo.webp"
+    }
+  },
+  {
+    "id": 1003,
+    "nombre": "Avilés Hurtado",
+    "equipo_id": 3,
+    "equipo": {
+      "id": 3,
+      "nombre": "Deportivo Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Cali.webp"
+    }
+  },
+  {
+    "id": 833,
+    "nombre": "Ayron Del Valle",
+    "equipo_id": 17,
+    "equipo": {
+      "id": 17,
+      "nombre": "Alianza Valledupar F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Alianza%20Valledupar.webp"
+    }
+  },
+  {
+    "id": 1381,
+    "nombre": "B. Rovira",
+    "equipo_id": 11,
+    "equipo": {
+      "id": 11,
+      "nombre": "Deportes Tolima",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportes%20Tolima.webp"
+    }
+  },
+  {
+    "id": 1093,
+    "nombre": "Baldomero Perlaza",
+    "equipo_id": 7,
+    "equipo": {
+      "id": 7,
+      "nombre": "Independiente Medellín",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Medell%C3%ADn.webp"
+    }
+  },
+  {
+    "id": 1332,
+    "nombre": "Bayron Caicedo",
+    "equipo_id": 13,
+    "equipo": {
+      "id": 13,
+      "nombre": "Internacional de Bogotá",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Internacional%20de%20Bogot%C3%A1.webp"
+    }
+  },
+  {
+    "id": 881,
+    "nombre": "Brandon Caicedo",
+    "equipo_id": 10,
+    "equipo": {
+      "id": 10,
+      "nombre": "Atlético Bucaramanga",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Bucaramanga.webp"
+    }
+  },
+  {
+    "id": 1421,
+    "nombre": "Branndon Zapata",
+    "equipo_id": 5,
+    "equipo": {
+      "id": 5,
+      "nombre": "Boyacá Chicó F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Boyaca%20Chic%C3%B3.webp"
+    }
+  },
+  {
+    "id": 842,
+    "nombre": "Brayan Correa",
+    "equipo_id": 14,
+    "equipo": {
+      "id": 14,
+      "nombre": "América de Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Am%C3%A9rica%20de%20Cali.webp"
+    }
+  },
+  {
+    "id": 837,
+    "nombre": "Brayan Córdoba",
+    "equipo_id": 14,
+    "equipo": {
+      "id": 14,
+      "nombre": "América de Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Am%C3%A9rica%20de%20Cali.webp"
+    }
+  },
+  {
+    "id": 1366,
+    "nombre": "Brayan Montaño",
+    "equipo_id": 20,
+    "equipo": {
+      "id": 20,
+      "nombre": "Cúcuta Deportivo",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/C%C3%BAcuta%20Deportivo.webp"
+    }
+  },
+  {
+    "id": 972,
+    "nombre": "Brayan Rovira",
+    "equipo_id": 11,
+    "equipo": {
+      "id": 11,
+      "nombre": "Deportes Tolima",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportes%20Tolima.webp"
+    }
+  },
+  {
+    "id": 1015,
+    "nombre": "Brayan Sánchez",
+    "equipo_id": 8,
+    "equipo": {
+      "id": 8,
+      "nombre": "Deportivo Pasto",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pasto.webp"
+    }
+  },
+  {
+    "id": 1417,
+    "nombre": "Brayan Viafara",
+    "equipo_id": 17,
+    "equipo": {
+      "id": 17,
+      "nombre": "Alianza Valledupar F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Alianza%20Valledupar.webp"
+    }
+  },
+  {
+    "id": 1224,
+    "nombre": "Brian Benítez",
+    "equipo_id": 1,
+    "equipo": {
+      "id": 1,
+      "nombre": "Llaneros F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Llaneros.webp"
+    }
+  },
+  {
+    "id": 1207,
+    "nombre": "Bryan Castrillón",
+    "equipo_id": 12,
+    "equipo": {
+      "id": 12,
+      "nombre": "Junior F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Junior%20FC.webp"
+    }
+  },
+  {
+    "id": 1205,
+    "nombre": "Carlos Bacca",
+    "equipo_id": 3,
+    "equipo": {
+      "id": 3,
+      "nombre": "Deportivo Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Cali.webp"
+    }
+  },
+  {
+    "id": 1385,
+    "nombre": "Carlos Bacca (DUPLICADO)",
+    "equipo_id": 61,
+    "equipo": {
+      "id": 61,
+      "nombre": "Plantilla Descartados",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Generico.webp"
+    }
+  },
+  {
+    "id": 1166,
+    "nombre": "Carlos Cantillo",
+    "equipo_id": 4,
+    "equipo": {
+      "id": 4,
+      "nombre": "Jaguares F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Jaguares%20de%20Cordoba.webp"
+    }
+  },
+  {
+    "id": 822,
+    "nombre": "Carlos Esparragoza",
+    "equipo_id": 17,
+    "equipo": {
+      "id": 17,
+      "nombre": "Alianza Valledupar F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Alianza%20Valledupar.webp"
+    }
+  },
+  {
+    "id": 1164,
+    "nombre": "Carlos Henao",
+    "equipo_id": 4,
+    "equipo": {
+      "id": 4,
+      "nombre": "Jaguares F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Jaguares%20de%20Cordoba.webp"
+    }
+  },
+  {
+    "id": 1097,
+    "nombre": "Carlos Lucumi",
+    "equipo_id": 7,
+    "equipo": {
+      "id": 7,
+      "nombre": "Independiente Medellín",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Medell%C3%ADn.webp"
+    }
+  },
+  {
+    "id": 1367,
+    "nombre": "Carlos Rentería",
+    "equipo_id": 20,
+    "equipo": {
+      "id": 20,
+      "nombre": "Cúcuta Deportivo",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/C%C3%BAcuta%20Deportivo.webp"
+    }
+  },
+  {
+    "id": 1307,
+    "nombre": "Carlos Rojas",
+    "equipo_id": 15,
+    "equipo": {
+      "id": 15,
+      "nombre": "Águilas Doradas",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/%C3%81guilas%20Doradas.webp"
+    }
+  },
+  {
+    "id": 871,
+    "nombre": "Carlos Romaña",
+    "equipo_id": 10,
+    "equipo": {
+      "id": 10,
+      "nombre": "Atlético Bucaramanga",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Bucaramanga.webp"
+    }
+  },
+  {
+    "id": 1237,
+    "nombre": "Carlos Sarabia",
+    "equipo_id": 9,
+    "equipo": {
+      "id": 9,
+      "nombre": "Millonarios F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Millonarios.webp"
+    }
+  },
+  {
+    "id": 852,
+    "nombre": "Carlos Sierra",
+    "equipo_id": 14,
+    "equipo": {
+      "id": 14,
+      "nombre": "América de Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Am%C3%A9rica%20de%20Cali.webp"
+    }
+  },
+  {
+    "id": 821,
+    "nombre": "Carlos Villegas",
+    "equipo_id": 17,
+    "equipo": {
+      "id": 17,
+      "nombre": "Alianza Valledupar F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Alianza%20Valledupar.webp"
+    }
+  },
+  {
+    "id": 1313,
+    "nombre": "Carlos Vivas",
+    "equipo_id": 13,
+    "equipo": {
+      "id": 13,
+      "nombre": "Internacional de Bogotá",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Internacional%20de%20Bogot%C3%A1.webp"
+    }
+  },
+  {
+    "id": 887,
+    "nombre": "Cesar Haydar",
+    "equipo_id": 6,
+    "equipo": {
+      "id": 6,
+      "nombre": "Atlético Nacional",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Nacional.webp"
+    }
+  },
+  {
+    "id": 1114,
+    "nombre": "Christian Mafla",
+    "equipo_id": 16,
+    "equipo": {
+      "id": 16,
+      "nombre": "Independiente Santa Fe",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Santa%20Fe.webp"
+    }
+  },
+  {
+    "id": 905,
+    "nombre": "Cristian Arango",
+    "equipo_id": 6,
+    "equipo": {
+      "id": 6,
+      "nombre": "Atlético Nacional",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Nacional.webp"
+    }
+  },
+  {
+    "id": 963,
+    "nombre": "Cristian Arrieta",
+    "equipo_id": 11,
+    "equipo": {
+      "id": 11,
+      "nombre": "Deportes Tolima",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportes%20Tolima.webp"
+    }
+  },
+  {
+    "id": 1206,
+    "nombre": "Cristian Barrios",
+    "equipo_id": 12,
+    "equipo": {
+      "id": 12,
+      "nombre": "Junior F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Junior%20FC.webp"
+    }
+  },
+  {
+    "id": 1351,
+    "nombre": "Cristian Blanco",
+    "equipo_id": 5,
+    "equipo": {
+      "id": 5,
+      "nombre": "Boyacá Chicó F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Boyaca%20Chic%C3%B3.webp"
+    }
+  },
+  {
+    "id": 1323,
+    "nombre": "Cristian Dajome",
+    "equipo_id": 13,
+    "equipo": {
+      "id": 13,
+      "nombre": "Internacional de Bogotá",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Internacional%20de%20Bogot%C3%A1.webp"
+    }
+  },
+  {
+    "id": 1067,
+    "nombre": "Cristian Orozco",
+    "equipo_id": 18,
+    "equipo": {
+      "id": 18,
+      "nombre": "Fortaleza",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Fortaleza.webp"
+    }
+  },
+  {
+    "id": 1392,
+    "nombre": "Cristian Santander",
+    "equipo_id": 18,
+    "equipo": {
+      "id": 18,
+      "nombre": "Fortaleza",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Fortaleza.webp"
+    }
+  },
+  {
+    "id": 844,
+    "nombre": "Cristian Tovar",
+    "equipo_id": 14,
+    "equipo": {
+      "id": 14,
+      "nombre": "América de Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Am%C3%A9rica%20de%20Cali.webp"
+    }
+  },
+  {
+    "id": 970,
+    "nombre": "Cristian Trujillo",
+    "equipo_id": 11,
+    "equipo": {
+      "id": 11,
+      "nombre": "Deportes Tolima",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportes%20Tolima.webp"
+    }
+  },
+  {
+    "id": 1336,
+    "nombre": "Cristian Vergara",
+    "equipo_id": 17,
+    "equipo": {
+      "id": 17,
+      "nombre": "Alianza Valledupar F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Alianza%20Valledupar.webp"
+    }
+  },
+  {
+    "id": 1169,
+    "nombre": "Cristian Álvarez",
+    "equipo_id": 4,
+    "equipo": {
+      "id": 4,
+      "nombre": "Jaguares F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Jaguares%20de%20Cordoba.webp"
+    }
+  },
+  {
+    "id": 1353,
+    "nombre": "Cristián Mosquera",
+    "equipo_id": 5,
+    "equipo": {
+      "id": 5,
+      "nombre": "Boyacá Chicó F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Boyaca%20Chic%C3%B3.webp"
+    }
+  },
+  {
+    "id": 863,
+    "nombre": "Cristopher Fiermarin",
+    "equipo_id": 10,
+    "equipo": {
+      "id": 10,
+      "nombre": "Atlético Bucaramanga",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Bucaramanga.webp"
+    }
+  },
+  {
+    "id": 1401,
+    "nombre": "Dani Torres",
+    "equipo_id": 16,
+    "equipo": {
+      "id": 16,
+      "nombre": "Independiente Santa Fe",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Santa%20Fe.webp"
+    }
+  },
+  {
+    "id": 1092,
+    "nombre": "Daniel Cataño",
+    "equipo_id": 7,
+    "equipo": {
+      "id": 7,
+      "nombre": "Independiente Medellín",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Medell%C3%ADn.webp"
+    }
+  },
+  {
+    "id": 996,
+    "nombre": "Daniel Giraldo",
+    "equipo_id": 3,
+    "equipo": {
+      "id": 3,
+      "nombre": "Deportivo Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Cali.webp"
+    }
+  },
+  {
+    "id": 1263,
+    "nombre": "Daniel Londoño",
+    "equipo_id": 19,
+    "equipo": {
+      "id": 19,
+      "nombre": "Once Caldas DAF",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Once%20Caldas.webp"
+    }
+  },
+  {
+    "id": 1228,
+    "nombre": "Daniel Mantilla",
+    "equipo_id": 1,
+    "equipo": {
+      "id": 1,
+      "nombre": "Llaneros F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Llaneros.webp"
+    }
+  },
+  {
+    "id": 1411,
+    "nombre": "Daniel Marmolejo",
+    "equipo_id": 19,
+    "equipo": {
+      "id": 19,
+      "nombre": "Once Caldas DAF",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Once%20Caldas.webp"
+    }
+  },
+  {
+    "id": 961,
+    "nombre": "Daniel Pedrozo",
+    "equipo_id": 11,
+    "equipo": {
+      "id": 11,
+      "nombre": "Deportes Tolima",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportes%20Tolima.webp"
+    }
+  },
+  {
+    "id": 1354,
+    "nombre": "Daniel Polanco",
+    "equipo_id": 5,
+    "equipo": {
+      "id": 5,
+      "nombre": "Boyacá Chicó F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Boyaca%20Chic%C3%B3.webp"
+    }
+  },
+  {
+    "id": 1214,
+    "nombre": "Daniel Quiñones",
+    "equipo_id": 1,
+    "equipo": {
+      "id": 1,
+      "nombre": "Llaneros F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Llaneros.webp"
+    }
+  },
+  {
+    "id": 1186,
+    "nombre": "Daniel Rivera",
+    "equipo_id": 12,
+    "equipo": {
+      "id": 12,
+      "nombre": "Junior F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Junior%20FC.webp"
+    }
+  },
+  {
+    "id": 839,
+    "nombre": "Daniel Rosero",
+    "equipo_id": 14,
+    "equipo": {
+      "id": 14,
+      "nombre": "América de Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Am%C3%A9rica%20de%20Cali.webp"
+    }
+  },
+  {
+    "id": 1255,
+    "nombre": "Daniel Ruiz",
+    "equipo_id": 9,
+    "equipo": {
+      "id": 9,
+      "nombre": "Millonarios F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Millonarios.webp"
+    }
+  },
+  {
+    "id": 1119,
+    "nombre": "Daniel Torres",
+    "equipo_id": 16,
+    "equipo": {
+      "id": 16,
+      "nombre": "Independiente Santa Fe",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Santa%20Fe.webp"
+    }
+  },
+  {
+    "id": 857,
+    "nombre": "Daniel Valencia",
+    "equipo_id": 14,
+    "equipo": {
+      "id": 14,
+      "nombre": "América de Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Am%C3%A9rica%20de%20Cali.webp"
+    }
+  },
+  {
+    "id": 1035,
+    "nombre": "Danilo Ortiz",
+    "equipo_id": 2,
+    "equipo": {
+      "id": 2,
+      "nombre": "Deportivo Pereira",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pereira.webp"
+    }
+  },
+  {
+    "id": 1321,
+    "nombre": "Dannovi Quinones",
+    "equipo_id": 13,
+    "equipo": {
+      "id": 13,
+      "nombre": "Internacional de Bogotá",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Internacional%20de%20Bogot%C3%A1.webp"
+    }
+  },
+  {
+    "id": 1241,
+    "nombre": "Danovis Banguero",
+    "equipo_id": 9,
+    "equipo": {
+      "id": 9,
+      "nombre": "Millonarios F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Millonarios.webp"
+    }
+  },
+  {
+    "id": 1179,
+    "nombre": "Darwin López",
+    "equipo_id": 4,
+    "equipo": {
+      "id": 4,
+      "nombre": "Jaguares F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Jaguares%20de%20Cordoba.webp"
+    }
+  },
+  {
+    "id": 1245,
+    "nombre": "Darwin Quintero",
+    "equipo_id": 9,
+    "equipo": {
+      "id": 9,
+      "nombre": "Millonarios F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Millonarios.webp"
+    }
+  },
+  {
+    "id": 1350,
+    "nombre": "David Agudelo",
+    "equipo_id": 5,
+    "equipo": {
+      "id": 5,
+      "nombre": "Boyacá Chicó F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Boyaca%20Chic%C3%B3.webp"
+    }
+  },
+  {
+    "id": 1021,
+    "nombre": "David Guerrero",
+    "equipo_id": 8,
+    "equipo": {
+      "id": 8,
+      "nombre": "Deportivo Pasto",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pasto.webp"
+    }
+  },
+  {
+    "id": 909,
+    "nombre": "David Quintero",
+    "equipo_id": 5,
+    "equipo": {
+      "id": 5,
+      "nombre": "Boyacá Chicó F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Boyaca%20Chic%C3%B3.webp"
+    }
+  },
+  {
+    "id": 1057,
+    "nombre": "David Ramírez",
+    "equipo_id": 18,
+    "equipo": {
+      "id": 18,
+      "nombre": "Fortaleza",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Fortaleza.webp"
+    }
+  },
+  {
+    "id": 1247,
+    "nombre": "David Silva",
+    "equipo_id": 9,
+    "equipo": {
+      "id": 9,
+      "nombre": "Millonarios F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Millonarios.webp"
+    }
+  },
+  {
+    "id": 1282,
+    "nombre": "Dayro Moreno",
+    "equipo_id": 19,
+    "equipo": {
+      "id": 19,
+      "nombre": "Once Caldas DAF",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Once%20Caldas.webp"
+    }
+  },
+  {
+    "id": 1203,
+    "nombre": "Deiber Caicedo",
+    "equipo_id": 12,
+    "equipo": {
+      "id": 12,
+      "nombre": "Junior F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Junior%20FC.webp"
+    }
+  },
+  {
+    "id": 1338,
+    "nombre": "Deinner Quiñones",
+    "equipo_id": 17,
+    "equipo": {
+      "id": 17,
+      "nombre": "Alianza Valledupar F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Alianza%20Valledupar.webp"
+    }
+  },
+  {
+    "id": 1318,
+    "nombre": "Deivid Castro",
+    "equipo_id": 13,
+    "equipo": {
+      "id": 13,
+      "nombre": "Internacional de Bogotá",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Internacional%20de%20Bogot%C3%A1.webp"
+    }
+  },
+  {
+    "id": 922,
+    "nombre": "Delio Ramírez",
+    "equipo_id": 5,
+    "equipo": {
+      "id": 5,
+      "nombre": "Boyacá Chicó F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Boyaca%20Chic%C3%B3.webp"
+    }
+  },
+  {
+    "id": 1217,
+    "nombre": "Dennys Quintero",
+    "equipo_id": 1,
+    "equipo": {
+      "id": 1,
+      "nombre": "Llaneros F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Llaneros.webp"
+    }
+  },
+  {
+    "id": 1403,
+    "nombre": "Dewar Victoria",
+    "equipo_id": 13,
+    "equipo": {
+      "id": 13,
+      "nombre": "Internacional de Bogotá",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Internacional%20de%20Bogot%C3%A1.webp"
+    }
+  },
+  {
+    "id": 1157,
+    "nombre": "Didier Bueno",
+    "equipo_id": 4,
+    "equipo": {
+      "id": 4,
+      "nombre": "Jaguares F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Jaguares%20de%20Cordoba.webp"
+    }
+  },
+  {
+    "id": 1089,
+    "nombre": "Didier Moreno",
+    "equipo_id": 7,
+    "equipo": {
+      "id": 7,
+      "nombre": "Independiente Medellín",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Medell%C3%ADn.webp"
+    }
+  },
+  {
+    "id": 1363,
+    "nombre": "Diego Calcaterra",
+    "equipo_id": 20,
+    "equipo": {
+      "id": 20,
+      "nombre": "Cúcuta Deportivo",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/C%C3%BAcuta%20Deportivo.webp"
+    }
+  },
+  {
+    "id": 1017,
+    "nombre": "Diego Chávez",
+    "equipo_id": 8,
+    "equipo": {
+      "id": 8,
+      "nombre": "Deportivo Pasto",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pasto.webp"
+    }
+  },
+  {
+    "id": 1324,
+    "nombre": "Diego Duarte",
+    "equipo_id": 13,
+    "equipo": {
+      "id": 13,
+      "nombre": "Internacional de Bogotá",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Internacional%20de%20Bogot%C3%A1.webp"
+    }
+  },
+  {
+    "id": 1152,
+    "nombre": "Diego Martínez",
+    "equipo_id": 4,
+    "equipo": {
+      "id": 4,
+      "nombre": "Jaguares F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Jaguares%20de%20Cordoba.webp"
+    }
+  },
+  {
+    "id": 1049,
+    "nombre": "Diego Mendoza",
+    "equipo_id": 2,
+    "equipo": {
+      "id": 2,
+      "nombre": "Deportivo Pereira",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pereira.webp"
+    }
+  },
+  {
+    "id": 1095,
+    "nombre": "Diego Moreno",
+    "equipo_id": 7,
+    "equipo": {
+      "id": 7,
+      "nombre": "Independiente Medellín",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Medell%C3%ADn.webp"
+    }
+  },
+  {
+    "id": 862,
+    "nombre": "Diego Novoa",
+    "equipo_id": 10,
+    "equipo": {
+      "id": 10,
+      "nombre": "Atlético Bucaramanga",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Bucaramanga.webp"
+    }
+  },
+  {
+    "id": 825,
+    "nombre": "Diego Torres",
+    "equipo_id": 17,
+    "equipo": {
+      "id": 17,
+      "nombre": "Alianza Valledupar F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Alianza%20Valledupar.webp"
+    }
+  },
+  {
+    "id": 1174,
+    "nombre": "Duván Rodriguez",
+    "equipo_id": 4,
+    "equipo": {
+      "id": 4,
+      "nombre": "Jaguares F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Jaguares%20de%20Cordoba.webp"
+    }
+  },
+  {
+    "id": 1291,
+    "nombre": "Dylan Lozano",
+    "equipo_id": 15,
+    "equipo": {
+      "id": 15,
+      "nombre": "Águilas Doradas",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/%C3%81guilas%20Doradas.webp"
+    }
+  },
+  {
+    "id": 1037,
+    "nombre": "Eber Moreno",
+    "equipo_id": 2,
+    "equipo": {
+      "id": 2,
+      "nombre": "Deportivo Pereira",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pereira.webp"
+    }
+  },
+  {
+    "id": 1080,
+    "nombre": "Eder Chaux",
+    "equipo_id": 7,
+    "equipo": {
+      "id": 7,
+      "nombre": "Independiente Medellín",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Medell%C3%ADn.webp"
+    }
+  },
+  {
+    "id": 1386,
+    "nombre": "Ederson Cabezas",
+    "equipo_id": 8,
+    "equipo": {
+      "id": 8,
+      "nombre": "Deportivo Pasto",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pasto.webp"
+    }
+  },
+  {
+    "id": 1047,
+    "nombre": "Ederson Moreno",
+    "equipo_id": 2,
+    "equipo": {
+      "id": 2,
+      "nombre": "Deportivo Pereira",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pereira.webp"
+    }
+  },
+  {
+    "id": 854,
+    "nombre": "Edson Tortolero",
+    "equipo_id": 14,
+    "equipo": {
+      "id": 14,
+      "nombre": "América de Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Am%C3%A9rica%20de%20Cali.webp"
+    }
+  },
+  {
+    "id": 1305,
+    "nombre": "Eduar Arizalas",
+    "equipo_id": 15,
+    "equipo": {
+      "id": 15,
+      "nombre": "Águilas Doradas",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/%C3%81guilas%20Doradas.webp"
+    }
+  },
+  {
+    "id": 1335,
+    "nombre": "Eduar Beltrán",
+    "equipo_id": 17,
+    "equipo": {
+      "id": 17,
+      "nombre": "Alianza Valledupar F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Alianza%20Valledupar.webp"
+    }
+  },
+  {
+    "id": 816,
+    "nombre": "Eduard Banguero",
+    "equipo_id": 17,
+    "equipo": {
+      "id": 17,
+      "nombre": "Alianza Valledupar F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Alianza%20Valledupar.webp"
+    }
+  },
+  {
+    "id": 906,
+    "nombre": "Eduard Bello",
+    "equipo_id": 3,
+    "equipo": {
+      "id": 3,
+      "nombre": "Deportivo Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Cali.webp"
+    }
+  },
+  {
+    "id": 1384,
+    "nombre": "Eduard Bello (DUPLICADO)",
+    "equipo_id": 61,
+    "equipo": {
+      "id": 61,
+      "nombre": "Plantilla Descartados",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Generico.webp"
+    }
+  },
+  {
+    "id": 980,
+    "nombre": "Edwar López",
+    "equipo_id": 11,
+    "equipo": {
+      "id": 11,
+      "nombre": "Deportes Tolima",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportes%20Tolima.webp"
+    }
+  },
+  {
+    "id": 896,
+    "nombre": "Edwin Cardona",
+    "equipo_id": 6,
+    "equipo": {
+      "id": 6,
+      "nombre": "Atlético Nacional",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Nacional.webp"
+    }
+  },
+  {
+    "id": 1185,
+    "nombre": "Edwin Herrera",
+    "equipo_id": 12,
+    "equipo": {
+      "id": 12,
+      "nombre": "Junior F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Junior%20FC.webp"
+    }
+  },
+  {
+    "id": 1161,
+    "nombre": "Edwin Martinez",
+    "equipo_id": 4,
+    "equipo": {
+      "id": 4,
+      "nombre": "Jaguares F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Jaguares%20de%20Cordoba.webp"
+    }
+  },
+  {
+    "id": 1277,
+    "nombre": "Edwin Torres",
+    "equipo_id": 19,
+    "equipo": {
+      "id": 19,
+      "nombre": "Once Caldas DAF",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Once%20Caldas.webp"
+    }
+  },
+  {
+    "id": 990,
+    "nombre": "Edwin Velasco",
+    "equipo_id": 3,
+    "equipo": {
+      "id": 3,
+      "nombre": "Deportivo Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Cali.webp"
+    }
+  },
+  {
+    "id": 1267,
+    "nombre": "Efrain Navarro",
+    "equipo_id": 19,
+    "equipo": {
+      "id": 19,
+      "nombre": "Once Caldas DAF",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Once%20Caldas.webp"
+    }
+  },
+  {
+    "id": 899,
+    "nombre": "Elkin Rivero",
+    "equipo_id": 6,
+    "equipo": {
+      "id": 6,
+      "nombre": "Atlético Nacional",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Nacional.webp"
+    }
+  },
+  {
+    "id": 1344,
+    "nombre": "Elías Cabrera",
+    "equipo_id": 6,
+    "equipo": {
+      "id": 6,
+      "nombre": "Atlético Nacional",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Nacional.webp"
+    }
+  },
+  {
+    "id": 997,
+    "nombre": "Emanuel Reynoso",
+    "equipo_id": 3,
+    "equipo": {
+      "id": 3,
+      "nombre": "Deportivo Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Cali.webp"
+    }
+  },
+  {
+    "id": 883,
+    "nombre": "Emerson Batalla",
+    "equipo_id": 10,
+    "equipo": {
+      "id": 10,
+      "nombre": "Atlético Bucaramanga",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Bucaramanga.webp"
+    }
+  },
+  {
+    "id": 1402,
+    "nombre": "Emerson Rodríguez",
+    "equipo_id": 16,
+    "equipo": {
+      "id": 16,
+      "nombre": "Independiente Santa Fe",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Santa%20Fe.webp"
+    }
+  },
+  {
+    "id": 1327,
+    "nombre": "Emilio Gutiérrez",
+    "equipo_id": 13,
+    "equipo": {
+      "id": 13,
+      "nombre": "Internacional de Bogotá",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Internacional%20de%20Bogot%C3%A1.webp"
+    }
+  },
+  {
+    "id": 1112,
+    "nombre": "Emmanuel Olivera",
+    "equipo_id": 16,
+    "equipo": {
+      "id": 16,
+      "nombre": "Independiente Santa Fe",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Santa%20Fe.webp"
+    }
+  },
+  {
+    "id": 1016,
+    "nombre": "Enrique Serje",
+    "equipo_id": 8,
+    "equipo": {
+      "id": 8,
+      "nombre": "Deportivo Pasto",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pasto.webp"
+    }
+  },
+  {
+    "id": 1099,
+    "nombre": "Enzo Larrosa",
+    "equipo_id": 7,
+    "equipo": {
+      "id": 7,
+      "nombre": "Independiente Medellín",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Medell%C3%ADn.webp"
+    }
+  },
+  {
+    "id": 1087,
+    "nombre": "Esneyder Mena",
+    "equipo_id": 7,
+    "equipo": {
+      "id": 7,
+      "nombre": "Independiente Medellín",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Medell%C3%ADn.webp"
+    }
+  },
+  {
+    "id": 1356,
+    "nombre": "Estiven Sarria",
+    "equipo_id": 5,
+    "equipo": {
+      "id": 5,
+      "nombre": "Boyacá Chicó F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Boyaca%20Chic%C3%B3.webp"
+    }
+  },
+  {
+    "id": 818,
+    "nombre": "Ever Meza",
+    "equipo_id": 17,
+    "equipo": {
+      "id": 17,
+      "nombre": "Alianza Valledupar F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Alianza%20Valledupar.webp"
+    }
+  },
+  {
+    "id": 974,
+    "nombre": "Ever Valencia",
+    "equipo_id": 11,
+    "equipo": {
+      "id": 11,
+      "nombre": "Deportes Tolima",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportes%20Tolima.webp"
+    }
+  },
+  {
+    "id": 1121,
+    "nombre": "Ewil Murillo",
+    "equipo_id": 16,
+    "equipo": {
+      "id": 16,
+      "nombre": "Independiente Santa Fe",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Santa%20Fe.webp"
+    }
+  },
+  {
+    "id": 1220,
+    "nombre": "Eyder Restrepo",
+    "equipo_id": 1,
+    "equipo": {
+      "id": 1,
+      "nombre": "Llaneros F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Llaneros.webp"
+    }
+  },
+  {
+    "id": 1172,
+    "nombre": "Faber Gil",
+    "equipo_id": 4,
+    "equipo": {
+      "id": 4,
+      "nombre": "Jaguares F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Jaguares%20de%20Cordoba.webp"
+    }
+  },
+  {
+    "id": 1306,
+    "nombre": "Fabian Charales",
+    "equipo_id": 15,
+    "equipo": {
+      "id": 15,
+      "nombre": "Águilas Doradas",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/%C3%81guilas%20Doradas.webp"
+    }
+  },
+  {
+    "id": 874,
+    "nombre": "Fabian Sambueza",
+    "equipo_id": 10,
+    "equipo": {
+      "id": 10,
+      "nombre": "Atlético Bucaramanga",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Bucaramanga.webp"
+    }
+  },
+  {
+    "id": 1040,
+    "nombre": "Fabio Delgado",
+    "equipo_id": 2,
+    "equipo": {
+      "id": 2,
+      "nombre": "Deportivo Pereira",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pereira.webp"
+    }
+  },
+  {
+    "id": 823,
+    "nombre": "Fabián Cantillo",
+    "equipo_id": 17,
+    "equipo": {
+      "id": 17,
+      "nombre": "Alianza Valledupar F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Alianza%20Valledupar.webp"
+    }
+  },
+  {
+    "id": 1331,
+    "nombre": "Fabián Chaverra",
+    "equipo_id": 13,
+    "equipo": {
+      "id": 13,
+      "nombre": "Internacional de Bogotá",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Internacional%20de%20Bogot%C3%A1.webp"
+    }
+  },
+  {
+    "id": 1184,
+    "nombre": "Fabián Correa",
+    "equipo_id": 12,
+    "equipo": {
+      "id": 12,
+      "nombre": "Junior F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Junior%20FC.webp"
+    }
+  },
+  {
+    "id": 992,
+    "nombre": "Fabián Viáfara",
+    "equipo_id": 3,
+    "equipo": {
+      "id": 3,
+      "nombre": "Deportivo Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Cali.webp"
+    }
+  },
+  {
+    "id": 1196,
+    "nombre": "Fabián Ángel",
+    "equipo_id": 12,
+    "equipo": {
+      "id": 12,
+      "nombre": "Junior F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Junior%20FC.webp"
+    }
+  },
+  {
+    "id": 1329,
+    "nombre": "Fabricio Sanguinetti",
+    "equipo_id": 13,
+    "equipo": {
+      "id": 13,
+      "nombre": "Internacional de Bogotá",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Internacional%20de%20Bogot%C3%A1.webp"
+    }
+  },
+  {
+    "id": 877,
+    "nombre": "Fabry Castro",
+    "equipo_id": 10,
+    "equipo": {
+      "id": 10,
+      "nombre": "Atlético Bucaramanga",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Bucaramanga.webp"
+    }
+  },
+  {
+    "id": 1330,
+    "nombre": "Facundo Boné",
+    "equipo_id": 13,
+    "equipo": {
+      "id": 13,
+      "nombre": "Internacional de Bogotá",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Internacional%20de%20Bogot%C3%A1.webp"
+    }
+  },
+  {
+    "id": 1009,
+    "nombre": "Fainer Torijano",
+    "equipo_id": 8,
+    "equipo": {
+      "id": 8,
+      "nombre": "Deportivo Pasto",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pasto.webp"
+    }
+  },
+  {
+    "id": 1358,
+    "nombre": "Federico Abadía",
+    "equipo_id": 20,
+    "equipo": {
+      "id": 20,
+      "nombre": "Cúcuta Deportivo",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/C%C3%BAcuta%20Deportivo.webp"
+    }
+  },
+  {
+    "id": 929,
+    "nombre": "Felipe Cifuentes",
+    "equipo_id": 5,
+    "equipo": {
+      "id": 5,
+      "nombre": "Boyacá Chicó F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Boyaca%20Chic%C3%B3.webp"
+    }
+  },
+  {
+    "id": 1419,
+    "nombre": "Felipe Marin",
+    "equipo_id": 6,
+    "equipo": {
+      "id": 6,
+      "nombre": "Atlético Nacional",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Nacional.webp"
+    }
+  },
+  {
+    "id": 1045,
+    "nombre": "Felipe Mosquera",
+    "equipo_id": 2,
+    "equipo": {
+      "id": 2,
+      "nombre": "Deportivo Pereira",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pereira.webp"
+    }
+  },
+  {
+    "id": 829,
+    "nombre": "Felipe Pardo",
+    "equipo_id": 17,
+    "equipo": {
+      "id": 17,
+      "nombre": "Alianza Valledupar F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Alianza%20Valledupar.webp"
+    }
+  },
+  {
+    "id": 876,
+    "nombre": "Felix Charrupí",
+    "equipo_id": 10,
+    "equipo": {
+      "id": 10,
+      "nombre": "Atlético Bucaramanga",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Bucaramanga.webp"
+    }
+  },
+  {
+    "id": 987,
+    "nombre": "Fernando Álvarez",
+    "equipo_id": 3,
+    "equipo": {
+      "id": 3,
+      "nombre": "Deportivo Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Cali.webp"
+    }
+  },
+  {
+    "id": 830,
+    "nombre": "Francesco Fiorelli",
+    "equipo_id": 17,
+    "equipo": {
+      "id": 17,
+      "nombre": "Alianza Valledupar F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Alianza%20Valledupar.webp"
+    }
+  },
+  {
+    "id": 1254,
+    "nombre": "Francisco Chaverra",
+    "equipo_id": 9,
+    "equipo": {
+      "id": 9,
+      "nombre": "Millonarios F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Millonarios.webp"
+    }
+  },
+  {
+    "id": 1197,
+    "nombre": "Francisco Fydriszewski",
+    "equipo_id": 12,
+    "equipo": {
+      "id": 12,
+      "nombre": "Junior F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Junior%20FC.webp"
+    }
+  },
+  {
+    "id": 1215,
+    "nombre": "Francisco Meza",
+    "equipo_id": 1,
+    "equipo": {
+      "id": 1,
+      "nombre": "Llaneros F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Llaneros.webp"
+    }
+  },
+  {
+    "id": 885,
+    "nombre": "Franco Armani",
+    "equipo_id": 6,
+    "equipo": {
+      "id": 6,
+      "nombre": "Atlético Nacional",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Nacional.webp"
+    }
+  },
+  {
+    "id": 1123,
+    "nombre": "Franco Fagúndez",
+    "equipo_id": 16,
+    "equipo": {
+      "id": 16,
+      "nombre": "Independiente Santa Fe",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Santa%20Fe.webp"
+    }
+  },
+  {
+    "id": 1388,
+    "nombre": "Franco Leys",
+    "equipo_id": 8,
+    "equipo": {
+      "id": 8,
+      "nombre": "Deportivo Pasto",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pasto.webp"
+    }
+  },
+  {
+    "id": 1075,
+    "nombre": "Franco Pulicastro",
+    "equipo_id": 18,
+    "equipo": {
+      "id": 18,
+      "nombre": "Fortaleza",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Fortaleza.webp"
+    }
+  },
+  {
+    "id": 1406,
+    "nombre": "Frank Castañeda",
+    "equipo_id": 1,
+    "equipo": {
+      "id": 1,
+      "nombre": "Llaneros F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Llaneros.webp"
+    }
+  },
+  {
+    "id": 1085,
+    "nombre": "Frank Fabra",
+    "equipo_id": 7,
+    "equipo": {
+      "id": 7,
+      "nombre": "Independiente Medellín",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Medell%C3%ADn.webp"
+    }
+  },
+  {
+    "id": 1298,
+    "nombre": "Frank Lozano",
+    "equipo_id": 15,
+    "equipo": {
+      "id": 15,
+      "nombre": "Águilas Doradas",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/%C3%81guilas%20Doradas.webp"
+    }
+  },
+  {
+    "id": 1153,
+    "nombre": "Franklin Mosquera",
+    "equipo_id": 4,
+    "equipo": {
+      "id": 4,
+      "nombre": "Jaguares F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Jaguares%20de%20Cordoba.webp"
+    }
+  },
+  {
+    "id": 880,
+    "nombre": "Freddy Hinestroza",
+    "equipo_id": 10,
+    "equipo": {
+      "id": 10,
+      "nombre": "Atlético Bucaramanga",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Bucaramanga.webp"
+    }
+  },
+  {
+    "id": 1006,
+    "nombre": "Geovanni Banguera",
+    "equipo_id": 8,
+    "equipo": {
+      "id": 8,
+      "nombre": "Deportivo Pasto",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pasto.webp"
+    }
+  },
+  {
+    "id": 1101,
+    "nombre": "Geronimo Mancilla",
+    "equipo_id": 7,
+    "equipo": {
+      "id": 7,
+      "nombre": "Independiente Medellín",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Medell%C3%ADn.webp"
+    }
+  },
+  {
+    "id": 1195,
+    "nombre": "Guillermo Celis",
+    "equipo_id": 12,
+    "equipo": {
+      "id": 12,
+      "nombre": "Junior F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Junior%20FC.webp"
+    }
+  },
+  {
+    "id": 1199,
+    "nombre": "Guillermo Paiva",
+    "equipo_id": 12,
+    "equipo": {
+      "id": 12,
+      "nombre": "Junior F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Junior%20FC.webp"
+    }
+  },
+  {
+    "id": 994,
+    "nombre": "Gustavo Cuellar",
+    "equipo_id": 3,
+    "equipo": {
+      "id": 3,
+      "nombre": "Deportivo Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Cali.webp"
+    }
+  },
+  {
+    "id": 1376,
+    "nombre": "Gustavo Torres",
+    "equipo_id": 20,
+    "equipo": {
+      "id": 20,
+      "nombre": "Cúcuta Deportivo",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/C%C3%BAcuta%20Deportivo.webp"
+    }
+  },
+  {
+    "id": 1400,
+    "nombre": "H. Palacios",
+    "equipo_id": 16,
+    "equipo": {
+      "id": 16,
+      "nombre": "Independiente Santa Fe",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Santa%20Fe.webp"
+    }
+  },
+  {
+    "id": 1094,
+    "nombre": "Halam Loboa",
+    "equipo_id": 7,
+    "equipo": {
+      "id": 7,
+      "nombre": "Independiente Medellín",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Medell%C3%ADn.webp"
+    }
+  },
+  {
+    "id": 1191,
+    "nombre": "Harold Rivera",
+    "equipo_id": 12,
+    "equipo": {
+      "id": 12,
+      "nombre": "Junior F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Junior%20FC.webp"
+    }
+  },
+  {
+    "id": 1018,
+    "nombre": "Harrinson Mancilla",
+    "equipo_id": 8,
+    "equipo": {
+      "id": 8,
+      "nombre": "Deportivo Pasto",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pasto.webp"
+    }
+  },
+  {
+    "id": 1328,
+    "nombre": "Hather Cuesta",
+    "equipo_id": 13,
+    "equipo": {
+      "id": 13,
+      "nombre": "Internacional de Bogotá",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Internacional%20de%20Bogot%C3%A1.webp"
+    }
+  },
+  {
+    "id": 1398,
+    "nombre": "Hayen Palacios",
+    "equipo_id": 7,
+    "equipo": {
+      "id": 7,
+      "nombre": "Independiente Medellín",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Medell%C3%ADn.webp"
+    }
+  },
+  {
+    "id": 1109,
+    "nombre": "Helibelton Palacios",
+    "equipo_id": 16,
+    "equipo": {
+      "id": 16,
+      "nombre": "Independiente Santa Fe",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Santa%20Fe.webp"
+    }
+  },
+  {
+    "id": 1360,
+    "nombre": "Hernán Lópes",
+    "equipo_id": 20,
+    "equipo": {
+      "id": 20,
+      "nombre": "Cúcuta Deportivo",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/C%C3%BAcuta%20Deportivo.webp"
+    }
+  },
+  {
+    "id": 1012,
+    "nombre": "Hervin Goyes",
+    "equipo_id": 8,
+    "equipo": {
+      "id": 8,
+      "nombre": "Deportivo Pasto",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pasto.webp"
+    }
+  },
+  {
+    "id": 968,
+    "nombre": "Homer Martínez",
+    "equipo_id": 11,
+    "equipo": {
+      "id": 11,
+      "nombre": "Deportes Tolima",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportes%20Tolima.webp"
+    }
+  },
+  {
+    "id": 1405,
+    "nombre": "Howell Mena",
+    "equipo_id": 1,
+    "equipo": {
+      "id": 1,
+      "nombre": "Llaneros F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Llaneros.webp"
+    }
+  },
+  {
+    "id": 1124,
+    "nombre": "Hugo Rodallega",
+    "equipo_id": 16,
+    "equipo": {
+      "id": 16,
+      "nombre": "Independiente Santa Fe",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Santa%20Fe.webp"
+    }
+  },
+  {
+    "id": 1346,
+    "nombre": "Ian Poveda",
+    "equipo_id": 6,
+    "equipo": {
+      "id": 6,
+      "nombre": "Atlético Nacional",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Nacional.webp"
+    }
+  },
+  {
+    "id": 928,
+    "nombre": "Isaac Camargo",
+    "equipo_id": 5,
+    "equipo": {
+      "id": 5,
+      "nombre": "Boyacá Chicó F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Boyaca%20Chic%C3%B3.webp"
+    }
+  },
+  {
+    "id": 809,
+    "nombre": "Israel Alba",
+    "equipo_id": 17,
+    "equipo": {
+      "id": 17,
+      "nombre": "Alianza Valledupar F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Alianza%20Valledupar.webp"
+    }
+  },
+  {
+    "id": 1072,
+    "nombre": "Italo Montaño",
+    "equipo_id": 18,
+    "equipo": {
+      "id": 18,
+      "nombre": "Fortaleza",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Fortaleza.webp"
+    }
+  },
+  {
+    "id": 1294,
+    "nombre": "Iván Rojas",
+    "equipo_id": 15,
+    "equipo": {
+      "id": 15,
+      "nombre": "Águilas Doradas",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/%C3%81guilas%20Doradas.webp"
+    }
+  },
+  {
+    "id": 1111,
+    "nombre": "Iván Scarpeta",
+    "equipo_id": 16,
+    "equipo": {
+      "id": 16,
+      "nombre": "Independiente Santa Fe",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Santa%20Fe.webp"
+    }
+  },
+  {
+    "id": 931,
+    "nombre": "Jacobo Pimentel",
+    "equipo_id": 5,
+    "equipo": {
+      "id": 5,
+      "nombre": "Boyacá Chicó F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Boyaca%20Chic%C3%B3.webp"
+    }
+  },
+  {
+    "id": 1379,
+    "nombre": "Jader Manyoma",
+    "equipo_id": 20,
+    "equipo": {
+      "id": 20,
+      "nombre": "Cúcuta Deportivo",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/C%C3%BAcuta%20Deportivo.webp"
+    }
+  },
+  {
+    "id": 1176,
+    "nombre": "Jader Maza",
+    "equipo_id": 4,
+    "equipo": {
+      "id": 4,
+      "nombre": "Jaguares F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Jaguares%20de%20Cordoba.webp"
+    }
+  },
+  {
+    "id": 1276,
+    "nombre": "Jader Quiñónes",
+    "equipo_id": 19,
+    "equipo": {
+      "id": 19,
+      "nombre": "Once Caldas DAF",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Once%20Caldas.webp"
+    }
+  },
+  {
+    "id": 976,
+    "nombre": "Jader Valencia",
+    "equipo_id": 11,
+    "equipo": {
+      "id": 11,
+      "nombre": "Deportes Tolima",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportes%20Tolima.webp"
+    }
+  },
+  {
+    "id": 1297,
+    "nombre": "Jaen Pineda",
+    "equipo_id": 15,
+    "equipo": {
+      "id": 15,
+      "nombre": "Águilas Doradas",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/%C3%81guilas%20Doradas.webp"
+    }
+  },
+  {
+    "id": 1274,
+    "nombre": "Jaime Alvarado",
+    "equipo_id": 19,
+    "equipo": {
+      "id": 19,
+      "nombre": "Once Caldas DAF",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Once%20Caldas.webp"
+    }
+  },
+  {
+    "id": 951,
+    "nombre": "Jaime Peralta",
+    "equipo_id": 20,
+    "equipo": {
+      "id": 20,
+      "nombre": "Cúcuta Deportivo",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/C%C3%BAcuta%20Deportivo.webp"
+    }
+  },
+  {
+    "id": 819,
+    "nombre": "Jair Castillo",
+    "equipo_id": 17,
+    "equipo": {
+      "id": 17,
+      "nombre": "Alianza Valledupar F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Alianza%20Valledupar.webp"
+    }
+  },
+  {
+    "id": 1234,
+    "nombre": "James Aguirre",
+    "equipo_id": 9,
+    "equipo": {
+      "id": 9,
+      "nombre": "Millonarios F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Millonarios.webp"
+    }
+  },
+  {
+    "id": 1415,
+    "nombre": "James Rodriguez",
+    "equipo_id": 6,
+    "equipo": {
+      "id": 6,
+      "nombre": "Atlético Nacional",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Nacional.webp"
+    }
+  },
+  {
+    "id": 960,
+    "nombre": "Jan Angulo",
+    "equipo_id": 11,
+    "equipo": {
+      "id": 11,
+      "nombre": "Deportes Tolima",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportes%20Tolima.webp"
+    }
+  },
+  {
+    "id": 858,
+    "nombre": "Jan Lucumi",
+    "equipo_id": 14,
+    "equipo": {
+      "id": 14,
+      "nombre": "América de Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Am%C3%A9rica%20de%20Cali.webp"
+    }
+  },
+  {
+    "id": 1193,
+    "nombre": "Jannenson Sarmiento",
+    "equipo_id": 12,
+    "equipo": {
+      "id": 12,
+      "nombre": "Junior F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Junior%20FC.webp"
+    }
+  },
+  {
+    "id": 1235,
+    "nombre": "Javier Burrai",
+    "equipo_id": 9,
+    "equipo": {
+      "id": 9,
+      "nombre": "Millonarios F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Millonarios.webp"
+    }
+  },
+  {
+    "id": 1293,
+    "nombre": "Javier Mena",
+    "equipo_id": 15,
+    "equipo": {
+      "id": 15,
+      "nombre": "Águilas Doradas",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/%C3%81guilas%20Doradas.webp"
+    }
+  },
+  {
+    "id": 1187,
+    "nombre": "Jean Carlos Pestaña",
+    "equipo_id": 12,
+    "equipo": {
+      "id": 12,
+      "nombre": "Junior F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Junior%20FC.webp"
+    }
+  },
+  {
+    "id": 835,
+    "nombre": "Jean Fernandes",
+    "equipo_id": 14,
+    "equipo": {
+      "id": 14,
+      "nombre": "América de Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Am%C3%A9rica%20de%20Cali.webp"
+    }
+  },
+  {
+    "id": 1005,
+    "nombre": "Jean Galindo",
+    "equipo_id": 3,
+    "equipo": {
+      "id": 3,
+      "nombre": "Deportivo Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Cali.webp"
+    }
+  },
+  {
+    "id": 1181,
+    "nombre": "Jefferson Martínez",
+    "equipo_id": 12,
+    "equipo": {
+      "id": 12,
+      "nombre": "Junior F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Junior%20FC.webp"
+    }
+  },
+  {
+    "id": 910,
+    "nombre": "Jefferson Mena",
+    "equipo_id": 5,
+    "equipo": {
+      "id": 5,
+      "nombre": "Boyacá Chicó F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Boyaca%20Chic%C3%B3.webp"
+    }
+  },
+  {
+    "id": 1281,
+    "nombre": "Jefry Zapata",
+    "equipo_id": 19,
+    "equipo": {
+      "id": 19,
+      "nombre": "Once Caldas DAF",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Once%20Caldas.webp"
+    }
+  },
+  {
+    "id": 1269,
+    "nombre": "Jeider Riquett",
+    "equipo_id": 19,
+    "equipo": {
+      "id": 19,
+      "nombre": "Once Caldas DAF",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Once%20Caldas.webp"
+    }
+  },
+  {
+    "id": 979,
+    "nombre": "Jeinner Fuentes",
+    "equipo_id": 11,
+    "equipo": {
+      "id": 11,
+      "nombre": "Deportes Tolima",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportes%20Tolima.webp"
+    }
+  },
+  {
+    "id": 1389,
+    "nombre": "Jeirye Caicedo",
+    "equipo_id": 8,
+    "equipo": {
+      "id": 8,
+      "nombre": "Deportivo Pasto",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pasto.webp"
+    }
+  },
+  {
+    "id": 1113,
+    "nombre": "Jeison Angulo",
+    "equipo_id": 16,
+    "equipo": {
+      "id": 16,
+      "nombre": "Independiente Santa Fe",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Santa%20Fe.webp"
+    }
+  },
+  {
+    "id": 1096,
+    "nombre": "Jeison Medina",
+    "equipo_id": 7,
+    "equipo": {
+      "id": 7,
+      "nombre": "Independiente Medellín",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Medell%C3%ADn.webp"
+    }
+  },
+  {
+    "id": 1190,
+    "nombre": "Jermein Peña",
+    "equipo_id": 12,
+    "equipo": {
+      "id": 12,
+      "nombre": "Junior F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Junior%20FC.webp"
+    }
+  },
+  {
+    "id": 1154,
+    "nombre": "Jerson Malagón",
+    "equipo_id": 4,
+    "equipo": {
+      "id": 4,
+      "nombre": "Jaguares F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Jaguares%20de%20Cordoba.webp"
+    }
+  },
+  {
+    "id": 1069,
+    "nombre": "Jerónimo Barrera",
+    "equipo_id": 18,
+    "equipo": {
+      "id": 18,
+      "nombre": "Fortaleza",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Fortaleza.webp"
+    }
+  },
+  {
+    "id": 1368,
+    "nombre": "Jesus Diaz",
+    "equipo_id": 20,
+    "equipo": {
+      "id": 20,
+      "nombre": "Cúcuta Deportivo",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/C%C3%BAcuta%20Deportivo.webp"
+    }
+  },
+  {
+    "id": 814,
+    "nombre": "Jesus Figueroa",
+    "equipo_id": 17,
+    "equipo": {
+      "id": 17,
+      "nombre": "Alianza Valledupar F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Alianza%20Valledupar.webp"
+    }
+  },
+  {
+    "id": 1194,
+    "nombre": "Jesus Rivas",
+    "equipo_id": 12,
+    "equipo": {
+      "id": 12,
+      "nombre": "Junior F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Junior%20FC.webp"
+    }
+  },
+  {
+    "id": 1410,
+    "nombre": "Jesús Camargo",
+    "equipo_id": 19,
+    "equipo": {
+      "id": 19,
+      "nombre": "Once Caldas DAF",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Once%20Caldas.webp"
+    }
+  },
+  {
+    "id": 1337,
+    "nombre": "Jesús Muñoz",
+    "equipo_id": 17,
+    "equipo": {
+      "id": 17,
+      "nombre": "Alianza Valledupar F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Alianza%20Valledupar.webp"
+    }
+  },
+  {
+    "id": 1397,
+    "nombre": "Jhan Mena",
+    "equipo_id": 7,
+    "equipo": {
+      "id": 7,
+      "nombre": "Independiente Medellín",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Medell%C3%ADn.webp"
+    }
+  },
+  {
+    "id": 966,
+    "nombre": "Jherson Mosquera",
+    "equipo_id": 11,
+    "equipo": {
+      "id": 11,
+      "nombre": "Deportes Tolima",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportes%20Tolima.webp"
+    }
+  },
+  {
+    "id": 817,
+    "nombre": "Jhildrey Lasso",
+    "equipo_id": 17,
+    "equipo": {
+      "id": 17,
+      "nombre": "Alianza Valledupar F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Alianza%20Valledupar.webp"
+    }
+  },
+  {
+    "id": 1076,
+    "nombre": "Jhoiner Salas",
+    "equipo_id": 18,
+    "equipo": {
+      "id": 18,
+      "nombre": "Fortaleza",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Fortaleza.webp"
+    }
+  },
+  {
+    "id": 1211,
+    "nombre": "Jhojan Escobar",
+    "equipo_id": 1,
+    "equipo": {
+      "id": 1,
+      "nombre": "Llaneros F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Llaneros.webp"
+    }
+  },
+  {
+    "id": 1117,
+    "nombre": "Jhojan Torres",
+    "equipo_id": 16,
+    "equipo": {
+      "id": 16,
+      "nombre": "Independiente Santa Fe",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Santa%20Fe.webp"
+    }
+  },
+  {
+    "id": 1408,
+    "nombre": "Jhomier Guerrero",
+    "equipo_id": 9,
+    "equipo": {
+      "id": 9,
+      "nombre": "Millonarios F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Millonarios.webp"
+    }
+  },
+  {
+    "id": 1364,
+    "nombre": "Jhon Alexander Quiñones",
+    "equipo_id": 20,
+    "equipo": {
+      "id": 20,
+      "nombre": "Cúcuta Deportivo",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/C%C3%BAcuta%20Deportivo.webp"
+    }
+  },
+  {
+    "id": 1062,
+    "nombre": "Jhon Balanta",
+    "equipo_id": 18,
+    "equipo": {
+      "id": 18,
+      "nombre": "Fortaleza",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Fortaleza.webp"
+    }
+  },
+  {
+    "id": 882,
+    "nombre": "Jhon Fredy Salazar",
+    "equipo_id": 10,
+    "equipo": {
+      "id": 10,
+      "nombre": "Atlético Bucaramanga",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Bucaramanga.webp"
+    }
+  },
+  {
+    "id": 1052,
+    "nombre": "Jhon Largacha",
+    "equipo_id": 2,
+    "equipo": {
+      "id": 2,
+      "nombre": "Deportivo Pereira",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pereira.webp"
+    }
+  },
+  {
+    "id": 1396,
+    "nombre": "Jhon Martínez",
+    "equipo_id": 18,
+    "equipo": {
+      "id": 18,
+      "nombre": "Fortaleza",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Fortaleza.webp"
+    }
+  },
+  {
+    "id": 1304,
+    "nombre": "Jhon Melendez",
+    "equipo_id": 15,
+    "equipo": {
+      "id": 15,
+      "nombre": "Águilas Doradas",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/%C3%81guilas%20Doradas.webp"
+    }
+  },
+  {
+    "id": 855,
+    "nombre": "Jhon Murillo",
+    "equipo_id": 14,
+    "equipo": {
+      "id": 14,
+      "nombre": "América de Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Am%C3%A9rica%20de%20Cali.webp"
+    }
+  },
+  {
+    "id": 1024,
+    "nombre": "Jhon Méndez",
+    "equipo_id": 8,
+    "equipo": {
+      "id": 8,
+      "nombre": "Deportivo Pasto",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pasto.webp"
+    }
+  },
+  {
+    "id": 1189,
+    "nombre": "Jhon Navia",
+    "equipo_id": 12,
+    "equipo": {
+      "id": 12,
+      "nombre": "Junior F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Junior%20FC.webp"
+    }
+  },
+  {
+    "id": 1342,
+    "nombre": "Jhon Ordoñez",
+    "equipo_id": 10,
+    "equipo": {
+      "id": 10,
+      "nombre": "Atlético Bucaramanga",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Bucaramanga.webp"
+    }
+  },
+  {
+    "id": 859,
+    "nombre": "Jhon Palacios",
+    "equipo_id": 14,
+    "equipo": {
+      "id": 14,
+      "nombre": "América de Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Am%C3%A9rica%20de%20Cali.webp"
+    }
+  },
+  {
+    "id": 923,
+    "nombre": "Jhon Romana",
+    "equipo_id": 5,
+    "equipo": {
+      "id": 5,
+      "nombre": "Boyacá Chicó F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Boyaca%20Chic%C3%B3.webp"
+    }
+  },
+  {
+    "id": 1070,
+    "nombre": "Jhon Solis",
+    "equipo_id": 18,
+    "equipo": {
+      "id": 18,
+      "nombre": "Fortaleza",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Fortaleza.webp"
+    }
+  },
+  {
+    "id": 1064,
+    "nombre": "Jhon Velásquez",
+    "equipo_id": 18,
+    "equipo": {
+      "id": 18,
+      "nombre": "Fortaleza",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Fortaleza.webp"
+    }
+  },
+  {
+    "id": 1233,
+    "nombre": "Jhon Vásquez",
+    "equipo_id": 1,
+    "equipo": {
+      "id": 1,
+      "nombre": "Llaneros F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Llaneros.webp"
+    }
+  },
+  {
+    "id": 1380,
+    "nombre": "Jhonatan Agudelo",
+    "equipo_id": 20,
+    "equipo": {
+      "id": 20,
+      "nombre": "Cúcuta Deportivo",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/C%C3%BAcuta%20Deportivo.webp"
+    }
+  },
+  {
+    "id": 1352,
+    "nombre": "Jhonier Alomía",
+    "equipo_id": 5,
+    "equipo": {
+      "id": 5,
+      "nombre": "Boyacá Chicó F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Boyaca%20Chic%C3%B3.webp"
+    }
+  },
+  {
+    "id": 1071,
+    "nombre": "Jhonier Blanco",
+    "equipo_id": 18,
+    "equipo": {
+      "id": 18,
+      "nombre": "Fortaleza",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Fortaleza.webp"
+    }
+  },
+  {
+    "id": 1236,
+    "nombre": "Jhonier Guerrero",
+    "equipo_id": 9,
+    "equipo": {
+      "id": 9,
+      "nombre": "Millonarios F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Millonarios.webp"
+    }
+  },
+  {
+    "id": 1050,
+    "nombre": "Jhonny Jordán",
+    "equipo_id": 2,
+    "equipo": {
+      "id": 2,
+      "nombre": "Deportivo Pereira",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pereira.webp"
+    }
+  },
+  {
+    "id": 1219,
+    "nombre": "Jimmy Medranda",
+    "equipo_id": 1,
+    "equipo": {
+      "id": 1,
+      "nombre": "Llaneros F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Llaneros.webp"
+    }
+  },
+  {
+    "id": 1061,
+    "nombre": "Joan Cajares",
+    "equipo_id": 18,
+    "equipo": {
+      "id": 18,
+      "nombre": "Fortaleza",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Fortaleza.webp"
+    }
+  },
+  {
+    "id": 1316,
+    "nombre": "Joan Castro",
+    "equipo_id": 13,
+    "equipo": {
+      "id": 13,
+      "nombre": "Internacional de Bogotá",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Internacional%20de%20Bogot%C3%A1.webp"
+    }
+  },
+  {
+    "id": 998,
+    "nombre": "Joan Gómez",
+    "equipo_id": 3,
+    "equipo": {
+      "id": 3,
+      "nombre": "Deportivo Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Cali.webp"
+    }
+  },
+  {
+    "id": 1262,
+    "nombre": "Joan Parra",
+    "equipo_id": 19,
+    "equipo": {
+      "id": 19,
+      "nombre": "Once Caldas DAF",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Once%20Caldas.webp"
+    }
+  },
+  {
+    "id": 1365,
+    "nombre": "Joao Abonia",
+    "equipo_id": 20,
+    "equipo": {
+      "id": 20,
+      "nombre": "Cúcuta Deportivo",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/C%C3%BAcuta%20Deportivo.webp"
+    }
+  },
+  {
+    "id": 1081,
+    "nombre": "Joaquín Varela",
+    "equipo_id": 7,
+    "equipo": {
+      "id": 7,
+      "nombre": "Independiente Medellín",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Medell%C3%ADn.webp"
+    }
+  },
+  {
+    "id": 1202,
+    "nombre": "Joel Canchimbo",
+    "equipo_id": 12,
+    "equipo": {
+      "id": 12,
+      "nombre": "Junior F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Junior%20FC.webp"
+    }
+  },
+  {
+    "id": 1229,
+    "nombre": "Joel Contreras",
+    "equipo_id": 1,
+    "equipo": {
+      "id": 1,
+      "nombre": "Llaneros F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Llaneros.webp"
+    }
+  },
+  {
+    "id": 1165,
+    "nombre": "Johan Beltran",
+    "equipo_id": 4,
+    "equipo": {
+      "id": 4,
+      "nombre": "Jaguares F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Jaguares%20de%20Cordoba.webp"
+    }
+  },
+  {
+    "id": 1333,
+    "nombre": "Johan Caballero",
+    "equipo_id": 13,
+    "equipo": {
+      "id": 13,
+      "nombre": "Internacional de Bogotá",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Internacional%20de%20Bogot%C3%A1.webp"
+    }
+  },
+  {
+    "id": 1170,
+    "nombre": "Johan Hinestroza",
+    "equipo_id": 4,
+    "equipo": {
+      "id": 4,
+      "nombre": "Jaguares F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Jaguares%20de%20Cordoba.webp"
+    }
+  },
+  {
+    "id": 1000,
+    "nombre": "Johan Martinez",
+    "equipo_id": 3,
+    "equipo": {
+      "id": 3,
+      "nombre": "Deportivo Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Cali.webp"
+    }
+  },
+  {
+    "id": 952,
+    "nombre": "Johan Montes",
+    "equipo_id": 20,
+    "equipo": {
+      "id": 20,
+      "nombre": "Cúcuta Deportivo",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/C%C3%BAcuta%20Deportivo.webp"
+    }
+  },
+  {
+    "id": 1359,
+    "nombre": "Johan Velásquez",
+    "equipo_id": 20,
+    "equipo": {
+      "id": 20,
+      "nombre": "Cúcuta Deportivo",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/C%C3%BAcuta%20Deportivo.webp"
+    }
+  },
+  {
+    "id": 806,
+    "nombre": "Johan Wallens",
+    "equipo_id": 17,
+    "equipo": {
+      "id": 17,
+      "nombre": "Alianza Valledupar F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Alianza%20Valledupar.webp"
+    }
+  },
+  {
+    "id": 1404,
+    "nombre": "Johar Mejia",
+    "equipo_id": 4,
+    "equipo": {
+      "id": 4,
+      "nombre": "Jaguares F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Jaguares%20de%20Cordoba.webp"
+    }
+  },
+  {
+    "id": 1279,
+    "nombre": "John Deiby Araujo",
+    "equipo_id": 19,
+    "equipo": {
+      "id": 19,
+      "nombre": "Once Caldas DAF",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Once%20Caldas.webp"
+    }
+  },
+  {
+    "id": 1287,
+    "nombre": "John García",
+    "equipo_id": 15,
+    "equipo": {
+      "id": 15,
+      "nombre": "Águilas Doradas",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/%C3%81guilas%20Doradas.webp"
+    }
+  },
+  {
+    "id": 1102,
+    "nombre": "John Montaño",
+    "equipo_id": 7,
+    "equipo": {
+      "id": 7,
+      "nombre": "Independiente Medellín",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Medell%C3%ADn.webp"
+    }
+  },
+  {
+    "id": 1286,
+    "nombre": "John Ontaneda",
+    "equipo_id": 15,
+    "equipo": {
+      "id": 15,
+      "nombre": "Águilas Doradas",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/%C3%81guilas%20Doradas.webp"
+    }
+  },
+  {
+    "id": 1028,
+    "nombre": "Joider Micolta",
+    "equipo_id": 8,
+    "equipo": {
+      "id": 8,
+      "nombre": "Deportivo Pasto",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pasto.webp"
+    }
+  },
+  {
+    "id": 943,
+    "nombre": "Jonathan Agudelo",
+    "equipo_id": 20,
+    "equipo": {
+      "id": 20,
+      "nombre": "Cúcuta Deportivo",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/C%C3%BAcuta%20Deportivo.webp"
+    }
+  },
+  {
+    "id": 1160,
+    "nombre": "Jonathan Lovera",
+    "equipo_id": 4,
+    "equipo": {
+      "id": 4,
+      "nombre": "Jaguares F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Jaguares%20de%20Cordoba.webp"
+    }
+  },
+  {
+    "id": 1058,
+    "nombre": "Jonathan Marulanda",
+    "equipo_id": 18,
+    "equipo": {
+      "id": 18,
+      "nombre": "Fortaleza",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Fortaleza.webp"
+    }
+  },
+  {
+    "id": 1025,
+    "nombre": "Jonathan Perlaza",
+    "equipo_id": 8,
+    "equipo": {
+      "id": 8,
+      "nombre": "Deportivo Pasto",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pasto.webp"
+    }
+  },
+  {
+    "id": 1038,
+    "nombre": "Jordy Monroy",
+    "equipo_id": 2,
+    "equipo": {
+      "id": 2,
+      "nombre": "Deportivo Pereira",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pereira.webp"
+    }
+  },
+  {
+    "id": 1240,
+    "nombre": "Jorge Arias",
+    "equipo_id": 9,
+    "equipo": {
+      "id": 9,
+      "nombre": "Millonarios F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Millonarios.webp"
+    }
+  },
+  {
+    "id": 1044,
+    "nombre": "Jorge Bermudez",
+    "equipo_id": 2,
+    "equipo": {
+      "id": 2,
+      "nombre": "Deportivo Pereira",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pereira.webp"
+    }
+  },
+  {
+    "id": 1266,
+    "nombre": "Jorge Cardona",
+    "equipo_id": 19,
+    "equipo": {
+      "id": 19,
+      "nombre": "Once Caldas DAF",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Once%20Caldas.webp"
+    }
+  },
+  {
+    "id": 973,
+    "nombre": "Jorge Hurtado",
+    "equipo_id": 11,
+    "equipo": {
+      "id": 11,
+      "nombre": "Deportes Tolima",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportes%20Tolima.webp"
+    }
+  },
+  {
+    "id": 1031,
+    "nombre": "Jorge Martínez",
+    "equipo_id": 2,
+    "equipo": {
+      "id": 2,
+      "nombre": "Deportivo Pereira",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pereira.webp"
+    }
+  },
+  {
+    "id": 1023,
+    "nombre": "Jorge Obregón",
+    "equipo_id": 8,
+    "equipo": {
+      "id": 8,
+      "nombre": "Deportivo Pasto",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pasto.webp"
+    }
+  },
+  {
+    "id": 1284,
+    "nombre": "Jorge Soto",
+    "equipo_id": 15,
+    "equipo": {
+      "id": 15,
+      "nombre": "Águilas Doradas",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/%C3%81guilas%20Doradas.webp"
+    }
+  },
+  {
+    "id": 898,
+    "nombre": "Jorman Campuzano",
+    "equipo_id": 6,
+    "equipo": {
+      "id": 6,
+      "nombre": "Atlético Nacional",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Nacional.webp"
+    }
+  },
+  {
+    "id": 849,
+    "nombre": "Jose Cavadia",
+    "equipo_id": 14,
+    "equipo": {
+      "id": 14,
+      "nombre": "América de Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Am%C3%A9rica%20de%20Cali.webp"
+    }
+  },
+  {
+    "id": 868,
+    "nombre": "Jose García",
+    "equipo_id": 10,
+    "equipo": {
+      "id": 10,
+      "nombre": "Atlético Bucaramanga",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Bucaramanga.webp"
+    }
+  },
+  {
+    "id": 984,
+    "nombre": "Jose Moya",
+    "equipo_id": 3,
+    "equipo": {
+      "id": 3,
+      "nombre": "Deportivo Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Cali.webp"
+    }
+  },
+  {
+    "id": 866,
+    "nombre": "Jose Ortiz",
+    "equipo_id": 10,
+    "equipo": {
+      "id": 10,
+      "nombre": "Atlético Bucaramanga",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Bucaramanga.webp"
+    }
+  },
+  {
+    "id": 848,
+    "nombre": "Josen Escobar",
+    "equipo_id": 14,
+    "equipo": {
+      "id": 14,
+      "nombre": "América de Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Am%C3%A9rica%20de%20Cali.webp"
+    }
+  },
+  {
+    "id": 824,
+    "nombre": "Josy Pérez",
+    "equipo_id": 17,
+    "equipo": {
+      "id": 17,
+      "nombre": "Alianza Valledupar F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Alianza%20Valledupar.webp"
+    }
+  },
+  {
+    "id": 988,
+    "nombre": "José Caldera",
+    "equipo_id": 3,
+    "equipo": {
+      "id": 3,
+      "nombre": "Deportivo Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Cali.webp"
+    }
+  },
+  {
+    "id": 1008,
+    "nombre": "Joyce Ossa",
+    "equipo_id": 8,
+    "equipo": {
+      "id": 8,
+      "nombre": "Deportivo Pasto",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pasto.webp"
+    }
+  },
+  {
+    "id": 1387,
+    "nombre": "Joyce Ríos",
+    "equipo_id": 8,
+    "equipo": {
+      "id": 8,
+      "nombre": "Deportivo Pasto",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pasto.webp"
+    }
+  },
+  {
+    "id": 1299,
+    "nombre": "Juan Avalo",
+    "equipo_id": 15,
+    "equipo": {
+      "id": 15,
+      "nombre": "Águilas Doradas",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/%C3%81guilas%20Doradas.webp"
+    }
+  },
+  {
+    "id": 1032,
+    "nombre": "Juan Betancourth",
+    "equipo_id": 2,
+    "equipo": {
+      "id": 2,
+      "nombre": "Deportivo Pereira",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pereira.webp"
+    }
+  },
+  {
+    "id": 1393,
+    "nombre": "Juan Camilo Castillo",
+    "equipo_id": 18,
+    "equipo": {
+      "id": 18,
+      "nombre": "Fortaleza",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Fortaleza.webp"
+    }
+  },
+  {
+    "id": 807,
+    "nombre": "Juan Camilo Chaverra",
+    "equipo_id": 17,
+    "equipo": {
+      "id": 17,
+      "nombre": "Alianza Valledupar F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Alianza%20Valledupar.webp"
+    }
+  },
+  {
+    "id": 949,
+    "nombre": "Juan Camilo Moreno",
+    "equipo_id": 20,
+    "equipo": {
+      "id": 20,
+      "nombre": "Cúcuta Deportivo",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/C%C3%BAcuta%20Deportivo.webp"
+    }
+  },
+  {
+    "id": 869,
+    "nombre": "Juan Camilo Mosquera",
+    "equipo_id": 10,
+    "equipo": {
+      "id": 10,
+      "nombre": "Atlético Bucaramanga",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Bucaramanga.webp"
+    }
+  },
+  {
+    "id": 1250,
+    "nombre": "Juan Carlos Pereira",
+    "equipo_id": 9,
+    "equipo": {
+      "id": 9,
+      "nombre": "Millonarios F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Millonarios.webp"
+    }
+  },
+  {
+    "id": 1310,
+    "nombre": "Juan Carrasco",
+    "equipo_id": 13,
+    "equipo": {
+      "id": 13,
+      "nombre": "Internacional de Bogotá",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Internacional%20de%20Bogot%C3%A1.webp"
+    }
+  },
+  {
+    "id": 1268,
+    "nombre": "Juan Castaño",
+    "equipo_id": 19,
+    "equipo": {
+      "id": 19,
+      "nombre": "Once Caldas DAF",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Once%20Caldas.webp"
+    }
+  },
+  {
+    "id": 1223,
+    "nombre": "Juan Castilla",
+    "equipo_id": 1,
+    "equipo": {
+      "id": 1,
+      "nombre": "Llaneros F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Llaneros.webp"
+    }
+  },
+  {
+    "id": 1371,
+    "nombre": "Juan Ceballos",
+    "equipo_id": 20,
+    "equipo": {
+      "id": 20,
+      "nombre": "Cúcuta Deportivo",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/C%C3%BAcuta%20Deportivo.webp"
+    }
+  },
+  {
+    "id": 1098,
+    "nombre": "Juan Cordoba",
+    "equipo_id": 7,
+    "equipo": {
+      "id": 7,
+      "nombre": "Independiente Medellín",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Medell%C3%ADn.webp"
+    }
+  },
+  {
+    "id": 1270,
+    "nombre": "Juan David Cuesta",
+    "equipo_id": 19,
+    "equipo": {
+      "id": 19,
+      "nombre": "Once Caldas DAF",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Once%20Caldas.webp"
+    }
+  },
+  {
+    "id": 1357,
+    "nombre": "Juan David Ramirez",
+    "equipo_id": 20,
+    "equipo": {
+      "id": 20,
+      "nombre": "Cúcuta Deportivo",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/C%C3%BAcuta%20Deportivo.webp"
+    }
+  },
+  {
+    "id": 1192,
+    "nombre": "Juan David Rios",
+    "equipo_id": 12,
+    "equipo": {
+      "id": 12,
+      "nombre": "Junior F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Junior%20FC.webp"
+    }
+  },
+  {
+    "id": 1001,
+    "nombre": "Juan Dinenno",
+    "equipo_id": 3,
+    "equipo": {
+      "id": 3,
+      "nombre": "Deportivo Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Cali.webp"
+    }
+  },
+  {
+    "id": 926,
+    "nombre": "Juan Díaz",
+    "equipo_id": 5,
+    "equipo": {
+      "id": 5,
+      "nombre": "Boyacá Chicó F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Boyaca%20Chic%C3%B3.webp"
+    }
+  },
+  {
+    "id": 1399,
+    "nombre": "Juan Espitia",
+    "equipo_id": 16,
+    "equipo": {
+      "id": 16,
+      "nombre": "Independiente Santa Fe",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Santa%20Fe.webp"
+    }
+  },
+  {
+    "id": 1334,
+    "nombre": "Juan Fernando Quintero",
+    "equipo_id": 7,
+    "equipo": {
+      "id": 7,
+      "nombre": "Independiente Medellín",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Medell%C3%ADn.webp"
+    }
+  },
+  {
+    "id": 1156,
+    "nombre": "Juan Franco",
+    "equipo_id": 4,
+    "equipo": {
+      "id": 4,
+      "nombre": "Jaguares F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Jaguares%20de%20Cordoba.webp"
+    }
+  },
+  {
+    "id": 1261,
+    "nombre": "Juan Gallego",
+    "equipo_id": 19,
+    "equipo": {
+      "id": 19,
+      "nombre": "Once Caldas DAF",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Once%20Caldas.webp"
+    }
+  },
+  {
+    "id": 1423,
+    "nombre": "Juan Guillermo Cuadrado",
+    "equipo_id": 9,
+    "equipo": {
+      "id": 9,
+      "nombre": "Millonarios F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Millonarios.webp"
+    }
+  },
+  {
+    "id": 962,
+    "nombre": "Juan Jose Mera",
+    "equipo_id": 11,
+    "equipo": {
+      "id": 11,
+      "nombre": "Deportes Tolima",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportes%20Tolima.webp"
+    }
+  },
+  {
+    "id": 1209,
+    "nombre": "Juan Loaiza",
+    "equipo_id": 1,
+    "equipo": {
+      "id": 1,
+      "nombre": "Llaneros F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Llaneros.webp"
+    }
+  },
+  {
+    "id": 834,
+    "nombre": "Juan Montoya",
+    "equipo_id": 14,
+    "equipo": {
+      "id": 14,
+      "nombre": "América de Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Am%C3%A9rica%20de%20Cali.webp"
+    }
+  },
+  {
+    "id": 1159,
+    "nombre": "Juan Pablo Arcila",
+    "equipo_id": 4,
+    "equipo": {
+      "id": 4,
+      "nombre": "Jaguares F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Jaguares%20de%20Cordoba.webp"
+    }
+  },
+  {
+    "id": 1272,
+    "nombre": "Juan Pablo Nieto",
+    "equipo_id": 19,
+    "equipo": {
+      "id": 19,
+      "nombre": "Once Caldas DAF",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Once%20Caldas.webp"
+    }
+  },
+  {
+    "id": 1271,
+    "nombre": "Juan Patiño",
+    "equipo_id": 19,
+    "equipo": {
+      "id": 19,
+      "nombre": "Once Caldas DAF",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Once%20Caldas.webp"
+    }
+  },
+  {
+    "id": 1213,
+    "nombre": "Juan Pertuz",
+    "equipo_id": 1,
+    "equipo": {
+      "id": 1,
+      "nombre": "Llaneros F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Llaneros.webp"
+    }
+  },
+  {
+    "id": 927,
+    "nombre": "Juan Peñaloza",
+    "equipo_id": 5,
+    "equipo": {
+      "id": 5,
+      "nombre": "Boyacá Chicó F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Boyaca%20Chic%C3%B3.webp"
+    }
+  },
+  {
+    "id": 918,
+    "nombre": "Juan Quiceno",
+    "equipo_id": 5,
+    "equipo": {
+      "id": 5,
+      "nombre": "Boyacá Chicó F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Boyaca%20Chic%C3%B3.webp"
+    }
+  },
+  {
+    "id": 1106,
+    "nombre": "Juan Quintero",
+    "equipo_id": 16,
+    "equipo": {
+      "id": 16,
+      "nombre": "Independiente Santa Fe",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Santa%20Fe.webp"
+    }
+  },
+  {
+    "id": 1222,
+    "nombre": "Juan Ramirez",
+    "equipo_id": 1,
+    "equipo": {
+      "id": 1,
+      "nombre": "Llaneros F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Llaneros.webp"
+    }
+  },
+  {
+    "id": 897,
+    "nombre": "Juan Rengifo",
+    "equipo_id": 6,
+    "equipo": {
+      "id": 6,
+      "nombre": "Atlético Nacional",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Nacional.webp"
+    }
+  },
+  {
+    "id": 1300,
+    "nombre": "Juan Roa",
+    "equipo_id": 15,
+    "equipo": {
+      "id": 15,
+      "nombre": "Águilas Doradas",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/%C3%81guilas%20Doradas.webp"
+    }
+  },
+  {
+    "id": 991,
+    "nombre": "Juan Tello",
+    "equipo_id": 3,
+    "equipo": {
+      "id": 3,
+      "nombre": "Deportivo Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Cali.webp"
+    }
+  },
+  {
+    "id": 815,
+    "nombre": "Juan Viveros",
+    "equipo_id": 17,
+    "equipo": {
+      "id": 17,
+      "nombre": "Alianza Valledupar F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Alianza%20Valledupar.webp"
+    }
+  },
+  {
+    "id": 900,
+    "nombre": "Juan Zapata",
+    "equipo_id": 6,
+    "equipo": {
+      "id": 6,
+      "nombre": "Atlético Nacional",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Nacional.webp"
+    }
+  },
+  {
+    "id": 1258,
+    "nombre": "Julian Angulo",
+    "equipo_id": 9,
+    "equipo": {
+      "id": 9,
+      "nombre": "Millonarios F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Millonarios.webp"
+    }
+  },
+  {
+    "id": 1007,
+    "nombre": "Julian Quiñones",
+    "equipo_id": 8,
+    "equipo": {
+      "id": 8,
+      "nombre": "Deportivo Pasto",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pasto.webp"
+    }
+  },
+  {
+    "id": 964,
+    "nombre": "Junior Hernández",
+    "equipo_id": 11,
+    "equipo": {
+      "id": 11,
+      "nombre": "Deportes Tolima",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportes%20Tolima.webp"
+    }
+  },
+  {
+    "id": 1295,
+    "nombre": "Junior Noguera",
+    "equipo_id": 15,
+    "equipo": {
+      "id": 15,
+      "nombre": "Águilas Doradas",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/%C3%81guilas%20Doradas.webp"
+    }
+  },
+  {
+    "id": 1127,
+    "nombre": "Jáder Obrian",
+    "equipo_id": 16,
+    "equipo": {
+      "id": 16,
+      "nombre": "Independiente Santa Fe",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Santa%20Fe.webp"
+    }
+  },
+  {
+    "id": 1177,
+    "nombre": "Kahiser Lenis",
+    "equipo_id": 4,
+    "equipo": {
+      "id": 4,
+      "nombre": "Jaguares F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Jaguares%20de%20Cordoba.webp"
+    }
+  },
+  {
+    "id": 986,
+    "nombre": "Kalazán Suárez",
+    "equipo_id": 3,
+    "equipo": {
+      "id": 3,
+      "nombre": "Deportivo Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Cali.webp"
+    }
+  },
+  {
+    "id": 989,
+    "nombre": "Keimer Sandoval",
+    "equipo_id": 3,
+    "equipo": {
+      "id": 3,
+      "nombre": "Deportivo Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Cali.webp"
+    }
+  },
+  {
+    "id": 977,
+    "nombre": "Kelvin Florez",
+    "equipo_id": 11,
+    "equipo": {
+      "id": 11,
+      "nombre": "Deportes Tolima",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportes%20Tolima.webp"
+    }
+  },
+  {
+    "id": 1225,
+    "nombre": "Kelvin Osorio",
+    "equipo_id": 1,
+    "equipo": {
+      "id": 1,
+      "nombre": "Llaneros F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Llaneros.webp"
+    }
+  },
+  {
+    "id": 1208,
+    "nombre": "Kevin Armesto",
+    "equipo_id": 1,
+    "equipo": {
+      "id": 1,
+      "nombre": "Llaneros F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Llaneros.webp"
+    }
+  },
+  {
+    "id": 1105,
+    "nombre": "Kevin Balanta",
+    "equipo_id": 16,
+    "equipo": {
+      "id": 16,
+      "nombre": "Independiente Santa Fe",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Santa%20Fe.webp"
+    }
+  },
+  {
+    "id": 1226,
+    "nombre": "Kevin Caicedo",
+    "equipo_id": 1,
+    "equipo": {
+      "id": 1,
+      "nombre": "Llaneros F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Llaneros.webp"
+    }
+  },
+  {
+    "id": 1308,
+    "nombre": "Kevin Cataño",
+    "equipo_id": 13,
+    "equipo": {
+      "id": 13,
+      "nombre": "Internacional de Bogotá",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Internacional%20de%20Bogot%C3%A1.webp"
+    }
+  },
+  {
+    "id": 1418,
+    "nombre": "Kevin Londoño",
+    "equipo_id": 10,
+    "equipo": {
+      "id": 10,
+      "nombre": "Atlético Bucaramanga",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Bucaramanga.webp"
+    }
+  },
+  {
+    "id": 1372,
+    "nombre": "Kevin Londoño",
+    "equipo_id": 20,
+    "equipo": {
+      "id": 20,
+      "nombre": "Cúcuta Deportivo",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/C%C3%BAcuta%20Deportivo.webp"
+    }
+  },
+  {
+    "id": 1083,
+    "nombre": "Kevin Mantilla",
+    "equipo_id": 7,
+    "equipo": {
+      "id": 7,
+      "nombre": "Independiente Medellín",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Medell%C3%ADn.webp"
+    }
+  },
+  {
+    "id": 810,
+    "nombre": "Kevin Moreno",
+    "equipo_id": 17,
+    "equipo": {
+      "id": 17,
+      "nombre": "Alianza Valledupar F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Alianza%20Valledupar.webp"
+    }
+  },
+  {
+    "id": 901,
+    "nombre": "Kevin Parra",
+    "equipo_id": 6,
+    "equipo": {
+      "id": 6,
+      "nombre": "Atlético Nacional",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Nacional.webp"
+    }
+  },
+  {
+    "id": 1201,
+    "nombre": "Kevin Perez",
+    "equipo_id": 12,
+    "equipo": {
+      "id": 12,
+      "nombre": "Junior F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Junior%20FC.webp"
+    }
+  },
+  {
+    "id": 1361,
+    "nombre": "Kevin Tamayo",
+    "equipo_id": 20,
+    "equipo": {
+      "id": 20,
+      "nombre": "Cúcuta Deportivo",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/C%C3%BAcuta%20Deportivo.webp"
+    }
+  },
+  {
+    "id": 1116,
+    "nombre": "Kilian Toscano",
+    "equipo_id": 16,
+    "equipo": {
+      "id": 16,
+      "nombre": "Independiente Santa Fe",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Santa%20Fe.webp"
+    }
+  },
+  {
+    "id": 1319,
+    "nombre": "Larry Vásquez",
+    "equipo_id": 13,
+    "equipo": {
+      "id": 13,
+      "nombre": "Internacional de Bogotá",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Internacional%20de%20Bogot%C3%A1.webp"
+    }
+  },
+  {
+    "id": 1115,
+    "nombre": "Leandro Angulo",
+    "equipo_id": 16,
+    "equipo": {
+      "id": 16,
+      "nombre": "Independiente Santa Fe",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Santa%20Fe.webp"
+    }
+  },
+  {
+    "id": 1370,
+    "nombre": "Leider Berdugo",
+    "equipo_id": 20,
+    "equipo": {
+      "id": 20,
+      "nombre": "Cúcuta Deportivo",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/C%C3%BAcuta%20Deportivo.webp"
+    }
+  },
+  {
+    "id": 1218,
+    "nombre": "Leider Riascos",
+    "equipo_id": 1,
+    "equipo": {
+      "id": 1,
+      "nombre": "Llaneros F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Llaneros.webp"
+    }
+  },
+  {
+    "id": 1409,
+    "nombre": "Leonai Souza",
+    "equipo_id": 9,
+    "equipo": {
+      "id": 9,
+      "nombre": "Millonarios F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Millonarios.webp"
+    }
+  },
+  {
+    "id": 1257,
+    "nombre": "Leonardo Castro",
+    "equipo_id": 9,
+    "equipo": {
+      "id": 9,
+      "nombre": "Millonarios F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Millonarios.webp"
+    }
+  },
+  {
+    "id": 878,
+    "nombre": "Leonardo Flores",
+    "equipo_id": 10,
+    "equipo": {
+      "id": 10,
+      "nombre": "Atlético Bucaramanga",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Bucaramanga.webp"
+    }
+  },
+  {
+    "id": 1065,
+    "nombre": "Leonardo Pico",
+    "equipo_id": 18,
+    "equipo": {
+      "id": 18,
+      "nombre": "Fortaleza",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Fortaleza.webp"
+    }
+  },
+  {
+    "id": 812,
+    "nombre": "Leonardo Saldaña",
+    "equipo_id": 17,
+    "equipo": {
+      "id": 17,
+      "nombre": "Alianza Valledupar F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Alianza%20Valledupar.webp"
+    }
+  },
+  {
+    "id": 826,
+    "nombre": "Leyner Palacios",
+    "equipo_id": 17,
+    "equipo": {
+      "id": 17,
+      "nombre": "Alianza Valledupar F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Alianza%20Valledupar.webp"
+    }
+  },
+  {
+    "id": 985,
+    "nombre": "Leyser Chaverra",
+    "equipo_id": 3,
+    "equipo": {
+      "id": 3,
+      "nombre": "Deportivo Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Cali.webp"
+    }
+  },
+  {
+    "id": 942,
+    "nombre": "Lucas Ríos",
+    "equipo_id": 20,
+    "equipo": {
+      "id": 20,
+      "nombre": "Cúcuta Deportivo",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/C%C3%BAcuta%20Deportivo.webp"
+    }
+  },
+  {
+    "id": 884,
+    "nombre": "Luciano Pons",
+    "equipo_id": 10,
+    "equipo": {
+      "id": 10,
+      "nombre": "Atlético Bucaramanga",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Bucaramanga.webp"
+    }
+  },
+  {
+    "id": 1084,
+    "nombre": "Luis Escorcia",
+    "equipo_id": 7,
+    "equipo": {
+      "id": 7,
+      "nombre": "Independiente Medellín",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Medell%C3%ADn.webp"
+    }
+  },
+  {
+    "id": 1278,
+    "nombre": "Luis Felipe Gómez",
+    "equipo_id": 19,
+    "equipo": {
+      "id": 19,
+      "nombre": "Once Caldas DAF",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Once%20Caldas.webp"
+    }
+  },
+  {
+    "id": 1163,
+    "nombre": "Luis Jiménez",
+    "equipo_id": 4,
+    "equipo": {
+      "id": 4,
+      "nombre": "Jaguares F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Jaguares%20de%20Cordoba.webp"
+    }
+  },
+  {
+    "id": 1232,
+    "nombre": "Luis Marimón",
+    "equipo_id": 1,
+    "equipo": {
+      "id": 1,
+      "nombre": "Llaneros F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Llaneros.webp"
+    }
+  },
+  {
+    "id": 886,
+    "nombre": "Luis Marquinez",
+    "equipo_id": 6,
+    "equipo": {
+      "id": 6,
+      "nombre": "Atlético Nacional",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Nacional.webp"
+    }
+  },
+  {
+    "id": 865,
+    "nombre": "Luis Matheus",
+    "equipo_id": 10,
+    "equipo": {
+      "id": 10,
+      "nombre": "Atlético Bucaramanga",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Bucaramanga.webp"
+    }
+  },
+  {
+    "id": 1230,
+    "nombre": "Luis Miranda",
+    "equipo_id": 1,
+    "equipo": {
+      "id": 1,
+      "nombre": "Llaneros F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Llaneros.webp"
+    }
+  },
+  {
+    "id": 1200,
+    "nombre": "Luis Muriel",
+    "equipo_id": 12,
+    "equipo": {
+      "id": 12,
+      "nombre": "Junior F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Junior%20FC.webp"
+    }
+  },
+  {
+    "id": 1110,
+    "nombre": "Luis Palacios",
+    "equipo_id": 16,
+    "equipo": {
+      "id": 16,
+      "nombre": "Independiente Santa Fe",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Santa%20Fe.webp"
+    }
+  },
+  {
+    "id": 853,
+    "nombre": "Luis Quiñónes",
+    "equipo_id": 14,
+    "equipo": {
+      "id": 14,
+      "nombre": "América de Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Am%C3%A9rica%20de%20Cali.webp"
+    }
+  },
+  {
+    "id": 975,
+    "nombre": "Luis Sandoval",
+    "equipo_id": 11,
+    "equipo": {
+      "id": 11,
+      "nombre": "Deportes Tolima",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportes%20Tolima.webp"
+    }
+  },
+  {
+    "id": 969,
+    "nombre": "Luis Sánchez",
+    "equipo_id": 11,
+    "equipo": {
+      "id": 11,
+      "nombre": "Deportes Tolima",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportes%20Tolima.webp"
+    }
+  },
+  {
+    "id": 864,
+    "nombre": "Luis Vásquez",
+    "equipo_id": 10,
+    "equipo": {
+      "id": 10,
+      "nombre": "Atlético Bucaramanga",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Bucaramanga.webp"
+    }
+  },
+  {
+    "id": 956,
+    "nombre": "Léider Berdugo",
+    "equipo_id": 20,
+    "equipo": {
+      "id": 20,
+      "nombre": "Cúcuta Deportivo",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/C%C3%BAcuta%20Deportivo.webp"
+    }
+  },
+  {
+    "id": 1090,
+    "nombre": "Léider Berrío",
+    "equipo_id": 7,
+    "equipo": {
+      "id": 7,
+      "nombre": "Independiente Medellín",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Medell%C3%ADn.webp"
+    }
+  },
+  {
+    "id": 1265,
+    "nombre": "Léyder Morán",
+    "equipo_id": 19,
+    "equipo": {
+      "id": 19,
+      "nombre": "Once Caldas DAF",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Once%20Caldas.webp"
+    }
+  },
+  {
+    "id": 1053,
+    "nombre": "Marco Pérez",
+    "equipo_id": 2,
+    "equipo": {
+      "id": 2,
+      "nombre": "Deportivo Pereira",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pereira.webp"
+    }
+  },
+  {
+    "id": 841,
+    "nombre": "Marcos Mina",
+    "equipo_id": 14,
+    "equipo": {
+      "id": 14,
+      "nombre": "América de Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Am%C3%A9rica%20de%20Cali.webp"
+    }
+  },
+  {
+    "id": 1378,
+    "nombre": "Marlon Carabali",
+    "equipo_id": 20,
+    "equipo": {
+      "id": 20,
+      "nombre": "Cúcuta Deportivo",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/C%C3%BAcuta%20Deportivo.webp"
+    }
+  },
+  {
+    "id": 1221,
+    "nombre": "Marlon Sierra",
+    "equipo_id": 1,
+    "equipo": {
+      "id": 1,
+      "nombre": "Llaneros F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Llaneros.webp"
+    }
+  },
+  {
+    "id": 838,
+    "nombre": "Marlon Torres",
+    "equipo_id": 14,
+    "equipo": {
+      "id": 14,
+      "nombre": "América de Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Am%C3%A9rica%20de%20Cali.webp"
+    }
+  },
+  {
+    "id": 902,
+    "nombre": "Marlos Moreno",
+    "equipo_id": 6,
+    "equipo": {
+      "id": 6,
+      "nombre": "Atlético Nacional",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Nacional.webp"
+    }
+  },
+  {
+    "id": 867,
+    "nombre": "Martin Rea",
+    "equipo_id": 10,
+    "equipo": {
+      "id": 10,
+      "nombre": "Atlético Bucaramanga",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Bucaramanga.webp"
+    }
+  },
+  {
+    "id": 840,
+    "nombre": "Mateo Castillo",
+    "equipo_id": 14,
+    "equipo": {
+      "id": 14,
+      "nombre": "América de Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Am%C3%A9rica%20de%20Cali.webp"
+    }
+  },
+  {
+    "id": 1013,
+    "nombre": "Mateo Garavito",
+    "equipo_id": 8,
+    "equipo": {
+      "id": 8,
+      "nombre": "Deportivo Pasto",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pasto.webp"
+    }
+  },
+  {
+    "id": 1249,
+    "nombre": "Mateo García",
+    "equipo_id": 9,
+    "equipo": {
+      "id": 9,
+      "nombre": "Millonarios F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Millonarios.webp"
+    }
+  },
+  {
+    "id": 1108,
+    "nombre": "Mateo Puerta",
+    "equipo_id": 16,
+    "equipo": {
+      "id": 16,
+      "nombre": "Independiente Santa Fe",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Santa%20Fe.webp"
+    }
+  },
+  {
+    "id": 1314,
+    "nombre": "Mateo Rodas",
+    "equipo_id": 13,
+    "equipo": {
+      "id": 13,
+      "nombre": "Internacional de Bogotá",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Internacional%20de%20Bogot%C3%A1.webp"
+    }
+  },
+  {
+    "id": 1283,
+    "nombre": "Mateo Zuleta",
+    "equipo_id": 19,
+    "equipo": {
+      "id": 19,
+      "nombre": "Once Caldas DAF",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Once%20Caldas.webp"
+    }
+  },
+  {
+    "id": 895,
+    "nombre": "Matheus Uribe",
+    "equipo_id": 6,
+    "equipo": {
+      "id": 6,
+      "nombre": "Atlético Nacional",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Nacional.webp"
+    }
+  },
+  {
+    "id": 999,
+    "nombre": "Matias Orozco",
+    "equipo_id": 3,
+    "equipo": {
+      "id": 3,
+      "nombre": "Deportivo Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Cali.webp"
+    }
+  },
+  {
+    "id": 1030,
+    "nombre": "Matias Pisano",
+    "equipo_id": 8,
+    "equipo": {
+      "id": 8,
+      "nombre": "Deportivo Pasto",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pasto.webp"
+    }
+  },
+  {
+    "id": 1414,
+    "nombre": "Matías Ramírez",
+    "equipo_id": 15,
+    "equipo": {
+      "id": 15,
+      "nombre": "Águilas Doradas",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/%C3%81guilas%20Doradas.webp"
+    }
+  },
+  {
+    "id": 1162,
+    "nombre": "Mauricio Castaño",
+    "equipo_id": 4,
+    "equipo": {
+      "id": 4,
+      "nombre": "Jaguares F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Jaguares%20de%20Cordoba.webp"
+    }
+  },
+  {
+    "id": 937,
+    "nombre": "Mauricio Duarte",
+    "equipo_id": 20,
+    "equipo": {
+      "id": 20,
+      "nombre": "Cúcuta Deportivo",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/C%C3%BAcuta%20Deportivo.webp"
+    }
+  },
+  {
+    "id": 1180,
+    "nombre": "Mauro Silveira",
+    "equipo_id": 12,
+    "equipo": {
+      "id": 12,
+      "nombre": "Junior F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Junior%20FC.webp"
+    }
+  },
+  {
+    "id": 1125,
+    "nombre": "Maximiliano Lovera",
+    "equipo_id": 16,
+    "equipo": {
+      "id": 16,
+      "nombre": "Independiente Santa Fe",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Santa%20Fe.webp"
+    }
+  },
+  {
+    "id": 1027,
+    "nombre": "Mayer Gil",
+    "equipo_id": 8,
+    "equipo": {
+      "id": 8,
+      "nombre": "Deportivo Pasto",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pasto.webp"
+    }
+  },
+  {
+    "id": 1056,
+    "nombre": "Michael Barragan",
+    "equipo_id": 18,
+    "equipo": {
+      "id": 18,
+      "nombre": "Fortaleza",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Fortaleza.webp"
+    }
+  },
+  {
+    "id": 1280,
+    "nombre": "Michael Barrios",
+    "equipo_id": 19,
+    "equipo": {
+      "id": 19,
+      "nombre": "Once Caldas DAF",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Once%20Caldas.webp"
+    }
+  },
+  {
+    "id": 1048,
+    "nombre": "Miguel Aguirre",
+    "equipo_id": 2,
+    "equipo": {
+      "id": 2,
+      "nombre": "Deportivo Pereira",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pereira.webp"
+    }
+  },
+  {
+    "id": 957,
+    "nombre": "Miguel Ortega",
+    "equipo_id": 11,
+    "equipo": {
+      "id": 11,
+      "nombre": "Deportes Tolima",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportes%20Tolima.webp"
+    }
+  },
+  {
+    "id": 1312,
+    "nombre": "Miguel Pernía",
+    "equipo_id": 13,
+    "equipo": {
+      "id": 13,
+      "nombre": "Internacional de Bogotá",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Internacional%20de%20Bogot%C3%A1.webp"
+    }
+  },
+  {
+    "id": 892,
+    "nombre": "Milton Casco",
+    "equipo_id": 6,
+    "equipo": {
+      "id": 6,
+      "nombre": "Atlético Nacional",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Nacional.webp"
+    }
+  },
+  {
+    "id": 831,
+    "nombre": "Misael Martínez",
+    "equipo_id": 17,
+    "equipo": {
+      "id": 17,
+      "nombre": "Alianza Valledupar F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Alianza%20Valledupar.webp"
+    }
+  },
+  {
+    "id": 1086,
+    "nombre": "Málcom Palacios",
+    "equipo_id": 7,
+    "equipo": {
+      "id": 7,
+      "nombre": "Independiente Medellín",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Medell%C3%ADn.webp"
+    }
+  },
+  {
+    "id": 1126,
+    "nombre": "Nahuel Bustos",
+    "equipo_id": 16,
+    "equipo": {
+      "id": 16,
+      "nombre": "Independiente Santa Fe",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Santa%20Fe.webp"
+    }
+  },
+  {
+    "id": 889,
+    "nombre": "Neider Parra",
+    "equipo_id": 6,
+    "equipo": {
+      "id": 6,
+      "nombre": "Atlético Nacional",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Nacional.webp"
+    }
+  },
+  {
+    "id": 1377,
+    "nombre": "Nelson Quiñones",
+    "equipo_id": 20,
+    "equipo": {
+      "id": 20,
+      "nombre": "Cúcuta Deportivo",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/C%C3%BAcuta%20Deportivo.webp"
+    }
+  },
+  {
+    "id": 958,
+    "nombre": "Neto Volpi",
+    "equipo_id": 11,
+    "equipo": {
+      "id": 11,
+      "nombre": "Deportes Tolima",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportes%20Tolima.webp"
+    }
+  },
+  {
+    "id": 1155,
+    "nombre": "Nicolas Giraldo",
+    "equipo_id": 4,
+    "equipo": {
+      "id": 4,
+      "nombre": "Jaguares F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Jaguares%20de%20Cordoba.webp"
+    }
+  },
+  {
+    "id": 904,
+    "nombre": "Nicolas Rodriguez",
+    "equipo_id": 6,
+    "equipo": {
+      "id": 6,
+      "nombre": "Atlético Nacional",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Nacional.webp"
+    }
+  },
+  {
+    "id": 993,
+    "nombre": "Nicolás Benedetti",
+    "equipo_id": 3,
+    "equipo": {
+      "id": 3,
+      "nombre": "Deportivo Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Cali.webp"
+    }
+  },
+  {
+    "id": 1011,
+    "nombre": "Nicolás Gil",
+    "equipo_id": 8,
+    "equipo": {
+      "id": 8,
+      "nombre": "Deportivo Pasto",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pasto.webp"
+    }
+  },
+  {
+    "id": 843,
+    "nombre": "Nicolás Hernández",
+    "equipo_id": 14,
+    "equipo": {
+      "id": 14,
+      "nombre": "América de Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Am%C3%A9rica%20de%20Cali.webp"
+    }
+  },
+  {
+    "id": 1292,
+    "nombre": "Nicolás Lara",
+    "equipo_id": 15,
+    "equipo": {
+      "id": 15,
+      "nombre": "Águilas Doradas",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/%C3%81guilas%20Doradas.webp"
+    }
+  },
+  {
+    "id": 1043,
+    "nombre": "Nicolás Rengifo",
+    "equipo_id": 2,
+    "equipo": {
+      "id": 2,
+      "nombre": "Deportivo Pereira",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pereira.webp"
+    }
+  },
+  {
+    "id": 1340,
+    "nombre": "Nilson Castrillón",
+    "equipo_id": 10,
+    "equipo": {
+      "id": 10,
+      "nombre": "Atlético Bucaramanga",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Bucaramanga.webp"
+    }
+  },
+  {
+    "id": 1341,
+    "nombre": "Nilzo Ramirez",
+    "equipo_id": 10,
+    "equipo": {
+      "id": 10,
+      "nombre": "Atlético Bucaramanga",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Bucaramanga.webp"
+    }
+  },
+  {
+    "id": 1231,
+    "nombre": "Néider Ospina",
+    "equipo_id": 1,
+    "equipo": {
+      "id": 1,
+      "nombre": "Llaneros F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Llaneros.webp"
+    }
+  },
+  {
+    "id": 879,
+    "nombre": "Omar Albornoz",
+    "equipo_id": 10,
+    "equipo": {
+      "id": 10,
+      "nombre": "Atlético Bucaramanga",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Bucaramanga.webp"
+    }
+  },
+  {
+    "id": 846,
+    "nombre": "Omar Bertel",
+    "equipo_id": 14,
+    "equipo": {
+      "id": 14,
+      "nombre": "América de Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Am%C3%A9rica%20de%20Cali.webp"
+    }
+  },
+  {
+    "id": 1122,
+    "nombre": "Omar Fernández",
+    "equipo_id": 16,
+    "equipo": {
+      "id": 16,
+      "nombre": "Independiente Santa Fe",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Santa%20Fe.webp"
+    }
+  },
+  {
+    "id": 1212,
+    "nombre": "Oscar Vega",
+    "equipo_id": 1,
+    "equipo": {
+      "id": 1,
+      "nombre": "Llaneros F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Llaneros.webp"
+    }
+  },
+  {
+    "id": 1182,
+    "nombre": "Pablo Ortiz",
+    "equipo_id": 12,
+    "equipo": {
+      "id": 12,
+      "nombre": "Junior F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Junior%20FC.webp"
+    }
+  },
+  {
+    "id": 1026,
+    "nombre": "Patrick Preciado",
+    "equipo_id": 8,
+    "equipo": {
+      "id": 8,
+      "nombre": "Deportivo Pasto",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pasto.webp"
+    }
+  },
+  {
+    "id": 811,
+    "nombre": "Pedro Franco",
+    "equipo_id": 17,
+    "equipo": {
+      "id": 17,
+      "nombre": "Alianza Valledupar F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Alianza%20Valledupar.webp"
+    }
+  },
+  {
+    "id": 981,
+    "nombre": "Pedro Gallese",
+    "equipo_id": 3,
+    "equipo": {
+      "id": 3,
+      "nombre": "Deportivo Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Cali.webp"
+    }
+  },
+  {
+    "id": 1256,
+    "nombre": "Radamel Falcao",
+    "equipo_id": 9,
+    "equipo": {
+      "id": 9,
+      "nombre": "Millonarios F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Millonarios.webp"
+    }
+  },
+  {
+    "id": 1171,
+    "nombre": "Rafael Bustamante",
+    "equipo_id": 4,
+    "equipo": {
+      "id": 4,
+      "nombre": "Jaguares F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Jaguares%20de%20Cordoba.webp"
+    }
+  },
+  {
+    "id": 851,
+    "nombre": "Rafael Carrascal",
+    "equipo_id": 14,
+    "equipo": {
+      "id": 14,
+      "nombre": "América de Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Am%C3%A9rica%20de%20Cali.webp"
+    }
+  },
+  {
+    "id": 1302,
+    "nombre": "Ricardo Márquez",
+    "equipo_id": 15,
+    "equipo": {
+      "id": 15,
+      "nombre": "Águilas Doradas",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/%C3%81guilas%20Doradas.webp"
+    }
+  },
+  {
+    "id": 1041,
+    "nombre": "Richard Rentería",
+    "equipo_id": 2,
+    "equipo": {
+      "id": 2,
+      "nombre": "Deportivo Pereira",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pereira.webp"
+    }
+  },
+  {
+    "id": 1077,
+    "nombre": "Richardson Rivas",
+    "equipo_id": 18,
+    "equipo": {
+      "id": 18,
+      "nombre": "Fortaleza",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Fortaleza.webp"
+    }
+  },
+  {
+    "id": 1210,
+    "nombre": "Roameth Romaña",
+    "equipo_id": 1,
+    "equipo": {
+      "id": 1,
+      "nombre": "Llaneros F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Llaneros.webp"
+    }
+  },
+  {
+    "id": 1259,
+    "nombre": "Rodrigo Contreras",
+    "equipo_id": 9,
+    "equipo": {
+      "id": 9,
+      "nombre": "Millonarios F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Millonarios.webp"
+    }
+  },
+  {
+    "id": 1248,
+    "nombre": "Rodrigo Ureña",
+    "equipo_id": 9,
+    "equipo": {
+      "id": 9,
+      "nombre": "Millonarios F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Millonarios.webp"
+    }
+  },
+  {
+    "id": 908,
+    "nombre": "Rogerio Caicedo",
+    "equipo_id": 5,
+    "equipo": {
+      "id": 5,
+      "nombre": "Boyacá Chicó F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Boyaca%20Chic%C3%B3.webp"
+    }
+  },
+  {
+    "id": 995,
+    "nombre": "Ronaldo Pajaro",
+    "equipo_id": 3,
+    "equipo": {
+      "id": 3,
+      "nombre": "Deportivo Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Cali.webp"
+    }
+  },
+  {
+    "id": 1301,
+    "nombre": "Royner Benítez",
+    "equipo_id": 15,
+    "equipo": {
+      "id": 15,
+      "nombre": "Águilas Doradas",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/%C3%81guilas%20Doradas.webp"
+    }
+  },
+  {
+    "id": 1168,
+    "nombre": "Royscer Colpa",
+    "equipo_id": 4,
+    "equipo": {
+      "id": 4,
+      "nombre": "Jaguares F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Jaguares%20de%20Cordoba.webp"
+    }
+  },
+  {
+    "id": 1322,
+    "nombre": "Rubén Manjarrés",
+    "equipo_id": 13,
+    "equipo": {
+      "id": 13,
+      "nombre": "Internacional de Bogotá",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Internacional%20de%20Bogot%C3%A1.webp"
+    }
+  },
+  {
+    "id": 1079,
+    "nombre": "Salvador Ichazo",
+    "equipo_id": 7,
+    "equipo": {
+      "id": 7,
+      "nombre": "Independiente Medellín",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Medell%C3%ADn.webp"
+    }
+  },
+  {
+    "id": 1373,
+    "nombre": "Samir Mayo",
+    "equipo_id": 20,
+    "equipo": {
+      "id": 20,
+      "nombre": "Cúcuta Deportivo",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/C%C3%BAcuta%20Deportivo.webp"
+    }
+  },
+  {
+    "id": 1238,
+    "nombre": "Samuel Martín",
+    "equipo_id": 9,
+    "equipo": {
+      "id": 9,
+      "nombre": "Millonarios F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Millonarios.webp"
+    }
+  },
+  {
+    "id": 894,
+    "nombre": "Samuel Velásquez",
+    "equipo_id": 6,
+    "equipo": {
+      "id": 6,
+      "nombre": "Atlético Nacional",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Nacional.webp"
+    }
+  },
+  {
+    "id": 1355,
+    "nombre": "Sander Navarro",
+    "equipo_id": 5,
+    "equipo": {
+      "id": 5,
+      "nombre": "Boyacá Chicó F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Boyaca%20Chic%C3%B3.webp"
+    }
+  },
+  {
+    "id": 1036,
+    "nombre": "Santiago Aguilar",
+    "equipo_id": 2,
+    "equipo": {
+      "id": 2,
+      "nombre": "Deportivo Pereira",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pereira.webp"
+    }
+  },
+  {
+    "id": 1029,
+    "nombre": "Santiago Cordoba",
+    "equipo_id": 8,
+    "equipo": {
+      "id": 8,
+      "nombre": "Deportivo Pasto",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pasto.webp"
+    }
+  },
+  {
+    "id": 1178,
+    "nombre": "Santiago Cubides",
+    "equipo_id": 4,
+    "equipo": {
+      "id": 4,
+      "nombre": "Jaguares F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Jaguares%20de%20Cordoba.webp"
+    }
+  },
+  {
+    "id": 1060,
+    "nombre": "Santiago Cuero",
+    "equipo_id": 18,
+    "equipo": {
+      "id": 18,
+      "nombre": "Fortaleza",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Fortaleza.webp"
+    }
+  },
+  {
+    "id": 1260,
+    "nombre": "Santiago Giordana",
+    "equipo_id": 9,
+    "equipo": {
+      "id": 9,
+      "nombre": "Millonarios F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Millonarios.webp"
+    }
+  },
+  {
+    "id": 941,
+    "nombre": "Santiago Guzmán",
+    "equipo_id": 20,
+    "equipo": {
+      "id": 20,
+      "nombre": "Cúcuta Deportivo",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/C%C3%BAcuta%20Deportivo.webp"
+    }
+  },
+  {
+    "id": 1010,
+    "nombre": "Santiago Jiménez",
+    "equipo_id": 8,
+    "equipo": {
+      "id": 8,
+      "nombre": "Deportivo Pasto",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pasto.webp"
+    }
+  },
+  {
+    "id": 930,
+    "nombre": "Santiago Mera",
+    "equipo_id": 5,
+    "equipo": {
+      "id": 5,
+      "nombre": "Boyacá Chicó F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Boyaca%20Chic%C3%B3.webp"
+    }
+  },
+  {
+    "id": 1063,
+    "nombre": "Sebastian Navarro",
+    "equipo_id": 18,
+    "equipo": {
+      "id": 18,
+      "nombre": "Fortaleza",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Fortaleza.webp"
+    }
+  },
+  {
+    "id": 1068,
+    "nombre": "Sebastian Ramirez",
+    "equipo_id": 18,
+    "equipo": {
+      "id": 18,
+      "nombre": "Fortaleza",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Fortaleza.webp"
+    }
+  },
+  {
+    "id": 1374,
+    "nombre": "Sebastian Tamara",
+    "equipo_id": 20,
+    "equipo": {
+      "id": 20,
+      "nombre": "Cúcuta Deportivo",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/C%C3%BAcuta%20Deportivo.webp"
+    }
+  },
+  {
+    "id": 1034,
+    "nombre": "Sebastian Urrea",
+    "equipo_id": 2,
+    "equipo": {
+      "id": 2,
+      "nombre": "Deportivo Pereira",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pereira.webp"
+    }
+  },
+  {
+    "id": 1046,
+    "nombre": "Sebastián Acosta",
+    "equipo_id": 2,
+    "equipo": {
+      "id": 2,
+      "nombre": "Deportivo Pereira",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pereira.webp"
+    }
+  },
+  {
+    "id": 1325,
+    "nombre": "Sebastián Girado",
+    "equipo_id": 13,
+    "equipo": {
+      "id": 13,
+      "nombre": "Internacional de Bogotá",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Internacional%20de%20Bogot%C3%A1.webp"
+    }
+  },
+  {
+    "id": 971,
+    "nombre": "Sebastián Guzmán",
+    "equipo_id": 11,
+    "equipo": {
+      "id": 11,
+      "nombre": "Deportes Tolima",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportes%20Tolima.webp"
+    }
+  },
+  {
+    "id": 1073,
+    "nombre": "Sebastián Herrera",
+    "equipo_id": 18,
+    "equipo": {
+      "id": 18,
+      "nombre": "Fortaleza",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Fortaleza.webp"
+    }
+  },
+  {
+    "id": 915,
+    "nombre": "Sebastián Palma",
+    "equipo_id": 5,
+    "equipo": {
+      "id": 5,
+      "nombre": "Boyacá Chicó F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Boyaca%20Chic%C3%B3.webp"
+    }
+  },
+  {
+    "id": 1412,
+    "nombre": "Sebastián Rodríguez",
+    "equipo_id": 15,
+    "equipo": {
+      "id": 15,
+      "nombre": "Águilas Doradas",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/%C3%81guilas%20Doradas.webp"
+    }
+  },
+  {
+    "id": 920,
+    "nombre": "Sebastián Salazar",
+    "equipo_id": 5,
+    "equipo": {
+      "id": 5,
+      "nombre": "Boyacá Chicó F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Boyaca%20Chic%C3%B3.webp"
+    }
+  },
+  {
+    "id": 1242,
+    "nombre": "Sebastián Valencia",
+    "equipo_id": 9,
+    "equipo": {
+      "id": 9,
+      "nombre": "Millonarios F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Millonarios.webp"
+    }
+  },
+  {
+    "id": 1252,
+    "nombre": "Sebastián Viveros",
+    "equipo_id": 9,
+    "equipo": {
+      "id": 9,
+      "nombre": "Millonarios F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Millonarios.webp"
+    }
+  },
+  {
+    "id": 1422,
+    "nombre": "Sebastián Viveros",
+    "equipo_id": 5,
+    "equipo": {
+      "id": 5,
+      "nombre": "Boyacá Chicó F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Boyaca%20Chic%C3%B3.webp"
+    }
+  },
+  {
+    "id": 1382,
+    "nombre": "Sergio Aguayo",
+    "equipo_id": 11,
+    "equipo": {
+      "id": 11,
+      "nombre": "Deportes Tolima",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportes%20Tolima.webp"
+    }
+  },
+  {
+    "id": 828,
+    "nombre": "Sergio Aponza",
+    "equipo_id": 17,
+    "equipo": {
+      "id": 17,
+      "nombre": "Alianza Valledupar F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Alianza%20Valledupar.webp"
+    }
+  },
+  {
+    "id": 1239,
+    "nombre": "Sergio Mosquera",
+    "equipo_id": 9,
+    "equipo": {
+      "id": 9,
+      "nombre": "Millonarios F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Millonarios.webp"
+    }
+  },
+  {
+    "id": 965,
+    "nombre": "Shean Barbosa",
+    "equipo_id": 11,
+    "equipo": {
+      "id": 11,
+      "nombre": "Deportes Tolima",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportes%20Tolima.webp"
+    }
+  },
+  {
+    "id": 1311,
+    "nombre": "Simon Zapata",
+    "equipo_id": 13,
+    "equipo": {
+      "id": 13,
+      "nombre": "Internacional de Bogotá",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Internacional%20de%20Bogot%C3%A1.webp"
+    }
+  },
+  {
+    "id": 1004,
+    "nombre": "Steven Rodríguez",
+    "equipo_id": 3,
+    "equipo": {
+      "id": 3,
+      "nombre": "Deportivo Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Cali.webp"
+    }
+  },
+  {
+    "id": 1407,
+    "nombre": "Stiven Barreiro",
+    "equipo_id": 9,
+    "equipo": {
+      "id": 9,
+      "nombre": "Millonarios F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Millonarios.webp"
+    }
+  },
+  {
+    "id": 945,
+    "nombre": "Stiven Monsalve",
+    "equipo_id": 20,
+    "equipo": {
+      "id": 20,
+      "nombre": "Cúcuta Deportivo",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/C%C3%BAcuta%20Deportivo.webp"
+    }
+  },
+  {
+    "id": 1251,
+    "nombre": "Stiven Vega",
+    "equipo_id": 9,
+    "equipo": {
+      "id": 9,
+      "nombre": "Millonarios F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Millonarios.webp"
+    }
+  },
+  {
+    "id": 1204,
+    "nombre": "Teofilo Gutierrez",
+    "equipo_id": 12,
+    "equipo": {
+      "id": 12,
+      "nombre": "Junior F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Junior%20FC.webp"
+    }
+  },
+  {
+    "id": 1395,
+    "nombre": "Teun Wilke",
+    "equipo_id": 18,
+    "equipo": {
+      "id": 18,
+      "nombre": "Fortaleza",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Fortaleza.webp"
+    }
+  },
+  {
+    "id": 1042,
+    "nombre": "Tobias Bovone",
+    "equipo_id": 2,
+    "equipo": {
+      "id": 2,
+      "nombre": "Deportivo Pereira",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pereira.webp"
+    }
+  },
+  {
+    "id": 861,
+    "nombre": "Tomas Ángel",
+    "equipo_id": 14,
+    "equipo": {
+      "id": 14,
+      "nombre": "América de Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Am%C3%A9rica%20de%20Cali.webp"
+    }
+  },
+  {
+    "id": 946,
+    "nombre": "Valentín Robaldo",
+    "equipo_id": 20,
+    "equipo": {
+      "id": 20,
+      "nombre": "Cúcuta Deportivo",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/C%C3%BAcuta%20Deportivo.webp"
+    }
+  },
+  {
+    "id": 872,
+    "nombre": "Victor Cantillo",
+    "equipo_id": 10,
+    "equipo": {
+      "id": 10,
+      "nombre": "Atlético Bucaramanga",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Bucaramanga.webp"
+    }
+  },
+  {
+    "id": 1107,
+    "nombre": "Victor Moreno",
+    "equipo_id": 16,
+    "equipo": {
+      "id": 16,
+      "nombre": "Independiente Santa Fe",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Santa%20Fe.webp"
+    }
+  },
+  {
+    "id": 1369,
+    "nombre": "Víctor Mejía",
+    "equipo_id": 20,
+    "equipo": {
+      "id": 20,
+      "nombre": "Cúcuta Deportivo",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/C%C3%BAcuta%20Deportivo.webp"
+    }
+  },
+  {
+    "id": 1039,
+    "nombre": "Walmer Pacheco",
+    "equipo_id": 2,
+    "equipo": {
+      "id": 2,
+      "nombre": "Deportivo Pereira",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pereira.webp"
+    }
+  },
+  {
+    "id": 1104,
+    "nombre": "Weimar Asprilla",
+    "equipo_id": 16,
+    "equipo": {
+      "id": 16,
+      "nombre": "Independiente Santa Fe",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Santa%20Fe.webp"
+    }
+  },
+  {
+    "id": 1173,
+    "nombre": "Wilfrido De la Rosa",
+    "equipo_id": 4,
+    "equipo": {
+      "id": 4,
+      "nombre": "Jaguares F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Jaguares%20de%20Cordoba.webp"
+    }
+  },
+  {
+    "id": 954,
+    "nombre": "William Parra",
+    "equipo_id": 20,
+    "equipo": {
+      "id": 20,
+      "nombre": "Cúcuta Deportivo",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/C%C3%BAcuta%20Deportivo.webp"
+    }
+  },
+  {
+    "id": 891,
+    "nombre": "William Tesillo",
+    "equipo_id": 6,
+    "equipo": {
+      "id": 6,
+      "nombre": "Atlético Nacional",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Nacional.webp"
+    }
+  },
+  {
+    "id": 1391,
+    "nombre": "Williams Barlasina",
+    "equipo_id": 18,
+    "equipo": {
+      "id": 18,
+      "nombre": "Fortaleza",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Fortaleza.webp"
+    }
+  },
+  {
+    "id": 1014,
+    "nombre": "Willian Ordoñez",
+    "equipo_id": 8,
+    "equipo": {
+      "id": 8,
+      "nombre": "Deportivo Pasto",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pasto.webp"
+    }
+  },
+  {
+    "id": 820,
+    "nombre": "Wiston Fernández",
+    "equipo_id": 17,
+    "equipo": {
+      "id": 17,
+      "nombre": "Alianza Valledupar F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Alianza%20Valledupar.webp"
+    }
+  },
+  {
+    "id": 1309,
+    "nombre": "Wuilker Fariñez",
+    "equipo_id": 13,
+    "equipo": {
+      "id": 13,
+      "nombre": "Internacional de Bogotá",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Internacional%20de%20Bogot%C3%A1.webp"
+    }
+  },
+  {
+    "id": 912,
+    "nombre": "Yaliston Martínez",
+    "equipo_id": 5,
+    "equipo": {
+      "id": 5,
+      "nombre": "Boyacá Chicó F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Boyaca%20Chic%C3%B3.webp"
+    }
+  },
+  {
+    "id": 1167,
+    "nombre": "Yan Mosquera",
+    "equipo_id": 4,
+    "equipo": {
+      "id": 4,
+      "nombre": "Jaguares F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Jaguares%20de%20Cordoba.webp"
+    }
+  },
+  {
+    "id": 847,
+    "nombre": "Yani Quintero",
+    "equipo_id": 14,
+    "equipo": {
+      "id": 14,
+      "nombre": "América de Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Am%C3%A9rica%20de%20Cali.webp"
+    }
+  },
+  {
+    "id": 888,
+    "nombre": "Yeicar Perlaza",
+    "equipo_id": 6,
+    "equipo": {
+      "id": 6,
+      "nombre": "Atlético Nacional",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Nacional.webp"
+    }
+  },
+  {
+    "id": 832,
+    "nombre": "Yeiner Londoño",
+    "equipo_id": 17,
+    "equipo": {
+      "id": 17,
+      "nombre": "Alianza Valledupar F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Alianza%20Valledupar.webp"
+    }
+  },
+  {
+    "id": 850,
+    "nombre": "Yeison Guzmán",
+    "equipo_id": 14,
+    "equipo": {
+      "id": 14,
+      "nombre": "América de Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Am%C3%A9rica%20de%20Cali.webp"
+    }
+  },
+  {
+    "id": 1188,
+    "nombre": "Yeison Súarez",
+    "equipo_id": 12,
+    "equipo": {
+      "id": 12,
+      "nombre": "Junior F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Junior%20FC.webp"
+    }
+  },
+  {
+    "id": 1019,
+    "nombre": "Yeison Tolosa",
+    "equipo_id": 8,
+    "equipo": {
+      "id": 8,
+      "nombre": "Deportivo Pasto",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pasto.webp"
+    }
+  },
+  {
+    "id": 1059,
+    "nombre": "Yesid Díaz",
+    "equipo_id": 18,
+    "equipo": {
+      "id": 18,
+      "nombre": "Fortaleza",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Fortaleza.webp"
+    }
+  },
+  {
+    "id": 924,
+    "nombre": "Yesus Cabrera",
+    "equipo_id": 5,
+    "equipo": {
+      "id": 5,
+      "nombre": "Boyacá Chicó F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Boyaca%20Chic%C3%B3.webp"
+    }
+  },
+  {
+    "id": 836,
+    "nombre": "Yhormar Hurtado",
+    "equipo_id": 14,
+    "equipo": {
+      "id": 14,
+      "nombre": "América de Cali",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Am%C3%A9rica%20de%20Cali.webp"
+    }
+  },
+  {
+    "id": 813,
+    "nombre": "Yilson Rosales",
+    "equipo_id": 17,
+    "equipo": {
+      "id": 17,
+      "nombre": "Alianza Valledupar F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Alianza%20Valledupar.webp"
+    }
+  },
+  {
+    "id": 1198,
+    "nombre": "Yimmi Chará",
+    "equipo_id": 12,
+    "equipo": {
+      "id": 12,
+      "nombre": "Junior F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Junior%20FC.webp"
+    }
+  },
+  {
+    "id": 1033,
+    "nombre": "Yimy Gómez",
+    "equipo_id": 2,
+    "equipo": {
+      "id": 2,
+      "nombre": "Deportivo Pereira",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pereira.webp"
+    }
+  },
+  {
+    "id": 1326,
+    "nombre": "Yojan Garcés",
+    "equipo_id": 13,
+    "equipo": {
+      "id": 13,
+      "nombre": "Internacional de Bogotá",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Internacional%20de%20Bogot%C3%A1.webp"
+    }
+  },
+  {
+    "id": 1100,
+    "nombre": "Yony González",
+    "equipo_id": 7,
+    "equipo": {
+      "id": 7,
+      "nombre": "Independiente Medellín",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Medell%C3%ADn.webp"
+    }
+  },
+  {
+    "id": 967,
+    "nombre": "Yordan Osorio",
+    "equipo_id": 11,
+    "equipo": {
+      "id": 11,
+      "nombre": "Deportes Tolima",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportes%20Tolima.webp"
+    }
+  },
+  {
+    "id": 1227,
+    "nombre": "Yorleys Mena",
+    "equipo_id": 1,
+    "equipo": {
+      "id": 1,
+      "nombre": "Llaneros F.C.",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Llaneros.webp"
+    }
+  },
+  {
+    "id": 1055,
+    "nombre": "Yuber Quiñones",
+    "equipo_id": 2,
+    "equipo": {
+      "id": 2,
+      "nombre": "Deportivo Pereira",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pereira.webp"
+    }
+  },
+  {
+    "id": 1315,
+    "nombre": "Yulián Gómez",
+    "equipo_id": 13,
+    "equipo": {
+      "id": 13,
+      "nombre": "Internacional de Bogotá",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Internacional%20de%20Bogot%C3%A1.webp"
+    }
+  },
+  {
+    "id": 1020,
+    "nombre": "Yéiler Góez",
+    "equipo_id": 8,
+    "equipo": {
+      "id": 8,
+      "nombre": "Deportivo Pasto",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportivo%20Pasto.webp"
+    }
+  },
+  {
+    "id": 1120,
+    "nombre": "Yílmar Velásquez",
+    "equipo_id": 16,
+    "equipo": {
+      "id": 16,
+      "nombre": "Independiente Santa Fe",
+      "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Independiente%20Santa%20Fe.webp"
+    }
+  }
+]

@@ -1,0 +1,152 @@
+[
+  {
+    "id": 12,
+    "usuario_id": 33,
+    "campeon_equipo_id": 12,
+    "finalista_1_equipo_id": 12,
+    "finalista_2_equipo_id": 6,
+    "goleador_torneo_jugador_id": null,
+    "timestamp_envio": "2026-07-25T11:54:42.192Z",
+    "estado": "enviada"
+  },
+  {
+    "id": 15,
+    "usuario_id": 34,
+    "campeon_equipo_id": 6,
+    "finalista_1_equipo_id": 7,
+    "finalista_2_equipo_id": 6,
+    "goleador_torneo_jugador_id": 903,
+    "timestamp_envio": "2026-08-08T21:44:30.910Z",
+    "estado": "enviada"
+  },
+  {
+    "id": 21,
+    "usuario_id": 17,
+    "campeon_equipo_id": 12,
+    "finalista_1_equipo_id": 12,
+    "finalista_2_equipo_id": 14,
+    "goleador_torneo_jugador_id": 850,
+    "timestamp_envio": "2026-08-25T03:26:44.625Z",
+    "estado": "enviada"
+  },
+  {
+    "id": 24,
+    "usuario_id": 16,
+    "campeon_equipo_id": 6,
+    "finalista_1_equipo_id": 14,
+    "finalista_2_equipo_id": 6,
+    "goleador_torneo_jugador_id": 903,
+    "timestamp_envio": "2026-08-31T18:29:16.612Z",
+    "estado": "enviada"
+  },
+  {
+    "id": 26,
+    "usuario_id": 8,
+    "campeon_equipo_id": 14,
+    "finalista_1_equipo_id": 14,
+    "finalista_2_equipo_id": 6,
+    "goleador_torneo_jugador_id": 1200,
+    "timestamp_envio": "2026-08-31T18:35:07.694Z",
+    "estado": "enviada"
+  },
+  {
+    "id": 28,
+    "usuario_id": 19,
+    "campeon_equipo_id": 14,
+    "finalista_1_equipo_id": 14,
+    "finalista_2_equipo_id": 6,
+    "goleador_torneo_jugador_id": 1200,
+    "timestamp_envio": "2026-08-31T18:43:46.531Z",
+    "estado": "enviada"
+  },
+  {
+    "id": 29,
+    "usuario_id": 31,
+    "campeon_equipo_id": 12,
+    "finalista_1_equipo_id": 12,
+    "finalista_2_equipo_id": 3,
+    "goleador_torneo_jugador_id": 1200,
+    "timestamp_envio": "2026-08-31T20:06:44.885Z",
+    "estado": "enviada"
+  },
+  {
+    "id": 14,
+    "usuario_id": 32,
+    "campeon_equipo_id": 12,
+    "finalista_1_equipo_id": 6,
+    "finalista_2_equipo_id": 12,
+    "goleador_torneo_jugador_id": 1200,
+    "timestamp_envio": "2026-08-31T20:12:37.006Z",
+    "estado": "enviada"
+  },
+  {
+    "id": 36,
+    "usuario_id": 6,
+    "campeon_equipo_id": 12,
+    "finalista_1_equipo_id": 12,
+    "finalista_2_equipo_id": 14,
+    "goleador_torneo_jugador_id": 1200,
+    "timestamp_envio": "2026-09-02T00:09:03.866Z",
+    "estado": "enviada"
+  },
+  {
+    "id": 27,
+    "usuario_id": 2,
+    "campeon_equipo_id": 12,
+    "finalista_1_equipo_id": 12,
+    "finalista_2_equipo_id": 7,
+    "goleador_torneo_jugador_id": 1200,
+    "timestamp_envio": "2026-09-02T00:09:42.654Z",
+    "estado": "enviada"
+  },
+  {
+    "id": 40,
+    "usuario_id": 7,
+    "campeon_equipo_id": 12,
+    "finalista_1_equipo_id": 12,
+    "finalista_2_equipo_id": 11,
+    "goleador_torneo_jugador_id": 903,
+    "timestamp_envio": "2026-09-02T01:25:58.429Z",
+    "estado": "enviada"
+  },
+  {
+    "id": 41,
+    "usuario_id": 4,
+    "campeon_equipo_id": 14,
+    "finalista_1_equipo_id": 6,
+    "finalista_2_equipo_id": 16,
+    "goleador_torneo_jugador_id": 973,
+    "timestamp_envio": "2026-09-02T01:46:45.019Z",
+    "estado": "enviada"
+  },
+  {
+    "id": 20,
+    "usuario_id": 9,
+    "campeon_equipo_id": 14,
+    "finalista_1_equipo_id": 14,
+    "finalista_2_equipo_id": 12,
+    "goleador_torneo_jugador_id": 903,
+    "timestamp_envio": "2026-09-02T23:22:42.097Z",
+    "estado": "enviada"
+  },
+  {
+    "id": 16,
+    "usuario_id": 5,
+    "campeon_equipo_id": 12,
+    "finalista_1_equipo_id": 14,
+    "finalista_2_equipo_id": 12,
+    "goleador_torneo_jugador_id": 1200,
+    "timestamp_envio": "2026-09-07T12:04:04.165Z",
+    "estado": "enviada"
+  },
+  {
+    "id": 9,
+    "usuario_id": 18,
+    "campeon_equipo_id": 14,
+    "finalista_1_equipo_id": 14,
+    "finalista_2_equipo_id": 6,
+    "goleador_torneo_jugador_id": 850,
+    "timestamp_envio": "2026-09-08T13:05:32.416Z",
+    "estado": "enviada"
+  }
+]

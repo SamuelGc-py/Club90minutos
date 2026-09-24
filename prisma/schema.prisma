@@ -114,6 +114,7 @@ model Jugador {
   predicciones_como_goleador   PrediccionPartido[]
   predicciones_goleador_torneo PrediccionInicial[] @relation("PrediccionGoleadorTorneo")
 
+  @@unique([nombre, equipo_id])
   @@index([equipo_id])
   @@map("jugador")
 }

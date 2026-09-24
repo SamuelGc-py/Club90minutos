@@ -1,0 +1,136 @@
+{
+  "jugadoresAfectados": [
+    {
+      "id": 1074,
+      "nombre": "Andres Amaya",
+      "equipo_id": 18,
+      "equipo": {
+        "id": 18,
+        "nombre": "Fortaleza",
+        "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Fortaleza.webp"
+      }
+    },
+    {
+      "id": 1381,
+      "nombre": "B. Rovira",
+      "equipo_id": 11,
+      "equipo": {
+        "id": 11,
+        "nombre": "Deportes Tolima",
+        "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportes%20Tolima.webp"
+      }
+    },
+    {
+      "id": 972,
+      "nombre": "Brayan Rovira",
+      "equipo_id": 11,
+      "equipo": {
+        "id": 11,
+        "nombre": "Deportes Tolima",
+        "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Deportes%20Tolima.webp"
+      }
+    },
+    {
+      "id": 839,
+      "nombre": "Daniel Rosero",
+      "equipo_id": 14,
+      "equipo": {
+        "id": 14,
+        "nombre": "América de Cali",
+        "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Am%C3%A9rica%20de%20Cali.webp"
+      }
+    },
+    {
+      "id": 900,
+      "nombre": "Juan Zapata",
+      "equipo_id": 6,
+      "equipo": {
+        "id": 6,
+        "nombre": "Atlético Nacional",
+        "escudo_url": "https://raw.githubusercontent.com/SamuelGc-py/IMG_escudos-equipos/main/Escudos_WEBP/Atl%C3%A9tico%20Nacional.webp"
+      }
+    }
+  ],
+  "predsAfectadas": [
+    {
+      "id": 302,
+      "usuario_id": 34,
+      "partido_id": 32,
+      "goles_local_predicho": 1,
+      "goles_visitante_predicho": 0,
+      "jugador_goleador_predicho_id": 1074,
+      "timestamp_envio": "2026-07-31T21:13:26.128Z",
+      "estado": "enviada"
+    },
+    {
+      "id": 475,
+      "usuario_id": 2,
+      "partido_id": 44,
+      "goles_local_predicho": 1,
+      "goles_visitante_predicho": 1,
+      "jugador_goleador_predicho_id": 1074,
+      "timestamp_envio": "2026-08-04T19:44:36.972Z",
+      "estado": "enviada"
+    },
+    {
+      "id": 1162,
+      "usuario_id": 2,
+      "partido_id": 99,
+      "goles_local_predicho": 3,
+      "goles_visitante_predicho": 1,
+      "jugador_goleador_predicho_id": 1381,
+      "timestamp_envio": "2026-08-31T21:43:29.565Z",
+      "estado": "enviada"
+    },
+    {
+      "id": 1363,
+      "usuario_id": 33,
+      "partido_id": 63,
+      "goles_local_predicho": 0,
+      "goles_visitante_predicho": 2,
+      "jugador_goleador_predicho_id": 1381,
+      "timestamp_envio": "2026-09-07T21:53:43.065Z",
+      "estado": "enviada"
+    },
+    {
+      "id": 1408,
+      "usuario_id": 19,
+      "partido_id": 118,
+      "goles_local_predicho": 1,
+      "goles_visitante_predicho": 2,
+      "jugador_goleador_predicho_id": 1381,
+      "timestamp_envio": "2026-09-11T14:02:42.974Z",
+      "estado": "enviada"
+    },
+    {
+      "id": 1610,
+      "usuario_id": 33,
+      "partido_id": 90,
+      "goles_local_predicho": 1,
+      "goles_visitante_predicho": 2,
+      "jugador_goleador_predicho_id": 972,
+      "timestamp_envio": "2026-09-16T22:17:49.740Z",
+      "estado": "enviada"
+    }
+  ],
+  "golesAfectados": [
+    {
+      "id": 1108,
+      "resultado_oficial_id": 61,
+      "jugador_id": 839,
+      "es_autogol": false
+    },
+    {
+      "id": 1466,
+      "resultado_oficial_id": 72,
+      "jugador_id": 839,
+      "es_autogol": false
+    },
+    {
+      "id": 1476,
+      "resultado_oficial_id": 621,
+      "jugador_id": 900,
+      "es_autogol": false
+    }
+  ]
+}

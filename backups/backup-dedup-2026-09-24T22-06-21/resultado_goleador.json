@@ -1,0 +1,1394 @@
+[
+  {
+    "id": 1119,
+    "resultado_oficial_id": 41,
+    "jugador_id": null,
+    "es_autogol": false
+  },
+  {
+    "id": 1510,
+    "resultado_oficial_id": 876,
+    "jugador_id": 884,
+    "es_autogol": false
+  },
+  {
+    "id": 1511,
+    "resultado_oficial_id": 876,
+    "jugador_id": 876,
+    "es_autogol": false
+  },
+  {
+    "id": 1512,
+    "resultado_oficial_id": 876,
+    "jugador_id": 1096,
+    "es_autogol": false
+  },
+  {
+    "id": 1513,
+    "resultado_oficial_id": 876,
+    "jugador_id": 1334,
+    "es_autogol": false
+  },
+  {
+    "id": 1431,
+    "resultado_oficial_id": 609,
+    "jugador_id": 1376,
+    "es_autogol": false
+  },
+  {
+    "id": 1432,
+    "resultado_oficial_id": 609,
+    "jugador_id": 1259,
+    "es_autogol": false
+  },
+  {
+    "id": 1433,
+    "resultado_oficial_id": 609,
+    "jugador_id": 1248,
+    "es_autogol": false
+  },
+  {
+    "id": 1353,
+    "resultado_oficial_id": 240,
+    "jugador_id": 951,
+    "es_autogol": false
+  },
+  {
+    "id": 1201,
+    "resultado_oficial_id": 248,
+    "jugador_id": 1282,
+    "es_autogol": false
+  },
+  {
+    "id": 1202,
+    "resultado_oficial_id": 248,
+    "jugador_id": 1199,
+    "es_autogol": false
+  },
+  {
+    "id": 1581,
+    "resultado_oficial_id": 2,
+    "jugador_id": 1000,
+    "es_autogol": false
+  },
+  {
+    "id": 1582,
+    "resultado_oficial_id": 2,
+    "jugador_id": 1004,
+    "es_autogol": false
+  },
+  {
+    "id": 1127,
+    "resultado_oficial_id": 62,
+    "jugador_id": 1127,
+    "es_autogol": false
+  },
+  {
+    "id": 1128,
+    "resultado_oficial_id": 62,
+    "jugador_id": 1281,
+    "es_autogol": false
+  },
+  {
+    "id": 1129,
+    "resultado_oficial_id": 62,
+    "jugador_id": 1273,
+    "es_autogol": false
+  },
+  {
+    "id": 1207,
+    "resultado_oficial_id": 533,
+    "jugador_id": null,
+    "es_autogol": false
+  },
+  {
+    "id": 1356,
+    "resultado_oficial_id": 246,
+    "jugador_id": 988,
+    "es_autogol": false
+  },
+  {
+    "id": 1357,
+    "resultado_oficial_id": 246,
+    "jugador_id": 993,
+    "es_autogol": false
+  },
+  {
+    "id": 1358,
+    "resultado_oficial_id": 246,
+    "jugador_id": 1324,
+    "es_autogol": false
+  },
+  {
+    "id": 1359,
+    "resultado_oficial_id": 246,
+    "jugador_id": 1330,
+    "es_autogol": false
+  },
+  {
+    "id": 1525,
+    "resultado_oficial_id": 879,
+    "jugador_id": 1052,
+    "es_autogol": false
+  },
+  {
+    "id": 1526,
+    "resultado_oficial_id": 879,
+    "jugador_id": 1035,
+    "es_autogol": false
+  },
+  {
+    "id": 1527,
+    "resultado_oficial_id": 879,
+    "jugador_id": 1306,
+    "es_autogol": false
+  },
+  {
+    "id": 1280,
+    "resultado_oficial_id": 600,
+    "jugador_id": 1055,
+    "es_autogol": false
+  },
+  {
+    "id": 1281,
+    "resultado_oficial_id": 600,
+    "jugador_id": 882,
+    "es_autogol": false
+  },
+  {
+    "id": 1282,
+    "resultado_oficial_id": 600,
+    "jugador_id": 883,
+    "es_autogol": false
+  },
+  {
+    "id": 1283,
+    "resultado_oficial_id": 600,
+    "jugador_id": 884,
+    "es_autogol": false
+  },
+  {
+    "id": 1210,
+    "resultado_oficial_id": 96,
+    "jugador_id": 876,
+    "es_autogol": false
+  },
+  {
+    "id": 1211,
+    "resultado_oficial_id": 96,
+    "jugador_id": 884,
+    "es_autogol": false
+  },
+  {
+    "id": 1212,
+    "resultado_oficial_id": 96,
+    "jugador_id": 831,
+    "es_autogol": false
+  },
+  {
+    "id": 1213,
+    "resultado_oficial_id": 96,
+    "jugador_id": 883,
+    "es_autogol": false
+  },
+  {
+    "id": 1608,
+    "resultado_oficial_id": 883,
+    "jugador_id": 1253,
+    "es_autogol": false
+  },
+  {
+    "id": 1609,
+    "resultado_oficial_id": 883,
+    "jugador_id": 1254,
+    "es_autogol": false
+  },
+  {
+    "id": 1614,
+    "resultado_oficial_id": 885,
+    "jugador_id": 1124,
+    "es_autogol": false
+  },
+  {
+    "id": 1615,
+    "resultado_oficial_id": 885,
+    "jugador_id": 1126,
+    "es_autogol": false
+  },
+  {
+    "id": 1616,
+    "resultado_oficial_id": 885,
+    "jugador_id": 1118,
+    "es_autogol": false
+  },
+  {
+    "id": 1617,
+    "resultado_oficial_id": 885,
+    "jugador_id": 1336,
+    "es_autogol": false
+  },
+  {
+    "id": 1620,
+    "resultado_oficial_id": 887,
+    "jugador_id": 906,
+    "es_autogol": false
+  },
+  {
+    "id": 1621,
+    "resultado_oficial_id": 887,
+    "jugador_id": 1004,
+    "es_autogol": false
+  },
+  {
+    "id": 1088,
+    "resultado_oficial_id": 236,
+    "jugador_id": null,
+    "es_autogol": false
+  },
+  {
+    "id": 1094,
+    "resultado_oficial_id": 234,
+    "jugador_id": 1257,
+    "es_autogol": false
+  },
+  {
+    "id": 1100,
+    "resultado_oficial_id": 69,
+    "jugador_id": 1243,
+    "es_autogol": false
+  },
+  {
+    "id": 1101,
+    "resultado_oficial_id": 69,
+    "jugador_id": 1257,
+    "es_autogol": false
+  },
+  {
+    "id": 1133,
+    "resultado_oficial_id": 228,
+    "jugador_id": 1323,
+    "es_autogol": false
+  },
+  {
+    "id": 1292,
+    "resultado_oficial_id": 552,
+    "jugador_id": 861,
+    "es_autogol": false
+  },
+  {
+    "id": 1293,
+    "resultado_oficial_id": 552,
+    "jugador_id": 850,
+    "es_autogol": false
+  },
+  {
+    "id": 1294,
+    "resultado_oficial_id": 552,
+    "jugador_id": 844,
+    "es_autogol": false
+  },
+  {
+    "id": 1140,
+    "resultado_oficial_id": 57,
+    "jugador_id": 1259,
+    "es_autogol": false
+  },
+  {
+    "id": 1434,
+    "resultado_oficial_id": 514,
+    "jugador_id": 1025,
+    "es_autogol": false
+  },
+  {
+    "id": 1435,
+    "resultado_oficial_id": 514,
+    "jugador_id": 1314,
+    "es_autogol": false
+  },
+  {
+    "id": 1148,
+    "resultado_oficial_id": 56,
+    "jugador_id": 1095,
+    "es_autogol": false
+  },
+  {
+    "id": 1152,
+    "resultado_oficial_id": 530,
+    "jugador_id": 1096,
+    "es_autogol": false
+  },
+  {
+    "id": 1153,
+    "resultado_oficial_id": 530,
+    "jugador_id": 1102,
+    "es_autogol": false
+  },
+  {
+    "id": 1154,
+    "resultado_oficial_id": 530,
+    "jugador_id": 1215,
+    "es_autogol": false
+  },
+  {
+    "id": 1623,
+    "resultado_oficial_id": 889,
+    "jugador_id": 1017,
+    "es_autogol": false
+  },
+  {
+    "id": 1629,
+    "resultado_oficial_id": 891,
+    "jugador_id": 1059,
+    "es_autogol": false
+  },
+  {
+    "id": 1630,
+    "resultado_oficial_id": 891,
+    "jugador_id": 1190,
+    "es_autogol": false
+  },
+  {
+    "id": 1631,
+    "resultado_oficial_id": 891,
+    "jugador_id": 1203,
+    "es_autogol": false
+  },
+  {
+    "id": 1632,
+    "resultado_oficial_id": 891,
+    "jugador_id": 1204,
+    "es_autogol": false
+  },
+  {
+    "id": 1633,
+    "resultado_oficial_id": 891,
+    "jugador_id": 1197,
+    "es_autogol": false
+  },
+  {
+    "id": 1160,
+    "resultado_oficial_id": 400,
+    "jugador_id": 1200,
+    "es_autogol": false
+  },
+  {
+    "id": 1161,
+    "resultado_oficial_id": 400,
+    "jugador_id": 841,
+    "es_autogol": false
+  },
+  {
+    "id": 1162,
+    "resultado_oficial_id": 400,
+    "jugador_id": 861,
+    "es_autogol": false
+  },
+  {
+    "id": 1163,
+    "resultado_oficial_id": 400,
+    "jugador_id": 855,
+    "es_autogol": false
+  },
+  {
+    "id": 1164,
+    "resultado_oficial_id": 400,
+    "jugador_id": 847,
+    "es_autogol": false
+  },
+  {
+    "id": 1636,
+    "resultado_oficial_id": 893,
+    "jugador_id": 883,
+    "es_autogol": false
+  },
+  {
+    "id": 1637,
+    "resultado_oficial_id": 893,
+    "jugador_id": 884,
+    "es_autogol": false
+  },
+  {
+    "id": 1640,
+    "resultado_oficial_id": 895,
+    "jugador_id": 1382,
+    "es_autogol": false
+  },
+  {
+    "id": 1641,
+    "resultado_oficial_id": 895,
+    "jugador_id": 850,
+    "es_autogol": false
+  },
+  {
+    "id": 1301,
+    "resultado_oficial_id": 555,
+    "jugador_id": 1100,
+    "es_autogol": false
+  },
+  {
+    "id": 1302,
+    "resultado_oficial_id": 555,
+    "jugador_id": 1102,
+    "es_autogol": false
+  },
+  {
+    "id": 1220,
+    "resultado_oficial_id": 594,
+    "jugador_id": 1096,
+    "es_autogol": false
+  },
+  {
+    "id": 1221,
+    "resultado_oficial_id": 594,
+    "jugador_id": 930,
+    "es_autogol": false
+  },
+  {
+    "id": 1485,
+    "resultado_oficial_id": 94,
+    "jugador_id": 1004,
+    "es_autogol": false
+  },
+  {
+    "id": 1644,
+    "resultado_oficial_id": 897,
+    "jugador_id": 1227,
+    "es_autogol": false
+  },
+  {
+    "id": 1645,
+    "resultado_oficial_id": 897,
+    "jugador_id": 1406,
+    "es_autogol": false
+  },
+  {
+    "id": 1107,
+    "resultado_oficial_id": 61,
+    "jugador_id": 850,
+    "es_autogol": false
+  },
+  {
+    "id": 1108,
+    "resultado_oficial_id": 61,
+    "jugador_id": 839,
+    "es_autogol": false
+  },
+  {
+    "id": 1109,
+    "resultado_oficial_id": 61,
+    "jugador_id": 853,
+    "es_autogol": false
+  },
+  {
+    "id": 1225,
+    "resultado_oficial_id": 536,
+    "jugador_id": 868,
+    "es_autogol": false
+  },
+  {
+    "id": 1226,
+    "resultado_oficial_id": 536,
+    "jugador_id": 985,
+    "es_autogol": false
+  },
+  {
+    "id": 1437,
+    "resultado_oficial_id": 509,
+    "jugador_id": null,
+    "es_autogol": false
+  },
+  {
+    "id": 1228,
+    "resultado_oficial_id": 70,
+    "jugador_id": 1330,
+    "es_autogol": false
+  },
+  {
+    "id": 1366,
+    "resultado_oficial_id": 111,
+    "jugador_id": 951,
+    "es_autogol": false
+  },
+  {
+    "id": 1367,
+    "resultado_oficial_id": 111,
+    "jugador_id": 883,
+    "es_autogol": false
+  },
+  {
+    "id": 1440,
+    "resultado_oficial_id": 577,
+    "jugador_id": 1231,
+    "es_autogol": false
+  },
+  {
+    "id": 1441,
+    "resultado_oficial_id": 577,
+    "jugador_id": 971,
+    "es_autogol": false
+  },
+  {
+    "id": 1442,
+    "resultado_oficial_id": 577,
+    "jugador_id": 1382,
+    "es_autogol": false
+  },
+  {
+    "id": 1235,
+    "resultado_oficial_id": 539,
+    "jugador_id": 1052,
+    "es_autogol": false
+  },
+  {
+    "id": 1236,
+    "resultado_oficial_id": 539,
+    "jugador_id": 1010,
+    "es_autogol": false
+  },
+  {
+    "id": 1237,
+    "resultado_oficial_id": 539,
+    "jugador_id": 1038,
+    "es_autogol": false
+  },
+  {
+    "id": 1307,
+    "resultado_oficial_id": 71,
+    "jugador_id": null,
+    "es_autogol": false
+  },
+  {
+    "id": 1311,
+    "resultado_oficial_id": 558,
+    "jugador_id": 929,
+    "es_autogol": false
+  },
+  {
+    "id": 1312,
+    "resultado_oficial_id": 558,
+    "jugador_id": 930,
+    "es_autogol": false
+  },
+  {
+    "id": 1443,
+    "resultado_oficial_id": 518,
+    "jugador_id": 1154,
+    "es_autogol": false
+  },
+  {
+    "id": 1444,
+    "resultado_oficial_id": 518,
+    "jugador_id": 1175,
+    "es_autogol": false
+  },
+  {
+    "id": 1445,
+    "resultado_oficial_id": 518,
+    "jugador_id": 850,
+    "es_autogol": false
+  },
+  {
+    "id": 1446,
+    "resultado_oficial_id": 518,
+    "jugador_id": 848,
+    "es_autogol": false
+  },
+  {
+    "id": 1317,
+    "resultado_oficial_id": 603,
+    "jugador_id": 896,
+    "es_autogol": false
+  },
+  {
+    "id": 1318,
+    "resultado_oficial_id": 603,
+    "jugador_id": 1346,
+    "es_autogol": false
+  },
+  {
+    "id": 1486,
+    "resultado_oficial_id": 226,
+    "jugador_id": 1229,
+    "es_autogol": false
+  },
+  {
+    "id": 1487,
+    "resultado_oficial_id": 226,
+    "jugador_id": 1302,
+    "es_autogol": false
+  },
+  {
+    "id": 1323,
+    "resultado_oficial_id": 561,
+    "jugador_id": 1367,
+    "es_autogol": false
+  },
+  {
+    "id": 1324,
+    "resultado_oficial_id": 561,
+    "jugador_id": 1366,
+    "es_autogol": false
+  },
+  {
+    "id": 1325,
+    "resultado_oficial_id": 561,
+    "jugador_id": 1026,
+    "es_autogol": false
+  },
+  {
+    "id": 1594,
+    "resultado_oficial_id": 23,
+    "jugador_id": 1126,
+    "es_autogol": false
+  },
+  {
+    "id": 1595,
+    "resultado_oficial_id": 23,
+    "jugador_id": 1296,
+    "es_autogol": false
+  },
+  {
+    "id": 1596,
+    "resultado_oficial_id": 23,
+    "jugador_id": 1298,
+    "es_autogol": false
+  },
+  {
+    "id": 1371,
+    "resultado_oficial_id": 97,
+    "jugador_id": 1275,
+    "es_autogol": false
+  },
+  {
+    "id": 1372,
+    "resultado_oficial_id": 97,
+    "jugador_id": 1179,
+    "es_autogol": false
+  },
+  {
+    "id": 1331,
+    "resultado_oficial_id": 564,
+    "jugador_id": 1123,
+    "es_autogol": false
+  },
+  {
+    "id": 1332,
+    "resultado_oficial_id": 564,
+    "jugador_id": 1126,
+    "es_autogol": false
+  },
+  {
+    "id": 1597,
+    "resultado_oficial_id": 24,
+    "jugador_id": 1070,
+    "es_autogol": false
+  },
+  {
+    "id": 1598,
+    "resultado_oficial_id": 24,
+    "jugador_id": 1336,
+    "es_autogol": false
+  },
+  {
+    "id": 1378,
+    "resultado_oficial_id": 90,
+    "jugador_id": 974,
+    "es_autogol": false
+  },
+  {
+    "id": 1379,
+    "resultado_oficial_id": 90,
+    "jugador_id": 978,
+    "es_autogol": false
+  },
+  {
+    "id": 1380,
+    "resultado_oficial_id": 90,
+    "jugador_id": 1329,
+    "es_autogol": false
+  },
+  {
+    "id": 1488,
+    "resultado_oficial_id": 113,
+    "jugador_id": 829,
+    "es_autogol": false
+  },
+  {
+    "id": 1489,
+    "resultado_oficial_id": 113,
+    "jugador_id": 975,
+    "es_autogol": false
+  },
+  {
+    "id": 1490,
+    "resultado_oficial_id": 113,
+    "jugador_id": 973,
+    "es_autogol": false
+  },
+  {
+    "id": 1385,
+    "resultado_oficial_id": 567,
+    "jugador_id": 1194,
+    "es_autogol": false
+  },
+  {
+    "id": 1386,
+    "resultado_oficial_id": 567,
+    "jugador_id": 1204,
+    "es_autogol": false
+  },
+  {
+    "id": 1387,
+    "resultado_oficial_id": 567,
+    "jugador_id": 1188,
+    "es_autogol": false
+  },
+  {
+    "id": 1388,
+    "resultado_oficial_id": 567,
+    "jugador_id": 1171,
+    "es_autogol": false
+  },
+  {
+    "id": 1389,
+    "resultado_oficial_id": 567,
+    "jugador_id": 1179,
+    "es_autogol": false
+  },
+  {
+    "id": 1491,
+    "resultado_oficial_id": 98,
+    "jugador_id": 850,
+    "es_autogol": false
+  },
+  {
+    "id": 1599,
+    "resultado_oficial_id": 25,
+    "jugador_id": 942,
+    "es_autogol": false
+  },
+  {
+    "id": 1600,
+    "resultado_oficial_id": 25,
+    "jugador_id": 1275,
+    "es_autogol": false
+  },
+  {
+    "id": 1601,
+    "resultado_oficial_id": 25,
+    "jugador_id": 1280,
+    "es_autogol": false
+  },
+  {
+    "id": 1602,
+    "resultado_oficial_id": 25,
+    "jugador_id": 1281,
+    "es_autogol": false
+  },
+  {
+    "id": 1603,
+    "resultado_oficial_id": 25,
+    "jugador_id": 1282,
+    "es_autogol": false
+  },
+  {
+    "id": 1604,
+    "resultado_oficial_id": 25,
+    "jugador_id": 1283,
+    "es_autogol": false
+  },
+  {
+    "id": 1113,
+    "resultado_oficial_id": 230,
+    "jugador_id": 1171,
+    "es_autogol": false
+  },
+  {
+    "id": 1447,
+    "resultado_oficial_id": 521,
+    "jugador_id": 1200,
+    "es_autogol": false
+  },
+  {
+    "id": 1448,
+    "resultado_oficial_id": 521,
+    "jugador_id": 1123,
+    "es_autogol": false
+  },
+  {
+    "id": 1592,
+    "resultado_oficial_id": 20,
+    "jugador_id": 850,
+    "es_autogol": false
+  },
+  {
+    "id": 1593,
+    "resultado_oficial_id": 20,
+    "jugador_id": 859,
+    "es_autogol": false
+  },
+  {
+    "id": 1452,
+    "resultado_oficial_id": 524,
+    "jugador_id": 907,
+    "es_autogol": false
+  },
+  {
+    "id": 1453,
+    "resultado_oficial_id": 524,
+    "jugador_id": 903,
+    "es_autogol": false
+  },
+  {
+    "id": 1454,
+    "resultado_oficial_id": 524,
+    "jugador_id": 902,
+    "es_autogol": false
+  },
+  {
+    "id": 1455,
+    "resultado_oficial_id": 524,
+    "jugador_id": 829,
+    "es_autogol": false
+  },
+  {
+    "id": 1492,
+    "resultado_oficial_id": 86,
+    "jugador_id": 1077,
+    "es_autogol": false
+  },
+  {
+    "id": 1583,
+    "resultado_oficial_id": 13,
+    "jugador_id": 1028,
+    "es_autogol": false
+  },
+  {
+    "id": 1584,
+    "resultado_oficial_id": 13,
+    "jugador_id": 1029,
+    "es_autogol": false
+  },
+  {
+    "id": 1585,
+    "resultado_oficial_id": 13,
+    "jugador_id": 1102,
+    "es_autogol": false
+  },
+  {
+    "id": 1586,
+    "resultado_oficial_id": 13,
+    "jugador_id": 1397,
+    "es_autogol": false
+  },
+  {
+    "id": 1587,
+    "resultado_oficial_id": 13,
+    "jugador_id": 1398,
+    "es_autogol": false
+  },
+  {
+    "id": 1493,
+    "resultado_oficial_id": 54,
+    "jugador_id": 1023,
+    "es_autogol": false
+  },
+  {
+    "id": 1494,
+    "resultado_oficial_id": 54,
+    "jugador_id": 1293,
+    "es_autogol": false
+  },
+  {
+    "id": 1495,
+    "resultado_oficial_id": 54,
+    "jugador_id": 1303,
+    "es_autogol": false
+  },
+  {
+    "id": 1496,
+    "resultado_oficial_id": 107,
+    "jugador_id": 1124,
+    "es_autogol": false
+  },
+  {
+    "id": 1589,
+    "resultado_oficial_id": 15,
+    "jugador_id": 973,
+    "es_autogol": false
+  },
+  {
+    "id": 1590,
+    "resultado_oficial_id": 15,
+    "jugador_id": 977,
+    "es_autogol": false
+  },
+  {
+    "id": 1591,
+    "resultado_oficial_id": 15,
+    "jugador_id": 1199,
+    "es_autogol": false
+  },
+  {
+    "id": 1588,
+    "resultado_oficial_id": 8,
+    "jugador_id": 883,
+    "es_autogol": false
+  },
+  {
+    "id": 1497,
+    "resultado_oficial_id": 66,
+    "jugador_id": 1092,
+    "es_autogol": false
+  },
+  {
+    "id": 1498,
+    "resultado_oficial_id": 66,
+    "jugador_id": 1102,
+    "es_autogol": false
+  },
+  {
+    "id": 1499,
+    "resultado_oficial_id": 66,
+    "jugador_id": 1098,
+    "es_autogol": false
+  },
+  {
+    "id": 1500,
+    "resultado_oficial_id": 66,
+    "jugador_id": 971,
+    "es_autogol": false
+  },
+  {
+    "id": 1501,
+    "resultado_oficial_id": 66,
+    "jugador_id": 964,
+    "es_autogol": false
+  },
+  {
+    "id": 1172,
+    "resultado_oficial_id": 242,
+    "jugador_id": 903,
+    "es_autogol": false
+  },
+  {
+    "id": 1173,
+    "resultado_oficial_id": 242,
+    "jugador_id": 896,
+    "es_autogol": false
+  },
+  {
+    "id": 1394,
+    "resultado_oficial_id": 606,
+    "jugador_id": 1281,
+    "es_autogol": false
+  },
+  {
+    "id": 1395,
+    "resultado_oficial_id": 606,
+    "jugador_id": 1001,
+    "es_autogol": false
+  },
+  {
+    "id": 1396,
+    "resultado_oficial_id": 606,
+    "jugador_id": 993,
+    "es_autogol": false
+  },
+  {
+    "id": 1183,
+    "resultado_oficial_id": 59,
+    "jugador_id": 902,
+    "es_autogol": false
+  },
+  {
+    "id": 1184,
+    "resultado_oficial_id": 59,
+    "jugador_id": 903,
+    "es_autogol": false
+  },
+  {
+    "id": 1185,
+    "resultado_oficial_id": 59,
+    "jugador_id": 907,
+    "es_autogol": false
+  },
+  {
+    "id": 1605,
+    "resultado_oficial_id": 244,
+    "jugador_id": 1406,
+    "es_autogol": false
+  },
+  {
+    "id": 1399,
+    "resultado_oficial_id": 505,
+    "jugador_id": 951,
+    "es_autogol": false
+  },
+  {
+    "id": 1195,
+    "resultado_oficial_id": 82,
+    "jugador_id": 1061,
+    "es_autogol": false
+  },
+  {
+    "id": 1196,
+    "resultado_oficial_id": 82,
+    "jugador_id": 1233,
+    "es_autogol": false
+  },
+  {
+    "id": 1197,
+    "resultado_oficial_id": 82,
+    "jugador_id": 1231,
+    "es_autogol": false
+  },
+  {
+    "id": 1243,
+    "resultado_oficial_id": 597,
+    "jugador_id": 818,
+    "es_autogol": false
+  },
+  {
+    "id": 1457,
+    "resultado_oficial_id": 580,
+    "jugador_id": 1000,
+    "es_autogol": false
+  },
+  {
+    "id": 1458,
+    "resultado_oficial_id": 580,
+    "jugador_id": 1254,
+    "es_autogol": false
+  },
+  {
+    "id": 1251,
+    "resultado_oficial_id": 543,
+    "jugador_id": 969,
+    "es_autogol": false
+  },
+  {
+    "id": 1252,
+    "resultado_oficial_id": 543,
+    "jugador_id": 977,
+    "es_autogol": false
+  },
+  {
+    "id": 1253,
+    "resultado_oficial_id": 543,
+    "jugador_id": 1376,
+    "es_autogol": false
+  },
+  {
+    "id": 1260,
+    "resultado_oficial_id": 546,
+    "jugador_id": 1063,
+    "es_autogol": false
+  },
+  {
+    "id": 1261,
+    "resultado_oficial_id": 546,
+    "jugador_id": 1281,
+    "es_autogol": false
+  },
+  {
+    "id": 1262,
+    "resultado_oficial_id": 546,
+    "jugador_id": 1282,
+    "es_autogol": false
+  },
+  {
+    "id": 1269,
+    "resultado_oficial_id": 549,
+    "jugador_id": 1123,
+    "es_autogol": false
+  },
+  {
+    "id": 1270,
+    "resultado_oficial_id": 549,
+    "jugador_id": 1123,
+    "es_autogol": false
+  },
+  {
+    "id": 1271,
+    "resultado_oficial_id": 549,
+    "jugador_id": 1402,
+    "es_autogol": false
+  },
+  {
+    "id": 1272,
+    "resultado_oficial_id": 549,
+    "jugador_id": 1253,
+    "es_autogol": false
+  },
+  {
+    "id": 1273,
+    "resultado_oficial_id": 549,
+    "jugador_id": 1255,
+    "es_autogol": false
+  },
+  {
+    "id": 1338,
+    "resultado_oficial_id": 232,
+    "jugador_id": null,
+    "es_autogol": false
+  },
+  {
+    "id": 1344,
+    "resultado_oficial_id": 238,
+    "jugador_id": null,
+    "es_autogol": false
+  },
+  {
+    "id": 1407,
+    "resultado_oficial_id": 510,
+    "jugador_id": 907,
+    "es_autogol": false
+  },
+  {
+    "id": 1408,
+    "resultado_oficial_id": 510,
+    "jugador_id": 902,
+    "es_autogol": false
+  },
+  {
+    "id": 1409,
+    "resultado_oficial_id": 510,
+    "jugador_id": 993,
+    "es_autogol": false
+  },
+  {
+    "id": 1410,
+    "resultado_oficial_id": 570,
+    "jugador_id": 1330,
+    "es_autogol": false
+  },
+  {
+    "id": 1411,
+    "resultado_oficial_id": 570,
+    "jugador_id": 1303,
+    "es_autogol": false
+  },
+  {
+    "id": 1412,
+    "resultado_oficial_id": 570,
+    "jugador_id": 1302,
+    "es_autogol": false
+  },
+  {
+    "id": 1413,
+    "resultado_oficial_id": 570,
+    "jugador_id": 1314,
+    "es_autogol": false
+  },
+  {
+    "id": 1419,
+    "resultado_oficial_id": 511,
+    "jugador_id": 1254,
+    "es_autogol": false
+  },
+  {
+    "id": 1420,
+    "resultado_oficial_id": 511,
+    "jugador_id": 1253,
+    "es_autogol": false
+  },
+  {
+    "id": 1425,
+    "resultado_oficial_id": 573,
+    "jugador_id": 1038,
+    "es_autogol": false
+  },
+  {
+    "id": 1426,
+    "resultado_oficial_id": 573,
+    "jugador_id": 1257,
+    "es_autogol": false
+  },
+  {
+    "id": 1460,
+    "resultado_oficial_id": 615,
+    "jugador_id": 829,
+    "es_autogol": false
+  },
+  {
+    "id": 1461,
+    "resultado_oficial_id": 615,
+    "jugador_id": 1338,
+    "es_autogol": false
+  },
+  {
+    "id": 1462,
+    "resultado_oficial_id": 615,
+    "jugador_id": 1352,
+    "es_autogol": false
+  },
+  {
+    "id": 1463,
+    "resultado_oficial_id": 585,
+    "jugador_id": 1071,
+    "es_autogol": false
+  },
+  {
+    "id": 1464,
+    "resultado_oficial_id": 585,
+    "jugador_id": 1179,
+    "es_autogol": false
+  },
+  {
+    "id": 1465,
+    "resultado_oficial_id": 585,
+    "jugador_id": 1175,
+    "es_autogol": false
+  },
+  {
+    "id": 1466,
+    "resultado_oficial_id": 72,
+    "jugador_id": 839,
+    "es_autogol": false
+  },
+  {
+    "id": 1467,
+    "resultado_oficial_id": 588,
+    "jugador_id": 1126,
+    "es_autogol": false
+  },
+  {
+    "id": 1468,
+    "resultado_oficial_id": 612,
+    "jugador_id": 1017,
+    "es_autogol": false
+  },
+  {
+    "id": 1469,
+    "resultado_oficial_id": 37,
+    "jugador_id": 874,
+    "es_autogol": false
+  },
+  {
+    "id": 1470,
+    "resultado_oficial_id": 37,
+    "jugador_id": 1215,
+    "es_autogol": false
+  },
+  {
+    "id": 1471,
+    "resultado_oficial_id": 618,
+    "jugador_id": 1282,
+    "es_autogol": false
+  },
+  {
+    "id": 1472,
+    "resultado_oficial_id": 621,
+    "jugador_id": 1324,
+    "es_autogol": false
+  },
+  {
+    "id": 1473,
+    "resultado_oficial_id": 621,
+    "jugador_id": 1326,
+    "es_autogol": false
+  },
+  {
+    "id": 1474,
+    "resultado_oficial_id": 621,
+    "jugador_id": 1346,
+    "es_autogol": false
+  },
+  {
+    "id": 1475,
+    "resultado_oficial_id": 621,
+    "jugador_id": 1344,
+    "es_autogol": false
+  },
+  {
+    "id": 1476,
+    "resultado_oficial_id": 621,
+    "jugador_id": 900,
+    "es_autogol": false
+  },
+  {
+    "id": 1580,
+    "resultado_oficial_id": 4,
+    "jugador_id": 1231,
+    "es_autogol": false
+  },
+  {
+    "id": 1477,
+    "resultado_oficial_id": 591,
+    "jugador_id": 1324,
+    "es_autogol": false
+  },
+  {
+    "id": 1478,
+    "resultado_oficial_id": 591,
+    "jugador_id": 1329,
+    "es_autogol": false
+  },
+  {
+    "id": 1479,
+    "resultado_oficial_id": 591,
+    "jugador_id": 1326,
+    "es_autogol": false
+  },
+  {
+    "id": 1480,
+    "resultado_oficial_id": 591,
+    "jugador_id": 1231,
+    "es_autogol": false
+  },
+  {
+    "id": 1481,
+    "resultado_oficial_id": 527,
+    "jugador_id": 931,
+    "es_autogol": false
+  },
+  {
+    "id": 1482,
+    "resultado_oficial_id": 527,
+    "jugador_id": 920,
+    "es_autogol": false
+  },
+  {
+    "id": 1483,
+    "resultado_oficial_id": 527,
+    "jugador_id": 1302,
+    "es_autogol": false
+  },
+  {
+    "id": 1484,
+    "resultado_oficial_id": 527,
+    "jugador_id": 1285,
+    "es_autogol": false
+  },
+  {
+    "id": 1649,
+    "resultado_oficial_id": 898,
+    "jugador_id": 1102,
+    "es_autogol": false
+  },
+  {
+    "id": 1650,
+    "resultado_oficial_id": 898,
+    "jugador_id": 1088,
+    "es_autogol": false
+  },
+  {
+    "id": 1651,
+    "resultado_oficial_id": 898,
+    "jugador_id": 1175,
+    "es_autogol": false
+  },
+  {
+    "id": 1653,
+    "resultado_oficial_id": 900,
+    "jugador_id": 906,
+    "es_autogol": false
+  },
+  {
+    "id": 1655,
+    "resultado_oficial_id": 902,
+    "jugador_id": 850,
+    "es_autogol": false
+  }
+]
