@@ -1,8 +1,15 @@
 import { NextResponse } from "next/server";
+import { dispararLiquidacionAutomatica } from "@/lib/liquidacionAutomatica";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
+  // Liquidación automática "en segundo plano": esta ruta la consultan los navegadores
+  // abiertos cada pocos segundos, así que sirve de reloj sin depender de un cron
+  // externo. El propio módulo limita a una revisión cada 10 minutos y nunca en paralelo,
+  // y no se espera su resultado (no retrasa la respuesta). Ver src/lib/liquidacionAutomatica.ts.
+  dispararLiquidacionAutomatica()?.catch(() => {});
+
   try {
     const res = await fetch(
       "https://site.api.espn.com/apis/site/v2/sports/soccer/col.1/scoreboard",

@@ -69,6 +69,20 @@ export async function calcularPuntosPartido(
   const partido = await prisma.partido.findUnique({ where: { id: partidoId } });
   if (!partido) throw new Error(`Partido ${partidoId} no encontrado`);
 
+  // `ingresado_por_usuario_id` es obligatorio en el esquema. Los procesos automáticos
+  // (liquidación por ESPN) no tienen un admin en sesión y pasaban null, lo que hacía
+  // fallar SIEMPRE la creación del resultado. Se registra a nombre del administrador.
+  let ingresadoPor = usuarioIdAdmin;
+  if (ingresadoPor == null) {
+    const admin = await prisma.usuario.findFirst({
+      where: { rol: { nombre: "administrador" }, activo: true },
+      orderBy: { id: "asc" },
+      select: { id: true },
+    });
+    if (!admin) throw new Error("No hay un usuario administrador activo para registrar el resultado automático");
+    ingresadoPor = admin.id;
+  }
+
   let equipoGanadorId: number | null = null;
   if (golesLocalReal > golesVisitanteReal) equipoGanadorId = partido.equipo_local_id;
   else if (golesVisitanteReal > golesLocalReal) equipoGanadorId = partido.equipo_visitante_id;
@@ -134,7 +148,7 @@ export async function calcularPuntosPartido(
           goles_local_real: golesLocalReal,
           goles_visitante_real: golesVisitanteReal,
           equipo_ganador_id: equipoGanadorId,
-          ingresado_por_usuario_id: usuarioIdAdmin,
+          ingresado_por_usuario_id: ingresadoPor,
           timestamp_ingreso: new Date(),
         },
         create: {
@@ -142,7 +156,7 @@ export async function calcularPuntosPartido(
           goles_local_real: golesLocalReal,
           goles_visitante_real: golesVisitanteReal,
           equipo_ganador_id: equipoGanadorId,
-          ingresado_por_usuario_id: usuarioIdAdmin,
+          ingresado_por_usuario_id: ingresadoPor,
         },
       });
 

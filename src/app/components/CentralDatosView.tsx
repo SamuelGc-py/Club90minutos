@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
-export default function CentralDatosView() {
+export default function CentralDatosView({ compacto = false }: { compacto?: boolean } = {}) {
   const [prompt, setPrompt] = useState("");
   const [loading, setLoading] = useState(false);
   const [respuesta, setRespuesta] = useState<{ tipo: string; titulo: string; contenido: any } | null>(null);
@@ -325,6 +325,9 @@ export default function CentralDatosView() {
 
   return (
     <div style={{ width: "100%", maxWidth: 1260, margin: "0 auto", padding: "12px 0 60px", display: "flex", flexDirection: "column", gap: 20 }}>
+      {/* Encabezado propio solo cuando se usa sola; en "Cazador de Puntos" va incrustada */}
+      {!compacto && (
+        <>
       {/* HEADER DE RECOMENDACIONES */}
       <div style={{ display: "flex", alignItems: "center", gap: 14, background: "linear-gradient(135deg, rgba(217, 70, 239, 0.12) 0%, rgba(147, 51, 234, 0.06) 100%)", padding: 20, borderRadius: 16 }}>
         <div style={{ width: 50, height: 50, borderRadius: 14, background: "linear-gradient(135deg, #d946ef 0%, #a855f7 100%)", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", boxShadow: "0 8px 20px rgba(217, 70, 239, 0.4)" }}>
@@ -347,6 +350,9 @@ export default function CentralDatosView() {
           Aquí puedes consultar la <strong style={{ color: "#38bdf8" }}>tabla de posiciones</strong> de los equipos, goles a favor y en contra, partidos ganados/perdidos, los <strong style={{ color: "#38bdf8" }}>últimos 5 resultados</strong> y más — igual que en Flashscore o Google, pero de la Liga BetPlay.
         </p>
       </div>
+
+        </>
+      )}
 
       {/* CHIPS SUGERENCIAS RÁPIDAS DE BÚSQUEDA */}
       <div style={{ display: "flex", flexWrap: "wrap", gap: 8, alignItems: "center" }}>

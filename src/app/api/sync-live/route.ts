@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
-import { sincronizarMarcadoresEnVivo } from "@/lib/syncLive";
+// Usa la misma liquidación segura que el disparo automático (src/lib/liquidacionAutomatica.ts).
+// Antes llamaba a syncLive.ts, que emparejaba goleadores por apellido "contenido".
+import { dispararLiquidacionAutomatica } from "@/lib/liquidacionAutomatica";
 
 export const dynamic = "force-dynamic";
 
@@ -13,15 +15,16 @@ export async function GET(req: Request) {
   }
 
   try {
-    const total = await sincronizarMarcadoresEnVivo();
+    const reporte = await dispararLiquidacionAutomatica(true);
     return NextResponse.json({
       exito: true,
-      mensaje: `Partidos en vivo sincronizados (${total}).`,
+      mensaje: `Partidos liquidados: ${reporte?.liquidados.length ?? 0}. Requieren revisión: ${reporte?.requierenRevision.length ?? 0}.`,
+      reporte,
     });
   } catch (error: any) {
     console.error("Error al sincronizar resultados en vivo:", error);
     return NextResponse.json(
-      { error: "Error al sincronizar: " + error.message },
+      { error: "Error al sincronizar." },
       { status: 500 }
     );
   }

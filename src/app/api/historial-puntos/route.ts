@@ -37,22 +37,26 @@ export async function GET(req: Request) {
     // Todos los puntajes del participante
     const puntajes = await prisma.puntaje.findMany({ where: { usuario_id: usuarioId } });
 
-    // Sus pronósticos, con el partido y el resultado oficial
-    const predicciones = await prisma.prediccionPartido.findMany({
-      where: { usuario_id: usuarioId },
+    // TODOS los partidos finalizados (con resultado oficial), aunque el participante no
+    // los haya pronosticado: así ve el torneo completo y entiende dónde sumó 0.
+    const partidosFinalizados = await prisma.partido.findMany({
+      where: {
+        resultado_oficial: { isNot: null },
+        estado: { in: ["resultado_cargado", "puntaje_calculado"] },
+      },
       include: {
-        jugador_goleador: { select: { id: true, nombre: true } },
-        partido: {
-          include: {
-            equipo_local: { select: { nombre: true, escudo_url: true } },
-            equipo_visitante: { select: { nombre: true, escudo_url: true } },
-            resultado_oficial: {
-              include: { goleadores: { include: { jugador: { select: { nombre: true } } } } },
-            },
-          },
+        equipo_local: { select: { nombre: true, escudo_url: true } },
+        equipo_visitante: { select: { nombre: true, escudo_url: true } },
+        resultado_oficial: {
+          include: { goleadores: { include: { jugador: { select: { nombre: true } } } } },
+        },
+        predicciones: {
+          where: { usuario_id: usuarioId },
+          include: { jugador_goleador: { select: { id: true, nombre: true } } },
         },
       },
-      orderBy: { partido: { fecha_hora_partido: "asc" } },
+      // Más reciente primero
+      orderBy: { fecha_hora_partido: "desc" },
     });
 
     // Puntos por partido y categoría
@@ -66,10 +70,8 @@ export async function GET(req: Request) {
       puntosPorPartido.set(p.partido_id, acc);
     }
 
-    const partidos = predicciones
-      .filter((pred) => pred.partido?.resultado_oficial)
-      .map((pred) => {
-        const partido = pred.partido;
+    const partidos = partidosFinalizados.map((partido) => {
+        const pred = partido.predicciones[0] ?? null;
         const ro = partido.resultado_oficial!;
         const pts = puntosPorPartido.get(partido.id) ?? { exacto: 0, ganador: 0, goleador: 0 };
 
@@ -81,10 +83,11 @@ export async function GET(req: Request) {
           ro.goles_local_real + ro.goles_visitante_real > 0 && goleadoresReales.length === 0;
 
         const detalle: string[] = [];
+        if (!pred) detalle.push("No pronosticaste este partido");
         if (pts.ganador > 0) detalle.push(`Acertó ganador/empate (+${pts.ganador})`);
         if (pts.exacto > 0) detalle.push(`Acertó el marcador exacto (+${pts.exacto})`);
         if (pts.goleador > 0) detalle.push(`Acertó goleador (+${pts.goleador})`);
-        if (detalle.length === 0) detalle.push("Sin aciertos en este partido");
+        if (pred && pts.ganador + pts.exacto + pts.goleador === 0) detalle.push("Sin aciertos en este partido");
         if (sinGoleadoresRegistrados) {
           detalle.push("Este partido no tiene goleadores oficiales registrados: nadie pudo sumar por goleador.");
         }
@@ -99,8 +102,9 @@ export async function GET(req: Request) {
           escudo_local: partido.equipo_local.escudo_url,
           escudo_visitante: partido.equipo_visitante.escudo_url,
           marcador_real: `${ro.goles_local_real}-${ro.goles_visitante_real}`,
-          marcador_predicho: `${pred.goles_local_predicho}-${pred.goles_visitante_predicho}`,
-          goleador_predicho: pred.jugador_goleador?.nombre ?? null,
+          pronosticado: !!pred,
+          marcador_predicho: pred ? `${pred.goles_local_predicho}-${pred.goles_visitante_predicho}` : null,
+          goleador_predicho: pred?.jugador_goleador?.nombre ?? null,
           goleadores_reales: goleadoresReales,
           sin_goleadores_registrados: sinGoleadoresRegistrados,
           puntos_resultado_exacto: pts.exacto,
@@ -134,6 +138,7 @@ export async function GET(req: Request) {
       puntos_ajustes: ajustes.reduce((a, c) => a + c.puntos, 0),
       puntos_total: puntajes.reduce((a, c) => a + c.puntos_obtenidos, 0),
       partidos_evaluados: partidos.length,
+      partidos_pronosticados: partidos.filter((p) => p.pronosticado).length,
       partidos_con_puntos: partidos.filter((p) => p.puntos_total > 0).length,
     };
 
@@ -190,7 +195,7 @@ export async function GET(req: Request) {
           p.jornada,
           `${p.equipo_local} vs ${p.equipo_visitante}`,
           p.marcador_real,
-          p.marcador_predicho,
+          p.marcador_predicho ?? "(sin pronóstico)",
           p.goleador_predicho ?? "(sin goleador)",
           p.goleadores_reales.join(", ") || (p.sin_goleadores_registrados ? "(no registrados)" : "(sin goles)"),
           p.puntos_resultado_exacto,

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useMemo, useRef, Component } from "react";
-import { CheckCircle2, ShieldAlert, Save, RefreshCw, Trophy, Calendar, LogOut, AlertTriangle, UserCheck, Lock, Clock, Eye, List, Download, Users, Menu, X, Flame, Camera, BarChart3, ClipboardCheck, Trash2, Hourglass, BrainCircuit, User, ArrowRight, ChevronRight } from "lucide-react";
+import { CheckCircle2, ShieldAlert, Save, RefreshCw, Trophy, Calendar, LogOut, AlertTriangle, UserCheck, Lock, Clock, Eye, List, Download, Users, Menu, X, Flame, Camera, BarChart3, ClipboardCheck, Trash2, Hourglass, BrainCircuit, User, ArrowRight, ArrowLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { toPng } from 'html-to-image';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis, YAxis } from "recharts";
@@ -10,8 +10,25 @@ import TablaPosicionesAfiche from "../components/TablaPosicionesAfiche";
 import PronosticosPartidoAfiche from "../components/PronosticosPartidoAfiche";
 import PronosticosTorneoAfiche from "../components/PronosticosTorneoAfiche";
 import TriviaModal from "../components/TriviaModal";
-import CentralDatosView from "../components/CentralDatosView";
+import CazadorDePuntosView from "../components/CazadorDePuntosView";
 import HistorialPuntosModal from "../components/HistorialPuntosModal";
+import MisResultadosView from "../components/MisResultadosView";
+import PanelLiquidacionAutomatica from "../components/PanelLiquidacionAutomatica";
+
+// Nombre visible de cada pestaña en la barra "← Inicio"
+const TITULOS_PESTANA: Record<string, string> = {
+  partidos: "⚽ Pronósticos",
+  inicial: "🏆 Predicciones del Torneo",
+  aplazados: "⏳ Partidos Aplazados",
+  finalizados: "🏁 Mis Resultados y Puntos",
+  mis_pronosticos: "🏁 Mis Resultados y Puntos",
+  posiciones: "📊 Tabla de Posiciones",
+  oraculo: "🔮 Cazador de Puntos",
+  pronosticos_todos: "👀 Pronósticos de Todos",
+  en_vivo: "🔴 En Vivo",
+  admin: "🛠️ Panel de Administración",
+  historial: "📜 Historial",
+};
 
 interface Jugador {
   id: number;
@@ -638,6 +655,13 @@ function ExpressPageContent() {
       document.body.classList.remove("login-fullscreen");
     };
   }, [usuario, tabActiva]);
+
+  // Volver a la pantalla de inicio desde cualquier pestaña (botón "Inicio" y logo)
+  const irAInicio = () => {
+    setTabActiva("inicio");
+    setMenuInicioMovilAbierto(false);
+    if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   // Sincronizar tabActiva con el hash de la URL para soportar el botón "Atrás" nativo de celulares
   useEffect(() => {
@@ -3987,6 +4011,7 @@ function ExpressPageContent() {
                       <div>
                         <h2 style={{ margin: "0 0 4px", color: "#fff", fontSize: "1.3rem", fontWeight: 900 }}>🏆 Liquidación de Puntos</h2>
                         <p style={{ color: "#94a3b8", margin: "0 0 16px", fontSize: "0.82rem" }}>Carga el marcador oficial y liquida los puntos de cada partido.</p>
+                        <PanelLiquidacionAutomatica onLiquidado={() => cargarMaestros()} />
                         {SelectorFechaCompacto}
                         {fechaAdmin === 0 ? (
                           <div style={{ padding: 40, textAlign: "center", background: "rgba(15, 23, 42, 0.6)", border: "2px dashed rgba(245, 158, 11, 0.4)", borderRadius: 24 }}>
@@ -4351,15 +4376,20 @@ function ExpressPageContent() {
               boxShadow: "0 8px 24px rgba(0,0,0,0.5)",
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <div
+              style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer" }}
+              onClick={() => irAInicio()}
+              role="button"
+              aria-label="Ir al inicio"
+              title="Ir al inicio"
+            >
               <img
                 src="/marca/logo-club90-principal-transparente.webp"
                 alt="Club 90 Minutos"
                 style={{ height: 36, objectFit: "contain" }}
               />
               <div
-                style={{ fontWeight: 900, fontSize: "1.1rem", color: "#ffffff", display: "flex", alignItems: "center", gap: 8, cursor: "pointer" }}
-                onClick={() => setTabActiva("inicio")}
+                style={{ fontWeight: 900, fontSize: "1.1rem", color: "#ffffff", display: "flex", alignItems: "center", gap: 8 }}
               >
                 CLUB 90 MINUTOS
               </div>
@@ -4421,6 +4451,17 @@ function ExpressPageContent() {
 
 
 
+
+          {/* BARRA DE NAVEGACIÓN: botón visible para volver al inicio desde cualquier pestaña */}
+          {tabActiva !== "inicio" && (
+            <div className="barra-volver-inicio">
+              <button type="button" className="btn-volver-inicio" onClick={() => irAInicio()}>
+                <ArrowLeft size={17} />
+                <span>Inicio</span>
+              </button>
+              <span className="barra-volver-titulo">{TITULOS_PESTANA[tabActiva] ?? ""}</span>
+            </div>
+          )}
 
           {/* TAB 0: PANTALLA DE INICIO Y BIENVENIDA (con sidebar de navegación) */}
           {tabActiva === "inicio" && (
@@ -4496,10 +4537,13 @@ function ExpressPageContent() {
                     {
                       key: "finalizados",
                       emoji: "🏁",
-                      label: "Partidos Terminados",
-                      desc: "Resultados ya jugados",
+                      label: "Mis Resultados y Puntos",
+                      desc: "Partidos jugados y lo que sumaste",
                       color: "#ef4444",
-                      onClick: () => setTabActiva("finalizados"),
+                      onClick: () => {
+                        setTabActiva("finalizados");
+                        setMenuInicioMovilAbierto(false);
+                      },
                     },
                     {
                       key: "posiciones",
@@ -4513,21 +4557,10 @@ function ExpressPageContent() {
                       },
                     },
                     {
-                      key: "mis_pronosticos",
-                      emoji: "📋",
-                      label: "Tus Puntuaciones",
-                      desc: "Ver tus puntos y posición",
-                      color: "#6366f1",
-                      onClick: () => {
-                        setTabActiva("mis_pronosticos");
-                        cargarConsolidados(usuario.id);
-                      },
-                    },
-                    {
                       key: "oraculo",
                       emoji: "🔮",
                       label: "Cazador de Puntos",
-                      desc: "Asistente de Inteligencia Artificial",
+                      desc: "Tabla de la liga, estadísticas y recomendaciones",
                       color: "#eab308",
                       onClick: () => {
                         setTabActiva("oraculo");
@@ -4544,14 +4577,6 @@ function ExpressPageContent() {
                         setTabActiva("pronosticos_todos");
                         cargarConsolidados(usuario.id);
                       },
-                    },
-                    {
-                      key: "oraculo",
-                      emoji: "🤖",
-                      label: "Recomendaciones",
-                      desc: "Estadísticas y pronósticos",
-                      color: "#d946ef",
-                      onClick: () => setTabActiva("oraculo"),
                     },
                   ]).map((item) => (
                     <button
@@ -4762,58 +4787,9 @@ function ExpressPageContent() {
             </div>
           )}
 
-          {/* TAB: PARTIDOS FINALIZADOS */}
-          {tabActiva === "finalizados" && (
-            <div>
-              <div className="card" style={{ marginBottom: 20 }}>
-                <h2>🏁 Partidos Finalizados (Orden Cronológico)</h2>
-                <p style={{ color: "var(--graderia)", margin: 0, fontSize: "0.85rem" }}>
-                  Aquí puedes ver el historial de los partidos que ya han finalizado en la fecha actual.
-                </p>
-              </div>
-
-              {cargandoMaestros ? (
-                <div style={{ textAlign: "center", padding: 40, color: "var(--graderia)" }}>
-                  <button className="btn btn-primary" onClick={cargarMaestros} style={{ padding: "10px 18px" }}>
-                    🔄 Cargar Partidos Ahora
-                  </button>
-                </div>
-              ) : (
-                (() => {
-                  const estaSoloFinal = (partido: any) => {
-                    const esFinalizado = esPartidoFinalizadoReal(partido, partidosEnVivo);
-                    if (esFinalizado) return true;
-                    
-                    // Para jornadas pasadas, si no tiene resultado oficial, NO lo mostramos como finalizado
-                    // (porque suele tratarse de partidos aplazados que aún conservan estado "programado" y fecha antigua)
-                    if (partido.jornada < fechaParticipante) {
-                      return false;
-                    }
-
-                    // Para la jornada actual, sí usamos la regla de 2 horas para que pasen a finalizados automáticamente
-                    const hace2Horas = new Date().getTime() >= new Date(partido.fecha_hora_partido).getTime() + 2 * 60 * 60 * 1000;
-                    return hace2Horas;
-                  };
-
-                  // Solo la fecha activa: sin arrastrar finalizados de jornadas anteriores.
-                  const finalizadosFecha = partidos
-                    .filter(p => p.jornada === fechaParticipante && p.estado !== "aplazado" && estaSoloFinal(p))
-                    .sort((a, b) => new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime());
-
-                  return (
-                    <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-                      {finalizadosFecha.length > 0 ? (
-                        finalizadosFecha.map((partido) => renderPartidoCard(partido))
-                      ) : (
-                        <div style={{ textAlign: "center", padding: "40px 20px", color: "var(--graderia)", border: "1px dashed var(--linea-fuerte)", borderRadius: 12 }}>
-                          Todavía no hay partidos finalizados en la fecha activa.
-                        </div>
-                      )}
-                    </div>
-                  );
-                })()
-              )}
-            </div>
+          {/* TAB: MIS RESULTADOS Y PUNTOS (fusiona "Partidos Terminados" y "Tus Puntuaciones") */}
+          {(tabActiva === "finalizados" || tabActiva === "mis_pronosticos") && usuario && (
+            <MisResultadosView usuarioId={usuario.id} />
           )}
 
           {/* TAB: PARTIDOS APLAZADOS DEDICADO */}
@@ -5263,337 +5239,6 @@ function ExpressPageContent() {
           )}
 
           {/* TAB 3: MIS PRONÓSTICOS & TUS PUNTUACIONES */}
-          {tabActiva === "mis_pronosticos" && (
-            <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-              {/* DESGLOSE OFICIAL DE TUS PUNTUACIONES DESDE LA BD CON ACCORDION INTERACTIVO */}
-              {(() => {
-                const miFila = consolidados?.tablaPosiciones?.find((f: any) => f.correo?.toLowerCase() === (usuario.correo || "").toLowerCase());
-                const misPuntajes = (consolidados as any)?.puntajes?.filter((p: any) => p.usuario_id === usuario.id) || [];
-                const misPredicciones = consolidados?.prediccionesPartidos?.filter((p: any) => p.usuario_id === usuario.id) || [];
-
-                return (
-                  <>
-                  <div
-                    className="card"
-                    style={{
-                      position: "relative",
-                      background: "linear-gradient(135deg, rgba(16, 42, 33, 0.95) 0%, rgba(14, 26, 39, 0.95) 100%)",
-                      border: "none",
-                      borderRadius: 16,
-                      padding: 24,
-                      boxShadow: "0 10px 30px rgba(0,0,0,0.4)",
-                      overflow: "hidden"
-                    }}
-                  >
-                    {/* MARCA DE AGUA CLUB 90 */}
-                    <div
-                      style={{
-                        position: "absolute",
-                        right: -10,
-                        bottom: -10,
-                        width: 180,
-                        height: 180,
-                        backgroundImage: "url('/marca/logo-club90-escudo-transparente.webp')",
-                        backgroundSize: "contain",
-                        backgroundRepeat: "no-repeat",
-                        backgroundPosition: "center",
-                        opacity: 0.05,
-                        pointerEvents: "none",
-                        zIndex: 0,
-                      }}
-                    />
-
-                    <div style={{ position: "relative", zIndex: 1 }}>
-                      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16, marginBottom: 20 }}>
-                        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                          <div style={{ width: 44, height: 44, borderRadius: 12, background: "linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff" }}>
-                            <img src="/marca/logo-club90-escudo-balon.webp" alt="" style={{ width: 30, height: 30, objectFit: "cover", borderRadius: "50%" }} />
-                          </div>
-                          <div>
-                            <h2 style={{ margin: 0, color: "#ffffff", fontSize: "1.3rem", fontWeight: 900 }}>Tus Puntuaciones y Aciertos</h2>
-                            <span style={{ color: "var(--graderia)", fontSize: "0.85rem" }}>
-                              Haz clic en cualquier categoría para desplegar la lista de aciertos
-                            </span>
-                          </div>
-                        </div>
-
-                        {miFila && (
-                          <div style={{ display: "flex", gap: 16, alignItems: "center", background: "rgba(0,0,0,0.3)", padding: "10px 20px", borderRadius: 50 }}>
-                            <div style={{ textAlign: "center" }}>
-                              <span style={{ fontSize: "0.7rem", color: "var(--graderia)", textTransform: "uppercase", fontWeight: 700 }}>Posición</span>
-                              <div style={{ fontSize: "1.2rem", fontWeight: 900, color: "#38bdf8" }}>#{miFila.posicion}</div>
-                            </div>
-                            <div style={{ width: 1, height: 24, background: "rgba(255,255,255,0.1)" }} />
-                            <div style={{ textAlign: "center" }}>
-                              <span style={{ fontSize: "0.7rem", color: "var(--graderia)", textTransform: "uppercase", fontWeight: 700 }}>Puntos Totales</span>
-                              <div style={{ fontSize: "1.2rem", fontWeight: 900, color: "#34d399" }}>{miFila.pts_total} PTS</div>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-
-                      {/* EL POLLO PERIODISTA: Crónica Generada con IA */}
-                      <div style={{ width: "100%", marginTop: 0, marginBottom: 24, paddingBottom: 24, borderBottom: "1px dashed rgba(255,255,255,0.1)" }}>
-                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", marginBottom: 16, gap: 12 }}>
-                          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                            <h2 style={{ margin: 0, fontSize: "1.2rem", fontWeight: 900, color: "#fff", display: "flex", alignItems: "center", gap: 8 }}>
-                              📰 El Pollo Periodista
-                            </h2>
-                            <span style={{ fontSize: "0.75rem", color: "#fbbf24", background: "rgba(245, 158, 11, 0.15)", padding: "4px 10px", borderRadius: 12, border: "1px solid rgba(245, 158, 11, 0.3)", fontWeight: 800 }}>
-                              IA Gemini
-                            </span>
-                          </div>
-                          <button
-                            onClick={handleGenerarCronica}
-                            disabled={cargandoCronica}
-                            style={{
-                              padding: "8px 20px",
-                              background: cargandoCronica ? "rgba(255,255,255,0.1)" : "linear-gradient(135deg, #10b981 0%, #059669 100%)",
-                              color: cargandoCronica ? "#94a3b8" : "#fff",
-                              border: "none",
-                              borderRadius: "20px",
-                              fontWeight: 800,
-                              fontSize: "0.85rem",
-                              cursor: cargandoCronica ? "not-allowed" : "pointer",
-                              display: "flex",
-                              alignItems: "center",
-                              gap: 8,
-                              boxShadow: cargandoCronica ? "none" : "0 4px 12px rgba(16, 185, 129, 0.3)",
-                              transition: "all 0.2s ease"
-                            }}
-                          >
-                            {cargandoCronica ? (
-                              <><RefreshCw size={15} className="spin" /> Escribiendo noticia...</>
-                            ) : (
-                              <><CheckCircle2 size={15} /> {cronicaData ? "Actualizar Crónica" : "Pedir Resumen a Gemini"}</>
-                            )}
-                          </button>
-                        </div>
-                        {cronicaData ? (
-                          <div style={{ background: "rgba(0,0,0,0.4)", borderRadius: 12, padding: 16, border: "1px solid rgba(16, 185, 129, 0.2)" }}>
-                            <h3 style={{ margin: "0 0 8px 0", color: "#10b981", fontSize: "1.05rem" }}>{cronicaData.titular}</h3>
-                            <p style={{ margin: 0, color: "#cbd5e1", fontSize: "0.85rem", lineHeight: 1.5, whiteSpace: "pre-wrap" }}>
-                              {cronicaData.cuerpo_noticia}
-                            </p>
-                          </div>
-                        ) : (
-                          <div style={{ color: "var(--graderia)", fontSize: "0.85rem", textAlign: "center", padding: "10px 0" }}>
-                            Aún no hay crónica generada. Haz clic en el botón superior para que Gemini analice la jornada.
-                          </div>
-                        )}
-                      </div>
-
-                      {/* BOTONES INTERACTIVOS DE RESUMEN POR CATEGORÍA */}
-                      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 12 }}>
-                        {[
-                          { id: "exacto", emoji: "🎯", title: "RESULTADOS CORRECTOS (5 PTS)", pts: miFila ? miFila.pts_resultado_exacto : 0, count: miFila ? Math.floor(miFila.pts_resultado_exacto / 5) : 0, color: "#34d399" },
-                          { id: "ganador", emoji: "⚽", title: "GANADOR PARTIDO (3 PTS)", pts: miFila ? miFila.pts_ganador_partido : 0, count: miFila ? Math.floor(miFila.pts_ganador_partido / 3) : 0, color: "#38bdf8" },
-                          { id: "goleador", emoji: "👟", title: "GOLEADORES (2 PTS)", pts: miFila ? miFila.pts_goleador_partido : 0, count: miFila ? Math.floor(miFila.pts_goleador_partido / 2) : 0, color: "#f59e0b" },
-                        ].map((cat) => (
-                          <button
-                            key={cat.id}
-                            type="button"
-                            onClick={() => setDesgloseAbierto(cat.id as any)}
-                            style={{
-                              background: "rgba(255,255,255,0.04)",
-                              border: "1px solid rgba(255,255,255,0.06)",
-                              padding: 16,
-                              borderRadius: 14,
-                              textAlign: "left",
-                              cursor: "pointer",
-                              transition: "all 0.2s ease",
-                              display: "flex",
-                              alignItems: "center",
-                              gap: 14,
-                            }}
-                            onMouseOver={(e) => {
-                              e.currentTarget.style.transform = "translateY(-3px)";
-                              e.currentTarget.style.background = `linear-gradient(135deg, ${cat.color}20 0%, rgba(15,23,42,0.9) 100%)`;
-                              e.currentTarget.style.border = `1px solid ${cat.color}60`;
-                              e.currentTarget.style.boxShadow = `0 8px 20px ${cat.color}25`;
-                            }}
-                            onMouseOut={(e) => {
-                              e.currentTarget.style.transform = "none";
-                              e.currentTarget.style.background = "rgba(255,255,255,0.04)";
-                              e.currentTarget.style.border = "1px solid rgba(255,255,255,0.06)";
-                              e.currentTarget.style.boxShadow = "none";
-                            }}
-                          >
-                            <div style={{ width: 42, height: 42, borderRadius: 12, background: `${cat.color}22`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.3rem", flexShrink: 0 }}>
-                              {cat.emoji}
-                            </div>
-                            <div style={{ minWidth: 0, flex: 1 }}>
-                              <div style={{ fontSize: "0.72rem", color: cat.color, fontWeight: 800, textTransform: "uppercase", marginBottom: 4 }}>
-                                {cat.title}
-                              </div>
-                              <div style={{ fontSize: "1.3rem", fontWeight: 900, color: "#fff" }}>
-                                {cat.pts} <span style={{ fontSize: "0.72rem", color: "var(--graderia)", fontWeight: 600 }}>pts {cat.count !== null ? `(${cat.count} aciertos)` : ""}</span>
-                              </div>
-                            </div>
-                            <ChevronRight size={18} style={{ color: "var(--graderia)", flexShrink: 0 }} />
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* VENTANA FLOTANTE CON DETALLES DE ACIERTOS POR CATEGORÍA */}
-                  {desgloseAbierto && (
-                    <div
-                      style={{
-                        position: "fixed", top: 0, left: 0, right: 0, bottom: 0,
-                        background: "rgba(0,0,0,0.85)",
-                        backdropFilter: "blur(8px)",
-                        display: "flex", justifyContent: "center", alignItems: "flex-start",
-                        overflowY: "auto",
-                        zIndex: 9999, padding: "40px 20px",
-                      }}
-                      onMouseDown={(e) => { mouseDownEnFondoRef.current = e.target === e.currentTarget; }}
-                      onClick={(e) => { if (mouseDownEnFondoRef.current && e.target === e.currentTarget) setDesgloseAbierto(null); }}
-                    >
-                      <div
-                        style={{
-                          background: "#0b1520",
-                          border: "1px solid rgba(255,255,255,0.1)",
-                          borderRadius: 20,
-                          width: "100%", maxWidth: 560,
-                          maxHeight: "100%",
-                          display: "flex", flexDirection: "column",
-                          overflow: "hidden",
-                          boxShadow: "0 10px 40px rgba(0,0,0,0.5)",
-                        }}
-                      >
-                        <div style={{ flexShrink: 0, padding: "18px 22px", background: "linear-gradient(90deg, rgba(255,255,255,0.05) 0%, transparent 100%)", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
-                          <h4 style={{ margin: 0, color: "#fff", fontSize: "1.05rem", fontWeight: 800, display: "flex", alignItems: "center", gap: 8 }}>
-                            <CheckCircle2 size={18} style={{ color: "#34d399" }} />
-                            {desgloseAbierto === "exacto" && "Resultados Correctos Acertados"}
-                            {desgloseAbierto === "ganador" && "Ganadores de Partido Acertados"}
-                            {desgloseAbierto === "goleador" && "Goleadores Acertados"}
-                          </h4>
-                          <button
-                            onClick={() => setDesgloseAbierto(null)}
-                            style={{ background: "transparent", border: "none", color: "var(--graderia)", cursor: "pointer" }}
-                          >
-                            <X size={22} />
-                          </button>
-                        </div>
-
-                        <div style={{ padding: 22, overflowY: "auto" }}>
-                          {(() => {
-                            const filtrados = partidos.filter((partido) => {
-                              if (!partido.resultado_oficial) return false;
-                              const miPred = misPredicciones.find((p: any) => p.partido_id === partido.id);
-                              if (!miPred) return false;
-
-                              if (desgloseAbierto === "exacto") {
-                                return miPred.goles_local_predicho === partido.resultado_oficial.goles_local_real && miPred.goles_visitante_predicho === partido.resultado_oficial.goles_visitante_real;
-                              }
-                              if (desgloseAbierto === "ganador") {
-                                const miGanador = miPred.goles_local_predicho > miPred.goles_visitante_predicho ? "local" : miPred.goles_local_predicho < miPred.goles_visitante_predicho ? "visitante" : "empate";
-                                const ganOficial = partido.resultado_oficial.goles_local_real > partido.resultado_oficial.goles_visitante_real ? "local" : partido.resultado_oficial.goles_local_real < partido.resultado_oficial.goles_visitante_real ? "visitante" : "empate";
-                                return miGanador === ganOficial;
-                              }
-                              if (desgloseAbierto === "goleador") {
-                                const goleadoresOficialesIds = partido.resultado_oficial.goleadores?.map((g: any) => g.jugador_id) || [];
-                                return miPred.jugador_goleador_predicho_id && goleadoresOficialesIds.includes(miPred.jugador_goleador_predicho_id);
-                              }
-                              return false;
-                            });
-
-                            if (filtrados.length === 0) {
-                              return (
-                                <div style={{ fontSize: "0.9rem", color: "var(--graderia)", padding: "12px 0", textAlign: "center" }}>
-                                  Aún no tienes aciertos liquidados en esta categoría.
-                                </div>
-                              );
-                            }
-
-                            const puntosPorAcierto = desgloseAbierto === "exacto" ? 5 : desgloseAbierto === "ganador" ? 3 : 2;
-
-                            const frasesExacto = ["🎯 ¡Le diste directo al marcador!", "🔥 ¡Puro nivel de crack!", "🐐 ¡Ese resultado te lo sabías de memoria!"];
-                            const frasesGanador = ["✅ ¡Se lo veía venir y le atinaste!", "👀 ¡Buen ojo futbolero!", "💪 ¡Nadie te gana leyendo partidos!"];
-                            const frasesGoleador = ["🥅 ¡Le atinaste al goleador!", "⚡ ¡Buen ojo con los delanteros!", "🎯 ¡Sabías quién la iba a mandar a guardar!"];
-
-                            return (
-                              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                                {filtrados.map((partido, idx) => {
-                                  const nombrePartido = `${partido.equipo_local.nombre} vs ${partido.equipo_visitante.nombre}`;
-                                  const miPred = misPredicciones.find((p: any) => p.partido_id === partido.id);
-
-                                  if (desgloseAbierto === "goleador") {
-                                    const goleadoresOficiales = partido.resultado_oficial.goleadores || [];
-                                    const miGoleadorNombre = goleadoresOficiales.find((g: any) => g.jugador_id === miPred.jugador_goleador_predicho_id)?.jugador?.nombre;
-                                    const otrosGoleadores = goleadoresOficiales
-                                      .filter((g: any) => g.jugador_id !== miPred.jugador_goleador_predicho_id)
-                                      .map((g: any) => g.jugador?.nombre)
-                                      .filter(Boolean);
-                                    const frase = frasesGoleador[idx % frasesGoleador.length];
-
-                                    return (
-                                      <div
-                                        key={partido.id}
-                                        style={{ background: "rgba(255,255,255,0.03)", padding: 14, borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}
-                                      >
-                                        <div style={{ minWidth: 0, flex: 1 }}>
-                                          <div style={{ fontSize: "0.85rem", fontWeight: 800, color: "#fff" }}>{nombrePartido}</div>
-                                          <div style={{ fontSize: "0.78rem", color: "#94a3b8", fontWeight: 700, marginTop: 2 }}>
-                                            Tu goleador: <span style={{ color: "#f59e0b" }}>{miGoleadorNombre || "—"}</span>
-                                            {otrosGoleadores.length > 0 && <> · También anotó: {otrosGoleadores.join(", ")}</>}
-                                          </div>
-                                          <div style={{ fontSize: "0.78rem", color: "#34d399", fontWeight: 800, marginTop: 4 }}>
-                                            {frase}
-                                          </div>
-                                        </div>
-                                        <span style={{ flexShrink: 0, padding: "4px 10px", borderRadius: 20, background: "rgba(52, 211, 153, 0.15)", color: "#34d399", fontWeight: 800, fontSize: "0.8rem" }}>
-                                          +{puntosPorAcierto} Pts
-                                        </span>
-                                      </div>
-                                    );
-                                  }
-
-                                  const frase = desgloseAbierto === "exacto"
-                                    ? frasesExacto[idx % frasesExacto.length]
-                                    : frasesGanador[idx % frasesGanador.length];
-
-                                  const golesL = partido.resultado_oficial.goles_local_real;
-                                  const golesV = partido.resultado_oficial.goles_visitante_real;
-                                  const resultadoTexto = desgloseAbierto === "ganador"
-                                    ? (golesL > golesV ? `Ganó ${partido.equipo_local.nombre}` : golesV > golesL ? `Ganó ${partido.equipo_visitante.nombre}` : "Empate")
-                                    : `Pusiste ${miPred.goles_local_predicho} - ${miPred.goles_visitante_predicho} · Resultado ${golesL} - ${golesV}`;
-
-                                  return (
-                                    <div
-                                      key={partido.id}
-                                      style={{ background: "rgba(255,255,255,0.03)", padding: 14, borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}
-                                    >
-                                      <div style={{ minWidth: 0, flex: 1 }}>
-                                        <div style={{ fontSize: "0.85rem", fontWeight: 800, color: "#fff" }}>{nombrePartido}</div>
-                                        <div style={{ fontSize: "0.78rem", color: "#94a3b8", fontWeight: 700, marginTop: 2 }}>
-                                          {desgloseAbierto === "ganador" ? `Resultado: ${resultadoTexto} (${golesL}-${golesV})` : resultadoTexto}
-                                        </div>
-                                        <div style={{ fontSize: "0.78rem", color: "#34d399", fontWeight: 800, marginTop: 4 }}>
-                                          {frase}
-                                        </div>
-                                      </div>
-                                      <span style={{ flexShrink: 0, padding: "4px 10px", borderRadius: 20, background: "rgba(52, 211, 153, 0.15)", color: "#34d399", fontWeight: 800, fontSize: "0.8rem" }}>
-                                        +{puntosPorAcierto} Pts
-                                      </span>
-                                    </div>
-                                  );
-                                })}
-                              </div>
-                            );
-                          })()}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                  </>
-                );
-              })()}
-            </div>
-          )}
-
           {/* TAB 4: POSICIONES & PUNTOS EN VIVO */}
           {tabActiva === "posiciones" && (
             <div>
@@ -6129,9 +5774,8 @@ function ExpressPageContent() {
             </div>
           )}
 
-          {tabActiva === "oraculo" && (
-            <CentralDatosView />
-          )}
+          {/* CAZADOR DE PUNTOS: recomendaciones + tabla de la liga + asistente (fusiona "Recomendaciones y Datos") */}
+          {tabActiva === "oraculo" && <CazadorDePuntosView partidos={partidos} />}
 
         </div>
       )}

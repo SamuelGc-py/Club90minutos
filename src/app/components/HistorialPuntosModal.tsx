@@ -20,7 +20,7 @@ interface PartidoHistorial {
   escudo_local: string | null;
   escudo_visitante: string | null;
   marcador_real: string;
-  marcador_predicho: string;
+  marcador_predicho: string | null;
   goleador_predicho: string | null;
   goleadores_reales: string[];
   sin_goleadores_registrados: boolean;
@@ -298,7 +298,7 @@ export default function HistorialPuntosModal({
                           </div>
                           <div style={{ color: "#cbd5e1", fontSize: "0.78rem", marginTop: 4 }}>
                             Real: <strong style={{ color: "#fff" }}>{p.marcador_real}</strong>
-                            {"  ·  "}Tu pronóstico: <strong style={{ color: "#fff" }}>{p.marcador_predicho}</strong>
+                            {"  ·  "}Tu pronóstico: <strong style={{ color: "#fff" }}>{p.marcador_predicho ?? "sin pronóstico"}</strong>
                           </div>
                           <div style={{ color: "#94a3b8", fontSize: "0.75rem", marginTop: 2 }}>
                             Tu goleador: {p.goleador_predicho ?? "(ninguno)"}
