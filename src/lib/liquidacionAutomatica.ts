@@ -44,6 +44,8 @@ export interface ReporteLiquidacion {
   requierenRevision: { partido_id: number; partido: string; motivo: string }[];
   sinTerminar: number;
   sinEventoEspn: number;
+  /** Partidos ya jugados que no aparecen en ESPN (nombre distinto, fecha corrida…): carga manual. */
+  noEncontrados: { partido_id: number; partido: string }[];
 }
 
 const normalizar = (s: string) =>
@@ -76,8 +78,12 @@ export function resolverGoleador(nombreEspn: string, jugadoresEquipo: { id: numb
   });
   if (porNombreYApellido.length === 1) return porNombreYApellido[0].id;
 
-  // Apellido único en el equipo
-  const porApellido = jugadoresEquipo.filter((j) => normalizar(j.nombre).split(" ").includes(apellido));
+  // Apellido único en el equipo: debe ser el ÚLTIMO token del nombre en la base. Buscarlo
+  // en cualquier posición emparejaba un nombre de pila ("Jair" ~ "... Jair ...").
+  const porApellido = jugadoresEquipo.filter((j) => {
+    const t = normalizar(j.nombre).split(" ");
+    return t.length > 1 && t[t.length - 1] === apellido;
+  });
   if (porApellido.length === 1) return porApellido[0].id;
 
   return null;
@@ -97,10 +103,21 @@ async function scoreboard(fecha: string): Promise<any[]> {
   }
 }
 
+const ESTADOS_FINALES = new Set(["STATUS_FULL_TIME", "STATUS_FINAL", "STATUS_FINAL_AET", "STATUS_FINAL_PEN"]);
+const ESTADOS_ANOMALOS = new Set([
+  "STATUS_POSTPONED",
+  "STATUS_CANCELED",
+  "STATUS_ABANDONED",
+  "STATUS_SUSPENDED",
+  "STATUS_FORFEIT",
+  "STATUS_DELAYED",
+  "STATUS_RAIN_DELAY",
+]);
+
 const yyyymmdd = (d: Date) => d.toISOString().slice(0, 10).replace(/-/g, "");
 
 export async function liquidarPartidosFinalizados(): Promise<ReporteLiquidacion> {
-  const reporte: ReporteLiquidacion = { revisados: 0, liquidados: [], requierenRevision: [], sinTerminar: 0, sinEventoEspn: 0 };
+  const reporte: ReporteLiquidacion = { revisados: 0, liquidados: [], requierenRevision: [], sinTerminar: 0, sinEventoEspn: 0, noEncontrados: [] };
   const ahora = Date.now();
 
   const candidatos = await prisma.partido.findMany({
@@ -143,18 +160,23 @@ export async function liquidarPartidosFinalizados(): Promise<ReporteLiquidacion>
 
     if (!ev) {
       reporte.sinEventoEspn++;
+      // Solo se avisa si ya debió terminar hace rato (no por un partido recién empezado)
+      if (Date.now() - new Date(p.fecha_hora_partido).getTime() > 3 * 60 * 60 * 1000) {
+        reporte.noEncontrados.push({ partido_id: p.id, partido: nombrePartido });
+      }
       continue;
     }
 
     const comp = ev.competitions[0];
     const tipo = comp.status?.type ?? ev.status?.type ?? {};
-    const terminado = tipo.completed === true || tipo.name === "STATUS_FULL_TIME" || tipo.name === "STATUS_FINAL";
-    if (!terminado) {
-      if (["STATUS_POSTPONED", "STATUS_CANCELED"].includes(tipo.name)) {
-        reporte.requierenRevision.push({ partido_id: p.id, partido: nombrePartido, motivo: `ESPN lo reporta como ${tipo.name}` });
-      } else {
-        reporte.sinTerminar++;
-      }
+    // Se decide por el NOMBRE del estado, no por `completed`: ESPN marca como
+    // "completed" también partidos abandonados o suspendidos, que no deben liquidarse.
+    if (ESTADOS_ANOMALOS.has(tipo.name)) {
+      reporte.requierenRevision.push({ partido_id: p.id, partido: nombrePartido, motivo: `ESPN lo reporta como ${tipo.name}` });
+      continue;
+    }
+    if (!ESTADOS_FINALES.has(tipo.name)) {
+      reporte.sinTerminar++;
       continue;
     }
 
@@ -209,7 +231,9 @@ export async function liquidarPartidosFinalizados(): Promise<ReporteLiquidacion>
     }
 
     try {
-      await calcularPuntosPartido(p.id, gl, gv, [...ids], null);
+      // soloSiPendiente: el motor re-comprueba dentro de su transacción que el admin no
+      // haya cargado el resultado mientras se consultaba ESPN; si lo hizo, no lo pisa.
+      await calcularPuntosPartido(p.id, gl, gv, [...ids], null, { soloSiPendiente: true });
       reporte.liquidados.push({
         partido_id: p.id,
         partido: nombrePartido,
@@ -217,6 +241,7 @@ export async function liquidarPartidosFinalizados(): Promise<ReporteLiquidacion>
         goleadores: autogoles ? [...nombres, `${autogoles} autogol(es)`] : nombres,
       });
     } catch (e: any) {
+      if (String(e?.message).includes("YA_CARGADO")) continue; // lo cargó el admin: se respeta
       reporte.requierenRevision.push({ partido_id: p.id, partido: nombrePartido, motivo: `Error al liquidar: ${e?.message}` });
     }
   }
@@ -232,10 +257,16 @@ let ultimaEjecucion = 0;
 let enCurso: Promise<ReporteLiquidacion> | null = null;
 export let ultimoReporte: (ReporteLiquidacion & { fecha: string }) | null = null;
 
-export function dispararLiquidacionAutomatica(forzar = false): Promise<ReporteLiquidacion> | null {
+/**
+ * @param forzar        ignora el freno de 10 minutos (cron externo, botón del admin).
+ * @param ignorarInterruptor  solo para el botón del admin: ejecuta aunque la automática
+ *                      esté apagada. Los procesos automáticos (cron, sync-live) NUNCA lo usan,
+ *                      así que apagar el interruptor los detiene a todos.
+ */
+export function dispararLiquidacionAutomatica(forzar = false, ignorarInterruptor = false): Promise<ReporteLiquidacion> | null {
   // Nunca durante `next build` (Next ejecuta las rutas para pre-renderizarlas).
   if (process.env.NEXT_PHASE === "phase-production-build") return null;
-  if (!liquidacionAutomaticaActiva() && !forzar) return null;
+  if (!liquidacionAutomaticaActiva() && !ignorarInterruptor) return null;
   if (enCurso) return enCurso;
   if (!forzar && Date.now() - ultimaEjecucion < INTERVALO_MS) return null;
   ultimaEjecucion = Date.now();
@@ -246,7 +277,7 @@ export function dispararLiquidacionAutomatica(forzar = false): Promise<ReporteLi
     })
     .catch((e) => {
       console.error("[liquidacion-automatica] error:", e?.message);
-      return { revisados: 0, liquidados: [], requierenRevision: [], sinTerminar: 0, sinEventoEspn: 0 };
+      return { revisados: 0, liquidados: [], requierenRevision: [], sinTerminar: 0, sinEventoEspn: 0, noEncontrados: [] };
     })
     .finally(() => {
       enCurso = null;

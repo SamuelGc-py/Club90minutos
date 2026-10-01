@@ -10,6 +10,7 @@ interface Reporte {
   requierenRevision: { partido_id: number; partido: string; motivo: string }[];
   sinTerminar: number;
   sinEventoEspn: number;
+  noEncontrados?: { partido_id: number; partido: string }[];
 }
 
 /**
@@ -36,7 +37,7 @@ export default function PanelLiquidacionAutomatica({ onLiquidado }: { onLiquidad
     setRevisando(true);
     setError(null);
     try {
-      const res = await fetch("/api/cron/espn", { cache: "no-store" });
+      const res = await fetch("/api/cron/espn", { method: "POST", cache: "no-store" });
       const d = await res.json();
       if (!res.ok || d.error) throw new Error(d.error || "No se pudo revisar");
       setReporte({ ...d.reporte, fecha: new Date().toISOString() });
@@ -116,7 +117,15 @@ export default function PanelLiquidacionAutomatica({ onLiquidado }: { onLiquidad
               </span>
             </div>
           ))}
-          {!reporte.liquidados.length && !reporte.requierenRevision.length && (
+          {(reporte.noEncontrados ?? []).map((x) => (
+            <div key={`ne-${x.partido_id}`} style={{ color: "#fde68a", display: "flex", gap: 6, marginBottom: 4 }}>
+              <AlertTriangle size={14} style={{ color: "#f59e0b", flexShrink: 0, marginTop: 2 }} />
+              <span>
+                <strong>{x.partido}</strong>: ya debió terminar pero no aparece en ESPN (¿nombre o fecha distintos?). Cárgalo manualmente.
+              </span>
+            </div>
+          ))}
+          {!reporte.liquidados.length && !reporte.requierenRevision.length && !(reporte.noEncontrados ?? []).length && (
             <div style={{ color: "#94a3b8" }}>No hay partidos terminados pendientes de liquidar.</div>
           )}
         </div>

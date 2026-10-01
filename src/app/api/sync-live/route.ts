@@ -15,7 +15,7 @@ export async function GET(req: Request) {
   }
 
   try {
-    const reporte = await dispararLiquidacionAutomatica(true);
+    const reporte = await dispararLiquidacionAutomatica(true, false);
     return NextResponse.json({
       exito: true,
       mensaje: `Partidos liquidados: ${reporte?.liquidados.length ?? 0}. Requieren revisión: ${reporte?.requierenRevision.length ?? 0}.`,

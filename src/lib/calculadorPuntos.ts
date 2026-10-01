@@ -60,7 +60,7 @@ export async function calcularPuntosPartido(
   golesVisitanteReal: number,
   goleadorRealJugadorId: GoleadoresInput,
   usuarioIdAdmin: number | null,
-  opciones: { forzarVaciarGoleadores?: boolean } = {}
+  opciones: { forzarVaciarGoleadores?: boolean; soloSiPendiente?: boolean } = {}
 ): Promise<ResultadoLiquidacion> {
   const advertencias: string[] = [];
   const goleadoresEntrada = normalizarGoleadores(goleadorRealJugadorId);
@@ -142,6 +142,14 @@ export async function calcularPuntosPartido(
   // --- GARANTÍA 3: todo en una sola transacción ---
   const totalPredicciones = await prisma.$transaction(
     async (tx) => {
+      if (opciones.soloSiPendiente) {
+        // Liquidación automática: si entre tanto el admin cargó el resultado, no se pisa.
+        const ya = await tx.resultadoOficial.findUnique({ where: { partido_id: partidoId }, select: { id: true } });
+        const est = await tx.partido.findUnique({ where: { id: partidoId }, select: { estado: true } });
+        if (ya || est?.estado === "resultado_cargado" || est?.estado === "puntaje_calculado" || est?.estado === "aplazado") {
+          throw new Error(`YA_CARGADO: el partido ${partidoId} ya tiene resultado o cambió de estado`);
+        }
+      }
       const resultadoOficial = await tx.resultadoOficial.upsert({
         where: { partido_id: partidoId },
         update: {

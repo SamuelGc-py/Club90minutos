@@ -5,7 +5,9 @@ import { calcularPuntosPartido } from "@/lib/calculadorPuntos";
 
 export const dynamic = "force-dynamic";
 
-export async function GET(req: Request) {
+// POST, no GET: la cookie de sesión (SameSite=Lax) viaja en navegaciones GET desde otro
+// sitio, así que un admin que abriera un enlace malicioso dispararía esta operación.
+export async function POST(req: Request) {
   try {
     // Borra y recalcula TODOS los puntajes: solo administradores.
     const auth = await requerirAdmin(req);
