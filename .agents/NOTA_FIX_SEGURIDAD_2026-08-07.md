@@ -115,7 +115,7 @@ query param `?secret=`, comparado contra la variable de entorno
 **Valor usado en este proyecto** (ya configurado en `.env` local y en las
 variables de entorno de Hostinger):
 ```
-SYNC_LIVE_SECRET=e5f3389ccc12e5a6c8c0039b427756e1c0ee5be30f87231d
+SYNC_LIVE_SECRET=***SECRETO_ELIMINADO***
 ```
 
 **Importante:** no se encontró en el código ninguna referencia a quién llama
