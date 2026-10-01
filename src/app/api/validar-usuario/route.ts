@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import bcrypt from "bcryptjs";
 import { v4 as uuidv4 } from "uuid";
+import { adjuntarCookieSesion } from "@/lib/auth";
 
 const ES_HASH_BCRYPT = (valor: string) => /^\$2[aby]\$/.test(valor);
 
@@ -109,8 +110,10 @@ export async function POST(req: Request) {
       });
     }
 
-    // Usuario activo habilitado
-    return NextResponse.json({
+    // Usuario activo habilitado. La cookie httpOnly es la que autentica las demás
+    // rutas API (ver src/lib/auth.ts); se emite tanto en el login como en la
+    // re-sincronización, así los usuarios ya conectados la reciben al recargar.
+    const respuesta = NextResponse.json({
       existe: true,
       activo: true,
       sesionToken: sesionTokenRespuesta,
@@ -125,10 +128,12 @@ export async function POST(req: Request) {
         partidos: usuario.predicciones_partido,
       },
     });
+    if (sesionTokenRespuesta) adjuntarCookieSesion(respuesta, req, usuario.id, sesionTokenRespuesta);
+    return respuesta;
   } catch (error: any) {
     console.error("Error validando usuario:", error);
     return NextResponse.json(
-      { error: "Error al consultar la base de datos: " + error.message },
+      { error: "Error al validar el usuario. Intenta de nuevo." },
       { status: 500 }
     );
   }

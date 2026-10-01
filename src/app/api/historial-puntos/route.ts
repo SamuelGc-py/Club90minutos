@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { requerirSesion } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
@@ -16,8 +17,12 @@ export const dynamic = "force-dynamic";
  */
 export async function GET(req: Request) {
   try {
+    const auth = await requerirSesion(req);
+    if (auth.error) return auth.error;
     const { searchParams } = new URL(req.url);
-    const usuarioId = Number(searchParams.get("usuario_id"));
+    const pedido = Number(searchParams.get("usuario_id")) || auth.sesion.usuarioId;
+    // Cada participante ve su propio historial; el administrador puede ver cualquiera.
+    const usuarioId = auth.sesion.esAdmin ? pedido : auth.sesion.usuarioId;
     const formato = searchParams.get("formato");
 
     if (!usuarioId || Number.isNaN(usuarioId)) {

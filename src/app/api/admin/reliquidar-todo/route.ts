@@ -1,12 +1,17 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { requerirAdmin } from "@/lib/auth";
 import { calcularPuntosPartido } from "@/lib/calculadorPuntos";
 
 export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   try {
-    const { usuario_id } = await req.json();
+    // Identidad tomada de la cookie de sesión, nunca del body (ver src/lib/auth.ts).
+    const auth = await requerirAdmin(req);
+    if (auth.error) return auth.error;
+    const { usuario_id: _usuarioIdDelCliente } = await req.json();
+    const usuario_id = auth.sesion.usuarioId;
 
     if (!usuario_id) {
       return NextResponse.json({ error: "Falta usuario_id" }, { status: 400 });

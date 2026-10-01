@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { requerirSesion } from "@/lib/auth";
 import { GoogleGenAI } from '@google/genai';
 import { prisma } from "@/lib/db";
 
@@ -16,6 +17,9 @@ const responderConIA = (ai: GoogleGenAI, contents: string) =>
 
 export async function POST(request: Request) {
   try {
+    // Solo participantes con sesión válida (evita uso anónimo y abuso del API de IA).
+    const auth = await requerirSesion(request);
+    if (auth.error) return auth.error;
     const { prompt } = await request.json();
 
     if (!prompt) {

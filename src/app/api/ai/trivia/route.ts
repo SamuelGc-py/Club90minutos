@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { requerirSesion } from "@/lib/auth";
 import { GoogleGenAI } from '@google/genai';
 
 const CATEGORIAS = [
@@ -14,6 +15,9 @@ const CATEGORIAS = [
 
 export async function GET(request: Request) {
   try {
+    // Solo participantes con sesión válida (evita uso anónimo y abuso del API de IA).
+    const auth = await requerirSesion(request);
+    if (auth.error) return auth.error;
     const { searchParams } = new URL(request.url);
     const nivel = searchParams.get("nivel") || "1";
     if (!process.env.GEMINI_API_KEY) {

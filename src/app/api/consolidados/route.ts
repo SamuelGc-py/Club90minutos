@@ -1,12 +1,16 @@
 import { NextResponse } from "next/server";
+import { requerirSesion } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(req: Request) {
   try {
+    // Contiene correos y pronósticos de todos: solo para participantes con sesión.
+    const auth = await requerirSesion(req);
+    if (auth.error) return auth.error;
     const { searchParams } = new URL(req.url);
-    const usuarioId = searchParams.get("usuario_id");
+    const usuarioId = String(auth.sesion.usuarioId);
 
     if (!usuarioId) {
       return NextResponse.json(

@@ -1,10 +1,14 @@
 import { NextResponse } from "next/server";
+import { requerirSesion } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 
 export async function POST(req: Request) {
   try {
+    // La identidad sale de la cookie de sesión: nadie puede guardar pronósticos a nombre de otro.
+    const auth = await requerirSesion(req);
+    if (auth.error) return auth.error;
     const {
-      usuario_id,
+      usuario_id: usuarioIdDelCliente,
       campeon_equipo_id,
       finalista_1_equipo_id,
       finalista_2_equipo_id,
@@ -12,6 +16,11 @@ export async function POST(req: Request) {
       clasificados_ids,
       partidos,
     } = await req.json();
+
+    if (usuarioIdDelCliente && Number(usuarioIdDelCliente) !== auth.sesion.usuarioId) {
+      return NextResponse.json({ error: "No puedes guardar pronósticos de otro participante." }, { status: 403 });
+    }
+    const usuario_id = auth.sesion.usuarioId;
 
     if (!usuario_id) {
       return NextResponse.json(

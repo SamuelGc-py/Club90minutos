@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { requerirAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
@@ -17,6 +18,8 @@ function normalize(str: string | null | undefined): string {
 
 export async function POST(req: Request) {
   try {
+    const auth = await requerirAdmin(req);
+    if (auth.error) return auth.error;
     const { partidoId } = await req.json();
     if (!partidoId) return NextResponse.json({ error: "Falta partidoId" }, { status: 400 });
 

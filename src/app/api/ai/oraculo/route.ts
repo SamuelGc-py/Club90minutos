@@ -1,8 +1,12 @@
 import { NextResponse } from 'next/server';
+import { requerirSesion } from "@/lib/auth";
 import { GoogleGenAI } from '@google/genai';
 
 export async function POST(req: Request) {
   try {
+    // Solo participantes con sesión válida (evita uso anónimo y abuso del API de IA).
+    const auth = await requerirSesion(req);
+    if (auth.error) return auth.error;
     if (!process.env.GEMINI_API_KEY) {
       return NextResponse.json(
         { error: "API Key de Gemini no configurada." },

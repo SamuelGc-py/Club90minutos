@@ -2,7 +2,13 @@ import { PrismaClient, NombreRol, Fase, EstadoPartido, EstadoPrediccionInicial, 
 import * as fs from "fs";
 import * as path from "path";
 
-const directUrl = "postgresql://postgres.lhherdvyoldypxlhplai:JGqemJX%24h%23c4%3FUQ@aws-0-us-east-2.pooler.supabase.com:5432/postgres";
+// La cadena de conexión NUNCA va escrita en el código: este repositorio es público.
+// (Antes estaba aquí en texto plano, con la contraseña de la base de producción.)
+const directUrl = process.env.DIRECT_URL || process.env.DATABASE_URL;
+if (!directUrl) {
+  console.error("Falta DIRECT_URL o DATABASE_URL en el entorno.");
+  process.exit(1);
+}
 
 const prisma = new PrismaClient({
   datasources: {

@@ -2397,6 +2397,9 @@ function ExpressPageContent() {
   // Cerrar Sesión
   const handleCerrarSesion = () => {
     sessionStorage.removeItem("polla_sesion");
+    // Invalida la sesión también en el servidor (borra la cookie y el token).
+    // keepalive: la petición termina aunque la página navegue enseguida.
+    fetch("/api/auth/logout", { method: "POST", keepalive: true }).catch(() => {});
     if (typeof window !== "undefined") {
       window.location.href = "/";
     }

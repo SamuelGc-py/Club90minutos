@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { secretoValido, obtenerSesion } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { calcularPuntosPartido } from "@/lib/calculadorPuntos";
 
@@ -23,9 +24,10 @@ function normalizeName(name: string): string {
  */
 export async function GET(request: Request) {
   try {
-    const authHeader = request.headers.get('authorization');
-    // Para seguridad, podrías requerir un token en el header si lo deseas. 
-    // if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    // Escribe resultados y liquida puntos: exige el secreto del cron o un administrador.
+    if (!secretoValido(request, ["CRON_SECRET", "SYNC_LIVE_SECRET"]) && !(await obtenerSesion(request))?.esAdmin) {
+      return NextResponse.json({ error: "No autorizado" }, { status: 401 });
+    }
 
     const espnUrl = "https://site.api.espn.com/apis/site/v2/sports/soccer/col.1/scoreboard";
     const res = await fetch(espnUrl);

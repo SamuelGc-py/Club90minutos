@@ -1,13 +1,17 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { requerirAdmin } from "@/lib/auth";
 import ExcelJS from "exceljs";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(req: Request) {
   try {
+    // Identidad tomada de la cookie de sesión, nunca del body (ver src/lib/auth.ts).
+    const auth = await requerirAdmin(req);
+    if (auth.error) return auth.error;
     const { searchParams } = new URL(req.url);
-    const usuarioId = searchParams.get("usuario_id");
+    const usuarioId = String(auth.sesion.usuarioId);
     const partidoId = searchParams.get("partido_id"); // Opcional
     const jornada = searchParams.get("jornada"); // Opcional (Fecha 1, 2, etc)
     const tipo = searchParams.get("tipo"); // "inicial" o null

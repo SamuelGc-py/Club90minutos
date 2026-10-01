@@ -1,11 +1,15 @@
 import { NextResponse } from "next/server";
+import { requerirAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { calcularPuntosPartido } from "@/lib/calculadorPuntos";
 
 export const dynamic = "force-dynamic";
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
+    // Borra y recalcula TODOS los puntajes: solo administradores.
+    const auth = await requerirAdmin(req);
+    if (auth.error) return auth.error;
     await prisma.partido.updateMany({
       where: { jornada_original: { not: null } },
       data: { jornada_original: null }
