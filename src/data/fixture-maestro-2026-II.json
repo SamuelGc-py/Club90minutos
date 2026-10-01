@@ -431,8 +431,9 @@
    "jornada": 17,
    "local": "Internacional de Bogotá",
    "visitante": "Once Caldas DAF",
-   "fecha_utc": "2026-10-02T01:00:00Z",
-   "con_hora": true
+   "fecha_utc": "2026-10-04T21:05:00Z",
+   "con_hora": true,
+   "nota": "Reprogramado al 04/10/2026 4:05 p. m. (confirmado por el usuario el 2026-10-01; el PDF decia 01/10 8:00 p. m.)"
   },
   {
    "numero": 162,
