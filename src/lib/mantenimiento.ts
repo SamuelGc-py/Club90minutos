@@ -13,7 +13,7 @@
  *     la constante, pero en Hostinger solo se lee al reiniciar la app, así que la
  *     constante es el interruptor confiable.
  */
-export const MANTENIMIENTO_ACTIVO = true;
+export const MANTENIMIENTO_ACTIVO = false;
 
 export function mantenimientoActivo(): boolean {
   const env = process.env.MANTENIMIENTO;
