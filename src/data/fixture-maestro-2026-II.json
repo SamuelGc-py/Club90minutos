@@ -1,0 +1,670 @@
+{
+ "_fuente": "Maestro_Liga BetplayII (1).pdf, entregado por el usuario el 2026-10-01. Partidos pendientes del torneo (filas 191-216 del PDF venian vacias).",
+ "_uso": "Leido por /api/admin/sincronizar-fixture. Horas convertidas de Colombia (UTC-5) a UTC.",
+ "partidos": [
+  {
+   "numero": 3,
+   "jornada": 1,
+   "local": "Boyacá Chicó F.C.",
+   "visitante": "Atlético Nacional",
+   "fecha_utc": "2026-10-17T19:00:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 30,
+   "jornada": 3,
+   "local": "Atlético Nacional",
+   "visitante": "Junior F.C.",
+   "fecha_utc": "2026-10-01T01:00:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 40,
+   "jornada": 4,
+   "local": "Junior F.C.",
+   "visitante": "Deportivo Pereira",
+   "fecha_utc": "2026-10-14T23:00:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 42,
+   "jornada": 5,
+   "local": "Cúcuta Deportivo",
+   "visitante": "Águilas Doradas",
+   "fecha_utc": "2026-10-27T23:00:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 50,
+   "jornada": 5,
+   "local": "Boyacá Chicó F.C.",
+   "visitante": "Junior F.C.",
+   "fecha_utc": "2026-10-28T01:05:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 46,
+   "jornada": 5,
+   "local": "Once Caldas DAF",
+   "visitante": "Alianza Valledupar F.C.",
+   "fecha_utc": "2026-10-28T23:00:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 47,
+   "jornada": 5,
+   "local": "Internacional de Bogotá",
+   "visitante": "Independiente Medellín",
+   "fecha_utc": "2026-10-29T01:05:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 45,
+   "jornada": 5,
+   "local": "América de Cali",
+   "visitante": "Fortaleza",
+   "fecha_utc": "2026-10-29T23:15:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 43,
+   "jornada": 5,
+   "local": "Atlético Nacional",
+   "visitante": "Independiente Santa Fe",
+   "fecha_utc": "2026-10-30T01:30:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 44,
+   "jornada": 5,
+   "local": "Deportivo Pereira",
+   "visitante": "Jaguares F.C.",
+   "fecha_utc": "2026-10-30T23:00:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 48,
+   "jornada": 5,
+   "local": "Atlético Bucaramanga",
+   "visitante": "Deportivo Pasto",
+   "fecha_utc": "2026-10-31T01:05:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 68,
+   "jornada": 7,
+   "local": "Atlético Bucaramanga",
+   "visitante": "Águilas Doradas",
+   "fecha_utc": "2026-10-14T00:00:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 70,
+   "jornada": 7,
+   "local": "Independiente Santa Fe",
+   "visitante": "Jaguares F.C.",
+   "fecha_utc": "2026-10-15T01:05:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 90,
+   "jornada": 9,
+   "local": "Atlético Nacional",
+   "visitante": "Deportes Tolima",
+   "fecha_utc": "2026-10-08T01:20:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 89,
+   "jornada": 9,
+   "local": "Llaneros F.C.",
+   "visitante": "Deportivo Cali",
+   "fecha_utc": "2026-10-21T23:15:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 122,
+   "jornada": 13,
+   "local": "Deportivo Cali",
+   "visitante": "Alianza Valledupar F.C.",
+   "fecha_utc": "2026-10-03T00:45:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 123,
+   "jornada": 13,
+   "local": "Águilas Doradas",
+   "visitante": "Jaguares F.C.",
+   "fecha_utc": "2026-10-03T19:00:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 124,
+   "jornada": 13,
+   "local": "Deportes Tolima",
+   "visitante": "Boyacá Chicó F.C.",
+   "fecha_utc": "2026-10-03T21:05:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 125,
+   "jornada": 13,
+   "local": "Deportivo Pasto",
+   "visitante": "Fortaleza",
+   "fecha_utc": "2026-10-04T19:00:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 126,
+   "jornada": 13,
+   "local": "Cúcuta Deportivo",
+   "visitante": "Deportivo Pereira",
+   "fecha_utc": "2026-10-04T21:05:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 127,
+   "jornada": 13,
+   "local": "Atlético Bucaramanga",
+   "visitante": "Junior F.C.",
+   "fecha_utc": "2026-10-04T23:10:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 128,
+   "jornada": 13,
+   "local": "Llaneros F.C.",
+   "visitante": "América de Cali",
+   "fecha_utc": "2026-10-05T01:15:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 129,
+   "jornada": 13,
+   "local": "Independiente Medellín",
+   "visitante": "Independiente Santa Fe",
+   "fecha_utc": "2026-10-06T00:00:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 130,
+   "jornada": 13,
+   "local": "Millonarios F.C.",
+   "visitante": "Once Caldas DAF",
+   "fecha_utc": "2026-10-20T23:30:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 131,
+   "jornada": 14,
+   "local": "Fortaleza",
+   "visitante": "Millonarios F.C.",
+   "fecha_utc": "2026-10-09T01:10:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 132,
+   "jornada": 14,
+   "local": "Alianza Valledupar F.C.",
+   "visitante": "Águilas Doradas",
+   "fecha_utc": "2026-10-10T00:30:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 133,
+   "jornada": 14,
+   "local": "Once Caldas DAF",
+   "visitante": "Llaneros F.C.",
+   "fecha_utc": "2026-10-10T21:00:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 134,
+   "jornada": 14,
+   "local": "Junior F.C.",
+   "visitante": "Internacional de Bogotá",
+   "fecha_utc": "2026-10-10T23:10:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 135,
+   "jornada": 14,
+   "local": "Atlético Nacional",
+   "visitante": "Deportivo Pasto",
+   "fecha_utc": "2026-10-11T01:15:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 136,
+   "jornada": 14,
+   "local": "Deportivo Pereira",
+   "visitante": "Deportivo Cali",
+   "fecha_utc": "2026-10-11T19:00:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 137,
+   "jornada": 14,
+   "local": "Jaguares F.C.",
+   "visitante": "Deportes Tolima",
+   "fecha_utc": "2026-10-11T21:05:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 138,
+   "jornada": 14,
+   "local": "América de Cali",
+   "visitante": "Independiente Medellín",
+   "fecha_utc": "2026-10-12T01:15:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 139,
+   "jornada": 14,
+   "local": "Boyacá Chicó F.C.",
+   "visitante": "Cúcuta Deportivo",
+   "fecha_utc": "2026-10-13T01:10:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 140,
+   "jornada": 14,
+   "local": "Independiente Santa Fe",
+   "visitante": "Atlético Bucaramanga",
+   "fecha_utc": "2026-10-27T01:05:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 141,
+   "jornada": 15,
+   "local": "Águilas Doradas",
+   "visitante": "Deportes Tolima",
+   "fecha_utc": "2026-10-17T21:05:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 142,
+   "jornada": 15,
+   "local": "Millonarios F.C.",
+   "visitante": "Jaguares F.C.",
+   "fecha_utc": "2026-10-17T23:05:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 143,
+   "jornada": 15,
+   "local": "Independiente Medellín",
+   "visitante": "Once Caldas DAF",
+   "fecha_utc": "2026-10-18T01:15:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 144,
+   "jornada": 15,
+   "local": "Atlético Bucaramanga",
+   "visitante": "América de Cali",
+   "fecha_utc": "2026-10-18T20:30:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 145,
+   "jornada": 15,
+   "local": "Llaneros F.C.",
+   "visitante": "Independiente Santa Fe",
+   "fecha_utc": "2026-10-18T22:45:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 146,
+   "jornada": 15,
+   "local": "Deportivo Cali",
+   "visitante": "Junior F.C.",
+   "fecha_utc": "2026-10-19T01:00:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 147,
+   "jornada": 15,
+   "local": "Deportivo Pasto",
+   "visitante": "Alianza Valledupar F.C.",
+   "fecha_utc": "2026-10-20T01:05:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 148,
+   "jornada": 15,
+   "local": "Deportivo Pereira",
+   "visitante": "Boyacá Chicó F.C.",
+   "fecha_utc": "2026-10-20T21:30:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 149,
+   "jornada": 15,
+   "local": "Internacional de Bogotá",
+   "visitante": "Fortaleza",
+   "fecha_utc": "2026-10-20T23:00:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 150,
+   "jornada": 15,
+   "local": "Cúcuta Deportivo",
+   "visitante": "Atlético Nacional",
+   "fecha_utc": "2026-10-21T01:30:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 152,
+   "jornada": 16,
+   "local": "Boyacá Chicó F.C.",
+   "visitante": "Atlético Bucaramanga",
+   "fecha_utc": "2026-10-23T23:00:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 153,
+   "jornada": 16,
+   "local": "Junior F.C.",
+   "visitante": "Águilas Doradas",
+   "fecha_utc": "2026-10-24T01:10:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 154,
+   "jornada": 16,
+   "local": "Alianza Valledupar F.C.",
+   "visitante": "Internacional de Bogotá",
+   "fecha_utc": "2026-10-24T21:05:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 155,
+   "jornada": 16,
+   "local": "América de Cali",
+   "visitante": "Cúcuta Deportivo",
+   "fecha_utc": "2026-10-24T23:05:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 156,
+   "jornada": 16,
+   "local": "Once Caldas DAF",
+   "visitante": "Deportivo Pereira",
+   "fecha_utc": "2026-10-25T01:15:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 157,
+   "jornada": 16,
+   "local": "Fortaleza",
+   "visitante": "Deportivo Cali",
+   "fecha_utc": "2026-10-25T19:00:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 158,
+   "jornada": 16,
+   "local": "Atlético Nacional",
+   "visitante": "Independiente Medellín",
+   "fecha_utc": "2026-10-25T23:10:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 159,
+   "jornada": 16,
+   "local": "Deportes Tolima",
+   "visitante": "Deportivo Pasto",
+   "fecha_utc": "2026-10-26T01:15:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 160,
+   "jornada": 16,
+   "local": "Jaguares F.C.",
+   "visitante": "Llaneros F.C.",
+   "fecha_utc": "2026-10-26T23:00:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 161,
+   "jornada": 17,
+   "local": "Internacional de Bogotá",
+   "visitante": "Once Caldas DAF",
+   "fecha_utc": "2026-10-02T01:00:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 162,
+   "jornada": 17,
+   "local": "Llaneros F.C.",
+   "visitante": "Junior F.C.",
+   "fecha_utc": "2026-10-31T23:00:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 163,
+   "jornada": 17,
+   "local": "Independiente Medellín",
+   "visitante": "Alianza Valledupar F.C.",
+   "fecha_utc": "2026-11-01T23:10:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 164,
+   "jornada": 17,
+   "local": "Deportivo Cali",
+   "visitante": "Boyacá Chicó F.C.",
+   "fecha_utc": "2026-11-02T01:15:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 165,
+   "jornada": 17,
+   "local": "Águilas Doradas",
+   "visitante": "Fortaleza",
+   "fecha_utc": "2026-11-02T21:05:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 166,
+   "jornada": 17,
+   "local": "Cúcuta Deportivo",
+   "visitante": "Independiente Santa Fe",
+   "fecha_utc": "2026-11-02T23:10:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 167,
+   "jornada": 17,
+   "local": "Atlético Bucaramanga",
+   "visitante": "Atlético Nacional",
+   "fecha_utc": "2026-11-03T01:15:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 168,
+   "jornada": 17,
+   "local": "Deportivo Pereira",
+   "visitante": "Deportes Tolima",
+   "fecha_utc": "2026-11-03T23:00:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 169,
+   "jornada": 17,
+   "local": "Millonarios F.C.",
+   "visitante": "América de Cali",
+   "fecha_utc": "2026-11-04T01:10:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 170,
+   "jornada": 17,
+   "local": "Deportivo Pasto",
+   "visitante": "Jaguares F.C.",
+   "fecha_utc": "2026-11-05T00:00:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 171,
+   "jornada": 18,
+   "local": "Fortaleza",
+   "visitante": "Independiente Medellín",
+   "fecha_utc": "2026-11-07T01:00:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 172,
+   "jornada": 18,
+   "local": "Once Caldas DAF",
+   "visitante": "Águilas Doradas",
+   "fecha_utc": "2026-11-07T19:00:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 173,
+   "jornada": 18,
+   "local": "Deportes Tolima",
+   "visitante": "Millonarios F.C.",
+   "fecha_utc": "2026-11-07T21:05:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 174,
+   "jornada": 18,
+   "local": "Atlético Nacional",
+   "visitante": "Deportivo Pereira",
+   "fecha_utc": "2026-11-07T23:10:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 175,
+   "jornada": 18,
+   "local": "América de Cali",
+   "visitante": "Deportivo Cali",
+   "fecha_utc": "2026-11-08T01:15:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 176,
+   "jornada": 18,
+   "local": "Boyacá Chicó F.C.",
+   "visitante": "Internacional de Bogotá",
+   "fecha_utc": "2026-11-08T19:00:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 177,
+   "jornada": 18,
+   "local": "Jaguares F.C.",
+   "visitante": "Atlético Bucaramanga",
+   "fecha_utc": "2026-11-08T21:05:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 178,
+   "jornada": 18,
+   "local": "Junior F.C.",
+   "visitante": "Cúcuta Deportivo",
+   "fecha_utc": "2026-11-08T23:10:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 179,
+   "jornada": 18,
+   "local": "Alianza Valledupar F.C.",
+   "visitante": "Llaneros F.C.",
+   "fecha_utc": "2026-11-09T01:15:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 180,
+   "jornada": 18,
+   "local": "Independiente Santa Fe",
+   "visitante": "Deportivo Pasto",
+   "fecha_utc": "2026-11-10T00:30:00Z",
+   "con_hora": true
+  },
+  {
+   "numero": 181,
+   "jornada": 19,
+   "local": "Atlético Nacional",
+   "visitante": "Once Caldas DAF",
+   "fecha_utc": "2026-11-12T05:00:00Z",
+   "con_hora": false
+  },
+  {
+   "numero": 182,
+   "jornada": 19,
+   "local": "Águilas Doradas",
+   "visitante": "Independiente Medellín",
+   "fecha_utc": "2026-11-12T05:00:00Z",
+   "con_hora": false
+  },
+  {
+   "numero": 183,
+   "jornada": 19,
+   "local": "Cúcuta Deportivo",
+   "visitante": "Jaguares F.C.",
+   "fecha_utc": "2026-11-12T05:00:00Z",
+   "con_hora": false
+  },
+  {
+   "numero": 184,
+   "jornada": 19,
+   "local": "Atlético Bucaramanga",
+   "visitante": "Fortaleza",
+   "fecha_utc": "2026-11-12T05:00:00Z",
+   "con_hora": false
+  },
+  {
+   "numero": 185,
+   "jornada": 19,
+   "local": "Deportivo Pasto",
+   "visitante": "Junior F.C.",
+   "fecha_utc": "2026-11-12T05:00:00Z",
+   "con_hora": false
+  },
+  {
+   "numero": 186,
+   "jornada": 19,
+   "local": "Internacional de Bogotá",
+   "visitante": "Independiente Santa Fe",
+   "fecha_utc": "2026-11-12T05:00:00Z",
+   "con_hora": false
+  },
+  {
+   "numero": 187,
+   "jornada": 19,
+   "local": "Millonarios F.C.",
+   "visitante": "Alianza Valledupar F.C.",
+   "fecha_utc": "2026-11-12T05:00:00Z",
+   "con_hora": false
+  },
+  {
+   "numero": 188,
+   "jornada": 19,
+   "local": "Llaneros F.C.",
+   "visitante": "Boyacá Chicó F.C.",
+   "fecha_utc": "2026-11-12T05:00:00Z",
+   "con_hora": false
+  },
+  {
+   "numero": 189,
+   "jornada": 19,
+   "local": "Deportivo Cali",
+   "visitante": "Deportes Tolima",
+   "fecha_utc": "2026-11-12T05:00:00Z",
+   "con_hora": false
+  },
+  {
+   "numero": 190,
+   "jornada": 19,
+   "local": "Deportivo Pereira",
+   "visitante": "América de Cali",
+   "fecha_utc": "2026-11-12T05:00:00Z",
+   "con_hora": false
+  }
+ ]
+}
