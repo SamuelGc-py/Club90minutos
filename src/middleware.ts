@@ -1,10 +1,30 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { mantenimientoActivo, rutaPermitidaEnMantenimiento } from "@/lib/mantenimiento";
 
 // Solo restringe acceso cuando corre en Vercel (process.env.VERCEL lo inyecta
 // la plataforma automáticamente). Hostinger, donde entran los participantes
 // reales, no tiene esa variable y queda sin tocar.
 export function middleware(request: NextRequest) {
+  // Modo mantenimiento: tiene prioridad sobre todo lo demás (ver src/lib/mantenimiento.ts).
+  if (mantenimientoActivo()) {
+    const { pathname } = request.nextUrl;
+    if (!rutaPermitidaEnMantenimiento(pathname)) {
+      if (pathname.startsWith("/api/")) {
+        // 503 + Retry-After: los clientes y buscadores entienden que es temporal.
+        return NextResponse.json(
+          { error: "Sitio en mantenimiento. Intenta de nuevo en unos minutos.", mantenimiento: true },
+          { status: 503, headers: { "Retry-After": "600", "Cache-Control": "no-store" } }
+        );
+      }
+      // 307 (temporal): nunca se debe cachear como redirección permanente.
+      const url = request.nextUrl.clone();
+      url.pathname = "/mantenimiento";
+      url.search = "";
+      return NextResponse.redirect(url, 307);
+    }
+  }
+
   if (!process.env.VERCEL) {
     return NextResponse.next();
   }
