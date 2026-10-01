@@ -879,53 +879,19 @@ function ExpressPageContent() {
       // (Asumiendo que un partido dura aprox 2 horas, el cierre es fecha_partido + 3 horas).
       const ahora = new Date().getTime();
 
-      const cierresJornada: Record<number, number> = {};
-      const aperturasJornada: Record<number, number> = {};
-      jornadas.forEach(j => {
-        // Usar únicamente partidos REGULARES de cada jornada (sin partidos pospuestos desfasados) para el cierre de fecha regular
-        const partidosJornada = partidos.filter(p => p.jornada === j && p.estado !== "aplazado" && (!p.jornada_original || p.jornada_original === j));
-        if (partidosJornada.length > 0) {
-          const inicioBloque = Math.min(...partidosJornada.map(p => new Date(p.fecha_hora_partido).getTime()));
-          const partidosRegulares = partidosJornada.filter(p => new Date(p.fecha_hora_partido).getTime() <= inicioBloque + (7 * 24 * 60 * 60 * 1000));
-          if (partidosRegulares.length > 0) {
-            aperturasJornada[j] = Math.min(...partidosRegulares.map(p => new Date(p.fecha_hora_partido).getTime())) - (24 * 60 * 60 * 1000); // 24 horas antes del primer partido
-            const maxTime = Math.max(...partidosRegulares.map(p => new Date(p.fecha_hora_partido).getTime()));
-            cierresJornada[j] = maxTime + (3 * 60 * 60 * 1000); // Kickoff + 3 horas
-          }
-        }
-      });
-
-      // Encontrar todas las jornadas que están actualmente activas (entre su apertura y su cierre)
-      const jornadasActivas = jornadas.filter(j => aperturasJornada[j] && cierresJornada[j] && ahora >= aperturasJornada[j] && ahora <= cierresJornada[j]);
-      
-      let mejorJornada = 0;
-      if (jornadasActivas.length > 0) {
-        // Si hay varias activas (ej. fecha 11 se alargó y la 12 ya empezó), tomamos la mayor
-        mejorJornada = Math.max(...jornadasActivas);
-      } else {
-        // Si ninguna está activa actualmente, buscamos la próxima en empezar
-        for (const j of jornadas) {
-          if (cierresJornada[j] && ahora <= cierresJornada[j]) {
-            mejorJornada = j;
+      // Encontrar la primera jornada que tenga partidos pendientes por liquidar
+      let jornadaActiva = 0;
+      for (const j of jornadas) {
+        const partidosJ = partidos.filter(p => p.jornada === j && p.estado !== "aplazado");
+        if (partidosJ.length > 0) {
+          const liquidados = partidosJ.filter(p => p.resultado_oficial !== null || p.estado === "resultado_cargado" || p.estado === "puntaje_calculado");
+          if (liquidados.length < partidosJ.length) {
+            jornadaActiva = j;
             break;
           }
         }
       }
 
-      // Si las fechas regulares ya pasaron según su horario original de fixture, buscar la primera jornada regular sin liquidar
-      let jornadaActiva = mejorJornada;
-      if (jornadaActiva === 0) {
-        for (const j of jornadas) {
-          const partidosJ = partidos.filter(p => p.jornada === j && p.estado !== "aplazado");
-          if (partidosJ.length > 0) {
-            const liquidados = partidosJ.filter(p => p.resultado_oficial !== null || p.estado === "resultado_cargado" || p.estado === "puntaje_calculado");
-            if (liquidados.length < partidosJ.length) {
-              jornadaActiva = j;
-              break;
-            }
-          }
-        }
-      }
 
       const fechaFinal = jornadaActiva > 0 ? jornadaActiva : (jornadas[jornadas.length - 1] || 1);
       setFechaParticipante(fechaFinal);
@@ -1943,7 +1909,20 @@ function ExpressPageContent() {
                   fontWeight: 800,
                   boxShadow: "0 0 10px -2px rgba(6, 182, 212, 0.3)"
                 }}>
-                  ⚡ Pertenece a la Fecha {partido.jornada_original || partido.jornada}
+                  🔄 Pertenece a la Fecha {partido.jornada_original || partido.jornada}
+                </span>
+              ) : (partido.jornada_original || partido.jornada) > fechaParticipante ? (
+                <span style={{ 
+                  background: "linear-gradient(90deg, rgba(16, 185, 129, 0.15) 0%, rgba(52, 211, 153, 0.15) 100%)", 
+                  color: "#34d399", 
+                  border: "1px solid rgba(16, 185, 129, 0.4)", 
+                  padding: "2px 10px", 
+                  borderRadius: 12, 
+                  fontSize: "0.75rem", 
+                  fontWeight: 800,
+                  boxShadow: "0 0 10px -2px rgba(16, 185, 129, 0.3)"
+                }}>
+                  🚀 Adelantado Fecha {partido.jornada_original || partido.jornada}
                 </span>
               ) : null}
             </span>
@@ -4706,6 +4685,11 @@ function ExpressPageContent() {
                     const jornadaOrigen = p.jornada_original || p.jornada;
                     if (p.jornada === fechaParticipante || jornadaOrigen === fechaParticipante) return true;
                     if (jornadaOrigen < fechaParticipante && p.estado === "programado") return true;
+                    const ahora = new Date().getTime();
+                    const diasAdelanto = 3 * 24 * 60 * 60 * 1000;
+                    if (jornadaOrigen > fechaParticipante && p.estado !== "aplazado" && new Date(p.fecha_hora_partido).getTime() < ahora + diasAdelanto) {
+                        return true;
+                    }
                     return false;
                   });
 
