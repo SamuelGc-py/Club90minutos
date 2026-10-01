@@ -23,6 +23,15 @@ export function middleware(request: NextRequest) {
       url.search = "";
       return NextResponse.redirect(url, 307);
     }
+  } else {
+    // Si el mantenimiento NO está activo pero el usuario navega explícitamente a /mantenimiento
+    // (por ejemplo, si refrescó la página después de que lo desactivamos), lo sacamos de ahí.
+    const { pathname } = request.nextUrl;
+    if (pathname === "/mantenimiento") {
+      const url = request.nextUrl.clone();
+      url.pathname = "/";
+      return NextResponse.redirect(url, 307);
+    }
   }
 
   if (!process.env.VERCEL) {
