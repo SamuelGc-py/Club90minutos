@@ -874,24 +874,69 @@ function ExpressPageContent() {
     if (partidos && partidos.length > 0) {
       const jornadas = Array.from(new Set(partidos.map((p) => p.jornada))).sort((a, b) => a - b);
       
-      // Buscar la jornada activa basada en el último partido de cada jornada.
-      // La jornada se cierra 1 hora después de que finalice su ÚLTIMO partido.
-      // (Asumiendo que un partido dura aprox 2 horas, el cierre es fecha_partido + 3 horas).
+      // Calcular ventanas de apertura/cierre por jornada basándose en cuándo juega
+      // la MAYORÍA de sus partidos (ignorando partidos sueltos reprogramados a meses de distancia).
       const ahora = new Date().getTime();
 
-      // Encontrar la primera jornada que tenga partidos pendientes por liquidar
+      const cierresJornada: Record<number, number> = {};
+      const aperturasJornada: Record<number, number> = {};
+      jornadas.forEach(j => {
+        // Solo partidos no-aplazados de la jornada
+        const partidosJornada = partidos.filter(p => p.jornada === j && p.estado !== "aplazado");
+        if (partidosJornada.length > 0) {
+          // Encontrar el bloque principal: la ventana de 7 días que contiene más partidos
+          const tiempos = partidosJornada.map(p => new Date(p.fecha_hora_partido).getTime()).sort((a, b) => a - b);
+          let mejorInicio = tiempos[0];
+          let mejorCount = 0;
+          for (let i = 0; i < tiempos.length; i++) {
+            const count = tiempos.filter(t => t >= tiempos[i] && t <= tiempos[i] + 7 * 24 * 60 * 60 * 1000).length;
+            if (count > mejorCount) {
+              mejorCount = count;
+              mejorInicio = tiempos[i];
+            }
+          }
+          const bloqueRegular = partidosJornada.filter(p => {
+            const t = new Date(p.fecha_hora_partido).getTime();
+            return t >= mejorInicio && t <= mejorInicio + 7 * 24 * 60 * 60 * 1000;
+          });
+          if (bloqueRegular.length > 0) {
+            aperturasJornada[j] = Math.min(...bloqueRegular.map(p => new Date(p.fecha_hora_partido).getTime())) - (24 * 60 * 60 * 1000);
+            const maxTime = Math.max(...bloqueRegular.map(p => new Date(p.fecha_hora_partido).getTime()));
+            cierresJornada[j] = maxTime + (3 * 60 * 60 * 1000);
+          }
+        }
+      });
+
+      // 1) Buscar jornadas actualmente activas (ahora está entre apertura y cierre)
+      const jornadasActivas = jornadas.filter(j => aperturasJornada[j] && cierresJornada[j] && ahora >= aperturasJornada[j] && ahora <= cierresJornada[j]);
+      
       let jornadaActiva = 0;
-      for (const j of jornadas) {
-        const partidosJ = partidos.filter(p => p.jornada === j && p.estado !== "aplazado");
-        if (partidosJ.length > 0) {
-          const liquidados = partidosJ.filter(p => p.resultado_oficial !== null || p.estado === "resultado_cargado" || p.estado === "puntaje_calculado");
-          if (liquidados.length < partidosJ.length) {
+      if (jornadasActivas.length > 0) {
+        // Si hay varias activas simultáneamente, tomar la mayor (la más reciente)
+        jornadaActiva = Math.max(...jornadasActivas);
+      } else {
+        // 2) Si ninguna está activa ahora, buscar la próxima que aún no cierra
+        for (const j of jornadas) {
+          if (cierresJornada[j] && ahora <= cierresJornada[j]) {
             jornadaActiva = j;
             break;
           }
         }
       }
 
+      // 3) Fallback: si todas las ventanas ya pasaron, buscar la primera jornada no completamente liquidada
+      if (jornadaActiva === 0) {
+        for (const j of jornadas) {
+          const partidosJ = partidos.filter(p => p.jornada === j && p.estado !== "aplazado");
+          if (partidosJ.length > 0) {
+            const liquidados = partidosJ.filter(p => p.resultado_oficial !== null || p.estado === "resultado_cargado" || p.estado === "puntaje_calculado");
+            if (liquidados.length < partidosJ.length) {
+              jornadaActiva = j;
+              break;
+            }
+          }
+        }
+      }
 
       const fechaFinal = jornadaActiva > 0 ? jornadaActiva : (jornadas[jornadas.length - 1] || 1);
       setFechaParticipante(fechaFinal);
