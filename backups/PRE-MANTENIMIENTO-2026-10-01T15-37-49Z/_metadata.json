@@ -1,0 +1,18 @@
+{
+ "fecha_backup": "2026-10-01",
+ "motivo": "Punto de retorno ANTES de activar el modo mantenimiento del sitio.",
+ "origen": "APIs publicas de club90minutos.com (/api/consolidados y /api/datos-maestros). Solo lectura.",
+ "limitaciones": "No incluye campos que ninguna API expone: password (hash), sesion_token, telefono, password_reset_token. Para un volcado 100% completo de la base hace falta acceso directo a Postgres (pg_dump) desde donde esta la base de produccion.",
+ "restaurar_puntos": "npx tsx scripts/hotfixes/restaurar_puntos_backup.ts --dir backups/<esta carpeta> --aplicar --con-goleadores",
+ "registros_por_tabla": {
+  "puntaje": 1112,
+  "prediccion_partido": 1493,
+  "prediccion_inicial": 15,
+  "usuario": 16,
+  "partido": 191,
+  "resultado_oficial": 108,
+  "resultado_goleador": 256,
+  "equipo": 21,
+  "jugador": 540
+ }
+}

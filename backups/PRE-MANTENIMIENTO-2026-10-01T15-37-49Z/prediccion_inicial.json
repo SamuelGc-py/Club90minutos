@@ -1,0 +1,1380 @@
+[
+ {
+  "id": 21,
+  "usuario_id": 17,
+  "campeon_equipo_id": 12,
+  "finalista_1_equipo_id": 12,
+  "finalista_2_equipo_id": 14,
+  "goleador_torneo_jugador_id": 850,
+  "timestamp_envio": "2026-08-25T03:26:44.625Z",
+  "estado": "enviada",
+  "usuario": {
+   "nombre_completo": "Andres del Toro",
+   "correo": "pipedeltoro@hotmail.com"
+  },
+  "campeon": {
+   "nombre": "Junior F.C."
+  },
+  "finalista_1": {
+   "nombre": "Junior F.C."
+  },
+  "finalista_2": {
+   "nombre": "América de Cali"
+  },
+  "goleador_torneo": {
+   "nombre": "Yeison Guzmán"
+  },
+  "clasificados": [
+   {
+    "id": 17,
+    "prediccion_inicial_id": 21,
+    "equipo_id": 14,
+    "equipo": {
+     "nombre": "América de Cali"
+    }
+   },
+   {
+    "id": 18,
+    "prediccion_inicial_id": 21,
+    "equipo_id": 6,
+    "equipo": {
+     "nombre": "Atlético Nacional"
+    }
+   },
+   {
+    "id": 19,
+    "prediccion_inicial_id": 21,
+    "equipo_id": 7,
+    "equipo": {
+     "nombre": "Independiente Medellín"
+    }
+   },
+   {
+    "id": 20,
+    "prediccion_inicial_id": 21,
+    "equipo_id": 3,
+    "equipo": {
+     "nombre": "Deportivo Cali"
+    }
+   },
+   {
+    "id": 21,
+    "prediccion_inicial_id": 21,
+    "equipo_id": 12,
+    "equipo": {
+     "nombre": "Junior F.C."
+    }
+   },
+   {
+    "id": 22,
+    "prediccion_inicial_id": 21,
+    "equipo_id": 19,
+    "equipo": {
+     "nombre": "Once Caldas DAF"
+    }
+   },
+   {
+    "id": 23,
+    "prediccion_inicial_id": 21,
+    "equipo_id": 11,
+    "equipo": {
+     "nombre": "Deportes Tolima"
+    }
+   },
+   {
+    "id": 24,
+    "prediccion_inicial_id": 21,
+    "equipo_id": 1,
+    "equipo": {
+     "nombre": "Llaneros F.C."
+    }
+   }
+  ]
+ },
+ {
+  "id": 28,
+  "usuario_id": 19,
+  "campeon_equipo_id": 14,
+  "finalista_1_equipo_id": 14,
+  "finalista_2_equipo_id": 6,
+  "goleador_torneo_jugador_id": 1200,
+  "timestamp_envio": "2026-08-31T18:43:46.531Z",
+  "estado": "enviada",
+  "usuario": {
+   "nombre_completo": "Erick Andrade",
+   "correo": "andradeferrer@hotmail.com"
+  },
+  "campeon": {
+   "nombre": "América de Cali"
+  },
+  "finalista_1": {
+   "nombre": "América de Cali"
+  },
+  "finalista_2": {
+   "nombre": "Atlético Nacional"
+  },
+  "goleador_torneo": {
+   "nombre": "Luis Muriel"
+  },
+  "clasificados": [
+   {
+    "id": 41,
+    "prediccion_inicial_id": 28,
+    "equipo_id": 14,
+    "equipo": {
+     "nombre": "América de Cali"
+    }
+   },
+   {
+    "id": 42,
+    "prediccion_inicial_id": 28,
+    "equipo_id": 10,
+    "equipo": {
+     "nombre": "Atlético Bucaramanga"
+    }
+   },
+   {
+    "id": 43,
+    "prediccion_inicial_id": 28,
+    "equipo_id": 6,
+    "equipo": {
+     "nombre": "Atlético Nacional"
+    }
+   },
+   {
+    "id": 44,
+    "prediccion_inicial_id": 28,
+    "equipo_id": 16,
+    "equipo": {
+     "nombre": "Independiente Santa Fe"
+    }
+   },
+   {
+    "id": 45,
+    "prediccion_inicial_id": 28,
+    "equipo_id": 7,
+    "equipo": {
+     "nombre": "Independiente Medellín"
+    }
+   },
+   {
+    "id": 46,
+    "prediccion_inicial_id": 28,
+    "equipo_id": 12,
+    "equipo": {
+     "nombre": "Junior F.C."
+    }
+   },
+   {
+    "id": 47,
+    "prediccion_inicial_id": 28,
+    "equipo_id": 11,
+    "equipo": {
+     "nombre": "Deportes Tolima"
+    }
+   },
+   {
+    "id": 48,
+    "prediccion_inicial_id": 28,
+    "equipo_id": 9,
+    "equipo": {
+     "nombre": "Millonarios F.C."
+    }
+   }
+  ]
+ },
+ {
+  "id": 40,
+  "usuario_id": 7,
+  "campeon_equipo_id": 12,
+  "finalista_1_equipo_id": 12,
+  "finalista_2_equipo_id": 11,
+  "goleador_torneo_jugador_id": 903,
+  "timestamp_envio": "2026-09-02T01:25:58.429Z",
+  "estado": "enviada",
+  "usuario": {
+   "nombre_completo": "Harold Berdugo",
+   "correo": "hberdugodelosreyes0@gmail.com"
+  },
+  "campeon": {
+   "nombre": "Junior F.C."
+  },
+  "finalista_1": {
+   "nombre": "Junior F.C."
+  },
+  "finalista_2": {
+   "nombre": "Deportes Tolima"
+  },
+  "goleador_torneo": {
+   "nombre": "Alfredo Morelos"
+  },
+  "clasificados": [
+   {
+    "id": 81,
+    "prediccion_inicial_id": 40,
+    "equipo_id": 14,
+    "equipo": {
+     "nombre": "América de Cali"
+    }
+   },
+   {
+    "id": 82,
+    "prediccion_inicial_id": 40,
+    "equipo_id": 6,
+    "equipo": {
+     "nombre": "Atlético Nacional"
+    }
+   },
+   {
+    "id": 83,
+    "prediccion_inicial_id": 40,
+    "equipo_id": 11,
+    "equipo": {
+     "nombre": "Deportes Tolima"
+    }
+   },
+   {
+    "id": 84,
+    "prediccion_inicial_id": 40,
+    "equipo_id": 3,
+    "equipo": {
+     "nombre": "Deportivo Cali"
+    }
+   },
+   {
+    "id": 85,
+    "prediccion_inicial_id": 40,
+    "equipo_id": 7,
+    "equipo": {
+     "nombre": "Independiente Medellín"
+    }
+   },
+   {
+    "id": 86,
+    "prediccion_inicial_id": 40,
+    "equipo_id": 12,
+    "equipo": {
+     "nombre": "Junior F.C."
+    }
+   },
+   {
+    "id": 87,
+    "prediccion_inicial_id": 40,
+    "equipo_id": 16,
+    "equipo": {
+     "nombre": "Independiente Santa Fe"
+    }
+   },
+   {
+    "id": 88,
+    "prediccion_inicial_id": 40,
+    "equipo_id": 9,
+    "equipo": {
+     "nombre": "Millonarios F.C."
+    }
+   }
+  ]
+ },
+ {
+  "id": 36,
+  "usuario_id": 6,
+  "campeon_equipo_id": 12,
+  "finalista_1_equipo_id": 12,
+  "finalista_2_equipo_id": 14,
+  "goleador_torneo_jugador_id": 1200,
+  "timestamp_envio": "2026-09-02T00:09:03.866Z",
+  "estado": "enviada",
+  "usuario": {
+   "nombre_completo": "Ignacio Barrios",
+   "correo": "iangelbarrios16@gmail.com"
+  },
+  "campeon": {
+   "nombre": "Junior F.C."
+  },
+  "finalista_1": {
+   "nombre": "Junior F.C."
+  },
+  "finalista_2": {
+   "nombre": "América de Cali"
+  },
+  "goleador_torneo": {
+   "nombre": "Luis Muriel"
+  },
+  "clasificados": [
+   {
+    "id": 65,
+    "prediccion_inicial_id": 36,
+    "equipo_id": 12,
+    "equipo": {
+     "nombre": "Junior F.C."
+    }
+   },
+   {
+    "id": 66,
+    "prediccion_inicial_id": 36,
+    "equipo_id": 7,
+    "equipo": {
+     "nombre": "Independiente Medellín"
+    }
+   },
+   {
+    "id": 67,
+    "prediccion_inicial_id": 36,
+    "equipo_id": 14,
+    "equipo": {
+     "nombre": "América de Cali"
+    }
+   },
+   {
+    "id": 68,
+    "prediccion_inicial_id": 36,
+    "equipo_id": 6,
+    "equipo": {
+     "nombre": "Atlético Nacional"
+    }
+   },
+   {
+    "id": 69,
+    "prediccion_inicial_id": 36,
+    "equipo_id": 3,
+    "equipo": {
+     "nombre": "Deportivo Cali"
+    }
+   },
+   {
+    "id": 70,
+    "prediccion_inicial_id": 36,
+    "equipo_id": 16,
+    "equipo": {
+     "nombre": "Independiente Santa Fe"
+    }
+   },
+   {
+    "id": 71,
+    "prediccion_inicial_id": 36,
+    "equipo_id": 9,
+    "equipo": {
+     "nombre": "Millonarios F.C."
+    }
+   },
+   {
+    "id": 72,
+    "prediccion_inicial_id": 36,
+    "equipo_id": 19,
+    "equipo": {
+     "nombre": "Once Caldas DAF"
+    }
+   }
+  ]
+ },
+ {
+  "id": 24,
+  "usuario_id": 16,
+  "campeon_equipo_id": 6,
+  "finalista_1_equipo_id": 14,
+  "finalista_2_equipo_id": 6,
+  "goleador_torneo_jugador_id": 903,
+  "timestamp_envio": "2026-08-31T18:29:16.612Z",
+  "estado": "enviada",
+  "usuario": {
+   "nombre_completo": "Juan Hernandez",
+   "correo": "juanhermon24@gmail.com"
+  },
+  "campeon": {
+   "nombre": "Atlético Nacional"
+  },
+  "finalista_1": {
+   "nombre": "América de Cali"
+  },
+  "finalista_2": {
+   "nombre": "Atlético Nacional"
+  },
+  "goleador_torneo": {
+   "nombre": "Alfredo Morelos"
+  },
+  "clasificados": [
+   {
+    "id": 25,
+    "prediccion_inicial_id": 24,
+    "equipo_id": 14,
+    "equipo": {
+     "nombre": "América de Cali"
+    }
+   },
+   {
+    "id": 26,
+    "prediccion_inicial_id": 24,
+    "equipo_id": 6,
+    "equipo": {
+     "nombre": "Atlético Nacional"
+    }
+   },
+   {
+    "id": 27,
+    "prediccion_inicial_id": 24,
+    "equipo_id": 7,
+    "equipo": {
+     "nombre": "Independiente Medellín"
+    }
+   },
+   {
+    "id": 28,
+    "prediccion_inicial_id": 24,
+    "equipo_id": 9,
+    "equipo": {
+     "nombre": "Millonarios F.C."
+    }
+   },
+   {
+    "id": 29,
+    "prediccion_inicial_id": 24,
+    "equipo_id": 11,
+    "equipo": {
+     "nombre": "Deportes Tolima"
+    }
+   },
+   {
+    "id": 30,
+    "prediccion_inicial_id": 24,
+    "equipo_id": 16,
+    "equipo": {
+     "nombre": "Independiente Santa Fe"
+    }
+   },
+   {
+    "id": 31,
+    "prediccion_inicial_id": 24,
+    "equipo_id": 10,
+    "equipo": {
+     "nombre": "Atlético Bucaramanga"
+    }
+   },
+   {
+    "id": 32,
+    "prediccion_inicial_id": 24,
+    "equipo_id": 15,
+    "equipo": {
+     "nombre": "Águilas Doradas"
+    }
+   }
+  ]
+ },
+ {
+  "id": 15,
+  "usuario_id": 34,
+  "campeon_equipo_id": 6,
+  "finalista_1_equipo_id": 7,
+  "finalista_2_equipo_id": 6,
+  "goleador_torneo_jugador_id": 903,
+  "timestamp_envio": "2026-08-08T21:44:30.910Z",
+  "estado": "enviada",
+  "usuario": {
+   "nombre_completo": "Lucas Saavedra",
+   "correo": "moisessaavedra496@gmail.com"
+  },
+  "campeon": {
+   "nombre": "Atlético Nacional"
+  },
+  "finalista_1": {
+   "nombre": "Independiente Medellín"
+  },
+  "finalista_2": {
+   "nombre": "Atlético Nacional"
+  },
+  "goleador_torneo": {
+   "nombre": "Alfredo Morelos"
+  },
+  "clasificados": [
+   {
+    "id": 9,
+    "prediccion_inicial_id": 15,
+    "equipo_id": 14,
+    "equipo": {
+     "nombre": "América de Cali"
+    }
+   },
+   {
+    "id": 10,
+    "prediccion_inicial_id": 15,
+    "equipo_id": 6,
+    "equipo": {
+     "nombre": "Atlético Nacional"
+    }
+   },
+   {
+    "id": 11,
+    "prediccion_inicial_id": 15,
+    "equipo_id": 3,
+    "equipo": {
+     "nombre": "Deportivo Cali"
+    }
+   },
+   {
+    "id": 12,
+    "prediccion_inicial_id": 15,
+    "equipo_id": 7,
+    "equipo": {
+     "nombre": "Independiente Medellín"
+    }
+   },
+   {
+    "id": 13,
+    "prediccion_inicial_id": 15,
+    "equipo_id": 12,
+    "equipo": {
+     "nombre": "Junior F.C."
+    }
+   },
+   {
+    "id": 14,
+    "prediccion_inicial_id": 15,
+    "equipo_id": 16,
+    "equipo": {
+     "nombre": "Independiente Santa Fe"
+    }
+   },
+   {
+    "id": 15,
+    "prediccion_inicial_id": 15,
+    "equipo_id": 9,
+    "equipo": {
+     "nombre": "Millonarios F.C."
+    }
+   },
+   {
+    "id": 16,
+    "prediccion_inicial_id": 15,
+    "equipo_id": 11,
+    "equipo": {
+     "nombre": "Deportes Tolima"
+    }
+   }
+  ]
+ },
+ {
+  "id": 14,
+  "usuario_id": 32,
+  "campeon_equipo_id": 12,
+  "finalista_1_equipo_id": 6,
+  "finalista_2_equipo_id": 12,
+  "goleador_torneo_jugador_id": 1200,
+  "timestamp_envio": "2026-08-31T20:12:37.006Z",
+  "estado": "enviada",
+  "usuario": {
+   "nombre_completo": "Luis Betancourt",
+   "correo": "luismibetara15@hotmail.com"
+  },
+  "campeon": {
+   "nombre": "Junior F.C."
+  },
+  "finalista_1": {
+   "nombre": "Atlético Nacional"
+  },
+  "finalista_2": {
+   "nombre": "Junior F.C."
+  },
+  "goleador_torneo": {
+   "nombre": "Luis Muriel"
+  },
+  "clasificados": [
+   {
+    "id": 57,
+    "prediccion_inicial_id": 14,
+    "equipo_id": 14,
+    "equipo": {
+     "nombre": "América de Cali"
+    }
+   },
+   {
+    "id": 58,
+    "prediccion_inicial_id": 14,
+    "equipo_id": 6,
+    "equipo": {
+     "nombre": "Atlético Nacional"
+    }
+   },
+   {
+    "id": 59,
+    "prediccion_inicial_id": 14,
+    "equipo_id": 12,
+    "equipo": {
+     "nombre": "Junior F.C."
+    }
+   },
+   {
+    "id": 60,
+    "prediccion_inicial_id": 14,
+    "equipo_id": 9,
+    "equipo": {
+     "nombre": "Millonarios F.C."
+    }
+   },
+   {
+    "id": 61,
+    "prediccion_inicial_id": 14,
+    "equipo_id": 7,
+    "equipo": {
+     "nombre": "Independiente Medellín"
+    }
+   },
+   {
+    "id": 62,
+    "prediccion_inicial_id": 14,
+    "equipo_id": 11,
+    "equipo": {
+     "nombre": "Deportes Tolima"
+    }
+   },
+   {
+    "id": 63,
+    "prediccion_inicial_id": 14,
+    "equipo_id": 3,
+    "equipo": {
+     "nombre": "Deportivo Cali"
+    }
+   },
+   {
+    "id": 64,
+    "prediccion_inicial_id": 14,
+    "equipo_id": 10,
+    "equipo": {
+     "nombre": "Atlético Bucaramanga"
+    }
+   }
+  ]
+ },
+ {
+  "id": 12,
+  "usuario_id": 33,
+  "campeon_equipo_id": 12,
+  "finalista_1_equipo_id": 12,
+  "finalista_2_equipo_id": 6,
+  "goleador_torneo_jugador_id": null,
+  "timestamp_envio": "2026-07-25T11:54:42.192Z",
+  "estado": "enviada",
+  "usuario": {
+   "nombre_completo": "Manuel Cabarcas",
+   "correo": "stherton@gmail.com"
+  },
+  "campeon": {
+   "nombre": "Junior F.C."
+  },
+  "finalista_1": {
+   "nombre": "Junior F.C."
+  },
+  "finalista_2": {
+   "nombre": "Atlético Nacional"
+  },
+  "goleador_torneo": null,
+  "clasificados": [
+   {
+    "id": 1,
+    "prediccion_inicial_id": 12,
+    "equipo_id": 16,
+    "equipo": {
+     "nombre": "Independiente Santa Fe"
+    }
+   },
+   {
+    "id": 2,
+    "prediccion_inicial_id": 12,
+    "equipo_id": 7,
+    "equipo": {
+     "nombre": "Independiente Medellín"
+    }
+   },
+   {
+    "id": 3,
+    "prediccion_inicial_id": 12,
+    "equipo_id": 6,
+    "equipo": {
+     "nombre": "Atlético Nacional"
+    }
+   },
+   {
+    "id": 4,
+    "prediccion_inicial_id": 12,
+    "equipo_id": 11,
+    "equipo": {
+     "nombre": "Deportes Tolima"
+    }
+   },
+   {
+    "id": 5,
+    "prediccion_inicial_id": 12,
+    "equipo_id": 12,
+    "equipo": {
+     "nombre": "Junior F.C."
+    }
+   },
+   {
+    "id": 6,
+    "prediccion_inicial_id": 12,
+    "equipo_id": 9,
+    "equipo": {
+     "nombre": "Millonarios F.C."
+    }
+   },
+   {
+    "id": 7,
+    "prediccion_inicial_id": 12,
+    "equipo_id": 14,
+    "equipo": {
+     "nombre": "América de Cali"
+    }
+   },
+   {
+    "id": 8,
+    "prediccion_inicial_id": 12,
+    "equipo_id": 3,
+    "equipo": {
+     "nombre": "Deportivo Cali"
+    }
+   }
+  ]
+ },
+ {
+  "id": 16,
+  "usuario_id": 5,
+  "campeon_equipo_id": 12,
+  "finalista_1_equipo_id": 14,
+  "finalista_2_equipo_id": 12,
+  "goleador_torneo_jugador_id": 1200,
+  "timestamp_envio": "2026-09-07T12:04:04.165Z",
+  "estado": "enviada",
+  "usuario": {
+   "nombre_completo": "Nelson Berdugo",
+   "correo": "nelson.berdugo05@gmail.com"
+  },
+  "campeon": {
+   "nombre": "Junior F.C."
+  },
+  "finalista_1": {
+   "nombre": "América de Cali"
+  },
+  "finalista_2": {
+   "nombre": "Junior F.C."
+  },
+  "goleador_torneo": {
+   "nombre": "Luis Muriel"
+  },
+  "clasificados": [
+   {
+    "id": 105,
+    "prediccion_inicial_id": 16,
+    "equipo_id": 14,
+    "equipo": {
+     "nombre": "América de Cali"
+    }
+   },
+   {
+    "id": 106,
+    "prediccion_inicial_id": 16,
+    "equipo_id": 6,
+    "equipo": {
+     "nombre": "Atlético Nacional"
+    }
+   },
+   {
+    "id": 107,
+    "prediccion_inicial_id": 16,
+    "equipo_id": 12,
+    "equipo": {
+     "nombre": "Junior F.C."
+    }
+   },
+   {
+    "id": 108,
+    "prediccion_inicial_id": 16,
+    "equipo_id": 7,
+    "equipo": {
+     "nombre": "Independiente Medellín"
+    }
+   },
+   {
+    "id": 109,
+    "prediccion_inicial_id": 16,
+    "equipo_id": 10,
+    "equipo": {
+     "nombre": "Atlético Bucaramanga"
+    }
+   },
+   {
+    "id": 110,
+    "prediccion_inicial_id": 16,
+    "equipo_id": 11,
+    "equipo": {
+     "nombre": "Deportes Tolima"
+    }
+   },
+   {
+    "id": 111,
+    "prediccion_inicial_id": 16,
+    "equipo_id": 16,
+    "equipo": {
+     "nombre": "Independiente Santa Fe"
+    }
+   },
+   {
+    "id": 112,
+    "prediccion_inicial_id": 16,
+    "equipo_id": 15,
+    "equipo": {
+     "nombre": "Águilas Doradas"
+    }
+   }
+  ]
+ },
+ {
+  "id": 26,
+  "usuario_id": 8,
+  "campeon_equipo_id": 14,
+  "finalista_1_equipo_id": 14,
+  "finalista_2_equipo_id": 6,
+  "goleador_torneo_jugador_id": 1200,
+  "timestamp_envio": "2026-08-31T18:35:07.694Z",
+  "estado": "enviada",
+  "usuario": {
+   "nombre_completo": "Pedro Cantero",
+   "correo": "pedrocanterojr@gmail.com"
+  },
+  "campeon": {
+   "nombre": "América de Cali"
+  },
+  "finalista_1": {
+   "nombre": "América de Cali"
+  },
+  "finalista_2": {
+   "nombre": "Atlético Nacional"
+  },
+  "goleador_torneo": {
+   "nombre": "Luis Muriel"
+  },
+  "clasificados": [
+   {
+    "id": 33,
+    "prediccion_inicial_id": 26,
+    "equipo_id": 10,
+    "equipo": {
+     "nombre": "Atlético Bucaramanga"
+    }
+   },
+   {
+    "id": 34,
+    "prediccion_inicial_id": 26,
+    "equipo_id": 11,
+    "equipo": {
+     "nombre": "Deportes Tolima"
+    }
+   },
+   {
+    "id": 35,
+    "prediccion_inicial_id": 26,
+    "equipo_id": 16,
+    "equipo": {
+     "nombre": "Independiente Santa Fe"
+    }
+   },
+   {
+    "id": 36,
+    "prediccion_inicial_id": 26,
+    "equipo_id": 14,
+    "equipo": {
+     "nombre": "América de Cali"
+    }
+   },
+   {
+    "id": 37,
+    "prediccion_inicial_id": 26,
+    "equipo_id": 6,
+    "equipo": {
+     "nombre": "Atlético Nacional"
+    }
+   },
+   {
+    "id": 38,
+    "prediccion_inicial_id": 26,
+    "equipo_id": 7,
+    "equipo": {
+     "nombre": "Independiente Medellín"
+    }
+   },
+   {
+    "id": 39,
+    "prediccion_inicial_id": 26,
+    "equipo_id": 12,
+    "equipo": {
+     "nombre": "Junior F.C."
+    }
+   },
+   {
+    "id": 40,
+    "prediccion_inicial_id": 26,
+    "equipo_id": 9,
+    "equipo": {
+     "nombre": "Millonarios F.C."
+    }
+   }
+  ]
+ },
+ {
+  "id": 9,
+  "usuario_id": 18,
+  "campeon_equipo_id": 14,
+  "finalista_1_equipo_id": 14,
+  "finalista_2_equipo_id": 6,
+  "goleador_torneo_jugador_id": 850,
+  "timestamp_envio": "2026-09-08T13:05:32.416Z",
+  "estado": "enviada",
+  "usuario": {
+   "nombre_completo": "Rene Osorio",
+   "correo": "rene26203@gmail.com"
+  },
+  "campeon": {
+   "nombre": "América de Cali"
+  },
+  "finalista_1": {
+   "nombre": "América de Cali"
+  },
+  "finalista_2": {
+   "nombre": "Atlético Nacional"
+  },
+  "goleador_torneo": {
+   "nombre": "Yeison Guzmán"
+  },
+  "clasificados": [
+   {
+    "id": 113,
+    "prediccion_inicial_id": 9,
+    "equipo_id": 12,
+    "equipo": {
+     "nombre": "Junior F.C."
+    }
+   },
+   {
+    "id": 114,
+    "prediccion_inicial_id": 9,
+    "equipo_id": 14,
+    "equipo": {
+     "nombre": "América de Cali"
+    }
+   },
+   {
+    "id": 115,
+    "prediccion_inicial_id": 9,
+    "equipo_id": 6,
+    "equipo": {
+     "nombre": "Atlético Nacional"
+    }
+   },
+   {
+    "id": 116,
+    "prediccion_inicial_id": 9,
+    "equipo_id": 7,
+    "equipo": {
+     "nombre": "Independiente Medellín"
+    }
+   },
+   {
+    "id": 117,
+    "prediccion_inicial_id": 9,
+    "equipo_id": 11,
+    "equipo": {
+     "nombre": "Deportes Tolima"
+    }
+   },
+   {
+    "id": 118,
+    "prediccion_inicial_id": 9,
+    "equipo_id": 10,
+    "equipo": {
+     "nombre": "Atlético Bucaramanga"
+    }
+   },
+   {
+    "id": 119,
+    "prediccion_inicial_id": 9,
+    "equipo_id": 1,
+    "equipo": {
+     "nombre": "Llaneros F.C."
+    }
+   },
+   {
+    "id": 120,
+    "prediccion_inicial_id": 9,
+    "equipo_id": 16,
+    "equipo": {
+     "nombre": "Independiente Santa Fe"
+    }
+   }
+  ]
+ },
+ {
+  "id": 20,
+  "usuario_id": 9,
+  "campeon_equipo_id": 14,
+  "finalista_1_equipo_id": 14,
+  "finalista_2_equipo_id": 12,
+  "goleador_torneo_jugador_id": 903,
+  "timestamp_envio": "2026-09-02T23:22:42.097Z",
+  "estado": "enviada",
+  "usuario": {
+   "nombre_completo": "Ricardo Soto",
+   "correo": "ricardosotogom@gmail.com"
+  },
+  "campeon": {
+   "nombre": "América de Cali"
+  },
+  "finalista_1": {
+   "nombre": "América de Cali"
+  },
+  "finalista_2": {
+   "nombre": "Junior F.C."
+  },
+  "goleador_torneo": {
+   "nombre": "Alfredo Morelos"
+  },
+  "clasificados": [
+   {
+    "id": 97,
+    "prediccion_inicial_id": 20,
+    "equipo_id": 14,
+    "equipo": {
+     "nombre": "América de Cali"
+    }
+   },
+   {
+    "id": 98,
+    "prediccion_inicial_id": 20,
+    "equipo_id": 6,
+    "equipo": {
+     "nombre": "Atlético Nacional"
+    }
+   },
+   {
+    "id": 99,
+    "prediccion_inicial_id": 20,
+    "equipo_id": 10,
+    "equipo": {
+     "nombre": "Atlético Bucaramanga"
+    }
+   },
+   {
+    "id": 100,
+    "prediccion_inicial_id": 20,
+    "equipo_id": 3,
+    "equipo": {
+     "nombre": "Deportivo Cali"
+    }
+   },
+   {
+    "id": 101,
+    "prediccion_inicial_id": 20,
+    "equipo_id": 7,
+    "equipo": {
+     "nombre": "Independiente Medellín"
+    }
+   },
+   {
+    "id": 102,
+    "prediccion_inicial_id": 20,
+    "equipo_id": 12,
+    "equipo": {
+     "nombre": "Junior F.C."
+    }
+   },
+   {
+    "id": 103,
+    "prediccion_inicial_id": 20,
+    "equipo_id": 9,
+    "equipo": {
+     "nombre": "Millonarios F.C."
+    }
+   },
+   {
+    "id": 104,
+    "prediccion_inicial_id": 20,
+    "equipo_id": 16,
+    "equipo": {
+     "nombre": "Independiente Santa Fe"
+    }
+   }
+  ]
+ },
+ {
+  "id": 41,
+  "usuario_id": 4,
+  "campeon_equipo_id": 14,
+  "finalista_1_equipo_id": 6,
+  "finalista_2_equipo_id": 16,
+  "goleador_torneo_jugador_id": 973,
+  "timestamp_envio": "2026-09-02T01:46:45.019Z",
+  "estado": "enviada",
+  "usuario": {
+   "nombre_completo": "Ricardo Vanegas",
+   "correo": "ricardo101228@gmail.com"
+  },
+  "campeon": {
+   "nombre": "América de Cali"
+  },
+  "finalista_1": {
+   "nombre": "Atlético Nacional"
+  },
+  "finalista_2": {
+   "nombre": "Independiente Santa Fe"
+  },
+  "goleador_torneo": {
+   "nombre": "Jorge Hurtado"
+  },
+  "clasificados": [
+   {
+    "id": 89,
+    "prediccion_inicial_id": 41,
+    "equipo_id": 14,
+    "equipo": {
+     "nombre": "América de Cali"
+    }
+   },
+   {
+    "id": 90,
+    "prediccion_inicial_id": 41,
+    "equipo_id": 6,
+    "equipo": {
+     "nombre": "Atlético Nacional"
+    }
+   },
+   {
+    "id": 91,
+    "prediccion_inicial_id": 41,
+    "equipo_id": 10,
+    "equipo": {
+     "nombre": "Atlético Bucaramanga"
+    }
+   },
+   {
+    "id": 92,
+    "prediccion_inicial_id": 41,
+    "equipo_id": 11,
+    "equipo": {
+     "nombre": "Deportes Tolima"
+    }
+   },
+   {
+    "id": 93,
+    "prediccion_inicial_id": 41,
+    "equipo_id": 16,
+    "equipo": {
+     "nombre": "Independiente Santa Fe"
+    }
+   },
+   {
+    "id": 94,
+    "prediccion_inicial_id": 41,
+    "equipo_id": 9,
+    "equipo": {
+     "nombre": "Millonarios F.C."
+    }
+   },
+   {
+    "id": 95,
+    "prediccion_inicial_id": 41,
+    "equipo_id": 19,
+    "equipo": {
+     "nombre": "Once Caldas DAF"
+    }
+   },
+   {
+    "id": 96,
+    "prediccion_inicial_id": 41,
+    "equipo_id": 3,
+    "equipo": {
+     "nombre": "Deportivo Cali"
+    }
+   }
+  ]
+ },
+ {
+  "id": 29,
+  "usuario_id": 31,
+  "campeon_equipo_id": 12,
+  "finalista_1_equipo_id": 12,
+  "finalista_2_equipo_id": 3,
+  "goleador_torneo_jugador_id": 1200,
+  "timestamp_envio": "2026-08-31T20:06:44.885Z",
+  "estado": "enviada",
+  "usuario": {
+   "nombre_completo": "Romario Gomez",
+   "correo": "gomezromario24@gmail.com"
+  },
+  "campeon": {
+   "nombre": "Junior F.C."
+  },
+  "finalista_1": {
+   "nombre": "Junior F.C."
+  },
+  "finalista_2": {
+   "nombre": "Deportivo Cali"
+  },
+  "goleador_torneo": {
+   "nombre": "Luis Muriel"
+  },
+  "clasificados": [
+   {
+    "id": 49,
+    "prediccion_inicial_id": 29,
+    "equipo_id": 14,
+    "equipo": {
+     "nombre": "América de Cali"
+    }
+   },
+   {
+    "id": 50,
+    "prediccion_inicial_id": 29,
+    "equipo_id": 3,
+    "equipo": {
+     "nombre": "Deportivo Cali"
+    }
+   },
+   {
+    "id": 51,
+    "prediccion_inicial_id": 29,
+    "equipo_id": 6,
+    "equipo": {
+     "nombre": "Atlético Nacional"
+    }
+   },
+   {
+    "id": 52,
+    "prediccion_inicial_id": 29,
+    "equipo_id": 16,
+    "equipo": {
+     "nombre": "Independiente Santa Fe"
+    }
+   },
+   {
+    "id": 53,
+    "prediccion_inicial_id": 29,
+    "equipo_id": 12,
+    "equipo": {
+     "nombre": "Junior F.C."
+    }
+   },
+   {
+    "id": 54,
+    "prediccion_inicial_id": 29,
+    "equipo_id": 7,
+    "equipo": {
+     "nombre": "Independiente Medellín"
+    }
+   },
+   {
+    "id": 55,
+    "prediccion_inicial_id": 29,
+    "equipo_id": 9,
+    "equipo": {
+     "nombre": "Millonarios F.C."
+    }
+   },
+   {
+    "id": 56,
+    "prediccion_inicial_id": 29,
+    "equipo_id": 11,
+    "equipo": {
+     "nombre": "Deportes Tolima"
+    }
+   }
+  ]
+ },
+ {
+  "id": 27,
+  "usuario_id": 2,
+  "campeon_equipo_id": 12,
+  "finalista_1_equipo_id": 12,
+  "finalista_2_equipo_id": 7,
+  "goleador_torneo_jugador_id": 1200,
+  "timestamp_envio": "2026-09-02T00:09:42.654Z",
+  "estado": "enviada",
+  "usuario": {
+   "nombre_completo": "Samuel Gutierrez",
+   "correo": "samucobaggg@gmail.com"
+  },
+  "campeon": {
+   "nombre": "Junior F.C."
+  },
+  "finalista_1": {
+   "nombre": "Junior F.C."
+  },
+  "finalista_2": {
+   "nombre": "Independiente Medellín"
+  },
+  "goleador_torneo": {
+   "nombre": "Luis Muriel"
+  },
+  "clasificados": [
+   {
+    "id": 73,
+    "prediccion_inicial_id": 27,
+    "equipo_id": 6,
+    "equipo": {
+     "nombre": "Atlético Nacional"
+    }
+   },
+   {
+    "id": 74,
+    "prediccion_inicial_id": 27,
+    "equipo_id": 3,
+    "equipo": {
+     "nombre": "Deportivo Cali"
+    }
+   },
+   {
+    "id": 75,
+    "prediccion_inicial_id": 27,
+    "equipo_id": 13,
+    "equipo": {
+     "nombre": "Internacional de Bogotá"
+    }
+   },
+   {
+    "id": 76,
+    "prediccion_inicial_id": 27,
+    "equipo_id": 12,
+    "equipo": {
+     "nombre": "Junior F.C."
+    }
+   },
+   {
+    "id": 77,
+    "prediccion_inicial_id": 27,
+    "equipo_id": 16,
+    "equipo": {
+     "nombre": "Independiente Santa Fe"
+    }
+   },
+   {
+    "id": 78,
+    "prediccion_inicial_id": 27,
+    "equipo_id": 14,
+    "equipo": {
+     "nombre": "América de Cali"
+    }
+   },
+   {
+    "id": 79,
+    "prediccion_inicial_id": 27,
+    "equipo_id": 7,
+    "equipo": {
+     "nombre": "Independiente Medellín"
+    }
+   },
+   {
+    "id": 80,
+    "prediccion_inicial_id": 27,
+    "equipo_id": 9,
+    "equipo": {
+     "nombre": "Millonarios F.C."
+    }
+   }
+  ]
+ }
+]

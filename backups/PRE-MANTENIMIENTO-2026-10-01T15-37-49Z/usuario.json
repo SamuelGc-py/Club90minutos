@@ -1,0 +1,82 @@
+[
+ {
+  "id": 17,
+  "nombre_completo": "Andres del Toro",
+  "correo": "pipedeltoro@hotmail.com"
+ },
+ {
+  "id": 19,
+  "nombre_completo": "Erick Andrade",
+  "correo": "andradeferrer@hotmail.com"
+ },
+ {
+  "id": 7,
+  "nombre_completo": "Harold Berdugo",
+  "correo": "hberdugodelosreyes0@gmail.com"
+ },
+ {
+  "id": 30,
+  "nombre_completo": "Hernando Davila",
+  "correo": "nandorafa@hotmail.com"
+ },
+ {
+  "id": 6,
+  "nombre_completo": "Ignacio Barrios",
+  "correo": "iangelbarrios16@gmail.com"
+ },
+ {
+  "id": 16,
+  "nombre_completo": "Juan Hernandez",
+  "correo": "juanhermon24@gmail.com"
+ },
+ {
+  "id": 34,
+  "nombre_completo": "Lucas Saavedra",
+  "correo": "moisessaavedra496@gmail.com"
+ },
+ {
+  "id": 32,
+  "nombre_completo": "Luis Betancourt",
+  "correo": "luismibetara15@hotmail.com"
+ },
+ {
+  "id": 33,
+  "nombre_completo": "Manuel Cabarcas",
+  "correo": "stherton@gmail.com"
+ },
+ {
+  "id": 5,
+  "nombre_completo": "Nelson Berdugo",
+  "correo": "nelson.berdugo05@gmail.com"
+ },
+ {
+  "id": 8,
+  "nombre_completo": "Pedro Cantero",
+  "correo": "pedrocanterojr@gmail.com"
+ },
+ {
+  "id": 18,
+  "nombre_completo": "Rene Osorio",
+  "correo": "rene26203@gmail.com"
+ },
+ {
+  "id": 9,
+  "nombre_completo": "Ricardo Soto",
+  "correo": "ricardosotogom@gmail.com"
+ },
+ {
+  "id": 4,
+  "nombre_completo": "Ricardo Vanegas",
+  "correo": "ricardo101228@gmail.com"
+ },
+ {
+  "id": 31,
+  "nombre_completo": "Romario Gomez",
+  "correo": "gomezromario24@gmail.com"
+ },
+ {
+  "id": 2,
+  "nombre_completo": "Samuel Gutierrez",
+  "correo": "samucobaggg@gmail.com"
+ }
+]
