@@ -97,7 +97,7 @@ export default function HistorialPuntosModal({
     <div
       style={{
         flex: "1 1 120px",
-        background: "rgba(15,23,42,0.75)",
+        background: "rgba(26, 31, 38, 0.75)",
         border: "1px solid rgba(255,255,255,0.07)",
         borderRadius: 14,
         padding: "12px 14px",
@@ -107,7 +107,7 @@ export default function HistorialPuntosModal({
         {icon}
         {label}
       </div>
-      <div style={{ color: "#fff", fontSize: "1.5rem", fontWeight: 900, lineHeight: 1.2 }}>{valor}</div>
+      <div style={{ color: "#FFFFFF", fontSize: "1.5rem", fontWeight: 900, lineHeight: 1.2 }}>{valor}</div>
     </div>
   );
 
@@ -117,7 +117,7 @@ export default function HistorialPuntosModal({
       style={{
         position: "fixed",
         inset: 0,
-        background: "rgba(0,0,0,0.75)",
+        background: "rgba(4, 6, 10, 0.75)",
         backdropFilter: "blur(4px)",
         zIndex: 1000,
         display: "flex",
@@ -134,11 +134,11 @@ export default function HistorialPuntosModal({
           maxHeight: "92vh",
           display: "flex",
           flexDirection: "column",
-          background: "var(--noche, #0f172a)",
+          background: "var(--noche, #04060A)",
           border: "1px solid rgba(255,255,255,0.1)",
           borderRadius: 18,
           overflow: "hidden",
-          boxShadow: "0 30px 70px -20px rgba(0,0,0,0.8)",
+          boxShadow: "none",
         }}
       >
         {/* Encabezado */}
@@ -154,10 +154,10 @@ export default function HistorialPuntosModal({
           }}
         >
           <div>
-            <h2 style={{ margin: 0, color: "#fff", fontSize: "1.15rem", fontWeight: 900 }}>
-              📊 Historial de puntos
+            <h2 style={{ margin: 0, color: "#FFFFFF", fontSize: "1.15rem", fontWeight: 900 }}>
+              Historial de puntos
             </h2>
-            <p style={{ margin: "2px 0 0", color: "#94a3b8", fontSize: "0.8rem" }}>
+            <p style={{ margin: "2px 0 0", color: "var(--text-muted)", fontSize: "0.8rem" }}>
               {datos?.usuario.nombre_completo || nombreUsuario || "Participante"} · de dónde salió cada punto
             </p>
           </div>
@@ -168,7 +168,7 @@ export default function HistorialPuntosModal({
                 display: "inline-flex",
                 alignItems: "center",
                 gap: 6,
-                background: "var(--cancha, #1db954)",
+                background: "var(--cancha, #74CC10)",
                 color: "#04060A",
                 fontWeight: 800,
                 fontSize: "0.8rem",
@@ -185,7 +185,7 @@ export default function HistorialPuntosModal({
               style={{
                 background: "rgba(255,255,255,0.06)",
                 border: "none",
-                color: "#fff",
+                color: "#FFFFFF",
                 width: 34,
                 height: 34,
                 borderRadius: "50%",
@@ -203,7 +203,7 @@ export default function HistorialPuntosModal({
         {/* Cuerpo */}
         <div style={{ overflowY: "auto", padding: 16 }}>
           {cargando && (
-            <div style={{ padding: 50, textAlign: "center", color: "#94a3b8" }}>
+            <div style={{ padding: 50, textAlign: "center", color: "var(--text-muted)" }}>
               <Loader2 size={28} style={{ animation: "spin 1s linear infinite" }} />
               <div style={{ marginTop: 10 }}>Cargando tu historial...</div>
             </div>
@@ -214,9 +214,9 @@ export default function HistorialPuntosModal({
               style={{
                 padding: 18,
                 borderRadius: 12,
-                background: "rgba(255,92,92,0.1)",
-                border: "1px solid rgba(255,92,92,0.35)",
-                color: "#ff9d9d",
+                background: "rgba(234, 61, 53, 0.1)",
+                border: "1px solid rgba(234, 61, 53, 0.35)",
+                color: "#EA3D35",
               }}
             >
               {error}
@@ -227,10 +227,10 @@ export default function HistorialPuntosModal({
             <>
               {/* KPIs */}
               <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginBottom: 14 }}>
-                <Kpi icon={<Trophy size={13} />} label="TOTAL" valor={datos.resumen.puntos_total} color="var(--trofeo, #ffc533)" />
-                <Kpi icon={<Target size={13} />} label="MARCADOR EXACTO" valor={datos.resumen.puntos_resultado_exacto} color="#4da3ff" />
-                <Kpi icon={<Trophy size={13} />} label="GANADOR" valor={datos.resumen.puntos_ganador_partido} color="var(--cancha, #1db954)" />
-                <Kpi icon={<Goal size={13} />} label="GOLEADORES" valor={datos.resumen.puntos_goleador} color="#c084fc" />
+                <Kpi icon={<Trophy size={13} />} label="TOTAL" valor={datos.resumen.puntos_total} color="var(--trofeo, #EFCC36)" />
+                <Kpi icon={<Target size={13} />} label="MARCADOR EXACTO" valor={datos.resumen.puntos_resultado_exacto} color="#438AFF" />
+                <Kpi icon={<Trophy size={13} />} label="GANADOR" valor={datos.resumen.puntos_ganador_partido} color="var(--cancha, #74CC10)" />
+                <Kpi icon={<Goal size={13} />} label="GOLEADORES" valor={datos.resumen.puntos_goleador} color="#438AFF" />
               </div>
 
               <div
@@ -243,10 +243,10 @@ export default function HistorialPuntosModal({
                   flexWrap: "wrap",
                 }}
               >
-                <span style={{ color: "#94a3b8", fontSize: "0.8rem" }}>
+                <span style={{ color: "var(--text-muted)", fontSize: "0.8rem" }}>
                   {datos.resumen.partidos_evaluados} partidos evaluados · sumaste en {datos.resumen.partidos_con_puntos}
                 </span>
-                <label style={{ display: "flex", alignItems: "center", gap: 6, color: "#cbd5e1", fontSize: "0.8rem", cursor: "pointer" }}>
+                <label style={{ display: "flex", alignItems: "center", gap: 6, color: "#E5E7EB", fontSize: "0.8rem", cursor: "pointer" }}>
                   <input type="checkbox" checked={soloConPuntos} onChange={(e) => setSoloConPuntos(e.target.checked)} />
                   Ver solo donde sumé
                 </label>
@@ -259,15 +259,15 @@ export default function HistorialPuntosModal({
                     marginBottom: 14,
                     padding: 12,
                     borderRadius: 12,
-                    background: "rgba(255,197,51,0.08)",
-                    border: "1px solid rgba(255,197,51,0.3)",
+                    background: "rgba(239, 204, 54, 0.08)",
+                    border: "1px solid rgba(239, 204, 54, 0.3)",
                   }}
                 >
-                  <div style={{ display: "flex", alignItems: "center", gap: 6, color: "var(--trofeo, #ffc533)", fontWeight: 800, fontSize: "0.82rem" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 6, color: "var(--trofeo, #EFCC36)", fontWeight: 800, fontSize: "0.82rem" }}>
                     <AlertTriangle size={14} /> Ajustes de homologación
                   </div>
                   {datos.ajustes.map((a, i) => (
-                    <div key={i} style={{ color: "#e2e8f0", fontSize: "0.78rem", marginTop: 6 }}>
+                    <div key={i} style={{ color: "#E5E7EB", fontSize: "0.78rem", marginTop: 6 }}>
                       <strong>{a.puntos > 0 ? `+${a.puntos}` : a.puntos} pts</strong> ({a.categoria}) — {a.motivo}
                     </div>
                   ))}
@@ -282,30 +282,30 @@ export default function HistorialPuntosModal({
                     <div
                       key={p.partido_id}
                       style={{
-                        background: "rgba(15,23,42,0.6)",
-                        border: `1px solid ${sumo ? "rgba(29,185,84,0.3)" : "rgba(255,255,255,0.06)"}`,
+                        background: "rgba(26, 31, 38, 0.6)",
+                        border: `1px solid ${sumo ? "rgba(116, 204, 16, 0.3)" : "rgba(255,255,255,0.06)"}`,
                         borderRadius: 14,
                         padding: "12px 14px",
                       }}
                     >
                       <div style={{ display: "flex", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
                         <div style={{ minWidth: 220, flex: 1 }}>
-                          <div style={{ color: "#64748b", fontSize: "0.68rem", fontWeight: 700, marginBottom: 2 }}>
+                          <div style={{ color: "var(--text-muted)", fontSize: "0.68rem", fontWeight: 700, marginBottom: 2 }}>
                             FECHA {p.jornada} · {new Date(p.fecha).toLocaleDateString("es-CO")}
                           </div>
-                          <div style={{ color: "#fff", fontWeight: 800, fontSize: "0.92rem" }}>
+                          <div style={{ color: "#FFFFFF", fontWeight: 800, fontSize: "0.92rem" }}>
                             {p.equipo_local} vs {p.equipo_visitante}
                           </div>
-                          <div style={{ color: "#cbd5e1", fontSize: "0.78rem", marginTop: 4 }}>
-                            Real: <strong style={{ color: "#fff" }}>{p.marcador_real}</strong>
-                            {"  ·  "}Tu pronóstico: <strong style={{ color: "#fff" }}>{p.marcador_predicho ?? "sin pronóstico"}</strong>
+                          <div style={{ color: "#E5E7EB", fontSize: "0.78rem", marginTop: 4 }}>
+                            Real: <strong style={{ color: "#FFFFFF" }}>{p.marcador_real}</strong>
+                            {"  ·  "}Tu pronóstico: <strong style={{ color: "#FFFFFF" }}>{p.marcador_predicho ?? "sin pronóstico"}</strong>
                           </div>
-                          <div style={{ color: "#94a3b8", fontSize: "0.75rem", marginTop: 2 }}>
+                          <div style={{ color: "var(--text-muted)", fontSize: "0.75rem", marginTop: 2 }}>
                             Tu goleador: {p.goleador_predicho ?? "(ninguno)"}
                             {"  ·  "}Anotaron: {p.goleadores_reales.join(", ") || "(sin goles)"}
                           </div>
                           {p.sin_goleadores_registrados && (
-                            <div style={{ color: "#ffc533", fontSize: "0.72rem", marginTop: 4, display: "flex", alignItems: "center", gap: 4 }}>
+                            <div style={{ color: "#EFCC36", fontSize: "0.72rem", marginTop: 4, display: "flex", alignItems: "center", gap: 4 }}>
                               <AlertTriangle size={12} /> Sin goleadores oficiales registrados en este partido
                             </div>
                           )}
@@ -316,7 +316,7 @@ export default function HistorialPuntosModal({
                             style={{
                               fontSize: "1.5rem",
                               fontWeight: 900,
-                              color: sumo ? "var(--cancha, #1db954)" : "#475569",
+                              color: sumo ? "var(--cancha, #74CC10)" : "var(--line-strong)",
                               lineHeight: 1,
                             }}
                           >
@@ -324,9 +324,9 @@ export default function HistorialPuntosModal({
                             <span style={{ fontSize: "0.7rem", marginLeft: 3 }}>pts</span>
                           </div>
                           <div style={{ display: "flex", gap: 4, justifyContent: "flex-end", marginTop: 6, flexWrap: "wrap" }}>
-                            {p.puntos_ganador_partido > 0 && <Chip color="#1db954">Ganador +{p.puntos_ganador_partido}</Chip>}
-                            {p.puntos_resultado_exacto > 0 && <Chip color="#4da3ff">Exacto +{p.puntos_resultado_exacto}</Chip>}
-                            {p.puntos_goleador > 0 && <Chip color="#c084fc">Goleador +{p.puntos_goleador}</Chip>}
+                            {p.puntos_ganador_partido > 0 && <Chip color="#74CC10">Ganador +{p.puntos_ganador_partido}</Chip>}
+                            {p.puntos_resultado_exacto > 0 && <Chip color="#438AFF">Exacto +{p.puntos_resultado_exacto}</Chip>}
+                            {p.puntos_goleador > 0 && <Chip color="#438AFF">Goleador +{p.puntos_goleador}</Chip>}
                           </div>
                         </div>
                       </div>
@@ -335,7 +335,7 @@ export default function HistorialPuntosModal({
                 })}
 
                 {partidosVisibles.length === 0 && (
-                  <div style={{ padding: 34, textAlign: "center", color: "#94a3b8", fontSize: "0.85rem" }}>
+                  <div style={{ padding: 34, textAlign: "center", color: "var(--text-muted)", fontSize: "0.85rem" }}>
                     No hay partidos que mostrar todavía.
                   </div>
                 )}

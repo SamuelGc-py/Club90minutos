@@ -1,0 +1,188 @@
+/* Lista de partidos agrupada por día */
+.lista {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  border-radius: var(--r-ctl);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.dia {
+  padding: var(--s-2) var(--s-4);
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.item {
+  border-bottom: 1px solid var(--line);
+}
+
+.item:last-child {
+  border-bottom: 0;
+}
+
+.itemAbierto {
+  background: rgba(229, 231, 235, 0.02);
+}
+
+/* Fila de marcador */
+.fila {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) auto minmax(0, 1fr) minmax(112px, auto);
+  align-items: center;
+  gap: var(--s-3);
+  width: 100%;
+  min-height: 60px;
+  padding: var(--s-3) var(--s-4);
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+}
+
+button.fila {
+  cursor: pointer;
+  transition: background-color var(--motion);
+}
+
+button.fila:hover {
+  background: rgba(229, 231, 235, 0.03);
+}
+
+.hora {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+}
+
+.equipo {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-width: 0;
+  font-weight: 600;
+  font-size: 0.9375rem;
+}
+
+.equipo span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.local {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.escudo {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.escudoVacio {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+}
+
+.marcador {
+  min-width: 64px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 1.0625rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.vs {
+  min-width: 64px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+.estado {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--s-2);
+  flex-wrap: wrap;
+}
+
+.chevron {
+  color: var(--text-muted);
+  transition: transform var(--motion);
+  flex-shrink: 0;
+}
+
+.chevronAbierto {
+  transform: rotate(180deg);
+}
+
+.detalle {
+  padding: 0 var(--s-4) var(--s-4);
+}
+
+@media (max-width: 640px) {
+  .fila {
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    row-gap: var(--s-2);
+    padding: var(--s-3);
+  }
+
+  /* Fila 1: equipos y marcador. Fila 2: hora a la izquierda, estado a la derecha. */
+  .hora {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .estado {
+    grid-column: 2 / -1;
+    grid-row: 2;
+    justify-content: flex-end;
+  }
+
+  .equipo,
+  .local {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 4px;
+    text-align: center;
+    font-size: 0.8125rem;
+    line-height: 1.25;
+  }
+
+  .equipo > span:not(.escudoVacio) {
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  .local {
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+  }
+
+  .marcador,
+  .vs {
+    min-width: 44px;
+  }
+}

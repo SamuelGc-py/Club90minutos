@@ -83,19 +83,19 @@ export default function PronosticosPartidoAfiche({
           justifyContent: "space-between",
           alignItems: "center",
           marginBottom: 16,
-          background: "#0f172a",
+          background: "#04060A",
           padding: "12px 20px",
           borderRadius: "12px",
-          border: "1px solid #1e293b",
+          border: "1px solid #1A1F26",
           flexWrap: "wrap",
           gap: 12,
         }}
       >
         <div>
-          <h4 style={{ color: "#f8fafc", margin: 0, fontSize: "1rem" }}>
-            🏆 Afiche Oficial de Pronósticos
+          <h4 style={{ color: "#FFFFFF", margin: 0, fontSize: "1rem" }}>
+            Afiche Oficial de Pronósticos
           </h4>
-          <span style={{ color: "#94a3b8", fontSize: "0.8rem" }}>
+          <span style={{ color: "var(--text-muted)", fontSize: "0.8rem" }}>
             Diseño optimizado para imagen PNG
           </span>
         </div>
@@ -107,18 +107,18 @@ export default function PronosticosPartidoAfiche({
               display: "inline-flex",
               alignItems: "center",
               gap: 8,
-              backgroundColor: "#10b981",
-              color: "#ffffff",
+              backgroundColor: "#74CC10",
+              color: "#04060A",
               fontWeight: 700,
               padding: "8px 16px",
               borderRadius: "8px",
               border: "none",
               cursor: generandoImagen ? "not-allowed" : "pointer",
               fontSize: "0.85rem",
-              boxShadow: "0 4px 12px rgba(16, 185, 129, 0.3)",
+              boxShadow: "none",
             }}
           >
-            <Camera size={16} /> {generandoImagen ? "Generando Imagen..." : "📸 Descargar Imagen (.png)"}
+            <Camera size={16} /> {generandoImagen ? "Generando imagen…" : "Descargar imagen (.png)"}
           </button>
         </div>
       </div>
@@ -130,26 +130,26 @@ export default function PronosticosPartidoAfiche({
         className="afiche-container"
         style={{
           minWidth: "800px",
-          backgroundColor: "#06101e",
-          color: "#ffffff",
+          backgroundColor: "#04060A",
+          color: "#FFFFFF",
           fontFamily: "'Inter', 'Segoe UI', Roboto, sans-serif",
           borderRadius: "12px",
           overflow: "hidden",
-          boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
-          border: "2px solid #0f2942",
+          boxShadow: "none",
+          border: "2px solid #1A1F26",
         }}
       >
         {/* CABECERA CON CURVAS Y TROFEO BETPLAY */}
         <div
           style={{
             position: "relative",
-            background: "linear-gradient(135deg, #0b1e36 0%, #153b66 60%, #0d2747 100%)",
+            background: "#1A1F26",
             padding: "24px 32px 24px",
-            color: "#ffffff",
+            color: "#FFFFFF",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            borderBottom: "4px solid #f5b000",
+            borderBottom: "4px solid #EFCC36",
           }}
         >
           {/* LOGO CLUB 90 MINUTOS A LA IZQUIERDA */}
@@ -159,12 +159,12 @@ export default function PronosticosPartidoAfiche({
                 width: 68,
                 height: 68,
                 borderRadius: "50%",
-                background: "#0b1e36",
+                background: "#1A1F26",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                boxShadow: "0 4px 15px rgba(0, 0, 0, 0.4)",
-                border: "3px solid #f5b000",
+                boxShadow: "none",
+                border: "3px solid #EFCC36",
                 flexShrink: 0,
                 overflow: "hidden",
               }}
@@ -184,13 +184,13 @@ export default function PronosticosPartidoAfiche({
               <img src={partido.equipo_local.escudo_url} alt={partido.equipo_local.nombre} style={{ width: 48, height: 48, objectFit: "contain" }} crossOrigin="anonymous" />
               <div
                 style={{
-                  color: "#f5b000",
+                  color: "#EFCC36",
                   fontWeight: 900,
-                  fontSize: "3.5rem",
+                  fontSize: "2.25rem",
                   textTransform: "uppercase",
                   letterSpacing: "2px",
-                  fontFamily: "'Brush Script MT', 'Caveat', cursive",
-                  textShadow: "3px 3px 6px rgba(0,0,0,0.8)",
+                  fontFamily: "var(--font-display)",
+                  textShadow: "none",
                   lineHeight: 1
                 }}
               >
@@ -204,33 +204,33 @@ export default function PronosticosPartidoAfiche({
                 margin: "12px 0 0 0",
                 fontSize: "1.4rem",
                 fontWeight: 900,
-                color: "#ffffff",
+                color: "#FFFFFF",
                 textTransform: "uppercase",
                 lineHeight: 1,
-                textShadow: "0 2px 10px rgba(0,0,0,0.5)",
+                textShadow: "none",
                 letterSpacing: "1px",
                 textAlign: "center"
               }}
             >
               {partido.equipo_local.nombre} vs {partido.equipo_visitante.nombre}
             </h2>
-            <div style={{ color: "#a5b4fc", fontSize: "0.95rem", fontWeight: 700, marginTop: 8 }}>
-               📅 {formatearFechaPartido(partido.fecha_hora_partido)} · 🕒 {formatearHoraPartido(partido.fecha_hora_partido)}
+            <div style={{ color: "var(--text-muted)", fontSize: "0.95rem", fontWeight: 700, marginTop: 8 }}>
+               {formatearFechaPartido(partido.fecha_hora_partido)} · {formatearHoraPartido(partido.fecha_hora_partido)}
             </div>
           </div>
 
           {/* LIGA BETPLAY A LA DERECHA */}
           <div style={{ display: "flex", alignItems: "center" }}>
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", background: "rgba(255,255,255,0.1)", padding: "10px 20px", borderRadius: "12px", border: "1px solid rgba(255,255,255,0.2)", boxShadow: "0 4px 10px rgba(0,0,0,0.3)" }}>
-              <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "#cbd5e1", textTransform: "uppercase", letterSpacing: "1px", marginBottom: 2 }}>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", background: "rgba(255,255,255,0.1)", padding: "10px 20px", borderRadius: "12px", border: "1px solid rgba(255,255,255,0.2)", boxShadow: "none"}}>
+              <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "#E5E7EB", textTransform: "uppercase", letterSpacing: "1px", marginBottom: 2 }}>
                 Torneo Oficial
               </div>
-              <div style={{ fontSize: "1.4rem", fontWeight: 900, color: "#f5b000", fontStyle: "italic", lineHeight: 1 }}>
+              <div style={{ fontSize: "1.4rem", fontWeight: 900, color: "#EFCC36", lineHeight: 1 }}>
                 Liga BetPlay
               </div>
               <div style={{ display: "flex", gap: 6, marginTop: 6 }}>
-                <span style={{ background: "#1e3a8a", color: "#fff", padding: "3px 10px", fontSize: "0.8rem", fontWeight: 800, borderRadius: 6, letterSpacing: "0.5px" }}>DIMAYOR</span>
-                <span style={{ background: "#16a34a", color: "#fff", padding: "3px 10px", fontSize: "0.8rem", fontWeight: 800, borderRadius: 6 }}>2026-II</span>
+                <span style={{ background: "#1A1F26", color: "#FFFFFF", padding: "3px 10px", fontSize: "0.8rem", fontWeight: 800, borderRadius: 6, letterSpacing: "0.5px" }}>DIMAYOR</span>
+                <span style={{ background: "#74CC10", color: "#04060A", padding: "3px 10px", fontSize: "0.8rem", fontWeight: 800, borderRadius: 6 }}>2026-II</span>
               </div>
             </div>
           </div>
@@ -248,7 +248,7 @@ export default function PronosticosPartidoAfiche({
           >
             <thead>
               {/* FILA SUPERIOR: SUPER BANNER */}
-              <tr style={{ backgroundColor: "#0b1e36", color: "#ffffff" }}>
+              <tr style={{ backgroundColor: "#1A1F26", color: "#FFFFFF" }}>
                 <th
                   colSpan={4}
                   style={{
@@ -257,9 +257,9 @@ export default function PronosticosPartidoAfiche({
                     fontWeight: 900,
                     letterSpacing: "1.5px",
                     textTransform: "uppercase",
-                    backgroundColor: "#102a45",
-                    color: "#60a5fa",
-                    borderBottom: "2px solid #38bdf8",
+                    backgroundColor: "#1A1F26",
+                    color: "#438AFF",
+                    borderBottom: "2px solid #438AFF",
                     textAlign: "center"
                   }}
                 >
@@ -268,10 +268,10 @@ export default function PronosticosPartidoAfiche({
               </tr>
 
               {/* FILA DE CABECERA DE COLUMNAS */}
-              <tr style={{ fontWeight: 800, fontSize: "0.85rem", textAlign: "center", backgroundColor: "#1c2b39", color: "#f5b000" }}>
-                <th style={{ padding: "12px 16px", borderRight: "1px solid #334155", textAlign: "left" }}>Participante</th>
-                <th style={{ padding: "12px 16px", borderRight: "1px solid #334155" }}>Marcador Exacto</th>
-                <th style={{ padding: "12px 16px", borderRight: "1px solid #334155" }}>Ganador Predicho</th>
+              <tr style={{ fontWeight: 800, fontSize: "0.85rem", textAlign: "center", backgroundColor: "#1A1F26", color: "#EFCC36" }}>
+                <th style={{ padding: "12px 16px", borderRight: "1px solid var(--line-strong)", textAlign: "left" }}>Participante</th>
+                <th style={{ padding: "12px 16px", borderRight: "1px solid var(--line-strong)" }}>Marcador Exacto</th>
+                <th style={{ padding: "12px 16px", borderRight: "1px solid var(--line-strong)" }}>Ganador Predicho</th>
                 <th style={{ padding: "12px 16px" }}>Goleador Apostado</th>
               </tr>
             </thead>
@@ -279,7 +279,7 @@ export default function PronosticosPartidoAfiche({
             <tbody>
               {pronosticos.length === 0 ? (
                 <tr>
-                  <td colSpan={4} style={{ padding: 30, color: "#64748b", textAlign: "center", fontSize: "1rem" }}>
+                  <td colSpan={4} style={{ padding: 30, color: "var(--text-muted)", textAlign: "center", fontSize: "1rem" }}>
                     Nadie envió pronóstico para este partido.
                   </td>
                 </tr>
@@ -299,23 +299,23 @@ export default function PronosticosPartidoAfiche({
                       key={idx}
                       style={{
                         backgroundColor: esPar ? "transparent" : "rgba(255, 255, 255, 0.03)",
-                        borderBottom: "1px solid #1e293b",
+                        borderBottom: "1px solid #1A1F26",
                         fontSize: "0.92rem",
                         fontWeight: 600,
                       }}
                     >
-                      <td style={{ padding: "12px 16px", color: "#ffffff", borderRight: "1px solid #334155" }}>
+                      <td style={{ padding: "12px 16px", color: "#FFFFFF", borderRight: "1px solid var(--line-strong)" }}>
                         {p.usuario?.nombre_completo}
                       </td>
-                      <td style={{ padding: "12px 16px", textAlign: "center", fontWeight: 900, color: "#34d399", fontSize: "1.1rem", borderRight: "1px solid #334155" }}>
+                      <td style={{ padding: "12px 16px", textAlign: "center", fontWeight: 900, color: "#74CC10", fontSize: "1.1rem", borderRight: "1px solid var(--line-strong)" }}>
                         {p.goles_local_predicho} - {p.goles_visitante_predicho}
                       </td>
-                      <td style={{ padding: "12px 16px", textAlign: "center", borderRight: "1px solid #334155" }}>
-                        <span style={{ padding: "4px 10px", borderRadius: 10, background: "rgba(56, 189, 248, 0.15)", color: "#38bdf8", fontWeight: 800, fontSize: "0.85rem" }}>
+                      <td style={{ padding: "12px 16px", textAlign: "center", borderRight: "1px solid var(--line-strong)" }}>
+                        <span style={{ padding: "4px 10px", borderRadius: 10, background: "rgba(67, 138, 255, 0.15)", color: "#438AFF", fontWeight: 800, fontSize: "0.85rem" }}>
                           {ganadorTexto}
                         </span>
                       </td>
-                      <td style={{ padding: "12px 16px", color: "#f5b000", fontWeight: 700, textAlign: "center" }}>
+                      <td style={{ padding: "12px 16px", color: "#EFCC36", fontWeight: 700, textAlign: "center" }}>
                         {obtenerNombreGoleador(p)}
                       </td>
                     </tr>
@@ -330,30 +330,30 @@ export default function PronosticosPartidoAfiche({
         <div
           style={{
             position: "relative",
-            backgroundColor: "#06101e",
-            color: "#ffffff",
+            backgroundColor: "#04060A",
+            color: "#FFFFFF",
             padding: "14px 24px",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            borderTop: "3px solid #f5b000",
+            borderTop: "3px solid #EFCC36",
             flexWrap: "wrap",
             gap: 12,
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <span style={{ fontSize: "1.3rem" }}>⚽</span>
+            <span style={{ fontSize: "1.3rem" }}></span>
             <span
               style={{
                 fontSize: "0.95rem",
                 fontWeight: 900,
-                color: "#ffffff",
+                color: "#FFFFFF",
                 fontStyle: "italic",
                 letterSpacing: "0.5px",
               }}
             >
               ¡ESTO ES FÚTBOL CON ESTEROIDES!{" "}
-              <span style={{ color: "#f5b000" }}>
+              <span style={{ color: "#EFCC36" }}>
                 ¿QUIÉN ACERTARÁ LA PREDICCIÓN?
               </span>
             </span>
@@ -362,7 +362,7 @@ export default function PronosticosPartidoAfiche({
           <div
             style={{
               fontSize: "0.8rem",
-              color: "#94a3b8",
+              color: "var(--text-muted)",
               fontWeight: 700,
               textTransform: "uppercase",
               letterSpacing: "1px",
@@ -374,10 +374,10 @@ export default function PronosticosPartidoAfiche({
 
         {/* TIRA DE BORDES MULTICOLOR BOTTOM */}
         <div style={{ display: "flex", height: "6px", width: "100%" }}>
-          <div style={{ flex: 1, backgroundColor: "#15803d" }}></div>
-          <div style={{ flex: 1, backgroundColor: "#0b1e36" }}></div>
-          <div style={{ flex: 1, backgroundColor: "#f5b000" }}></div>
-          <div style={{ flex: 1, backgroundColor: "#b91c1c" }}></div>
+          <div style={{ flex: 1, backgroundColor: "#74CC10" }}></div>
+          <div style={{ flex: 1, backgroundColor: "#1A1F26" }}></div>
+          <div style={{ flex: 1, backgroundColor: "#EFCC36" }}></div>
+          <div style={{ flex: 1, backgroundColor: "#EA3D35" }}></div>
         </div>
       </div>
       </div>

@@ -1,0 +1,135 @@
+/* Barra superior en dos filas: marca + usuario arriba, navegación completa abajo.
+   Ninguna sección queda oculta: la navegación se reparte en varias líneas si no cabe
+   (nada de desplazamiento horizontal escondido). */
+.barra {
+  margin: 0 calc(-1 * var(--gutter, 16px)) var(--s-5);
+  padding: 0 var(--gutter, 16px);
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+
+.fila {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  max-width: 1200px;
+  min-height: 60px;
+  margin: 0 auto;
+}
+
+.marca {
+  display: inline-flex;
+  align-items: center;
+  border: 0;
+  background: transparent;
+  padding: 4px 0;
+  cursor: pointer;
+  color: inherit;
+}
+
+.usuario {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.nombre {
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-2);
+}
+
+.salir {
+  width: 40px;
+  height: 40px;
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--s-1);
+  max-width: 1200px;
+  margin: 0 auto;
+  border-top: 1px solid var(--line);
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color var(--motion), border-color var(--motion);
+}
+
+.item:hover {
+  color: var(--text);
+}
+
+.activo {
+  color: var(--text);
+  border-bottom-color: var(--color-verde-club);
+}
+
+/* Celular: cuadrícula de 3 columnas con icono sobre el nombre; todo a la vista. */
+@media (max-width: 640px) {
+  .nombre {
+    display: none;
+  }
+
+  .nav {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--s-1);
+    padding: var(--s-2) 0;
+  }
+
+  .item {
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    min-height: 56px;
+    padding: 6px 4px;
+    border-bottom: 0;
+    border-radius: var(--r-ctl);
+    font-size: 0.75rem;
+    line-height: 1.2;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .activo {
+    background: rgba(229, 231, 235, 0.08);
+    box-shadow: inset 0 -2px 0 var(--color-verde-club);
+  }
+}

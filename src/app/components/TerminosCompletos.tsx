@@ -83,7 +83,7 @@ export function TerminosCompletos() {
       </div>
 
       <h3 style={{ fontWeight: 800, color: "#FFFFFF", marginTop: 24 }}>5. Tipos de predicciones y reglas</h3>
-      <h4 style={{ fontWeight: 700, color: "#38bdf8", marginTop: 16 }}>5.1. Predicciones iniciales</h4>
+      <h4 style={{ fontWeight: 700, color: "#438AFF", marginTop: 16 }}>5.1. Predicciones iniciales</h4>
       <p>Las siguientes predicciones deberán realizarse antes del cierre oficial de esta etapa que será al finalizar el último partido de la fecha 5 del torneo:</p>
       <ul style={{ paddingLeft: 20 }}>
         <li>Campeón del torneo.</li>
@@ -105,7 +105,7 @@ export function TerminosCompletos() {
       <h4 style={{ fontWeight: 700, color: "#E5E7EB", marginTop: 12 }}>5.1.4. Goleador del Torneo</h4>
       <p>Se otorgarán <strong>15 puntos</strong> a los participantes que acierten el goleador oficial. En caso de empate de goleadores, se considerará válida cualquiera de esas selecciones.</p>
 
-      <h4 style={{ fontWeight: 700, color: "#38bdf8", marginTop: 16 }}>5.2. Pronósticos de cada partido</h4>
+      <h4 style={{ fontWeight: 700, color: "#438AFF", marginTop: 16 }}>5.2. Pronósticos de cada partido</h4>
       <p>Para cada encuentro, el participante deberá registrar: Resultado exacto, Ganador del partido y Jugador que marcará al menos un gol. Los pronósticos deberán registrarse como máximo <strong>una (1) hora antes del inicio oficial del partido</strong>.</p>
 
       <ul style={{ paddingLeft: 20, display: "flex", flexDirection: "column", gap: 12, marginTop: 12 }}>

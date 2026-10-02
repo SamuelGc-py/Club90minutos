@@ -38,8 +38,8 @@ export default function Error({
     <div
       style={{
         minHeight: "100vh",
-        background: "#0b1520",
-        color: "#ffffff",
+        background: "#04060A",
+        color: "#FFFFFF",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -51,23 +51,23 @@ export default function Error({
     >
       <div
         style={{
-          background: "#132030",
-          border: "1px solid #1e3145",
+          background: "#1A1F26",
+          border: "1px solid var(--line-strong)",
           borderRadius: "16px",
           padding: "32px 24px",
           maxWidth: "420px",
           width: "100%",
-          boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
+          boxShadow: "none",
         }}
       >
-        <div style={{ fontSize: "3rem", marginBottom: "16px" }}>⚽</div>
-        <h2 style={{ color: "#38bdf8", fontSize: "1.3rem", fontWeight: 800, marginBottom: "8px" }}>
+        <div style={{ fontSize: "3rem", marginBottom: "16px" }}></div>
+        <h2 style={{ color: "#438AFF", fontSize: "1.3rem", fontWeight: 800, marginBottom: "8px" }}>
           Club 90 Minutos
         </h2>
-        <h3 style={{ color: "#ffffff", fontSize: "1.1rem", fontWeight: 700, marginBottom: "12px" }}>
+        <h3 style={{ color: "#FFFFFF", fontSize: "1.1rem", fontWeight: 700, marginBottom: "12px" }}>
           Nueva Versión Disponible
         </h3>
-        <p style={{ color: "#8ba3b4", fontSize: "0.9rem", lineHeight: "1.5", marginBottom: "24px" }}>
+        <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", lineHeight: "1.5", marginBottom: "24px" }}>
           Se ha actualizado el sistema de pronósticos. Haz clic en el botón de abajo para sincronizar tu aplicación.
         </p>
 
@@ -77,17 +77,17 @@ export default function Error({
           style={{
             width: "100%",
             padding: "14px 20px",
-            background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
-            color: "#ffffff",
-            border: "1px solid #34d399",
+            background: "#74CC10",
+            color: "#04060A",
+            border: "1px solid #74CC10",
             borderRadius: "10px",
             fontSize: "1rem",
             fontWeight: 800,
             cursor: "pointer",
-            boxShadow: "0 4px 14px rgba(16, 185, 129, 0.4)",
+            boxShadow: "none",
           }}
         >
-          🔄 Actualizar y Entrar
+          Actualizar y Entrar
         </button>
       </div>
     </div>

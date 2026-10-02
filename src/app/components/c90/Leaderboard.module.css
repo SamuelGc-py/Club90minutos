@@ -1,0 +1,139 @@
+.tabla {
+  border: 1px solid var(--line);
+  border-radius: var(--r-ctl);
+  background: var(--surface);
+}
+
+.fila {
+  display: grid;
+  grid-template-columns: 36px 40px minmax(0, 1fr) var(--cols-cat, ) 64px 60px;
+  align-items: center;
+  gap: var(--s-3);
+  min-height: 48px;
+  padding: var(--s-2) var(--s-4);
+  border-bottom: 1px solid var(--line);
+  font-size: 0.9375rem;
+  background: var(--surface);
+}
+
+.fila:last-child {
+  border-bottom: 0;
+  border-radius: 0 0 var(--r-ctl) var(--r-ctl);
+}
+
+.encabezado {
+  min-height: 36px;
+  background: var(--surface-2);
+  border-radius: var(--r-ctl) var(--r-ctl) 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.pos {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+}
+
+.mov {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.sube {
+  color: var(--state-ok);
+}
+
+.baja {
+  color: var(--state-error);
+}
+
+.igual {
+  color: var(--text-muted);
+}
+
+.nombre {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.cat {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-2);
+  text-align: right;
+}
+
+.pts {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.dif {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+  text-align: right;
+}
+
+/* Tu fila: resaltada y fija (arriba o abajo) mientras la tabla está en pantalla */
+.yo {
+  position: sticky;
+  top: 64px;
+  bottom: 0;
+  z-index: 2;
+  background: var(--surface);
+  border-left: 3px solid var(--color-verde-club);
+  padding-left: calc(var(--s-4) - 3px);
+}
+
+.yo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--state-ok-bg);
+  pointer-events: none;
+}
+
+.yo .nombre {
+  font-weight: 700;
+}
+
+.separador {
+  display: block;
+  padding: 2px var(--s-4);
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+  border-bottom: 1px solid var(--line);
+}
+
+@media (max-width: 640px) {
+  .fila {
+    grid-template-columns: 28px 34px minmax(0, 1fr) 56px 52px;
+    gap: var(--s-2);
+    padding: var(--s-2) var(--s-3);
+  }
+
+  .cat {
+    display: none;
+  }
+
+  .yo {
+    top: 56px;
+    padding-left: calc(var(--s-3) - 3px);
+  }
+}

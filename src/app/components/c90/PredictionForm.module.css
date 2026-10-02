@@ -1,0 +1,275 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  padding: var(--s-4);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--r-ctl);
+}
+
+.oficial {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-2);
+  padding: var(--s-3) var(--s-4);
+  border-radius: var(--r-ctl);
+  background: var(--state-ok-bg);
+  font-size: 0.875rem;
+}
+
+.oficial strong {
+  font-family: var(--font-mono);
+  font-size: 1.125rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+
+.marcadorGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--s-4);
+}
+
+.lado {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-2);
+  min-width: 0;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  line-height: 1.25;
+}
+
+.separador {
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: var(--s-1);
+}
+
+.stepBtn {
+  width: var(--touch);
+  height: var(--touch);
+  border-radius: var(--r-ctl);
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 1.125rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color var(--motion);
+}
+
+.stepBtn:hover:not(:disabled) {
+  border-color: rgba(229, 231, 235, 0.4);
+}
+
+.stepBtn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.goles {
+  width: 52px;
+  height: var(--touch);
+  text-align: center;
+  border: 1px solid transparent;
+  border-radius: var(--r-ctl);
+  background: transparent;
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 1.75rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.goles::-webkit-outer-spin-button,
+.goles::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.goles:focus {
+  outline: none;
+  border-color: var(--color-verde-club);
+}
+
+.goles:disabled {
+  color: var(--text-2);
+}
+
+.bloque {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.bloqueTitulo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--s-2);
+  flex-wrap: wrap;
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  color: var(--text-2);
+}
+
+.pts {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.segmentado {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s-1);
+  padding: var(--s-1);
+  border: 1px solid var(--line);
+  border-radius: var(--r-ctl);
+  background: var(--surface);
+}
+
+.opcion {
+  min-height: 40px;
+  padding: 6px 8px;
+  border: 0;
+  border-radius: var(--r-chip);
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: background-color var(--motion), color var(--motion);
+}
+
+.opcion:hover:not(:disabled) {
+  color: var(--text);
+}
+
+.opcion:disabled {
+  cursor: not-allowed;
+}
+
+.opcionActiva {
+  background: rgba(229, 231, 235, 0.12);
+  color: var(--text);
+}
+
+.goleadores {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-3);
+}
+
+.goleadorEquipo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.goleadorEquipo label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.select {
+  width: 100%;
+  min-height: var(--touch);
+  padding: 8px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-ctl);
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+}
+
+.select:disabled {
+  opacity: 0.45;
+}
+
+.selectActivo {
+  border-color: var(--color-verde-club);
+}
+
+.nota {
+  font-size: var(--fs-caption);
+  color: var(--text-muted);
+}
+
+.error {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-2);
+  padding: var(--s-3);
+  border-radius: var(--r-ctl);
+  background: var(--state-error-bg);
+  color: var(--state-error);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.acciones {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--s-3);
+  flex-wrap: wrap;
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--line);
+}
+
+.ok {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--state-ok);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+@media (max-width: 520px) {
+  .goleadores {
+    grid-template-columns: 1fr;
+  }
+
+  .marcadorGrid {
+    gap: var(--s-2);
+  }
+
+  .goles {
+    width: 40px;
+    font-size: 1.5rem;
+  }
+
+  .stepBtn {
+    width: 40px;
+  }
+}

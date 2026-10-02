@@ -1,221 +1,522 @@
 /* ==========================================================================
-   POLLA FPC EXPRESS — Sistema de diseño "Noche de estadio"
-   Dark-first design matching original polla-fpc theme.
+   CLUB 90 MINUTOS — Estilos globales
+   Todo color sale de tokens.css (Manual de Marca v1.0). Ver docs/internal/plan-rediseno-visual-2026-10.md
    ========================================================================== */
 
-/* Quita el recuadro de foco que el navegador dibuja sobre el SVG de recharts
-   al hacer click (se ve como un cuadro blanco/gris pegado al gráfico). */
-.recharts-wrapper:focus,
-.recharts-wrapper *:focus,
-.recharts-surface:focus {
-  outline: none !important;
-}
-
+/* ---- Compatibilidad: variables heredadas apuntando a la marca ----
+   El dashboard usa estas variables en cientos de estilos en línea; se redefinen
+   aquí para que todo herede la paleta oficial sin tocar cada uso. */
 :root {
-  color-scheme: dark;
-
-  /* Superficies */
-  --noche: #0f172a;
-  --noche-2: #1e293b;
-  --tribuna: #1e293b;
-  --tribuna-2: #334155;
-  --linea: transparent;
-  --linea-fuerte: transparent;
-  --cancha-borde: transparent;
-
-  /* Texto */
-
-
-
-  --tiza: #e8f1f2;
-  --graderia: #8ba3b4;
-  --graderia-2: #778ea1;
-
-  /* Acción y estados */
-  --cancha: #1db954;
-  --cancha-hover: #27d465;
-  --cancha-suave: #10301f;
-  --cancha-borde: rgba(29, 185, 84, 0.35);
-  --trofeo: #ffc533;
-  --trofeo-suave: #34290e;
-  --rojo: #ff5c5c;
-  --rojo-suave: #331418;
-  --azul: #4da3ff;
-  --azul-suave: #10233a;
-
-  /* For
-  a */
-  --radio-card: 14px;
-  --radio-ctl: 10px;
-  --sombra-card: 0 1px 0 rgba(255, 255, 255, 0.03) inset;
-
-  /* Espaciado */
-  --esp-1: 4px;
-  --esp-2: 8px;
-  --esp-3: 12px;
-  --esp-4: 16px;
+  --noche: var(--color-negro-estadio);
+  --noche-2: var(--color-gris-oscuro);
+  --tribuna: var(--color-gris-oscuro);
+  --tribuna-2: rgba(229, 231, 235, 0.06);
+  --linea: var(--line);
+  --linea-fuerte: var(--line-strong);
+  --tiza: var(--color-blanco);
+  --graderia: var(--text-muted);
+  --graderia-2: var(--text-muted);
+  --cancha: var(--color-verde-club);
+  --cancha-hover: var(--color-verde-club);
+  --cancha-suave: var(--state-ok-bg);
+  --cancha-borde: rgba(116, 204, 16, 0.35);
+  --trofeo: var(--color-amarillo-energia);
+  --trofeo-suave: var(--state-warn-bg);
+  --rojo: var(--color-rojo-alerta);
+  --rojo-suave: var(--state-error-bg);
+  --azul: var(--color-azul-electrico);
+  --azul-suave: var(--state-info-bg);
+  --radio-card: var(--r-ctl);
+  --radio-ctl: var(--r-ctl);
+  --sombra-card: none;
+  --esp-1: var(--s-1);
+  --esp-2: var(--s-2);
+  --esp-3: var(--s-3);
+  --esp-4: var(--s-4);
   --esp-5: 20px;
-  --esp-6: 24px;
-  --esp-8: 32px;
-  --esp-12: 48px;
-
-  /* Tipografía */
-  --fuente-display: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --fuente-texto: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --esp-6: var(--s-5);
+  --esp-8: var(--s-6);
+  --esp-12: var(--s-7);
+  --fuente-display: var(--font-display);
+  --fuente-texto: var(--font-body);
 }
 
+/* ---- Base ---- */
 * {
   box-sizing: border-box;
 }
 
 html {
   min-width: 320px;
-  background: var(--noche);
-  scroll-behavior: smooth;
+  background: var(--bg);
 }
 
-/* Restablecer scrollbar vertical principal de la ventana */
 html,
 body {
-  scrollbar-width: auto !important;
-  -ms-overflow-style: auto !important;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
-/* Ocultar únicamente barras horizontales en elementos .no-scrollbar */
-.no-scrollbar::-webkit-scrollbar {
-  display: none !important;
-  width: 0 !important;
-  height: 0 !important;
-  background: transparent !important;
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "cv11", "ss01";
 }
 
-.no-scrollbar {
-  -ms-overflow-style: none !important;
-  scrollbar-width: none !important;
+a {
+  color: var(--link);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color var(--motion);
 }
 
-/* Barra de scroll vertical elegante para la página en PC */
+a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-verde-club);
+  outline-offset: 2px;
+}
+
+button:focus:not(:focus-visible) {
+  outline: none;
+}
+
+::placeholder {
+  color: var(--text-placeholder);
+  opacity: 1;
+}
+
+::selection {
+  background: rgba(116, 204, 16, 0.35);
+  color: var(--color-blanco);
+}
+
+/* ---- Escala tipográfica del manual (sección 02) ----
+   Orbitron solo en H1, H2 y la marca. H3 en adelante, Inter. */
+h1,
+h2,
+h3,
+h4,
+p {
+  margin-top: 0;
+}
+
+h1,
+h2 {
+  font-family: var(--font-display);
+  letter-spacing: 0.01em;
+  text-wrap: balance;
+}
+
+h1 {
+  margin-bottom: var(--s-3);
+  font-size: var(--fs-h1);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+h2 {
+  margin-bottom: var(--s-3);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+h3 {
+  margin-bottom: var(--s-2);
+  font-family: var(--font-body);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+h4 {
+  margin-bottom: var(--s-2);
+  font-family: var(--font-body);
+  font-size: var(--fs-body-lg);
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+/* Título de sección de pantalla: H2 del manual a tamaño de interfaz */
+.titulo-seccion {
+  font-family: var(--font-display);
+  font-size: clamp(1.375rem, 3vw, 1.75rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.caption {
+  font-size: var(--fs-caption);
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.mono,
+.num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+main {
+  width: min(1000px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: var(--s-5) 0 var(--s-7);
+}
+
+body.admin-fullscreen main,
+body.inicio-fullscreen main {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: var(--s-5) clamp(16px, 3vw, 40px) var(--s-7);
+}
+
+/* ---- Superficies ---- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-ctl);
+  padding: var(--s-5);
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* ---- Botones ----
+   Un solo .btn-primary (Verde Club + Negro Estadio) por pantalla.
+   Secundario: borde. Terciario: texto azul. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  min-height: var(--touch);
+  padding: 10px 20px;
+  border-radius: var(--r-pill);
+  border: 1px solid transparent;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  line-height: 1.2;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color var(--motion), border-color var(--motion), color var(--motion), opacity var(--motion);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--cta-bg);
+  color: var(--cta-text);
+}
+
+.btn-primary:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--line-strong);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  border-color: rgba(229, 231, 235, 0.4);
+  background: rgba(229, 231, 235, 0.04);
+}
+
+.btn-text {
+  background: transparent;
+  color: var(--link);
+  padding-inline: var(--s-2);
+}
+
+.btn-text:hover:not(:disabled) {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.btn-danger {
+  background: transparent;
+  color: var(--state-error);
+  border-color: rgba(234, 61, 53, 0.4);
+}
+
+.btn-sm {
+  min-height: 36px;
+  padding: 6px 14px;
+  font-size: 0.8125rem;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--touch);
+  height: var(--touch);
+  border-radius: var(--r-pill);
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text-2);
+  cursor: pointer;
+  transition: border-color var(--motion), color var(--motion);
+}
+
+.icon-btn:hover {
+  border-color: var(--line-strong);
+  color: var(--text);
+}
+
+/* ---- Badges de estado (fondo al 10 %, manual 05) ---- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 9px;
+  border-radius: var(--r-chip);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.badge-ok,
+.badge-cancha {
+  background: var(--state-ok-bg);
+  color: var(--state-ok);
+}
+
+.badge-warn,
+.badge-trofeo {
+  background: var(--state-warn-bg);
+  color: var(--state-warn);
+}
+
+.badge-error,
+.badge-rojo {
+  background: var(--state-error-bg);
+  color: var(--state-error);
+}
+
+.badge-info {
+  background: var(--state-info-bg);
+  color: var(--state-info);
+}
+
+.badge-neutral {
+  background: var(--state-neutral-bg);
+  color: var(--text-2);
+}
+
+.badge-live {
+  background: var(--state-error-bg);
+  color: var(--state-error);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.badge-live::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 8px currentColor;
+}
+
+/* ---- Pestañas / control segmentado ---- */
+.tabs {
+  display: flex;
+  gap: var(--s-1);
+  padding: var(--s-1);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.tab {
+  flex-shrink: 0;
+  min-height: 36px;
+  padding: 6px 14px;
+  border: none;
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--motion), color var(--motion);
+}
+
+.tab:hover {
+  color: var(--text);
+}
+
+.tab.active,
+.tab[aria-selected="true"] {
+  background: rgba(229, 231, 235, 0.10);
+  color: var(--text);
+}
+
+/* ---- Campos ---- */
+.input,
+select.input {
+  width: 100%;
+  min-height: var(--touch);
+  padding: 10px 14px;
+  background: var(--bg);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-ctl);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color var(--motion);
+}
+
+.input:focus {
+  border-color: var(--color-verde-club);
+}
+
+.field-label {
+  display: block;
+  margin-bottom: var(--s-2);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  color: var(--text-2);
+}
+
+select option,
+select optgroup {
+  background-color: var(--color-gris-oscuro);
+  color: var(--color-blanco);
+}
+
+/* ---- Vacíos y avisos ---- */
+.empty-state {
+  padding: var(--s-6) var(--s-5);
+  text-align: center;
+  color: var(--text-muted);
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--r-ctl);
+}
+
+/* ---- Scrollbars ---- */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0b1520;
+  background: var(--bg);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2a4258;
+  background: var(--color-gris-oscuro);
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #38bdf8;
+  background: var(--color-gris-medio);
 }
 
-/* Scrollbar elegante y fino para el sidebar */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 .sidebar-scroll::-webkit-scrollbar {
   width: 5px;
 }
 
-.sidebar-scroll::-webkit-scrollbar-track {
-  background: transparent;
-}
-
 .sidebar-scroll::-webkit-scrollbar-thumb {
-  background: rgba(16, 185, 129, 0.2);
+  background: rgba(229, 231, 235, 0.12);
   border-radius: 10px;
 }
 
-.sidebar-scroll::-webkit-scrollbar-thumb:hover {
-  background: rgba(16, 185, 129, 0.5);
+.recharts-wrapper:focus,
+.recharts-wrapper *:focus,
+.recharts-surface:focus {
+  outline: none !important;
 }
 
-body {
-  margin: 0;
-  background:
-    radial-gradient(1100px 420px at 85% -140px, rgba(29, 185, 84, 0.09), transparent 70%),
-    radial-gradient(900px 380px at 0% -120px, rgba(77, 163, 255, 0.06), transparent 70%),
-    var(--noche);
-  color: var(--tiza);
-  font-family: var(--fuente-texto);
-  font-size: 0.95rem;
-  line-height: 1.55;
-  -webkit-font-smoothing: antialiased;
-}
-
-a {
-  color: var(--cancha);
-  font-weight: 650;
-  text-decoration: none;
-  transition: color 0.15s ease;
-}
-
-a:hover {
-  color: var(--cancha-hover);
-  text-decoration: underline;
-  text-underline-offset: 4px;
-}
-
-h1,
-h2,
-h3,
-p {
-  margin-top: 0;
-}
-
-h1,
-h2,
-h3 {
-  font-family: var(--fuente-display);
-  letter-spacing: -0.01em;
-}
-
-h1 {
-  margin-bottom: 0.6rem;
-  font-size: clamp(1.8rem, 4vw, 2.8rem);
-  font-weight: 800;
-  line-height: 1.1;
-}
-
-h2 {
-  margin-bottom: 0.8rem;
-  font-size: clamp(1.2rem, 2vw, 1.5rem);
-  font-weight: 750;
-}
-
-h3 {
-  margin-bottom: 0.5rem;
-  font-weight: 700;
-}
-
-main {
-  width: min(1000px, calc(100% - 32px));
-  margin: 0 auto;
-  padding: var(--esp-6) 0 var(--esp-12);
-}
-
-/* Panel admin: ocupa todo el ancho disponible, sin el límite de 1000px */
-body.admin-fullscreen main,
-body.inicio-fullscreen main {
-  width: 100%;
-  max-width: 100%;
-  margin: 0;
-  padding: var(--esp-6) clamp(16px, 3vw, 40px) var(--esp-12);
-}
-
-/* Panel admin e Inicio de participante responsive: el sidebar pasa a ser una barra horizontal de pestañas */
-.admin-sidebar-nav,
-.inicio-sidebar-nav {
+/* ---- Panel admin: sidebar → barra horizontal en celular ---- */
+.admin-sidebar-nav {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--s-2);
 }
 
-/* ============ LANDING DE INICIO Y LOGIN: SIN SCROLL DE PÁGINA (solo PC) ============
-   En PC ambas pantallas quedan fijas al alto del viewport; únicamente el menú de
-   la landing puede desplazarse si no cabe. En celular se deja el scroll normal
-   del navegador (para no perder el gesto nativo de "jalar para recargar"). */
+@media (max-width: 880px) {
+  .admin-layout-row {
+    flex-direction: column !important;
+    gap: var(--s-4) !important;
+  }
+
+  .admin-sidebar {
+    width: 100% !important;
+    position: static !important;
+    padding: var(--s-3) !important;
+  }
+
+  .admin-sidebar-title {
+    display: none;
+  }
+
+  .admin-sidebar-nav {
+    flex-direction: row !important;
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+
+  .admin-sidebar-nav button {
+    flex-shrink: 0;
+  }
+
+  .admin-sidebar-fecha {
+    margin-top: 0 !important;
+  }
+}
+
+/* ---- Login sin scroll de página en PC ---- */
 @media (min-width: 768px) {
   html.app-fullscreen-lock,
   body.app-fullscreen-lock {
@@ -227,1049 +528,150 @@ body.inicio-fullscreen main {
     overflow: hidden;
   }
 
-  body.login-fullscreen.app-fullscreen-lock main,
-  body.inicio-fullscreen.app-fullscreen-lock main {
+  body.login-fullscreen.app-fullscreen-lock main {
     padding: 0;
   }
 
   body.login-fullscreen.app-fullscreen-lock .participant-root {
     height: 100%;
   }
-
-  body.inicio-fullscreen.app-fullscreen-lock .participant-root {
-    height: 100%;
-    padding-bottom: 0 !important;
-  }
-
-  body.inicio-fullscreen.app-fullscreen-lock .inicio-fullscreen-wrapper {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    overflow: hidden;
-  }
-
-  body.inicio-fullscreen.app-fullscreen-lock .inicio-fullscreen-wrapper > *:not(.inicio-layout-row) {
-    flex-shrink: 0;
-  }
-
-  body.inicio-fullscreen.app-fullscreen-lock .inicio-layout-row {
-    flex: 1 1 auto;
-    min-height: 0;
-  }
 }
 
-@media (min-width: 881px) {
-  body.inicio-fullscreen.app-fullscreen-lock .inicio-fullscreen-wrapper {
-    padding: 0 28px !important;
-  }
-}
-
-@media (max-width: 880px) {
-  /* En celular la fila queda en columna: el sidebar (colapsado) arriba con su
-     alto natural, y el hero abajo ocupando el resto sin desbordar. */
-  body.inicio-fullscreen.app-fullscreen-lock .inicio-sidebar {
-    flex-shrink: 0;
-  }
-
-  body.inicio-fullscreen.app-fullscreen-lock .inicio-content-hero {
-    flex: 1 1 auto;
-    min-height: 0;
-  }
-
-  body.inicio-fullscreen.app-fullscreen-lock .inicio-hero-card {
-    padding: 20px !important;
-  }
-}
-
-@media (max-width: 880px) {
-  .admin-layout-row,
-  .inicio-layout-row {
-    flex-direction: column !important;
-    gap: 16px !important;
-  }
-
-  .admin-sidebar,
-  .inicio-sidebar {
-    width: 100% !important;
-    position: static !important;
-    padding: 12px !important;
-  }
-
-  .inicio-sidebar {
-    z-index: 20;
-  }
-
-  .admin-sidebar-title {
-    display: none;
-  }
-
-  .admin-sidebar-nav,
-  .inicio-sidebar-nav {
-    flex-direction: row !important;
-    overflow-x: auto;
-    padding-bottom: 2px;
-  }
-
-  .admin-sidebar-nav button,
-  .inicio-sidebar-nav button {
-    flex-shrink: 0;
-  }
-
-  .admin-sidebar-fecha {
-    margin-top: 0 !important;
-  }
-}
-
-/* Menú rápido de Inicio en celular: nada de scroll horizontal ni tarjetas grandes.
-   Cuadrícula compacta 2x2, solo ícono + nombre, sin descripción, para que quepa
-   de un vistazo y no haya que bajar para encontrar el menú. */
-@media (max-width: 640px) {
-  .inicio-sidebar-nav {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px !important;
-    overflow-x: visible !important;
-  }
-
-  .inicio-sidebar-nav button {
-    flex-direction: column !important;
-    justify-content: center;
-    text-align: center !important;
-    gap: 6px !important;
-    padding: 10px 6px !important;
-  }
-
-  .inicio-sidebar-nav .inicio-card-icon {
-    width: 30px !important;
-    height: 30px !important;
-    font-size: 1rem !important;
-  }
-
-  .inicio-sidebar-nav .inicio-card-desc {
-    display: none;
-  }
-
-  .inicio-sidebar-nav .inicio-card-label {
-    font-size: 0.74rem !important;
-    white-space: normal !important;
-  }
-}
-
-/* Menú de Inicio en celular: colapsado por defecto para dejarle espacio a la
-   trivia/pronósticos debajo; se despliega como ventana flotante sobre el contenido,
-   sin empujarlo, con el botón .inicio-sidebar-toggle. */
-.inicio-sidebar-toggle {
-  display: none;
-}
-
-.inicio-sidebar-menu-backdrop {
-  display: none;
-}
-
-@media (max-width: 880px) {
-  .inicio-sidebar-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    background: rgba(255, 255, 255, 0.06);
-    border: none;
-    color: #fff;
-    font-weight: 800;
-    font-size: 0.85rem;
-    padding: 12px 14px;
-    border-radius: 12px;
-    cursor: pointer;
-  }
-
-  .inicio-sidebar {
-    overflow: visible !important;
-  }
-
-  .inicio-sidebar-nav-wrap {
-    position: relative;
-  }
-
-  .inicio-sidebar-nav {
-    display: none !important;
-  }
-
-  .inicio-sidebar-nav.is-open {
-    display: grid !important;
-    position: absolute;
-    top: calc(100% + 8px);
-    left: 0;
-    right: 0;
-    z-index: 30;
-    background: linear-gradient(180deg, rgba(14, 26, 39, 0.98) 0%, rgba(16, 42, 33, 0.97) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 14px;
-    padding: 10px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-    max-height: 60vh;
-    overflow-y: auto;
-  }
-
-  .inicio-sidebar-menu-backdrop {
-    display: block;
-    position: fixed;
-    inset: 0;
-    z-index: 25;
-    background: transparent;
-  }
-}
-
-/* Navbar */
-.navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--esp-4) var(--esp-6);
-  background: rgba(14, 26, 39, 0.85);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--linea);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: var(--esp-3);
-  font-family: var(--fuente-display);
-  font-weight: 800;
-  font-size: 1.25rem;
-  color: var(--tiza);
-}
-
-.brand-badge {
-  background: linear-gradient(135deg, var(--cancha), #158a3e);
-  color: #fff;
-  padding: 4px 10px;
-  border-radius: 6px;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-weight: 750;
-}
-
-/* Custom UI Components matching polla-fpc */
-.card {
-  background: var(--tribuna);
-  border: 1px solid var(--linea);
-  border-radius: var(--radio-card);
-  padding: var(--esp-6);
-  box-shadow: var(--sombra-card);
-}
-
-.card-header {
-  margin-bottom: var(--esp-4);
-  border-bottom: 1px solid var(--linea);
-  padding-bottom: var(--esp-3);
-}
-
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 12px;
-  border-radius: 999px;
-  font-size: 0.8rem;
-  font-weight: 650;
-}
-
-.badge-cancha {
-  background: var(--cancha-suave);
-  color: var(--cancha);
-  border: 1px solid var(--cancha-borde);
-}
-
-.badge-trofeo {
-  background: var(--trofeo-suave);
-  color: var(--trofeo);
-  border: 1px solid rgba(255, 197, 51, 0.3);
-}
-
-.badge-rojo {
-  background: var(--rojo-suave);
-  color: var(--rojo);
-  border: 1px solid rgba(255, 92, 92, 0.3);
-}
-
-/* Inputs y Botones */
-.input {
-  width: 100%;
-  padding: 12px 16px;
-  background: var(--noche-2);
-  border: 1px solid var(--linea);
-  border-radius: var(--radio-ctl);
-  color: var(--tiza);
-  font-family: inherit;
-  font-size: 1rem;
-  outline: none;
-  transition: all 0.15s ease;
-}
-
-.input:focus {
-  border-color: var(--cancha);
-  box-shadow: 0 0 0 3px rgba(29, 185, 84, 0.15);
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 12px 28px;
-  border-radius: 12px;
-  font-weight: 800;
-  font-size: 0.95rem;
-  cursor: pointer;
-  border: none;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  z-index: 1;
-}
-
-.btn::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-  transition: opacity 0.3s ease;
-  transform: skewX(-20deg);
-  z-index: -1;
-  opacity: 0;
-}
-
-.btn:hover::after {
-  animation: shine 1.2s ease-in-out infinite;
-  opacity: 1;
-}
-
-@keyframes shine {
-  100% { left: 200%; }
-}
-
-.btn:active {
-  transform: scale(0.95) translateY(2px);
-}
-
-.btn-primary {
-  background: linear-gradient(135deg, var(--cancha) 0%, #10b981 100%);
-  color: #042f2e;
-  box-shadow: 0 4px 15px -3px rgba(16, 185, 129, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.2) inset;
-  border: 1px solid rgba(16, 185, 129, 0.8);
-}
-
-.btn-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 25px -5px rgba(16, 185, 129, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.4) inset;
-  background: linear-gradient(135deg, #22c55e 0%, #059669 100%);
-}
-
-.btn-primary:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
-  filter: grayscale(0.8);
-}
-
-.btn-logout {
-  background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(185, 28, 28, 0.2) 100%);
-  color: #fca5a5;
-  border: 1px solid rgba(239, 68, 68, 0.5);
-  box-shadow: 0 4px 12px -3px rgba(239, 68, 68, 0.2);
-}
-
-.btn-logout:hover {
-  background: linear-gradient(135deg, rgba(239, 68, 68, 0.3) 0%, rgba(185, 28, 28, 0.4) 100%);
-  border-color: rgba(239, 68, 68, 0.8);
-  color: #fef2f2;
-  box-shadow: 0 8px 20px -3px rgba(239, 68, 68, 0.4);
-  transform: translateY(-2px);
-}
-
-.btn-secondary {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.1) 100%);
-  color: #f8fafc;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 4px 12px -3px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(8px);
-}
-
-.btn-secondary:hover {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.2) 100%);
-  border-color: rgba(255, 255, 255, 0.4);
-  box-shadow: 0 8px 20px -3px rgba(255, 255, 255, 0.15);
-  transform: translateY(-2px);
-}
-
-
-/* Estilo de Marcadors de Partidos (igual a polla-fpc) */
-.duelo-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: var(--tribuna);
-  border: 1px solid var(--linea);
-  border-radius: var(--radio-card);
-  padding: var(--esp-4) var(--esp-5);
-  margin-bottom: var(--esp-3);
-  transition: border-color 0.15s ease;
-}
-
-.duelo-card:hover {
-  border-color: var(--linea-fuerte);
-}
-
-.equipo-col {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex: 1;
-}
-
-.equipo-col.right {
-  justify-content: flex-end;
-}
-
-.equipo-escudo {
-  width: 32px;
-  height: 32px;
-  object-fit: contain;
-  border-radius: 50%;
-  background: var(--noche);
-  padding: 2px;
-}
-
-.equipo-nombre {
-  font-weight: 700;
-  font-size: 0.95rem;
-}
-
-.marcador-box {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 0 var(--esp-4);
-}
-
-.marcador-input {
-  width: 50px;
-  height: 46px;
-  text-align: center;
-  font-size: 1.3rem;
-  font-weight: 800;
-  background: var(--noche-2);
-  border: 1px solid var(--linea-fuerte);
-  border-radius: 8px;
-  color: var(--tiza);
-  outline: none;
-}
-
-.marcador-input:focus {
-  border-color: var(--cancha);
-  box-shadow: 0 0 0 2px rgba(29, 185, 84, 0.2);
-}
-
-/* Pestañas */
-.tabs {
-  display: flex;
-  gap: 8px;
-  border-bottom: 1px solid var(--linea);
-  margin-bottom: var(--esp-6);
-}
-
-.tab {
-  padding: 12px 20px;
-  background: transparent;
-  border: none;
-  color: var(--graderia);
-  font-weight: 700;
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-  transition: all 0.15s ease;
-}
-
-.tab.active {
-  color: var(--cancha);
-  border-bottom-color: var(--cancha);
-}
-
-/* Grid de Cuadrangulares / Clasificados */
-.grid-clasificados {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 12px;
-}
-
-.item-clasificado {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 14px;
-  background: var(--noche-2);
-  border: 1px solid var(--linea);
-  border-radius: 8px;
-  cursor: pointer;
-  user-select: none;
-  transition: all 0.15s ease;
-}
-
-.item-clasificado.selected {
-  background: var(--cancha-suave);
-  border-color: var(--cancha);
-  color: var(--cancha);
-}
-
-/* ==========================================================================
-   RESPONSIVE DESIGN PARA CELULARES Y TABLETS (<768px y <480px)
-   ========================================================================== */
-
-@media (max-width: 768px) {
-  main {
-    width: calc(100% - 20px);
-    padding: 16px 0 40px;
-  }
-
-  .card {
-    padding: 14px;
-    border-radius: 12px;
-  }
-
-  h1 {
-    font-size: 1.5rem;
-  }
-
-  h2 {
-    font-size: 1.15rem;
-  }
-
-  .btn {
-    padding: 10px 14px;
-    font-size: 0.85rem;
-    width: 100%;
-    justify-content: center;
-  }
-
-  /* Prevenir zoom automático al enfocar inputs o selects en pantallas táctiles */
-  input,
-  select,
-  textarea {
-    font-size: 16px !important;
-  }
-
-  /* Ocultar pestañas horizontales de escritorio en movil */
-  .desktop-tabs {
-    display: none !important;
-  }
-
-  /* Mostrar botón de menú hamburguesa */
-  .mobile-menu-btn {
-    display: inline-flex !important;
-  }
-
-  /* Esconder eslogan largo en header movil */
-  .desktop-slogan {
-    display: none !important;
-  }
-
-  /* Ajuste de enfrentamiento de partido en pantalla chica */
-  .grid-partido-mobile {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 12px !important;
-    align-items: center !important;
-  }
-
-  .equipo-box-mobile {
-    width: 100%;
-    justify-content: space-between !important;
-  }
-
-  .marcador-input {
-    width: 44px;
-    height: 42px;
-    font-size: 1.15rem;
-  }
-}
-
-/* Ajuste de desbordamiento en pantallas pequeñas */
-
-html,
-body {
-  max-width: 100vw !important;
-  overflow-x: hidden !important;
-}
-
-main {
-  max-width: 100vw !important;
-  overflow-x: hidden !important;
-  box-sizing: border-box !important;
-}
-
-.card {
-  max-width: 100% !important;
-  box-sizing: border-box !important;
-  overflow-x: hidden !important;
-}
-
-/* ==========================================================================
-   DISPOSICIÓN DE PARTIDOS RESPONSIVA (MATCH HEADER GRID)
-   ========================================================================== */
-.match-header-grid {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 16px;
-  width: 100%;
-}
-
-.equipo-local-container {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  justify-content: flex-end;
-}
-
-.equipo-visitante-container {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  justify-content: flex-start;
-}
-
-.equipo-nombre-txt {
-  font-weight: 800;
-  font-size: 1.05rem;
-  color: #ffffff;
-}
-
-@media (max-width: 640px) {
-  .match-header-grid {
-    gap: 4px !important;
-    grid-template-columns: 1fr auto 1fr !important;
-  }
-
-  .equipo-local-container {
-    flex-direction: column-reverse !important;
-    justify-content: center !important;
-    align-items: center !important;
-    text-align: center !important;
-  }
-
-  .equipo-visitante-container {
-    flex-direction: column !important;
-    justify-content: center !important;
-    align-items: center !important;
-    text-align: center !important;
-  }
-
-  .equipo-nombre-txt {
-    font-size: 0.8rem !important;
-    text-align: center !important;
-    line-height: 1.2 !important;
-    word-break: break-word !important;
-  }
-
-  .marcador-input {
-    width: 36px !important;
-    height: 38px !important;
-    font-size: 1.05rem !important;
-    padding: 2px !important;
-  }
-}
-
-.mobile-menu-btn {
-  display: none;
-}
-
-.menu-drawer-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 18px;
-  border-radius: 10px;
-  color: var(--tiza);
-  font-weight: 700;
-  font-size: 1rem;
-  background: var(--noche-2);
-  border: 1px solid var(--linea);
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.menu-drawer-item:hover,
-.menu-drawer-item.active {
-  background: var(--cancha-suave);
-  border-color: var(--cancha);
-  color: var(--cancha);
-}
-
-/* ==========================================================================
-   ESTILOS HEADER SLOGAN MELO & ICONOS 3D
-   ========================================================================== */
-
-/* Utilidades específicas */
-.spin {
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* ================= LOGIN SPLIT SCREEN ================= */
+/* ---- Login ---- */
 .login-left-panel {
   display: none;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 900px) {
   .login-left-panel {
     display: flex !important;
   }
 }
 
 .login-right-panel {
-  background: var(--noche);
+  background: var(--bg);
 }
 
 .login-mobile-header {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  margin-bottom: 28px;
+  align-items: flex-start;
+  gap: var(--s-3);
+  margin-bottom: var(--s-6);
 }
 
-.login-mobile-banner {
-  position: relative;
-  width: 100%;
-  height: 90px;
-  border-radius: 20px;
-  background: linear-gradient(135deg, var(--cancha) 0%, var(--cancha-suave) 60%, var(--noche) 100%);
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(29, 185, 84, 0.25);
-}
-
-.login-mobile-ball {
-  position: absolute;
-  font-size: 2.4rem;
-  opacity: 0.16;
-  top: -12px;
-  left: 6px;
-  transform: rotate(-15deg);
-}
-
-.login-mobile-ball-2 {
-  top: auto;
-  left: auto;
-  bottom: -16px;
-  right: 12px;
-  font-size: 3.4rem;
-  transform: rotate(20deg);
-}
-
-.login-mobile-badge {
-  width: 84px;
-  height: 84px;
-  border-radius: 20px;
-  background: var(--tribuna);
-  border: 3px solid var(--noche);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), 0 0 0 3px var(--cancha-borde);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: -42px auto 0;
-  position: relative;
-  z-index: 2;
-}
-
-.login-mobile-badge img {
-  width: 60px;
-  height: 60px;
-  object-fit: contain;
-}
-
-.login-mobile-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 10px;
-  padding: 5px 12px;
-  background: rgba(29, 185, 84, 0.12);
-  border: 1px solid var(--cancha-borde);
-  border-radius: 20px;
-  color: var(--cancha);
-  font-weight: 700;
-  font-size: 0.78rem;
-  letter-spacing: 0.3px;
-}
-
-.login-mobile-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--cancha);
-  box-shadow: 0 0 8px var(--cancha);
-}
-
-@media (max-width: 767px) {
-  .login-right-panel {
-    background: radial-gradient(circle at 50% 0%, rgba(29, 185, 84, 0.18) 0%, var(--noche) 55%);
-  }
-
-  .login-registro-link {
-    margin-top: 10px !important;
-  }
-}
-
-@media (min-width: 768px) {
+@media (min-width: 900px) {
   .login-mobile-header {
     display: none;
   }
 }
 
-.bola-flotante {
-  animation: flotar 4s ease-in-out infinite;
+/* ---- Utilidades ---- */
+.spin {
+  animation: spin 1s linear infinite;
 }
 
-@keyframes flotar {
-  0% {
-    transform: translateY(0px) rotate(0deg);
-  }
-
-  50% {
-    transform: translateY(-20px) rotate(10deg);
-  }
-
-  100% {
-    transform: translateY(0px) rotate(0deg);
-  }
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
-.input:focus {
-  border-color: var(--cancha) !important;
-  box-shadow: 0 0 0 3px rgba(29, 185, 84, 0.2) !important;
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-@keyframes flotarIcono {
-  0% {
-    transform: translateY(0px) rotate(0deg);
-  }
-
-  50% {
-    transform: translateY(-3px) rotate(3deg);
-  }
-
-  100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-}
-
-@keyframes flotarIconoDelay {
-  0% {
-    transform: translateY(-2px) rotate(0deg);
-  }
-
-  50% {
-    transform: translateY(2px) rotate(-3deg);
-  }
-
-  100% {
-    transform: translateY(-2px) rotate(0deg);
-  }
-}
-
-@keyframes fuegoOndulante {
-  0% {
-    background-position: 0% 50%;
-    opacity: 0.7;
-    box-shadow: 0 2px 8px rgba(255, 100, 0, 0.4);
-  }
-
-  50% {
-    background-position: 100% 50%;
-    opacity: 1;
-    box-shadow: 0 3px 14px rgba(255, 140, 0, 0.7);
-  }
-
-  100% {
-    background-position: 0% 50%;
-    opacity: 0.7;
-    box-shadow: 0 2px 8px rgba(255, 100, 0, 0.4);
-  }
-}
-
-.icono-3d-flotante {
-  object-fit: contain;
-  filter: drop-shadow(0 4px 10px rgba(56, 189, 248, 0.5));
-  animation: flotarIcono 2.8s ease-in-out infinite;
-}
-
-.icono-3d-flotante-delay {
-  object-fit: contain;
-  filter: drop-shadow(0 4px 10px rgba(52, 211, 153, 0.5));
-  animation: flotarIconoDelay 3.2s ease-in-out infinite;
-}
-
-.slogan-melo-texto {
-  font-size: 0.95rem;
-  font-weight: 900;
-  letter-spacing: 0.6px;
-  background: linear-gradient(90deg, #ffffff 0%, #38bdf8 35%, #34d399 70%, #ffc533 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-transform: uppercase;
-}
-
-.linea-fuego-animada {
-  width: 95%;
-  height: 2px;
-  margin-top: 3px;
-  border-radius: 2px;
-  background: linear-gradient(90deg, transparent 0%, #ff4500 25%, #ff8c00 50%, #ffd700 75%, transparent 100%);
-  background-size: 200% 200%;
-  animation: fuegoOndulante 2.5s ease-in-out infinite;
-}
-
-/* ESTILOS GLOBALES DE ALTA VISIBILIDAD PARA MENÚS DESPLEGABLES (SELECT OPTIONS) */
-select option,
-select optgroup {
-  background-color: #0e1a27 !important;
-  color: #ffffff !important;
-  font-size: 0.95rem;
-  padding: 8px 12px;
-}
-
-select optgroup {
-  font-weight: bold;
-  color: #38bdf8 !important;
-  background-color: #0b1520 !important;
+.grid-clasificados {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--s-3);
 }
 
 @media (min-width: 768px) {
   .solo-celular {
     display: none !important;
   }
-}:root {
-  --color-verde-club: #74CC10;
-  --color-negro-estadio: #04060A;
-  --color-blanco: #FFFFFF;
-  --color-azul-electrico: #438AFF;
-  --color-amarillo-energia: #EFCC36;
-  --color-rojo-alerta: #EA3D35;
-  --color-gris-oscuro: #1A1F26;
-  --color-gris-medio: #6B7280;
-  --color-gris-claro: #E5E7EB;
-
-  --bg-primary: var(--color-negro-estadio);
-  --text-primary: var(--color-blanco);
-  --cta-bg: var(--color-verde-club);
-  --cta-text: var(--color-negro-estadio);
-  --state-warning: var(--color-amarillo-energia);
-  --state-error: var(--color-rojo-alerta);
-  --link: var(--color-azul-electrico);
-
-  --font-display: 'Orbitron', sans-serif;
-  --font-body: 'Inter', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-
-  --radius-pill: 999px;
-  --shadow-glow: 0 0 24px rgba(116, 204, 16, .35);
 }
 
-/* Contenido markdown de la Central de Datos (tablas de posiciones, resultados, etc.) */
+@media (max-width: 768px) {
+  main {
+    width: calc(100% - 24px);
+    padding: var(--s-4) 0 var(--s-7);
+  }
+
+  .card {
+    padding: var(--s-4);
+  }
+
+  /* Evita el zoom automático de iOS al enfocar campos */
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+
+  .desktop-slogan {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---- Contenido markdown de la Central de Datos ---- */
 .markdown-oraculo p {
   margin: 0 0 12px;
 }
+
 .markdown-oraculo p:last-child {
   margin-bottom: 0;
 }
+
 .markdown-oraculo ul,
 .markdown-oraculo ol {
   margin: 0 0 12px;
   padding-left: 20px;
 }
+
 .markdown-oraculo strong {
-  color: #fff;
+  color: var(--text);
 }
+
 .markdown-oraculo table {
   width: 100%;
   border-collapse: collapse;
   margin: 8px 0 16px;
   font-size: 0.88rem;
 }
+
 .markdown-oraculo th,
 .markdown-oraculo td {
   padding: 10px 14px;
   text-align: left;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--line);
 }
+
 .markdown-oraculo th {
-  background: rgba(255, 255, 255, 0.04);
-  color: var(--graderia);
+  background: var(--surface-2);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-weight: 500;
   text-transform: uppercase;
   font-size: 0.72rem;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
 }
+
+.markdown-oraculo td {
+  font-variant-numeric: tabular-nums;
+}
+
 .markdown-oraculo tr:last-child td {
   border-bottom: none;
-}
-
-
-/* ---- Barra "← Inicio" en cada pestaña ---- */
-.barra-volver-inicio {
-  position: sticky;
-  top: 0;
-  z-index: 40;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 4px;
-  margin-bottom: 14px;
-  background: linear-gradient(180deg, var(--noche) 70%, rgba(15, 23, 42, 0));
-}
-.btn-volver-inicio {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  min-height: 40px;
-  padding: 8px 16px 8px 12px;
-  border-radius: 999px;
-  border: 1px solid rgba(29, 185, 84, 0.45);
-  background: rgba(29, 185, 84, 0.12);
-  color: #fff;
-  font-weight: 800;
-  font-size: 0.88rem;
-  cursor: pointer;
-  transition: background 0.15s ease, transform 0.15s ease;
-}
-.btn-volver-inicio:hover { background: rgba(29, 185, 84, 0.25); }
-.btn-volver-inicio:active { transform: scale(0.97); }
-.btn-volver-inicio:focus-visible { outline: 2px solid var(--cancha); outline-offset: 2px; }
-.barra-volver-titulo {
-  color: #cbd5e1;
-  font-weight: 800;
-  font-size: 0.95rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }

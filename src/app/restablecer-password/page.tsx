@@ -81,7 +81,7 @@ function RestablecerPasswordContent() {
           <Lock size={28} />
         </div>
 
-        <h1 style={{ fontSize: "1.75rem", marginBottom: 6 }}>Crear Nueva Contraseña</h1>
+        <h1 style={{ fontSize: "1.75rem", marginBottom: 6 }}>Crear Nueva contraseña</h1>
         <p style={{ color: "var(--graderia)", fontSize: "0.9rem", marginBottom: 28 }}>
           Ingresa tu nueva contraseña para acceder a tus pronósticos.
         </p>
@@ -133,14 +133,14 @@ function RestablecerPasswordContent() {
               className="btn btn-primary"
               style={{ padding: "10px 20px", textDecoration: "none", width: "100%" }}
             >
-              Iniciar Sesión
+              Iniciar sesión
             </Link>
           </div>
         ) : (
           <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             <div style={{ textAlign: "left" }}>
               <label style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--graderia)", marginBottom: 6, display: "block" }}>
-                Nueva Contraseña
+                Nueva contraseña
               </label>
               <input
                 type="password"
@@ -154,7 +154,7 @@ function RestablecerPasswordContent() {
 
             <div style={{ textAlign: "left" }}>
               <label style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--graderia)", marginBottom: 6, display: "block" }}>
-                Confirmar Contraseña
+                Confirmar contraseña
               </label>
               <input
                 type="password"

@@ -124,7 +124,7 @@ export default function MisResultadosView({ usuarioId }: { usuarioId: number }) 
   if (cargando && !datos) {
     return (
       <div className="card" style={{ textAlign: "center", padding: 40 }}>
-        <RefreshCw className="spin" size={30} style={{ color: "#38bdf8" }} />
+        <RefreshCw className="spin" size={30} style={{ color: "#438AFF" }} />
         <div style={{ marginTop: 10, color: "var(--graderia)" }}>Cargando tus resultados…</div>
       </div>
     );
@@ -133,8 +133,8 @@ export default function MisResultadosView({ usuarioId }: { usuarioId: number }) 
   if (error) {
     return (
       <div className="card" style={{ textAlign: "center", padding: 30 }}>
-        <p style={{ color: "#ff9d9d", marginBottom: 14 }}>{error}</p>
-        <button className="btn btn-primary" onClick={cargar}>🔄 Reintentar</button>
+        <p style={{ color: "#EA3D35", marginBottom: 14 }}>{error}</p>
+        <button className="btn btn-primary" onClick={cargar}>Reintentar</button>
       </div>
     );
   }
@@ -151,7 +151,7 @@ export default function MisResultadosView({ usuarioId }: { usuarioId: number }) 
       <div className="card" style={{ marginBottom: 16 }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
           <div>
-            <h2 style={{ margin: 0 }}>🏁 Mis Resultados y Puntos</h2>
+            <h2 style={{ margin: 0 }}>Mis Resultados y Puntos</h2>
             <p style={{ color: "var(--graderia)", margin: "4px 0 0", fontSize: "0.85rem" }}>
               Todos los partidos finalizados, del más reciente al más antiguo, con lo que pronosticaste y lo que sumaste.
             </p>
@@ -172,14 +172,14 @@ export default function MisResultadosView({ usuarioId }: { usuarioId: number }) 
 
         <div className="mis-resultados-kpis">
           <Kpi label="Puntos totales" valor={r.puntos_total} color="var(--trofeo)" grande />
-          <Kpi label="Marcador exacto" valor={r.puntos_resultado_exacto} color="#4da3ff" />
+          <Kpi label="Marcador exacto" valor={r.puntos_resultado_exacto} color="#438AFF" />
           <Kpi label="Ganador / empate" valor={r.puntos_ganador_partido} color="var(--cancha)" />
-          <Kpi label="Goleadores" valor={r.puntos_goleador} color="#c084fc" />
+          <Kpi label="Goleadores" valor={r.puntos_goleador} color="#438AFF" />
           <Kpi
             label="Partidos con puntos"
             valor={`${r.partidos_con_puntos}/${r.partidos_pronosticados ?? r.partidos_evaluados}`}
             sub={`${efectividad}% de efectividad`}
-            color="#94a3b8"
+            color="#6B7280"
           />
         </div>
 
@@ -189,10 +189,10 @@ export default function MisResultadosView({ usuarioId }: { usuarioId: number }) 
               marginTop: 12,
               padding: "10px 12px",
               borderRadius: 10,
-              background: "rgba(255,197,51,0.08)",
-              border: "1px solid rgba(255,197,51,0.3)",
+              background: "rgba(239, 204, 54, 0.08)",
+              border: "1px solid rgba(239, 204, 54, 0.3)",
               fontSize: "0.78rem",
-              color: "#e2e8f0",
+              color: "#E5E7EB",
             }}
           >
             <strong style={{ color: "var(--trofeo)" }}>Ajustes de homologación: </strong>
@@ -203,7 +203,7 @@ export default function MisResultadosView({ usuarioId }: { usuarioId: number }) 
                 {a.puntos} pts ({a.categoria})
               </span>
             ))}
-            <div style={{ color: "#94a3b8", marginTop: 2 }}>{datos.ajustes[0].motivo}. No corresponden a un partido puntual.</div>
+            <div style={{ color: "var(--text-muted)", marginTop: 2 }}>{datos.ajustes[0].motivo}. No corresponden a un partido puntual.</div>
           </div>
         )}
       </div>
@@ -218,8 +218,8 @@ export default function MisResultadosView({ usuarioId }: { usuarioId: number }) 
               padding: "6px 12px",
               borderRadius: 999,
               border: `1px solid ${filtro === f.id ? "var(--cancha)" : "rgba(255,255,255,0.12)"}`,
-              background: filtro === f.id ? "rgba(29,185,84,0.15)" : "transparent",
-              color: filtro === f.id ? "#fff" : "#94a3b8",
+              background: filtro === f.id ? "rgba(116, 204, 16, 0.15)" : "transparent",
+              color: filtro === f.id ? "#FFFFFF" : "var(--text-muted)",
               fontSize: "0.78rem",
               fontWeight: 700,
               cursor: "pointer",
@@ -238,7 +238,7 @@ export default function MisResultadosView({ usuarioId }: { usuarioId: number }) 
       ) : (
         grupos.map((g) => (
           <div key={g.dia} style={{ marginBottom: 18 }}>
-            <div style={{ color: "#94a3b8", fontSize: "0.74rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.06em", margin: "0 0 8px 2px" }}>
+            <div style={{ color: "var(--text-muted)", fontSize: "0.74rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.06em", margin: "0 0 8px 2px" }}>
               {g.dia}
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
@@ -262,10 +262,10 @@ export default function MisResultadosView({ usuarioId }: { usuarioId: number }) 
 
 function Kpi({ label, valor, color, sub, grande }: { label: string; valor: number | string; color: string; sub?: string; grande?: boolean }) {
   return (
-    <div style={{ background: "rgba(15,23,42,0.6)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 12, padding: "10px 12px", gridColumn: grande ? "span 1" : undefined }}>
+    <div style={{ background: "rgba(26, 31, 38, 0.6)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 12, padding: "10px 12px", gridColumn: grande ? "span 1" : undefined }}>
       <div style={{ color, fontSize: "0.68rem", fontWeight: 800, textTransform: "uppercase" }}>{label}</div>
-      <div style={{ color: "#fff", fontSize: grande ? "1.6rem" : "1.3rem", fontWeight: 900, lineHeight: 1.15 }}>{valor}</div>
-      {sub && <div style={{ color: "#64748b", fontSize: "0.68rem" }}>{sub}</div>}
+      <div style={{ color: "#FFFFFF", fontSize: grande ? "1.6rem" : "1.3rem", fontWeight: 900, lineHeight: 1.15 }}>{valor}</div>
+      {sub && <div style={{ color: "var(--text-muted)", fontSize: "0.68rem" }}>{sub}</div>}
     </div>
   );
 }
@@ -274,7 +274,7 @@ function Escudo({ url, nombre }: { url: string | null; nombre: string }) {
   return url ? (
     <img src={url} alt="" style={{ width: 26, height: 26, objectFit: "contain", flexShrink: 0 }} />
   ) : (
-    <span style={{ width: 26, height: 26, borderRadius: "50%", background: "#1e293b", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: "0.7rem", flexShrink: 0 }}>
+    <span style={{ width: 26, height: 26, borderRadius: "50%", background: "#1A1F26", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: "0.7rem", flexShrink: 0 }}>
       {nombre.charAt(0)}
     </span>
   );
@@ -285,8 +285,8 @@ function FilaPartido({ p }: { p: Partido }) {
   return (
     <div
       style={{
-        background: "rgba(15,23,42,0.6)",
-        border: `1px solid ${sumo ? "rgba(29,185,84,0.35)" : "rgba(255,255,255,0.06)"}`,
+        background: "rgba(26, 31, 38, 0.6)",
+        border: `1px solid ${sumo ? "rgba(116, 204, 16, 0.35)" : "rgba(255,255,255,0.06)"}`,
         borderRadius: 14,
         padding: "12px 14px",
         opacity: p.pronosticado ? 1 : 0.7,
@@ -294,24 +294,24 @@ function FilaPartido({ p }: { p: Partido }) {
     >
       <div className="mr-fila">
         <div style={{ display: "flex", alignItems: "center", gap: 8, justifyContent: "flex-end", textAlign: "right", minWidth: 0 }}>
-          <span style={{ color: "#fff", fontWeight: 800, fontSize: "0.88rem" }}>{p.equipo_local}</span>
+          <span style={{ color: "#FFFFFF", fontWeight: 800, fontSize: "0.88rem" }}>{p.equipo_local}</span>
           <Escudo url={p.escudo_local} nombre={p.equipo_local} />
         </div>
 
         <div style={{ textAlign: "center", minWidth: 74 }}>
-          <div style={{ color: "#fff", fontSize: "1.35rem", fontWeight: 900, letterSpacing: "0.04em" }}>{p.marcador_real}</div>
-          <div style={{ color: "#64748b", fontSize: "0.64rem", fontWeight: 700 }}>
+          <div style={{ color: "#FFFFFF", fontSize: "1.35rem", fontWeight: 900, letterSpacing: "0.04em" }}>{p.marcador_real}</div>
+          <div style={{ color: "var(--text-muted)", fontSize: "0.64rem", fontWeight: 700 }}>
             F{p.jornada} · {hora(p.fecha)}
           </div>
         </div>
 
         <div style={{ display: "flex", alignItems: "center", gap: 8, minWidth: 0 }}>
           <Escudo url={p.escudo_visitante} nombre={p.equipo_visitante} />
-          <span style={{ color: "#fff", fontWeight: 800, fontSize: "0.88rem" }}>{p.equipo_visitante}</span>
+          <span style={{ color: "#FFFFFF", fontWeight: 800, fontSize: "0.88rem" }}>{p.equipo_visitante}</span>
         </div>
 
         <div className="mr-puntos" style={{ textAlign: "right", minWidth: 70 }}>
-          <div style={{ fontSize: "1.35rem", fontWeight: 900, color: sumo ? "var(--cancha)" : "#475569", lineHeight: 1 }}>
+          <div style={{ fontSize: "1.35rem", fontWeight: 900, color: sumo ? "var(--cancha)" : "var(--line-strong)", lineHeight: 1 }}>
             +{p.puntos_total}
             <span style={{ fontSize: "0.66rem", marginLeft: 2 }}>pts</span>
           </div>
@@ -319,28 +319,28 @@ function FilaPartido({ p }: { p: Partido }) {
       </div>
 
       <div style={{ display: "flex", justifyContent: "space-between", gap: 8, flexWrap: "wrap", marginTop: 8, paddingTop: 8, borderTop: "1px solid rgba(255,255,255,0.05)" }}>
-        <div style={{ color: "#cbd5e1", fontSize: "0.76rem" }}>
+        <div style={{ color: "#E5E7EB", fontSize: "0.76rem" }}>
           {p.pronosticado ? (
             <>
-              Tu pronóstico: <strong style={{ color: "#fff" }}>{p.marcador_predicho}</strong>
+              Tu pronóstico: <strong style={{ color: "#FFFFFF" }}>{p.marcador_predicho}</strong>
               {"  ·  "}Goleador: {p.goleador_predicho ?? "(ninguno)"}
             </>
           ) : (
-            <span style={{ color: "#94a3b8" }}>No pronosticaste este partido</span>
+            <span style={{ color: "var(--text-muted)" }}>No pronosticaste este partido</span>
           )}
-          <div style={{ color: "#64748b", marginTop: 2 }}>
+          <div style={{ color: "var(--text-muted)", marginTop: 2 }}>
             Anotaron: {p.goleadores_reales.join(", ") || (p.sin_goleadores_registrados ? "sin goleadores registrados" : "nadie (0-0)")}
           </div>
           {p.sin_goleadores_registrados && (
-            <div style={{ color: "#ffc533", marginTop: 2, display: "flex", alignItems: "center", gap: 4 }}>
+            <div style={{ color: "#EFCC36", marginTop: 2, display: "flex", alignItems: "center", gap: 4 }}>
               <AlertTriangle size={11} /> Sin goleadores oficiales registrados en este partido
             </div>
           )}
         </div>
         <div style={{ display: "flex", gap: 4, alignItems: "flex-start", flexWrap: "wrap" }}>
-          {p.puntos_ganador_partido > 0 && <Chip color="#1db954">Ganador +{p.puntos_ganador_partido}</Chip>}
-          {p.puntos_resultado_exacto > 0 && <Chip color="#4da3ff">Exacto +{p.puntos_resultado_exacto}</Chip>}
-          {p.puntos_goleador > 0 && <Chip color="#c084fc">Goleador +{p.puntos_goleador}</Chip>}
+          {p.puntos_ganador_partido > 0 && <Chip color="#74CC10">Ganador +{p.puntos_ganador_partido}</Chip>}
+          {p.puntos_resultado_exacto > 0 && <Chip color="#438AFF">Exacto +{p.puntos_resultado_exacto}</Chip>}
+          {p.puntos_goleador > 0 && <Chip color="#438AFF">Goleador +{p.puntos_goleador}</Chip>}
         </div>
       </div>
     </div>

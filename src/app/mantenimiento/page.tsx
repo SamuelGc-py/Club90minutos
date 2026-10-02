@@ -48,7 +48,7 @@ export default function MantenimientoPage() {
             letterSpacing: "0.5px",
           }}
         >
-          CLUB<span style={{ color: "#22C55E" }}>90</span>MINUTOS
+          CLUB<span style={{ color: "#74CC10" }}>90</span>MINUTOS
         </span>
       </header>
 
@@ -64,15 +64,15 @@ export default function MantenimientoPage() {
           style={{
             width: 88,
             height: 88,
-            background: "rgba(34, 197, 94, 0.12)",
-            color: "#22C55E",
+            background: "rgba(116, 204, 16, 0.12)",
+            color: "#74CC10",
             borderRadius: "50%",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             marginBottom: 24,
-            border: "1px solid rgba(34, 197, 94, 0.3)",
-            boxShadow: "0 0 30px rgba(34, 197, 94, 0.2)",
+            border: "1px solid rgba(116, 204, 16, 0.3)",
+            boxShadow: "none",
           }}
         >
           <Wrench size={44} />
@@ -87,12 +87,12 @@ export default function MantenimientoPage() {
             lineHeight: 1.2,
           }}
         >
-          Sitio en <span style={{ color: "#22C55E" }}>Mantenimiento</span>
+          Sitio en <span style={{ color: "#74CC10" }}>Mantenimiento</span>
         </h1>
 
         <p
           style={{
-            color: "#9CA3AF",
+            color: "var(--text-muted)",
             fontSize: "1.05rem",
             lineHeight: 1.6,
             marginBottom: 32,

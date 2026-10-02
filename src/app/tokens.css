@@ -1,0 +1,97 @@
+/* ==========================================================================
+   CLUB 90 MINUTOS — Design tokens
+   Fuente: Manual de Marca e Identidad Visual v1.0 (agosto 2026), secciones 01, 02 y 06.
+   Regla: ningún componente usa un color que no salga de aquí.
+   ========================================================================== */
+
+:root {
+  color-scheme: dark;
+
+  /* ---- Paleta oficial (9 colores) ---- */
+  --color-verde-club: #74CC10;
+  --color-negro-estadio: #04060A;
+  --color-blanco: #FFFFFF;
+  --color-gris-oscuro: #1A1F26;
+  --color-gris-medio: #6B7280;
+  --color-gris-claro: #E5E7EB;
+  --color-azul-electrico: #438AFF;
+  --color-amarillo-energia: #EFCC36;
+  --color-rojo-alerta: #EA3D35;
+
+  /* ---- Roles (manual 01 · Roles de color) ---- */
+  --bg: var(--color-negro-estadio);                 /* fondo principal */
+  --surface: var(--color-gris-oscuro);              /* tarjetas, modales, inputs */
+  --surface-2: rgba(229, 231, 235, 0.04);           /* fila alterna / campo dentro de superficie */
+  --text: var(--color-blanco);                      /* titulares y cuerpo */
+  --text-2: var(--color-gris-claro);                /* metadatos, subtítulos */
+  /* Texto atenuado sobre oscuro: Gris Claro al 64 %. Gris Medio sobre Negro Estadio
+     da ~4,3:1 y no pasa AA en texto pequeño; queda para placeholder y deshabilitado. */
+  --text-muted: rgba(229, 231, 235, 0.64);
+  --text-placeholder: var(--color-gris-medio);
+  --line: rgba(229, 231, 235, 0.10);
+  --line-strong: rgba(229, 231, 235, 0.18);
+
+  --cta-bg: var(--color-verde-club);                /* acción principal */
+  --cta-text: var(--color-negro-estadio);           /* 10,03:1 */
+  --link: var(--color-azul-electrico);              /* solo sobre fondo oscuro */
+  --link-on-light: #1F5FD1;                         /* variante profunda para fondo claro (afiches) */
+
+  --state-ok: var(--color-verde-club);
+  --state-warn: var(--color-amarillo-energia);
+  --state-error: var(--color-rojo-alerta);
+  --state-info: var(--color-azul-electrico);
+  /* Variantes semánticas al 10 % para fondo de badge (manual 05) */
+  --state-ok-bg: rgba(116, 204, 16, 0.10);
+  --state-warn-bg: rgba(239, 204, 54, 0.10);
+  --state-error-bg: rgba(234, 61, 53, 0.10);
+  --state-info-bg: rgba(67, 138, 255, 0.10);
+  --state-neutral-bg: rgba(229, 231, 235, 0.08);
+
+  /* ---- Tipografía (manual 02) ---- */
+  --font-display: 'Orbitron', 'Eurostile', 'Segoe UI', sans-serif;
+  --font-body: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+
+  --fs-h1: 3.5rem;      /* 56 / 1.1  · Orbitron 800 */
+  --fs-h2: 2.5rem;      /* 40 / 1.15 · Orbitron 700 */
+  --fs-h3: 1.75rem;     /* 28 / 1.25 · Inter 700 */
+  --fs-body-lg: 1.125rem;
+  --fs-body: 1rem;      /* 16 / 1.6  · Inter 400 */
+  --fs-caption: 0.8125rem; /* 13 / 1.5 · Inter 500 */
+  --fs-mono: 0.875rem;  /* 14 / 1.6  · JetBrains Mono 400 */
+
+  /* ---- Forma ---- */
+  --r-chip: 6px;
+  --r-ctl: 10px;
+  --r-pill: 999px;
+  --radius-pill: var(--r-pill); /* alias del manual */
+
+  /* ---- Espacio (escala de 4) ---- */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+
+  /* ---- Profundidad ----
+     Sin sombras decorativas: la elevación sale de superficie + borde.
+     El glow verde del manual se reserva para el indicador "En vivo". */
+  --shadow: none;
+  --shadow-glow: 0 0 24px rgba(116, 204, 16, .35);
+
+  /* ---- Movimiento y accesibilidad ---- */
+  --motion: 150ms ease-out;
+  --touch: 44px;
+  --focus-ring: 0 0 0 2px var(--bg), 0 0 0 4px var(--color-verde-club);
+}
+
+@media (max-width: 768px) {
+  :root {
+    --fs-h1: 2.25rem;
+    --fs-h2: 1.75rem;
+    --fs-h3: 1.375rem;
+  }
+}

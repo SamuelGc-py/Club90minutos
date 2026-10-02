@@ -125,14 +125,14 @@ export default function RecuperarPassword() {
               marginBottom: 20,
               padding: "20px 18px",
               borderRadius: 14,
-              background: "rgba(16, 185, 129, 0.12)",
-              border: "1.5px solid #10b981",
+              background: "rgba(116, 204, 16, 0.12)",
+              border: "1.5px solid #74CC10",
               textAlign: "center",
             }}
           >
-            <CheckCircle2 size={42} style={{ color: "#10b981", marginBottom: 10 }} />
-            <div style={{ fontWeight: 800, fontSize: "1.1rem", color: "#34d399", marginBottom: 8 }}>
-              ¡Enlace de Recuperación Generado!
+            <CheckCircle2 size={42} style={{ color: "#74CC10", marginBottom: 10 }} />
+            <div style={{ fontWeight: 800, fontSize: "1.1rem", color: "#74CC10", marginBottom: 8 }}>
+              ¡Enlace de recuperación generado!
             </div>
             <p style={{ fontSize: "0.88rem", color: "var(--graderia)", marginBottom: 18 }}>
               Haz clic en el siguiente botón para escribir tu nueva contraseña inmediatamente:
@@ -146,15 +146,15 @@ export default function RecuperarPassword() {
                 padding: "14px 20px",
                 textAlign: "center",
                 textDecoration: "none",
-                background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
-                color: "#ffffff",
+                background: "#74CC10",
+                color: "#04060A",
                 fontWeight: 800,
                 fontSize: "1rem",
                 borderRadius: 10,
-                boxShadow: "0 4px 14px rgba(16, 185, 129, 0.4)",
+                boxShadow: "none",
               }}
             >
-              🔑 Crear Mi Nueva Contraseña
+              Crear mi nueva contraseña
             </a>
           </div>
         ) : successMsg ? (
@@ -176,7 +176,7 @@ export default function RecuperarPassword() {
           <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             <div style={{ textAlign: "left" }}>
               <label style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--graderia)", marginBottom: 6, display: "block" }}>
-                Correo Electrónico
+                Correo electrónico
               </label>
               <input
                 type="email"

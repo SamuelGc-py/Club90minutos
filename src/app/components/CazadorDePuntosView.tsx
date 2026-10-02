@@ -45,10 +45,10 @@ interface Tabla {
   equipos: Equipo[];
 }
 
-const COLOR_FORMA = { G: "#1db954", E: "#94a3b8", P: "#ef4444" } as const;
+const COLOR_FORMA = { G: "#74CC10", E: "var(--text-muted)", P: "#EA3D35" } as const;
 
 function Racha({ forma }: { forma: Forma[] }) {
-  if (!forma.length) return <span style={{ color: "#475569", fontSize: "0.72rem" }}>—</span>;
+  if (!forma.length) return <span style={{ color: "var(--line-strong)", fontSize: "0.72rem" }}>—</span>;
   return (
     <span style={{ display: "inline-flex", gap: 3 }}>
       {forma.map((f, i) => (
@@ -172,7 +172,7 @@ export default function CazadorDePuntosView({ partidos }: { partidos: any[] }) {
       <div className="card">
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
           <div>
-            <h2 style={{ margin: 0 }}>🔮 Cazador de Puntos</h2>
+            <h2 style={{ margin: 0 }}>Cazador de Puntos</h2>
             <p style={{ color: "var(--graderia)", margin: "4px 0 0", fontSize: "0.85rem" }}>
               Recomendaciones para tus pronósticos, tabla de la Liga BetPlay y racha de cada equipo.
             </p>
@@ -184,7 +184,7 @@ export default function CazadorDePuntosView({ partidos }: { partidos: any[] }) {
       </div>
 
       {error && (
-        <div className="card" style={{ textAlign: "center", color: "#ff9d9d" }}>
+        <div className="card" style={{ textAlign: "center", color: "#EA3D35" }}>
           {error}{" "}
           <button className="btn btn-primary" onClick={cargar} style={{ marginLeft: 8 }}>
             Reintentar
@@ -194,7 +194,7 @@ export default function CazadorDePuntosView({ partidos }: { partidos: any[] }) {
 
       {cargando && !tabla && (
         <div className="card" style={{ textAlign: "center", padding: 36 }}>
-          <RefreshCw className="spin" size={28} style={{ color: "#38bdf8" }} />
+          <RefreshCw className="spin" size={28} style={{ color: "#438AFF" }} />
           <div style={{ marginTop: 8, color: "var(--graderia)" }}>Consultando la liga…</div>
         </div>
       )}
@@ -205,7 +205,7 @@ export default function CazadorDePuntosView({ partidos }: { partidos: any[] }) {
           <h3 style={{ margin: "0 0 4px", display: "flex", alignItems: "center", gap: 8 }}>
             <TrendingUp size={18} style={{ color: "var(--cancha)" }} /> Recomendaciones para los próximos partidos
           </h3>
-          <p style={{ color: "#64748b", fontSize: "0.76rem", margin: "0 0 12px", display: "flex", gap: 6 }}>
+          <p style={{ color: "var(--text-muted)", fontSize: "0.76rem", margin: "0 0 12px", display: "flex", gap: 6 }}>
             <Info size={13} style={{ flexShrink: 0, marginTop: 2 }} />
             Calculadas con puntos por partido, racha de los últimos 5, goles a favor y en contra, y ventaja de local. Son
             una orientación estadística, no una garantía.
@@ -223,7 +223,7 @@ export default function CazadorDePuntosView({ partidos }: { partidos: any[] }) {
                 const rec = l && v ? recomendar(l, v) : null;
                 return (
                   <div key={p.id} className="cazador-partido">
-                    <div style={{ color: "#64748b", fontSize: "0.7rem", fontWeight: 700, marginBottom: 8 }}>
+                    <div style={{ color: "var(--text-muted)", fontSize: "0.7rem", fontWeight: 700, marginBottom: 8 }}>
                       Fecha {p.jornada} · {fechaCorta(p.fecha_hora_partido)}
                     </div>
                     {[
@@ -245,9 +245,9 @@ export default function CazadorDePuntosView({ partidos }: { partidos: any[] }) {
                         ) : (
                           <span style={{ width: 24 }} />
                         )}
-                        <span style={{ color: "#fff", fontSize: "0.86rem", flex: 1, minWidth: 0 }}>
+                        <span style={{ color: "#FFFFFF", fontSize: "0.86rem", flex: 1, minWidth: 0 }}>
                           {x.nombre}
-                          {x.eq && <span style={{ color: "#64748b", fontWeight: 600 }}> · {x.eq.posicion}º ({x.eq.pts} pts)</span>}
+                          {x.eq && <span style={{ color: "var(--text-muted)", fontWeight: 600 }}> · {x.eq.posicion}º ({x.eq.pts} pts)</span>}
                         </span>
                         {x.eq && <Racha forma={x.eq.forma} />}
                       </div>
@@ -259,25 +259,25 @@ export default function CazadorDePuntosView({ partidos }: { partidos: any[] }) {
                           marginTop: 8,
                           padding: "8px 10px",
                           borderRadius: 10,
-                          background: "rgba(29,185,84,0.08)",
-                          border: "1px solid rgba(29,185,84,0.25)",
+                          background: "rgba(116, 204, 16, 0.08)",
+                          border: "1px solid rgba(116, 204, 16, 0.25)",
                         }}
                       >
-                        <div style={{ color: "#e2e8f0", fontSize: "0.8rem", fontWeight: 700 }}>{rec.veredicto}</div>
-                        <div style={{ display: "flex", justifyContent: "space-between", marginTop: 4, fontSize: "0.76rem", color: "#94a3b8" }}>
+                        <div style={{ color: "#E5E7EB", fontSize: "0.8rem", fontWeight: 700 }}>{rec.veredicto}</div>
+                        <div style={{ display: "flex", justifyContent: "space-between", marginTop: 4, fontSize: "0.76rem", color: "var(--text-muted)" }}>
                           <span>
-                            Marcador sugerido: <strong style={{ color: "#fff", fontSize: "0.9rem" }}>{rec.marcador}</strong>
+                            Marcador sugerido: <strong style={{ color: "#FFFFFF", fontSize: "0.9rem" }}>{rec.marcador}</strong>
                           </span>
                           <span>Confianza {rec.confianza}%</span>
                         </div>
-                        <div style={{ fontSize: "0.7rem", color: "#64748b", marginTop: 4 }}>
+                        <div style={{ fontSize: "0.7rem", color: "var(--text-muted)", marginTop: 4 }}>
                           Goles por partido — {l!.nombre}: {(l!.gf / Math.max(l!.pj, 1)).toFixed(1)} a favor,{" "}
                           {(l!.gc / Math.max(l!.pj, 1)).toFixed(1)} en contra · {v!.nombre}: {(v!.gf / Math.max(v!.pj, 1)).toFixed(1)} a favor,{" "}
                           {(v!.gc / Math.max(v!.pj, 1)).toFixed(1)} en contra
                         </div>
                       </div>
                     ) : (
-                      <div style={{ color: "#64748b", fontSize: "0.74rem", marginTop: 6 }}>Sin datos suficientes de la liga para este cruce.</div>
+                      <div style={{ color: "var(--text-muted)", fontSize: "0.74rem", marginTop: 6 }}>Sin datos suficientes de la liga para este cruce.</div>
                     )}
                   </div>
                 );
@@ -290,8 +290,8 @@ export default function CazadorDePuntosView({ partidos }: { partidos: any[] }) {
       {/* 2. TABLA DE POSICIONES */}
       {tabla && (
         <div className="card">
-          <h3 style={{ margin: "0 0 2px" }}>📊 Tabla de posiciones — Liga BetPlay</h3>
-          <p style={{ color: "#64748b", fontSize: "0.74rem", margin: "0 0 10px" }}>
+          <h3 style={{ margin: "0 0 2px" }}>Tabla de posiciones — Liga BetPlay</h3>
+          <p style={{ color: "var(--text-muted)", fontSize: "0.74rem", margin: "0 0 10px" }}>
             {tabla.torneo} · Los 8 primeros clasifican a cuadrangulares · Fuente: ESPN · Actualizado{" "}
             {new Date(tabla.actualizado).toLocaleTimeString("es-CO", { hour: "numeric", minute: "2-digit", timeZone: "America/Bogota" })}
           </p>
@@ -328,8 +328,8 @@ export default function CazadorDePuntosView({ partidos }: { partidos: any[] }) {
                     <td>{e.p}</td>
                     <td>{e.gf}</td>
                     <td>{e.gc}</td>
-                    <td style={{ color: e.dg > 0 ? "#1db954" : e.dg < 0 ? "#ef4444" : undefined }}>{e.dg > 0 ? `+${e.dg}` : e.dg}</td>
-                    <td style={{ fontWeight: 900, color: "#fff" }}>{e.pts}</td>
+                    <td style={{ color: e.dg > 0 ? "#74CC10" : e.dg < 0 ? "#EA3D35" : undefined }}>{e.dg > 0 ? `+${e.dg}` : e.dg}</td>
+                    <td style={{ fontWeight: 900, color: "#FFFFFF" }}>{e.pts}</td>
                     <td style={{ textAlign: "left" }}>
                       <Racha forma={e.forma} />
                     </td>
@@ -346,10 +346,10 @@ export default function CazadorDePuntosView({ partidos }: { partidos: any[] }) {
         <button
           type="button"
           onClick={() => setVerAsistente((v) => !v)}
-          style={{ background: "none", border: "none", color: "#fff", cursor: "pointer", padding: 0, fontSize: "1rem", fontWeight: 800, display: "flex", alignItems: "center", gap: 8, width: "100%", justifyContent: "space-between" }}
+          style={{ background: "none", border: "none", color: "#FFFFFF", cursor: "pointer", padding: 0, fontSize: "1rem", fontWeight: 800, display: "flex", alignItems: "center", gap: 8, width: "100%", justifyContent: "space-between" }}
         >
-          <span>🤖 Pregúntale al asistente (alineaciones, goleadores, historia…)</span>
-          <span style={{ color: "#64748b" }}>{verAsistente ? "Ocultar ▲" : "Abrir ▼"}</span>
+          <span>Pregúntale al asistente (alineaciones, goleadores, historia…)</span>
+          <span style={{ color: "var(--text-muted)" }}>{verAsistente ? "Ocultar ▲" : "Abrir ▼"}</span>
         </button>
         {verAsistente && (
           <div style={{ marginTop: 12 }}>
@@ -360,11 +360,11 @@ export default function CazadorDePuntosView({ partidos }: { partidos: any[] }) {
 
       <style>{`
         .cazador-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 10px; }
-        .cazador-partido { background: rgba(15,23,42,0.6); border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 12px 14px; }
+        .cazador-partido { background: rgba(26, 31, 38, 0.6); border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 12px 14px; }
         .tabla-liga { width: 100%; border-collapse: collapse; font-size: 0.82rem; min-width: 640px; }
-        .tabla-liga th { color: #64748b; font-weight: 800; font-size: 0.7rem; padding: 8px 6px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.08); }
-        .tabla-liga td { padding: 8px 6px; text-align: center; color: #cbd5e1; border-bottom: 1px solid rgba(255,255,255,0.04); }
-        .tabla-liga tr.clasifica td:first-child { box-shadow: inset 3px 0 0 var(--cancha); }
+        .tabla-liga th { color: var(--text-muted); font-weight: 800; font-size: 0.7rem; padding: 8px 6px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .tabla-liga td { padding: 8px 6px; text-align: center; color: #E5E7EB; border-bottom: 1px solid rgba(255,255,255,0.04); }
+        .tabla-liga tr.clasifica td:first-child { box-shadow: none; }
         .tabla-liga tbody tr:hover td { background: rgba(255,255,255,0.03); }
       `}</style>
     </div>
