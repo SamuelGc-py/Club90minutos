@@ -1,4 +1,4 @@
-import { correoConfigurado, enviarCorreo, escaparHtml, plantillaCorreo, urlSitio, type ResultadoEnvio } from "@/lib/correo";
+import { proveedorDisponible, enviarCorreo, escaparHtml, plantillaCorreo, urlSitio, type ResultadoEnvio } from "@/lib/correo";
 import { generarAficheTabla, datosAfiche } from "@/lib/aficheTabla";
 import { liberarEnvio, reservarEnvio } from "@/lib/registroEnvios";
 import { unirNombres } from "@/app/components/c90/formato";
@@ -26,8 +26,9 @@ export function destinatariosAfiche(): string[] {
 export function aficheAutomaticoActivo(): boolean {
   const v = process.env.AFICHE_AUTOMATICO;
   if (v === "0" || v === "false") return false;
-  // Pendiente: sin proveedor de correo configurado en el servidor no se intenta enviar.
-  return correoConfigurado();
+  // Va a un solo destinatario (el administrador), así que basta con el proveedor que ya
+  // tenga el servidor (p. ej. la clave de Resend de la recuperación de contraseña).
+  return proveedorDisponible();
 }
 
 export async function enviarAficheTabla(

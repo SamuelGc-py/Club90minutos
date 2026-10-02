@@ -44,8 +44,13 @@ export function modoPrueba(): boolean {
 
 const remitenteNombre = "Club 90 Minutos";
 
+/** true si el servidor tiene con qué enviar (SMTP o Resend), o si está en modo prueba. */
+export function proveedorDisponible(): boolean {
+  return modoPrueba() || !!(process.env.GMAIL_USER && process.env.GMAIL_PASS) || !!process.env.RESEND_API_KEY;
+}
+
 /**
- * Envíos AUTOMÁTICOS (recordatorios, afiche): requieren activación explícita con
+ * Envíos AUTOMÁTICOS MASIVOS (recordatorios): requieren activación explícita con
  * CORREOS_AUTOMATICOS=1 y un proveedor configurado. Así, tener RESEND_API_KEY para la
  * recuperación de contraseña no dispara envíos masivos que fallarían. En modo prueba
  * (localhost) siempre están activos porque no se envía nada.

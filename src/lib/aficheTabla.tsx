@@ -1,3 +1,4 @@
+import React from "react"; // necesario para el JSX fuera de Next (scripts con tsx)
 import { ImageResponse } from "next/og";
 import { prisma } from "@/lib/db";
 import { rankingGeneral, tablaDesdePuntajes, ganadorUltimaFechaCerrada } from "@/app/components/c90/ranking";

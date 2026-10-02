@@ -86,7 +86,7 @@ export default function PanelCorreosAutomaticos() {
           </p>
           {estado && !estado.automaticosHabilitados && (
             <p className="caption" style={{ margin: "4px 0 0", color: "var(--state-warn)", maxWidth: "68ch" }}>
-              Pendiente: los envíos automáticos están apagados. Para activarlos hay que configurar en el servidor un proveedor
+              Recordatorio a todos: pendiente. Para activarlo hay que configurar en el servidor un proveedor
               (GMAIL_USER y GMAIL_PASS, o Resend con dominio verificado) y CORREOS_AUTOMATICOS=1. La vista previa sí funciona.
             </p>
           )}
@@ -141,7 +141,7 @@ export default function PanelCorreosAutomaticos() {
               <button type="button" className="btn btn-text btn-sm" onClick={() => setVerAfiche((v) => !v)}>
                 <ImageIcon size={14} /> {verAfiche ? "Ocultar afiche" : "Ver afiche actual"}
               </button>
-              <button type="button" className="btn btn-secondary btn-sm" onClick={() => enviar("enviar-afiche")} disabled={!!enviando || !estado.automaticosHabilitados}>
+              <button type="button" className="btn btn-secondary btn-sm" onClick={() => enviar("enviar-afiche")} disabled={!!enviando || !estado.afiche.automatico}>
                 <Send size={14} /> {enviando === "enviar-afiche" ? "Enviando…" : "Enviar afiche ahora"}
               </button>
             </div>
