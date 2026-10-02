@@ -101,6 +101,11 @@ function construir(
   return Array.from(mapa.values());
 }
 
+/** Tabla general a partir de los puntajes (mismo reparto por categoría que /api/consolidados). */
+export function tablaDesdePuntajes(usuarios: { usuario_id: number; nombre_completo: string }[], puntajes: PuntajeLite[]): FilaRanking[] {
+  return construir(usuarios, puntajes, () => true);
+}
+
 /**
  * Ranking general con movimiento frente al ranking que había antes de la última fecha con puntos.
  * Usa la tabla del servidor como fuente de los totales (no se recalculan).
@@ -132,4 +137,50 @@ export function rankingDeFecha(tabla: FilaRanking[], puntajes: PuntajeLite[], pa
   const filas = ordenar(construir(tabla, puntajes, (p) => p.partido_id != null && j.get(p.partido_id) === fecha));
   const lider = filas[0]?.pts_total ?? 0;
   return filas.map((f, i) => ({ ...f, posicion: i + 1, movimiento: null, distanciaLider: lider - f.pts_total }));
+}
+
+const LIQUIDADO = new Set(["resultado_cargado", "puntaje_calculado"]);
+
+export interface GanadorFecha {
+  fecha: number;
+  nombres: string[];
+  usuarioIds: number[];
+  pts: number;
+  /** true si todos los partidos de la fecha (sin contar aplazados) ya están liquidados. */
+  cerrada: boolean;
+}
+
+/** Quién sumó más en una fecha (con empates). null si nadie sumó. */
+export function ganadorDeFecha(
+  tabla: FilaRanking[],
+  puntajes: PuntajeLite[],
+  partidos: (PartidoLite & { estado?: string })[],
+  fecha: number
+): GanadorFecha | null {
+  const filas = rankingDeFecha(tabla, puntajes, partidos, fecha);
+  const max = filas[0]?.pts_total ?? 0;
+  if (max <= 0) return null;
+  const top = filas.filter((f) => f.pts_total === max);
+  const deLaFecha = partidos.filter((p) => (p.jornada_original || p.jornada) === fecha && p.estado !== "aplazado");
+  return {
+    fecha,
+    nombres: top.map((f) => f.nombre_completo),
+    usuarioIds: top.map((f) => f.usuario_id),
+    pts: max,
+    cerrada: deLaFecha.length > 0 && deLaFecha.every((p) => LIQUIDADO.has(p.estado || "")),
+  };
+}
+
+/** Ganador de la fecha cerrada más reciente (todos sus partidos liquidados). */
+export function ganadorUltimaFechaCerrada(
+  tabla: FilaRanking[],
+  puntajes: PuntajeLite[],
+  partidos: (PartidoLite & { estado?: string })[]
+): GanadorFecha | null {
+  const fechas = fechasConPuntos(puntajes, partidos).reverse();
+  for (const f of fechas) {
+    const g = ganadorDeFecha(tabla, puntajes, partidos, f);
+    if (g?.cerrada) return g;
+  }
+  return null;
 }

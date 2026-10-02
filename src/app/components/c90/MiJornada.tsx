@@ -8,13 +8,14 @@
  */
 
 import React, { useEffect, useMemo, useState } from "react";
-import { ArrowRight, Brain } from "lucide-react";
+import { ArrowRight, Brain, Trophy } from "lucide-react";
 import s from "./MiJornada.module.css";
 import { MatchDayList, MatchRow, Escudo } from "./MatchRow";
 import Countdown from "./Countdown";
 import Leaderboard from "./Leaderboard";
-import { rankingGeneral, FilaRanking } from "./ranking";
-import { horaCierre, primerNombre, tiempoRestante } from "./formato";
+import { rankingGeneral, FilaRanking, ganadorUltimaFechaCerrada } from "./ranking";
+import { textoProvisional, type Provisional } from "./provisional";
+import { horaCierre, primerNombre, tiempoRestante, unirNombres } from "./formato";
 
 interface PartidoJornada {
   id: number;
@@ -57,6 +58,8 @@ export interface MiJornadaProps {
   onVerRanking: () => void;
   onVerResultados: () => void;
   onTrivia: () => void;
+  /** Marcador en vivo y puntos provisionales de un partido (null si no está en juego). */
+  enVivoDe?: (p: PartidoJornada) => { marcador: string; reloj: string; prov: Provisional | null } | null;
 }
 
 export default function MiJornada({
@@ -72,6 +75,7 @@ export default function MiJornada({
   onVerRanking,
   onVerResultados,
   onTrivia,
+  enVivoDe,
 }: MiJornadaProps) {
   const [ahora, setAhora] = useState(() => Date.now());
   const [ultimo, setUltimo] = useState<UltimoResultado | null | undefined>(undefined);
@@ -109,6 +113,11 @@ export default function MiJornada({
 
   const ranking = useMemo(() => (tabla ? rankingGeneral(tabla, puntajes, partidos) : []), [tabla, puntajes, partidos]);
   const yo = ranking.find((f) => f.usuario_id === usuarioId);
+  const ganadorFecha = useMemo(() => (tabla ? ganadorUltimaFechaCerrada(tabla, puntajes, partidos as any) : null), [tabla, puntajes, partidos]);
+  const soyGanador = !!ganadorFecha?.usuarioIds.includes(usuarioId);
+  const enJuego = enVivoDe
+    ? partidosActivos.map((p) => ({ p, v: enVivoDe(p) })).filter((x): x is { p: PartidoJornada; v: NonNullable<ReturnType<NonNullable<typeof enVivoDe>>> } => !!x.v)
+    : [];
 
   const proximos = [...partidosActivos]
     .sort((a, b) => new Date(a.fecha_hora_partido).getTime() - new Date(b.fecha_hora_partido).getTime())
@@ -152,6 +161,58 @@ export default function MiJornada({
             Ver mis pronósticos
           </button>
         </div>
+      )}
+
+      {/* Ganador de la última fecha cerrada */}
+      {ganadorFecha && (
+        <div className={`${s.aviso} ${s.avisoOk}`} role="status">
+          <div className={s.avisoTexto}>
+            <span className={s.avisoTitulo} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <Trophy size={18} style={{ color: "var(--color-amarillo-energia)" }} aria-hidden="true" />
+              {soyGanador
+                ? `¡Ganaste la Fecha ${ganadorFecha.fecha}!`
+                : `${ganadorFecha.nombres.length > 1 ? "Ganadores" : "Ganador"} de la Fecha ${ganadorFecha.fecha}: ${unirNombres(ganadorFecha.nombres)}`}
+            </span>
+            <span className="caption">
+              {ganadorFecha.nombres.length > 1 ? "Empataron" : "Sumó"} <span className="num" style={{ color: "var(--state-ok)" }}>{ganadorFecha.pts} pts</span> en la fecha.
+              {soyGanador && ganadorFecha.nombres.length > 1 ? ` Compartes el primer lugar con ${ganadorFecha.nombres.length - 1} más.` : ""}
+            </span>
+          </div>
+          <button type="button" className="btn btn-text btn-sm" onClick={onVerRanking}>
+            Ver ranking de la fecha
+          </button>
+        </div>
+      )}
+
+      {/* En vivo ahora: marcador y puntos provisionales */}
+      {enJuego.length > 0 && (
+        <section className={s.seccion} aria-labelledby="mj-vivo">
+          <div className={s.seccionCabeza}>
+            <h3 id="mj-vivo">En vivo ahora</h3>
+          </div>
+          <div className={s.lista}>
+            {enJuego.map(({ p, v }) => (
+              <div key={p.id} className={s.vivo}>
+                <div className={s.vivoPartido}>
+                  <span>{p.equipo_local.nombre}</span>
+                  <span className={s.marcador}>{v.marcador}</span>
+                  <span>{p.equipo_visitante.nombre}</span>
+                  <span className="badge badge-live">{v.reloj}</span>
+                </div>
+                <div className={s.vivoPuntos}>
+                  {v.prov ? (
+                    <>
+                      <span className={s.vivoPts} style={{ color: v.prov.total > 0 ? "var(--state-ok)" : "var(--text-muted)" }}>+{v.prov.total}</span>
+                      <span className="caption">{textoProvisional(v.prov)}. Tu pronóstico: <span className="num">{marcadores[p.id].local} – {marcadores[p.id].visitante}</span></span>
+                    </>
+                  ) : (
+                    <span className="caption">No pronosticaste este partido.</span>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
       )}
 
       <div className={s.grid}>
@@ -254,8 +315,10 @@ export default function MiJornada({
                 <span className={s.cifraEtiqueta}>Puntos</span>
               </div>
               <div className={s.cifra}>
-                <span className={s.cifraValor}>{yo ? (yo.distanciaLider === 0 ? "Líder" : `−${yo.distanciaLider}`) : "–"}</span>
-                <span className={s.cifraEtiqueta}>{yo?.distanciaLider === 0 ? "Vas primero" : "Al líder"}</span>
+                <span className={s.cifraValor}>{yo ? (yo.distanciaLider === 0 ? (yo.posicion === 1 ? "Líder" : "0") : `−${yo.distanciaLider}`) : "–"}</span>
+                <span className={s.cifraEtiqueta}>
+                  {yo?.distanciaLider === 0 ? (yo.posicion === 1 ? "Vas primero" : "Igualado con el líder (desempate)") : "Al líder"}
+                </span>
               </div>
             </div>
           </section>

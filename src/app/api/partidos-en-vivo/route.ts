@@ -103,6 +103,15 @@ export async function GET() {
         }
       }
 
+      // Goleadores en vivo (para los puntos provisionales "si termina así"): del detalle del marcador.
+      const goleadores = (comp.details ?? [])
+        .filter((d: any) => d.scoringPlay && !d.shootout && !d.ownGoal)
+        .map((d: any) => ({
+          nombre: d.athletesInvolved?.[0]?.displayName || d.athletesInvolved?.[0]?.fullName || "",
+          equipo: String(d.team?.id) === String(homeTeam.team?.id) ? "local" : "visitante",
+        }))
+        .filter((g: any) => g.nombre);
+
       listaPartidos.push({
         eventId: event.id,
         nombreEvento: event.name,
@@ -125,6 +134,7 @@ export async function GET() {
         esFinalizado,
         estadisticas: statsObj,
         incidencias: keyEvents,
+        goleadores,
       });
     }
 

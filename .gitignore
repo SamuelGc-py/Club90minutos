@@ -38,3 +38,6 @@ temp_*/
 
 # Hostinger config (sensible)
 configuracion_hostinger.txt
+
+# Correos de prueba generados en localhost
+.correos-prueba/

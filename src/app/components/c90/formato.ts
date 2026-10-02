@@ -57,3 +57,9 @@ export function horaCierre(iso: string): number {
 export function primerNombre(nombre: string | undefined | null): string {
   return (nombre || "").trim().split(/\s+/)[0] || "";
 }
+
+/** ["A","B","C"] → "A, B y C" */
+export function unirNombres(nombres: string[]): string {
+  if (nombres.length <= 1) return nombres[0] ?? "";
+  return `${nombres.slice(0, -1).join(", ")} y ${nombres[nombres.length - 1]}`;
+}

@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/db";
 import { calcularPuntosPartido } from "@/lib/calculadorPuntos";
 import { claveEquipo } from "@/lib/ligaEspn";
+import { aficheAutomaticoActivo, enviarAficheTabla } from "@/lib/aficheCorreo";
 
 /**
  * LIQUIDACIÓN AUTOMÁTICA DE PARTIDOS FINALIZADOS
@@ -131,12 +132,27 @@ export async function liquidarPartidosFinalizados(): Promise<ReporteLiquidacion>
     },
     include: { equipo_local: true, equipo_visitante: true },
   });
+  // Partidos marcados como aplazados cuya fecha ya pasó: si ESPN los da por jugados en
+  // esa misma fecha (±1 día), el admin olvidó reactivarlos. NO se liquidan solos (el motor
+  // protege los aplazados a propósito): se reportan para que el admin los pase a programado.
+  const aplazadosJugables = await prisma.partido.findMany({
+    where: {
+      estado: "aplazado",
+      resultado_oficial: { is: null },
+      fecha_hora_partido: {
+        gte: new Date(ahora - VENTANA_DIAS * 24 * 60 * 60 * 1000),
+        lte: new Date(ahora - MIN_TRAS_INICIO_MS),
+      },
+    },
+    include: { equipo_local: true, equipo_visitante: true },
+  });
+
   reporte.revisados = candidatos.length;
-  if (!candidatos.length) return reporte;
+  if (!candidatos.length && !aplazadosJugables.length) return reporte;
 
   // Una consulta a ESPN por fecha (UTC del partido y la anterior, por la diferencia horaria)
   const fechas = new Set<string>();
-  for (const p of candidatos) {
+  for (const p of [...candidatos, ...aplazadosJugables]) {
     const f = new Date(p.fecha_hora_partido);
     fechas.add(yyyymmdd(f));
     fechas.add(yyyymmdd(new Date(f.getTime() - 24 * 60 * 60 * 1000)));
@@ -246,6 +262,27 @@ export async function liquidarPartidosFinalizados(): Promise<ReporteLiquidacion>
     }
   }
 
+  for (const p of aplazadosJugables) {
+    const kL = claveEquipo(p.equipo_local.nombre);
+    const kV = claveEquipo(p.equipo_visitante.nombre);
+    const ev = eventos.find((e: any) => {
+      const cs = e.competitions?.[0]?.competitors ?? [];
+      const h = cs.find((c: any) => c.homeAway === "home");
+      const a = cs.find((c: any) => c.homeAway === "away");
+      return h && a && claveEquipo(h.team?.displayName) === kL && claveEquipo(a.team?.displayName) === kV &&
+        Math.abs(new Date(e.date).getTime() - new Date(p.fecha_hora_partido).getTime()) < 24 * 60 * 60 * 1000;
+    });
+    const comp = ev?.competitions?.[0];
+    if (!comp || !ESTADOS_FINALES.has(comp.status?.type?.name)) continue;
+    const h = comp.competitors.find((c: any) => c.homeAway === "home");
+    const a = comp.competitors.find((c: any) => c.homeAway === "away");
+    reporte.requierenRevision.push({
+      partido_id: p.id,
+      partido: `${p.equipo_local.nombre} vs ${p.equipo_visitante.nombre}`,
+      motivo: `ESPN lo da por jugado (${h?.score ?? "?"}-${a?.score ?? "?"}) pero en la base sigue como aplazado. Cámbialo a programado y se liquidará solo en la próxima revisión.`,
+    });
+  }
+
   if (reporte.liquidados.length || reporte.requierenRevision.length) {
     console.log("[liquidacion-automatica]", JSON.stringify(reporte));
   }
@@ -273,6 +310,12 @@ export function dispararLiquidacionAutomatica(forzar = false, ignorarInterruptor
   enCurso = liquidarPartidosFinalizados()
     .then((r) => {
       ultimoReporte = { ...r, fecha: new Date().toISOString() };
+      // Afiche de la tabla actualizada por correo (no bloquea; no se repite: ver aficheCorreo).
+      if (r.liquidados.length && aficheAutomaticoActivo()) {
+        enviarAficheTabla(r.liquidados)
+          .then((env) => console.log("[afiche]", JSON.stringify(env)))
+          .catch((e) => console.error("[afiche] error:", e?.message));
+      }
       return r;
     })
     .catch((e) => {

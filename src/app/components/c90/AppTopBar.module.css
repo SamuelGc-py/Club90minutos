@@ -68,7 +68,7 @@
 .nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 0 var(--s-1);
+  gap: 0;
   max-width: 1200px;
   margin: 0 auto;
   border-top: 1px solid var(--line);
@@ -79,7 +79,7 @@
   align-items: center;
   gap: 6px;
   min-height: 44px;
-  padding: 0 12px;
+  padding: 0 10px;
   border: 0;
   border-bottom: 2px solid transparent;
   background: transparent;

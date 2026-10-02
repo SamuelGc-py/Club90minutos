@@ -1,0 +1,224 @@
+.pagina {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+}
+
+.cifras {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: var(--r-ctl);
+  overflow: hidden;
+}
+
+.cifra {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--s-4);
+  background: var(--surface);
+  min-width: 0;
+}
+
+.valor {
+  font-family: var(--font-mono);
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.etiqueta {
+  font-size: var(--fs-caption);
+  color: var(--text-muted);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--s-5);
+  align-items: start;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  padding: var(--s-5);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-ctl);
+  min-width: 0;
+}
+
+.panel h3 {
+  margin: 0;
+  font-size: 1.125rem;
+}
+
+.tipo {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-verde-club);
+  line-height: 1.2;
+}
+
+.metrica {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.metricaCabeza {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s-2);
+  font-size: 0.875rem;
+}
+
+.barra {
+  position: relative;
+  height: 8px;
+  border-radius: var(--r-pill);
+  background: rgba(229, 231, 235, 0.08);
+}
+
+.relleno {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: var(--r-pill);
+  background: var(--color-verde-club);
+}
+
+.marcaGrupo {
+  position: absolute;
+  top: -3px;
+  width: 2px;
+  height: 14px;
+  background: var(--color-blanco);
+}
+
+.rachaFila {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-4);
+}
+
+.puntos {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.punto {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--r-chip);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.puntoSi {
+  background: var(--state-ok-bg);
+  color: var(--state-ok);
+}
+
+.puntoNo {
+  background: var(--state-neutral-bg);
+  color: var(--text-muted);
+}
+
+.destacados {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.destacado {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.destacado strong {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.equipos {
+  display: flex;
+  flex-direction: column;
+}
+
+.equipo {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr) minmax(80px, 1.2fr) 52px 52px;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-2) 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.875rem;
+}
+
+.equipo:last-child {
+  border-bottom: 0;
+}
+
+.equipoEncabezado {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.nombreEquipo {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.escudo {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+@media (max-width: 860px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .cifras {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .panel {
+    padding: var(--s-4);
+  }
+
+  .equipo {
+    grid-template-columns: 22px minmax(0, 1fr) 60px 44px;
+  }
+
+  .ocultarMovil {
+    display: none;
+  }
+}

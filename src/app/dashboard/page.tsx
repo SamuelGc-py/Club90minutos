@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useMemo, useRef, Component } from "react";
-import { CheckCircle2, ShieldAlert, Save, RefreshCw, Trophy, Calendar, LogOut, AlertTriangle, UserCheck, Lock, Clock, Eye, List, Download, Users, Menu, X, Flame, Camera, BarChart3, ClipboardCheck, Trash2, Hourglass, BrainCircuit, User, ArrowRight, ArrowLeft, ChevronRight, Home, ListChecks, CalendarClock, Crosshair, Radio } from "lucide-react";
+import { CheckCircle2, ShieldAlert, Save, RefreshCw, Trophy, Calendar, LogOut, AlertTriangle, UserCheck, Lock, Clock, Eye, List, Download, Users, Menu, X, Flame, Camera, BarChart3, ClipboardCheck, Trash2, Hourglass, BrainCircuit, User, ArrowRight, ArrowLeft, ChevronRight, Home, ListChecks, CalendarClock, Crosshair, Radio, TrendingUp } from "lucide-react";
 import Link from "next/link";
 import { toPng } from 'html-to-image';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis, YAxis } from "recharts";
@@ -14,6 +14,7 @@ import CazadorDePuntosView from "../components/CazadorDePuntosView";
 import HistorialPuntosModal from "../components/HistorialPuntosModal";
 import MisResultadosView from "../components/MisResultadosView";
 import PanelLiquidacionAutomatica from "../components/PanelLiquidacionAutomatica";
+import PanelCorreosAutomaticos from "../components/PanelCorreosAutomaticos";
 import AppTopBar from "../components/c90/AppTopBar";
 import MiJornada from "../components/c90/MiJornada";
 import Countdown from "../components/c90/Countdown";
@@ -21,7 +22,9 @@ import { MatchRow, MatchDayList } from "../components/c90/MatchRow";
 import PredictionForm from "../components/c90/PredictionForm";
 import Leaderboard from "../components/c90/Leaderboard";
 import DateNavigator from "../components/c90/DateNavigator";
+import EstadisticasView from "../components/c90/EstadisticasView";
 import { Logotipo } from "../components/c90/Brand";
+import { puntosProvisionales, textoProvisional, type Provisional } from "../components/c90/provisional";
 
 // Nombre visible de cada pestaña en la barra "← Inicio"
 const TITULOS_PESTANA: Record<string, string> = {
@@ -36,6 +39,7 @@ const TITULOS_PESTANA: Record<string, string> = {
   en_vivo: "En Vivo",
   admin: "Panel de Administración",
   historial: "Historial",
+  estadisticas: "Estadísticas",
 };
 
 interface Jugador {
@@ -455,7 +459,7 @@ function ExpressPageContent() {
   const [cargandoMaestros, setCargandoMaestros] = useState(false);
 
   // Estado del Formulario (Pestañas)
-  const [tabActiva, setTabActiva] = useState<"inicio" | "partidos" | "aplazados" | "inicial" | "mis_pronosticos" | "admin" | "posiciones" | "en_vivo" | "finalizados" | "historial" | "oraculo" | "pronosticos_todos">("inicio");
+  const [tabActiva, setTabActiva] = useState<"inicio" | "partidos" | "aplazados" | "inicial" | "mis_pronosticos" | "admin" | "posiciones" | "en_vivo" | "finalizados" | "historial" | "oraculo" | "pronosticos_todos" | "estadisticas">("inicio");
   const [desgloseAbierto, setDesgloseAbierto] = useState<"exacto" | "ganador" | "goleador" | null>(null);
   const [mostrarTrivia, setMostrarTrivia] = useState(false);
   // Historial de puntos partido por partido (transparencia para el participante)
@@ -953,7 +957,7 @@ function ExpressPageContent() {
 
   // Auto-cálculo y carga automática de consolidados al cambiar a pestañas que los requieren
   useEffect(() => {
-    if (["inicio", "posiciones", "pronosticos_todos", "mis_pronosticos", "admin"].includes(tabActiva)) {
+    if (["inicio", "posiciones", "pronosticos_todos", "mis_pronosticos", "admin", "estadisticas"].includes(tabActiva)) {
       if (!consolidados && !cargandoConsolidados) {
         const idUsar = usuario?.id || (typeof window !== "undefined" && JSON.parse(sessionStorage.getItem("polla_sesion") || "{}")?.usuario?.id);
         if (idUsar) {
@@ -1756,6 +1760,23 @@ function ExpressPageContent() {
     return "Sin Goleador";
   };
 
+  // Puntos provisionales "si termina así" para un partido en vivo con pronóstico guardado.
+  const enVivoDe = (partido: any): { marcador: string; reloj: string; prov: Provisional | null } | null => {
+    const live = buscarPartidoEnVivoESPN(partido, partidosEnVivo);
+    if (!live || !live.esEnVivo || esPartidoFinalizadoReal(partido, partidosEnVivo)) return null;
+    const m = marcadores[partido.id];
+    let prov: Provisional | null = null;
+    if (m && m.local !== "" && m.visitante !== "") {
+      const jugadoresPartido = [...(partido.equipo_local?.jugadores || []), ...(partido.equipo_visitante?.jugadores || [])];
+      const goleador = jugadoresPartido.find((j: any) => String(j.id) === String(m.goleador_id));
+      prov = puntosProvisionales(
+        { local: Number(m.local), visitante: Number(m.visitante), goleadorNombre: goleador?.nombre ?? null },
+        { local: live.equipoLocal.goles, visitante: live.equipoVisitante.goles, goleadores: live.goleadores || [] }
+      );
+    }
+    return { marcador: `${live.equipoLocal.goles} – ${live.equipoVisitante.goles}`, reloj: live.reloj || "En vivo", prov };
+  };
+
   const renderPartidoCard = (partido: any) => {
     if (!partido || !partido.equipo_local || !partido.equipo_visitante) return null;
     const m = marcadores[partido.id] || { local: "", visitante: "", ganador: "", goleador_id: "" };
@@ -1791,10 +1812,13 @@ function ExpressPageContent() {
     const tienePronostico = m.local !== "" && m.visitante !== "";
     const jornadaOrigen = partido.jornada_original || partido.jornada;
     const enVivo = Boolean(liveMatch && liveMatch.esEnVivo && !esFinalizado);
+    const vivo = enVivo ? enVivoDe(partido) : null;
     const marcadorFila =
       esFinalizado && partido.resultado_oficial
         ? `${partido.resultado_oficial.goles_local_real} – ${partido.resultado_oficial.goles_visitante_real}`
-        : null;
+        : vivo
+          ? vivo.marcador
+          : null;
 
     return (
       <MatchRow
@@ -1824,7 +1848,14 @@ function ExpressPageContent() {
               <span className="badge badge-warn">Pendiente</span>
             ) : null}
             {enVivo ? (
-              <MarcadorEnVivoMini live={liveMatch} />
+              <>
+                <MarcadorEnVivoMini live={liveMatch} />
+                {vivo?.prov && (
+                  <span className={`badge ${vivo.prov.total > 0 ? "badge-ok" : "badge-neutral"}`} title={textoProvisional(vivo.prov)}>
+                    Si termina así <span className="num">+{vivo.prov.total}</span>
+                  </span>
+                )}
+              </>
             ) : !esAplazado ? (
               <RelojCuentaRegresiva fechaHoraPartido={partido.fecha_hora_partido} estado={partido.estado} compacto />
             ) : null}
@@ -3430,6 +3461,7 @@ function ExpressPageContent() {
                         <h2 style={{ margin: "0 0 4px", color: "#FFFFFF", fontSize: "1.3rem", fontWeight: 900 }}>Liquidación de Puntos</h2>
                         <p style={{ color: "var(--text-muted)", margin: "0 0 16px", fontSize: "0.82rem" }}>Carga el marcador oficial y liquida los puntos de cada partido.</p>
                         <PanelLiquidacionAutomatica onLiquidado={() => cargarMaestros()} />
+                        <div style={{ marginTop: 16 }}><PanelCorreosAutomaticos /></div>
                         {SelectorFechaCompacto}
                         {fechaAdmin === 0 ? (
                           <div style={{ padding: 40, textAlign: "center", background: "rgba(26, 31, 38, 0.6)", border: "2px dashed rgba(239, 204, 54, 0.4)", borderRadius: 24 }}>
@@ -3786,6 +3818,7 @@ function ExpressPageContent() {
               { key: "aplazados", label: "Aplazados", icon: CalendarClock, onClick: () => setTabActiva("aplazados") },
               { key: "pronosticos_todos", label: "Pronósticos de todos", icon: Users, onClick: () => { setTabActiva("pronosticos_todos"); cargarConsolidados(usuario.id); } },
               { key: "oraculo", label: "Cazador de puntos", icon: Crosshair, onClick: () => setTabActiva("oraculo") },
+              { key: "estadisticas", label: "Estadísticas", icon: TrendingUp, onClick: () => { setTabActiva("estadisticas"); cargarConsolidados(usuario.id); } },
               ...(esSamuel ? [{ key: "en_vivo", label: "En vivo", icon: Radio, onClick: () => setTabActiva("en_vivo") }] : []),
             ]}
           />
@@ -3805,6 +3838,7 @@ function ExpressPageContent() {
               onVerRanking={() => { setTabActiva("posiciones"); cargarConsolidados(usuario.id); }}
               onVerResultados={() => setTabActiva("finalizados")}
               onTrivia={() => setMostrarTrivia(true)}
+              enVivoDe={enVivoDe}
             />
           )}
 
@@ -4641,6 +4675,11 @@ function ExpressPageContent() {
 
           {/* CAZADOR DE PUNTOS: recomendaciones + tabla de la liga + asistente (fusiona "Recomendaciones y Datos") */}
           {tabActiva === "oraculo" && <CazadorDePuntosView partidos={partidos} />}
+
+          {/* ESTADÍSTICAS INDIVIDUALES: efectividad por equipo, rachas y tipo de pronosticador */}
+          {tabActiva === "estadisticas" && (
+            <EstadisticasView usuarioId={usuario.id} predicciones={consolidados?.prediccionesPartidos ?? []} />
+          )}
 
         </div>
       )}
